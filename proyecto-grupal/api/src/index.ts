@@ -1,7 +1,7 @@
 import { getDiscriminatorModelForClass } from '@typegoose/typegoose'
 import mongoose from 'mongoose'
 import userClientModel from './models/userClients'
-
+//test
 async function connectDB() {
    const db = await mongoose.connect('mongodb+srv://proyectogrupal:VNWSkd5ixj7hLVTo@proyectogrupal.z5mrv.mongodb.net/?retryWrites=true&w=majority')
    console.log('database is connected to', db.connection.db.databaseName)
