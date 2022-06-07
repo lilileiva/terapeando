@@ -1,6 +1,7 @@
 import { getDiscriminatorModelForClass } from '@typegoose/typegoose'
 import mongoose from 'mongoose'
-import userClientModel from './models/userClients'
+import reviewsModel  from './models/Reviews'
+import userClientModel  from './models/userClients'
 //testasasaas
 async function connectDB() {
    const db = await mongoose.connect('mongodb+srv://proyectogrupal:VNWSkd5ixj7hLVTo@proyectogrupal.z5mrv.mongodb.net/ProyectoGrupaltest?retryWrites=true&w=majority')
@@ -22,3 +23,18 @@ connectDB()
 // } 
 
 // testQuery()
+
+
+
+// async function Reviews(){
+//    const testReviews =  new reviewsModel({
+//       Content: 'articulo',
+//       Stars: 5
+//    })
+//    await testReviews.save()
+//    console.log(testReviews)
+// } 
+
+// Reviews()
+
+
