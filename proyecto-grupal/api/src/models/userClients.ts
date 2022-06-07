@@ -13,6 +13,8 @@ export class userClient {
     birthDate: string
     @prop()
     country: string
+    @prop()
+    ProfileImage: string
 }
 
 const userClientModel = getModelForClass(userClient)
