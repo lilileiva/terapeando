@@ -1,8 +1,8 @@
 import {prop, getModelForClass, Ref} from '@typegoose/typegoose'
 import { userClient } from './userClients'
-// import { userPsychologist } from './userPsychologist'
+import { userPsychologist } from './userPsychologist'
 
-class paymentHistory{
+export class paymentHistory{
    
    @prop({ type: String })
    status: string
@@ -16,8 +16,8 @@ class paymentHistory{
    @prop({ref: () => userClient})
    client: Ref<userClient>
 
-   // @prop({ref: () => userPsychologist})
-   // psychologist: Ref<userPsychologist>
+   @prop({ref: () => userPsychologist})
+   psychologist: Ref<userPsychologist>
 }
 
 const paymentHistoryModel = getModelForClass(paymentHistory)
