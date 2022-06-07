@@ -2,7 +2,6 @@ import {prop, getModelForClass} from '@typegoose/typegoose'
 import * as mongoose from 'mongoose'
 
 export class userPsychologist {
-
     @prop({ required: true, trim: true  })
     firstName: string
     @prop({ required: true, trim: true })
