@@ -1,6 +1,6 @@
 import {prop, getModelForClass} from '@typegoose/typegoose'
 
-class userClient {
+export class userClient {
     @prop()
     firstName: string
     @prop()
@@ -14,7 +14,7 @@ class userClient {
     @prop()
     country: string
     @prop()
-    ProfileImage: string
+    profileImage: string
 }
 
 const userClientModel = getModelForClass(userClient)
