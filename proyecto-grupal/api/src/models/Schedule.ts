@@ -2,14 +2,14 @@ import { prop, getModelForClass, Ref} from '@typegoose/typegoose';
 import { userPsychologist } from './userPsychologist';
 
 class Schedule {
-    
-    @prop({ ref: () => userPsychologist })
+
+    @prop({ ref: () => userPsychologist, required: true, unique: true })
     idUserPsychologist: Ref<userPsychologist>
     ///
-    @prop({ type: Date, default: Date.now })
+    @prop({ type: Date, default: Date.now , required: true })
     date: Date
     ///
-    @prop({ type: String })
+    @prop({ type: String , required: true })
     time: string
 }
 
