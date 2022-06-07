@@ -11,24 +11,24 @@ connectDB()
 
 
 
-async function testQuery(){
-   const testschedule = new scheduleModule({
-      idUserPsychologist: '629f99e7de87372b776f79ed',
-      dateTime: [
-         {
-            monday: [10, 15, 20],
-            tuesday: [9, 11, 16],
-            wensday: [],
-            thursday: [],
-            friday: [15, 18, 19],
-            saturday: [],
-            sunday: [9],
-         }
-      ] 
-   })
-   await testschedule.save()
-}
-testQuery()
+// async function testQuery(){
+//    const testschedule = new scheduleModule({
+//       idUserPsychologist: '629f99e7de87372b776f79ed',
+//       dateTime: [
+//          {
+//             monday: [10, 15, 20],
+//             tuesday: [9, 11, 16],
+//             wensday: [],
+//             thursday: [],
+//             friday: [15, 18, 19],
+//             saturday: [],
+//             sunday: [9],
+//          }
+//       ] 
+//    })
+//    await testschedule.save()
+// }
+// testQuery()
 
 // async function testQuery(){
 //    const testUser =  new userClientModel({
