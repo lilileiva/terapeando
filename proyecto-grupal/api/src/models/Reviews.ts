@@ -1,6 +1,6 @@
 import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
 import { userClient } from './userClients';
-//import { Userpsychologist } from './userClients';
+import { userPsychologist } from './userPsychologist'
 
 
 export class Reviews{
@@ -10,8 +10,8 @@ export class Reviews{
     Stars: number
     @prop({ref: () => userClient})
     IdUserClient: Ref<userClient>
-    // @prop({ref: () => Userpsychologist})
-    // IdUserPsychologist: Ref<Userpsychologist>
+    @prop({ref: () => userPsychologist})
+    IdUserPsychologist: Ref<userPsychologist>
 }
 
 const reviewsModel = getModelForClass(Reviews)
