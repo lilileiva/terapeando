@@ -1,8 +1,5 @@
 import mongoose from 'mongoose'
-import userClientModel from './models/userClients'
-import postModel from './models/Post'
-import userPsychologistModel from './models/userPsychologist'
-import appointmentModel from './models/appointment'
+import scheduleModule from './models/Schedule'
 
 
 async function connectDB() {
@@ -12,17 +9,26 @@ async function connectDB() {
 
 connectDB()
 
-/* async function testQuery(){
-   const testpaymentHistory = new paymentHistoryModel({
-      status: 'payed',
-      price: 1500,
-      type: 'debit card',
-      client: '629eb20ef872d3554abc739c',
-      psychologist: '629f99e7de87372b776f79ed'
+
+
+async function testQuery(){
+   const testschedule = new scheduleModule({
+      idUserPsychologist: '629f99e7de87372b776f79ed',
+      dateTime: [
+         {
+            monday: [10, 15, 20],
+            tuesday: [9, 11, 16],
+            wensday: [],
+            thursday: [],
+            friday: [15, 18, 19],
+            saturday: [],
+            sunday: [9],
+         }
+      ] 
    })
-   await testpaymentHistory.save()
+   await testschedule.save()
 }
-testQuery() */
+testQuery()
 
 // async function testQuery(){
 //    const testUser =  new userClientModel({
@@ -38,7 +44,7 @@ testQuery() */
 
 // testQuery()
 
-async function testQuery(){
+/* async function testQuery(){
    const testAppointment = new appointmentModel({
       client: '629eb20ef872d3554abc739c',
       psychologist: '629f97f5c767d20e0acad126',
@@ -49,5 +55,5 @@ async function testQuery(){
    })
    await testAppointment.save()
 }
-testQuery()
+testQuery() */
 
