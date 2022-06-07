@@ -15,6 +15,7 @@ connectDB()
 
 // async function testQuery() {
 
+
    // const testUser = new userClientModel({
    //    firstName: 'juana',
    //    lastName: 'Goodman',
@@ -48,6 +49,20 @@ connectDB()
 
 // }
 
+async function testQuer(){
+   const testUser =  new userClientModel({
+      firstName: 'Walter',
+         lastName: 'White',
+         email: 'heisenberg@gmail.com',
+         password: '1234',
+         birthDate: '15/04/89',
+         country: 'US'
+   })
+   await testUser.save()
+} 
+
+testQuer()
+
 // testQuery()
 
 
@@ -78,6 +93,7 @@ connectDB()
 }
 
 testQuery() */
+
 
 // async function testQuery(){
 //    const testAppointment = new appointmentModel({
