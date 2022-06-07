@@ -1,28 +1,30 @@
 import {prop, getModelForClass} from '@typegoose/typegoose'
-
-export class userPsychologist {
-    @prop()
+import * as mongoose from 'mongoose'
+class userPsychologist {
+    @prop({ required: true, trim: true  })
     firstName: string
-    @prop()
+    @prop({ required: true, trim: true })
     lastName: string
-    @prop()
+    @prop({ unique: true, required: true, lowercase: true, trim: true })
     email: string
-    @prop()
+    @prop({ unique: true, required: true, minlength:8})
     password: string
-    @prop()
+    @prop({ required: true })
     birthDate: string
-    @prop()
+    @prop({  required: true })
     country: string
-    @prop()
+    @prop({ unique: true, required: true })
     License: string
-    @prop()
+    @prop({ unique: true, required: true })
     DNI: string
-    @prop()
+    @prop({ required: true })
     Specialties: string[]
-    @prop()
+    @prop({required: true })
     profileImage: string
     @prop()
-    scheduleID: string[]
+    rating: number
+    // @prop({ ref: () => appointment })
+    // appointments?: Ref<appointment>[]; 
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)

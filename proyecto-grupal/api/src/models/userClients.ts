@@ -1,20 +1,20 @@
 import {prop, getModelForClass} from '@typegoose/typegoose'
 
 class userClient {
-    @prop()
+    @prop({ required: true, trim: true })
     firstName: string
-    @prop()
+    @prop({ required: true, trim: true })
     lastName: string
-    @prop()
-    email: string
-    @prop()
-    password: string
-    @prop()
+    @prop({ unique: true})
     birthDate: string
-    @prop()
+    @prop({ required: true })
     country: string
-    @prop()
-    ProfileImage: string
+    @prop({ unique: true, required: true})
+    password: string
+    @prop({ unique: true, required: true, lowercase: true, trim: true })
+    email: string
+    @prop({required: true, data: Buffer })
+    profileImage: File
 }
 
 const userClientModel = getModelForClass(userClient)
