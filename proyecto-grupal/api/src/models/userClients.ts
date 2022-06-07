@@ -13,8 +13,8 @@ export class userClient {
     password: string
     @prop({ unique: true, required: true, lowercase: true, trim: true })
     email: string
-    @prop({required: true, data: Buffer })
-    profileImage: File
+    @prop({required: true })
+    profileImage: string
 }
 
 const userClientModel = getModelForClass(userClient)

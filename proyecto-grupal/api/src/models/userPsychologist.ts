@@ -29,4 +29,4 @@ export class userPsychologist {
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)
-export default userPsychologistModel
+export default userPsychologistModel;
