@@ -1,9 +1,10 @@
-export {}
+import userClientModel from "../models/userClients";
+
 
 const { Router } = require('express');
 const router = Router()
 
-router.post("/", async (req, res) => {
+router.post("/", async (req: any, res:any) => {
    try{
       const { firstName, lastName, email, password, birthDate, country, profileImage } = req.body
 

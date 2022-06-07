@@ -38,16 +38,16 @@ testQuery() */
 
 // testQuery()
 
-async function testQuery(){
-   const testAppointment = new appointmentModel({
-      client: '629eb20ef872d3554abc739c',
-      psychologist: '629f97f5c767d20e0acad126',
-      payment: '629f9ce6ee9896aabc5fbcd2',
-      date: '07-06-2022',
-      hour: '18:00',
-      type: 'presencial'
-   })
-   await testAppointment.save()
-}
-testQuery()
+// async function testQuery(){
+//    const testAppointment = new appointmentModel({
+//       client: '629eb20ef872d3554abc739c',
+//       psychologist: '629f97f5c767d20e0acad126',
+//       payment: '629f9ce6ee9896aabc5fbcd2',
+//       date: '07-06-2022',
+//       hour: '18:00',
+//       type: 'presencial'
+//    })
+//    await testAppointment.save()
+// }
+// testQuery()
 
