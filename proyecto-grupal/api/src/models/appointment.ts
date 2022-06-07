@@ -1,6 +1,7 @@
 import { prop, Ref } from '@typegoose/typegoose';
 import { userClient } from './userClients';
 import { userPsychologist } from './userPsychologist';
+import { paymentHistory } from './paymentHistory';
 
 
 class appointment {
@@ -8,14 +9,14 @@ class appointment {
     client: Ref<userClient>
     @prop({ref: () => userPsychologist})
     psicologist: Ref<userPsychologist>
-    // @prop({ref: () => })
-    // payment:
+    @prop({ref: () => paymentHistory})
+    payment: Ref<paymentHistory>
     @prop({ type: String, required: true, trim: true})
     date: string
     @prop({ type: String, required: true, trim: true })
     hour: string
     @prop({ type: String, required: true, trim: true })
-    type: string[]
+    type: string
 }
 
 export default appointment;
