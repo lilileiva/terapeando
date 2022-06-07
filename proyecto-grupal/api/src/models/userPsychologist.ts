@@ -1,5 +1,7 @@
-import {prop, getModelForClass} from '@typegoose/typegoose'
-import * as mongoose from 'mongoose'
+import {prop, getModelForClass, Ref} from '@typegoose/typegoose'
+import * as mongoose from 'mongoose';
+import { appointment } from './appointment';
+
 export class userPsychologist {
     @prop({ required: true, trim: true  })
     firstName: string
@@ -23,8 +25,8 @@ export class userPsychologist {
     profileImage: string
     @prop()
     rating: number
-    // @prop({ ref: () => appointment })
-    // appointments?: Ref<appointment>[]; 
+    @prop({ ref: () => appointment })
+    appointments?: Ref<appointment>[]; 
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)
