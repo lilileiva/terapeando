@@ -19,7 +19,6 @@ async function testQuery(){
          country: 'US'
    })
    await testUser.save()
-   console.log(testUser)
 } 
 
 testQuery()
