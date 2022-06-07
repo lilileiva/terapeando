@@ -1,7 +1,7 @@
 import { prop, getModelForClass, Ref} from '@typegoose/typegoose';
 import { userPsychologist } from './userPsychologist';
 
-class Schedule {
+export class Schedule {
 
     @prop({ ref: () => userPsychologist, required: true, unique: true })
     idUserPsychologist: Ref<userPsychologist>

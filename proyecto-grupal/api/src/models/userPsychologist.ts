@@ -1,7 +1,6 @@
 import {prop, getModelForClass} from '@typegoose/typegoose'
 import * as mongoose from 'mongoose'
 
-
 export class userPsychologist {
     @prop({ required: true, trim: true  })
     firstName: string
@@ -30,4 +29,4 @@ export class userPsychologist {
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)
-export default userPsychologistModel
+export default userPsychologistModel;
