@@ -2,7 +2,7 @@ import {prop, getModelForClass, Ref} from '@typegoose/typegoose'
 import { userClient } from './userClients'
 // import { userPsychologist } from './userPsychologist'
 
-class paymentHistory{
+export class paymentHistory{
    
    @prop({ type: String })
    status: string
