@@ -1,7 +1,4 @@
-import { getDiscriminatorModelForClass } from '@typegoose/typegoose'
 import mongoose from 'mongoose'
-import reviewsModel  from './models/Reviews'
-import userClientModel  from './models/userClients'
 //testasasaas
 async function connectDB() {
    const db = await mongoose.connect('mongodb+srv://proyectogrupal:VNWSkd5ixj7hLVTo@proyectogrupal.z5mrv.mongodb.net/ProyectoGrupaltest?retryWrites=true&w=majority')
@@ -9,6 +6,19 @@ async function connectDB() {
 }
 
 connectDB()
+
+/* async function testQuery(){
+   const testpaymentHistory = new paymentHistoryModel({
+      status: 'payed',
+      price: 1500,
+      type: 'debit card',
+      client: '629eb20ef872d3554abc739c',
+      psychologist: '629f99e7de87372b776f79ed'
+   })
+   await testpaymentHistory.save()
+}
+
+testQuery() */
 
 // async function testQuery(){
 //    const testUser =  new userClientModel({
