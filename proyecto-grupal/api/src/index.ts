@@ -24,30 +24,39 @@ connectDB()
 }
 testQuery() */
 
-// async function testQuery(){
-//    const testUser =  new userClientModel({
-//       firstName: 'Saul',
-//          lastName: 'Goodman',
-//          email: 'Saul@gmail.com',
-//          password: 'asasdad',
-//          birthDate: '15/04/89',
-//          country: 'US'
-//    })
-//    await testUser.save()
-// } 
-
-// testQuery()
-
-async function testQuery(){
-   const testAppointment = new appointmentModel({
-      client: '629eb20ef872d3554abc739c',
-      psychologist: '629f97f5c767d20e0acad126',
-      payment: '629f9ce6ee9896aabc5fbcd2',
-      date: '07-06-2022',
-      hour: '18:00',
-      type: 'presencial'
+async function testQuery() {
+   const testUser = new userClientModel({
+      firstName: 'juan',
+      lastName: 'Goodman',
+      email: 'Saul@gmail.com',
+      password: 'asasdad',
+      birthDate: '15/04/89',
+      country: 'US',
+      appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
    })
-   await testAppointment.save()
+   await testUser.save()
+
+//    const testUserPsychologist = new userPsychologistModel({
+//       firstName: 'pedro',
+//       lastName: 'Goodman',
+//       email: 'Saul@gmail.com',
+//       password: 'asasdad',
+//       birthDate: '15/04/89',
+//       country: 'US',
+//       appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
+//    })
+//    await testUserPsychologist.save()
 }
+
 testQuery()
+
+// async function testQuery(){
+//    const testAppointment = new appointmentModel({
+//       date: '11-06-2022',
+//       hour: '18:00',
+//       type: 'presencial'
+//    })
+//    await testAppointment.save()
+// }
+// testQuery()
 
