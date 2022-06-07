@@ -1,4 +1,3 @@
-import { getDiscriminatorModelForClass } from '@typegoose/typegoose'
 import mongoose from 'mongoose'
 import userClientModel from './models/userClients'
 import userPsychologistModel from './models/userPsychologist'
@@ -8,6 +7,19 @@ async function connectDB() {
 }
 
 connectDB()
+
+/* async function testQuery(){
+   const testpaymentHistory = new paymentHistoryModel({
+      status: 'payed',
+      price: 1500,
+      type: 'debit card',
+      client: '629eb20ef872d3554abc739c',
+      psychologist: '629f99e7de87372b776f79ed'
+   })
+   await testpaymentHistory.save()
+}
+
+testQuery() */
 
 // async function testQuery(){
 //    const testUser =  new userPsychologistModel({
