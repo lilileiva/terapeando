@@ -1,6 +1,5 @@
 import {prop, getModelForClass} from '@typegoose/typegoose'
 import * as mongoose from 'mongoose'
-//hola
 class userPsychologist {
     @prop({ required: true, trim: true  })
     firstName: string
