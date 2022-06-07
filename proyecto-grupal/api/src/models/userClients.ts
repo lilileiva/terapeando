@@ -16,8 +16,8 @@ export class userClient {
     email: string
     @prop({ required: true })
     profileImage: string
-    // @prop({ ref: () => appointment })
-    // appointments: Ref<appointment>[];
+    @prop({ ref: () => appointment })
+    appointments: Ref<appointment>[];
 }
 
 const userClientModel = getModelForClass(userClient)

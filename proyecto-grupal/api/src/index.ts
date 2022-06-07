@@ -13,35 +13,42 @@ connectDB()
 
 
 
-async function testQuery() {
+// async function testQuery() {
 
-   const testUser = new userClientModel({
-      firstName: 'juan',
-      lastName: 'Goodman',
-      email: 'Saul@gmail.com',
-      password: '12345678',
-      birthDate: '15/04/89',
-      country: 'US',
-      profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
-      appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
-   })
+   // const testUser = new userClientModel({
+   //    firstName: 'juana',
+   //    lastName: 'Goodman',
+   //    email: 'mail12@gmail.com',
+   //    password: '12345678b',
+   //    birthDate: '15/04/89',
+   //    country: 'US',
+   //    profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
+   //    appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
+   // })
+   // await testUser.save()
 
-   const testUserPsychologist = new userPsychologistModel({
-      firstName: 'pedro',
-      lastName: 'Goodman',
-      email: 'Saul@gmail.com',
-      password: '12345678',
-      birthDate: '15/04/89',
-      country: 'US',
-      DNI: '12123123',
-      License: 'License',
-      profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
-      appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
-   })
-   await testUserPsychologist.save()
-}
+   // const testUserPsychologist = new userPsychologistModel({
+   //    firstName: 'pedro',
+   //    lastName: 'Goodman',
+   //    email: 'mail2@gmail.com',
+   //    password: '12345678a',
+   //    birthDate: '15/04/89',
+   //    country: 'US',
+   //    DNI: '12123123',
+   //    License: 'License',
+   //    profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
+   //    appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
+   // })
+   // await testUserPsychologist.save()
 
-testQuery()
+   // const user = await userClientModel.findById("629fe14d30a908292c6ef72b").populate(
+   //    "appointments"
+   // )
+   // console.log(user)
+
+// }
+
+// testQuery()
 
 
 /* async function testQuery(){

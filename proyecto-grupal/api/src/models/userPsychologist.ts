@@ -25,8 +25,8 @@ export class userPsychologist {
     profileImage: string
     @prop()
     rating: number
-    // @prop({ ref: () => appointment })
-    // appointments: Ref<appointment>[];
+    @prop({ ref: () => appointment })
+    appointments: Ref<appointment>[];
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)
