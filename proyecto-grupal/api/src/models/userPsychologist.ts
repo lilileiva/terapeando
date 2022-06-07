@@ -9,7 +9,7 @@ export class userPsychologist {
     lastName: string
     @prop({ unique: true, required: true, lowercase: true, trim: true })
     email: string
-    @prop({ unique: true, required: true, minlength:8})
+    @prop({ required: true, minlength:8 })
     password: string
     @prop({ required: true })
     birthDate: string

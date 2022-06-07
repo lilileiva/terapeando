@@ -6,18 +6,18 @@ export class userClient {
     firstName: string
     @prop({ required: true, trim: true })
     lastName: string
-    @prop({ unique: true})
+    @prop({ unique: true, required: true})
     birthDate: string
     @prop({ required: true })
     country: string
-    @prop({ unique: true, required: true})
+    @prop({ required: true, minlength:8 })
     password: string
     @prop({ unique: true, required: true, lowercase: true, trim: true })
     email: string
-    @prop({required: true })
+    @prop({ required: true })
     profileImage: string
-    @prop({ ref: () => appointment })
-    appointments: Ref<appointment>[];
+    // @prop({ ref: () => appointment })
+    // appointments: Ref<appointment>[];
 }
 
 const userClientModel = getModelForClass(userClient)

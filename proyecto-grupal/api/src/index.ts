@@ -29,23 +29,27 @@ async function testQuery() {
       firstName: 'juan',
       lastName: 'Goodman',
       email: 'Saul@gmail.com',
-      password: 'asasdad',
+      password: '12345678',
       birthDate: '15/04/89',
       country: 'US',
+      profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
       appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
    })
    await testUser.save()
 
-//    const testUserPsychologist = new userPsychologistModel({
-//       firstName: 'pedro',
-//       lastName: 'Goodman',
-//       email: 'Saul@gmail.com',
-//       password: 'asasdad',
-//       birthDate: '15/04/89',
-//       country: 'US',
-//       appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
-//    })
-//    await testUserPsychologist.save()
+   const testUserPsychologist = new userPsychologistModel({
+      firstName: 'pedro',
+      lastName: 'Goodman',
+      email: 'Saul@gmail.com',
+      password: '12345678',
+      birthDate: '15/04/89',
+      country: 'US',
+      DNI: '12123123',
+      License: 'License',
+      profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
+      appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
+   })
+   await testUserPsychologist.save()
 }
 
 testQuery()
