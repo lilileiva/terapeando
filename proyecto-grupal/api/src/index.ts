@@ -1,10 +1,5 @@
 import mongoose from 'mongoose'
-import userClientModel from './models/userClients'
-import postModel from './models/Post'
-import userPsychologistModel from './models/userPsychologist'
-import appointmentModel from './models/appointment'
-import reviewsModel from './models/Reviews';
-
+import scheduleModule from './models/Schedule'
 
 
 async function connectDB() {
@@ -14,17 +9,26 @@ async function connectDB() {
 
 connectDB()
 
-/* async function testQuery(){
-   const testpaymentHistory = new paymentHistoryModel({
-      status: 'payed',
-      price: 1500,
-      type: 'debit card',
-      client: '629eb20ef872d3554abc739c',
-      psychologist: '629f99e7de87372b776f79ed'
+
+
+async function testQuery(){
+   const testschedule = new scheduleModule({
+      idUserPsychologist: '629f99e7de87372b776f79ed',
+      dateTime: [
+         {
+            monday: [10, 15, 20],
+            tuesday: [9, 11, 16],
+            wensday: [],
+            thursday: [],
+            friday: [15, 18, 19],
+            saturday: [],
+            sunday: [9],
+         }
+      ] 
    })
-   await testpaymentHistory.save()
+   await testschedule.save()
 }
-testQuery() */
+testQuery()
 
 // async function testQuery(){
 //    const testUser =  new userClientModel({
@@ -40,15 +44,16 @@ testQuery() */
 
 // testQuery()
 
-// async function testQuery(){
-//    const testReview = new reviewsModel({
-//       Content: "cualquier comentario",
-//       Stars: 5,
-//       IdUserClient: "629eb20ef872d3554abc739c",
-//       IdUserPsychologist: "cualquierid"
-//    })
-//    await testReview.save()
-//    console.log(testReview)
-// }
-// testQuery()
+/* async function testQuery(){
+   const testAppointment = new appointmentModel({
+      client: '629eb20ef872d3554abc739c',
+      psychologist: '629f97f5c767d20e0acad126',
+      payment: '629f9ce6ee9896aabc5fbcd2',
+      date: '07-06-2022',
+      hour: '18:00',
+      type: 'presencial'
+   })
+   await testAppointment.save()
+}
+testQuery() */
 
