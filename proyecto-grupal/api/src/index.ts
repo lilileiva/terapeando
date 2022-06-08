@@ -14,17 +14,6 @@ async function connectDB() {
 
 connectDB()
 
-// server inicializations
-
-const app = express() 
-app.set( 'port', process.env.PORT || 3000 )
-
-// Middlewares
-
-app.use(express.json()); // para que entienda el formato json
-
-// routes
-
 
 // server  inicializations
 
