@@ -1,9 +1,10 @@
 // export {}
 
 // const { Router, Request, Response } = require('express');
-// const router = Router()
+import { Router } from "express"
+const router = Router()
 
-// router.post("/", async (req: Request, res: Response) => {
+// router.post("/", async (req, res) => {
 //    try{
 //       const { firstName, lastName, email, password, birthDate, country, profileImage } = req.body
 
