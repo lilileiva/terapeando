@@ -1,7 +1,10 @@
 .background {
     background-image: url('../../assets/landing-bg.png');
+    background-size: 80%;
+    background-repeat: repeat-y;
     position: fixed;
     height: 100%;
     width: 100%;
     background-position: left;
+    z-index: 1;
 }
