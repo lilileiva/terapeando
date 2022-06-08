@@ -21,11 +21,11 @@ const createReview = async (req: Request, res: Response) => {
 
 const getReview = async (req: Request, res: Response) => {
 
-    const { IdUserPsychologist } = req.params;
-
+    const { idUserPsychologist } = req.params;
+  
     try {
 
-        const getReview = await reviewsModel.findById(IdUserPsychologist);
+        const getReview = await reviewsModel.find({idUserPsychologist})
         console.log(getReview)
         res.status(200).send(getReview);
 

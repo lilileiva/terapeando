@@ -5,11 +5,11 @@ import paymentHistoryModel from "../../models/paymentHistory";
 
 const getPaymentHistory = async (req: Request, res: Response) => {
 
-    const { IdUserPsychologist } = req.params;
+    const { idUserPsychologist } = req.params;
 
     try {
 
-        const getReview = await paymentHistoryModel.findById(IdUserPsychologist);
+        const getReview = await paymentHistoryModel.find({psychologist:idUserPsychologist});
         res.status(200).send(getReview);
 
     } catch (error) {
