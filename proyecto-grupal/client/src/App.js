@@ -9,10 +9,10 @@ import Post from "./components/Post/Posts.jsx";
 function App() {
   return (
     <div className="App">
+      <Footer />
       <Routes>
         <Route path="/" element={<NavBar />} />
         <Route exact path="/signup" element={<RegisterForm />} />
-        <Route path="/" element={<Footer />} />
         <Route exact path="/post" element={<Post />} />
       </Routes>
     </div>
