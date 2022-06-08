@@ -1,7 +1,17 @@
 export {};
-const { Router} = require('express');
-const router = Router();
 import userPsychologistModel from "../../models/userPsychologist";
+import {Request, Response } from 'express';
+
+const getUserPsychologist  = async (req:Request, res:Response) => {
+try{
+    const { IdUserPsychologist } = req.params;
+    const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist);
+    res.status(200).json(psychologistUser)
+}catch(err){
+    res.status(404).json({data: err})
+}
+}
+
 
 // router.post("/", async (req: Request, res: Response) => {
 //   try {
@@ -39,3 +49,6 @@ import userPsychologistModel from "../../models/userPsychologist";
 //     res.status(404).send(error);
 //   }
 // });
+module.exports = {
+    getUserPsychologist
+ }

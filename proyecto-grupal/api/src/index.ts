@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-
 import express from 'express' // instale npm i @types/express -D como dependecia de desarrollo para que entienda modulos de express
 const routes = require('./routes/index.ts')
 
@@ -24,13 +23,6 @@ app.set( 'port', process.env.PORT || 3000 )
 app.use(express.json()); // para que entienda el formato json
 
 // routes
-
-
-// server  inicializations
-
-const app = express() 
-app.set( 'port', process.env.PORT || 3000 )
-
 
 // Middlewares
 
