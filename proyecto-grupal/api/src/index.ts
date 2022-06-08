@@ -30,21 +30,19 @@ connectDB()
 // }
 // testQuery()
 
-<<<<<<< HEAD
-async function testQuer(){
-   const testUser =  new userClientModel({
-      firstName: 'Walter',
-         lastName: 'White',
-         email: 'heisenberg@gmail.com',
-         password: '1234',
-         birthDate: '15/04/89',
-         country: 'US'
-   })
-   await testUser.save()
-} 
+// async function testQuer(){
+//    const testUser =  new userClientModel({
+//       firstName: 'Walter',
+//          lastName: 'White',
+//          email: 'heisenberg@gmail.com',
+//          password: '1234',
+//          birthDate: '15/04/89',
+//          country: 'US'
+//    })
+//    await testUser.save()
+// } 
 
-testQuer()
-=======
+// testQuer()
 // async function testQuery(){
 //    const testUser =  new userClientModel({
 //       firstName: 'Saul',
@@ -83,7 +81,6 @@ testQuer()
    await testAppointment.save()
 }
 testQuery() */
->>>>>>> de9500fefc7d53db788d5040e9219c521325a107
 
 // async function testQuery(){
 //    const testAppointment = new appointmentModel({
