@@ -1,8 +1,7 @@
 .background {
     background-image: url('../../assets/landing-bg.png');
+    position: fixed;
     height: 100%;
     width: 100%;
-
-    background-position: center left;
-    
+    background-position: left;
 }
