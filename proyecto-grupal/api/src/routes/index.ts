@@ -1,6 +1,6 @@
 
 const {createSchedule, getSchedule} = require('./schedule/scheduleRoute')
-const {createUserClient, deletUserClient} = require('./userClient/userClientRoute')
+const {createUserClient, deletUserClient, putUserClient} = require('./userClient/userClientRoute')
 
 import { Router} from "express";
 const {createReview , getReview } = require('../routes/reviews/reviews');
@@ -14,6 +14,7 @@ router.get('/reviews/:IdUserPsychologist', getReview)
 router.get('/payment/:IdUserPsychologist', getPaymentHistory)
 router.post('/userclient', createUserClient)
 router.delete('/userclient/:IdUserClient', deletUserClient)
+router.put('/userclient/:IdUserClient', putUserClient)
 router.post('/schedule', createSchedule)
 router.get('/schedule/:idUserPsychologist', getSchedule)
 
