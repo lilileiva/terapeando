@@ -1,4 +1,3 @@
-
 import { Router} from "express";
 const {createUserClient, deletUserClient} = require('./userClient/userClientRoute')
 const {createSchedule} = require('./schedule/scheduleRoute')
