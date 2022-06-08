@@ -7,7 +7,7 @@ const {createPost,getAllPosts} = require('./posts/posts');
 const { deleteAppointmentModel, postAppointmentModel } = require('./appointments/appointments');
 const {getUserPsychologistOne ,getUserPsychologist, postUserPsychologist, deleteUserPsychologist} = require('./userPsychologist/userPsychologist');
 const router: Router = Router();
-//router.use('/userclient', userClient)
+
 
 router.post('/reviews', createReview)
 router.get('/reviews/:IdUserPsychologist', getReview)
