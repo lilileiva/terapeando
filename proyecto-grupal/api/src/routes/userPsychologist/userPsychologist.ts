@@ -1,14 +1,7 @@
 export {};
-<<<<<<< HEAD
-=======
-const { Router } = require("express");
-import { Request, Response } from "express";
-const router = Router();
->>>>>>> bd5779c84ff87bb673f36859ed943de6dd8c7fe8
 import userPsychologistModel from "../../models/userPsychologist";
 import {Request, Response } from 'express';
 
-<<<<<<< HEAD
 const getUserPsychologistOne  = async (req:Request, res:Response) => {
 try{
     const { IdUserPsychologist } = req.params;
@@ -58,55 +51,14 @@ const postUserPsychologist =  async (req: Request, res: Response) => {
       appointments:[]
     });
 
-=======
-router.post("/", async (req: Request, res: Response) => {
-  try {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      birthDay,
-      country,
-      license,
-      DNI,
-      specialities,
-      profileImage,
-      scheduleld,
-    } = req.body;
-
-    const userP = new userPsychologistModel({
-      firstName,
-      lastName,
-      email,
-      password,
-      birthDay,
-      country,
-      license,
-      DNI,
-      specialities,
-      profileImage,
-      scheduleld,
-    });
-
->>>>>>> bd5779c84ff87bb673f36859ed943de6dd8c7fe8
     await userP.save();
     res.status(201).send(userP);
   } catch (error) {
     res.status(404).send(error);
   }
-<<<<<<< HEAD
 };
-module.exports = {
-    getUserPsychologistOne,
-    getUserPsychologist,
-    postUserPsychologist
 
- }
-=======
-});
-
-router.delete("/", async (req: Request, res: Response) => {
+ const deleteUserPsychologist =  async (req: Request, res: Response) => {
   const { idPsychologist } = req.params;
   try {
     await userPsychologistModel.findOneAndDelete({ idPsychologist });
@@ -114,5 +66,12 @@ router.delete("/", async (req: Request, res: Response) => {
   } catch (error) {
     res.status(404).send(error);
   }
-});
->>>>>>> bd5779c84ff87bb673f36859ed943de6dd8c7fe8
+};
+
+module.exports = {
+    getUserPsychologistOne,
+    getUserPsychologist,
+    postUserPsychologist,
+    deleteUserPsychologist
+
+ }
