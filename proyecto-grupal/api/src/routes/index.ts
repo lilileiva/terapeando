@@ -1,7 +1,7 @@
 import { Router} from "express";
 const {createUserClient, deletUserClient} = require('./userClient/userClientRoute')
 const {createSchedule} = require('./schedule/scheduleRoute')
-const { getUserPsychologist } = require('./userPsychologist/userPsychologist') 
+const { getUserPsychologistOne,getUserPsychologist ,postUserPsychologist} = require('./userPsychologist/userPsychologist') 
 const {createReview , getReview } = require('../routes/reviews/reviews');
 const {getPaymentHistory} = require('./paymentHistory/paymentHistory.ts');
 const router: Router = Router();
@@ -14,6 +14,8 @@ router.get('/payment/:IdUserPsychologist', getPaymentHistory)
 router.post('/userclient', createUserClient)
 router.delete('/userclient/:IdUserClient', deletUserClient)
 router.post('/schedule', createSchedule)
-router.get('/UserPsychologist/:IdUserPsychologist', getUserPsychologist);
+router.get('/UserPsychologist/:IdUserPsychologist', getUserPsychologistOne);
+router.get('/UserPsychologist', getUserPsychologist);
+router.post('/UserPsychologist', postUserPsychologist);
 
 module.exports = router;

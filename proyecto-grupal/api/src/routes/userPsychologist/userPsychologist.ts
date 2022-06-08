@@ -2,7 +2,7 @@ export {};
 import userPsychologistModel from "../../models/userPsychologist";
 import {Request, Response } from 'express';
 
-const getUserPsychologist  = async (req:Request, res:Response) => {
+const getUserPsychologistOne  = async (req:Request, res:Response) => {
 try{
     const { IdUserPsychologist } = req.params;
     const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist);
@@ -12,43 +12,54 @@ try{
 }
 }
 
+const getUserPsychologist = async (req:Request, res:Response) => {
+try{
+const userPsychologist = await userPsychologistModel.find();
+res.status(200).json(userPsychologist)
+}catch(err){
+res.status(404).json({data: err})
+}
+}
 
-// router.post("/", async (req: Request, res: Response) => {
-//   try {
-//     const {
-//       firstName: 
-//       lastName,
-//       email,
-//       password,
-//       birthDay,
-//       country,
-//       license,
-//       DNI,
-//       specialities,
-//       profileImage,
-//       scheduleld,
-//     } = req.body;
 
-//     const userP = new userPsychologistModel({
-//       firstName,
-//       lastName,
-//       email,
-//       password,
-//       birthDay,
-//       country,
-//       license,
-//       DNI,
-//       specialities,
-//       profileImage,
-//       scheduleld,
-//     });
+const postUserPsychologist =  async (req: Request, res: Response) => {
+  try {
+    const {
+      firstName, 
+      lastName,
+      email,
+      password,
+      birthDate,
+      country,
+      License,
+      DNI,
+      Specialties,
+      profileImage,
+        } = req.body;
+    const userP = await new userPsychologistModel({
+      firstName,
+      lastName,
+      email,
+      password,
+      birthDate,
+      country,
+      License,
+      DNI,
+      Specialties,
+      profileImage,
+      rating: 0,
+      appointments:[]
+    });
 
-//     await userP.save();
-//     res.status(201).send(userP);
-//   } catch (error) {
-//     res.status(404).send(error);
-//   }
-// });
+    await userP.save();
+    res.status(201).send(userP);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
 module.exports = {
-    getUserPsychologist
+    getUserPsychologistOne,
+    getUserPsychologist,
+    postUserPsychologist
+
  }
