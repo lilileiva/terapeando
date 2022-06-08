@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
-import scheduleModule from './models/Schedule'
+import express from 'express'
+const routes = require('./routes/index.ts')
 
+
+// Database Connection
 
 async function connectDB() {
    const db = await mongoose.connect('mongodb+srv://proyectogrupal:VNWSkd5ixj7hLVTo@proyectogrupal.z5mrv.mongodb.net/ProyectoGrupaltest?retryWrites=true&w=majority')
@@ -9,9 +12,26 @@ async function connectDB() {
 
 connectDB()
 
+// server inicializations
 
+const app = express() 
+app.set( 'port', process.env.PORT || 3000 )
 
-async function testQuery(){
+// Middlewares
+
+app.use(express.json()); // para que entienda el formato json
+
+// routes
+
+app.use('/', routes)
+
+// starting server 
+
+app.listen(app.get('port'), () => {
+   console.log('server on port', app.get('port'))
+});
+
+/* async function testQuery(){
    const testschedule = new scheduleModule({
       idUserPsychologist: '629f99e7de87372b776f79ed',
       dateTime: [
@@ -28,7 +48,7 @@ async function testQuery(){
    })
    await testschedule.save()
 }
-testQuery()
+testQuery() */
 
 // async function testQuery(){
 //    const testUser =  new userClientModel({
