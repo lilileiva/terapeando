@@ -5,8 +5,6 @@ import mongoose from 'mongoose'
 import express from 'express' // instale npm i @types/express -D como dependecia de desarrollo para que entienda modulos de express
 const routes = require('./routes/index.ts')
 
-
-
 // Database connection
 
 async function connectDB() {
@@ -90,7 +88,6 @@ app.listen(app.get('port'), () => {
 
 // testQuery()
 
-
 /* async function testQuery(){
    const testAppointment = new appointmentModel({
       client: '629eb20ef872d3554abc739c',
@@ -118,7 +115,6 @@ app.listen(app.get('port'), () => {
 }
 
 testQuery() */
-
 
 // async function testQuery(){
 //    const testAppointment = new appointmentModel({
