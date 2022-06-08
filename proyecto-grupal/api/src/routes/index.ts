@@ -6,7 +6,7 @@ const {getPaymentHistory} = require('./paymentHistory/paymentHistory.ts');
 const {createPost,getAllPosts} = require('./posts/posts');
 const {getUserPsychologistOne ,getUserPsychologist, postUserPsychologist} = require('./userPsychologist/userPsychologist');
 const router: Router = Router();
-//router.use('/userclient', userClient)
+
 
 router.post('/reviews', createReview)
 router.get('/reviews/:IdUserPsychologist', getReview)
