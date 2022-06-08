@@ -13,7 +13,7 @@ const getPaymentHistory = async (req: Request, res: Response) => {
         res.status(200).send(getReview);
 
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 
 };
