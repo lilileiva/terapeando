@@ -32,5 +32,16 @@ const deletUserClient = async (req: Request, res: Response) => {
    }
 }
 
+const putUserClient = async (req: Request, res: Response) => {
+   const {IdUserClient} = req.params;
+   try{
+      const user = await userClientModel.findByIdAndUpdate(IdUserClient, req.body, {new:true})
+      console.log(user)
+      res.status(200).send('Usuario editado correctamente')
+   }catch(err){
+      console.log(err)
+   }
+}
 
-module.exports = {createUserClient, deletUserClient};
+
+module.exports = {createUserClient, deletUserClient, putUserClient};
