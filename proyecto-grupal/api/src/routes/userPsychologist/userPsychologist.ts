@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 const router = Router();
 import userPsychologistModel from "../../models/userPsychologist";
 
+
 router.post("/", async (req: Request, res: Response) => {
   try {
     const {
