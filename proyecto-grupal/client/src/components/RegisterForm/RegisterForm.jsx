@@ -48,7 +48,12 @@ function RegisterForm() {
                             <Input variant='flushed' placeholder=' Email' bg='white' marginBottom='2em' />
                             {
                                 !userClientBtn
-                                    ? <Input variant='flushed' placeholder=' Matrícula' bg='white' marginBottom='2em' />
+                                    ? (
+                                        <>
+                                            <Input variant='flushed' placeholder=' Matrícula' bg='white' marginBottom='2em' />
+                                            <Input variant='flushed' placeholder=' D.N.I.' bg='white' marginBottom='2em' />
+                                        </>
+                                    )
                                     : null
                             }
                             <InputGroup variant='flushed' size='md' bg='white' marginBottom='2em' >
@@ -77,18 +82,17 @@ function RegisterForm() {
                                 </InputRightElement>
                             </InputGroup>
 
-                            <Box direction='column' align='center'>
+                            <Stack direction='column' align='center'>
                                 <Button colorScheme='teal' variant='solid'>
                                     Registrarse
                                 </Button>
                                 <Button bg='green.100' color='teal.500' >
-                                    Registrate con
-                                    <FaGoogle />
+                                    Registrate con &nbsp; <FaGoogle />
                                 </Button>
                                 <Button bg='green.100' color='teal.700' >
                                     ¿Ya tienes una cuenta?
                                 </Button>
-                            </Box>
+                            </Stack>
                         </form>
 
                     </Box>
