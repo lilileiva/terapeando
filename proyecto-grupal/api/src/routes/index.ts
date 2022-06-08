@@ -14,7 +14,7 @@ router.get('/reviews/:IdUserPsychologist', getReview)
 router.get('/payment/:IdUserPsychologist', getPaymentHistory)
 router.get('/userclient', getUserClient);
 router.post('/userclient/create', createUserClient)
-router.delete('/userclient/:IdUserClient', deleteUserClient)
+router.delete('/delete_userclient/:IdUserClient', deleteUserClient)
 router.post('/schedule', createSchedule)
 router.get('/UserPsychologist/:IdUserPsychologist', getUserPsychologistOne);
 router.get('/UserPsychologist', getUserPsychologist);
