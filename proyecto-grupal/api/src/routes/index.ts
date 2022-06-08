@@ -1,8 +1,8 @@
 
 
-const {createUserClient, deletUserClient} = require('./userClient/userClientRoute')
+import { Router } from "express";
+const { getUserClient, createUserClient, deleteUserClient } = require('./userClient/userClientRoute')
 const {createSchedule} = require('./schedule/scheduleRoute')
-import { Router} from "express";
 const {createReview , getReview } = require('../routes/reviews/reviews');
 const {getPaymentHistory} = require('./paymentHistory/paymentHistory.ts');
 const router: Router = Router();
@@ -12,8 +12,9 @@ const router: Router = Router();
 router.post('/reviews', createReview)
 router.get('/reviews/:IdUserPsychologist', getReview)
 router.get('/payment/:IdUserPsychologist', getPaymentHistory)
-router.post('/userclient', createUserClient)
-router.delete('/userclient/:IdUserClient', deletUserClient)
+router.get('/userclient', getUserClient);
+router.post('/userclient/create', createUserClient)
+router.delete('/userclient/:IdUserClient', deleteUserClient)
 router.post('/schedule', createSchedule)
 
 
