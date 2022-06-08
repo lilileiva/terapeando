@@ -3,8 +3,8 @@ const {createSchedule} = require('./schedule/scheduleRoute')
 import { Router} from "express";
 const {createReview , getReview } = require('../routes/reviews/reviews');
 const {getPaymentHistory} = require('./paymentHistory/paymentHistory.ts');
+const {createPost,getAllPosts} = require('./posts/posts');
 const router: Router = Router();
-
 //router.use('/userclient', userClient)
 
 router.post('/reviews', createReview)
@@ -13,6 +13,8 @@ router.get('/payment/:IdUserPsychologist', getPaymentHistory)
 router.post('/userclient', createUserClient)
 router.delete('/userclient/:IdUserClient', deletUserClient)
 router.post('/schedule', createSchedule)
+router.get('/posts',getAllPosts),
+router.post('/post',createPost)
 
 
 module.exports = router;
