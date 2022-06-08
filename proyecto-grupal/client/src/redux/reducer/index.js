@@ -1,4 +1,8 @@
-function rootReducer(){
 
-} 
-export default rootReducer
+
+
+function rootReducer() {
+    
+}
+
+export default rootReducer;
