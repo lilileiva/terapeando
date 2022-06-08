@@ -22,5 +22,15 @@ const createUserClient = async (req: Request, res: Response) => {
    }
 }
 
+const deletUserClient = async (req: Request, res: Response) => {
+   const {IdUserClient} = req.params;
+   try{
+     await userClientModel.findOneAndDelete({IdUserClient})
+     res.send('Usuario eliminado correctamente')
+   } catch(err){
+      console.log(err)
+   }
+}
 
-module.exports = {createUserClient};
+
+module.exports = {createUserClient, deletUserClient};
