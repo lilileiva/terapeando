@@ -56,7 +56,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   }
 };
 
-const deleteUserPsychologist = async (req: Request, res: Response) => {
+ const deleteUserPsychologist =  async (req: Request, res: Response) => {
   const { idPsychologist } = req.params;
   try {
     await userPsychologistModel.findOneAndDelete({ idPsychologist });
