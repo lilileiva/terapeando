@@ -6,7 +6,7 @@ export class userClient {
     firstName: string
     @prop({ required: true, trim: true })
     lastName: string
-    @prop({ unique: true, required: true})
+    @prop({ required: true, trim: true })
     birthDate: string
     @prop({ required: true })
     country: string
