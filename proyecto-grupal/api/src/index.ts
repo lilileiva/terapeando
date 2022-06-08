@@ -5,8 +5,6 @@ import mongoose from 'mongoose'
 import express from 'express' // instale npm i @types/express -D como dependecia de desarrollo para que entienda modulos de express
 const routes = require('./routes/index.ts')
 
-
-
 // Database connection
 
 async function connectDB() {
