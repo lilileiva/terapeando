@@ -12,14 +12,14 @@ const router: Router = Router();
 router.post('/reviews', createReview)
 router.get('/reviews/:IdUserPsychologist', getReview)
 router.get('/payment/:IdUserPsychologist', getPaymentHistory)
-router.get('/userclient', getUserClient);
-router.post('/userclient/create', createUserClient)
-router.delete('/delete_userclient/:IdUserClient', deleteUserClient)
+router.get('/userclient/:IdUserClient', getUserClient);
+router.post('/userclient', createUserClient)
+router.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
 router.post('/schedule', createSchedule)
-router.get('/UserPsychologist/:IdUserPsychologist', getUserPsychologistOne);
-router.get('/UserPsychologist', getUserPsychologist);
-router.post('/UserPsychologist', postUserPsychologist);
-router.delete("/UserPsychologist", deleteUserPsychologist);
+router.get('/userpsychologist/:IdUserPsychologist', getUserPsychologistOne);
+router.get('/userpsychologist', getUserPsychologist);
+router.post('/userpsychologist', postUserPsychologist);
+router.delete('/deleteuserpsychologist/:IdUserPsychologist', deleteUserPsychologist);
 router.get('/posts',getAllPosts),
 router.post('/post',createPost)
 router.post('/appointment', postAppointmentModel);
