@@ -34,5 +34,5 @@ export class Schedule {
 
 }
 
-const scheduleModule = getModelForClass(Schedule);
-export default scheduleModule;
+const scheduleModel = getModelForClass(Schedule);
+export default scheduleModel;
