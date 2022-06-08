@@ -276,11 +276,11 @@ import {
       ],
     },
     {
-      label: 'Learn Design',
+      label: 'Psicologos',
       href: '#',
     },
     {
-      label: 'Hire Designers',
+      label: 'Blog',
       href: '#',
     },
   ];
