@@ -13,7 +13,6 @@ function App() {
         <Route exact path='/signup' element={<RegisterForm />} />
         <Route exact path='/post' element={<Post />} />
       </Routes>
-
     </div>
   );
 }
