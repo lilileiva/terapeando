@@ -26,10 +26,11 @@ const createUserClient = async (req: Request, res: Response) => {
 const deleteUserClient = async (req: Request, res: Response) => {
    const {IdUserClient} = req.params;
    try{
-     await userClientModel.findOneAndDelete({IdUserClient})
-     res.send('Usuario eliminado correctamente')
+     const userClient = await userClientModel.findOneAndDelete({IdUserClient});    
+     res.status(200).send('Usuario eliminado correctamente')
    } catch(err){
-      console.log(err)
+      console.log(err);
+      res.status(404).send('There was an error...');
    }
 }
 
@@ -37,8 +38,8 @@ const getUserClient = async (req: Request, res: Response) => {
    const { IdUserClient } = req.params
 
    try{
-      const userClient = await userClientModel.findById({IdUserClient});
-      res.status(201).json(userClient);
+      const userClient = await userClientModel.findById(IdUserClient);
+      res.status(200).json(userClient);
    }
    catch (err) {
       console.log(err);
