@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import scheduleModule from './models/Schedule'
+import userPsychologistModel from './models/userPsychologist'
+import userClientModel from './models/userClients'
 
 
 async function connectDB() {
@@ -11,26 +13,42 @@ connectDB()
 
 
 
-async function testQuery(){
-   const testschedule = new scheduleModule({
-      idUserPsychologist: '629f99e7de87372b776f79ed',
-      dateTime: [
-         {
-            monday: [10, 15, 20],
-            tuesday: [9, 11, 16],
-            wensday: [],
-            thursday: [],
-            friday: [15, 18, 19],
-            saturday: [],
-            sunday: [9],
-         }
-      ] 
-   })
-   await testschedule.save()
-}
-testQuery()
+// async function testQuery() {
 
-<<<<<<< HEAD
+
+   // const testUser = new userClientModel({
+   //    firstName: 'juana',
+   //    lastName: 'Goodman',
+   //    email: 'mail12@gmail.com',
+   //    password: '12345678b',
+   //    birthDate: '15/04/89',
+   //    country: 'US',
+   //    profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
+   //    appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
+   // })
+   // await testUser.save()
+
+   // const testUserPsychologist = new userPsychologistModel({
+   //    firstName: 'pedro',
+   //    lastName: 'Goodman',
+   //    email: 'mail2@gmail.com',
+   //    password: '12345678a',
+   //    birthDate: '15/04/89',
+   //    country: 'US',
+   //    DNI: '12123123',
+   //    License: 'License',
+   //    profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
+   //    appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
+   // })
+   // await testUserPsychologist.save()
+
+   // const user = await userClientModel.findById("629fe14d30a908292c6ef72b").populate(
+   //    "appointments"
+   // )
+   // console.log(user)
+
+// }
+
 async function testQuer(){
    const testUser =  new userClientModel({
       firstName: 'Walter',
@@ -44,20 +62,9 @@ async function testQuer(){
 } 
 
 testQuer()
-=======
-// async function testQuery(){
-//    const testUser =  new userClientModel({
-//       firstName: 'Saul',
-//          lastName: 'Goodman',
-//          email: 'Saul@gmail.com',
-//          password: 'asasdad',
-//          birthDate: '15/04/89',
-//          country: 'US'
-//    })
-//    await testUser.save()
-// } 
 
 // testQuery()
+
 
 /* async function testQuery(){
    const testAppointment = new appointmentModel({
@@ -68,20 +75,33 @@ testQuer()
       hour: '18:00',
       type: 'presencial'
    })
-   await testAppointment.save()
+   await testUser.save()
+
+   const testUserPsychologist = new userPsychologistModel({
+      firstName: 'pedro',
+      lastName: 'Goodman',
+      email: 'Saul@gmail.com',
+      password: '12345678',
+      birthDate: '15/04/89',
+      country: 'US',
+      DNI: '12123123',
+      License: 'License',
+      profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
+      appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
+   })
+   await testUserPsychologist.save()
 }
+
 testQuery() */
->>>>>>> de9500fefc7d53db788d5040e9219c521325a107
+
 
 // async function testQuery(){
 //    const testAppointment = new appointmentModel({
-//       client: '629eb20ef872d3554abc739c',
-//       psychologist: '629f97f5c767d20e0acad126',
-//       payment: '629f9ce6ee9896aabc5fbcd2',
-//       date: '07-06-2022',
+//       date: '11-06-2022',
 //       hour: '18:00',
 //       type: 'presencial'
 //    })
 //    await testAppointment.save()
 // }
 // testQuery()
+

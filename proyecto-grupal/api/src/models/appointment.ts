@@ -5,14 +5,14 @@ import { paymentHistory } from './paymentHistory';
 
 
 export class appointment {
-    @prop({ref: () => userClient})
-    client: Ref<userClient>
+    // @prop({ref: () => userClient})
+    // client: Ref<userClient>
 
-    @prop({ref: () => userPsychologist})
-    psicologist: Ref<userPsychologist>
+    // @prop({ref: () => userPsychologist})
+    // psicologist: Ref<userPsychologist>
 
-    @prop({ref: () => paymentHistory})
-    payment: Ref<paymentHistory>
+    // @prop({ref: () => paymentHistory})
+    // payment: Ref<paymentHistory>
 
     @prop({ type: String, required: true, trim: true})
     date: string
