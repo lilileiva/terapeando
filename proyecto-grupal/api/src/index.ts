@@ -14,7 +14,6 @@ async function connectDB() {
 connectDB()
 
 // server  inicializations
-
 const app = express() 
 app.set( 'port', process.env.PORT || 3000 )
 
@@ -34,61 +33,3 @@ app.use('/', routes)
 app.listen(app.get('port'), () => {
    console.log('server on port', app.get('port'))
 });
-
-
-
-// import userClientModel from './models/userClients'
-// async function testQuery() {
-
-   // const userClient = await userClientModel.findById("62a0b7a6a2f79f295c70cf7b");
-   // console.log(userClient)
-
-   // const testUser = new userClientModel({
-   //    firstName: 'juana',
-   //    lastName: 'Goodman',
-   //    email: 'mail123@gmail.com',
-   //    password: '12345678b',
-   //    birthDate: '05/04/89',
-   //    country: 'US',
-   //    profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
-   //    appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
-   // })
-   // await testUser.save()
-
-   // const testUserPsychologist = new userPsychologistModel({
-   //    firstName: 'pedro',
-   //    lastName: 'Goodman',
-   //    email: 'mail2@gmail.com',
-   //    password: '12345678a',
-   //    birthDate: '15/04/89',
-   //    country: 'US',
-   //    DNI: '12123123',
-   //    License: 'License',
-   //    profileImage: "https://wallpaperaccess.com/full/4595683.jpg",
-   //    appointments: ["629fccb8317c52ef8a029864", "629fcd138a1941e759e97ffb"]
-   // })
-   // await testUserPsychologist.save()
-
-   // const user = await userClientModel.findById("629fe14d30a908292c6ef72b").populate(
-   //    "appointments"
-   // )
-   // console.log(user)
-
-// }
-// testQuery()
-
-// async function testQuer(){
-//    const testUser =  new userClientModel({
-//       firstName: 'Walter',
-//          lastName: 'White',
-//          email: 'heisenberg@gmail.com',
-//          password: '1234',
-//          birthDate: '15/04/89',
-//          country: 'US'
-//    })
-//    await testUser.save()
-// } 
-
-// testQuer()
-
-

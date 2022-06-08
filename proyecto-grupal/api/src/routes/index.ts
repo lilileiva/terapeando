@@ -4,8 +4,9 @@ const {createSchedule} = require('./schedule/scheduleRoute')
 const {createReview , getReview } = require('../routes/reviews/reviews');
 const {getPaymentHistory} = require('./paymentHistory/paymentHistory.ts');
 const {createPost,getAllPosts} = require('./posts/posts');
+const {getUserPsychologistOne ,getUserPsychologist, postUserPsychologist} = require('./userPsychologist/userPsychologist');
 const router: Router = Router();
-//router.use('/userclient', userClient)
+
 
 router.post('/reviews', createReview)
 router.get('/reviews/:IdUserPsychologist', getReview)
@@ -14,6 +15,9 @@ router.get('/userclient', getUserClient);
 router.post('/userclient/create', createUserClient)
 router.delete('/userclient/:IdUserClient', deleteUserClient)
 router.post('/schedule', createSchedule)
+router.get('/UserPsychologist/:IdUserPsychologist', getUserPsychologistOne);
+router.get('/UserPsychologist', getUserPsychologist);
+router.post('/UserPsychologist', postUserPsychologist);
 router.get('/posts',getAllPosts),
 router.post('/post',createPost)
 
