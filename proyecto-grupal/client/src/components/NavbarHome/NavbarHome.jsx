@@ -90,13 +90,15 @@ import {
                  />
                </MenuButton>
                <MenuList>
-                 <Link to={'/:idUserClient'}>
+                 <Link to={'/home/:idUserClient'}>
                    <MenuItem>Mi Perfil</MenuItem>
                  </Link>
                  <Link to={'/editprofile/:idUserClient'}>
                  <MenuItem>Editar Perfil</MenuItem>
                  </Link>
+                 <Link to={'/preguntasfrecuentes'}>
                  <MenuItem>Ayuda</MenuItem>
+                 </Link>
                  <MenuDivider />
                  <MenuItem>Mis Pagos</MenuItem>
                </MenuList>

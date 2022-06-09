@@ -33,4 +33,5 @@ const createPost = (req:Request, res:Response, next:NextFunction) => {
         })
         .catch((error:error) => next(error))
 }
+
 module.exports ={createPost,getAllPosts}
