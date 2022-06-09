@@ -15,6 +15,11 @@ function rootReducer(state = initialState,action) {
                 ...state,
                 posts: action.payload
             }
+        case "SEARCH_POSTS_BY_TITLE":
+            return {
+                ...state,
+                posts: action.payload
+            }
         default:
            return{...state}
     }
