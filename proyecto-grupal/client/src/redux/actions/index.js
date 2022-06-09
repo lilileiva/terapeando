@@ -7,11 +7,11 @@ const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 export function fetchUserClient(){
    return function(dispatch){
-      axios.get(`/userclient`)
+      axios.get(`${baseURL}/userclient`)
       .then((client) => {
          dispatch({
             type: FETCH_USERCLIENT,
-            payload: client
+            payload: client.data
          })
       })
       .catch((err) => console.log(err))
@@ -34,7 +34,7 @@ export const getAllPosts = () => {
 export const searchPostsByTitle = (title) => {
     return async function (dispatch) {
         try {
-            let posts = await axios.get("http://localhost:3001/blog?title=" + title)
+            let posts = await axios.get(`${baseURL}/blog?title=` + title)
             return dispatch ({
                 type: "SEARCH_POSTS_BY_TITLE",
                 payload: posts.data
@@ -55,10 +55,13 @@ export const getPostOrder = (order,arreglo) => {
         dispatch({type:"ORDER_POSTS", payload:notas})
     }
 }
+
+////////////////// Post para los user Psychologist ///////////////////
+
 export const postPsychologist = async ({firstname, lastname, birthdate, country ,email,
                                  profileimage, license, dni, specialities, education,
-                                  password}) => {
-    return axios.post(`${LOCAL_HOST}/userpsychologist`,{
+                                  password,about}) => {
+    return axios.post(`${baseURL}/userpsychologist`,{
         firstName:firstname,
         lastName:lastname,
         email:email,
@@ -70,13 +73,26 @@ export const postPsychologist = async ({firstname, lastname, birthdate, country 
         Specialties:specialities,
         profileImage:profileimage,
         education:education,
+        about:about
 })
 .then(data => data)
-
 }
 
+/////// GET para obetener todos los psychologist ////////
+
+const getUserPsychologist = () => {
+    return function(dispatch) {
+        axios.get(`${baseURL}/`)
+    }
+}
+
+
+
+
+/////////       post para los userClient        /////////
+
 export const postUserClient = async ({firstName,lastName,email,password,birthDate,country, profileImage}) => {
-return axios.post(`${LOCAL_HOST}/userClient`,{
+return axios.post(`${baseURL}/userClient`,{
     firstName,
     lastName,
     email,
@@ -88,3 +104,4 @@ return axios.post(`${LOCAL_HOST}/userClient`,{
 .then(data => data)
 
 }
+
