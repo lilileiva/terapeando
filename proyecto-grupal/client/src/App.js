@@ -14,13 +14,11 @@ import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
 import Faqs from "./components/faqs/Faqs";
 
-
 export default function App() {
   return (
     <div className="App">
       <Footer />
       <Routes>
-      
         <Route path="/" element={< LandingPage />} />
         <Route path="/home" element={< Home />} />
         <Route exact path="/" element={< NavBar />} />

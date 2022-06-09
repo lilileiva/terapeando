@@ -1,9 +1,10 @@
-import {} from '@chakra-ui/react';
+import { } from '@chakra-ui/react';
 
 function LoadingPage(){
-    return {
-
-    }
+    return (
+        <div>
+        </div>
+    )
 }
 
 
