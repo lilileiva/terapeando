@@ -13,6 +13,8 @@ import Post from "./components/Post/Posts";
 import FormEditClient from "./components/FormEditClient/FormEditClient"
 import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
+import LoginForm from "./components/LoginForm/LoginForm";
+
 
 export default function App() {
   return (
@@ -23,6 +25,7 @@ export default function App() {
         <Route path="/home" element={< Home />} />
         <Route exact path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
+        <Route exact path='/signin' element={<LoginForm />} />
         <Route exact path="/detailPsychologist" element={<PsychologistDetail />} />
         <Route path="/" element={< NavBar />} />
         <Route exact path='/home/:idUserClient' element={<ClientDetails />} />
