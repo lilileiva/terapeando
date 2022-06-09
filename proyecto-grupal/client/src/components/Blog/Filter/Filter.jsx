@@ -9,7 +9,6 @@ export default function Filters(){
         console.log(e.target.value)
         dispatch(getPostOrder(e.target.value, posts))
     }
-    
     return(
         <Select placeholder='Ordenar por' onChange={handleSubmitOrder} cursor={"pointer"}>
           <option key={0}>Titulo de A-Z</option>

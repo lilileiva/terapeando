@@ -8,20 +8,29 @@ interface error{
 
 const getAllPosts = (req:Request, res:Response,next:NextFunction) => {
     //busco todos mis post en mi db
-    Post.find()
-        .populate("idUserPsychologist",{
-            firstName:1,
-            lastName:1,
-            email:1,
-            country:1,
-            License:1,
-            Specialties:1
-        })
-        .then((posts) => {
-            res.status(200).json(posts)
-        })
-        //si hay un error lo envio al siguiente
-        .catch((error:error) => next(error))
+    const {title} = req.query;
+    if(title){
+        Post.find({Title:{$regex : `.*${title}.*`}})
+            .then((posts) => {
+                res.status(200).json(posts)
+            })
+            .catch((error:error) => next(error))
+    }else{
+        Post.find()
+            .populate("idUserPsychologist",{
+                firstName:1,
+                lastName:1,
+                email:1,
+                country:1,
+                License:1,
+                Specialties:1
+            })
+            .then((posts) => {
+                res.status(200).json(posts)
+            })
+            //si hay un error lo envio al siguiente
+            .catch((error:error) => next(error))
+    }
 }
 const createPost = (req:Request, res:Response, next:NextFunction) => {
     const post = req.body;

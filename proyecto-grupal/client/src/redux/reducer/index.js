@@ -1,5 +1,11 @@
 const initialState = {
-    posts:[]
+    userPsichologistDetail:{},
+    usersPsichologists:[],
+    userClientDetail:{},
+    usersClients:[],
+    posts:[],
+    schedules:[],
+    schedule:{}
 }
 
 
@@ -12,6 +18,11 @@ function rootReducer(state = initialState,action) {
             }
         case "ORDER_POSTS":
             return{
+                ...state,
+                posts: action.payload
+            }
+        case "SEARCH_POSTS_BY_TITLE":
+            return {
                 ...state,
                 posts: action.payload
             }
