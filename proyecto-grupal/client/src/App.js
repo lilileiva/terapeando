@@ -31,6 +31,8 @@ export default function App() {
         <Route exact path="/preguntasfrecuentes" element={<Faqs />}/>
         <Route exact path='/blog' element={<Blog />} />
         <Route path="*" element={<NotFound/>} />
+        <Route exact path='/:idUserClient' element={<ClientDetails />} />
+        <Route path="/" element={< NavBar />} />
       </Routes>
       <Footer />
     </div>
