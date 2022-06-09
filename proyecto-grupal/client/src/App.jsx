@@ -10,7 +10,11 @@ import RegisterForm from "./components/RegisterForm/RegisterForm.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import PsychologistDetail from "./components/PsychologistDetail/PsychologistDetail";
 import Post from "./components/Post/Posts";
+import FormEditClient from "./components/FormEditClient/FormEditClient"
+import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
+import Faqs from "./components/faqs/Faqs";
+
 
 export default function App() {
   return (
@@ -19,13 +23,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={< LandingPage />} />
         <Route path="/home" element={< Home />} />
-        <Route path="/" element={< NavBar />} />
+        <Route exact path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
-        <Route exact path='/:idUserClient' element={<ClientDetails />} />
-        <Route path="/cardPsicologist" element={<CardPsychologist/>} />
         <Route exact path="/detailPsychologist" element={<PsychologistDetail />} />
         <Route path="/" element={< NavBar />} />
+        <Route exact path='/home/:idUserClient' element={<ClientDetails />} />
+        <Route path="/cardPsicologist" element={<CardPsychologist />} />
+        <Route exact path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route exact path='/post' element={<Post />} />
+        <Route path="/*" element={<NotFound/>} />
         <Route exact path='/blog' element={<Blog />} />
       </Routes>
     </div>
