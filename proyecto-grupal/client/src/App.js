@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
         <Route exact path='/:idUserClient' element={<ClientDetails />} />
-      <Route path="/cardPsicologist" element={<CardPsychologist/>} />
+        <Route path="/cardPsicologist" element={<CardPsychologist/>} />
         <Route path="/" element={< NavBar />} />
         <Route exact path='/post' element={<Post />} />
         <Route exact path='/blog' element={<Blog />} />

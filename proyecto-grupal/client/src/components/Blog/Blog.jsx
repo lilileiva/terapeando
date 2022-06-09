@@ -14,7 +14,7 @@ export default function Blog () {
             <h2>Secciones</h2>
             <section>
                 <li>
-                    <a href='/blog'>Todas las notas</a>
+                    
                 </li>
             </section>
         </div>
