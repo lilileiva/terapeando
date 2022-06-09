@@ -18,7 +18,7 @@ const createUserClient = async (req: Request, res: Response) => {
       res.status(201).send('User Created')
    }
    catch (err) {
-      console.log(err)
+      res.status(404).send('There was an error...');
    }
 }
 
@@ -28,7 +28,6 @@ const deleteUserClient = async (req: Request, res: Response) => {
      const userClientDelete = await userClientModel.findOneAndDelete({IdUserClient})
      res.send('Usuario eliminado correctamente')
    } catch(err){
-      console.log(err);
       res.status(404).send('There was an error...');
    }
 }
@@ -37,10 +36,9 @@ const putUserClient = async (req: Request, res: Response) => {
    const {IdUserClient} = req.params;
    try{
       const user = await userClientModel.findByIdAndUpdate(IdUserClient, req.body, {new:true})
-      console.log(user)
       res.status(200).send('Usuario editado correctamente')
    }catch(err){
-      console.log(err)
+      res.status(404).send('There was an error...');
    }
 }
 
@@ -52,7 +50,6 @@ const getUserClient = async (req: Request, res: Response) => {
       res.status(200).json(userClient);
    }
    catch (err) {
-      console.log(err);
       res.status(404).send('There was an error...');
    }
 };

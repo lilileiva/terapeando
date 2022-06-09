@@ -5,6 +5,7 @@ import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightEleme
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
 import { specialitiesList } from './specialities';
+import { BiX } from "react-icons/bi";
 
 
 function RegisterForm() {
@@ -37,7 +38,7 @@ function RegisterForm() {
         }
         if (signupForm.firstname && !(signupForm.firstname).match(/^[A-Za-z]+$/)) {
             errors.firstname = 'Inserte un nombre válido'
-        }        
+        }
         if (!signupForm.lastname) {
             errors.lastname = 'Inserte un apellido'
         }
@@ -101,8 +102,14 @@ function RegisterForm() {
     const handleSpecialities = (e) => {
         setSignupForm({
             ...signupForm,
-            specialities: [...signupForm.specialities.filter(s => s !== e.targe.value), e.target.value]
+            specialities: [...signupForm.specialities.filter(s => s !== e.target.value), e.target.value]
         })
+    }
+    function handleSpecialitiesDelete(speciality) {
+        setSignupForm({
+            ...signupForm,
+            specialities: signupForm.specialities.filter(s => s !== speciality)
+        });
     }
 
     const [isSubmit, setIsSubmit] = useState(false)
@@ -190,7 +197,14 @@ function RegisterForm() {
                                             {formErrors.specialities && <Text fontSize='sm' color='teal.500'>{formErrors.specialities}</Text>}
 
                                             <ul>
-                                                {signupForm.specialities ? signupForm.specialities.map(e => <li>e</li>) : null}
+                                                {signupForm.specialities ? signupForm.specialities.map((e) => (
+                                                    <Stack direction='row' margin='0.2em' center>
+                                                        <Text fontSize='md' color='teal.700'>{e}</Text>
+                                                        <BiX onClick={() => handleSpecialitiesDelete(e)} className='iconX' />
+                                                    </Stack>
+                                                ))
+                                                    : null
+                                                }
                                             </ul>
 
                                             <Input name='license' variant='flushed' placeholder=' Matrícula' bg='white' marginTop='2em' onChange={handleInputChange} />
