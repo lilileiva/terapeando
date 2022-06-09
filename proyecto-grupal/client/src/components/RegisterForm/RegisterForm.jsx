@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './RegisterForm.css';
-import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement } from '@chakra-ui/react';
-import { FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
+import { FaGoogle } from "react-icons/fa";
+import countryList from 'react-select-country-list';
+import { specialities } from './specialities';
 
 
 function RegisterForm() {
+    const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -47,16 +50,32 @@ function RegisterForm() {
                             <Input variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' marginBottom='2em' />
                             <Input variant='flushed' placeholder=' Apellido' bg='white' marginBottom='2em' />
                             <Input variant='flushed' placeholder=' Email' bg='white' marginBottom='2em' />
+                            <Input type='date' variant='flushed' placeholder=' Email' color='gray.500' bg='white' marginBottom='2em' />
+                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginBottom='2em'>
+                                {
+                                    countries.map(c => (
+                                        <option value='option1'>{c.label}</option>
+                                    ))
+                                }
+                            </Select>
                             {
                                 !userClientBtn
                                     ? (
                                         <>
+                                            <Select variant='flushed' placeholder=' Especialidades' color='gray.500' bg='white' marginBottom='2em'>
+                                                {
+                                                    specialities.map(e => (
+                                                        <option value='option1'>{e}</option>
+                                                    ))
+                                                }
+                                            </Select>
                                             <Input variant='flushed' placeholder=' Matrícula' bg='white' marginBottom='2em' />
                                             <Input variant='flushed' placeholder=' D.N.I.' bg='white' marginBottom='2em' />
                                         </>
                                     )
                                     : null
                             }
+                            <Input variant='flushed' placeholder=' Profile image link' bg='white' marginBottom='2em' />
                             <InputGroup variant='flushed' size='md' bg='white' marginBottom='2em' >
                                 <Input
                                     pr='4.5rem'
@@ -85,13 +104,17 @@ function RegisterForm() {
 
                             <Stack direction='column' align='center'>
                                 <Link to='/home'>
-                                <Button colorScheme='teal' variant='solid'>
-                                    Registrarse
-                                </Button>
+                                    <Button colorScheme='teal' variant='solid'>
+                                        Registrarse
+                                    </Button>
                                 </Link>
-                                <Button bg='green.100' color='teal.500' >
-                                    Registrate con &nbsp; <FaGoogle />
-                                </Button>
+                                {
+                                    userClientBtn
+                                        ? <Button bg='green.100' color='teal.500' >
+                                            Registrate con &nbsp; <FaGoogle />
+                                        </Button>
+                                        : null
+                                }
                                 <Button bg='green.100' color='teal.700' >
                                     ¿Ya tienes una cuenta?
                                 </Button>
