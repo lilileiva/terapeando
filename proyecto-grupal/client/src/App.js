@@ -5,7 +5,6 @@ import ClientDetails from './components/ClientDetails/ClientDetails';
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import RegisterForm from './components/RegisterForm/RegisterForm';
 import Post from './components/Post/Posts.jsx'
 import CardPsychologist from './components/CardPsychologist/CardPsychologist';
 import Footer from "./components/Footer/Footer.jsx";
