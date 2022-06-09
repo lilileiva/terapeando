@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 import {
     Box,
     Flex,
@@ -9,12 +9,11 @@ import {
     Stack,
     Collapse,
     Icon,
-    Link,
     Popover,
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
+    Image,
     useDisclosure,
   } from '@chakra-ui/react';
   import {
@@ -23,6 +22,7 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
   } from '@chakra-ui/icons';
+import img from '../../assets/logo-01.png'
   
   export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
@@ -53,13 +53,7 @@ import {
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-            <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}>
-              Logo
-            </Text>
-  
+          <Image src={img} alt='portal psico' w={'50px'}/>  
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
             </Flex>
@@ -70,26 +64,31 @@ import {
             justify={'flex-end'}
             direction={'row'}
             spacing={6}>
-            <Button
+              
+              <Button
               as={'a'}
               fontSize={'sm'}
               fontWeight={400}
               variant={'link'}
-              href={'#'}>
-              Sign In
-            </Button>
+              href={'#'}
+              >
+              Sign Up
+              </Button>
+              
+              <Link to='/signup'>
             <Button
               display={{ base: 'none', md: 'inline-flex' }}
               fontSize={'sm'}
               fontWeight={600}
               color={'white'}
-              bg={'pink.400'}
+              bg={'green.300'}
               href={'#'}
               _hover={{
-                bg: 'pink.300',
+                bg: 'green.200',
               }}>
-              Sign Up
+              Sign In
             </Button>
+            </Link>
           </Stack>
         </Flex>
   
@@ -111,7 +110,7 @@ import {
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
-                <Link
+                <Text
                   p={2}
                   href={navItem.href ?? '#'}
                   fontSize={'sm'}
@@ -122,7 +121,7 @@ import {
                     color: linkHoverColor,
                   }}>
                   {navItem.label}
-                </Link>
+                </Text>
               </PopoverTrigger>
   
               {navItem.children && (
@@ -149,7 +148,7 @@ import {
   
   const DesktopSubNav = ({ label, href, subLabel }) => {
     return (
-      <Link
+      <Stack
         href={href}
         role={'group'}
         display={'block'}
@@ -177,7 +176,7 @@ import {
             <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </Stack>
-      </Link>
+      </Stack>
     );
   };
   
@@ -201,7 +200,6 @@ import {
       <Stack spacing={4} onClick={children && onToggle}>
         <Flex
           py={2}
-          as={Link}
           href={href ?? '#'}
           justify={'space-between'}
           align={'center'}
@@ -234,9 +232,9 @@ import {
             align={'start'}>
             {children &&
               children.map((child) => (
-                <Link key={child.label} py={2} href={child.href}>
+                <Text key={child.label} py={2} href={child.href}>
                   {child.label}
-                </Link>
+                </Text>
               ))}
           </Stack>
         </Collapse>
@@ -246,31 +244,14 @@ import {
   
   const NAV_ITEMS = [
     {
-      label: 'Inspiration',
+      label: 'Preguntas Frecuentes',
       children: [
         {
-          label: 'Explore Design Work',
-          subLabel: 'Trending Design to inspire you',
+          label: 'Precios',
           href: '#',
         },
         {
-          label: 'New & Noteworthy',
-          subLabel: 'Up-and-coming Designers',
-          href: '#',
-        },
-      ],
-    },
-    {
-      label: 'Find Work',
-      children: [
-        {
-          label: 'Job Board',
-          subLabel: 'Find your dream design job',
-          href: '#',
-        },
-        {
-          label: 'Freelance Projects',
-          subLabel: 'An exclusive list for contract work',
+          label: 'Términos y Condiciones',
           href: '#',
         },
       ],
