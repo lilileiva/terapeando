@@ -36,6 +36,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       DNI,
       Specialties,
       profileImage,
+      education,
     } = req.body;
     const userP =  await userPsychologistModel.create({
       firstName,
@@ -51,7 +52,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       rating: 0,
       appointments:[],
       about: '',
-      education: ''
+      education,
     });
     res.status(201).send(userP);
   } catch (error) {

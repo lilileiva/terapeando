@@ -40,18 +40,21 @@ export const getPostOrder = (order,arreglo) => {
         dispatch({type:"ORDER_POSTS", payload:notas})
     }
 }
-const putPsychologist = async () => {
+const putPsychologist = async ({firstname, lastname, birthdate, country ,email,
+                                 profileimage, license, dni, specialities, education,
+                                  password}) => {
     return axios.post(`${LOCAL_HOST}/userpsychologist`,{
-        firstName,
-        lastName,
-        email,
-        password,
-        birthDate,
-        country,
-        License,
-        DNI,
-        Specialties,
-        profileImage,
+        firstName:firstname,
+        lastName:lastname,
+        email:email,
+        password:password,
+        birthDate:birthdate,
+        country:country,
+        License:license,
+        DNI:dni,
+        Specialties:specialities,
+        profileImage:profileimage,
+        education:education,
 })
 .then(data => data)
 
