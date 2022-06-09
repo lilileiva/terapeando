@@ -1,5 +1,11 @@
 const initialState = {
-    posts:[]
+    userPsichologistDetail:{},
+    usersPsichologists:[],
+    userClientDetail:{},
+    usersClients:[],
+    posts:[],
+    schedules:[],
+    schedule:{}
 }
 
 

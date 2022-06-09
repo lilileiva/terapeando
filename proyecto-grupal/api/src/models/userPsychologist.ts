@@ -12,7 +12,7 @@ export class userPsychologist {
     email: string
     @prop({ required: true, minlength:8 })
     password: string
-    @prop({ required: true })
+    @prop({ required: true})
     birthDate: string
     @prop({  required: true })
     country: string
