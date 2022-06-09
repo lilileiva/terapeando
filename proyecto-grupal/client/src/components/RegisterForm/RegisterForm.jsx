@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import './RegisterForm.css';
+import { Link } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
@@ -8,7 +9,6 @@ import { specialities } from './specialities';
 
 function RegisterForm() {
     const countries = useMemo(() => countryList().getData(), [])
-    console.log(specialities)
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -104,9 +104,10 @@ function RegisterForm() {
 
                             <Stack direction='column' align='center'>
                                 <Link to='/home'>
-                                <Button colorScheme='teal' variant='solid'>
-                                    Registrarse
-                                </Button>
+                                    <Button colorScheme='teal' variant='solid'>
+                                        Registrarse
+                                    </Button>
+                                </Link>
                                 {
                                     userClientBtn
                                         ? <Button bg='green.100' color='teal.500' >
