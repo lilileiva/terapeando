@@ -1,5 +1,6 @@
 import React from "react";
 import img from '../../assets/logo-01.png'
+
 import {
   Box,
   chakra,
@@ -57,6 +58,7 @@ export default function SmallWithLogoLeft() {
       >
         <Image src={img} w={'50px'}/>
         <Text>© 2022 Portal Psico. All rights reserved</Text>
+
         <Stack direction={"row"} spacing={6}>
           <SocialButton label={"Twitter"} href={"#"}>
             <FaTwitter />
