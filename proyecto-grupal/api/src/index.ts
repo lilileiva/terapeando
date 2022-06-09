@@ -12,7 +12,6 @@ async function connectDB() {
 }
 
 connectDB()
-
 // server  inicializations
 const app = express() 
 app.set( 'port', process.env.PORT || 3001 )
@@ -23,7 +22,6 @@ app.use(express.json()); // para que entienda el formato json
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.urlencoded({extended:false}))
-
 // routes
 
 app.use('/', routes)
