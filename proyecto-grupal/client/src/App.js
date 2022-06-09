@@ -5,12 +5,14 @@ import ClientDetails from './components/ClientDetails/ClientDetails';
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import RegisterForm from './components/RegisterForm/RegisterForm';
 import Post from './components/Post/Posts.jsx'
-import CardPsychologist from './components/CardPsychologist/CardPsychologist';
+import CardPsychologist from './components/CardPsychologist/CardPsychologist.jsx';
+import RegisterForm from "./components/RegisterForm/RegisterForm.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import FormEditClient from "./components/FormEditClient/FormEditClient"
 import NotFound from "./components/404notFound/notFound";
+import Blog from "./components/Blog/Blog.jsx";
+
 
 export default function App() {
   return (
@@ -28,8 +30,9 @@ export default function App() {
         <Route path="/" element={< NavBar />} />
         <Route exact path='/post' element={<Post />} />
         <Route path="/*" element={<NotFound/>} />
-        
+        <Route exact path='/blog' element={<Blog />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
