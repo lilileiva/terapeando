@@ -16,6 +16,11 @@ function rootReducer(state = initialState,action) {
                 ...state,
                 posts: action.payload
             }
+        case "ORDER_POSTS":
+            return{
+                ...state,
+                posts: action.payload
+            }
         default:
            return{...state}
     }

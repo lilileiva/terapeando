@@ -36,7 +36,6 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       DNI,
       Specialties,
       profileImage,
-      about
     } = req.body;
     const userP =  await userPsychologistModel.create({
       firstName,
@@ -46,12 +45,13 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       birthDate,
       country,
       License,
-      about,
       DNI,
       Specialties,
       profileImage,
       rating: 0,
-      appointments:[]
+      appointments:[],
+      about: '',
+      education: ''
     });
     res.status(201).send(userP);
   } catch (error) {
@@ -77,7 +77,10 @@ try{
 /// aqui requiero los datos que considero que pueden ser cambiados
 // SI O SI ES NECESARIO LA ID DEL PSYCOLOGO, sino no se realizaran los cambios
   const { email, password, country, 
-    Specialties, profileImage, rating , idPsychologist, about } = req.body;
+    Specialties, profileImage, rating ,
+     newaAbout, newEducation  } = req.body;
+
+  const { idPsychologist } = req.params;
 
 //// creo un switch para saber si hubo algun cambio para despues notificar al front
     let switchPut: Boolean = false;
@@ -85,51 +88,59 @@ try{
 /// aqui hago lo mismo, verifico si los datos obtenidos contienen informacion para luego realizar el cambio,
 /// y si se realiza algun cambio el switchPut pasaria de false a true
     if(email){
-    const emailUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+    const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
       $set:{
         email: email
       }
     })
     switchPut = true;
     } if(password) {
-      const passwordUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
         $set:{
           password: password
         }
       })
       switchPut = true;
     } if(country) {
-      const countryUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
         $set:{
           country: country
         }
       })
       switchPut = true;
     } if (Specialties) {
-      const SpecialtiesUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
         $set:{
           Specialties: Specialties
         }
       })
     } if (profileImage){
-      const profileImageUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
         $set:{
           profileImage: profileImage
         }
       })
       switchPut = true;
     } if (rating){
-      const emailUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
         $set:{
           rating: rating
         }
       })
       switchPut = true;
     }
-    if(about){
-      const aboutUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+    if(newaAbout){
+      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
       $set:{
-        about: about
+        about: newaAbout
+      }
+    })
+    switchPut = true;
+  }
+  if(newEducation){
+    const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      $set:{
+        education: newEducation
       }
     })
     switchPut = true;
@@ -149,7 +160,6 @@ try{
  res.status(404).json({error: err})
 }
 }
-
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,

@@ -13,16 +13,14 @@ const router: Router = Router();
 router.post('/reviews', createReview)
 router.get('/reviews/:IdUserPsychologist', getReview)
 router.get('/payment/:IdUserPsychologist', getPaymentHistory)
-router.post('/userclient', createUserClient)
-router.delete('/userclient/:IdUserClient', deleteUserClient)
 router.put('/userclient/:IdUserClient', putUserClient)
 router.post('/schedule', createSchedule)
 router.get('/schedule/:idUserPsychologist', getSchedule)
 router.get('/userclient/:IdUserClient', getUserClient);
 router.post('/userclient/create', createUserClient)
-router.delete('/userclient/:IdUserClient', deleteUserClient)
-router.post('/schedule', createSchedule)
+router.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
 router.get('/userpsychologist/:IdUserPsychologist', getUserPsychologistOne);
+router.put('/userpsychologist/:IdUserPsychologist', putUserPsychologist);
 router.get('/userpsychologist', getUserPsychologist);
 router.post('/userpsychologist', postUserPsychologist);
 router.put('/put_userpsychologist',putUserPsychologist)

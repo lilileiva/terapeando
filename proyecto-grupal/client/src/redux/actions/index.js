@@ -30,3 +30,13 @@ export const getAllPosts = () => {
         }
     }
 }
+export const getPostOrder = (order,arreglo) => {
+    return function(dispatch){
+        //me traigo el arreglo de las posts
+        const notas = arreglo.slice()
+        //empiezo a ordenar con short
+        if(order === "Titulo de A-Z") notas.sort((a,b) => (a.Title > b.Title) ? 1 : -1)
+        if(order === "Titulo de Z-A") notas.sort((a,b) => (a.Title > b.Title) ? -1 : 1)
+        dispatch({type:"ORDER_POSTS", payload:notas})
+    }
+}
