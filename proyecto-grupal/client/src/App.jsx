@@ -14,7 +14,6 @@ import FormEditClient from "./components/FormEditClient/FormEditClient"
 import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
 
-
 export default function App() {
   return (
     <div className="App">
