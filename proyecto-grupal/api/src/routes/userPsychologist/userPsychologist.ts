@@ -21,6 +21,7 @@ const getUserPsychologist = async (req: Request, res: Response) => {
     res.status(404).json({ data: err })
   }
 }
+////Post/////
 
 const postUserPsychologist = async (req: Request, res: Response) => {
   try {
@@ -56,6 +57,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
     res.status(404).send(error);
   }
 };
+///// Delete /////
 
  const deleteUserPsychologist =  async (req: Request, res: Response) => {
   const { idPsychologist } = req.params;
@@ -67,9 +69,82 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   }
 };
 
+////PUT////
+
+const putUserPsychologist = async (req: Request, res: Response) => {
+try{
+/// aqui requiero los datos que considero que pueden ser cambiados
+// SI O SI ES NECESARIO LA ID DEL PSYCOLOGO, sino no se realizaran los cambios
+  const { email, password, country, 
+    Specialties, profileImage, rating , idPsychologist } = req.body;
+
+//// creo un switch para saber si hubo algun cambio para despues notificar al front
+    let switchPut: Boolean = false;
+
+/// aqui hago lo mismo, verifico si los datos obtenidos contienen informacion para luego realizar el cambio,
+/// y si se realiza algun cambio el switchPut pasaria de false a true
+    if(email){
+    const emailUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      $set:{
+        email: email
+      }
+    })
+    switchPut = true;
+    } if(password) {
+      const passwordUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+        $set:{
+          password: password
+        }
+      })
+      switchPut = true;
+    } if(country) {
+      const countryUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+        $set:{
+          country: country
+        }
+      })
+      switchPut = true;
+    } if (Specialties) {
+      const SpecialtiesUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+        $set:{
+          Specialties: Specialties
+        }
+      })
+    } if (profileImage){
+      const profileImageUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+        $set:{
+          profileImage: profileImage
+        }
+      })
+      switchPut = true;
+    } if (rating){
+      const emailUpdateUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+        $set:{
+          rating: rating
+        }
+      })
+      switchPut = true;
+    }
+
+  /// aqui verifico si se hizo algun cambio para notificar al front
+  /// en caso de que no se haya echo algun cambio entraria al else y lo notificaria
+     if(switchPut){
+      res.status(201).send("the data was successfully modified")
+    }else{
+      res.status(404).send("data is missing to be able to modify your profile")
+    }
+
+/// el catch esta para verificar si ocurre algun error durante la ejecucion del codigo
+}catch(err){
+
+ res.status(404).json({error: err})
+}
+}
+
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,
   postUserPsychologist,
-  deleteUserPsychologist
+  deleteUserPsychologist,
+  putUserPsychologist,
 }
