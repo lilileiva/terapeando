@@ -55,3 +55,36 @@ export const getPostOrder = (order,arreglo) => {
         dispatch({type:"ORDER_POSTS", payload:notas})
     }
 }
+export const postPsychologist = async ({firstname, lastname, birthdate, country ,email,
+                                 profileimage, license, dni, specialities, education,
+                                  password}) => {
+    return axios.post(`${LOCAL_HOST}/userpsychologist`,{
+        firstName:firstname,
+        lastName:lastname,
+        email:email,
+        password:password,
+        birthDate:birthdate,
+        country:country,
+        License:license,
+        DNI:dni,
+        Specialties:specialities,
+        profileImage:profileimage,
+        education:education,
+})
+.then(data => data)
+
+}
+
+export const postUserClient = async ({firstName,lastName,email,password,birthDate,country, profileImage}) => {
+return axios.post(`${LOCAL_HOST}/userClient`,{
+    firstName,
+    lastName,
+    email,
+    password,
+    birthDate,
+    country,
+    profileImage
+})
+.then(data => data)
+
+}
