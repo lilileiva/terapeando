@@ -12,6 +12,18 @@ const createSchedule = async (req: Request, res: Response) => {
    }
 }
 
+const getSchedule = async (req: Request, res: Response) => {
+   const { idUserPsychologist } = req.params
+   try{
+      const schedule = await scheduleModel.findOne({idUserPsychologist});
+      console.log(schedule)
+      res.status(200).json(schedule)
+   }catch(err){
+      console.log(err)
+   }
+}
+
 module.exports = {
-   createSchedule
+   createSchedule,
+   getSchedule
 }
