@@ -28,7 +28,6 @@ const deleteUserClient = async (req: Request, res: Response) => {
      const userClientDelete = await userClientModel.findOneAndDelete({IdUserClient})
      res.send('Usuario eliminado correctamente')
    } catch(err){
-      console.log(err);
       res.status(404).send('There was an error...');
    }
 }
