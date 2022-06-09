@@ -21,7 +21,6 @@ import {
  const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
  
  const NavLink = ({ children }) => (
-   <Link to="#">
      <Text
        px={2}
        py={1}
@@ -33,7 +32,6 @@ import {
      >
        {children}
      </Text>
-   </Link>
  );
  
  export default function NavbarHome() {
@@ -95,7 +93,9 @@ import {
                  <Link to={'/:idUserClient'}>
                    <MenuItem>Mi Perfil</MenuItem>
                  </Link>
+                 <Link to={'/editprofile/:idUserClient'}>
                  <MenuItem>Editar Perfil</MenuItem>
+                 </Link>
                  <MenuItem>Ayuda</MenuItem>
                  <MenuDivider />
                  <MenuItem>Mis Pagos</MenuItem>
