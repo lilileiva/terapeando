@@ -77,7 +77,7 @@ try{
 /// aqui requiero los datos que considero que pueden ser cambiados
 // SI O SI ES NECESARIO LA ID DEL PSYCOLOGO, sino no se realizaran los cambios
   const { email, password, country, 
-    Specialties, profileImage, rating , idPsychologist } = req.body;
+    Specialties, profileImage, rating , idPsychologist, about } = req.body;
 
 //// creo un switch para saber si hubo algun cambio para despues notificar al front
     let switchPut: Boolean = false;
@@ -119,13 +119,21 @@ try{
       })
       switchPut = true;
     } if (rating){
-      const emailUpdateUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      const emailUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
         $set:{
           rating: rating
         }
       })
       switchPut = true;
     }
+    if(about){
+      const aboutUpdate =  await userPsychologistModel.updateOne({id_: idPsychologist},{
+      $set:{
+        about: about
+      }
+    })
+    switchPut = true;
+  }
 
   /// aqui verifico si se hizo algun cambio para notificar al front
   /// en caso de que no se haya echo algun cambio entraria al else y lo notificaria
