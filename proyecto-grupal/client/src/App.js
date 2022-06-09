@@ -14,8 +14,9 @@ import Blog from "./components/Blog/Blog.jsx";
 export default function App() {
   return (
     <div className="App">
+      <Footer />
       <Routes>
-        <Route path="/"  element={< LandingPage />}/>
+        <Route path="/" element={< LandingPage />} />
         <Route path="/home" element={< Home />} />
         <Route path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
