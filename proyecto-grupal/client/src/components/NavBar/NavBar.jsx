@@ -110,9 +110,9 @@ import img from '../../assets/logo-01.png'
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
+                <Link to={`${navItem.href}`}>
                 <Text
                   p={2}
-                  href={navItem.href ?? '#'}
                   fontSize={'sm'}
                   fontWeight={500}
                   color={linkColor}
@@ -122,6 +122,7 @@ import img from '../../assets/logo-01.png'
                   }}>
                   {navItem.label}
                 </Text>
+                </Link>
               </PopoverTrigger>
   
               {navItem.children && (
@@ -154,15 +155,17 @@ import img from '../../assets/logo-01.png'
         display={'block'}
         p={2}
         rounded={'md'}
-        _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+        _hover={{ bg: useColorModeValue('green.50', 'gray.900') }}>
         <Stack direction={'row'} align={'center'}>
           <Box>
+            <Link to={`${href}`}>
             <Text
               transition={'all .3s ease'}
-              _groupHover={{ color: 'pink.400' }}
+              _groupHover={{ color: 'green.300' }}
               fontWeight={500}>
               {label}
             </Text>
+            </Link>
             <Text fontSize={'sm'}>{subLabel}</Text>
           </Box>
           <Flex
@@ -173,7 +176,7 @@ import img from '../../assets/logo-01.png'
             justify={'flex-end'}
             align={'center'}
             flex={1}>
-            <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+            <Icon color={'green.300'} w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </Stack>
       </Stack>
@@ -245,23 +248,24 @@ import img from '../../assets/logo-01.png'
   const NAV_ITEMS = [
     {
       label: 'Preguntas Frecuentes',
+      href: 'preguntasfrecuentes',
       children: [
         {
           label: 'Precios',
-          href: '#',
+          href: 'precios',
         },
         {
           label: 'Términos y Condiciones',
-          href: '#',
+          href: 'terminosycondiciones',
         },
       ],
     },
     {
       label: 'Psicologos',
-      href: '#',
+      href: 'psicologos',
     },
     {
       label: 'Blog',
-      href: '#',
+      href: 'blog',
     },
   ];

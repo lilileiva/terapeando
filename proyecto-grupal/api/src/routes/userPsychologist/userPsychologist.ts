@@ -35,6 +35,8 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       DNI,
       Specialties,
       profileImage,
+      about,
+      education,
     } = req.body;
     const userP = new userPsychologistModel({
       firstName,
@@ -48,7 +50,9 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       Specialties,
       profileImage,
       rating: 0,
-      appointments:[]
+      appointments:[],
+      about,
+      education,
     });
     await userP.save();
     res.status(201).send(userP);
@@ -67,9 +71,21 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   }
 };
 
+const putUserPsychologist = async (req: Request, res: Response) => {
+  const { idPsychologist } = req.params;
+  const {newaAbout, newEducation} = req.body
+  try {
+    const Updated= await userPsychologistModel.findByIdAndUpdate(idPsychologist, {about: newaAbout, education:newEducation}, {new: true})
+    res.send(Updated);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+}
+
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,
   postUserPsychologist,
-  deleteUserPsychologist
+  deleteUserPsychologist,
+  putUserPsychologist
 }

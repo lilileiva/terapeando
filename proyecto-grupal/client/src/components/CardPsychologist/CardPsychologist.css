@@ -1,3 +1,24 @@
+.container {
+    width: 90%;
+    height: 280px;
+    display: inline-block;
+    position: relative;
+    margin-Top: 15px;
+    top: 150px;
+
+}
+
+.ProfileBox {
+    width: 270px;
+    height: 100%
+}
+
+.avatar {
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
 .about {
     width: 100%;
     position: relative;
@@ -5,6 +26,19 @@
     padding-right: 15px;
 }
 
+.containerCenter {
+    width: 650px;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    border-right: 1px solid;
+    border-color: rgba(207, 207, 207, 0.822);
+
+}
 
 
 .Badge {
@@ -18,9 +52,46 @@
     top: 20px
 }
 
-.verPerfil{
+.profile {
     display: flex;
     position: relative;
     top: 90px
-    
+}
+
+.containerBottom {
+    width: 290px;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.iconCard {
+    position: absolute;
+    top: 0;
+    bottom: 140px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    box-sizing: 70px;
+}
+
+.textcalendar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 120px;
+    font-size: 15px;
+    width: 80%;
+}
+
+.appointmentButton{
+    position: relative;
+    margin: auto;
+    top: 180px;
+    width: 150px;
+    color: rgb(247, 247, 247);
 }
