@@ -103,6 +103,7 @@ function RegisterForm() {
                             </InputGroup>
 
                             <Stack direction='column' align='center'>
+                                <Link to='/home'>
                                 <Button colorScheme='teal' variant='solid'>
                                     Registrarse
                                 </Button>
