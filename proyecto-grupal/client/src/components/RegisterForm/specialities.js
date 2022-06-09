@@ -1,4 +1,4 @@
-export const specialities = [
+export const specialitiesList = [
     'Psicología cognitiva',
     'Psicología clínica',
     'Neuropsicología',
