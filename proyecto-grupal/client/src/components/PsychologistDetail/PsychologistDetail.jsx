@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Img, Text, useColorMode } from "@chakra-ui/react";
+import { Box, ColorModeProvider, Divider, Flex, Img, Text, useColorMode } from "@chakra-ui/react";
 import React from "react";
 
 export default function PsychologistDetail() {
@@ -6,6 +6,7 @@ export default function PsychologistDetail() {
   const bgColor = { light: "gray.100", dark: "gray.700" };
   return (
     <div>
+      <ColorModeProvider>
          <Flex
         maxW="1000px"
         w={["90vw", "90vw", "90vw", "70vw"]}
@@ -15,13 +16,13 @@ export default function PsychologistDetail() {
         boxShadow="md"
         rounded="lg"
         p="4"
-      >
+        >
         <Flex align="center" mx="2">
           <Img
             height="78px"
             width="62px"
             src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+            />
           <Box mx="4">
             <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
               Specialties:
@@ -37,7 +38,7 @@ export default function PsychologistDetail() {
             height="150px"
             width="150px"
             src="https://images.pexels.com/photos/4101164/pexels-photo-4101164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+            />
         </Flex>
         <Divider orientation="vertical" borderColor="gray.300" my="2" />
         <Flex align="center" mx="2">
@@ -45,7 +46,7 @@ export default function PsychologistDetail() {
             height="78px"
             width="62px"
             src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+            />
           <Box mx="4">
             <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
               Rating{" "}
@@ -66,13 +67,13 @@ export default function PsychologistDetail() {
         boxShadow="md"
         rounded="lg"
         p="4"
-      >
+        >
         <Flex align="center" mx="2">
           <Img
             height="78px"
             width="62px"
             src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+            />
           <Box mx="4">
             <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
               Name
@@ -88,13 +89,13 @@ export default function PsychologistDetail() {
             height="78px"
             width="62px"
             src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+            />
           <Box mx="4">
             <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
-              email
+              About
             </Text>
             <Text as="h3" fontSize="lg" fontWeight="light">
-              Perenganito@gmail.com
+             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, accusamus dolore. Totam fuga similique ipsa odio numquam, id laboriosam, tempora nobis officia culpa rerum quae molestias modi libero error iste.
             </Text>
           </Box>
         </Flex>
@@ -104,7 +105,7 @@ export default function PsychologistDetail() {
             height="78px"
             width="62px"
             src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+            />
           <Box mx="4">
             <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
               Country
@@ -120,7 +121,7 @@ export default function PsychologistDetail() {
             height="78px"
             width="62px"
             src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+            />
           <Box mx="4">
             <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
               License
@@ -131,6 +132,7 @@ export default function PsychologistDetail() {
           </Box>
         </Flex>
       </Flex>
+            </ColorModeProvider>
     </div>
   );
 }
