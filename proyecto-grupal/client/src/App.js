@@ -5,7 +5,6 @@ import ClientDetails from './components/ClientDetails/ClientDetails';
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import Post from './components/Post/Posts.jsx'
 import CardPsychologist from './components/CardPsychologist/CardPsychologist.jsx';
 import RegisterForm from "./components/RegisterForm/RegisterForm.jsx";
 import Footer from "./components/Footer/Footer.jsx";
@@ -23,7 +22,6 @@ export default function App() {
         <Route exact path='/:idUserClient' element={<ClientDetails />} />
         <Route path="/cardPsicologist" element={<CardPsychologist/>} />
         <Route path="/" element={< NavBar />} />
-        <Route exact path='/post' element={<Post />} />
         <Route exact path='/blog' element={<Blog />} />
       </Routes>
       <Footer />
