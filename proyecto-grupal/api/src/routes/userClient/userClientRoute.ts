@@ -33,6 +33,17 @@ const deleteUserClient = async (req: Request, res: Response) => {
    }
 }
 
+const putUserClient = async (req: Request, res: Response) => {
+   const {IdUserClient} = req.params;
+   try{
+      const user = await userClientModel.findByIdAndUpdate(IdUserClient, req.body, {new:true})
+      console.log(user)
+      res.status(200).send('Usuario editado correctamente')
+   }catch(err){
+      console.log(err)
+   }
+}
+
 const getUserClient = async (req: Request, res: Response) => {
    const { IdUserClient } = req.params
 
@@ -50,5 +61,6 @@ const getUserClient = async (req: Request, res: Response) => {
 module.exports = {
    getUserClient,
    createUserClient,
-   deleteUserClient
+   deleteUserClient,
+   putUserClient
 };

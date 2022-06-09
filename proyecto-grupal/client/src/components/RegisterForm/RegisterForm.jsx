@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './RegisterForm.css';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 function RegisterForm() {
@@ -83,9 +84,11 @@ function RegisterForm() {
                             </InputGroup>
 
                             <Stack direction='column' align='center'>
+                                <Link to='/home'>
                                 <Button colorScheme='teal' variant='solid'>
                                     Registrarse
                                 </Button>
+                                </Link>
                                 <Button bg='green.100' color='teal.500' >
                                     Registrate con &nbsp; <FaGoogle />
                                 </Button>

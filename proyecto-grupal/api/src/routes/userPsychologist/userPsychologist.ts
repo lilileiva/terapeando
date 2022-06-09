@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import userPsychologistModel from "../../models/userPsychologist";
 
 
@@ -47,7 +48,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       Specialties,
       profileImage,
       rating: 0,
-      appointments: []
+      appointments:[]
     });
     await userP.save();
     res.status(201).send(userP);
@@ -65,7 +66,6 @@ const postUserPsychologist = async (req: Request, res: Response) => {
     res.status(404).send(error);
   }
 };
-
 
 module.exports = {
   getUserPsychologistOne,
