@@ -6,6 +6,7 @@ import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
 import { specialitiesList } from './specialities';
 import { BiX } from "react-icons/bi";
+import NavBar from '../NavBar/NavBar.jsx';
 
 
 function RegisterForm() {
@@ -122,9 +123,7 @@ function RegisterForm() {
 
     const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
-        console.log(formErrors)
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            console.log(signupForm)
             setIsCreated(true)
             setSignupForm({})
         }
@@ -132,7 +131,10 @@ function RegisterForm() {
 
     return (
         <div className='background'>
-            <Container padding='5em' zIndex='1' centerContent>
+
+            <NavBar />
+
+            <Container padding='2em' zIndex='1' centerContent>
 
                 <Text fontSize='2xl' color='green.300' marginBottom='1em'>
                     Registro

@@ -1,0 +1,13 @@
+.background {
+    background-image: url('../../assets/landing-bg.png');
+    background-size: 80%;
+    background-repeat: repeat-y;
+    height: 100%;
+    width: 100%;
+    background-position: top left;
+    z-index: 1;
+}
+
+.iconX {
+    cursor: pointer;
+}
