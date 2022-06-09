@@ -13,7 +13,6 @@ const router: Router = Router();
 router.post('/reviews', createReview)
 router.get('/reviews/:IdUserPsychologist', getReview)
 router.get('/payment/:IdUserPsychologist', getPaymentHistory)
-<<<<<<< dev-isa
 router.post('/userclient', createUserClient)
 router.delete('/userclient/:IdUserClient', deleteUserClient)
 router.put('/userclient/:IdUserClient', putUserClient)
@@ -22,11 +21,6 @@ router.get('/schedule/:idUserPsychologist', getSchedule)
 router.get('/userclient/:IdUserClient', getUserClient);
 router.post('/userclient/create', createUserClient)
 router.delete('/userclient/:IdUserClient', deleteUserClient)
-=======
-router.get('/userclient/:IdUserClient', getUserClient);
-router.post('/userclient', createUserClient)
-router.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
->>>>>>> main
 router.post('/schedule', createSchedule)
 router.get('/userpsychologist/:IdUserPsychologist', getUserPsychologistOne);
 router.get('/userpsychologist', getUserPsychologist);

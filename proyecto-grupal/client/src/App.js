@@ -19,11 +19,10 @@ export default function App() {
         <Route path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
         <Route exact path='/:idUserClient' element={<ClientDetails />} />
-      <Route path="/cardPsicologist" element={<CardPsychologist/>} />
-        <Route path="/" element={< NavBar />} />
+        <Route path="/cardPsicologist" element={<CardPsychologist/>} />
         <Route exact path='/post' element={<Post />} />
-      <Footer />
       </Routes>
+      <Footer />
     </div>
   );
 }

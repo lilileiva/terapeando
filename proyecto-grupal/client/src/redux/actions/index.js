@@ -27,7 +27,6 @@ export const getAllPosts = () => {
             dispatch({type:"GET_POSTS", payload:json})
         }else{
             Swal.fire('Error','No Hay Notas Disponibles Vuelve a Intentar','error')
-           
         }
     }
 }

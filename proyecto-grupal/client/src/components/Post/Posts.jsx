@@ -9,7 +9,7 @@ export default function Post() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllPosts())
-  },[])
+  },[dispatch])
   const allPosts = useSelector(state => (state.posts))
 
   //empiezo a renderizar cada una de mis notas
