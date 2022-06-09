@@ -9,20 +9,26 @@ import RegisterForm from './components/RegisterForm/RegisterForm';
 import Post from './components/Post/Posts.jsx'
 import CardPsychologist from './components/CardPsychologist/CardPsychologist';
 import Footer from "./components/Footer/Footer.jsx";
+import FormEditClient from "./components/FormEditClient/FormEditClient"
+import NotFound from "./components/404notFound/notFound";
 
 export default function App() {
   return (
     <div className="App">
       <Footer />
       <Routes>
+      
         <Route path="/" element={< LandingPage />} />
         <Route path="/home" element={< Home />} />
         <Route path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
         <Route exact path='/:idUserClient' element={<ClientDetails />} />
         <Route path="/cardPsicologist" element={<CardPsychologist />} />
+        <Route exact path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/" element={< NavBar />} />
         <Route exact path='/post' element={<Post />} />
+        <Route path="/*" element={<NotFound/>} />
+        
       </Routes>
     </div>
   );
