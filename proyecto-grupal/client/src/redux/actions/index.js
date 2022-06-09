@@ -30,6 +30,21 @@ export const getAllPosts = () => {
         }
     }
 }
+
+export const searchPostsByTitle = (title) => {
+    return async function (dispatch) {
+        try {
+            let posts = await axios.get("http://localhost:3001/blog?title=" + title)
+            return dispatch ({
+                type: "SEARCH_POSTS_BY_TITLE",
+                payload: posts.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export const getPostOrder = (order,arreglo) => {
     return function(dispatch){
         //me traigo el arreglo de las posts

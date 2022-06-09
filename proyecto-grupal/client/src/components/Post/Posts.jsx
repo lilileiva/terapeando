@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { getAllPosts } from '../../redux/actions'
 import {Tag,TagLabel,Text } from '@chakra-ui/react'
-
 import './post.css'
+
 export default function Post() {
   //me traigo todos los posts apenas se me monte el componente
   const dispatch = useDispatch()
