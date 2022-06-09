@@ -14,6 +14,7 @@ import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
 import Faqs from "./components/faqs/Faqs";
 
+
 export default function App() {
   return (
     <div className="App">
@@ -28,11 +29,8 @@ export default function App() {
         <Route path="/cardPsicologist" element={<CardPsychologist />} />
         <Route exact path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route exact path='/post' element={<Post />} />
-        <Route exact path="/preguntasfrecuentes" element={<Faqs />}/>
+        <Route path="/*" element={<NotFound/>} />
         <Route exact path='/blog' element={<Blog />} />
-        <Route path="*" element={<NotFound/>} />
-        <Route exact path='/:idUserClient' element={<ClientDetails />} />
-        <Route path="/" element={< NavBar />} />
       </Routes>
       <Footer />
     </div>
