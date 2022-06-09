@@ -80,12 +80,31 @@ export const postPsychologist = async ({firstname, lastname, birthdate, country 
 
 /////// GET para obetener todos los psychologist ////////
 
-const getUserPsychologist = () => {
+export const getUserPsychologist = () => {
     return function(dispatch) {
-        axios.get(`${baseURL}/`)
+        axios.get(`${baseURL}/userpsychologist`)
+        .then(psychologist =>{
+            dispatch({
+                type: 'GET_PSYCHOLOGISTS' ,
+                payload: psychologist.data
+            })
+        })
     }
 }
 
+////// GET para obtener un solo psychologist //////
+
+export const getUserPsychologistOne = (IdUserPsychologist) => {
+    return function(dispatch) {
+        axios.get(`${baseURL}/userpsychologist/${IdUserPsychologist}`)
+        .then(psychologist =>{
+            dispatch({
+                type: 'GET_PSYCHOLOGISTS_ONE' ,
+                payload: psychologist.data
+            })
+        })
+    }
+}
 
 
 
