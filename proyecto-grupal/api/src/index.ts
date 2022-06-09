@@ -14,7 +14,7 @@ async function connectDB() {
 connectDB()
 // server  inicializations
 const app = express() 
-app.set( 'port', process.env.PORT || 3000 )
+app.set( 'port', process.env.PORT || 3001 )
 
 // Middlewares
 
