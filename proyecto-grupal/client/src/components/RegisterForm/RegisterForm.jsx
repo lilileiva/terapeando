@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './RegisterForm.css';
 import { Link } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
-import { specialities } from './specialities';
+import { specialitiesList } from './specialities';
+import { BiX } from "react-icons/bi";
 
 
 function RegisterForm() {
@@ -14,6 +15,120 @@ function RegisterForm() {
     const handleClick = () => setShow(!show)
 
     const [userClientBtn, setUserClientBtn] = useState(true);
+
+    const [signupForm, setSignupForm] = useState({
+        firstname: "",
+        lastname: "",
+        birthdate: "",
+        country: "",
+        email: "",
+        profileimage: "",
+        license: "",
+        dni: "",
+        specialities: [],
+        education: "",
+        password: "",
+        repeatpassword: ""
+    })
+    /*------------------validaciones----------------*/
+    const validate = (signupForm) => {
+        let errors = {};
+        if (!signupForm.firstname) {
+            errors.firstname = 'Inserte un nombre'
+        }
+        if (signupForm.firstname && !(signupForm.firstname).match(/^[A-Za-z]+$/)) {
+            errors.firstname = 'Inserte un nombre válido'
+        }
+        if (!signupForm.lastname) {
+            errors.lastname = 'Inserte un apellido'
+        }
+        if (signupForm.lastname && !(signupForm.lastname).match(/^[A-Za-z]+$/)) {
+            errors.lastname = 'Inserte un apellido válido'
+        }
+        if (!signupForm.birthdate) {
+            errors.birthdate = 'Inserte fecha de nacimiento'
+        }
+        if (signupForm.birthdate && signupForm.birthdate.length > 10) {
+            errors.birthdate = 'Inserte fecha de nacimiento válida'
+        }
+        if (!signupForm.email) {
+            errors.email = 'Inserte un email'
+        }
+        if (signupForm.email && !(signupForm.email).match(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)) {
+            errors.email = 'Inserte un email válido'
+        }
+        if (!signupForm.country) {
+            errors.country = 'Inserte país'
+        }
+        if (!signupForm.profileimage) {
+            errors.profileimage = 'Inserte una imagen de perfil'
+        }
+        if (signupForm.profileimage && !(signupForm.profileimage).match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
+            errors.profileimage = 'Image URL not valid'
+        }
+        if (!signupForm.password) {
+            errors.password = 'Inserte una contraseña'
+        }
+        if (signupForm.password && signupForm.password.length < 8) {
+            errors.password = 'Contraseña muy corta'
+        }
+        if (signupForm.password && signupForm.password !== signupForm.repeatpassword) {
+            errors.password = 'Las contraseñas no coinciden'
+        }
+        if (!signupForm.license) {
+            errors.license = 'Inserte matrícula'
+        }
+        if (!signupForm.specialities) {
+            errors.specialities = 'Inserte al menos una especialidad'
+        }
+        if (!signupForm.dni) {
+            errors.dni = 'Inserte D.N.I.'
+        }
+        if (!signupForm.education) {
+            errors.education = 'Inserte educación'
+        }
+        return errors
+    }
+    const [formErrors, setFormErrors] = useState({})
+    /*------------------fin-validaciones----------------*/
+
+    const handleInputChange = (e) => {
+        setSignupForm({
+            ...signupForm,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleSpecialities = (e) => {
+        setSignupForm({
+            ...signupForm,
+            specialities: [...signupForm.specialities.filter(s => s !== e.target.value), e.target.value]
+        })
+    }
+    function handleSpecialitiesDelete(speciality) {
+        setSignupForm({
+            ...signupForm,
+            specialities: signupForm.specialities.filter(s => s !== speciality)
+        });
+    }
+
+    const [isSubmit, setIsSubmit] = useState(false)
+    const handleInputSubmit = async (e) => {
+        e.preventDefault()
+        setFormErrors(validate(signupForm))
+        console.log(signupForm)
+        setIsSubmit(true)
+    }
+
+    const [isCreated, setIsCreated] = useState(false);
+    useEffect(() => {
+        console.log(formErrors)
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            console.log(signupForm)
+            setIsCreated(true)
+            setSignupForm({})
+        }
+    }, [formErrors, signupForm, isSubmit])
 
     return (
         <div className='background'>
@@ -46,41 +161,74 @@ function RegisterForm() {
 
                 <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' marginBottom='2em' align='center'>
                     <Box direction='column' align='center' width='60%'>
-                        <form>
-                            <Input variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' marginBottom='2em' />
-                            <Input variant='flushed' placeholder=' Apellido' bg='white' marginBottom='2em' />
-                            <Input variant='flushed' placeholder=' Email' bg='white' marginBottom='2em' />
-                            <Input type='date' variant='flushed' placeholder=' Email' color='gray.500' bg='white' marginBottom='2em' />
-                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginBottom='2em'>
+                        <form onSubmit={handleInputSubmit}>
+                            <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' onChange={handleInputChange} />
+                            {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
+
+                            <Input name='lastname' variant='flushed' placeholder=' Apellido' bg='white' marginTop='2em' onChange={handleInputChange} />
+                            {formErrors.lastname && <Text fontSize='sm' color='teal.500'>{formErrors.lastname}</Text>}
+
+                            <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='2em' onChange={handleInputChange} />
+                            {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
+
+                            <Input name='birthdate' type='date' variant='flushed' placeholder=' Email' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} />
+                            {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
+
+                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} >
                                 {
                                     countries.map(c => (
-                                        <option value='option1'>{c.label}</option>
+                                        <option name='country' value={c.label}>{c.label}</option>
                                     ))
                                 }
                             </Select>
+                            {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
+
                             {
                                 !userClientBtn
                                     ? (
                                         <>
-                                            <Select variant='flushed' placeholder=' Especialidades' color='gray.500' bg='white' marginBottom='2em'>
+                                            <Select onChange={handleSpecialities} name='specialities' variant='flushed' placeholder=' Especialidades' color='gray.500' bg='white' marginTop='2em'>
                                                 {
-                                                    specialities.map(e => (
-                                                        <option value='option1'>{e}</option>
+                                                    specialitiesList.map(e => (
+                                                        <option key={e} name='specialities' value={e}>{e}</option>
                                                     ))
                                                 }
                                             </Select>
-                                            <Input variant='flushed' placeholder=' Matrícula' bg='white' marginBottom='2em' />
-                                            <Input variant='flushed' placeholder=' D.N.I.' bg='white' marginBottom='2em' />
+                                            {formErrors.specialities && <Text fontSize='sm' color='teal.500'>{formErrors.specialities}</Text>}
+
+                                            <ul>
+                                                {signupForm.specialities ? signupForm.specialities.map((e) => (
+                                                    <Stack direction='row' margin='0.2em' center>
+                                                        <Text fontSize='md' color='teal.700'>{e}</Text>
+                                                        <BiX onClick={() => handleSpecialitiesDelete(e)} className='iconX' />
+                                                    </Stack>
+                                                ))
+                                                    : null
+                                                }
+                                            </ul>
+
+                                            <Input name='license' variant='flushed' placeholder=' Matrícula' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                            {formErrors.license && <Text fontSize='sm' color='teal.500'>{formErrors.license}</Text>}
+
+                                            <Input name='dni' variant='flushed' placeholder=' D.N.I.' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                            {formErrors.dni && <Text fontSize='sm' color='teal.500'>{formErrors.dni}</Text>}
+
+                                            <Input name='education' variant='flushed' placeholder=' Educacion' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                            {formErrors.education && <Text fontSize='sm' color='teal.500'>{formErrors.education}</Text>}
                                         </>
                                     )
                                     : null
                             }
-                            <Input variant='flushed' placeholder=' Profile image link' bg='white' marginBottom='2em' />
-                            <InputGroup variant='flushed' size='md' bg='white' marginBottom='2em' >
+                            <Input name='profileimage' variant='flushed' placeholder=' Profile image link' bg='white' marginTop='2em' onChange={handleInputChange} />
+                            {formErrors.profileimage && <Text fontSize='sm' color='teal.500'>{formErrors.profileimage}</Text>}
+
+                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
                                 <Input
+                                    name='password'
                                     pr='4.5rem'
                                     type={show ? 'text' : 'password'}
                                     placeholder=' Contraseña'
+                                    onChange={handleInputChange}
                                 />
                                 <InputRightElement width='4.5rem'>
                                     <Button h='1.75rem' size='sm' onClick={handleClick}>
@@ -88,12 +236,15 @@ function RegisterForm() {
                                     </Button>
                                 </InputRightElement>
                             </InputGroup>
+                            {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
-                            <InputGroup variant='flushed' size='md' bg='white' marginBottom='2em' >
+                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
                                 <Input
+                                    name='repeatpassword'
                                     pr='4.5rem'
                                     type={show ? 'text' : 'password'}
                                     placeholder=' Repita la contraseña'
+                                    onChange={handleInputChange}
                                 />
                                 <InputRightElement width='4.5rem' marginBottom='2em' >
                                     <Button h='1.75rem' size='sm' onClick={handleClick}>
@@ -103,11 +254,11 @@ function RegisterForm() {
                             </InputGroup>
 
                             <Stack direction='column' align='center'>
-                                <Link to='/home'>
-                                    <Button colorScheme='teal' variant='solid'>
-                                        Registrarse
-                                    </Button>
-                                </Link>
+                                <Button type='submit' colorScheme='teal' variant='solid' marginTop='2em'>
+                                    {/* <Link to='/home'> */}
+                                    Registrarse
+                                    {/* </Link> */}
+                                </Button>
                                 {
                                     userClientBtn
                                         ? <Button bg='green.100' color='teal.500' >
