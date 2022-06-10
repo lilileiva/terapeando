@@ -1,6 +1,9 @@
+import { GET_ALL_PSYCHOLOGIST } from "../actions/types"
+
+
 const initialState = {
     userPsichologistDetail:{},
-    usersPsichologists:[],
+    allUsersPsichologists:[],
     userClientDetail:{},
     usersClients:[],
     posts:[],
@@ -26,6 +29,12 @@ function rootReducer(state = initialState,action) {
                 ...state,
                 posts: action.payload
             }
+
+        case GET_ALL_PSYCHOLOGIST:
+            return{
+                ...state,
+                allUsersPsichologists: action.payload
+          }
         case "CREATE_CLIENT":
             return {
                 ...state

@@ -1,32 +1,32 @@
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { FETCH_USERCLIENT, LOCAL_HOST } from './types';
+import { GET_ALL_PSYCHOLOGIST, FETCH_USERCLIENT, LOCAL_HOST } from './types';
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
-export function fetchUserClient(){
-   return function(dispatch){
-      axios.get(`${baseURL}/userclient`)
-      .then((client) => {
-         dispatch({
-            type: FETCH_USERCLIENT,
-            payload: client.data
-         })
-      })
-      .catch((err) => console.log(err))
-   }
+export function fetchUserClient() {
+    return function (dispatch) {
+        axios.get(`${baseURL}/userclient`)
+            .then((client) => {
+                dispatch({
+                    type: FETCH_USERCLIENT,
+                    payload: client.data
+                })
+            })
+            .catch((err) => console.log(err))
+    }
 }
 
 export const getAllPosts = () => {
     //me traigo todas las notas de mi db y si no tengo notas muestro el error
-    return async function(dispatch){
+    return async function (dispatch) {
         const responseApi = await fetch(`${baseURL}/posts`)
         const json = await responseApi.json()
-        if(responseApi){
-            dispatch({type:"GET_POSTS", payload:json})
-        }else{
-            Swal.fire('Error','No Hay Notas Disponibles Vuelve a Intentar','error')
+        if (responseApi) {
+            dispatch({ type: "GET_POSTS", payload: json })
+        } else {
+            Swal.fire('Error', 'No Hay Notas Disponibles Vuelve a Intentar', 'error')
         }
     }
 }
@@ -50,18 +50,21 @@ export const searchPostsByTitle = (title) => {
     }
 }
 
-export const getPostOrder = (order,arreglo) => {
-    return function(dispatch){
+export const getPostOrder = (order, arreglo) => {
+    return function (dispatch) {
         //me traigo el arreglo de las posts
         const notas = arreglo.slice()
         //empiezo a ordenar con short
-        if(order === "Titulo de A-Z") notas.sort((a,b) => (a.Title > b.Title) ? 1 : -1)
-        if(order === "Titulo de Z-A") notas.sort((a,b) => (a.Title > b.Title) ? -1 : 1)
-        dispatch({type:"ORDER_POSTS", payload:notas})
+        if (order === "Titulo de A-Z") notas.sort((a, b) => (a.Title > b.Title) ? 1 : -1)
+        if (order === "Titulo de Z-A") notas.sort((a, b) => (a.Title > b.Title) ? -1 : 1)
+        dispatch({ type: "ORDER_POSTS", payload: notas })
     }
 }
 
 ////////////////// Post para los user Psychologist ///////////////////
+
+
+/////// GET para obetener todos los psychologist ////////
 
 export function createPsychologist(signupForm) {
     return async function (dispatch) {
@@ -115,10 +118,22 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
     }
 }
 
+export const getAllPsychologist = ()  => {
+    return async function (dispatch) {
 
+        try {
+            const json = await axios.get(`${baseURL}/userpsychologist`)
+            dispatch({
+                type: GET_ALL_PSYCHOLOGIST,
+                payload: json.data
+            })
 
+        } catch (error) {
+            Swal.fire('Error', 'No Hay Psicologos Para Mostrar', 'error')
+        }
+    }
+}
 /////////       post para los userClient        /////////
-
 export function createClient(signupForm) {
     return async function (dispatch) {
         try {
