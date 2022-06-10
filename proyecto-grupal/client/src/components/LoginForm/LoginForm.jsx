@@ -98,9 +98,7 @@ function LoginForm() {
 
                             <Stack direction='column' align='center'>
                                 <Button type='submit' colorScheme='teal' variant='solid' marginTop='3em'>
-                                    {/* <Link to='/home'> */}
                                     Iniciar sesión
-                                    {/* </Link> */}
                                 </Button>
 
                                 <Button bg='green.100' color='teal.500' >
