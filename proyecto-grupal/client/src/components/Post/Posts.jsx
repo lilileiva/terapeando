@@ -11,7 +11,6 @@ export default function Post() {
     dispatch(getAllPosts())
   },[dispatch])
   const allPosts = useSelector(state => (state.posts))
-
   //empiezo a renderizar cada una de mis notas
   return (
     <div className='postContainer'>
