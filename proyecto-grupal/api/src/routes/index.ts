@@ -16,12 +16,12 @@ router.get('/payment/:IdUserPsychologist', getPaymentHistory)
 router.get('/userclient/:IdUserClient', getUserClient);
 router.post('/userclient', createUserClient)
 router.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
-router.put('/updateUserpsychologist/:IdUserPsychologist', putUserPsychologist);
+// router.put('/updateUserpsychologist/:IdUserPsychologist', putUserPsychologist);
 router.post('/schedule', createSchedule)
 router.get('/userpsychologist/:IdUserPsychologist', getUserPsychologistOne);
 router.get('/userpsychologist', getUserPsychologist);
 router.post('/userpsychologist', postUserPsychologist);
-router.put('/put_userpsychologist',putUserPsychologist)
+router.put('/putuserpsychologist',putUserPsychologist)
 router.delete('/deleteuserpsychologist/:IdUserPsychologist', deleteUserPsychologist);
 router.get('/posts',getAllPosts),
 router.post('/post',createPost)
