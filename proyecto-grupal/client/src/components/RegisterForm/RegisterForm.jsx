@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 function RegisterForm() {
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
+
     const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
@@ -135,6 +137,7 @@ function RegisterForm() {
         }
         console.log(signupForm)
         setIsSubmit(true)
+        navigate("/home");
     }
 
     // const navigate = useNavigate()

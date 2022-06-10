@@ -7,15 +7,40 @@ import {
   Stack,
   Button,
   Badge,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { clientDetails, fetchUserClient } from "../../redux/actions";
+import Loader from "../Loader/Loader";
+
+
 
 export default function ClientDetails() {
+
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  console.log(id);
+
+  useEffect(() => {
+    dispatch(fetchUserClient(id));
+  /*   return () => {
+      dispatch(clientDetails())
+    } */
+  }, [dispatch, id])
+
+  const clientDetails = useSelector((state) => state.userClientDetail)
+  console.log(clientDetails)
+
+  let arr = Object.values(clientDetails)
+
   return (
+
+    arr.length <=1 ? <Loader /> : 
     <Center py={6} h={"100%"}>
       <Box
         w={"80%"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={"white"}
         boxShadow={"2xl"}
         rounded={"lg"}
         p={6}
@@ -23,12 +48,12 @@ export default function ClientDetails() {
       >
         <Avatar
           size={"xl"}
-          src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-          alt={"Avatar Alt"}
+          src={clientDetails.profileImage}
+          alt={clientDetails.firstName}
           mb={4}
         />
         <Heading fontSize={"2xl"} fontFamily={"body"}>
-          firstName lastName
+        {clientDetails.firstName} {clientDetails.lastName}
         </Heading>
 
         <Text fontWeight={600} color={"gray.500"} mb={4}>
@@ -39,15 +64,15 @@ export default function ClientDetails() {
           <Badge
             px={2}
             py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
+            bg={'gray.50'}
             fontWeight={"600"}
           >
-            email
+            {clientDetails.email}
           </Badge>
           <Badge
             px={2}
             py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
+            bg={"gray.50"}
             fontWeight={"600"}
           >
             birthDate
@@ -55,10 +80,10 @@ export default function ClientDetails() {
           <Badge
             px={2}
             py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
+            bg={'gray.50'}
             fontWeight={"600"}
           >
-            country
+            {clientDetails.country}
           </Badge>
         </Stack>
 

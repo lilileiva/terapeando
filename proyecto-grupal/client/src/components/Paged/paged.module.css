@@ -1,0 +1,24 @@
+.container{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: auto;
+   gap: 1em;
+}
+
+.pageActive{
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 4px;
+  transition: 0.3 ease-in-out;
+  cursor: pointer;
+}
+
+.page{
+   display: none;
+}
+
+.pageActive:hover{
+  background-color:  #9AE6B4;
+}
+

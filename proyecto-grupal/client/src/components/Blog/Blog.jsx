@@ -7,8 +7,8 @@ import "./blog.css";
 
 export default function Blog() {
   return (
-    <div>
-      <NavBar />
+    <div className="blogContainer">
+      < NavBar />
       <SearchBar />
       <h1 className="title">Notas sobre psicología</h1>
       <Filters />
