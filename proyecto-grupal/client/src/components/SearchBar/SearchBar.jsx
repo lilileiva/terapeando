@@ -25,7 +25,7 @@ export default function SearchBar() {
 
   return (
     <div className="searchbar">
-      <Input onChange={(e) => handleInputChange(e)} value={title} />
+      <Input onChange={(e) => handleInputChange(e)} value={title} placeholder='Buscar notas' />
       <ButtonGroup variant="outline">
         <Button widht={40} onClick={(e) => handleSubmit(e)}>
           <SearchIcon />
