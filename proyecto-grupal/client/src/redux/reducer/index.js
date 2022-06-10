@@ -33,7 +33,7 @@ function rootReducer(state = initialState,action) {
         case "CREATE_PSYCHOLOGIST":
             return {
                 ...state
-       
+            }
         case 'GET_PSYCHOLOGISTS_ONE':
             return {
                 ...state,
