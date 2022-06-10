@@ -5,7 +5,7 @@ import ClientDetails from './components/ClientDetails/ClientDetails';
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import CardPsychologist from './components/CardPsychologist/CardPsychologist';
+import CardPsychologist from './components/CardPsychologist/CardPsychologist.jsx';
 import RegisterForm from "./components/RegisterForm/RegisterForm.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import PsychologistDetail from "./components/PsychologistDetail/PsychologistDetail";
@@ -13,7 +13,7 @@ import Post from "./components/Post/Posts";
 import FormEditClient from "./components/FormEditClient/FormEditClient"
 import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
-import Faqs from "./components/faqs/Faqs";
+import LoginForm from "./components/LoginForm/LoginForm";
 
 
 export default function App() {
@@ -25,6 +25,7 @@ export default function App() {
         <Route path="/home" element={< Home />} />
         <Route exact path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
+        <Route exact path='/signin' element={<LoginForm />} />
         <Route exact path="/detailPsychologist" element={<PsychologistDetail />} />
         <Route path="/" element={< NavBar />} />
         <Route exact path='/home/:idUserClient' element={<ClientDetails />} />
