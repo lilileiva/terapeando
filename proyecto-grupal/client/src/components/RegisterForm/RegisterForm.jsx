@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './RegisterForm.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
@@ -125,48 +125,49 @@ function RegisterForm() {
     }
 
     const [isSubmit, setIsSubmit] = useState(false)
+    // const [createClient, setCreateClient] = useState(false)
+    // const [createPsychologist, setCreatePsychologist] = useState(false)
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signupForm))
+        setIsSubmit(true)
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education) {
             dispatch(createPsychologist(signupForm))
+            navigate('/home')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Usuario creado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
         } else {
             dispatch(createClient(signupForm))
+            navigate('/home')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Usuario creado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
-        console.log(signupForm)
-        setIsSubmit(true)
     }
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             setIsCreated(true)
-            setSignupForm({})
-            // setTimeout(() => {
-            //     navigate('/home')
-            // }, 1000)
+            navigate('/home')
         }
     }, [formErrors, signupForm, isSubmit])
+
 
     return (
         <div className='background'>
 
             <NavBar />
-
-            {
-                isCreated
-                    ? (
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Usuario creado correctamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    )
-                    : null
-            }
 
             <Container padding='2em' zIndex='1' centerContent>
 
@@ -293,6 +294,19 @@ function RegisterForm() {
                                 <Button type='submit' colorScheme='teal' variant='solid' marginTop='2em'>
                                     Registrarse
                                 </Button>
+                                {/* {
+                                    isCreated
+                                        ? (
+                                            Swal.fire({
+                                                position: 'top-end',
+                                                icon: 'success',
+                                                title: 'Usuario creado correctamente',
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            })
+                                        )
+                                        : null
+                                } */}
                                 {
                                     userClientBtn
                                         ? <Button bg='green.100' color='teal.500' >
