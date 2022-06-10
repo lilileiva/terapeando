@@ -14,16 +14,17 @@ import FormEditClient from "./components/FormEditClient/FormEditClient"
 import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
 import LoginForm from "./components/LoginForm/LoginForm";
+import Schedule from "./components/Schedule/Schedule.jsx";
 
 
 export default function App() {
   return (
     <div className="App">
-      <Footer />
+      <Footer />      
       <Routes>
         <Route path="/" element={< LandingPage />} />
         <Route path="/home" element={< Home />} />
-        <Route exact path="/" element={< NavBar />} />
+        {/* <Route exact path="/" element={< NavBar />} /> */}
         <Route exact path='/signup' element={<RegisterForm />} />
         <Route exact path='/signin' element={<LoginForm />} />
         <Route exact path="/detailPsychologist" element={<PsychologistDetail />} />
@@ -34,6 +35,9 @@ export default function App() {
         <Route exact path='/post' element={<Post />} />
         <Route path="/*" element={<NotFound/>} />
         <Route exact path='/blog' element={<Blog />} />
+        
+        <Route exact path='/schedule/:idUserPsychologist' element={<Schedule />} />
+
       </Routes>
     </div>
   );

@@ -1,11 +1,11 @@
 import {Response, Request, NextFunction} from 'express';
 import Post from '../../models/Post';
-
+import Category from '../../models/Category'
 interface error{
     status: number;
     message:string;
 }
-
+//estaas son las rutas para las notas
 const getAllPosts = (req:Request, res:Response,next:NextFunction) => {
     //busco todos mis post en mi db
     const {title} = req.query;
@@ -42,5 +42,23 @@ const createPost = (req:Request, res:Response, next:NextFunction) => {
         })
         .catch((error:error) => next(error))
 }
+//estas son las rutas para las categorias
+const getAllCategory = (req:Request, res:Response, next:NextFunction)=>{
+    Category.find()
+        .then((categories) => {
+            res.status(200).json(categories)
+        })
+        .catch((error:error) => next(error))
+}
+const createCategory = (req:Request, res:Response, next:NextFunction) => {
+    const post = req.body;
+    //me creo el post con el objeto ue me llega de body
+    Category.create(post)
+        .then((createdPost) => {
+            createdPost.save()
+            res.send(createdPost)
+        })
+        .catch((error:error) => next(error))
+}
 
-module.exports ={createPost,getAllPosts}
+module.exports ={createPost,getAllPosts,getAllCategory,createCategory}

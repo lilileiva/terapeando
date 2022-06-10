@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import { useEffect } from 'react';
 import { getAllPsychologist } from '../../redux/actions';
 import NavbarHome from '../NavbarHome/NavbarHome';
 import CardPsychologist from '../CardPsychologist/CardPsychologist';
@@ -35,6 +34,7 @@ export default function Home() {
           rating={el.rating}
           education={el.education}
           about={el.about}
+          idUserPsychologist={el._id}
           />
         )
       }): <div>Cargando...</div>}
