@@ -20,10 +20,11 @@ export default function App() {
   return (
     <div className="App">
       <Footer />
+      {/* < NavBar /> */}
       <Routes>
         <Route path="/" element={< LandingPage />} />
         <Route path="/home" element={< Home />} />
-        <Route exact path="/" element={< NavBar />} />
+        {/* <Route exact path="/" element={< NavBar />} /> */}
         <Route exact path='/signup' element={<RegisterForm />} />
         <Route exact path='/signin' element={<LoginForm />} />
         <Route exact path="/detailPsychologist" element={<PsychologistDetail />} />
