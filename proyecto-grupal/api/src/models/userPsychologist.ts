@@ -21,27 +21,29 @@ const saltRounds = 10;
 export class userPsychologist {
     @prop({
         required: true,
-        trim: true,
-        validate: {
-          validator: (firstName: string) => {
-            const nameRegExp = /^[A-Za-z]+$/;
-            return nameRegExp.test(firstName);
-          },
-          message: 'Name is invalid.',
-        }
+        trim: true
+        // ,
+        // validate: {
+        //   validator: (firstName: string) => {
+        //     const nameRegExp = /^[A-Za-z]+$/;
+        //     return nameRegExp.test(firstName);
+        //   },
+        //   message: 'Name is invalid.',
+        // }
     })
     firstName: string
 
     @prop({
         required: true,
-        trim: true,
-        validate: {
-          validator: (lastName: string) => {
-            const nameRegExp = /^[A-Za-z]+$/;
-            return nameRegExp.test(lastName);
-          },
-          message: 'Name is invalid.',
-        }
+        trim: true
+        // ,
+        // validate: {
+        //   validator: (lastName: string) => {
+        //     const nameRegExp = /^[A-Za-z]+$/;
+        //     return nameRegExp.test(lastName);
+        //   },
+        //   message: 'Name is invalid.',
+        // }
     })
     lastName: string
 
