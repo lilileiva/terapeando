@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { getAllPosts } from '../../redux/actions'
 import {Tag,TagLabel,Text } from '@chakra-ui/react'
 import './post.css'
+import Swal from 'sweetalert2'
 
 export default function Post() {
   //me traigo todos los posts apenas se me monte el componente
@@ -15,7 +16,7 @@ export default function Post() {
   return (
     <div className='postContainer'>
       <div className="cards">
-      {allPosts && allPosts.map((post) => {
+      {allPosts ? allPosts.map((post) => {
         return(
           <div className="card" key={post._id}>
             <div className='imgen'>
@@ -40,7 +41,7 @@ export default function Post() {
               })}
             </div>
           </div>
-        )})}
+        )}): <h1>no hay juegos</h1>}
       </div>
     </div>
   )
