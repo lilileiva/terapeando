@@ -67,9 +67,22 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   }
 };
 
+
+const putUserPsychologist = async (req: Request, res: Response) => {
+  const { IdUserPsychologist } = req.params;
+  console.log(IdUserPsychologist)
+  try{
+    await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, {new: true})
+    res.status(200).send('Usuario editado correctamente')
+  } catch(err){
+    console.log(err)
+  }
+}
+
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,
   postUserPsychologist,
-  deleteUserPsychologist
+  deleteUserPsychologist,
+  putUserPsychologist
 }

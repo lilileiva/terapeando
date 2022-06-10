@@ -40,7 +40,17 @@ const { idAppointment } = req.body;
 }
 }
 
+const getAllAppointment = async (req:Request , res: Response) => {
+    try{
+        const allAppointment = await appointmentModel.find();
+        res.status(200).json(allAppointment)
+    } catch(err) {
+        res.status(404).json({data:err})
+    }
+}
+
 module.exports = {
     postAppointmentModel,
     deleteAppointmentModel,
+    getAllAppointment
 }
