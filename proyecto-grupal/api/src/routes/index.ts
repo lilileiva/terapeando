@@ -11,7 +11,7 @@ const router: Router = Router();
 
 router.use('/appointment', appointment)
 router.use('/payment', paymentHistory)
-router.use('/', blogPost)
+router.use(blogPost)
 router.use('/reviews', reviews)
 router.use('/schedule', schedule)
 router.use('/userclient', userClient)
