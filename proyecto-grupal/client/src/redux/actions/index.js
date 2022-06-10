@@ -58,25 +58,29 @@ export const getPostOrder = (order,arreglo) => {
 
 ////////////////// Post para los user Psychologist ///////////////////
 
-export const postPsychologist = async ({firstname, lastname, birthdate, country ,email,
-                                 profileimage, license, dni, specialities, education,
-                                  password,about}) => {
-    return axios.post(`${baseURL}/userpsychologist`,{
-        firstName:firstname,
-        lastName:lastname,
-        email:email,
-        password:password,
-        birthDate:birthdate,
-        country:country,
-        License:license,
-        DNI:dni,
-        Specialties:specialities,
-        profileImage:profileimage,
-        education:education,
-        about:about
-})
-.then(data => data)
-}
+export function createPsychologist(signupForm) {
+    return async function (dispatch) {
+        try {
+            return await fetch(`${baseURL}/userpsychologist`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(signupForm)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    dispatch({
+                        type: "CREATE_PSYCHOLOGIST",
+                        payload: data
+                    })
+                });
+        } catch (error) {
+            return console.log(error)
+        }
+    }
+};
+
 
 /////// GET para obetener todos los psychologist ////////
 
@@ -91,17 +95,26 @@ const getUserPsychologist = () => {
 
 /////////       post para los userClient        /////////
 
-export const postUserClient = async ({firstName,lastName,email,password,birthDate,country, profileImage}) => {
-return axios.post(`${baseURL}/userClient`,{
-    firstName,
-    lastName,
-    email,
-    password,
-    birthDate,
-    country,
-    profileImage
-})
-.then(data => data)
-
-}
+export function createClient(signupForm) {
+    return async function (dispatch) {
+        try {
+            return await fetch(`${baseURL}/userclient`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(signupForm)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    dispatch({
+                        type: "CREATE_CLIENT",
+                        payload: data
+                    })
+                });
+        } catch (error) {
+            return console.log(error)
+        }
+    }
+};
 

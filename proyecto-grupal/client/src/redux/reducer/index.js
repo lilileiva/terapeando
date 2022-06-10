@@ -26,6 +26,14 @@ function rootReducer(state = initialState,action) {
                 ...state,
                 posts: action.payload
             }
+        case "CREATE_CLIENT":
+            return {
+                ...state
+            }
+        case "CREATE_PSYCHOLOGIST":
+            return {
+                ...state
+            }
         default:
            return{...state}
     }
