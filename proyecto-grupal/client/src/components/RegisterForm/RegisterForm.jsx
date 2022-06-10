@@ -125,15 +125,33 @@ function RegisterForm() {
     }
 
     const [isSubmit, setIsSubmit] = useState(false)
+    // const [createClient, setCreateClient] = useState(false)
+    // const [createPsychologist, setCreatePsychologist] = useState(false)
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signupForm))
+        setIsSubmit(true)
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education) {
             dispatch(createPsychologist(signupForm))
+            navigate('/home')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Usuario creado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
         } else {
             dispatch(createClient(signupForm))
+            navigate('/home')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Usuario creado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
-        setIsSubmit(true)
     }
 
     const navigate = useNavigate()
@@ -142,9 +160,9 @@ function RegisterForm() {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             setIsCreated(true)
             navigate('/home')
-            console.log('created')
         }
     }, [formErrors, signupForm, isSubmit])
+
 
     return (
         <div className='background'>
@@ -276,7 +294,7 @@ function RegisterForm() {
                                 <Button type='submit' colorScheme='teal' variant='solid' marginTop='2em'>
                                     Registrarse
                                 </Button>
-                                {
+                                {/* {
                                     isCreated
                                         ? (
                                             Swal.fire({
@@ -288,7 +306,7 @@ function RegisterForm() {
                                             })
                                         )
                                         : null
-                                }
+                                } */}
                                 {
                                     userClientBtn
                                         ? <Button bg='green.100' color='teal.500' >
