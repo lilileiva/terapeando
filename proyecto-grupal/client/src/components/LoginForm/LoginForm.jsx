@@ -43,8 +43,7 @@ function LoginForm() {
     const [isSubmit, setIsSubmit] = useState(false)
     const handleInputSubmit = async (e) => {
         e.preventDefault()
-        setFormErrors(validate(signinForm))
-        console.log(signinForm)
+        setFormErrors(validate(signinForm))        
         setIsSubmit(true)
     }
 
