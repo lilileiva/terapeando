@@ -14,6 +14,9 @@ import Swal from 'sweetalert2';
 
 function RegisterForm() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const navigate = useNavigate();
 
     const countries = useMemo(() => countryList().getData(), [])
 
@@ -81,17 +84,19 @@ function RegisterForm() {
         if (signupForm.password && signupForm.password !== signupForm.repeatpassword) {
             errors.password = 'Las contraseñas no coinciden'
         }
-        if (!signupForm.license) {
-            errors.license = 'Inserte matrícula'
-        }
-        if (!signupForm.specialities) {
-            errors.specialities = 'Inserte al menos una especialidad'
-        }
-        if (!signupForm.dni) {
-            errors.dni = 'Inserte D.N.I.'
-        }
-        if (!signupForm.education) {
-            errors.education = 'Inserte educación'
+        if (!userClientBtn) {
+            if (!signupForm.license) {
+                errors.license = 'Inserte matrícula'
+            }
+            if (!signupForm.specialities) {
+                errors.specialities = 'Inserte al menos una especialidad'
+            }
+            if (!signupForm.dni) {
+                errors.dni = 'Inserte D.N.I.'
+            }
+            if (!signupForm.education) {
+                errors.education = 'Inserte educación'
+            }
         }
         return errors
     }
@@ -125,49 +130,46 @@ function RegisterForm() {
     }
 
     const [isSubmit, setIsSubmit] = useState(false)
-    // const [createClient, setCreateClient] = useState(false)
-    // const [createPsychologist, setCreatePsychologist] = useState(false)
+
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signupForm))
         setIsSubmit(true)
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education) {
             dispatch(createPsychologist(signupForm))
-            navigate('/home')
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Usuario creado correctamente',
-                showConfirmButton: false,
-                timer: 1500
-            })
         } else {
             dispatch(createClient(signupForm))
-            navigate('/home')
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Usuario creado correctamente',
-                showConfirmButton: false,
-                timer: 1500
-            })
         }
+
+        console.log(signupForm)
+        setIsSubmit(true)
+        navigate("/home");
+
     }
 
-    const navigate = useNavigate()
     const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             setIsCreated(true)
             navigate('/home')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Usuario creado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
-    }, [formErrors, signupForm, isSubmit])
-
+    }, [formErrors, isSubmit])
 
     return (
         <div className='background'>
 
-            <NavBar />
+            <Stack direction='column' align='left' width='4em' marginLeft='2em' marginTop='2em'>
+                <Button bg='green.100' color='teal.500' onClick={() => navigate(-1)} >
+                    Volver
+                </Button>
+            </Stack>
 
             <Container padding='2em' zIndex='1' centerContent>
 
@@ -219,7 +221,6 @@ function RegisterForm() {
                                 }
                             </Select>
                             {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
-
                             {
                                 !userClientBtn
                                     ? (
@@ -294,19 +295,6 @@ function RegisterForm() {
                                 <Button type='submit' colorScheme='teal' variant='solid' marginTop='2em'>
                                     Registrarse
                                 </Button>
-                                {/* {
-                                    isCreated
-                                        ? (
-                                            Swal.fire({
-                                                position: 'top-end',
-                                                icon: 'success',
-                                                title: 'Usuario creado correctamente',
-                                                showConfirmButton: false,
-                                                timer: 1500
-                                            })
-                                        )
-                                        : null
-                                } */}
                                 {
                                     userClientBtn
                                         ? <Button bg='green.100' color='teal.500' >
@@ -314,7 +302,7 @@ function RegisterForm() {
                                         </Button>
                                         : null
                                 }
-                                <Button bg='green.100' color='teal.700' >
+                                <Button bg='green.100' color='teal.700' onClick={() => navigate('/signin')} >
                                     ¿Ya tienes una cuenta?
                                 </Button>
                             </Stack>

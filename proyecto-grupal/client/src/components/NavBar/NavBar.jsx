@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Box,
   Flex,
@@ -23,6 +23,7 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import img from '../../assets/logo-01.png'
+import '../NavbarHome/NavbarHome.css';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -99,10 +100,12 @@ export default function WithSubnavigation() {
   );
 }
 
+
 const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200');
   const linkHoverColor = useColorModeValue('gray.800', 'white');
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+
 
   return (
     <Stack direction={'row'} spacing={4}>
@@ -110,11 +113,13 @@ const DesktopNav = () => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link to={`${navItem.href}`}>
+              <Link exact to={`${navItem.href}`}>
                 <Text
+                 className={({isActive}) => isActive ? "active" : ""}
                   p={2}
                   fontSize={'sm'}
                   fontWeight={500}
+                  cursor={'pointer'}
                   color={linkColor}
                   _hover={{
                     textDecoration: 'none',
@@ -122,7 +127,7 @@ const DesktopNav = () => {
                   }}>
                   {navItem.label}
                 </Text>
-              </Link>
+                </Link>
             </PopoverTrigger>
 
             {navItem.children && (
@@ -262,7 +267,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Psicologos',
-    href: 'psicologos',
+    href: 'cardPsicologist',
   },
   {
     label: 'Blog',
