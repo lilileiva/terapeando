@@ -1,138 +1,55 @@
-import { Box, ColorModeProvider, Divider, Flex, Img, Text, useColorMode } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clear, getUserPsychologistOne } from "../../redux/actions";
+
 
 export default function PsychologistDetail() {
-  const { colorMode } = useColorMode();
-  const bgColor = { light: "gray.100", dark: "gray.700" };
+  const dispatch = useDispatch();
+  const { IdUserPsychologist} = useParams();
+  const detail = useSelector((state) => state.userPsichologistDetail);
+
+  useEffect(() => {
+    dispatch(getUserPsychologistOne(IdUserPsychologist));
+    return () => {
+      dispatch(clear()); //Clear detail
+    };
+  }, [dispatch, IdUserPsychologist]);
+
+
   return (
-    <div>
-      <ColorModeProvider>
-         <Flex
-        maxW="1000px"
-        w={["90vw", "90vw", "90vw", "70vw"]}
-        direction={["column", "column", "row", "row"]}
-        justify="center"
-        bg={bgColor[colorMode]}
-        boxShadow="md"
-        rounded="lg"
-        p="4"
-        >
-        <Flex align="center" mx="2">
-          <Img
-            height="78px"
-            width="62px"
-            src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            />
-          <Box mx="4">
-            <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
-              Specialties:
-            </Text>
-            <Text as="h3" fontSize="lg" fontWeight="light">
-              Family, Cuople
-            </Text>
-          </Box>
-        </Flex>
-        <Divider orientation="vertical" borderColor="gray.300" my="2" />
-        <Flex align="center" mx="2">
-          <Img
-            height="150px"
-            width="150px"
-            src="https://images.pexels.com/photos/4101164/pexels-photo-4101164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            />
-        </Flex>
-        <Divider orientation="vertical" borderColor="gray.300" my="2" />
-        <Flex align="center" mx="2">
-          <Img
-            height="78px"
-            width="62px"
-            src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            />
-          <Box mx="4">
-            <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
-              Rating{" "}
-            </Text>
-            <Text as="h3" fontSize="lg" fontWeight="light">
-              aqui van estrellas 🎇
-            </Text>
-          </Box>
-        </Flex>
-        <Divider orientation="vertical" borderColor="gray.300" my="5" />
-      </Flex>
-      <Flex
-        maxW="1000px"
-        w={["90vw", "90vw", "90vw", "70vw"]}
-        direction={["column", "column", "column", "column"]}
-        justify="center"
-        bg={bgColor[colorMode]}
-        boxShadow="md"
-        rounded="lg"
-        p="4"
-        >
-        <Flex align="center" mx="2">
-          <Img
-            height="78px"
-            width="62px"
-            src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            />
-          <Box mx="4">
-            <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
-              Name
-            </Text>
-            <Text as="h3" fontSize="lg" fontWeight="light">
-              Perenganito Perez
-            </Text>
-          </Box>
-        </Flex>
-        <Divider orientation="vertical" borderColor="gray.300" my="2" />
-        <Flex align="center" mx="2">
-          <Img
-            height="78px"
-            width="62px"
-            src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            />
-          <Box mx="4">
-            <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
-              About
-            </Text>
-            <Text as="h3" fontSize="lg" fontWeight="light">
-             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, accusamus dolore. Totam fuga similique ipsa odio numquam, id laboriosam, tempora nobis officia culpa rerum quae molestias modi libero error iste.
-            </Text>
-          </Box>
-        </Flex>
-        <Divider orientation="vertical" borderColor="gray.300" my="2" />
-        <Flex align="center" mx="2">
-          <Img
-            height="78px"
-            width="62px"
-            src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            />
-          <Box mx="4">
-            <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
-              Country
-            </Text>
-            <Text as="h3" fontSize="lg" fontWeight="light">
-              UpsideDown
-            </Text>
-          </Box>
-        </Flex>
-        <Divider orientation="vertical" borderColor="gray.300" my="2" />
-        <Flex align="center" mx="2">
-          <Img
-            height="78px"
-            width="62px"
-            src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            />
-          <Box mx="4">
-            <Text as="h2" fontSize="x1" fontWeight="bold" mb="2">
-              License
-            </Text>
-            <Text as="h3" fontSize="lg" fontWeight="light">
-              as654das6d54a6sd54a6sd54
-            </Text>
-          </Box>
-        </Flex>
-      </Flex>
-            </ColorModeProvider>
-    </div>
+    <SimpleGrid columns={2} spacingX="40px" spacingY="20px">
+      <Box bg="tomato" height="80px">
+        <img src={detail.profileImage} alt="" width='150px' height='150px'/>
+      </Box>
+      <Box bg="tomato" height="80px">{detail.firstName}</Box>
+      <Box bg="tomato" height="80px"></Box>
+      <Box bg="tomato" height="80px"></Box>
+      <Box bg="tomato" height="80px"></Box>
+    </SimpleGrid>
   );
 }
+
+
+
+// {
+//   "_id": "62a2794dcffa2eaacf84fb12",
+//   "firstName": "Juan Carlos",
+//   "lastName": "Prieto",
+//   "email": "58987654",
+//   "password": "62fd716958d43f239",
+//   "birthDate": "19/05/84",
+//   "country": "Colombia",
+//   "License": "as54as64",
+//   "about": "¡Hola! Soy Juan, bienvenid@ Te ofrezco un espacio para conectar y Ser quien has venido a SER, un lugar para conocerte y transformarte; un sitio para parar, sentir, comprender. Estoy especializado en acompañar los procesos emocionales que traen consigo las crisis, cambios y transiciones de la v...",
+//   "education": "Psicologo",
+//   "DNI": "5845asdas",
+//   "Specialties": [
+//     "Depresión , Ansiedad , Transtornos , Autoestima , Adicciones"
+//   ],
+//   "profileImage": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//   "rating": 0,
+//   "appointments": [],
+//   "__v": 0
+// }

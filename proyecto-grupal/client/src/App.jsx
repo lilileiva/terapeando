@@ -26,7 +26,7 @@ export default function App() {
         <Route exact path="/" element={< NavBar />} />
         <Route exact path='/signup' element={<RegisterForm />} />
         <Route exact path='/signin' element={<LoginForm />} />
-        <Route exact path="/detailPsychologist" element={<PsychologistDetail />} />
+        <Route exact path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
         <Route path="/" element={< NavBar />} />
         <Route exact path='/home/:idUserClient' element={<ClientDetails />} />
         <Route path="/cardPsicologist" element={<CardPsychologist />} />

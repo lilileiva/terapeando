@@ -1,4 +1,4 @@
-import { GET_ALL_PSYCHOLOGIST } from "../actions/types"
+import { CLEAR, GET_ALL_PSYCHOLOGIST } from "../actions/types"
 
 
 const initialState = {
@@ -48,6 +48,11 @@ function rootReducer(state = initialState,action) {
                 ...state,
                 userPsichologistDetail: action.payload
             }
+            case CLEAR:
+                return {
+                  ...state,
+                  userPsichologistDetail: {},
+                };
         default:
            return{...state}
     }
