@@ -1,5 +1,5 @@
 import { Router} from "express";
-const {createReview , getReview } = require('../routes/reviews/reviews');
+const {createReview , getReview } = require('./reviews');
 
 const reviewsRouter: Router = Router();
 

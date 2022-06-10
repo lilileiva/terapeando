@@ -1,5 +1,5 @@
 import { Router} from "express";
-const {createSchedule, getSchedule} = require('./schedule/scheduleRoute')
+const {createSchedule, getSchedule} = require('./scheduleRoute.ts')
 
 const scheduleRouter: Router = Router();
 
