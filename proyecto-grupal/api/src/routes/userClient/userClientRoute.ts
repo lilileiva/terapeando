@@ -13,7 +13,7 @@ const createUserClient = async (req: Request, res: Response) => {
       password
    } = req.body
 
-   try {
+   try {      
       const userClient = new userClientModel({
          firstName: firstname,
          lastName: lastname,

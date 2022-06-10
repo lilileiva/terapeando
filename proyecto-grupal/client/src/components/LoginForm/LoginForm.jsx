@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './LoginForm.css';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.jsx';
-import { useDispatch } from 'react-redux';
-// import { getUserClient }
 
 
 function LoginForm() {
@@ -47,10 +45,13 @@ function LoginForm() {
         setIsSubmit(true)
     }
 
+    const navigate = useNavigate()
     const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             setIsCreated(true)
+            navigate('/home')
+
             setSigninForm({})
         }
     }, [formErrors, signinForm, isSubmit])
