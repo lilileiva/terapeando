@@ -85,6 +85,18 @@ const putUserPsychologist = async (req: Request, res: Response) => {
   }
 }
 
+////PUT////
+
+/* const putUserPsychologist = async (req: Request, res: Response) => {
+  try {
+    /// aqui requiero los datos que considero que pueden ser cambiados
+    // SI O SI ES NECESARIO LA ID DEL PSYCOLOGO, sino no se realizaran los cambios
+    const { email, password, country,
+      Specialties, profileImage, rating,
+      newaAbout, newEducation } = req.body;
+
+    const { idPsychologist } = req.params;
+
     //// creo un switch para saber si hubo algun cambio para despues notificar al front
     let switchPut: Boolean = false;
 
@@ -164,11 +176,11 @@ const putUserPsychologist = async (req: Request, res: Response) => {
   }
 }
 
+} */
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,
   postUserPsychologist,
   deleteUserPsychologist,
   putUserPsychologist
-
 }
