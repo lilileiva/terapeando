@@ -71,10 +71,11 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 
 const putUserPsychologist = async (req: Request, res: Response) => {
   const { idPsychologist } = req.params;
-  const {newaAbout, newEducation} = req.body
+  console.log(idPsychologist)
   try {
-    const Updated= await userPsychologistModel.findByIdAndUpdate(idPsychologist, {about: newaAbout, education:newEducation}, {new: true})
-    res.send(Updated);
+    const Updated= await userPsychologistModel.findByIdAndUpdate(idPsychologist, req.body ,  {new: true})
+    console.log(Updated)
+    res.send('Updated');
   } catch (error) {
     res.status(404).send(error);
   }
