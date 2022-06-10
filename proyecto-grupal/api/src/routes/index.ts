@@ -31,4 +31,5 @@ router.delete('/appointment', deleteAppointmentModel )
 router.get('/appointment', getAllAppointment)
 router.put('/putsersychologist/:IdUserPsychologist', putUserPsychologist)
 
+
 module.exports = router;
