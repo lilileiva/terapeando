@@ -36,6 +36,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       DNI,
       Specialties,
       profileImage,
+      rating,
       education,
       about,
     } = req.body;
@@ -50,7 +51,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       DNI,
       Specialties,
       profileImage,
-      rating: 0,
+      rating,
       appointments:[],
       about: about,
       education:education,
