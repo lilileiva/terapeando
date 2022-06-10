@@ -43,7 +43,7 @@ import {
  
    return (
      <>
-       <Box bg={useColorModeValue("gray.50", "gray.900")} px={4}>
+       <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} position='relative' marginBottom={-130}>
          <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
            <IconButton
              size={"md"}

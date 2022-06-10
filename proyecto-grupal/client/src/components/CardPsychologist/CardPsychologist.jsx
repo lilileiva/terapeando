@@ -1,93 +1,50 @@
 import React from "react";
-import { Box, Avatar, Text, Stack, Button, Image} from "@chakra-ui/react"
-import { style } from "././CardPsychologist.module.css"
+import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
+import './CardPsychologist.css';
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating }) {
+
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about}) {
 
     return (
-        <Box
-            width="850px"
-            height="280px"
-            marginTop={150}
-            rounded="10px"
-            display='inline-block'
-            borderColor='blackAlpha.400'
-            position="relative"
-            boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.75)`}
-            >
+        <Box className="container" rounded="10px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
-            <Stack
-                width='230px'
-                height="100%"
-            >
-                <Avatar src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="img not found" size='2xl' margin='auto' marginTop='15px' marginBottom='10px' ></Avatar>
-                <Text as='ins' textAlign='center' fontWeight='semibold'>Doctor Juan Carlos Prieto</Text>
-                <Text> Profesión </Text>
-                <Text> Calificación </Text>
+            <Stack className="ProfileBox">
+                <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
+                <Text as='ins' textAlign='center' fontWeight='bold'>{`${firstName} ${lastName}`}</Text>
+                <Text> {education} </Text>
+                <Text> {rating} </Text>
             </Stack>
-            <Stack
+
+            <Stack className="containerCenter">
                 
-                borderRight={`2px solid`}
-                borderColor='blackAlpha.400'
-                width='410px'
-                height="100%"
-                display='inline-block'
-                position='absolute'
-                top={0}
-                right='0'
-                left='30'
-                margin='auto'
-            >
-                <Text
-                    border-left='2px'
-                    color='teal.800'
-                    fontSize='14'
-                    margin='auto'
-                    marginTop='15px'
-                    marginLeft='5px'
-                    width='90%'
-                    fontStyle='italic'
-                    fontWeight='600'>  
-                    ¡Hola! Soy Juan, bienvenid@ Te ofrezco un espacio para conectar y Ser quien has venido a SER, un lugar para conocerte y transformarte; un sitio para parar, sentir, comprender. Estoy especializado en acompañar los procesos emocionales que traen consigo las crisis, cambios y transiciones de la v...
+                <Box className="Especialidades">
+                    {/* {Specialties.map((el) => {
+                        return <Badge variant='subtle' colorScheme='red' className='Badge'>{el}</Badge>
+                    })} */}
+                     <Badge variant='subtle' className='Badge'>Ansiedad</Badge>
+                    <Badge variant='subtle' colorScheme='green' className='Badge'>Depresión</Badge>
+                    <Badge variant='subtle' colorScheme='red' className='Badge'>Autoestima</Badge>
+                    <Badge variant='subtle' colorScheme='blue' className='Badge'>Adicciones</Badge>
+                    <Badge variant='subtle' colorScheme='purple' className='Badge'>Transtornos</Badge>
+                </Box>
+
+                <Text className="about" fontSize="15" fontStyle="italic" fontWeight=" 600">
+                    {about}
                 </Text>
 
+                <Box className="profile"  >
+                    <Button colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px'> Ver Perfil </Button>
+                    <Button colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
+                </Box>
+
             </Stack>
 
-            <Box
-                width='200px'
-                height="100%"
-                display='inline-block'
-                position='absolute'
-                top={0} right='0' >
-                     <Image src='https://img.icons8.com/office/2x/calendar.png' alt='img not found'
-                     position='absolute'
-                     top='0'
-                     bottom='50%'
-                     left='0'
-                     right='0'
-                     margin='auto'
-                     boxSize='60px'
-                      />
-                <Text
-                position='absolute'
-                     top='0'
-                     left='0'
-                     right='0'
-                     margin='auto'
-                     marginTop='55%'
-                     fontSize='12px'
-                     width='90%'
-                   >
+            <Box className="containerBottom">
+                <Image className="iconCard" src='https://img.icons8.com/office/2x/calendar.png' alt='img not found' />
+                <Text className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Button
-                    color='teal.800'
-                    backgroundColor='green.200'
-                    size='lg'
-                    position='relative'
-                    margin='auto'
-                    top='60%'
-                    width='150px'>
+                <Button className="appointmentButton" backgroundColor='green.400' size='lg'>
                     Pedir cita
                 </Button>
             </Box>
