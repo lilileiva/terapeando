@@ -26,34 +26,34 @@ const getUserPsychologist = async (req: Request, res: Response) => {
 const postUserPsychologist = async (req: Request, res: Response) => {
   try {
     const {
-      firstname,
-      lastname,
-      birthdate,
-      country,
+      firstName,
+      lastName,
       email,
-      profileimage,
-      license,
-      dni,
-      specialities,
+      password,
+      birthDate,
+      country,
+      License,
+      DNI,
+      Specialties,
+      profileImage,
       education,
-      password,
+      about,
     } = req.body;
-
-    const userP = await userPsychologistModel.create({
-      firstName: firstname,
-      lastName: lastname,
-      email: email,
+    const userP =  await userPsychologistModel.create({
+      firstName,
+      lastName,
+      email,
       password,
-      birthDate: birthdate,
-      country:country,
-      License: license,
-      DNI: dni,
-      Specialties: specialities,
-      profileImage: profileimage,
+      birthDate,
+      country,
+      License,
+      DNI,
+      Specialties,
+      profileImage,
       rating: 0,
-      appointments: [],
-      about: '',
-      education: education,
+      appointments:[],
+      about: about,
+      education:education,
     });
     res.status(201).send(userP);
   } catch (error) {
@@ -62,7 +62,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 };
 ///// Delete /////
 
-const deleteUserPsychologist = async (req: Request, res: Response) => {
+ const deleteUserPsychologist =  async (req: Request, res: Response) => {
   const { idPsychologist } = req.params;
   try {
     await userPsychologistModel.findOneAndDelete({ idPsychologist });
@@ -73,6 +73,16 @@ const deleteUserPsychologist = async (req: Request, res: Response) => {
 };
 
 
+const putUserPsychologist = async (req: Request, res: Response) => {
+  const { IdUserPsychologist } = req.params;
+  console.log(IdUserPsychologist)
+  try{
+    await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, {new: true})
+    res.status(200).send('Usuario editado correctamente')
+  } catch(error){
+    res.status(404).send(error);
+  }
+}
 
 // const putUserPsychologist = async (req: Request, res: Response) => {
 //   const { IdUserPsychologist } = req.params;
@@ -160,7 +170,6 @@ module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,
   postUserPsychologist,
-  deleteUserPsychologist
-  // putUserPsychologist
-
+  deleteUserPsychologist,
+  putUserPsychologist,
 }
