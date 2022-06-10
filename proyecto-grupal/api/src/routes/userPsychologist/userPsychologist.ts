@@ -26,34 +26,34 @@ const getUserPsychologist = async (req: Request, res: Response) => {
 const postUserPsychologist = async (req: Request, res: Response) => {
   try {
     const {
-      firstName,
-      lastName,
-      email,
-      password,
-      birthDate,
+      firstname,
+      lastname,
+      birthdate,
       country,
-      License,
-      DNI,
-      Specialties,
-      profileImage,
+      email,
+      profileimage,
+      license,
+      dni,
+      specialities,
       education,
-      about,
-    } = req.body;
-    const userP =  await userPsychologistModel.create({
-      firstName,
-      lastName,
-      email,
       password,
-      birthDate,
-      country,
-      License,
-      DNI,
-      Specialties,
-      profileImage,
+    } = req.body;
+
+    const userP = await userPsychologistModel.create({
+      firstName: firstname,
+      lastName: lastname,
+      email: email,
+      password,
+      birthDate: birthdate,
+      country:country,
+      License: license,
+      DNI: dni,
+      Specialties: specialities,
+      profileImage: profileimage,
       rating: 0,
-      appointments:[],
-      about: about,
-      education:education,
+      appointments: [],
+      about: '',
+      education: education,
     });
     res.status(201).send(userP);
   } catch (error) {
@@ -62,7 +62,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 };
 ///// Delete /////
 
- const deleteUserPsychologist =  async (req: Request, res: Response) => {
+const deleteUserPsychologist = async (req: Request, res: Response) => {
   const { idPsychologist } = req.params;
   try {
     await userPsychologistModel.findOneAndDelete({ idPsychologist });
@@ -72,100 +72,103 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   }
 };
 
-////PUT////
+
 
 const putUserPsychologist = async (req: Request, res: Response) => {
-try{
-/// aqui requiero los datos que considero que pueden ser cambiados
-// SI O SI ES NECESARIO LA ID DEL PSYCOLOGO, sino no se realizaran los cambios
-  const { email, password, country, 
-    Specialties, profileImage, rating ,
-     newaAbout, newEducation  } = req.body;
+  const { IdUserPsychologist } = req.params;
+  console.log(IdUserPsychologist)
+  try{
+    await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, {new: true})
+    res.status(200).send('Usuario editado correctamente')
+  } catch(err){
+    console.log(err)
+  }
+}
 
-  const { idPsychologist } = req.params;
-
-//// creo un switch para saber si hubo algun cambio para despues notificar al front
+    //// creo un switch para saber si hubo algun cambio para despues notificar al front
     let switchPut: Boolean = false;
 
-/// aqui hago lo mismo, verifico si los datos obtenidos contienen informacion para luego realizar el cambio,
-/// y si se realiza algun cambio el switchPut pasaria de false a true
-    if(email){
-    const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-      $set:{
-        email: email
-      }
-    })
-    switchPut = true;
-    } if(password) {
-      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-        $set:{
+    /// aqui hago lo mismo, verifico si los datos obtenidos contienen informacion para luego realizar el cambio,
+    /// y si se realiza algun cambio el switchPut pasaria de false a true
+    if (email) {
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
+          email: email
+        }
+      })
+      switchPut = true;
+    } if (password) {
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
           password: password
         }
       })
       switchPut = true;
-    } if(country) {
-      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-        $set:{
+    } if (country) {
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
           country: country
         }
       })
       switchPut = true;
     } if (Specialties) {
-      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-        $set:{
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
           Specialties: Specialties
         }
       })
-    } if (profileImage){
-      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-        $set:{
+    } if (profileImage) {
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
           profileImage: profileImage
         }
       })
       switchPut = true;
-    } if (rating){
-      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-        $set:{
+    } if (rating) {
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
           rating: rating
         }
       })
       switchPut = true;
     }
-    if(newaAbout){
-      const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-      $set:{
-        about: newaAbout
-      }
-    })
-    switchPut = true;
-  }
-  if(newEducation){
-    const update =  await userPsychologistModel.updateOne({id_: idPsychologist},{
-      $set:{
-        education: newEducation
-      }
-    })
-    switchPut = true;
-  }
+    if (newaAbout) {
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
+          about: newaAbout
+        }
+      })
+      switchPut = true;
+    }
+    if (newEducation) {
+      const update = await userPsychologistModel.updateOne({ id_: idPsychologist }, {
+        $set: {
+          education: newEducation
+        }
+      })
+      switchPut = true;
+    }
 
-  /// aqui verifico si se hizo algun cambio para notificar al front
-  /// en caso de que no se haya echo algun cambio entraria al else y lo notificaria
-     if(switchPut){
+    /// aqui verifico si se hizo algun cambio para notificar al front
+    /// en caso de que no se haya echo algun cambio entraria al else y lo notificaria
+    if (switchPut) {
       res.status(201).send("the data was successfully modified")
-    }else{
+    } else {
       res.status(404).send("data is missing to be able to modify your profile")
     }
 
-/// el catch esta para verificar si ocurre algun error durante la ejecucion del codigo
-}catch(err){
+    /// el catch esta para verificar si ocurre algun error durante la ejecucion del codigo
+  } catch (err) {
 
- res.status(404).json({error: err})
+    res.status(404).json({ error: err })
+  }
 }
-}
+
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,
   postUserPsychologist,
   deleteUserPsychologist,
-  putUserPsychologist,
+  putUserPsychologist
+
 }
