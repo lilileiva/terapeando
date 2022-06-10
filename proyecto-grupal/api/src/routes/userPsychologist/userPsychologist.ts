@@ -156,14 +156,6 @@ const deleteUserPsychologist = async (req: Request, res: Response) => {
 //       res.status(404).send("data is missing to be able to modify your profile")
 //     }
 
-//     /// el catch esta para verificar si ocurre algun error durante la ejecucion del codigo
-//   } catch (err) {
-
-//     res.status(404).json({ error: err })
-//   }
-// }
-
-
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,

@@ -10,7 +10,7 @@ const getAllPosts = (req:Request, res:Response,next:NextFunction) => {
     //busco todos mis post en mi db
     const {title} = req.query;
     if(title){
-        Post.find({Title:{$regex : `.*${title}.*`}})
+        Post.find({Title:{$regex : title, $options:'i'}})
             .then((posts) => {
                 res.status(200).json(posts)
             })

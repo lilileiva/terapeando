@@ -4,13 +4,12 @@ import { Input } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { searchPostsByTitle } from "../../redux/actions";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-
   function handleInputChange(e) {
     e.preventDefault();
     setTitle(e.target.value);
