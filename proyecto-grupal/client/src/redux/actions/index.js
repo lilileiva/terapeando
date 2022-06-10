@@ -35,10 +35,15 @@ export const searchPostsByTitle = (title) => {
     return async function (dispatch) {
         try {
             let posts = await axios.get(`${baseURL}/posts?title=${title}`)
-            return dispatch ({
-                type: "SEARCH_POSTS_BY_TITLE",
-                payload: posts.data
-            })
+            if(posts.data.length){
+                dispatch ({
+                     type: "SEARCH_POSTS_BY_TITLE",
+                     payload: posts.data
+                 })
+            }else{
+                dispatch({type:"SEARCH_POSTS_BY_TITLE", payload: posts.data})
+                Swal.fire('Error','No hay notas disponibles vuelve a intentar, no escribir letras ni caracteres especiales para la busqueda solamente caracteres validos','error')
+            }
         } catch (error) {
             console.log(error)
         }
