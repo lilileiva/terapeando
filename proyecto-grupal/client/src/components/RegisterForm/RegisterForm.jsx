@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './RegisterForm.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
 import { specialitiesList } from './specialities';
 import { BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
+import { createClient, createPsychologist } from '../../redux/actions/index.js';
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 
 function RegisterForm() {
+    const dispatch = useDispatch();
+
     const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
@@ -100,6 +105,12 @@ function RegisterForm() {
         })
     }
 
+    const handleCountries = (e) => {
+        setSignupForm({
+            ...signupForm,
+            country: e.target.value
+        })
+    }
     const handleSpecialities = (e) => {
         setSignupForm({
             ...signupForm,
@@ -117,15 +128,24 @@ function RegisterForm() {
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signupForm))
+        if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education) {
+            dispatch(createPsychologist(signupForm))
+        } else {
+            dispatch(createClient(signupForm))
+        }
         console.log(signupForm)
         setIsSubmit(true)
     }
 
+    // const navigate = useNavigate()
     const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             setIsCreated(true)
             setSignupForm({})
+            // setTimeout(() => {
+            //     navigate('/home')
+            // }, 1000)
         }
     }, [formErrors, signupForm, isSubmit])
 
@@ -133,6 +153,20 @@ function RegisterForm() {
         <div className='background'>
 
             <NavBar />
+
+            {
+                isCreated
+                    ? (
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Usuario creado correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    )
+                    : null
+            }
 
             <Container padding='2em' zIndex='1' centerContent>
 
@@ -161,7 +195,7 @@ function RegisterForm() {
                     </Button>
                 </Box>
 
-                <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' marginBottom='2em' align='center'>
+                <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' marginBottom='5em' align='center'>
                     <Box direction='column' align='center' width='60%'>
                         <form onSubmit={handleInputSubmit}>
                             <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' onChange={handleInputChange} />
@@ -176,10 +210,10 @@ function RegisterForm() {
                             <Input name='birthdate' type='date' variant='flushed' placeholder=' Email' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} />
                             {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
 
-                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} >
+                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginTop='2em' onChange={handleCountries} >
                                 {
                                     countries.map(c => (
-                                        <option name='country' value={c.label}>{c.label}</option>
+                                        <option key={c.label} value={c.label}>{c.label}</option>
                                     ))
                                 }
                             </Select>
@@ -200,7 +234,7 @@ function RegisterForm() {
 
                                             <ul>
                                                 {signupForm.specialities ? signupForm.specialities.map((e) => (
-                                                    <Stack direction='row' margin='0.2em' center>
+                                                    <Stack direction='row' margin='0.2em'>
                                                         <Text fontSize='md' color='teal.700'>{e}</Text>
                                                         <BiX onClick={() => handleSpecialitiesDelete(e)} className='iconX' />
                                                     </Stack>
@@ -257,9 +291,7 @@ function RegisterForm() {
 
                             <Stack direction='column' align='center'>
                                 <Button type='submit' colorScheme='teal' variant='solid' marginTop='2em'>
-                                    {/* <Link to='/home'> */}
                                     Registrarse
-                                    {/* </Link> */}
                                 </Button>
                                 {
                                     userClientBtn
