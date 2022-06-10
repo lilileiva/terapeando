@@ -18,7 +18,7 @@ router.post('/userclient', createUserClient)
 router.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
 router.post('/schedule', createSchedule)
 router.get('/userpsychologist/:IdUserPsychologist', getUserPsychologistOne);
-router.put('/userpsychologist/:IdUserPsychologist', putUserPsychologist);
+// router.put('/userpsychologist/:IdUserPsychologist', putUserPsychologist);
 router.get('/userpsychologist', getUserPsychologist);
 router.post('/userpsychologist', postUserPsychologist);
 router.delete('/deleteuserpsychologist/:IdUserPsychologist', deleteUserPsychologist);
@@ -27,7 +27,6 @@ router.post('/post',createPost)
 router.post('/appointment', postAppointmentModel);
 router.delete('/appointment', deleteAppointmentModel )
 router.get('/appointment', getAllAppointment)
-router.put('/putsersychologist/:IdUserPsychologist', putUserPsychologist)
 
 
 module.exports = router;
