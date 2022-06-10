@@ -3,56 +3,62 @@ import userClientModel from "../../models/userClients";
 
 
 const createUserClient = async (req: Request, res: Response) => {
-   const { firstName, lastName, email, password, birthDate, country, profileImage } = req.body
-   try{
+   const {
+      firstname,
+      lastname,
+      birthdate,
+      country,
+      email,
+      profileimage,
+      password
+   } = req.body
+
+   try {
       const userClient = new userClientModel({
-         firstName,
-         lastName,
-         email,
-         password,
-         birthDate,
-         country,
-         profileImage
+         firstName: firstname,
+         lastName: lastname,
+         birthDate: birthdate,
+         country: country,
+         email: email,
+         profileImage: profileimage,
+         password: password
       })
       await userClient.save()
       res.status(201).send('User Created')
    }
    catch (err) {
-      console.log(err)
+      res.status(404).send('There was an error...');
    }
 }
 
 const deleteUserClient = async (req: Request, res: Response) => {
-   const {IdUserClient} = req.params;
-   try{
-     const userClientDelete = await userClientModel.findOneAndDelete({IdUserClient})
-     res.send('Usuario eliminado correctamente')
-   } catch(err){
-      console.log(err);
+   const { IdUserClient } = req.params;
+   try {
+      const userClientDelete = await userClientModel.findOneAndDelete({ IdUserClient })
+      res.send('Usuario eliminado correctamente')
+   } catch (err) {
       res.status(404).send('There was an error...');
    }
 }
 
 const putUserClient = async (req: Request, res: Response) => {
-   const {IdUserClient} = req.params;
-   try{
-      const user = await userClientModel.findByIdAndUpdate(IdUserClient, req.body, {new:true})
-      console.log(user)
+   const { IdUserClient } = req.params;
+   try {
+      const user = await userClientModel.findByIdAndUpdate(IdUserClient, req.body, { new: true })
       res.status(200).send('Usuario editado correctamente')
-   }catch(err){
-      console.log(err)
+   } catch (err) {
+      res.status(404).send('There was an error...');
    }
 }
 
 const getUserClient = async (req: Request, res: Response) => {
    const { IdUserClient } = req.params
 
-   try{
+   try {
       const userClient = await userClientModel.findById(IdUserClient);
       res.status(200).json(userClient);
    }
    catch (err) {
-      console.log(err);
       res.status(404).send('There was an error...');
    }
 };
