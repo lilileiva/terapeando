@@ -30,11 +30,11 @@ export const getAllPosts = () => {
         }
     }
 }
-
+//buscar notas por titulo
 export const searchPostsByTitle = (title) => {
     return async function (dispatch) {
         try {
-            let posts = await axios.get(`${baseURL}/blog?title=` + title)
+            let posts = await axios.get(`${baseURL}/posts?title=${title}`)
             return dispatch ({
                 type: "SEARCH_POSTS_BY_TITLE",
                 payload: posts.data
