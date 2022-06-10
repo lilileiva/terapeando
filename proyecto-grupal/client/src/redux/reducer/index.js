@@ -26,11 +26,14 @@ function rootReducer(state = initialState,action) {
                 ...state,
                 posts: action.payload
             }
-        case 'GET_PSYCHOLOGISTS':
+        case "CREATE_CLIENT":
             return {
-                ...state,
-                usersPsichologists: action.payload
+                ...state
             }
+        case "CREATE_PSYCHOLOGIST":
+            return {
+                ...state
+       
         case 'GET_PSYCHOLOGISTS_ONE':
             return {
                 ...state,
