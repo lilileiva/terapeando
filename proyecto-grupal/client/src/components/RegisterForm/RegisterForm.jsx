@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './RegisterForm.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 
 function RegisterForm() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const navigate = useNavigate();
 
@@ -83,17 +84,19 @@ function RegisterForm() {
         if (signupForm.password && signupForm.password !== signupForm.repeatpassword) {
             errors.password = 'Las contraseñas no coinciden'
         }
-        if (!signupForm.license) {
-            errors.license = 'Inserte matrícula'
-        }
-        if (!signupForm.specialities) {
-            errors.specialities = 'Inserte al menos una especialidad'
-        }
-        if (!signupForm.dni) {
-            errors.dni = 'Inserte D.N.I.'
-        }
-        if (!signupForm.education) {
-            errors.education = 'Inserte educación'
+        if (!userClientBtn) {
+            if (!signupForm.license) {
+                errors.license = 'Inserte matrícula'
+            }
+            if (!signupForm.specialities) {
+                errors.specialities = 'Inserte al menos una especialidad'
+            }
+            if (!signupForm.dni) {
+                errors.dni = 'Inserte D.N.I.'
+            }
+            if (!signupForm.education) {
+                errors.education = 'Inserte educación'
+            }
         }
         return errors
     }
@@ -127,49 +130,46 @@ function RegisterForm() {
     }
 
     const [isSubmit, setIsSubmit] = useState(false)
+
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signupForm))
+        setIsSubmit(true)
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education) {
             dispatch(createPsychologist(signupForm))
         } else {
             dispatch(createClient(signupForm))
         }
+
         console.log(signupForm)
         setIsSubmit(true)
         navigate("/home");
+
     }
 
-    // const navigate = useNavigate()
     const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             setIsCreated(true)
-            setSignupForm({})
-            // setTimeout(() => {
-            //     navigate('/home')
-            // }, 1000)
+            navigate('/home')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Usuario creado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
-    }, [formErrors, signupForm, isSubmit])
+    }, [formErrors, isSubmit])
 
     return (
         <div className='background'>
 
-            <NavBar />
-
-            {
-                isCreated
-                    ? (
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Usuario creado correctamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    )
-                    : null
-            }
+            <Stack direction='column' align='left' width='4em' marginLeft='2em' marginTop='2em'>
+                <Button bg='green.100' color='teal.500' onClick={() => navigate(-1)} >
+                    Volver
+                </Button>
+            </Stack>
 
             <Container padding='2em' zIndex='1' centerContent>
 
@@ -221,7 +221,6 @@ function RegisterForm() {
                                 }
                             </Select>
                             {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
-
                             {
                                 !userClientBtn
                                     ? (
@@ -303,7 +302,7 @@ function RegisterForm() {
                                         </Button>
                                         : null
                                 }
-                                <Button bg='green.100' color='teal.700' >
+                                <Button bg='green.100' color='teal.700' onClick={() => navigate('/signin')} >
                                     ¿Ya tienes una cuenta?
                                 </Button>
                             </Stack>

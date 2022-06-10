@@ -6,6 +6,7 @@ import {Tag,TagLabel,Text } from '@chakra-ui/react'
 import './post.css'
 import Paged from '../Paged/Paged'
 import smoothscroll from '../../animations'
+import Swal from 'sweetalert2'
 
 
 export default function Post() {
@@ -58,7 +59,7 @@ export default function Post() {
               })}
             </div>
           </div>
-        )})}
+        )}): <h1>no hay juegos</h1>}
       </div>
       <Paged postPage={postPage} allPosts={allPosts.length} paged={paged} page={page} setPage={setPage}/>
     </div>
