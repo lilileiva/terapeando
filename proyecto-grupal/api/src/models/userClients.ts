@@ -20,14 +20,15 @@ const saltRounds = 10;
 export class userClient {
     @prop({
         required: true,
-        trim: true,
-        validate: {
-          validator: (firstName: string) => {
-            const nameRegExp = /^[A-Za-z]+$/;
-            return nameRegExp.test(firstName);
-          },
-          message: 'Name is invalid.',
-        }
+        trim: true
+        // ,
+        // validate: {
+        //   validator: (firstName: string) => {
+        //     const nameRegExp = /^[A-Za-z]+$/;
+        //     return nameRegExp.test(firstName);
+        //   },
+        //   message: 'Name is invalid.',
+        // }
     })
     firstName: string
 
@@ -47,14 +48,15 @@ export class userClient {
         unique: true,
         required: true,
         lowercase: true,
-        trim: true,
-        validate: {
-          validator: (email: string) => {
-            const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return emailRegExp.test(email);
-          },
-          message: 'Email is invalid.',
-        }
+        trim: true
+        // ,
+        // validate: {
+        //   validator: (email: string) => {
+        //     const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        //     return emailRegExp.test(email);
+        //   },
+        //   message: 'Email is invalid.',
+        // }
     })
     email: string
 
