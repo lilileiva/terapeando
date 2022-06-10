@@ -16,6 +16,8 @@ function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
+    const navigate = useNavigate();
+
     const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
@@ -138,6 +140,11 @@ function RegisterForm() {
         } else {
             dispatch(createClient(signupForm))
         }
+
+        console.log(signupForm)
+        setIsSubmit(true)
+        navigate("/home");
+
     }
 
     const [isCreated, setIsCreated] = useState(false);
