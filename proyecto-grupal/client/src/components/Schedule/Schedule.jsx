@@ -11,16 +11,16 @@ function Schedule() {
     const dispatch = useDispatch();
 
     const { idUserPsychologist } = useParams()
+    console.log(idUserPsychologist)
 
     useEffect(() => {
         dispatch(getUserPsychologistOne(idUserPsychologist));
     }, [dispatch]);
 
     const psichologistDetail = useSelector(state => state.userPsichologistDetail);
-
+    console.log(psichologistDetail)
     return (
         <div>
-
             <NavbarHome />
 
             <Container marginTop='10em' padding='2em' zIndex='1' centerContent>
@@ -54,7 +54,7 @@ function Schedule() {
                             Seleccione fecha y hora
                         </Text>
 
-                        <Calendar />
+                        <Calendar  />
                     </Stack>
 
                 </Stack>

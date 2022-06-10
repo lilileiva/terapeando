@@ -4,7 +4,7 @@ import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/reac
 import './CardPsychologist.css';
 
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, id }) {
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idUserPsychologist }) {
 
     return (
         <Box className="container" rounded="10px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
@@ -45,7 +45,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Text className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Link to={`/schedule/${id}`}>
+                <Link to={`/schedule/${idUserPsychologist}`}>
                     <Button className="appointmentButton" backgroundColor='green.400' size='lg'>
                         Pedir cita
                     </Button>
