@@ -15,7 +15,6 @@ import { clientDetails, fetchUserClient } from "../../redux/actions";
 import Loader from "../Loader/Loader";
 
 
-
 export default function ClientDetails() {
 
   const dispatch = useDispatch();
@@ -24,9 +23,6 @@ export default function ClientDetails() {
 
   useEffect(() => {
     dispatch(fetchUserClient(id));
-  /*   return () => {
-      dispatch(clientDetails())
-    } */
   }, [dispatch, id])
 
   const clientDetails = useSelector((state) => state.userClientDetail)

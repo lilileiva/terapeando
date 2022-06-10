@@ -17,10 +17,17 @@ import {
  } from "@chakra-ui/react";
  import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
  import { Link } from "react-router-dom";
+ import './NavbarHome.css'
  
+ function removeAcc(str){
+	const acentos = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
+	return str.trim().split('').map( letra => acentos[letra] || letra).join('').toString().toLowerCase();	
+}
+
  const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
  
  const NavLink = ({ children }) => (
+  <Link exact to={removeAcc(children)}>
      <Text
        px={2}
        py={1}
@@ -32,17 +39,14 @@ import {
      >
        {children}
      </Text>
+ </Link>
  );
  
  export default function NavbarHome() {
- 
- 
- 
- 
    const { isOpen, onOpen, onClose } = useDisclosure();
- 
    return (
      <>
+     
        <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} position='relative' marginBottom={-130}>
          <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
            <IconButton
@@ -60,7 +64,7 @@ import {
                display={{ base: "none", md: "flex" }}
              >
                {Links.map((link) => (
-                 <NavLink key={link}>{link}</NavLink>
+                 <NavLink key={link} className={({isActive}) => isActive ? "active" : ""}>{link}</NavLink>
                ))}
              </HStack>
            </HStack>
@@ -116,6 +120,7 @@ import {
            </Box>
          ) : null}
        </Box>
+
      </>
    );
  }
