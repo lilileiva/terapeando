@@ -1,0 +1,14 @@
+.imageDetailLogo{
+    margin-top: 50px;
+    margin-left: 200px;
+    animation: bounce 1s infinite ease-in-out;
+}
+@keyframes bounce {
+    33% { transform: translateY(-20px); }
+    66% { transform: translateY(0px); }
+  }
+
+.BoxDetail{
+    margin-left: 5px;
+    margin-right: 5px;
+}
