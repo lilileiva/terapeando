@@ -11,6 +11,7 @@ import {
   IconButton,
  } from '@chakra-ui/react';
  import { motion } from 'framer-motion'
+ import './landingpage.css'
 
 function LandingPage() {
   return (

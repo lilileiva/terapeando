@@ -6,6 +6,7 @@ import NavBar from "../NavBar/NavBar";
 import CardPsychologist from '../CardPsychologist/CardPsychologist';
 import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
+import './psychologist.css'
 
 
 export default function Psychologists() {
@@ -31,14 +32,14 @@ export default function Psychologists() {
             <div>
                 <NavBar/>
             </div>
-            <div>
+            <div className='psyContainer'>
                 {AllPsychologist.map(el => {
                     return (
                         console.log(el)
                     )
                 })}
             </div>
-            <div>
+            <div className='psy'>
                 {AllPsychologist.length !== 0 ?
                     AllPsychologist.map(el => {
                         //console.log(el.about.slice(0,100))
