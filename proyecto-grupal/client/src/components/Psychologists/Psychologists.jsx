@@ -12,25 +12,30 @@ import './psychologist.css'
 export default function Psychologists() {
 
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
+    console.log(AllPsychologist)
     const dispatch = useDispatch();
 
-    useEffect(() => { dispatch(getAllPsychologist()); }, [dispatch]);
+    useEffect(() => {
+        dispatch(getAllPsychologist())
+        smoothscroll();
+    }, [dispatch]);
 
-  const [page, setPage] = useState(1);
-  const [postPage, setPostPage] = useState(3);
-  const quantityPostPage = page * postPage;
-  const firstPage = quantityPostPage - postPage;
+    /* Paginado */
+    const [page, setPage] = useState(1);
+    const [postPage, setPostPage] = useState(3);
+    const quantityPostPage = page * postPage;
+    const firstPage = quantityPostPage - postPage;
+    const Psychologists = AllPsychologist.slice(firstPage, quantityPostPage)
 
-  const paged = function (pageNumber) {
-    setPage(pageNumber);
-    smoothscroll();
-  }
-
+    const paged = function (pageNumber) {
+        setPage(pageNumber);
+        smoothscroll();
+    }
 
     return (
         <div>
             <div>
-                <NavBar/>
+                <NavBar />
             </div>
             <div className='psyContainer'>
                 {AllPsychologist.map(el => {
@@ -51,11 +56,18 @@ export default function Psychologists() {
                                 rating={el.rating}
                                 education={el.education}
                                 about={el.about.slice(0, 300)}
+                                idUserPsychologist={el._id}
+                                Specialties={el.Specialties}
                             />
                         )
                     }) : <div>Cargando...</div>}
             </div>
-            <Paged postPage={postPage} allPosts={AllPsychologist.length} paged={paged} page={page} setPage={setPage} />
+            <Paged
+                postPage={postPage}
+                allPosts={AllPsychologist.length}
+                paged={paged}
+                page={page}
+                setPage={setPage} />
         </div>
     )
 }
