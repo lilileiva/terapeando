@@ -1,0 +1,6 @@
+.cardContainer{
+   box-sizing: border-box;
+   width: 100%;
+   height: fit-content;
+   background-color: #EDF2F7;
+}

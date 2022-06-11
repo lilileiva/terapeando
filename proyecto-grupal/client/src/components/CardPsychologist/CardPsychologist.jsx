@@ -1,14 +1,15 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
 import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
 
 
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about}) {
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, id }) {
 
     return (
-        <Box className="container" rounded="10px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+        <Box className="container" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
             <Stack className="ProfileBox">
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
@@ -19,12 +20,12 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
             </Stack>
 
             <Stack className="containerCenter">
-                
+
                 <Box className="Especialidades">
                     {/* {Specialties.map((el) => {
                         return <Badge variant='subtle' colorScheme='red' className='Badge'>{el}</Badge>
                     })} */}
-                     <Badge variant='subtle' className='Badge'>Ansiedad</Badge>
+                    <Badge variant='subtle' className='Badge'>Ansiedad</Badge>
                     <Badge variant='subtle' colorScheme='green' className='Badge'>Depresión</Badge>
                     <Badge variant='subtle' colorScheme='red' className='Badge'>Autoestima</Badge>
                     <Badge variant='subtle' colorScheme='blue' className='Badge'>Adicciones</Badge>
@@ -48,9 +49,11 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Text className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Button className="appointmentButton" backgroundColor='green.400' size='lg'>
-                    Pedir cita
-                </Button>
+                <Link to={`/schedule/${id}`}>
+                    <Button className="appointmentButton" backgroundColor='green.400' size='lg'>
+                        Pedir cita
+                    </Button>
+                </Link>
             </Box>
 
         </Box>

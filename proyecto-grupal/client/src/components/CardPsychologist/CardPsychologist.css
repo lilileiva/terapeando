@@ -3,10 +3,11 @@
     height: 250px;
     display: inline-block;
     position: relative;
+    bottom: 500px;
     margin-bottom: 40px;
-    top: 45px;
+    top: 150px;
     font-family: sans-serif;
-    background-color: rgba(9, 70, 66, 0.027);
+    background-color: rgba(11, 75, 68, 0.027);
 }
 
 .ProfileBox {
