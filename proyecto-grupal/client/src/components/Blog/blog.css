@@ -9,8 +9,16 @@
     height: auto;
 }
 .btn{
-    font-family: Montserrat,sans-serif;
-    margin-left: -1300px;
-    margin-bottom: 15px;
+    background-color: #637d99;
+    margin-left: 10px;
 }
+
+.syb {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
 
