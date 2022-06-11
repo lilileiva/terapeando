@@ -1,7 +1,5 @@
 .searchbar{
     display: flex;
     width: 250px;
-    margin-left: 40px;
-    margin-top: 10px;
     gap: 8px;
-}
+} 
