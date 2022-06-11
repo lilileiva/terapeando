@@ -5,9 +5,9 @@ import { GET_ALL_PSYCHOLOGIST, FETCH_USERCLIENT, LOCAL_HOST } from './types';
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
-export function fetchUserClient() {
+export function fetchUserClient(id) {
     return function (dispatch) {
-        axios.get(`${baseURL}/userclient`)
+        axios.get(`${baseURL}/${id}`)
             .then((client) => {
                 dispatch({
                     type: FETCH_USERCLIENT,
@@ -30,15 +30,20 @@ export const getAllPosts = () => {
         }
     }
 }
-
+//buscar notas por titulo
 export const searchPostsByTitle = (title) => {
     return async function (dispatch) {
         try {
-            let posts = await axios.get(`${baseURL}/blog?title=` + title)
-            return dispatch({
-                type: "SEARCH_POSTS_BY_TITLE",
-                payload: posts.data
-            })
+            let posts = await axios.get(`${baseURL}/posts?title=${title}`)
+            if(posts.data.length){
+                dispatch ({
+                     type: "SEARCH_POSTS_BY_TITLE",
+                     payload: posts.data
+                 })
+            }else{
+                dispatch({type:"SEARCH_POSTS_BY_TITLE", payload: posts.data})
+                Swal.fire('Error','No hay notas disponibles vuelve a intentar, no escribir letras ni caracteres especiales para la busqueda solamente caracteres validos','error')
+            }
         } catch (error) {
             console.log(error)
         }
@@ -151,4 +156,7 @@ export function createClient(signupForm) {
         }
     }
 };
+
+
+
 

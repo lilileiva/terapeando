@@ -6,7 +6,7 @@ import {Tag,TagLabel,Text } from '@chakra-ui/react'
 import './post.css'
 import Paged from '../Paged/Paged'
 import smoothscroll from '../../animations'
-
+import Swal from 'sweetalert2'
 
 export default function Post() {
   //me traigo todos los posts apenas se me monte el componente
@@ -51,7 +51,7 @@ export default function Post() {
               <h5>Fecha {post.Date}</h5>
               {post.Tags?.map((tag) => {
                 return(
-                  <Tag size='lg' colorScheme='cyan' borderRadius='full'>
+                  <Tag size='lg' colorScheme='cyan' borderRadius='full' >
                     <TagLabel>{tag}</TagLabel>
                   </Tag>
                 )

@@ -1,4 +1,4 @@
-import { GET_ALL_PSYCHOLOGIST } from "../actions/types"
+import { FETCH_USERCLIENT, GET_ALL_PSYCHOLOGIST } from "../actions/types"
 
 
 const initialState = {
@@ -14,6 +14,11 @@ const initialState = {
 
 function rootReducer(state = initialState,action) {
     switch (action.type) {
+        case FETCH_USERCLIENT:
+            return {
+                ...state,
+                userClientDetail: action.payload,
+            }
         case "GET_POSTS":
             return{
                 ...state,

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './LoginForm.css';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
-import NavBar from '../NavBar/NavBar.jsx';
-import { useDispatch } from 'react-redux';
-// import { getUserClient }
+import NavBar from '../NavBar/NavBar.jsx'
 
 
 function LoginForm() {
+
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
 
@@ -40,11 +39,11 @@ function LoginForm() {
         })
     }
 
+    const navigate = useNavigate()
     const [isSubmit, setIsSubmit] = useState(false)
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signinForm))
-        console.log(signinForm)
         setIsSubmit(true)
     }
 
@@ -52,6 +51,7 @@ function LoginForm() {
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             setIsCreated(true)
+            navigate('/home')
             setSigninForm({})
         }
     }, [formErrors, signinForm, isSubmit])
@@ -60,6 +60,12 @@ function LoginForm() {
         <div className='background'>
 
             <NavBar />
+
+            <Stack direction='column' align='left' width='4em' marginLeft='2em' marginTop='2em'>
+                <Button bg='green.100' color='teal.500' onClick={() => navigate(-1)} >
+                    Volver
+                </Button>
+            </Stack>
 
             <Container padding='2em' zIndex='1' centerContent>
 
@@ -92,17 +98,15 @@ function LoginForm() {
 
                             <Stack direction='column' align='center'>
                                 <Button type='submit' colorScheme='teal' variant='solid' marginTop='3em'>
-                                    {/* <Link to='/home'> */}
                                     Iniciar sesión
-                                    {/* </Link> */}
                                 </Button>
 
                                 <Button bg='green.100' color='teal.500' >
                                     Inicia sesión con &nbsp; <FaGoogle />
                                 </Button>
 
-                                <Button bg='green.100' color='teal.700' >
-                                    ¿Ya tienes una cuenta?
+                                <Button bg='green.100' color='teal.700' onClick={() => navigate('/signup')} >
+                                    ¿Aún no tienes una cuenta?
                                 </Button>
                             </Stack>
                         </form>

@@ -10,16 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { clientDetails, fetchUserClient } from "../../redux/actions";
+import { fetchUserClient } from "../../redux/actions";
 import Loader from "../Loader/Loader";
 
 
 export default function ClientDetails() {
 
   const dispatch = useDispatch();
-  const {id} = useParams();
-  console.log(id);
+  const id = '62a36674f5cc3a3399c5a94a'
 
   useEffect(() => {
     dispatch(fetchUserClient(id));

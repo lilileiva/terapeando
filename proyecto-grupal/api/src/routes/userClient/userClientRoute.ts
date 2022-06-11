@@ -13,7 +13,7 @@ const createUserClient = async (req: Request, res: Response) => {
       password
    } = req.body
 
-   try {
+   try {      
       const userClient = new userClientModel({
          firstName: firstname,
          lastName: lastname,
@@ -53,10 +53,11 @@ const putUserClient = async (req: Request, res: Response) => {
 
 const getUserClient = async (req: Request, res: Response) => {
    const { IdUserClient } = req.params
-
+   console.log(IdUserClient)
    try {
       const userClient = await userClientModel.findById(IdUserClient);
       res.status(200).json(userClient);
+      console.log(userClient)
    }
    catch (err) {
       res.status(404).send('There was an error...');

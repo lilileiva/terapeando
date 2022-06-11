@@ -94,10 +94,10 @@ import {
                  />
                </MenuButton>
                <MenuList>
-                 <Link to={'/home/:idUserClient'}>
+                 <Link to={'/:idUserClient'}>
                    <MenuItem>Mi Perfil</MenuItem>
                  </Link>
-                 <Link to={'/editprofile/:idUserClient'}>
+                 <Link to={'/putclient/:idUserClient'}>
                  <MenuItem>Editar Perfil</MenuItem>
                  </Link>
                  <Link to={'/preguntasfrecuentes'}>
