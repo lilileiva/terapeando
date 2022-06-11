@@ -10,13 +10,20 @@ import {
   Image,
   IconButton,
  } from '@chakra-ui/react';
+ import { motion } from 'framer-motion'
+ import './landingpage.css'
 
 function LandingPage() {
   return (
      
     <div className='landingPage'>
        <NavBar />
-       <Container maxW={'7xl'}>
+       <motion.div 
+         initial={{opacity: 0}}
+         transition={{ duration: 1.3 }}
+         animate={{
+           opacity: 1}}>
+       <Container maxW={'7xl'} bgColor={'#E2E8F0'}>
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}
@@ -91,6 +98,7 @@ function LandingPage() {
         </Flex>
       </Stack>
     </Container>
+    </motion.div>
    </div>
   )
 }

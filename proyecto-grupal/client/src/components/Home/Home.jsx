@@ -1,45 +1,57 @@
-import React, { useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { getAllPsychologist } from '../../redux/actions';
 import NavbarHome from '../NavbarHome/NavbarHome';
 import CardPsychologist from '../CardPsychologist/CardPsychologist';
-
+import './Home.css'
+import Loader from '../Loader/Loader';
+import smoothscroll from '../../animations';
+import Paged from '../Paged/Paged';
 
 export default function Home() {
-
   const AllPsychologist = useSelector(state => state.allUsersPsichologists);
+  console.log(AllPsychologist)
   const dispatch = useDispatch();
 
-  useEffect(() =>{dispatch(getAllPsychologist());}, [dispatch]);
+  useEffect(() =>{
+    dispatch(getAllPsychologist()) 
+    smoothscroll();}, [dispatch]);
+
+  /* Paginado */
+    const [page, setPage] = useState(1);
+  const [postPage, setPostPage] = useState(5);
+  const quantityPostPage = page * postPage; 
+  const firstPage = quantityPostPage - postPage; 
+  const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
+
+  const paged = function(pageNumber){
+    setPage(pageNumber);
+    smoothscroll();
+  }
 
 
   return (
-   <div>
-    <NavbarHome />
-    <div>
-      {AllPsychologist.map(el => {
-        return(
-          console.log(el)
-        )
-      })}
-    </div>
-    <div>
-      {AllPsychologist.length !== 0 ?
-      AllPsychologist.map(el =>{
-        return(
-          <CardPsychologist
-          firstName={el.firstName}
-          lastName={el.lastName}
-          profileImage={el.profileImage} 
-          rating={el.rating}
-          education={el.education}
-          about={el.about}
-          idUserPsychologist={el._id}
-          />
-        )
-      }): <div>Cargando...</div>}
-    </div>
-    </div>
+    <>
+      <NavbarHome />
+      <div className='cardContainer'>
+        {AllPsychologists.length !== 0 ?
+          AllPsychologists.map(el => {
+            return (
+              <CardPsychologist
+                firstName={el.firstName}
+                lastName={el.lastName}
+                profileImage={el.profileImage}
+                rating={el.rating}
+                education={el.education}
+                about={el.about.slice(0, 300)}
+                idUserPsychologist={el._id}
+                Specialties={el.Specialties}
+              />
+            )
+          }) : <div><Loader /></div>}
+      </div>
+      <Paged postPage={postPage} allPosts={AllPsychologist.length} paged={paged} page={page} setPage={setPage}/>
+    </>
   )
 }
 

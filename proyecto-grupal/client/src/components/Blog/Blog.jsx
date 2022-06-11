@@ -18,15 +18,19 @@ export default function Blog() {
   }
 
   return (
-    <div>
-      <NavBar />
-      <SearchBar />
+    <div className="blogContainer">
+      < NavBar />
       <h1 className="title">Notas sobre psicología</h1>
-      <ButtonGroup variant="outline" className='btn'>
-        <Button onClick={(e) => handleSubmit(e)}>
+
+      <div className='syb'>
+      <SearchBar />
+      {/* <ButtonGroup variant="outline" className='btn'> */}
+        <Button className='btn' onClick={(e) => handleSubmit(e)}>
           Recargar notas
         </Button>
-      </ButtonGroup>
+      {/* </ButtonGroup> */}
+      </div>
+
       <Filters />
       <Post />
     </div>

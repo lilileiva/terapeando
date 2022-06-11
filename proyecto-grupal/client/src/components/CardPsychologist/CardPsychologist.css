@@ -1,11 +1,12 @@
 .container {
     width: 90%;
-    height: 280px;
+    height: 240px;
     display: inline-block;
     position: relative;
-    margin-Top: 40px;
+    margin-bottom: 40px;
     top: 150px;
-
+    font-family: sans-serif;
+    background-color: rgba(11, 75, 68, 0.027);
 }
 
 .ProfileBox {
@@ -16,7 +17,23 @@
 .avatar {
     margin: auto;
     margin-top: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.name{
+    position: relative;
+    bottom: 15px;  
+}
+
+.textOcupation{
+    position: relative;
+    bottom: 23px;  
+}
+
+.boxstars{
+    position: relative;
+    bottom: 32px; 
+    margin: auto;
 }
 
 .about {
@@ -24,6 +41,8 @@
     position: relative;
     top: 35px;
     padding-right: 15px;
+    margin-bottom: 50px;
+    height: 105px;
 }
 
 .containerCenter {
@@ -37,13 +56,10 @@
     margin: auto;
     border-right: 1px solid;
     border-color: rgba(207, 207, 207, 0.822);
-
 }
-
 
 .Badge {
     margin-right: 10px;
-
 }
 
 .Especialidades {
@@ -54,8 +70,6 @@
 
 .profile {
     display: flex;
-    position: relative;
-    top: 90px
 }
 
 .containerBottom {
@@ -70,11 +84,12 @@
 .iconCard {
     position: absolute;
     top: 0;
-    bottom: 140px;
+    bottom: 110px;
     left: 0;
     right: 0;
     margin: auto;
-    box-sizing: 70px;
+    width: 70px;
+    height: 70px;
 }
 
 .textcalendar {
@@ -85,7 +100,9 @@
     margin: auto;
     margin-top: 120px;
     font-size: 15px;
-    width: 80%;
+    width: 80%;font-weight: 550;
+    color: rgba(6, 6, 77, 0.637);
+   
 }
 
 .appointmentButton{
