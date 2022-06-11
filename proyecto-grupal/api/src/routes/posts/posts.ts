@@ -43,6 +43,7 @@ const createPost = (req:Request, res:Response, next:NextFunction) => {
         .catch((error:error) => next(error))
 }
 //estas son las rutas para las categorias
+//traer todas las categorias
 const getAllCategory = (req:Request, res:Response, next:NextFunction)=>{
     Category.find()
         .then((categories) => {
@@ -50,15 +51,27 @@ const getAllCategory = (req:Request, res:Response, next:NextFunction)=>{
         })
         .catch((error:error) => next(error))
 }
-const createCategory = (req:Request, res:Response, next:NextFunction) => {
-    const post = req.body;
-    //me creo el post con el objeto ue me llega de body
-    Category.create(post)
-        .then((createdPost) => {
-            createdPost.save()
-            res.send(createdPost)
+//
+const filterPostsCategory = async (req:Request, res:Response, next:NextFunction) => {
+    const {category} = req.params
+    console.log(category)
+    const postTotals =  await Post.find().populate("idUserPsychologist",{
+        firstName:1,
+        lastName:1,
+        email:1,
+        country:1,
+        License:1,
+        Specialties:1
+    })
+    console.log(postTotals)
+    let postFilters:object[] = []
+    for (let i = 0; i < postTotals.length; i++) {
+        postTotals[i].Tags.forEach((tag: string) => {
+            if(tag===category){
+                postFilters.push(postTotals[i])
+            }
         })
-        .catch((error:error) => next(error))
+    }
+    res.json(postFilters)
 }
-
-module.exports ={createPost,getAllPosts,getAllCategory,createCategory}
+module.exports ={createPost,getAllPosts,getAllCategory,filterPostsCategory}
