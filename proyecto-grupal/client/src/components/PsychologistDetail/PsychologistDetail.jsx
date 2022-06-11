@@ -20,13 +20,17 @@ export default function PsychologistDetail() {
 
   return (
     <SimpleGrid columns={2} spacingX="40px" spacingY="20px">
-      <Box bg="tomato" height="80px">
-        <img src={detail.profileImage} alt="" width='150px' height='150px'/>
+      <Box bg="tomato" height="80px" zIndex='2'>
+        <img src={detail.profileImage} alt="" width='50px' height='50px'/>
       </Box>
-      <Box bg="tomato" height="80px">{detail.firstName}</Box>
-      <Box bg="tomato" height="80px"></Box>
-      <Box bg="tomato" height="80px"></Box>
-      <Box bg="tomato" height="80px"></Box>
+      <Box bg="tomato" height="80px" zIndex='2'>{`${detail.firstName} ${detail.lastName}`}</Box>
+      <Box bg="tomato" height="80px">{detail.email}</Box>
+      <Box bg="tomato" height="80px">{detail.birthDate}</Box>
+      <Box bg="tomato" height="80px">{detail.country}</Box>
+      <Box bg="tomato" height="80px">{detail.License}</Box>
+      <Box bg="tomato" height="80px">{detail.about}</Box>
+      <Box bg="tomato" height="80px">{detail.Specialties}</Box>
+      <Box bg="tomato" height="80px">{detail.rating}</Box>
     </SimpleGrid>
   );
 }

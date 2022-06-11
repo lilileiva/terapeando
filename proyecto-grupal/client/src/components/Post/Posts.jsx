@@ -59,7 +59,7 @@ export default function Post() {
               })}
             </div>
           </div>
-        )}): <h1>no hay juegos</h1>}
+        )})}
       </div>
       <Paged postPage={postPage} allPosts={allPosts.length} paged={paged} page={page} setPage={setPage}/>
     </div>

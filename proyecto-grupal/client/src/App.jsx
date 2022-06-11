@@ -1,10 +1,9 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import ClientDetails from './components/ClientDetails/ClientDetails';
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
-import NavBar from "./components/NavBar/NavBar.jsx";
 import CardPsychologist from './components/CardPsychologist/CardPsychologist.jsx';
 import RegisterForm from "./components/RegisterForm/RegisterForm.jsx";
 import PsychologistDetail from "./components/PsychologistDetail/PsychologistDetail";
