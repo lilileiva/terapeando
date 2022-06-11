@@ -15,40 +15,31 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
 
             <Stack className="ProfileBox">
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
-                <Text as='ins' textAlign='center' fontWeight='bold'>{`${firstName} ${lastName}`}</Text>
-                <Text> {education} </Text>
-                <Text> <Starts
-                rating={rating}/>  </Text>
+                <Text as='ins' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
+                <Text className="textOcupation" > {education} </Text>
+                <Box className="boxstars"> <Starts
+                    rating={rating} />  </Box>
             </Stack>
 
             <Stack className="containerCenter">
-
                 <Box className="Especialidades">
-                    {/* {Specialties.map((el) => {
-                        return <Badge variant='subtle' colorScheme='red' className='Badge'>{el}</Badge>
-                    })} */}
-                     <Box>
-                    {Specialties.map(el => {
-                        console.log(el)
-                        return (
-                            <Badge variant='subtle' colorScheme='red' className='Badge'>{el}</Badge>
-                        )
-                    })}
-                    </Box>
-                    <Badge variant='subtle' colorScheme='green' className='Badge'>Depresión</Badge>
-                    <Badge variant='subtle' colorScheme='red' className='Badge'>Autoestima</Badge>
-                    <Badge variant='subtle' colorScheme='blue' className='Badge'>Adicciones</Badge>
-                    <Badge variant='subtle' colorScheme='purple' className='Badge'>Transtornos</Badge>
+                    <Badge variant='subtle' className='Badge'>{Specialties[0]}</Badge>
+                    <Badge variant='subtle' colorScheme='green' className='Badge'>{Specialties[1]}</Badge>
+                    <Badge variant='subtle' colorScheme='red' className='Badge'>{Specialties[2]}</Badge>
+                    <Badge variant='subtle' colorScheme='blue' className='Badge'>{Specialties[3]}</Badge>
+                    <Badge variant='subtle' colorScheme='purple' className='Badge'>{Specialties[4]}</Badge>
+                    <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
+
                 <Box className="About">
-                <Text className="about" fontSize="14" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                    {about}
-                </Text>
+                    <Text className="about" fontSize="14" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                        {about}
+                    </Text>
                 </Box>
 
                 <Box className="profile"  >
-                    <Button  className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px'> Ver Perfil </Button>
-                    <Button  className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
+                    <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px'> Ver Perfil </Button>
+                    <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
                 </Box>
 
             </Stack>

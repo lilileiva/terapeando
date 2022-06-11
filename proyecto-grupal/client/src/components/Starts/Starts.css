@@ -1,6 +1,7 @@
-.starts{
+.starts {
     display: inline-block;
     position: relative;
-   margin: auto;
-}
+    margin: auto;
+    left: 1%;
 
+}

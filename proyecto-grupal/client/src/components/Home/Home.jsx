@@ -19,7 +19,7 @@ export default function Home() {
 
   /* Paginado */
     const [page, setPage] = useState(1);
-  const [postPage, setPostPage] = useState(3);
+  const [postPage, setPostPage] = useState(5);
   const quantityPostPage = page * postPage; 
   const firstPage = quantityPostPage - postPage; 
   const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
