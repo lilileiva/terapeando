@@ -20,7 +20,7 @@ export default function Post() {
 
   /* Paginado */
   const [page, setPage] = useState(1);
-  const [postPage, setPostPage] = useState(3);
+  const [postPage, setPostPage] = useState(4);
   const quantityPostPage = page * postPage;
   const firstPage = quantityPostPage - postPage;
   const showPostPage = allPosts.slice(firstPage, quantityPostPage);
@@ -32,6 +32,7 @@ export default function Post() {
 
   //empiezo a renderizar cada una de mis notas
   return (
+    <>
     <div className="postContainer">
       <div className="cards">
         {showPostPage &&
@@ -65,13 +66,17 @@ export default function Post() {
             );
           })}
       </div>
+    </div>
+    <div>
+
       <Paged
         postPage={postPage}
         allPosts={allPosts.length}
         paged={paged}
         page={page}
         setPage={setPage}
-      />
-    </div>
+        />
+        </div>
+    </>
   );
 }
