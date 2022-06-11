@@ -14,6 +14,9 @@ import FormEditClient from "./components/FormEditClient/FormEditClient"
 import NotFound from "./components/404notFound/notFound";
 import Blog from "./components/Blog/Blog.jsx";
 import LoginForm from "./components/LoginForm/LoginForm";
+import Psychologists from './components/Psychologists/Psychologists.jsx';
+import Starts from "./components/Starts/Starts";
+
 
 
 export default function App() {
@@ -34,6 +37,8 @@ export default function App() {
         <Route exact path='/post' element={<Post />} />
         <Route path="/*" element={<NotFound/>} />
         <Route exact path='/blog' element={<Blog />} />
+        <Route exact path='/psicologos' element={<Psychologists />} />
+        <Route exact path='/Estrellas' element={<Starts />} />
       </Routes>
     </div>
   );

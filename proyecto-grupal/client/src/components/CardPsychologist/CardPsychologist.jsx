@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
 import './CardPsychologist.css';
+import Starts from '../Starts/Starts';
+
 
 
 export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about}) {
@@ -12,7 +14,8 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
                 <Text as='ins' textAlign='center' fontWeight='bold'>{`${firstName} ${lastName}`}</Text>
                 <Text> {education} </Text>
-                <Text> {rating} </Text>
+                <Text> <Starts
+                rating={rating}/>  </Text>
             </Stack>
 
             <Stack className="containerCenter">
@@ -27,20 +30,21 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' colorScheme='blue' className='Badge'>Adicciones</Badge>
                     <Badge variant='subtle' colorScheme='purple' className='Badge'>Transtornos</Badge>
                 </Box>
-
-                <Text className="about" fontSize="15" fontStyle="italic" fontWeight=" 600">
+                <Box className="About">
+                <Text className="about" fontSize="14" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
                     {about}
                 </Text>
+                </Box>
 
                 <Box className="profile"  >
-                    <Button colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px'> Ver Perfil </Button>
-                    <Button colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
+                    <Button  className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px'> Ver Perfil </Button>
+                    <Button  className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
                 </Box>
 
             </Stack>
 
             <Box className="containerBottom">
-                <Image className="iconCard" src='https://img.icons8.com/office/2x/calendar.png' alt='img not found' />
+                <Image className="iconCard" src='https://img.icons8.com/ios/2x/calendar.png' alt='img not found' />
                 <Text className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>

@@ -20,13 +20,14 @@ export default function Home() {
     <div>
       {AllPsychologist.map(el => {
         return(
-          console.log(el)
+          console.log(el.about)
         )
       })}
     </div>
     <div>
       {AllPsychologist.length !== 0 ?
       AllPsychologist.map(el =>{
+        console.log(el.about.slice(0,100))
         return(
           <CardPsychologist
           firstName={el.firstName}
@@ -34,7 +35,7 @@ export default function Home() {
           profileImage={el.profileImage} 
           rating={el.rating}
           education={el.education}
-          about={el.about}
+          about={el.about.slice(0,300)}
           />
         )
       }): <div>Cargando...</div>}
