@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import axios from "axios";
+<<<<<<< HEAD
 import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -17,6 +18,24 @@ export function getUserClient(id) {
             })
             .catch((err) => console.log(err))
     }
+=======
+import { GET_ALL_PSYCHOLOGIST, FETCH_USERCLIENT, LOCAL_HOST } from "./types";
+
+const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
+
+export function fetchUserClient() {
+  return function (dispatch) {
+    axios
+      .get(`${baseURL}/userclient`)
+      .then((client) => {
+        dispatch({
+          type: FETCH_USERCLIENT,
+          payload: client.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+>>>>>>> 34811a5dcfa858896603d4a3fabbe005ee3e2885
 }
 
 export const getAllPosts = () => {
