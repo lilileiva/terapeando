@@ -8,6 +8,8 @@ import Starts from '../Starts/Starts';
 
 export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, id }) {
 
+    console.log(Specialties)
+
     return (
         <Box className="container" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
@@ -25,7 +27,14 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     {/* {Specialties.map((el) => {
                         return <Badge variant='subtle' colorScheme='red' className='Badge'>{el}</Badge>
                     })} */}
-                    <Badge variant='subtle' className='Badge'>Ansiedad</Badge>
+                     <Box>
+                    {Specialties.map(el => {
+                        console.log(el)
+                        return (
+                            <Badge variant='subtle' colorScheme='red' className='Badge'>{el}</Badge>
+                        )
+                    })}
+                    </Box>
                     <Badge variant='subtle' colorScheme='green' className='Badge'>Depresión</Badge>
                     <Badge variant='subtle' colorScheme='red' className='Badge'>Autoestima</Badge>
                     <Badge variant='subtle' colorScheme='blue' className='Badge'>Adicciones</Badge>
