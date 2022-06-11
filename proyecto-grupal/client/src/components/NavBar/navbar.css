@@ -1,0 +1,21 @@
+.contenedorlinks {
+    cursor: pointer;
+    color: 'gray.600', 'gray.200';
+    font-weight: 500;
+    display: flex;
+    justify-content: space-around;
+    padding: 3px;
+    width: 350px;
+    gap: 1em;
+    align-items: center;
+}
+
+.links{
+    padding: 4px 6px;
+}
+
+.links:hover{
+    background-color: #cbd5e0bb;
+    border-radius: 5px; 
+    transition: 0.2 0.2 0.2;
+}
