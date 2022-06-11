@@ -113,19 +113,21 @@ const DesktopNav = () => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link to={`${navItem.href}`}>
-              <Text
-                p={2}
-                fontSize={'sm'}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}>
-                {navItem.label}
-              </Text>
-              </Link>
+              <Link exact to={`${navItem.href}`}>
+                <Text
+                 className={({isActive}) => isActive ? "active" : ""}
+                  p={2}
+                  fontSize={'sm'}
+                  fontWeight={500}
+                  cursor={'pointer'}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                  }}>
+                  {navItem.label}
+                </Text>
+                </Link>
             </PopoverTrigger>
 
             {navItem.children && (

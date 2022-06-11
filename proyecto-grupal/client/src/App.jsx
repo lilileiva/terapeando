@@ -27,7 +27,7 @@ export default function App() {
         <Route path="/signup" element={<RegisterForm />} />
 
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
-        <Route path="/:idUserClient" element={<ClientDetails />} />
+        <Route path="home/client/:idUserClient" element={<ClientDetails />} />
 
         <Route path="/putclient/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />

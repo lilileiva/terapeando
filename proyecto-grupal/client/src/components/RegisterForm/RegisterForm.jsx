@@ -11,10 +11,9 @@ import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 
-
 function RegisterForm() {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const countries = useMemo(() => countryList().getData(), [])
 
@@ -138,9 +137,11 @@ function RegisterForm() {
         } else {
             dispatch(createClient(signupForm))
         }
+
         console.log(signupForm)
         setIsSubmit(true)
         navigate("/home");
+
     }
 
     const [isCreated, setIsCreated] = useState(false);

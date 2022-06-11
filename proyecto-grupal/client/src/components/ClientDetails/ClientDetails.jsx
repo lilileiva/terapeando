@@ -10,18 +10,18 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserClient } from "../../redux/actions";
+import { Link } from "react-router-dom";
+import { getUserClient } from "../../redux/actions";
 import Loader from "../Loader/Loader";
 
 
 export default function ClientDetails() {
 
   const dispatch = useDispatch();
-  const id = '62a36674f5cc3a3399c5a94a'
 
   useEffect(() => {
-    dispatch(fetchUserClient(id));
-  }, [dispatch, id])
+    dispatch(getUserClient("62a373e0f5cc3a3399c5a96e"));
+  }, [dispatch])
 
   const clientDetails = useSelector((state) => state.userClientDetail)
   console.log(clientDetails)
@@ -81,25 +81,27 @@ export default function ClientDetails() {
           </Badge>
         </Stack>
 
-        <Stack mt={8} direction={"row"} spacing={4}>
-          <Button
-            maxW={"40%"}
-            fontSize={"sm"}
-            rounded={"full"}
-            bg={"green.400"}
-            color={"white"}
-            boxShadow={
-              "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-            }
-            _hover={{
-              bg: "green.300",
-            }}
-            _focus={{
-              bg: "teal.600",
-            }}
-          >
+        <Stack mt={8} direction={"row"} spacing={4} w={'100%'} justifyContent={'center'}> 
+        <Button
+         maxW={"40%"}
+         fontSize={"sm"}
+         rounded={"full"}
+         bg={"green.400"}
+         color={"white"}
+         boxShadow={
+           "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+         }
+         _hover={{
+           bg: "green.300",
+         }}
+         _focus={{
+           bg: "teal.600",
+         }}>
+          <Link to={`/putclient/${clientDetails._id}`}>
             Edit Profile
-          </Button>
+          </Link>
+         </Button>
+        
         </Stack>
       </Box>
     </Center>

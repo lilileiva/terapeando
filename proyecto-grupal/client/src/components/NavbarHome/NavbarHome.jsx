@@ -25,7 +25,7 @@ import {
 }
 
  const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
- 
+ const idUserClient = '62a36674f5cc3a3399c5a94a';
  const NavLink = ({ children }) => (
   <Link exact to={removeAcc(children)}>
      <Text
@@ -94,7 +94,7 @@ import {
                  />
                </MenuButton>
                <MenuList>
-                 <Link to={'/:idUserClient'}>
+                 <Link to={`client/${idUserClient}`}>
                    <MenuItem>Mi Perfil</MenuItem>
                  </Link>
                  <Link to={'/putclient/:idUserClient'}>

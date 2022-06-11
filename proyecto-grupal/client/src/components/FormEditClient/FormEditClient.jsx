@@ -13,10 +13,26 @@ import {
    Text,
    useColorModeValue,
  } from '@chakra-ui/react';
- import { useState } from 'react';
+ import { useEffect, useState } from 'react';
  import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
- 
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserClient } from '../../redux/actions';
+
+
+
  export default function SignupCard() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserClient("62a373e0f5cc3a3399c5a96e"));
+  }, [dispatch])
+
+  const clientDetails = useSelector((state) => state.userClientDetail)
+  console.log(clientDetails)
+
+  let arr = Object.values(clientDetails)
+
    const [showPassword, setShowPassword] = useState(false);
  
    return (
@@ -43,24 +59,24 @@ import {
              <HStack>
                <Box>
                  <FormControl id="firstName">
-                   <FormLabel>First Name</FormLabel>
-                   <Input type="text" />
+                   <FormLabel>Nombre</FormLabel>
+                   <Input type="text" placeholder={clientDetails.firstName} />
                  </FormControl>
                </Box>
                <Box>
                  <FormControl id="lastName">
-                   <FormLabel>Last Name</FormLabel>
-                   <Input type="text" />
+                   <FormLabel>Apellido</FormLabel>
+                   <Input type="text" placeholder={clientDetails.lastName}/>
                  </FormControl>
                </Box>
              </HStack>
              <FormControl id="email">
-               <FormLabel>Email address</FormLabel>
-               <Input type="email" />
+               <FormLabel>Email</FormLabel>
+               <Input type="email" placeholder={clientDetails.email}/>
              </FormControl>
              <FormControl id="country">
-               <FormLabel>Country</FormLabel>
-               <Input type="country" />
+               <FormLabel>Pais de residencia</FormLabel>
+               <Input type="country" placeholder={clientDetails.country}/>
              </FormControl>
              <FormControl id="password">
                <FormLabel>Password</FormLabel>
@@ -78,6 +94,7 @@ import {
                </InputGroup>
              </FormControl>
              <Stack spacing={10} pt={2}>
+
                <Button
                  loadingText="Submitting"
                  size="lg"

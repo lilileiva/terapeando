@@ -5,8 +5,24 @@ import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightEleme
 import { FaGoogle } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.jsx'
 
+//login/logout con google
+import {gapi} from 'gapi-script'
+import Login from '../LogGoogle/LogInGoogle';
+const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
 
 function LoginForm() {
+
+    //login/logout con google
+    useEffect(() => {
+        function start(){
+            gapi.client.init({
+                clientId: clientId,
+                scope: ''
+            })
+        };
+        gapi.load('client:auth2', start)
+    });
+    //var accessToken = gapi.auth.getToken().acces_token;
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -102,7 +118,8 @@ function LoginForm() {
                                 </Button>
 
                                 <Button bg='green.100' color='teal.500' >
-                                    Inicia sesión con &nbsp; <FaGoogle />
+                                    <Login />
+                                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
                                 </Button>
 
                                 <Button bg='green.100' color='teal.700' onClick={() => navigate('/signup')} >
