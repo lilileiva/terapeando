@@ -65,7 +65,7 @@ export default function PsychologistDetail() {
       </Heading> 
         </Box>
         </SimpleGrid>
-      <Box className="BoxDetail" bg="" borderRadius={'10px'} height="200px">
+      <Box className="BoxDetail" bg="" borderRadius={'10px'} height="fit-content">
       <Heading as='h5' size='md'> 
       <h3>Sobre mí</h3>
         {`${detail.about}`}

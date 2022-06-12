@@ -60,6 +60,7 @@ export default function Psychologists() {
                                 about={el.about.slice(0, 300)}
                                 idUserPsychologist={el._id}
                                 Specialties={el.Specialties}
+                                _id={el._id}
                             />
                         )
                     }) :  <div><Loader /></div>}
