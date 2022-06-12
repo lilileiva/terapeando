@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import NavbarHome from '../NavbarHome/NavbarHome';
-import { getUserPsychologistOne } from '../../redux/actions'
+import Footer from '../Footer/Footer';
+import { getUserPsychologistOne, clear } from '../../redux/actions'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Container, Text, Stack, Avatar, Button } from '@chakra-ui/react';
@@ -10,21 +12,24 @@ import { Container, Text, Stack, Avatar, Button } from '@chakra-ui/react';
 function Schedule() {
     const dispatch = useDispatch();
 
-    const { idPsychologist } = useParams()    
+    const { idPsychologist } = useParams()
 
     useEffect(() => {
         dispatch(getUserPsychologistOne(idPsychologist));
-    }, [dispatch]);
+        return () => {
+            dispatch(clear()); //Clear detail
+          };
+    }, [dispatch, idPsychologist]);
 
     const psichologistDetail = useSelector(state => state.userPsichologistDetail);
-        
+
     return (
-        <div>
+        <div className='scheduleContainer'>
             <NavbarHome />
 
-            <Container marginTop='5em' padding='2em' zIndex='1' centerContent>
+            <Stack width='100%' paddingLeft='25%' paddingRight='25%' zIndex='1' centerContent >
 
-                <Stack direction='row' padding='5em' rounded="10px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`} display="flex" alignItems="center" justifyContent="space-between">
+                <Stack direction='row' padding='5em' rounded="10px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`} display="flex" alignItems="center" justifyContent="space-around">
 
                     <Stack direction='column' marginRight='5em'>
                         <Avatar className="avatar" src='' alt="img not found" size='2xl'></Avatar>
@@ -32,9 +37,11 @@ function Schedule() {
                             <Text fontSize='xl' fontWeight='bold'>{psichologistDetail.firstName} {psichologistDetail.lastName}</Text>
 
                             {
-                                psichologistDetail.Specialties.map((speciality) => (
-                                    <Text fontSize='md'>{speciality}</Text>
-                                ))
+                                Object.keys(psichologistDetail).length !== 0
+                                    ? psichologistDetail.Specialties.map((speciality) => (
+                                        <Text fontSize='md'>{speciality}</Text>
+                                    ))                                    
+                                    : null
                             }
 
                             <Link to={`/detailPsychologist/${idPsychologist}`}>
@@ -46,21 +53,22 @@ function Schedule() {
                     </Stack>
 
                     <Stack direction='column'>
-                        <Text fontSize='2xl' color='green.300' marginBottom='1em'>
+                        <Text fontSize='3xl' color='green.300' marginBottom='1em'>
                             Calendario
                         </Text>
                         <Text fontSize='md' marginBottom='1em'>
                             Seleccione fecha y hora
                         </Text>
 
-                        <Calendar className="react-calendar" />
+
 
                     </Stack>
 
                 </Stack>
 
-            </Container>
+            </Stack>
 
+            <Footer />
         </div>
     )
 }
