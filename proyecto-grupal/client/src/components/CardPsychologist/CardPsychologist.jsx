@@ -15,8 +15,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
                 <Text as='ins' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
                 <Text className="textOcupation" > {education} </Text>
-                <Box className="boxstars"> <Starts
-                    rating={rating} />  </Box>
+                <Box className="boxstars">
+                    <Starts rating={rating} />
+                </Box>
             </Stack>
 
             <Stack className="containerCenter">
@@ -28,25 +29,23 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' colorScheme='purple' className='Badge'>{Specialties[4]}</Badge>
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
-
                 <Box className="About">
-                    <Text className="about" fontSize="14" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                    <Text marginBottom='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
                         {about}
                     </Text>
                 </Box>
 
                 <Box className="profile"  >
-                <Link to={`/detailPsychologist/${_id}`}>
-                <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
-                    <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
-                </Link> 
+                    <Link to={`/detailPsychologist/${_id}`}>
+                        <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
+                        <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
+                    </Link>
                 </Box>
-
             </Stack>
 
             <Box className="containerBottom">
                 <Image className="iconCard" src='https://img.icons8.com/ios/2x/calendar.png' alt='img not found' />
-                <Text className="textcalendar">
+                <Text color='teal.700' marginTop='1em' className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
                 <Link to={`/schedule/${_id}`}>

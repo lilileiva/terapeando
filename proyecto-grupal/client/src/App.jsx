@@ -19,11 +19,14 @@ import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
 import Schedule from "./components/Schedule/Schedule.jsx";
 
+
 export default function App() {
+
   return (
     <div className="App">
-      <Footer />
+      
       <Routes>
+        <Route element={<Footer />} />
         <Route path="/" element={<NavBar />} />
         <Route path="/post" element={<Post />} />
         <Route path="/psicologos" element={<Psychologists />} />
@@ -39,6 +42,8 @@ export default function App() {
         <Route path="/*" element={<NotFound />} />
         <Route path="/schedule/:idUserPsychologist" element={<Schedule />}/>
       </Routes>
+
+      {/* <Footer /> */}
     </div>
   );
 }

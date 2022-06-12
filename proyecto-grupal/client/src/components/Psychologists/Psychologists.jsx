@@ -3,16 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAllPsychologist } from '../../redux/actions';
 import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 import CardPsychologist from '../CardPsychologist/CardPsychologist';
 import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
 import './psychologist.css'
-import Loader from '../Loader/Loader';
+import { Text, Stack } from "@chakra-ui/react"
 
 
 export default function Psychologists() {
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
-    console.log(AllPsychologist)
+
     const dispatch = useDispatch();
   
     useEffect(() =>{
@@ -36,41 +37,41 @@ export default function Psychologists() {
     
     return (
         <div>
-            <div>
-                <NavBar />
-            </div>
-            <div className='psyContainer'>
-                {AllPsychologist.map(el => {
-                    return (
-                        console.log(el)
-                    )
-                })}
-            </div>
-            <div className='psy'>
-                {AllPsychologist.length !== 0 ?
-                    AllPsychologist.map(el => {
-                        //console.log(el.about.slice(0,100))
-                        return (
-                            <CardPsychologist
-                                firstName={el.firstName}
-                                lastName={el.lastName}
-                                profileImage={el.profileImage}
-                                rating={el.rating}
-                                education={el.education}
-                                about={el.about.slice(0, 300)}
-                                idUserPsychologist={el._id}
-                                Specialties={el.Specialties}
-                                _id={el._id}
-                            />
-                        )
-                    }) :  <div><Loader /></div>}
-            </div>
-            <Paged
-                postPage={postPage}
-                allPosts={AllPsychologist.length}
-                paged={paged}
-                page={page}
-                setPage={setPage} />
+            <NavBar />            
+            <div className='cardContainer'>
+
+                <Stack width='100%' direction='row' justifyContent='left'>
+                    <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
+                </Stack>
+                <div >
+                    {
+                        AllPsychologist.length !== 0 ?
+                            AllPsychologist.map(el => {                                
+                                return (
+                                    <CardPsychologist
+                                        key={el._id}
+                                        firstName={el.firstName}
+                                        lastName={el.lastName}
+                                        profileImage={el.profileImage}
+                                        rating={el.rating}
+                                        education={el.education}
+                                        about={el.about.slice(0, 300)}
+                                        _id={el._id}
+                                        Specialties={el.Specialties}
+                                    />
+                                )
+                            }) : null
+                    }
+                </div>
+                <Paged
+                    position='relative'
+                    postPage={postPage}
+                    allPosts={AllPsychologist.length}
+                    paged={paged}
+                    page={page}
+                    setPage={setPage} />
+                <Footer />
+            </div> 
         </div>
     )
 }

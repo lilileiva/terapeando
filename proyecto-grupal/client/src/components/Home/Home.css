@@ -3,4 +3,11 @@
    width: 100%;
    height: fit-content;
    background-color: #EDF2F7;
+   padding-left:10%;
+   padding-right:10%;
+   display: flex;
+   flex-direction: column;
+   justify-items: center;
+   align-items: center;
 }
+

@@ -1,11 +1,14 @@
 .background {
     background-image: url('../../assets/landing-bg.png');
-    background-size: 80%;
-    background-repeat: repeat-y;
-    height: 100%;
+    background-size: 100%;
+    /* background-repeat: repeat; */
+    height: inherit;
     width: 100%;
     background-position: top left;
-    z-index: 1;
+    z-index: 1;    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .iconX {
