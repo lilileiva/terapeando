@@ -10,11 +10,11 @@ import { Container, Text, Stack, Avatar, Button } from '@chakra-ui/react';
 function Schedule() {
     const dispatch = useDispatch();
 
-    const { idUserPsychologist } = useParams()
-    console.log(idUserPsychologist)
+    const { idPsychologist } = useParams()
+    console.log(idPsychologist)
 
     useEffect(() => {
-        dispatch(getUserPsychologistOne(idUserPsychologist));
+        dispatch(getUserPsychologistOne(idPsychologist));
     }, [dispatch]);
 
     const psichologistDetail = useSelector(state => state.userPsichologistDetail);
@@ -23,7 +23,7 @@ function Schedule() {
         <div>
             <NavbarHome />
 
-            <Container marginTop='10em' padding='2em' zIndex='1' centerContent>
+            <Container marginTop='5em' padding='2em' zIndex='1' centerContent>
 
                 <Stack direction='row' padding='5em' rounded="10px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`} display="flex" alignItems="center" justifyContent="space-between">
 
@@ -38,7 +38,7 @@ function Schedule() {
                                 ))
                             }
 
-                            <Link to='/detailPsychologist'>
+                            <Link to={`/detailPsychologist/${idPsychologist}`}>
                                 <Button colorScheme='blackAlpha' variant='outline' size='sm' marginTop='1em'>
                                     Ver Perfil
                                 </Button>

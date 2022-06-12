@@ -6,7 +6,7 @@ import Starts from '../Starts/Starts';
 
 
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, _id }) {
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
 
     return (
         <Box className="container" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
@@ -36,7 +36,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 </Box>
 
                 <Box className="profile"  >
-                    <Link to={`/detailPsychologist/${_id}`}>
+                    <Link to={`/detailPsychologist/${idPsychologist}`}>
                         <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
                         <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
                     </Link>
@@ -48,13 +48,13 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Text color='teal.700' marginTop='1em' className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Link to={`/schedule/${_id}`}>
+                <Link to={`/schedule/${idPsychologist}`}>
                     <Button className="appointmentButton" backgroundColor='green.400' size='lg'>
                         Pedir cita
                     </Button>
                 </Link>
             </Box>
-
+            
         </Box>
     )
 };

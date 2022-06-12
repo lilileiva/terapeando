@@ -37,10 +37,10 @@ export default function App() {
         <Route path="/signin" element={<LoginForm />} />
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
         <Route path="/:idUserClient" element={<ClientDetails />} />
-        <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
+        <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
-        <Route path="/schedule/:idUserPsychologist" element={<Schedule />}/>
+        <Route path="/schedule/:idPsychologist" element={<Schedule />}/>
       </Routes>
 
       {/* <Footer /> */}

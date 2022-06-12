@@ -46,7 +46,7 @@ export default function Psychologists() {
                 <div >
                     {
                         AllPsychologist.length !== 0 ?
-                            AllPsychologist.map(el => {                                
+                            AllPsychologist.map(el => {                                                                
                                 return (
                                     <CardPsychologist
                                         key={el._id}
@@ -56,12 +56,12 @@ export default function Psychologists() {
                                         rating={el.rating}
                                         education={el.education}
                                         about={el.about.slice(0, 300)}
-                                        _id={el._id}
+                                        idPsychologist={el._id}
                                         Specialties={el.Specialties}
-                                    />
-                                )
+                                        />
+                                        )
                             }) : null
-                    }
+                        }
                 </div>
                 <Paged
                     position='relative'

@@ -12,15 +12,16 @@ import Loader from '../Loader/Loader.jsx';
 
 export default function PsychologistDetail() {
   const dispatch = useDispatch();
-  const { IdUserPsychologist } = useParams();
+  const { idPsychologist } = useParams();
+  
   const detail = useSelector((state) => state.userPsichologistDetail);
 
   useEffect(() => {
-    dispatch(getUserPsychologistOne(IdUserPsychologist));
+    dispatch(getUserPsychologistOne(idPsychologist));
     return () => {
       dispatch(clear()); //Clear detail
     };
-  }, [dispatch, IdUserPsychologist]);
+  }, [dispatch, idPsychologist]);
 
 
   return (
