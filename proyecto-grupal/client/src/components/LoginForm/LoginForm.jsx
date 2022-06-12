@@ -63,7 +63,7 @@ function LoginForm() {
 
                 <Container padding='2em' zIndex='1' centerContent>
 
-                    <Text fontSize='2xl' color='green.300' marginBottom='1em'>
+                    <Text fontSize='2xl' color='teal.400' marginBottom='1em'>
                         Inicia sesión
                     </Text>
 
