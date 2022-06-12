@@ -37,8 +37,7 @@ export default function Psychologists() {
     
     return (
         <div>
-            <NavBar />
-                        
+            <NavBar />            
             <div className='cardContainer'>
 
                 <Stack width='100%' direction='row' justifyContent='left'>
