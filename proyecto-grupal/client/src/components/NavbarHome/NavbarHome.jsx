@@ -41,9 +41,9 @@ import {
      </Text>
  </Link>
  );
- 
  export default function NavbarHome() {
    const { isOpen, onOpen, onClose } = useDisclosure();
+
    return (
      <>
      
@@ -58,15 +58,23 @@ import {
            />
            <HStack spacing={8} alignItems={"center"}>
              <Box>Logo</Box>
-             <HStack
-               as={"nav"}
+             
+             <div className={'contenedorlinks'}>
+              <Link className={'links'} to={'/proximasconsultas'}> Proximas consultas</Link>
+              <Link className={'links'} to={'/mipsicologo'}> Mi psicólogo</Link>
+              <Link className={'links'} to={'/blog'}> Blog</Link>
+             </div>
+
+             {/* <HStack
+               as={"nav"} 
                spacing={4}
                display={{ base: "none", md: "flex" }}
              >
                {Links.map((link) => (
                  <NavLink key={link} className={({isActive}) => isActive ? "active" : ""}>{link}</NavLink>
                ))}
-             </HStack>
+             </HStack> */}
+
            </HStack>
            <Flex alignItems={"center"}>
              <Button

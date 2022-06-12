@@ -11,9 +11,11 @@ import Swal from "sweetalert2";
 export default function Post() {
   //me traigo todos los posts apenas se me monte el componente
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
+  
   const allPosts = useSelector((state) => state.posts);
 
   /* Paginado */
