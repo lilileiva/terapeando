@@ -54,7 +54,7 @@ export default function Home() {
                   rating={el.rating}
                   education={el.education}
                   about={el.about.slice(0, 300)}
-                  idUserPsychologist={el._id}
+                  idPsychologist={el._id}
                   Specialties={el.Specialties}
                 />
               )

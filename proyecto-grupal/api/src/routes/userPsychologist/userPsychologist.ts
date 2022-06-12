@@ -1,6 +1,7 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
 import userPsychologistModel from "../../models/userPsychologist";
+import userPsychologist from "../../models/userPsychologist";
 
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
@@ -13,10 +14,24 @@ const getUserPsychologistOne = async (req: Request, res: Response) => {
   }
 }
 
-const getUserPsychologist = async (req: Request, res: Response) => {
+const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userPsychologist = await userPsychologistModel.find();
-    res.status(200).json(userPsychologist)
+    const { name } = req.query;
+    
+    if (name) {
+      userPsychologist.find({
+        $or: [{ firstName: { $regex: name, $options: 'i' } },
+        { lastName: { $regex: name, $options: 'i' } }]
+      })
+        .then((psychologist) => {
+          res.status(200).json(psychologist)
+        })
+      .catch((error:any) => next(error))
+    } else {
+      const userPsychologist = await userPsychologistModel.find();
+      res.status(200).json(userPsychologist)
+    }
+
   } catch (err) {
     res.status(404).json({ data: err })
   }
@@ -40,7 +55,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       education,
       about,
     } = req.body;
-    const userP =  await userPsychologistModel.create({
+    const userP = await userPsychologistModel.create({
       firstName,
       lastName,
       email,
@@ -52,9 +67,9 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       Specialties,
       profileImage,
       rating,
-      appointments:[],
+      appointments: [],
       about: about,
-      education:education,
+      education: education,
     });
     res.status(201).send(userP);
   } catch (error) {
@@ -63,7 +78,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 };
 ///// Delete /////
 
- const deleteUserPsychologist =  async (req: Request, res: Response) => {
+const deleteUserPsychologist = async (req: Request, res: Response) => {
   const { idPsychologist } = req.params;
   try {
     await userPsychologistModel.findOneAndDelete({ idPsychologist });
@@ -77,10 +92,10 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 const putUserPsychologist = async (req: Request, res: Response) => {
   const { IdUserPsychologist } = req.params;
   console.log(IdUserPsychologist)
-  try{
-    await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, {new: true})
+  try {
+    await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, { new: true })
     res.status(200).send('Usuario editado correctamente')
-  } catch(error){
+  } catch (error) {
     res.status(404).send(error);
   }
 }

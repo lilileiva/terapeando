@@ -15,29 +15,30 @@ export default function Psychologists() {
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
 
     const dispatch = useDispatch();
-  
-    useEffect(() =>{
-      dispatch(getAllPsychologist()) 
-      smoothscroll();}, [dispatch]);
-  
-    /* Paginado */
-      const [page, setPage] = useState(1);
-    const [postPage, setPostPage] = useState(5);
-    const quantityPostPage = page * postPage; 
-    const firstPage = quantityPostPage - postPage; 
-    const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
-  
-    const paged = function(pageNumber){
-      setPage(pageNumber);
-      smoothscroll();
-    }
-  
-  
 
-    
+    useEffect(() => {
+        dispatch(getAllPsychologist())
+        smoothscroll();
+    }, [dispatch]);
+
+    /* Paginado */
+    const [page, setPage] = useState(1);
+    const [postPage, setPostPage] = useState(5);
+    const quantityPostPage = page * postPage;
+    const firstPage = quantityPostPage - postPage;
+    const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
+
+    const paged = function (pageNumber) {
+        setPage(pageNumber);
+        smoothscroll();
+    }
+
+
+
+
     return (
         <div>
-            <NavBar />            
+            <NavBar />
             <div className='cardContainer'>
 
                 <Stack width='100%' direction='row' justifyContent='left'>
@@ -46,7 +47,7 @@ export default function Psychologists() {
                 <div >
                     {
                         AllPsychologist.length !== 0 ?
-                            AllPsychologist.map(el => {                                
+                            AllPsychologist.map(el => {
                                 return (
                                     <CardPsychologist
                                         key={el._id}
@@ -56,7 +57,7 @@ export default function Psychologists() {
                                         rating={el.rating}
                                         education={el.education}
                                         about={el.about.slice(0, 300)}
-                                        _id={el._id}
+                                        idPsychologist={el._id}
                                         Specialties={el.Specialties}
                                     />
                                 )
@@ -70,8 +71,8 @@ export default function Psychologists() {
                     paged={paged}
                     page={page}
                     setPage={setPage} />
-                <Footer />
-            </div> 
+            </div>
+            <Footer />
         </div>
     )
 }
