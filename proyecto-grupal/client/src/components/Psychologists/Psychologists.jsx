@@ -49,25 +49,26 @@ export default function Psychologists() {
                         return (console.log(el))
                         })}
                 </div> */}
-
                 <div >
-                    {AllPsychologist.length !== 0 ?
-                        AllPsychologist.map(el => {
-                            //console.log(el.about.slice(0,100))
-                            return (
-                                <CardPsychologist
-                                    key={el._id}
-                                    firstName={el.firstName}
-                                    lastName={el.lastName}
-                                    profileImage={el.profileImage}
-                                    rating={el.rating}
-                                    education={el.education}
-                                    about={el.about.slice(0, 300)}
-                                    idUserPsychologist={el._id}
-                                    Specialties={el.Specialties}
-                                />
-                            )
-                        }) : <div>Cargando...</div>}
+                    {
+                        AllPsychologist.length !== 0 ?
+                            AllPsychologist.map(el => {
+                                //console.log(el.about.slice(0,100))
+                                return (
+                                    <CardPsychologist
+                                        key={el._id}
+                                        firstName={el.firstName}
+                                        lastName={el.lastName}
+                                        profileImage={el.profileImage}
+                                        rating={el.rating}
+                                        education={el.education}
+                                        about={el.about.slice(0, 300)}
+                                        idUserPsychologist={el._id}
+                                        Specialties={el.Specialties}
+                                    />
+                                )
+                            }) : null
+                    }
                 </div>
                 <Paged
                     position='relative'

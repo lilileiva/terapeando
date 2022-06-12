@@ -42,23 +42,23 @@ export default function Home() {
         <Stack width='100%' direction='row' justifyContent='left'>
           <Text fontWeight='semibold' fontSize='3xl' marginTop='5em' marginBottom='1em' color='green.300'>Psicólogos</Text>
         </Stack>
-
-        {AllPsychologists.length !== 0 ?
-          AllPsychologists.map(el => {
-            return (
-              <CardPsychologist
-                firstName={el.firstName}
-                lastName={el.lastName}
-                profileImage={el.profileImage}
-                rating={el.rating}
-                education={el.education}
-                about={el.about.slice(0, 300)}
-                idUserPsychologist={el._id}
-                Specialties={el.Specialties}
-              />
-            )
-          }) : <div><Loader /></div>}
-
+        {
+          AllPsychologists.length !== 0 ?
+            AllPsychologists.map(el => {
+              return (
+                <CardPsychologist
+                  firstName={el.firstName}
+                  lastName={el.lastName}
+                  profileImage={el.profileImage}
+                  rating={el.rating}
+                  education={el.education}
+                  about={el.about.slice(0, 300)}
+                  idUserPsychologist={el._id}
+                  Specialties={el.Specialties}
+                />
+              )
+            }) : null
+        }
       </div>
       <Paged postPage={postPage} allPosts={AllPsychologist.length} paged={paged} page={page} setPage={setPage} />
       <Footer />
