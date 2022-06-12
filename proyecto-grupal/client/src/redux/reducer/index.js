@@ -1,4 +1,4 @@
-import { GET_USERCLIENT, GET_ALL_PSYCHOLOGIST } from "../actions/types";
+import { GET_USERCLIENT, GET_ALL_PSYCHOLOGIST, CLEAR } from "../actions/types";
 
 
 const initialState = {
@@ -29,33 +29,39 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
-    case "SEARCH_POSTS_BY_TITLE":
-      return {
-        ...state,
-        posts: action.payload,
-      };
 
-    case GET_ALL_PSYCHOLOGIST:
-      return {
-        ...state,
-        allUsersPsichologists: action.payload,
-      };
-    case "CREATE_CLIENT":
-      return {
-        ...state,
-      };
-    case "CREATE_PSYCHOLOGIST":
-      return {
-        ...state,
-      };
-    case "GET_PSYCHOLOGISTS_ONE":
-      return {
-        ...state,
-        userPsichologistDetail: action.payload,
-      };
-    default:
-      return { ...state };
-  }
+        case "SEARCH_POSTS_BY_TITLE":
+          return {
+            ...state,
+            posts: action.payload,
+          };        
+
+        case GET_ALL_PSYCHOLOGIST:
+            return{
+                ...state,
+                allUsersPsichologists: action.payload
+          }
+        case "CREATE_CLIENT":
+            return {
+                ...state
+            }
+        case "CREATE_PSYCHOLOGIST":
+            return {
+                ...state
+            }
+        case 'GET_PSYCHOLOGISTS_ONE':
+            return {
+                ...state,
+                userPsichologistDetail: action.payload
+            }
+            case CLEAR:
+                return {
+                  ...state,
+                  userPsichologistDetail: {},
+                };
+        default:
+           return{...state}
+    }
 }
 
 export default rootReducer;

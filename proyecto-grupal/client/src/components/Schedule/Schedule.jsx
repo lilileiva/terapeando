@@ -5,25 +5,24 @@ import NavbarHome from '../NavbarHome/NavbarHome';
 import { getUserPsychologistOne } from '../../redux/actions'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Container, Text, Box, Stack, Avatar, Button } from '@chakra-ui/react';
+import { Container, Text, Stack, Avatar, Button } from '@chakra-ui/react';
 
 function Schedule() {
     const dispatch = useDispatch();
 
-    const { idUserPsychologist } = useParams()
+    const { idPsychologist } = useParams()    
 
     useEffect(() => {
-        dispatch(getUserPsychologistOne(idUserPsychologist));
+        dispatch(getUserPsychologistOne(idPsychologist));
     }, [dispatch]);
 
     const psichologistDetail = useSelector(state => state.userPsichologistDetail);
-
+        
     return (
         <div>
-
             <NavbarHome />
 
-            <Container marginTop='10em' padding='2em' zIndex='1' centerContent>
+            <Container marginTop='5em' padding='2em' zIndex='1' centerContent>
 
                 <Stack direction='row' padding='5em' rounded="10px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`} display="flex" alignItems="center" justifyContent="space-between">
 
@@ -31,14 +30,14 @@ function Schedule() {
                         <Avatar className="avatar" src='' alt="img not found" size='2xl'></Avatar>
                         <Stack display="flex" direction='column' alignItems="center" justifyContent="space-between">
                             <Text fontSize='xl' fontWeight='bold'>{psichologistDetail.firstName} {psichologistDetail.lastName}</Text>
-                            
+
                             {
                                 psichologistDetail.Specialties.map((speciality) => (
                                     <Text fontSize='md'>{speciality}</Text>
                                 ))
                             }
 
-                            <Link to='/detailPsychologist'>
+                            <Link to={`/detailPsychologist/${idPsychologist}`}>
                                 <Button colorScheme='blackAlpha' variant='outline' size='sm' marginTop='1em'>
                                     Ver Perfil
                                 </Button>
@@ -54,7 +53,8 @@ function Schedule() {
                             Seleccione fecha y hora
                         </Text>
 
-                        <Calendar />
+                        <Calendar className="react-calendar" />
+
                     </Stack>
 
                 </Stack>

@@ -23,7 +23,7 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import img from '../../assets/logo-01.png'
-import '../NavbarHome/NavbarHome.css';
+import './navbar.css';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -102,53 +102,58 @@ export default function WithSubnavigation() {
 
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200');
-  const linkHoverColor = useColorModeValue('gray.800', 'white');
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+  // const linkColor = useColorModeValue('gray.600', 'gray.200');
+  // const linkHoverColor = useColorModeValue('gray.800', 'white');
+  // const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
 
   return (
-    <Stack direction={'row'} spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
-            <PopoverTrigger>
-              <Link exact to={`${navItem.href}`}>
-                <Text
-                 className={({isActive}) => isActive ? "active" : ""}
-                  p={2}
-                  fontSize={'sm'}
-                  fontWeight={500}
-                  cursor={'pointer'}
-                  color={linkColor}
-                  _hover={{
-                    textDecoration: 'none',
-                    color: linkHoverColor,
-                  }}>
-                  {navItem.label}
-                </Text>
-                </Link>
-            </PopoverTrigger>
+    <div className={'contenedorlinks'}>
+      <Link className={'links'} to={"/preguntasfrecuentes"} >Preguntas Frecuentes</Link>
+      <Link className={'links'} to={"/psicologos"}>Psicologos</Link>
+      <Link className={'links'} to={"/blog"}>Blog</Link>
+    </div>
+    // <Stack direction={'row'} spacing={4}>
+    //   {NAV_ITEMS.map((navItem) => (
+    //     <Box key={navItem.label}>
+    //       <Popover trigger={'hover'} placement={'bottom-start'}>
+    //         <PopoverTrigger>
+    //           <Link exact to={`${navItem.href}`}>
+    //             <Text
+    //              className={({isActive}) => isActive ? "active" : ""}
+    //               p={2}
+    //               fontSize={'sm'}
+    //               fontWeight={500}
+    //               cursor={'pointer'}
+    //               color={linkColor}
+    //               _hover={{
+    //                 textDecoration: 'none',
+    //                 color: linkHoverColor,
+    //               }}>
+    //               {navItem.label}
+    //             </Text>
+    //             </Link>
+    //         </PopoverTrigger>
 
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}>
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
-        </Box>
-      ))}
-    </Stack>
+    //         {navItem.children && (
+    //           <PopoverContent
+    //             border={0}
+    //             boxShadow={'xl'}
+    //             bg={popoverContentBgColor}
+    //             p={4}
+    //             rounded={'xl'}
+    //             minW={'sm'}>
+    //             <Stack>
+    //               {navItem.children.map((child) => (
+    //                 <DesktopSubNav key={child.label} {...child} />
+    //               ))}
+    //             </Stack>
+    //           </PopoverContent>
+    //         )}
+    //       </Popover>
+    //     </Box>
+    //   ))}
+    // </Stack>
   );
 };
 
@@ -163,6 +168,9 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
       _hover={{ bg: useColorModeValue('green.50', 'gray.900') }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
+
+
+
           <Link to={`${href}`}>
             <Text
               transition={'all .3s ease'}
@@ -171,6 +179,9 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
               {label}
             </Text>
           </Link>
+
+
+
           <Text fontSize={'sm'}>{subLabel}</Text>
         </Box>
         <Flex

@@ -14,8 +14,6 @@ function Paged({postPage, allPosts, paged, page, setPage}) {
       pages.push(i);
    };
 
-   console.log(pages.length)
-
    const getPrevious = () => {
       if(actualPage > 1) setPage(actualPage - 1)
       smoothscroll();
@@ -26,8 +24,6 @@ function Paged({postPage, allPosts, paged, page, setPage}) {
       if(actualPage < pages.length) setPage(actualPage + 1) 
       smoothscroll();
     }
-    console.log(pages.length - 1
-  )
 
    return(
       <>
