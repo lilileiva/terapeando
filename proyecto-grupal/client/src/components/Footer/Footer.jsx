@@ -43,10 +43,9 @@ export default function SmallWithLogoLeft() {
     <Box
       position="relative"
       left={0}      
-      bottom={0}
-      backgroundColor={"blue"}
+      bottom={0}      
       width= '100%'
-      bg={useColorModeValue("gray.50", "gray.900")}
+      // bg={useColorModeValue("gray.50", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
       zIndex='3'
     >
