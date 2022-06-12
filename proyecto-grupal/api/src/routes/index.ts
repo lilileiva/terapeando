@@ -9,12 +9,12 @@ const userPsychologist = require("./userPsychologist/userPsychologistRoutes");
 
 const router: Router = Router();
 
-router.use("/appointment", appointment);
-router.use("/payment", paymentHistory);
-router.use(blogPost);
-router.use("/reviews", reviews);
-router.use("/schedule", schedule);
-router.use("/userclient", userClient);
-router.use("/userpsychologist", userPsychologist);
+router.use('/appointment', appointment)
+router.use('/payment', paymentHistory)
+router.use(blogPost)
+router.use('/reviews', reviews)
+router.use('/schedule', schedule)
+router.use('/userclient', userClient)
+router.use('/userpsychologist', userPsychologist)
 
 module.exports = router;

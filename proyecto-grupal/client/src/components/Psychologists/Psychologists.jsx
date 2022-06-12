@@ -7,31 +7,33 @@ import CardPsychologist from '../CardPsychologist/CardPsychologist';
 import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
 import './psychologist.css'
+import Loader from '../Loader/Loader';
 
 
 export default function Psychologists() {
-
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
     console.log(AllPsychologist)
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getAllPsychologist())
-        smoothscroll();
-    }, [dispatch]);
-
+  
+    useEffect(() =>{
+      dispatch(getAllPsychologist()) 
+      smoothscroll();}, [dispatch]);
+  
     /* Paginado */
-    const [page, setPage] = useState(1);
-    const [postPage, setPostPage] = useState(3);
-    const quantityPostPage = page * postPage;
-    const firstPage = quantityPostPage - postPage;
-    const Psychologists = AllPsychologist.slice(firstPage, quantityPostPage)
-
-    const paged = function (pageNumber) {
-        setPage(pageNumber);
-        smoothscroll();
+      const [page, setPage] = useState(1);
+    const [postPage, setPostPage] = useState(5);
+    const quantityPostPage = page * postPage; 
+    const firstPage = quantityPostPage - postPage; 
+    const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
+  
+    const paged = function(pageNumber){
+      setPage(pageNumber);
+      smoothscroll();
     }
+  
+  
 
+    
     return (
         <div>
             <div>
@@ -58,9 +60,10 @@ export default function Psychologists() {
                                 about={el.about.slice(0, 300)}
                                 idUserPsychologist={el._id}
                                 Specialties={el.Specialties}
+                                _id={el._id}
                             />
                         )
-                    }) : <div>Cargando...</div>}
+                    }) :  <div><Loader /></div>}
             </div>
             <Paged
                 postPage={postPage}

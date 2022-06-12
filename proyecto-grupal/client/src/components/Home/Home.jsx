@@ -7,6 +7,7 @@ import './Home.css'
 import Loader from '../Loader/Loader';
 import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
+import Psychologists from '../Psychologists/Psychologists';
 
 export default function Home() {
   const AllPsychologist = useSelector(state => state.allUsersPsichologists);
@@ -34,21 +35,7 @@ export default function Home() {
     <>
       <NavbarHome />
       <div className='cardContainer'>
-        {AllPsychologists.length !== 0 ?
-          AllPsychologists.map(el => {
-            return (
-              <CardPsychologist
-                firstName={el.firstName}
-                lastName={el.lastName}
-                profileImage={el.profileImage}
-                rating={el.rating}
-                education={el.education}
-                about={el.about.slice(0, 300)}
-                idUserPsychologist={el._id}
-                Specialties={el.Specialties}
-              />
-            )
-          }) : <div><Loader /></div>}
+        <Psychologists></Psychologists>
       </div>
       <Paged postPage={postPage} allPosts={AllPsychologist.length} paged={paged} page={page} setPage={setPage}/>
     </>
