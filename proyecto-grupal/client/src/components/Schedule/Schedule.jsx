@@ -5,7 +5,7 @@ import NavbarHome from '../NavbarHome/NavbarHome';
 import { getUserPsychologistOne } from '../../redux/actions'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Container, Text, Box, Stack, Avatar, Button } from '@chakra-ui/react';
+import { Container, Text, Stack, Avatar, Button } from '@chakra-ui/react';
 
 function Schedule() {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function Schedule() {
     }, [dispatch]);
 
     const psichologistDetail = useSelector(state => state.userPsichologistDetail);
-    console.log(psichologistDetail)
+    console.log('psico', psichologistDetail)
     return (
         <div>
             <NavbarHome />
@@ -31,7 +31,7 @@ function Schedule() {
                         <Avatar className="avatar" src='' alt="img not found" size='2xl'></Avatar>
                         <Stack display="flex" direction='column' alignItems="center" justifyContent="space-between">
                             <Text fontSize='xl' fontWeight='bold'>{psichologistDetail.firstName} {psichologistDetail.lastName}</Text>
-                            
+
                             {
                                 psichologistDetail.Specialties.map((speciality) => (
                                     <Text fontSize='md'>{speciality}</Text>
@@ -54,7 +54,8 @@ function Schedule() {
                             Seleccione fecha y hora
                         </Text>
 
-                        <Calendar  />
+                        <Calendar className="react-calendar" />
+
                     </Stack>
 
                 </Stack>

@@ -7,9 +7,11 @@ import countryList from 'react-select-country-list';
 import { specialitiesList } from './specialities';
 import { BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
+import Footer from '../Footer/Footer.jsx';
 import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
+
 
 function RegisterForm() {
     const dispatch = useDispatch();
@@ -161,14 +163,9 @@ function RegisterForm() {
 
     return (
         <div className='background'>
+            <NavBar />
 
-            <Stack direction='column' align='left' width='4em' marginLeft='2em' marginTop='2em'>
-                <Button bg='green.100' color='teal.500' onClick={() => navigate(-1)} >
-                    Volver
-                </Button>
-            </Stack>
-
-            <Container padding='2em' zIndex='1' centerContent>
+            <Container padding='2em' zIndex='1' height='inherit' centerContent>
 
                 <Text fontSize='2xl' color='green.300' marginBottom='1em'>
                     Registro
@@ -308,6 +305,8 @@ function RegisterForm() {
                     </Box>
                 </Box>
             </Container>
+
+            <Footer />
         </div >
     )
 }

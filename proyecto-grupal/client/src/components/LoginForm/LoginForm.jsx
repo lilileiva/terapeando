@@ -3,7 +3,8 @@ import './LoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
-import NavBar from '../NavBar/NavBar.jsx'
+import NavBar from '../NavBar/NavBar.jsx';
+import Footer from '../Footer/Footer.jsx';
 
 
 function LoginForm() {
@@ -58,62 +59,60 @@ function LoginForm() {
 
     return (
         <div className='background'>
-
             <NavBar />
 
-            <Stack direction='column' align='left' width='4em' marginLeft='2em' marginTop='2em'>
-                <Button bg='green.100' color='teal.500' onClick={() => navigate(-1)} >
-                    Volver
-                </Button>
-            </Stack>
+                <Container padding='2em' zIndex='1' centerContent>
 
-            <Container padding='2em' zIndex='1' centerContent>
+                    <Text fontSize='2xl' color='green.300' marginBottom='1em'>
+                        Inicia sesión
+                    </Text>
 
-                <Text fontSize='2xl' color='green.300' marginBottom='1em'>
-                    Inicia sesión
-                </Text>
+                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='1em' align='center'>
+                        <Box direction='column' align='center' width='60%'>
+                            <form onSubmit={handleInputSubmit}>
 
-                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='1em' align='center' paddingBottom='3em'>
-                    <Box direction='column' align='center' width='60%'>
-                        <form onSubmit={handleInputSubmit}>
+                                <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='3em' onChange={handleInputChange} />
+                                {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
-                            <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='3em' onChange={handleInputChange} />
-                            {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
+                                <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
+                                    <Input
+                                        name='password'
+                                        pr='4.5rem'
+                                        type={show ? 'text' : 'password'}
+                                        placeholder=' Contraseña'
+                                        onChange={handleInputChange}
+                                    />
+                                    <InputRightElement width='4.5rem'>
+                                        <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                            {show ? 'Hide' : 'Show'}
+                                        </Button>
+                                    </InputRightElement>
+                                </InputGroup>
+                                {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
-                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
-                                <Input
-                                    name='password'
-                                    pr='4.5rem'
-                                    type={show ? 'text' : 'password'}
-                                    placeholder=' Contraseña'
-                                    onChange={handleInputChange}
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                        {show ? 'Hide' : 'Show'}
+                                <Stack direction='column' align='center'>
+                                    <Button type='submit' colorScheme='teal' variant='solid' marginTop='3em'>
+                                        Iniciar sesión
                                     </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                            {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
-                            <Stack direction='column' align='center'>
-                                <Button type='submit' colorScheme='teal' variant='solid' marginTop='3em'>
-                                    Iniciar sesión
-                                </Button>
+                                    <Button bg='green.100' color='teal.500' >
+                                        Inicia sesión con &nbsp; <FaGoogle />
+                                    </Button>
 
-                                <Button bg='green.100' color='teal.500' >
-                                    Inicia sesión con &nbsp; <FaGoogle />
-                                </Button>
+                                    <Button bg='green.100' color='teal.700' onClick={() => navigate('/signup')} >
+                                        ¿Aún no tienes una cuenta?
+                                    </Button>
+                                </Stack>
+                            </form>
 
-                                <Button bg='green.100' color='teal.700' onClick={() => navigate('/signup')} >
-                                    ¿Aún no tienes una cuenta?
-                                </Button>
-                            </Stack>
-                        </form>
-
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
+                </Container>
+            
+                <Container height='8%'>
+                </Container>
+
+            <Footer />
         </div >
     )
 }
