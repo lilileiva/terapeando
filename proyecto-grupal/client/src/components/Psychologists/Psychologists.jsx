@@ -12,48 +12,42 @@ import { Text, Stack } from "@chakra-ui/react"
 
 
 export default function Psychologists() {
-
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getAllPsychologist())
-        smoothscroll();
-    }, [dispatch]);
-
+  
+    useEffect(() =>{
+      dispatch(getAllPsychologist()) 
+      smoothscroll();}, [dispatch]);
+  
     /* Paginado */
-    const [page, setPage] = useState(1);
-    const [postPage, setPostPage] = useState(3);
-    const quantityPostPage = page * postPage;
-    const firstPage = quantityPostPage - postPage;
-    const Psychologists = AllPsychologist.slice(firstPage, quantityPostPage)
-
-    const paged = function (pageNumber) {
-        setPage(pageNumber);
-        smoothscroll();
+      const [page, setPage] = useState(1);
+    const [postPage, setPostPage] = useState(5);
+    const quantityPostPage = page * postPage; 
+    const firstPage = quantityPostPage - postPage; 
+    const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
+  
+    const paged = function(pageNumber){
+      setPage(pageNumber);
+      smoothscroll();
     }
+  
+  
 
+    
     return (
         <div>
             <NavBar />
-
-            <div className='psy'>
+                        
+            <div className='cardContainer'>
 
                 <Stack width='100%' direction='row' justifyContent='left'>
                     <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
                 </Stack>
-
-                {/* <div className='psyContainer'>
-                     {AllPsychologist.map(el => {
-                        return (console.log(el))
-                        })}
-                </div> */}
                 <div >
                     {
                         AllPsychologist.length !== 0 ?
-                            AllPsychologist.map(el => {
-                                //console.log(el.about.slice(0,100))
+                            AllPsychologist.map(el => {                                
                                 return (
                                     <CardPsychologist
                                         key={el._id}
@@ -63,7 +57,7 @@ export default function Psychologists() {
                                         rating={el.rating}
                                         education={el.education}
                                         about={el.about.slice(0, 300)}
-                                        idUserPsychologist={el._id}
+                                        _id={el._id}
                                         Specialties={el.Specialties}
                                     />
                                 )
@@ -78,7 +72,7 @@ export default function Psychologists() {
                     page={page}
                     setPage={setPage} />
                 <Footer />
-            </div>
+            </div> 
         </div>
     )
 }

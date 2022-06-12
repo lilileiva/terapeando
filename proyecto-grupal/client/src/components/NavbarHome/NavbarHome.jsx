@@ -49,7 +49,7 @@ import {
    return (
      <>
      
-       <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} position='relative' marginBottom={-130}>
+       <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} position='relative'>
          <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
            <IconButton
              size={"md"}
@@ -59,7 +59,7 @@ import {
              onClick={isOpen ? onClose : onOpen}
            />
            <HStack spacing={8} alignItems={"center"}>
-             <Box>              
+             <Box>
               <Image src={img} w={'50px'} />
             </Box>
              

@@ -10,6 +10,7 @@ import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
 import { Text, Container, Stack } from "@chakra-ui/react";
 
+import Psychologists from '../Psychologists/Psychologists';
 
 export default function Home() {
   const AllPsychologist = useSelector(state => state.allUsersPsichologists);
@@ -35,12 +36,12 @@ export default function Home() {
 
 
   return (
-    <>
+    <div>
       <NavbarHome />
       <div className='cardContainer'>
 
         <Stack width='100%' direction='row' justifyContent='left'>
-          <Text fontWeight='semibold' fontSize='3xl' marginTop='5em' marginBottom='1em' color='green.300'>Psicólogos</Text>
+          <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
         </Stack>
         {
           AllPsychologists.length !== 0 ?
@@ -59,10 +60,11 @@ export default function Home() {
               )
             }) : null
         }
+        {/* <Psychologists></Psychologists> */}
       </div>
       <Paged postPage={postPage} allPosts={AllPsychologist.length} paged={paged} page={page} setPage={setPage} />
       <Footer />
-    </>
+    </div>    
   )
 }
 

@@ -1,6 +1,6 @@
-import Swal from "sweetalert2";
-import axios from "axios";
-import { GET_ALL_PSYCHOLOGIST, FETCH_USERCLIENT, LOCAL_HOST } from "./types";
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import { GET_ALL_PSYCHOLOGIST, FETCH_USERCLIENT, LOCAL_HOST, CLEAR } from './types';
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
@@ -121,6 +121,12 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
       });
   };
 };
+//Clean detail state
+export function clear() {
+    return {
+      type: CLEAR,
+    };
+  }
 
 export const getAllPsychologist = () => {
   return async function (dispatch) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import ClientDetails from "./components/ClientDetails/ClientDetails";
 import Home from "./components/Home/Home";
@@ -30,23 +30,17 @@ export default function App() {
         <Route path="/" element={<NavBar />} />
         <Route path="/post" element={<Post />} />
         <Route path="/psicologos" element={<Psychologists />} />
-        <Route path="/Estrellas" element={<Starts />} />
         <Route index element={<LandingPage />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/cardPsicologist" element={<CardPsychologist />} />
         <Route path="/signup" element={<RegisterForm />} />
         <Route path="/signin" element={<LoginForm />} />
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
         <Route path="/:idUserClient" element={<ClientDetails />} />
-        <Route path="/detailPsychologist" element={<PsychologistDetail />} />
+        <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
-        <Route
-          exact
-          path="/schedule/:idUserPsychologist"
-          element={<Schedule />}
-        />
+        <Route path="/schedule/:idUserPsychologist" element={<Schedule />}/>
       </Routes>
 
       {/* <Footer /> */}

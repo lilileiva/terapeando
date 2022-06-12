@@ -105,13 +105,13 @@ const DesktopNav = () => {
   // const linkColor = useColorModeValue('gray.600', 'gray.200');
   // const linkHoverColor = useColorModeValue('gray.800', 'white');
   // const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-  
+
 
   return (
     <div className={'contenedorlinks'}>
-    <Link className={'links'} to={"/preguntasfrecuentes"} >Preguntas Frecuentes</Link>
-    <Link className={'links'} to={"/psicologos"}>Psicologos</Link>
-    <Link className={'links'} to={"/blog"}>Blog</Link>
+      <Link className={'links'} to={"/preguntasfrecuentes"} >Preguntas Frecuentes</Link>
+      <Link className={'links'} to={"/psicologos"}>Psicologos</Link>
+      <Link className={'links'} to={"/blog"}>Blog</Link>
     </div>
     // <Stack direction={'row'} spacing={4}>
     //   {NAV_ITEMS.map((navItem) => (
@@ -170,7 +170,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
         <Box>
 
 
-          
+
           <Link to={`${href}`}>
             <Text
               transition={'all .3s ease'}
