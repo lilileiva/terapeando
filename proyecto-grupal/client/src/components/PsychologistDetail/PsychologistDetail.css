@@ -9,7 +9,11 @@
   }
 
 .BoxDetail{
+    font-family: 'Open Sans', sans-serif;
     margin-left: 50px;
     margin-right: 50px;
     box-shadow: 0 30px 40px 40px rgba(0,0,0,.1);
+}
+.HeadinfDetail{
+    font-family: 'Open Sans', sans-serif;
 }
