@@ -1,6 +1,6 @@
-import Swal from 'sweetalert2';
-import axios from 'axios';
-import { GET_ALL_PSYCHOLOGIST, FETCH_USERCLIENT, LOCAL_HOST, CLEAR } from './types';
+import Swal from "sweetalert2";
+import axios from "axios";
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
@@ -8,7 +8,7 @@ const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 export function getUserClient(id) {
   console.log(id)
     return function (dispatch) {
-        axios.get(`${baseURL}/userclient/client/${id}`)
+        axios.get(`${baseURL}/userclient/${id}`)
             .then((client) => {
                 dispatch({
                     type: GET_USERCLIENT,
@@ -142,10 +142,21 @@ export const getAllPsychologist = () => {
   };
 };
 /////////       post para los userClient        /////////
+
+/* export function createClient(payload){
+  return async function(){
+    try{
+      await axios.post(`${baseURL}/userclient/userclient`, payload);
+    } catch (err){
+      console.log(err)
+    }
+  }
+} */
+
 export function createClient(payload) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userclient`, {
+      return await fetch(`${baseURL}/userclient/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

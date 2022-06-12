@@ -111,16 +111,13 @@ function LoginForm() {
                                         Iniciar sesión
                                     </Button>
 
-<<<<<<< HEAD
                                 <Button bg='green.100' color='teal.500' >
                                     <Login />
                                     {/* Inicia sesión con &nbsp; <FaGoogle /> */}
                                 </Button>
-=======
                                     <Button bg='green.100' color='teal.500' >
                                         Inicia sesión con &nbsp; <FaGoogle />
                                     </Button>
->>>>>>> 76b5659d332eade28975c1517820bd59908e7a42
 
                                     <Button bg='green.100' color='teal.700' onClick={() => navigate('/signup')} >
                                         ¿Aún no tienes una cuenta?

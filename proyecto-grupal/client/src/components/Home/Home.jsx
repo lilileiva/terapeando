@@ -14,10 +14,6 @@ import Psychologists from '../Psychologists/Psychologists';
 
 export default function Home() {
   const AllPsychologist = useSelector(state => state.allUsersPsichologists);
-<<<<<<< HEAD
-=======
-
->>>>>>> 76b5659d332eade28975c1517820bd59908e7a42
   const dispatch = useDispatch();
 
   useEffect(() => {
