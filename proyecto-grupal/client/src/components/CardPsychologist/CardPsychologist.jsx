@@ -49,7 +49,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
                 <Link to={`/schedule/${idPsychologist}`}>
-                    <Button className="appointmentButton" backgroundColor='green.400' size='lg'>
+                    <Button className="appointmentButton" bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, {bg: 'white'}]} size='lg'>
                         Pedir cita
                     </Button>
                 </Link>

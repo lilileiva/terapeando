@@ -63,11 +63,11 @@ function LoginForm() {
 
                 <Container padding='2em' zIndex='1' centerContent>
 
-                    <Text fontSize='2xl' color='teal.400' marginBottom='1em'>
+                    <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
                         Inicia sesión
                     </Text>
 
-                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='1em' align='center'>
+                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
                         <Box direction='column' align='center' width='60%'>
                             <form onSubmit={handleInputSubmit}>
 
@@ -91,15 +91,15 @@ function LoginForm() {
                                 {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
                                 <Stack direction='column' align='center'>
-                                    <Button type='submit' colorScheme='teal' variant='solid' marginTop='3em'>
+                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, {bg: 'white'}]} marginTop='3em'>
                                         Iniciar sesión
                                     </Button>
 
-                                    <Button bg='green.100' color='teal.500' >
+                                    <Button bg='green.100' color={'#63caa7'} >
                                         Inicia sesión con &nbsp; <FaGoogle />
                                     </Button>
 
-                                    <Button bg='green.100' color='teal.700' onClick={() => navigate('/signup')} >
+                                    <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
                                         ¿Aún no tienes una cuenta?
                                     </Button>
                                 </Stack>

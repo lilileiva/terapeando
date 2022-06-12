@@ -59,6 +59,9 @@ function RegisterForm() {
         if (signupForm.birthdate && signupForm.birthdate.length > 10) {
             errors.birthdate = 'Inserte fecha de nacimiento válida'
         }
+        if (signupForm.birthdate && (((Date.now() - new Date(signupForm.birthdate)) / (31557600000)) < 18)) {
+            errors.birthdate = 'Debe set mayor de 18 años'            
+        }
         if (!signupForm.email) {
             errors.email = 'Inserte un email'
         }
@@ -115,12 +118,14 @@ function RegisterForm() {
             country: e.target.value
         })
     }
+
     const handleSpecialities = (e) => {
         setSignupForm({
             ...signupForm,
             specialities: [...signupForm.specialities.filter(s => s !== e.target.value), e.target.value]
         })
     }
+
     function handleSpecialitiesDelete(speciality) {
         setSignupForm({
             ...signupForm,
@@ -139,11 +144,7 @@ function RegisterForm() {
         } else {
             dispatch(createClient(signupForm))
         }
-
-        console.log(signupForm)
         setIsSubmit(true)
-        navigate("/home");
-
     }
 
     const [isCreated, setIsCreated] = useState(false);
@@ -169,7 +170,7 @@ function RegisterForm() {
 
                 <Container padding='2em' zIndex='1' height='inherit' centerContent>
 
-                    <Text fontSize='2xl' color='teal.400' paddingBottom='1em'>
+                    <Text fontSize='2xl' color={'#285e61'} paddingBottom='1em'>
                         Registro
                     </Text>
 
@@ -194,7 +195,7 @@ function RegisterForm() {
                         </Button>
                     </Box>
 
-                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' paddingBottom='2em' align='center'>
+                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' paddingTop='1em' paddingBottom='2em' align='center'>
                         <Box direction='column' align='center' width='60%'>
                             <form onSubmit={handleInputSubmit}>
                                 <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' onChange={handleInputChange} />
@@ -206,7 +207,7 @@ function RegisterForm() {
                                 <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='2em' onChange={handleInputChange} />
                                 {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
-                                <Input name='birthdate' type='date' variant='flushed' placeholder=' Email' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input name='birthdate' type='date' variant='flushed' placeholder=' Birthdate' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} />
                                 {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
 
                                 <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginTop='2em' onChange={handleCountries} >
@@ -288,17 +289,17 @@ function RegisterForm() {
                                 </InputGroup>
 
                                 <Stack direction='column' align='center'>
-                                    <Button type='submit' colorScheme='teal' variant='solid' marginTop='2em'>
+                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, {bg: 'white'}]} marginTop='2em'>
                                         Registrarse
                                     </Button>
                                     {
                                         userClientBtn
-                                            ? <Button bg='green.100' color='teal.500' >
+                                            ? <Button bg='green.100' color={'#63caa7'} >
                                                 Registrate con &nbsp; <FaGoogle />
                                             </Button>
                                             : null
                                     }
-                                    <Button bg='green.100' color='teal.700' onClick={() => navigate('/signin')} >
+                                    <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signin')} >
                                         ¿Ya tienes una cuenta?
                                     </Button>
                                 </Stack>
