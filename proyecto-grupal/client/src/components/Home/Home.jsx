@@ -53,7 +53,7 @@ export default function Home() {
                   profileImage={el.profileImage}
                   rating={el.rating}
                   education={el.education}
-                  about={el.about.slice(0, 300)}
+                  about= {`${el.about.slice(0, 270)}...`}
                   idPsychologist={el._id}
                   Specialties={el.Specialties}
                 />
