@@ -266,13 +266,10 @@ const NAV_ITEMS = [
     ],
   },
   {
-<<<<<<< HEAD
-=======
     label: 'Psicologos',
     href: 'psicologos',
   },
   {
->>>>>>> 34811a5dcfa858896603d4a3fabbe005ee3e2885
     label: 'Blog',
     href: 'blog',
   },

@@ -20,7 +20,7 @@ export default function ClientDetails() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserClient("62a373e0f5cc3a3399c5a96e"));
+    dispatch(getUserClient("62a37fe5cc3f8656e112d890"));
   }, [dispatch])
 
   const clientDetails = useSelector((state) => state.userClientDetail)
