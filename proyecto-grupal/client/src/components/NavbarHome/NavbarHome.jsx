@@ -14,10 +14,12 @@ import {
    useDisclosure,
    useColorModeValue,
    Stack,
+   Image
  } from "@chakra-ui/react";
  import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
  import { Link } from "react-router-dom";
- import './NavbarHome.css'
+ import './NavbarHome.css';
+ import img from '../../assets/logo-01.png'
  
  function removeAcc(str){
 	const acentos = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
@@ -57,7 +59,9 @@ import {
              onClick={isOpen ? onClose : onOpen}
            />
            <HStack spacing={8} alignItems={"center"}>
-             <Box>Logo</Box>
+             <Box>              
+              <Image src={img} w={'50px'} />
+            </Box>
              
              <div className={'contenedorlinks'}>
               <Link className={'links'} to={'/proximasconsultas'}> Proximas consultas</Link>

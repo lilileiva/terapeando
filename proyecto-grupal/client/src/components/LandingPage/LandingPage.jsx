@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 import {
   Container,
   Stack,
@@ -23,13 +24,13 @@ function LandingPage() {
         animate={{
           opacity: 1
         }}>
-        <Container maxW={'7xl'} bgColor={'#E2E8F0'}>
+        <Container maxW={'8xl'} bgColor={'#E2E8F0'}>
           <Stack
             align={'center'}
             spacing={{ base: 8, md: 10 }}
             py={{ base: 20, md: 28 }}
             direction={{ base: 'column', md: 'row' }}>
-            <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+            <Stack flex={1} spacing={{ base: 5, md: 10 }} marginRight='5em'>
               <Heading
                 lineHeight={1.1}
                 fontWeight={600}
@@ -47,7 +48,7 @@ function LandingPage() {
                     bg: 'green.100',
                     zIndex: -1,
                   }}>
-                  Portal Psico,
+                  Portal Psico
                 </Text>
                 <br />
                 <Text as={'span'} color={'green.300'}>
@@ -99,6 +100,8 @@ function LandingPage() {
           </Stack>
         </Container>
       </motion.div>
+
+      <Footer />
     </div>
   )
 }

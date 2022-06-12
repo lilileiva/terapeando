@@ -167,7 +167,7 @@ function RegisterForm() {
 
             <Container padding='2em' zIndex='1' height='inherit' centerContent>
 
-                <Text fontSize='2xl' color='green.300' marginBottom='1em'>
+                <Text fontSize='2xl' color='green.300' paddingBottom='1em'>
                     Registro
                 </Text>
 
@@ -192,7 +192,7 @@ function RegisterForm() {
                     </Button>
                 </Box>
 
-                <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' marginBottom='5em' align='center'>
+                <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' paddingBottom='5em' align='center'>
                     <Box direction='column' align='center' width='60%'>
                         <form onSubmit={handleInputSubmit}>
                             <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' onChange={handleInputChange} />

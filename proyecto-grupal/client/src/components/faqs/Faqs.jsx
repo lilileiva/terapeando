@@ -1,3 +1,4 @@
+import './Faqs.css';
 import {
   Box,
   Container,
@@ -28,12 +29,12 @@ export default function Faqs() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className='faqsContainer'>
       <NavBar />
 
-      <Box p={4} bgColor={'#EDF2F7'}>
+      <Box p={4} bgColor={'#E2E8F0'}>
         <Link to={'/'}>
-          <ArrowLeftIcon color={'green.300'} alignItems={'left'} marginTop='2em' onClick={() => navigate(-1)} />
+          <ArrowLeftIcon color={'green.300'} alignItems={'left'} onClick={() => navigate(-1)} />
         </Link>
 
         <Stack spacing={4} as={Container} maxW={'6xl'} textAlign={'center'}>
@@ -49,7 +50,7 @@ export default function Faqs() {
           animate={{
             opacity: 1
           }}>
-          <Container maxW={'8xl'} mt={10}>
+          <Container maxW={'8xl'} mt={10} marginBottom='10%'>
             <Stack spacing={10}>
               {features.map((feature) => (
                 <HStack key={feature.id} align={'top'}>
@@ -65,10 +66,10 @@ export default function Faqs() {
             </Stack>
           </Container>
         </motion.div>
-
-        <Footer />
-
       </Box>
+
+      <Footer />
+
     </div>
   );
 }
