@@ -10,15 +10,14 @@ import { Container, Text, Stack, Avatar, Button } from '@chakra-ui/react';
 function Schedule() {
     const dispatch = useDispatch();
 
-    const { idPsychologist } = useParams()
-    console.log(idPsychologist)
+    const { idPsychologist } = useParams()    
 
     useEffect(() => {
         dispatch(getUserPsychologistOne(idPsychologist));
     }, [dispatch]);
 
     const psichologistDetail = useSelector(state => state.userPsichologistDetail);
-    console.log('psico', psichologistDetail)
+        
     return (
         <div>
             <NavbarHome />
