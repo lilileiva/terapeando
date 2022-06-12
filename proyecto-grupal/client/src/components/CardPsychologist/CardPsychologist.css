@@ -7,7 +7,7 @@
     background-color: rgba(11, 75, 68, 0.027);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-content: center;
     padding: 2%;
 }
@@ -90,4 +90,18 @@
     position: relative;
     width: 50%;
     color: rgb(247, 247, 247);
+}
+
+.calendar {
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: initial;
+    background-color: rgba(0,0,0,0.5);
+    margin-top: 20%;    
 }

@@ -33,9 +33,6 @@ export default function Psychologists() {
         smoothscroll();
     }
 
-
-
-
     return (
         <div>
             <NavBar />
@@ -58,7 +55,7 @@ export default function Psychologists() {
                                         education={el.education}
                                         about={`${el.about.slice(0, 270)}...`}
                                         idPsychologist={el._id}
-                                        Specialties={el.Specialties}
+                                        Specialties={el.Specialties}                                        
                                     />
                                 )
                             }) : null
