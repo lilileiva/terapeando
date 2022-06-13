@@ -145,7 +145,7 @@ export const getAllPsychologist = () => {
         type: GET_ALL_PSYCHOLOGIST,
         payload: json.data,
       });
-    } catch (error) {
+    } catch (error) {      
       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
     }
   };
