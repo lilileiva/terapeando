@@ -145,7 +145,7 @@ function RegisterForm() {
         } else {
             dispatch(createClient(signupForm))
         }
-        setIsSubmit(true)
+        setIsSubmit(true)            
     }
 
     useEffect(() => {
