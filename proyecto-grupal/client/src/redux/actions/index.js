@@ -72,8 +72,8 @@ export const getCategories = () => {
       const jsonBack = await responseBack.json()
       //envio todas las categorias de mi db
       dispatch({type:"GET_CATEGORIES",payload:jsonBack}) 
-    }catch{
-
+    }catch(e){
+      console.log(e)
     }
   }
 }
