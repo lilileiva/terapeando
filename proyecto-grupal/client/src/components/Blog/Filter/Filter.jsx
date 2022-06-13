@@ -18,7 +18,7 @@ export default function Filters() {
     dispatch(getPostOrder(e.target.value, posts));
   }
   function handleSubmitCategory(e){
-
+    
   }
 
   return (
@@ -33,6 +33,7 @@ export default function Filters() {
       </Select>
       <Select 
         placeholder="Filtrar notas por categoria"
+        onChange={(e) => handleSubmitCategory(e)}
       >
         {
           categories && categories.map(category => {
