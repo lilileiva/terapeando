@@ -33,7 +33,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 </Box>
                 <Box className="About">
                     <Text marginBottom='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                        {about}
+                        {about}<Link to={`/detailPsychologist/${idPsychologist}`}><button className="vermas">Ver más</button></Link>
                     </Text>
                 </Box>
 

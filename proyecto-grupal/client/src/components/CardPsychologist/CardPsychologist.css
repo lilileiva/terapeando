@@ -12,6 +12,14 @@
     padding: 2%;
 }
 
+.vermas{
+    background-color: rgba(11, 75, 68, 0.027);
+    border: none;
+    font-style: italic;
+    font-size: x-small;
+    font-weight: 600;
+}
+
 .ProfileBox {
     position: relative;
     width: 20%;
@@ -49,7 +57,6 @@
     right: 0;
     left: 0;
     margin: auto;    
-    border-color: rgba(207, 207, 207, 0.822);
 }
 
 .Badge {
