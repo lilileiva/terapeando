@@ -65,6 +65,7 @@ export const getPostOrder = (order, arreglo) => {
     dispatch({ type: "ORDER_POSTS", payload: notas });
   };
 };
+//obtener todas las categorias
 export const getCategories = () => {
   return async function(dispatch){
     try{
@@ -77,6 +78,16 @@ export const getCategories = () => {
     }
   }
 }
+//mostrar por categoria 
+export const getByCategory = (category) => {
+  return async function(dispatch){
+    const responseBack = await fetch(`${baseURL}/filter/${category}`)
+    const jsonBack = await responseBack.json()
+    //envio las notas que se filtren con esa catagory
+    dispatch({type:"GET_BY_CATEGORY", payload:jsonBack})
+  }
+}
+
 
 ////////////////// Post para los user Psychologist ///////////////////
 
