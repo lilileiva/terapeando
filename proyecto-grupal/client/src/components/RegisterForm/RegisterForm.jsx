@@ -11,6 +11,7 @@ import Footer from '../Footer/Footer.jsx';
 import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 
 function RegisterForm() {
@@ -143,14 +144,12 @@ function RegisterForm() {
             dispatch(createPsychologist(signupForm))
         } else {
             dispatch(createClient(signupForm))
-        }        
+        }
         setIsSubmit(true)
     }
 
-    const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            setIsCreated(true)
+        if (Object.keys(formErrors).length === 0 && isSubmit) {            
             navigate('/home')
             Swal.fire({
                 position: 'top-end',
@@ -165,7 +164,12 @@ function RegisterForm() {
     return (
         <div className='formContainer'>
 
-            <div className='background'>
+            <motion.div
+                className='background'
+                initial={{ x: 250 }}
+                animate={{ x: 0, transition: { duration: 0.2 } }}
+                exit={{ x: window.innerWidth }}
+            >
                 <NavBar />
 
                 <Container padding='2em' zIndex='1' height='inherit' centerContent>
@@ -213,8 +217,8 @@ function RegisterForm() {
                                     color='gray.500'
                                     bg='white' mt='2em'
                                     type='text'
-                                    placeholder=' Birthdate'                                    
-                                    onFocus={(e) => (e.target.type = "date")}                                    
+                                    placeholder=' Birthdate'
+                                    onFocus={(e) => (e.target.type = "date")}
                                     onChange={handleInputChange} />
                                 {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
 
@@ -318,10 +322,10 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-            </div >
+        </motion.div>
 
 
-        </div>
+        </div >
     )
 }
 
