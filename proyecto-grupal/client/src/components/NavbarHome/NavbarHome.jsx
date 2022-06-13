@@ -67,16 +67,16 @@ export default function NavbarHome() {
             <Stack direction='row'>
 
               <Link className={'links'} to={'/home'}>
-                <Text fontWeight={'500'} color='gray.600'>Home</Text>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>Home</Text>
               </Link>
               <Link className={'links'} to={'/proximasconsultas'}>
-                <Text fontWeight={'500'} color='gray.600'>Proximas consultas</Text>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>Proximas consultas</Text>
               </Link>
               <Link className={'links'} to={'/mipsicologo'}>
-                <Text fontWeight={'500'} color='gray.600'>Mi psicólogo</Text>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>Mi psicólogo</Text>
               </Link>
               <Link className={'links'} to={'/blog'}>
-                <Text fontWeight={'500'} color='gray.600'>Blog</Text>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>Blog</Text>
               </Link>
             </Stack>
             {/* </div> */}
