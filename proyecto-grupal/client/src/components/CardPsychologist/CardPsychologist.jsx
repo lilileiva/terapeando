@@ -39,7 +39,6 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
                 <Box className="About">
-<<<<<<< HEAD
                     {
                         about
                             ? (
@@ -54,11 +53,6 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                                 Sin descripción.
                             </Text>
                     }
-=======
-                    <Text marginBottom='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                        {about}
-                    </Text>
->>>>>>> 307ee11c691b06964c87bd35f98dca17c5ab63da
                 </Box>
 
                 <Box className="profile"  >
