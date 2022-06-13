@@ -69,9 +69,14 @@ function rootReducer(state = initialState, action) {
           ...state,
           categories: action.payload
         }
-        default:
-           return{...state}
-    }
+    case "GET_BY_CATEGORY":
+        return{
+          ...state,
+          posts: action.payload
+        }
+    default:
+       return{...state}
+  }
 }
 
 export default rootReducer;
