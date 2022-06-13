@@ -110,20 +110,10 @@ function LoginForm() {
                             </InputGroup>
                             {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
-<<<<<<< HEAD
-                                <Button bg='green.100' color='teal.500' >
-                                    <Login />
-                                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                                </Button>
-                                    <Button bg='green.100' color='teal.500' >
-                                        Inicia sesión con &nbsp; <FaGoogle />
-                                    </Button>
-=======
                             <Stack direction='column' align='center'>
                                 <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>
                                     Iniciar sesión
                                 </Button>
->>>>>>> 176db5615d7ce9637827bf1e65b796562fa0492e
 
                                 <Button bg='green.100' color={'#63caa7'} >
                                     Inicia sesión con &nbsp; <FaGoogle />
