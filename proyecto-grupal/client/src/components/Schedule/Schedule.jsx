@@ -1,55 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
-import Starts from '../Starts/Starts';
 import { getUserPsychologistOne, clear } from '../../redux/actions'
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import { Container, Text, Stack, Avatar, Button } from '@chakra-ui/react';
+import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 
-function Schedule({ firstName, lastName, profileImage, rating, idPsychologist, setCalendar }) {
-    const dispatch = useDispatch();
-
-    // const { idPsychologist } = useParams()
-
-    useEffect(() => {
-        dispatch(getUserPsychologistOne(idPsychologist));
-        return () => {
-            dispatch(clear());
-        };
-    }, [dispatch, idPsychologist]);
-
-    const psichologistDetail = useSelector(state => state.userPsichologistDetail);
+function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalendar }) {
 
     return (
-        <Stack width='100%' paddingLeft='25%' paddingRight='25%' zIndex='1' position='absolute' >
-            <Stack direction='column' padding='1em' rounded="10px" bg='white' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`} display="flex" alignItems="center" justifyContent="space-around">
+        <Stack width='100%' pl='30%' pr='30%' zIndex='1' position='absolute' >
+            <Stack direction='column' rounded="10px" bg='white' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`} display="flex" alignItems="center" justifyContent="space-around">
 
-                <Stack display='flex' direction='column' justifyContent='baseline' marginBottom='1em' width='100%'>
+                <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
                     <CloseIcon cursor='pointer' onClick={() => setCalendar(false)} />
                 </Stack>
-
-                <Stack direction='row' marginBottom='2em' paddingTop='1em'>
+                <Stack marginBottom='2em' display='flex' direction='row' alignItems='center' justifyContent='center' width='80%'>
                     <Text fontSize='2xl' marginBottom='0'>
                         Agenda tu cita con {`${firstName} ${lastName}`}
                     </Text>
-
-                    <Stack display="flex" direction='column' alignItems="center" justifyContent="space-between">
-                        <Avatar className="avatar" src={profileImage} alt="img not found" size='md'></Avatar>
-                        {/* <Starts rating={rating} /> */}
-                    </Stack>
+                    <Avatar className="avatar" src={profileImage} alt="img not found" size='xl'></Avatar>
                 </Stack>
-
-                <Stack direction='column' paddingBottom='1em'>
-                    <Text fontSize='2xl' color='green.300' marginBottom='0'>
+                
+                <Stack direction='column' pt='1em' pb='2em' borderTopWidth='0.1em' borderColor='#b7b7b7' width='80%'>
+                    <Text fontSize='2xl' color='#285e61' marginBottom='0' textAlign='left'>
                         Calendario
                     </Text>
-                    <Text fontSize='md' marginBottom='1em'>
+                    <Text fontSize='md' mb='1em' textAlign='left'>
                         Seleccione fecha y hora
                     </Text>
-
-                    <Calendar />
+                    {/* <Calendar /> */}
 
                 </Stack>
 

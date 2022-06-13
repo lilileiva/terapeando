@@ -11,6 +11,7 @@ import Footer from '../Footer/Footer.jsx';
 import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 
 function RegisterForm() {
@@ -60,7 +61,7 @@ function RegisterForm() {
             errors.birthdate = 'Inserte fecha de nacimiento válida'
         }
         if (signupForm.birthdate && (((Date.now() - new Date(signupForm.birthdate)) / (31557600000)) < 18)) {
-            errors.birthdate = 'Debe set mayor de 18 años'            
+            errors.birthdate = 'Debe ser mayor de 18 años'
         }
         if (!signupForm.email) {
             errors.email = 'Inserte un email'
@@ -147,10 +148,8 @@ function RegisterForm() {
         setIsSubmit(true)
     }
 
-    const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            setIsCreated(true)
+        if (Object.keys(formErrors).length === 0 && isSubmit) {            
             navigate('/home')
             Swal.fire({
                 position: 'top-end',
@@ -165,7 +164,12 @@ function RegisterForm() {
     return (
         <div className='formContainer'>
 
-            <div className='background'>
+            <motion.div
+                className='background'
+                initial={{ x: 250 }}
+                animate={{ x: 0, transition: { duration: 0.2 } }}
+                exit={{ x: window.innerWidth }}
+            >
                 <NavBar />
 
                 <Container padding='2em' zIndex='1' height='inherit' centerContent>
@@ -195,22 +199,30 @@ function RegisterForm() {
                         </Button>
                     </Box>
 
-                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' paddingTop='1em' paddingBottom='2em' align='center'>
+                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' pt='1em' pb='2em' align='center'>
                         <Box direction='column' align='center' width='60%'>
                             <form onSubmit={handleInputSubmit}>
-                                <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' mt='2em' onChange={handleInputChange} />
                                 {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
 
-                                <Input name='lastname' variant='flushed' placeholder=' Apellido' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input name='lastname' variant='flushed' placeholder=' Apellido' bg='white' mt='2em' onChange={handleInputChange} />
                                 {formErrors.lastname && <Text fontSize='sm' color='teal.500'>{formErrors.lastname}</Text>}
 
-                                <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input name='email' variant='flushed' placeholder=' Email' bg='white' mt='2em' onChange={handleInputChange} />
                                 {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
-                                <Input name='birthdate' type='date' variant='flushed' placeholder=' Birthdate' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input
+                                    name='birthdate'
+                                    variant='flushed'
+                                    color='gray.500'
+                                    bg='white' mt='2em'
+                                    type='text'
+                                    placeholder=' Birthdate'
+                                    onFocus={(e) => (e.target.type = "date")}
+                                    onChange={handleInputChange} />
                                 {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
 
-                                <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginTop='2em' onChange={handleCountries} >
+                                <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
                                     {
                                         countries.map(c => (
                                             <option key={c.label} value={c.label}>{c.label}</option>
@@ -289,7 +301,7 @@ function RegisterForm() {
                                 </InputGroup>
 
                                 <Stack direction='column' align='center'>
-                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, {bg: 'white'}]} marginTop='2em'>
+                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='2em'>
                                         Registrarse
                                     </Button>
                                     {
@@ -310,10 +322,10 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-            </div >
+        </motion.div>
 
 
-        </div>
+        </div >
     )
 }
 
