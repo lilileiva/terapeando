@@ -102,7 +102,7 @@ export default function PsychologistDetail() {
         <Box className="BoxDetail" bg="" marginRight='20' marginLeft={'24'} borderRadius={'10px'} height="fit-content">
         <Text className="HeadingDetail" > 
         <h3>Sobre mí</h3>
-          {`${detail.about}`}
+          {detail.about === undefined ? 'Aún no se ha agregado información' : detail.about}
         </Text> 
           </Box>
         <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
