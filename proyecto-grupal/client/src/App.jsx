@@ -16,9 +16,7 @@ import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
 
-
 export default function App() {
-
   return (
     <div className="App">
       <Routes>
@@ -37,7 +35,6 @@ export default function App() {
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-
     </div>
   );
 }
