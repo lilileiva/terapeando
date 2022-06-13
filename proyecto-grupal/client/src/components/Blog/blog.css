@@ -8,6 +8,12 @@
 
 .btn{
     background-color: #637d99;
+    width: 130px;
+    margin-left: 5px;
+    text-align: center;
+    /* display: flex;
+    justify-content: center;
+    align-content: center; */
 }
 
 .syb {
