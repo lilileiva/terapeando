@@ -43,8 +43,7 @@ export default function SmallWithLogoLeft() {
     <Box
       position="relative"
       left={0}      
-      bottom={0}
-      backgroundColor={"blue"}
+      bottom={0}     
       width= '100%'
       bg={useColorModeValue("gray.50", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
@@ -53,7 +52,8 @@ export default function SmallWithLogoLeft() {
       <Container
         as={Stack}
         maxW={"100%"}
-        pb={2}        
+        pb={1}        
+        pt={1}        
         pl={4}        
         direction={{ base: "column", md: "row" }}
         spacing={4}

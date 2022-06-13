@@ -15,7 +15,6 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
-import Schedule from "./components/Schedule/Schedule.jsx";
 
 
 export default function App() {
@@ -37,8 +36,8 @@ export default function App() {
         <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
         <Route path="/putclient/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
-        <Route path="/schedule/:idPsychologist" element={<Schedule />}/>
       </Routes>
+
     </div>
   );
 }

@@ -11,6 +11,7 @@ import Footer from '../Footer/Footer.jsx';
 import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 
 function RegisterForm() {
@@ -58,6 +59,9 @@ function RegisterForm() {
         }
         if (signupForm.birthdate && signupForm.birthdate.length > 10) {
             errors.birthdate = 'Inserte fecha de nacimiento válida'
+        }
+        if (signupForm.birthdate && (((Date.now() - new Date(signupForm.birthdate)) / (31557600000)) < 18)) {
+            errors.birthdate = 'Debe ser mayor de 18 años'
         }
         if (!signupForm.email) {
             errors.email = 'Inserte un email'
@@ -115,12 +119,14 @@ function RegisterForm() {
             country: e.target.value
         })
     }
+
     const handleSpecialities = (e) => {
         setSignupForm({
             ...signupForm,
             specialities: [...signupForm.specialities.filter(s => s !== e.target.value), e.target.value]
         })
     }
+
     function handleSpecialitiesDelete(speciality) {
         setSignupForm({
             ...signupForm,
@@ -139,17 +145,11 @@ function RegisterForm() {
         } else {
             dispatch(createClient(signupForm))
         }
-
-        console.log(signupForm)
         setIsSubmit(true)
-        navigate("/home");
-
     }
 
-    const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            setIsCreated(true)
+        if (Object.keys(formErrors).length === 0 && isSubmit) {            
             navigate('/home')
             Swal.fire({
                 position: 'top-end',
@@ -164,12 +164,17 @@ function RegisterForm() {
     return (
         <div className='formContainer'>
 
-            <div className='background'>
+            <motion.div
+                className='background'
+                initial={{ x: 250 }}
+                animate={{ x: 0, transition: { duration: 0.2 } }}
+                exit={{ x: window.innerWidth }}
+            >
                 <NavBar />
 
                 <Container padding='2em' zIndex='1' height='inherit' centerContent>
 
-                    <Text fontSize='2xl' color='teal.400' paddingBottom='1em'>
+                    <Text fontSize='2xl' color={'#285e61'} paddingBottom='1em'>
                         Registro
                     </Text>
 
@@ -194,22 +199,30 @@ function RegisterForm() {
                         </Button>
                     </Box>
 
-                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' paddingBottom='2em' align='center'>
+                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' pt='1em' pb='2em' align='center'>
                         <Box direction='column' align='center' width='60%'>
                             <form onSubmit={handleInputSubmit}>
-                                <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' mt='2em' onChange={handleInputChange} />
                                 {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
 
-                                <Input name='lastname' variant='flushed' placeholder=' Apellido' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input name='lastname' variant='flushed' placeholder=' Apellido' bg='white' mt='2em' onChange={handleInputChange} />
                                 {formErrors.lastname && <Text fontSize='sm' color='teal.500'>{formErrors.lastname}</Text>}
 
-                                <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input name='email' variant='flushed' placeholder=' Email' bg='white' mt='2em' onChange={handleInputChange} />
                                 {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
-                                <Input name='birthdate' type='date' variant='flushed' placeholder=' Email' color='gray.500' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                <Input
+                                    name='birthdate'
+                                    variant='flushed'
+                                    color='gray.500'
+                                    bg='white' mt='2em'
+                                    type='text'
+                                    placeholder=' Birthdate'
+                                    onFocus={(e) => (e.target.type = "date")}
+                                    onChange={handleInputChange} />
                                 {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
 
-                                <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' marginTop='2em' onChange={handleCountries} >
+                                <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
                                     {
                                         countries.map(c => (
                                             <option key={c.label} value={c.label}>{c.label}</option>
@@ -288,17 +301,17 @@ function RegisterForm() {
                                 </InputGroup>
 
                                 <Stack direction='column' align='center'>
-                                    <Button type='submit' colorScheme='teal' variant='solid' marginTop='2em'>
+                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='2em'>
                                         Registrarse
                                     </Button>
                                     {
                                         userClientBtn
-                                            ? <Button bg='green.100' color='teal.500' >
+                                            ? <Button bg='green.100' color={'#63caa7'} >
                                                 Registrate con &nbsp; <FaGoogle />
                                             </Button>
                                             : null
                                     }
-                                    <Button bg='green.100' color='teal.700' onClick={() => navigate('/signin')} >
+                                    <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signin')} >
                                         ¿Ya tienes una cuenta?
                                     </Button>
                                 </Stack>
@@ -309,10 +322,10 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-            </div >
+        </motion.div>
 
 
-        </div>
+        </div >
     )
 }
 

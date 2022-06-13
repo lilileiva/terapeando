@@ -7,9 +7,17 @@
     background-color: rgba(11, 75, 68, 0.027);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-content: center;
     padding: 2%;
+}
+
+.vermas{
+    background-color: rgba(11, 75, 68, 0.027);
+    border: none;
+    font-style: italic;
+    font-size: x-small;
+    font-weight: 600;
 }
 
 .ProfileBox {
@@ -49,7 +57,6 @@
     right: 0;
     left: 0;
     margin: auto;    
-    border-color: rgba(207, 207, 207, 0.822);
 }
 
 .Badge {
@@ -83,4 +90,23 @@
     position: relative;
     width: 50%;
     color: rgb(247, 247, 247);
+}
+
+.calendar {
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: initial;
+    background-color: rgba(0,0,0,0.5);
+    top: 40%;
+    animation: frames .15s linear;
+}
+@keyframes frames {
+    0%  {transform: scale(0);}
+    100% {transform: scale(100%);}
 }

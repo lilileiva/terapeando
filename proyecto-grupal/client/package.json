@@ -14,7 +14,6 @@
     "framer-motion": "^6.3.11",
     "gapi-script": "^1.2.0",
     "react": "^18.1.0",
-    "react-calendar": "^3.7.0",
     "react-dom": "^18.1.0",
     "react-google-login": "^5.2.2",
     "react-icons": "^4.4.0",

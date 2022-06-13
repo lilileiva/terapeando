@@ -121,6 +121,9 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
       });
   };
 };
+
+
+
 //Clean detail state
 export function clear() {
     return {
