@@ -12,6 +12,9 @@ export default function Filters() {
     // console.log(e.target.value);
     dispatch(getPostOrder(e.target.value, posts));
   }
+  function handleSubmitCategory(e){
+
+  }
 
   return (
     <div>
@@ -22,6 +25,10 @@ export default function Filters() {
       >
         <option key={0}>Titulo de A-Z</option>
         <option key={1}>Titulo de Z-A</option>
+      </Select>
+      <Select 
+        placeholder="Filtrar notas por categoria"
+      >
       </Select>
     </div>
   );

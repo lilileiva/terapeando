@@ -65,6 +65,18 @@ export const getPostOrder = (order, arreglo) => {
     dispatch({ type: "ORDER_POSTS", payload: notas });
   };
 };
+export const getCategories = () => {
+  return async function(dispatch){
+    try{
+      const responseBack = await fetch(`${baseURL}/categories`)
+      const jsonBack = await responseBack.json()
+      //envio todas las categorias de mi db
+      dispatch({type:"GET_CATEGORIES",payload:jsonBack}) 
+    }catch{
+
+    }
+  }
+}
 
 ////////////////// Post para los user Psychologist ///////////////////
 
