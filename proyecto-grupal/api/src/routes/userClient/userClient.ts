@@ -27,6 +27,7 @@ const createUserClient = async (req: Request, res: Response) => {
       res.status(201).send('User Created')
    }
    catch (err) {
+      console.log(err)
       res.status(404).send('There was an error...');
    }
 }
@@ -34,7 +35,7 @@ const createUserClient = async (req: Request, res: Response) => {
 const deleteUserClient = async (req: Request, res: Response) => {
    const { IdUserClient } = req.params;
    try {
-      const userClientDelete = await userClientModel.findOneAndDelete({ IdUserClient })
+      const userClientDelete = await userClientModel.findOneAndDelete({ _id: IdUserClient })
       res.send('Usuario eliminado correctamente')
    } catch (err) {
       res.status(404).send('There was an error...');
