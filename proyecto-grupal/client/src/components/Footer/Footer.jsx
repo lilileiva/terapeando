@@ -1,10 +1,11 @@
 import React from "react";
 import img from "../../assets/logo-01.png";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
   Box,
   chakra,
   Container,
+  Link,
   Image,
   Stack,
   Text,
@@ -65,6 +66,7 @@ export default function SmallWithLogoLeft() {
         <Text>© 2022 Portal Psico. All rights reserved</Text>
 
         <Stack direction={"row"} spacing={6}>
+
           <Link href="https://twitter.com/mundopsicologos" isExternal>
             <SocialButton label={"Twitter"}>
               <FaTwitter />
@@ -82,6 +84,7 @@ export default function SmallWithLogoLeft() {
               <FaInstagram />
             </SocialButton>
           </Link>
+
         </Stack>
       </Container>
     </Box>
