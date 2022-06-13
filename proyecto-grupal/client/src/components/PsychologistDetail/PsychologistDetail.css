@@ -1,3 +1,10 @@
+.psychologistDetailContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
 .imageDetailLogo{
     margin-top: 30px;
     margin-left: 5px;

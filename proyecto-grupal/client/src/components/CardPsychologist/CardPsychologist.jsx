@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
 import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
+import Schedule from "../Schedule/Schedule";
 
 
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, _id }) {
+    const [calendar, setCalendar] = useState(false)
 
     return (
         <Box className="container" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
@@ -15,8 +17,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
                 <Text as='ins' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
                 <Text className="textOcupation" > {education} </Text>
-                <Box className="boxstars"> <Starts
-                    rating={rating} />  </Box>
+                <Box className="boxstars">
+                    <Starts rating={rating} />
+                </Box>
             </Stack>
 
             <Stack className="containerCenter">
@@ -28,34 +31,41 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' colorScheme='purple' className='Badge'>{Specialties[4]}</Badge>
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
-
                 <Box className="About">
-                    <Text className="about" fontSize="14" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                        {about}
+                    <Text marginBottom='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                        {about}<Link to={`/detailPsychologist/${idPsychologist}`}><button className="vermas">Ver más</button></Link>
                     </Text>
                 </Box>
 
                 <Box className="profile"  >
-                <Link to={`/detailPsychologist/${_id}`}>
-                <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
-                    <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
-                </Link> 
+                    <Link to={`/detailPsychologist/${idPsychologist}`}>
+                        <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
+                        <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
+                    </Link>
                 </Box>
-
             </Stack>
 
             <Box className="containerBottom">
                 <Image className="iconCard" src='https://img.icons8.com/ios/2x/calendar.png' alt='img not found' />
-                <Text className="textcalendar">
+                <Text color='teal.700' marginTop='1em' className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Link to={`/schedule/${_id}`}>
-                    <Button className="appointmentButton" backgroundColor='green.400' size='lg'>
-                        Pedir cita
-                    </Button>
-                </Link>
+                <Button className="appointmentButton" bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={() => setCalendar(true)}>
+                    Pedir cita
+                </Button>
             </Box>
-
+            {
+                calendar
+                    ? <div className="calendar">
+                        <Schedule
+                            firstName={firstName}
+                            lastName={lastName}
+                            profileImage={profileImage}
+                            rating={rating}
+                            setCalendar={setCalendar} />
+                    </div>
+                    : null
+            }
         </Box>
     )
 };

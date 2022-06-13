@@ -1,114 +1,107 @@
 .container {
-    width: 90%;
-    height: 240px;
-    display: inline-block;
+    width: 100%;
+    height: 25%;
     position: relative;
-    margin-bottom: 40px;
-    top: 150px;
+    margin-bottom: 2em;
     font-family: sans-serif;
     background-color: rgba(11, 75, 68, 0.027);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    padding: 2%;
+}
+
+.vermas{
+    background-color: rgba(11, 75, 68, 0.027);
+    border: none;
+    font-style: italic;
+    font-size: x-small;
+    font-weight: 600;
 }
 
 .ProfileBox {
-    width: 270px;
-    height: 100%
+    position: relative;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .avatar {
+    position: relative;
     margin: auto;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.name{
-    position: relative;
-    bottom: 15px;  
-}
-
-.textOcupation{
-    position: relative;
-    bottom: 23px;  
-}
-
-.boxstars{
-    position: relative;
-    bottom: 32px; 
-    margin: auto;
+    border-radius: 50%;
 }
 
 .about {
     width: 100%;
     position: relative;
-    top: 35px;
-    padding-right: 15px;
-    margin-bottom: 50px;
-    height: 105px;
+    margin-top: 1em;
+    height: 20%;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .containerCenter {
-    width: 650px;
-    height: 100%;
-    display: inline-block;
-    position: absolute;
+    width: 50%;
+    height: 100%;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
     top: 0;
     right: 0;
     left: 0;
-    margin: auto;
-    border-right: 1px solid;
-    border-color: rgba(207, 207, 207, 0.822);
+    margin: auto;    
 }
 
 .Badge {
-    margin-right: 10px;
-}
-
-.Especialidades {
-    display: flex;
-    position: relative;
-    top: 20px
+    margin-right: 0.8em;
 }
 
 .profile {
     display: flex;
+    flex-direction: row;
+    justify-content: left;
 }
 
 .containerBottom {
-    width: 290px;
-    height: 100%;
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    right: 0;
+    width:20%;
+    position: relative;
 }
 
 .iconCard {
-    position: absolute;
-    top: 0;
-    bottom: 110px;
-    left: 0;
-    right: 0;
+    position: relative;
     margin: auto;
-    width: 70px;
-    height: 70px;
 }
 
 .textcalendar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: 120px;
-    font-size: 15px;
-    width: 80%;font-weight: 550;
-    color: rgba(6, 6, 77, 0.637);
+    position: relative;
+    font-weight: bold;
+    /* color: rgba(6, 6, 77, 0.637); */
    
 }
 
 .appointmentButton{
     position: relative;
-    margin: auto;
-    top: 180px;
-    width: 150px;
+    width: 50%;
     color: rgb(247, 247, 247);
+}
+
+.calendar {
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: initial;
+    background-color: rgba(0,0,0,0.5);
+    margin-top: 20%;    
 }

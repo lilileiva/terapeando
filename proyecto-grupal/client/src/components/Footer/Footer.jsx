@@ -16,7 +16,8 @@ import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 const SocialButton = ({ children, label, href }) => {
   return (
     <chakra.button
-      bg={useColorModeValue("blackAlpha.100", "grey.100")}
+      bg={useColorModeValue("blackAlpha.100", "grey.100")}     
+      bottom='0'
       rounded={"full"}
       w={8}
       h={8}
@@ -40,19 +41,19 @@ const SocialButton = ({ children, label, href }) => {
 export default function SmallWithLogoLeft() {
   return (
     <Box
-      position={"absolute"}
-      left={0}
-      bottom={-75}
-      backgroundColor={"blue"}
-      width= '100%' 
-      bg={useColorModeValue("gray.50", "gray.900")}
+      position="relative"
+      left={0}      
+      bottom={0}      
+      width= '100%'
+      // bg={useColorModeValue("gray.50", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
       zIndex='3'
     >
       <Container
         as={Stack}
-        maxW={"6xl"}
-        py={4}
+        maxW={"100%"}
+        pb={2}        
+        pl={4}        
         direction={{ base: "column", md: "row" }}
         spacing={4}
         justify={{ base: "center", md: "space-between" }}

@@ -31,12 +31,12 @@ export default function WithSubnavigation() {
   return (
     <Box position='relative'>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
+        // bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
+        // borderBottom={1}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}>
@@ -81,11 +81,11 @@ export default function WithSubnavigation() {
               display={{ base: 'none', md: 'inline-flex' }}
               fontSize={'sm'}
               fontWeight={600}
-              color={'white'}
-              bg={'green.300'}
+              color={'white'}              
+              bg={'#63caa7'}
               href={'/signup'}
               _hover={{
-                bg: 'green.200',
+                bg: '#6bdfb7'
               }}>
               Sign Up
             </Button>
@@ -105,13 +105,23 @@ const DesktopNav = () => {
   // const linkColor = useColorModeValue('gray.600', 'gray.200');
   // const linkHoverColor = useColorModeValue('gray.800', 'white');
   // const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-  
+
 
   return (
     <div className={'contenedorlinks'}>
-    <Link className={'links'} to={"/preguntasfrecuentes"} >Preguntas Frecuentes</Link>
-    <Link className={'links'} to={"/psicologos"}>Psicologos</Link>
-    <Link className={'links'} to={"/blog"}>Blog</Link>
+      <Link className={'links'} to={"/preguntasfrecuentes"} >
+        <Button bg='white' height='1.5em' _hover={{bg: '#cbd5e0bb'}} >Preguntas Frecuentes</Button>
+      </Link>
+      <Link className={'links'} to={"/psicologos"} >
+        <Button bg='white' height='1.5em' _hover={{bg: '#cbd5e0bb'}} >Psicologos</Button>
+      </Link>
+      <Link className={'links'} to={"/blog"} >
+        <Button bg='white' height='1.5em' _hover={{bg: '#cbd5e0bb'}} >Blog</Button>
+      </Link>
+      {/* <Link className={'links'} to={"/psicologos"}>Preguntas Frecuentes</Link>
+      <Link className={'links'} to={"/psicologos"}>Psicologos</Link>
+      <Link className={'links'} to={"/blog"}>Blog</Link> */}
+
     </div>
     // <Stack direction={'row'} spacing={4}>
     //   {NAV_ITEMS.map((navItem) => (
@@ -170,7 +180,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
         <Box>
 
 
-          
+
           <Link to={`${href}`}>
             <Text
               transition={'all .3s ease'}
