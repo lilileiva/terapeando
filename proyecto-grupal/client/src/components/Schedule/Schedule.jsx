@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserPsychologistOne, clear } from '../../redux/actions'
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 
