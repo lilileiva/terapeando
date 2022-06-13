@@ -5,10 +5,9 @@ import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT }
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
-export function getUserClient(id) {
-  console.log(id)
+export function getUserClient(idUserClient) {
     return function (dispatch) {
-        axios.get(`${baseURL}/userclient/${id}`)
+        axios.get(`${baseURL}/userclient/client/${idUserClient}`)
             .then((client) => {
                 dispatch({
                     type: GET_USERCLIENT,
