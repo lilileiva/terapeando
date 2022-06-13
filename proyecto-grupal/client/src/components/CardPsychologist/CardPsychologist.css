@@ -96,5 +96,10 @@
     width: 100%;
     height: initial;
     background-color: rgba(0,0,0,0.5);
-    top: 40%;    
+    top: 40%;
+    animation: frames .15s linear;
+}
+@keyframes frames {
+    0%  {transform: scale(0);}
+    100% {transform: scale(100%);}
 }

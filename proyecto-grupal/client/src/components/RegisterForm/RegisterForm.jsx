@@ -60,7 +60,7 @@ function RegisterForm() {
             errors.birthdate = 'Inserte fecha de nacimiento válida'
         }
         if (signupForm.birthdate && (((Date.now() - new Date(signupForm.birthdate)) / (31557600000)) < 18)) {
-            errors.birthdate = 'Debe set mayor de 18 años'
+            errors.birthdate = 'Debe ser mayor de 18 años'
         }
         if (!signupForm.email) {
             errors.email = 'Inserte un email'
