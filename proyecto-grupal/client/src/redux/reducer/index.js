@@ -1,4 +1,4 @@
-import { GET_USERCLIENT, GET_ALL_PSYCHOLOGIST, CLEAR } from "../actions/types";
+import { GET_USERCLIENT, GET_ALL_PSYCHOLOGIST, CLEAR, CLEAR_CLIENT } from "../actions/types";
 
 
 const initialState = {
@@ -59,6 +59,11 @@ function rootReducer(state = initialState, action) {
                   ...state,
                   userPsichologistDetail: {},
                 };
+            case CLEAR_CLIENT:
+                return {
+                  ...state,
+                  userClientDetail: []
+                }
         default:
            return{...state}
     }

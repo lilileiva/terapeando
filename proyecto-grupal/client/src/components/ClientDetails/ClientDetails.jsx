@@ -14,7 +14,8 @@ import {
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getUserClient } from "../../redux/actions";
+import {getUserClient } from "../../redux/actions";
+import ChangePasswordModal from "../Modals/ChangePasswordModal";
 import Loader from "../Loader/Loader";
 
 
@@ -22,7 +23,7 @@ export default function ClientDetails() {
 
   const dispatch = useDispatch();
   const {idUserClient} = useParams();
-
+  console.log(idUserClient)
 
   useEffect(() => {
     dispatch(getUserClient(idUserClient));
@@ -63,7 +64,7 @@ export default function ClientDetails() {
           bg: 'green.500',
           color:'white'
         }}>
-          <Link to={`/putclient/${clientDetails._id}`}>
+          <Link to={`/putclient/${idUserClient}`}>
             Edit Profile
           </Link>
          </Button>
@@ -75,7 +76,7 @@ export default function ClientDetails() {
           mb={4}
         />
         <Heading color={"gray.300"} fontSize={"2xl"} fontFamily={"body"}>
-        {clientDetails.firstName} {clientDetails.lastName}
+        {clientDetails.firstName} {clientDetails.lastName} <ChangePasswordModal />
         </Heading>
 
         

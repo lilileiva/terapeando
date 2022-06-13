@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import axios from "axios";
-import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR } from "./types";
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
@@ -128,6 +128,12 @@ export function clear() {
     };
   }
 
+export function clearClient() {
+  return {
+      type: CLEAR_CLIENT,
+  };
+}
+
 export const getAllPsychologist = () => {
   return async function (dispatch) {
     try {
@@ -142,16 +148,6 @@ export const getAllPsychologist = () => {
   };
 };
 /////////       post para los userClient        /////////
-
-/* export function createClient(payload){
-  return async function(){
-    try{
-      await axios.post(`${baseURL}/userclient/userclient`, payload);
-    } catch (err){
-      console.log(err)
-    }
-  }
-} */
 
 export function createClient(payload) {
   return async function (dispatch) {
@@ -174,4 +170,25 @@ export function createClient(payload) {
       return console.log(error);
     }
   };
+}
+
+export function editClient(id, updatedUserClient) {
+  return async function () {
+    try{
+      const data = await axios.put(`${baseURL}/userclient/${id}`, updatedUserClient)
+      console.log(data)
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
+
+export function deleteUserClient(id){
+  return async function(){
+    try{
+      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
+    }catch(err) {
+      console.log(err)
+   }
+  }
 }

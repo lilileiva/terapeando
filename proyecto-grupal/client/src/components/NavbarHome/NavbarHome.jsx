@@ -27,7 +27,7 @@ import {
 }
 
  const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
- const idUserClient = '62a37d5acc3f8656e112d88c';
+ const idUserClient = '62a3a0b4cc3f8656e112d930';
  const NavLink = ({ children }) => (
   <Link exact to={removeAcc(children)}>
      <Text

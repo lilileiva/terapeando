@@ -8,7 +8,7 @@ import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
 import Footer from '../Footer/Footer.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
-import Loader from '../Loader/Loader.jsx';
+import smoothscroll from "../../animations";
 
 export default function PsychologistDetail() {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ export default function PsychologistDetail() {
 
   useEffect(() => {
     dispatch(getUserPsychologistOne(idPsychologist));
+    smoothscroll()
     return () => {
       dispatch(clear()); //Clear detail
     };
