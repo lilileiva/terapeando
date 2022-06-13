@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, SimpleGrid, Heading, Badge } from "@chakra-ui/react";
+import { Box, SimpleGrid, Heading, Badge, Text, Flex } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clear, getUserPsychologistOne } from "../../redux/actions";
@@ -23,65 +23,61 @@ export default function PsychologistDetail() {
 
   return (
     <SimpleGrid  columns={1} spacingX="60px" spacingY="20px">
-      <SimpleGrid backgroundImage="url('https://images.pexels.com/photos/289586/pexels-photo-289586.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"
-    backgroundPosition='top'
-    backgroundSize={'cover'}
-    backgroundRepeat="no-repeat"  columns={3} spacingX="40px" spacingY="20px">
-        
+      <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>   
         <Link to={'/psicologos'}>
-       <ArrowLeftIcon color={'green.300'} alignItems={'left'} onClick={() => navigate(-1)}/>
+       <ArrowLeftIcon color={'black.300'} alignItems={'left'} onClick={() => navigate(-1)}/>
        </Link>
-        <Box className="BoxDetail"><Heading className="HeadingDetail" mb={3}>Conoce un poco más sobre tu próximo psicólogo</Heading></Box>
-        <Box className="BoxDetail">    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} /> </Box>
-      </SimpleGrid>
-      <SimpleGrid  columns={1} marginTop={'20'} textAlign={'left'} paddingLeft={'32'} spacingX="40px" spacingY="20px">
-      <Box className="BoxDetail" marginBottom={'50px'} bg="" height="120px" width='120px'>
+        <Box className="BoxDetail" borderRadius={'10px'} width='fit-content' height={'fit-content'}><Text className="HeadingDetail" mb={3}>Conoce un poco más sobre tu próximo psicólogo</Text></Box>
+        <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content'height={'fit-content'} alignContent='center' alignItems={'center'}>    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} /> </Flex>
+      </Flex>
+      <SimpleGrid  columns={1} marginTop={'1.5'} textAlign={'left'} paddingLeft={'32'} spacingX="40px" spacingY="20px">
+      <Box className="BoxDetail"  marginBottom={'50px'} bg="" height="120px" width='120px'>
         <img src={detail.profileImage} alt="" width='120rem' height='4rem'/>
         </Box>
         <Box className="BoxDetail" bg="" borderRadius={'10px'}  height="80px" zIndex='2'> 
-          <Heading className="HeadingDetail" as='h3' size='lg'>
+          <Text className="HeadingDetail">
             {`${detail.firstName} ${detail.lastName}`}
-          </Heading> 
+          </Text> 
         </Box>
       <Box className="BoxDetail" bg=""  borderRadius={'10px'} height="80px">
-      <Heading className="HeadingDetail" as='h4' size='md'>
+      <Text className="HeadingDetail" >
         {` 🎂 ${detail.birthDate}`} 
-      </Heading> 
-      <Heading className="HeadingDetail" as='h4' size='md' >
+      </Text> 
+      <Text className="HeadingDetail" >
       {`📍${detail.country}`}
-      </Heading>
+      </Text>
       </Box>
 
       <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-      <Heading className="HeadingDetail" as='h4' size='md'> 
+      <Text className="HeadingDetail" > 
         {`📩${detail.email}`}
-      </Heading> 
+      </Text> 
         </Box>
 
       <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-      <Heading className="HeadingDetail" as='h4' size='md'> 
+      <Text className="HeadingDetail" > 
         {`🎓${detail.education}, Licencia: ${detail.License}`}
-      </Heading> 
+      </Text> 
         </Box>
-        <Box className="BoxDetail" bg=""  borderRadius={'10px'}   height="200px">
-      <Heading className="HeadingDetail" as='h4' size='md'> 
+        <Box className="BoxDetail" bg=""  borderRadius={'10px'}   height="fit-content">
+      <Text className="HeadingDetail" > 
         
         Especialidades: {detail.Specialties && detail.Specialties.map((e)=> <ul> <Badge variant='subtle' colorScheme='purple'>{`${e}`}</Badge></ul> )        
         }
-      </Heading> 
+      </Text> 
         </Box>
         </SimpleGrid>
       <Box className="BoxDetail" bg="" borderRadius={'10px'} height="fit-content">
-      <Heading className="HeadingDetail" as='h5' size='md'> 
+      <Text className="HeadingDetail" > 
       <h3>Sobre mí</h3>
         {`${detail.about}`}
-      </Heading> 
+      </Text> 
         </Box>
       <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-      <Heading className="HeadingDetail" as='h4' size='md'> 
+      <Text className="HeadingDetail" > 
         Mi calificación promedio 😊: <Starts
                 rating={detail.rating}/>
-      </Heading> 
+      </Text> 
         </Box>
     </SimpleGrid>
   );
