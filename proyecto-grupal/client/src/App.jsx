@@ -32,7 +32,7 @@ export default function App() {
         <Route path="/signup" element={<RegisterForm />} />
         <Route path="/signin" element={<LoginForm />} />
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
-        <Route path="/client/:idUserClient" element={<ClientDetails />} />
+        <Route path="/home/:idUserClient" element={<ClientDetails />} />
         <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />

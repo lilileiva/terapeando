@@ -64,7 +64,7 @@ export default function ClientDetails() {
           bg: 'green.500',
           color:'white'
         }}>
-          <Link to={`/putclient/${idUserClient}`}>
+          <Link to={`/editprofile/${idUserClient}`}>
             Edit Profile
           </Link>
          </Button>

@@ -118,10 +118,10 @@ export default function NavbarHome() {
                 />
               </MenuButton>
               <MenuList>
-                <Link to={'/home/:idUserClient'}>
+                <Link to={`/home/${idUserClient}`}>
                   <MenuItem>Mi Perfil</MenuItem>
                 </Link>
-                <Link to={'/editprofile/:idUserClient'}>
+                <Link to={`/editprofile/${idUserClient}`}>
                   <MenuItem>Editar Perfil</MenuItem>
                 </Link>
                 <Link to={'/preguntasfrecuentes'}>
