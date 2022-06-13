@@ -1,12 +1,17 @@
-import React from "react";
+import React, {useEffect}from "react";
 import './filter.css'
 import { useDispatch, useSelector } from "react-redux";
-import { getPostOrder } from "../../../redux/actions";
+import { getPostOrder,getCategories } from "../../../redux/actions";
 import { Select } from "@chakra-ui/react";
+
 
 export default function Filters() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+  const categories = useSelector((state) => state.categories)
+  useEffect(() => {
+    dispatch(getCategories())
+  },[dispatch])
 
   function handleSubmitOrder(e) {
     // console.log(e.target.value);
@@ -29,6 +34,13 @@ export default function Filters() {
       <Select 
         placeholder="Filtrar notas por categoria"
       >
+        {
+          categories && categories.map(category => {
+              return(
+                  <option key={category.name} value={category.name}> {category.name}</option>
+              )
+          })
+        }
       </Select>
     </div>
   );
