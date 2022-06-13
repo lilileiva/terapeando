@@ -154,7 +154,7 @@ export const getAllPsychologist = () => {
 export function createClient(payload) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userclient/`, {
+      return await fetch(`${baseURL}/userclient/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
