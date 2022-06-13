@@ -22,8 +22,8 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
 
             <Stack className="ProfileBox">
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
-                <Text as='ins' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
-                <Text className="textOcupation" > {education} </Text>
+                <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
+                <Text className="textOcupation" color='blackAlpha.500'> {education} </Text>
                 <Box className="boxstars">
                     <Starts rating={rating} />
                 </Box>
@@ -39,15 +39,21 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
                 <Box className="About">
-                    <Text marginBottom='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                        {about}<Link to={`/detailPsychologist/${idPsychologist}`}><button className="vermas">Ver más</button></Link>
+                    <Text marginBottom='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                        {about}
                     </Text>
                 </Box>
 
                 <Box className="profile"  >
                     <Link to={`/detailPsychologist/${idPsychologist}`}>
-                        <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
-                        <Button className="buttonProfile" colorScheme='blackAlpha' variant='outline' size='sm'> Hacer Una Consulta </Button>
+                        <Button className="buttonProfile" color='blackAlpha.600' _hover={{
+                   bg: 'blackAlpha.300',
+                   color:'blackAlpha.700'
+                 }} variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
+                        <Button className="buttonProfile" color='blackAlpha.600' _hover={{
+                   bg: 'blackAlpha.300',
+                   color:'blackAlpha.700'
+                 }} variant='outline' size='sm'> Hacer Una Consulta </Button>
                     </Link>
                 </Box>
             </Stack>

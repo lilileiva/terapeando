@@ -53,7 +53,6 @@ const putUserClient = async (req: Request, res: Response) => {
 
 const getUserClient = async (req: Request, res: Response) => {
    const { IdUserClient } = req.params
-
    try {
       const userClient = await userClientModel.findById(IdUserClient);
       res.status(200).json(userClient);

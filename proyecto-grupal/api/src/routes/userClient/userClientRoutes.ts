@@ -4,8 +4,8 @@ const { getUserClient, createUserClient, deleteUserClient, putUserClient } = req
 const clientRouter: Router = Router();
 
 
-clientRouter.get('/:IdUserClient', getUserClient);
-clientRouter.post('/', createUserClient)
+clientRouter.get('/client/:IdUserClient', getUserClient);
+clientRouter.post('/client', createUserClient)
 clientRouter.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
 clientRouter.put('/:IdUserClient', putUserClient)
 
