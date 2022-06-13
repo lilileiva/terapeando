@@ -9,8 +9,8 @@ import Loader from '../Loader/Loader';
 import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
 import { Text, Container, Stack } from "@chakra-ui/react";
-
 import Psychologists from '../Psychologists/Psychologists';
+
 
 export default function Home() {
   const AllPsychologist = useSelector(state => state.allUsersPsichologists);
@@ -64,7 +64,7 @@ export default function Home() {
       </div>
       <Paged postPage={postPage} allPosts={AllPsychologist.length} paged={paged} page={page} setPage={setPage} />
       <Footer />
-    </div>    
+    </div>
   )
 }
 

@@ -9,6 +9,13 @@ import Schedule from "../Schedule/Schedule";
 export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
 
     const [calendar, setCalendar] = useState(false)
+    const handleCalendar = () => {
+        if (!calendar) {
+            setCalendar(true)
+        } else {
+            setCalendar(false)
+        }
+    }
 
     return (
         <Box className="container" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
@@ -50,7 +57,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Text color='teal.700' marginTop='1em' className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Button className="appointmentButton" bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={() => setCalendar(true)}>
+                <Button className="appointmentButton" bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
                     Pedir cita
                 </Button>
             </Box>
