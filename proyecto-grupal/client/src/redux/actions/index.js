@@ -85,7 +85,7 @@ export const getByCategory = (category) => {
       const responseBack = await fetch(`${baseURL}/filter/${category}`)
       const jsonBack = await responseBack.json()
       //envio las notas que se filtren con esa catagory
-      dispatch({type:"GET_BY_CATEGORY", payload:jsonBack})
+      dispatch({type:"GET_BY_CATEGORY_POST", payload:jsonBack})
     } catch (error) {
       console.log(error)
     }

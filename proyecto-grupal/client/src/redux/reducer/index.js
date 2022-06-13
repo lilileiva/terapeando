@@ -69,7 +69,7 @@ function rootReducer(state = initialState, action) {
           ...state,
           categories: action.payload
         }
-    case "GET_BY_CATEGORY":
+    case "GET_BY_CATEGORY_POST":
         return{
           ...state,
           posts: action.payload
