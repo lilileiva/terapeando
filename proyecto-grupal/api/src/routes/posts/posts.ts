@@ -11,6 +11,14 @@ const getAllPosts = (req:Request, res:Response,next:NextFunction) => {
     const {title} = req.query;
     if(title){
         Post.find({Title:{$regex : title, $options:'i'}})
+                .populate("idUserPsychologist",{
+                firstName:1,
+                lastName:1,
+                email:1,
+                country:1,
+                License:1,
+                Specialties:1
+                })
             .then((posts) => {
                 res.status(200).json(posts)
             })

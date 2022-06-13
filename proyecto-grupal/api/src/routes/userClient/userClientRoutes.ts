@@ -1,5 +1,5 @@
 import { Router} from "express";
-const { getUserClient, createUserClient, deleteUserClient, putUserClient } = require('./userClientRoute.ts')
+const { getUserClient, createUserClient, deleteUserClient, putUserClient } = require('./userClient.ts')
 
 const clientRouter: Router = Router();
 
