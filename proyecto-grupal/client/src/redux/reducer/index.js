@@ -1,24 +1,29 @@
-import { CLEAR, GET_ALL_PSYCHOLOGIST } from "../actions/types"
+import { GET_USERCLIENT, GET_ALL_PSYCHOLOGIST, CLEAR, CLEAR_CLIENT } from "../actions/types";
 
 
 const initialState = {
   userPsichologistDetail: {},
   allUsersPsichologists: [],
-  userClientDetail: {},
+  userClientDetail: [],
   usersClients: [],
   posts: [],
   schedules: [],
   schedule: {},
 };
 
+
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_USERCLIENT:
+      return {
+        ...state,
+        userClientDetail: action.payload,
+      };
     case "GET_POSTS":
       return {
         ...state,
         posts: action.payload,
       };
-
     case "ORDER_POSTS":
       return {
         ...state,
@@ -54,6 +59,11 @@ function rootReducer(state = initialState, action) {
                   ...state,
                   userPsichologistDetail: {},
                 };
+            case CLEAR_CLIENT:
+                return {
+                  ...state,
+                  userClientDetail: []
+                }
         default:
            return{...state}
     }

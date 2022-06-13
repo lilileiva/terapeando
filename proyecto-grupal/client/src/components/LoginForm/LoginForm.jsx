@@ -7,9 +7,25 @@ import NavBar from '../NavBar/NavBar.jsx';
 import Footer from '../Footer/Footer.jsx';
 import { motion } from 'framer-motion';
 
+//login/logout con google
+import {gapi} from 'gapi-script'
+import Login from '../LogGoogle/LogInGoogle';
+const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
 
 function LoginForm() {
     const navigate = useNavigate()
+
+    //login/logout con google
+    useEffect(() => {
+        function start(){
+            gapi.client.init({
+                clientId: clientId,
+                scope: ''
+            })
+        };
+        gapi.load('client:auth2', start)
+    });
+    //var accessToken = gapi.auth.getToken().acces_token;
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -94,10 +110,20 @@ function LoginForm() {
                             </InputGroup>
                             {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
+<<<<<<< HEAD
+                                <Button bg='green.100' color='teal.500' >
+                                    <Login />
+                                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                                </Button>
+                                    <Button bg='green.100' color='teal.500' >
+                                        Inicia sesión con &nbsp; <FaGoogle />
+                                    </Button>
+=======
                             <Stack direction='column' align='center'>
                                 <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>
                                     Iniciar sesión
                                 </Button>
+>>>>>>> 176db5615d7ce9637827bf1e65b796562fa0492e
 
                                 <Button bg='green.100' color={'#63caa7'} >
                                     Inicia sesión con &nbsp; <FaGoogle />

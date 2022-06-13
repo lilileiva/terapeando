@@ -53,7 +53,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       profileimage,
       rating,
       education,
-      about,
+      about
     } = req.body;
     const userP = await userPsychologistModel.create({
       firstName: firstname,

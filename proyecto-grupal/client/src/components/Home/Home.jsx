@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { getAllPsychologist } from '../../redux/actions';
 import NavbarHome from '../NavbarHome/NavbarHome';
 import Footer from '../Footer/Footer';
@@ -14,7 +14,6 @@ import Psychologists from '../Psychologists/Psychologists';
 
 export default function Home() {
   const AllPsychologist = useSelector(state => state.allUsersPsichologists);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

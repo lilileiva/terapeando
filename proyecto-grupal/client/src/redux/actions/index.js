@@ -1,22 +1,22 @@
-import Swal from 'sweetalert2';
-import axios from 'axios';
-import { GET_ALL_PSYCHOLOGIST, FETCH_USERCLIENT, LOCAL_HOST, CLEAR } from './types';
+import Swal from "sweetalert2";
+import axios from "axios";
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
-export function fetchUserClient() {
-  return function (dispatch) {
-    axios
-      .get(`${baseURL}/userclient`)
-      .then((client) => {
-        dispatch({
-          type: FETCH_USERCLIENT,
-          payload: client.data,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-}
+
+export function getUserClient(id) {
+  console.log(id)
+    return function (dispatch) {
+        axios.get(`${baseURL}/userclient/${id}`)
+            .then((client) => {
+                dispatch({
+                    type: GET_USERCLIENT,
+                    payload: client.data
+                })
+            })
+            .catch((err) => console.log(err))
+    }}
 
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
@@ -131,6 +131,12 @@ export function clear() {
     };
   }
 
+export function clearClient() {
+  return {
+      type: CLEAR_CLIENT,
+  };
+}
+
 export const getAllPsychologist = () => {
   return async function (dispatch) {
     try {
@@ -145,15 +151,16 @@ export const getAllPsychologist = () => {
   };
 };
 /////////       post para los userClient        /////////
-export function createClient(signupForm) {
+
+export function createClient(payload) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userclient`, {
+      return await fetch(`${baseURL}/userclient/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(signupForm),
+        body: JSON.stringify(payload),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -166,4 +173,25 @@ export function createClient(signupForm) {
       return console.log(error);
     }
   };
+}
+
+export function editClient(id, updatedUserClient) {
+  return async function () {
+    try{
+      const data = await axios.put(`${baseURL}/userclient/${id}`, updatedUserClient)
+      console.log(data)
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
+
+export function deleteUserClient(id){
+  return async function(){
+    try{
+      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
+    }catch(err) {
+      console.log(err)
+   }
+  }
 }
