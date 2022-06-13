@@ -39,9 +39,20 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
                 <Box className="About">
-                    <Text marginBottom='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                        {about}
-                    </Text>
+                    {
+                        about
+                            ? (
+                                <Text marginBottom='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                                    {about}
+                                    <br />
+                                    <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                        <button className="vermas">Ver más</button>
+                                    </Link>
+                                </Text>
+                            ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                                Sin descripción.
+                            </Text>
+                    }
                 </Box>
 
                 <Box className="profile"  >

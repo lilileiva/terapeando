@@ -36,15 +36,25 @@
     border-radius: 50%;
 }
 
-.about {
+.About {
     width: 100%;
     position: relative;
     margin-top: 1em;
-    height: 20%;
+    height: 10.5em;
     white-space: wrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* .about { */
+    /* width: 100%;
+    position: relative;
+    margin-top: 1em;
+    height: 10%; */
+    /* white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+/* } */
 
 .containerCenter {
     width: 50%;
