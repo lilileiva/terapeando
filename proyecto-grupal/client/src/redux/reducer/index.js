@@ -7,6 +7,7 @@ const initialState = {
   userClientDetail: [],
   usersClients: [],
   posts: [],
+  categories: [],
   schedules: [],
   schedule: {},
 };
@@ -63,6 +64,11 @@ function rootReducer(state = initialState, action) {
                 return {
                   ...state,
                   userClientDetail: []
+                }
+            case "GET_CATEGORIES":
+                return{
+                  ...state,
+                  categories: action.payload
                 }
         default:
            return{...state}
