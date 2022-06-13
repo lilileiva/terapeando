@@ -10,16 +10,29 @@ import { ArrowLeftIcon, CheckIcon } from '@chakra-ui/icons';
 import Footer from '../Footer/Footer.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import smoothscroll from "../../animations";
+import Loader from "../Loader/Loader";
 
 export default function PsychologistDetail() {
   const dispatch = useDispatch();
   const { idPsychologist } = useParams();
-  
+  const [loader, setLoader] = useState(false);
   const detail = useSelector((state) => state.userPsichologistDetail);
   const navigate = useNavigate();
+  // useEffect(() => {
+  //   dispatch(getUserPsychologistOne(idPsychologist));
+  //   smoothscroll()
+  //   return () => {
+  //     dispatch(clear()); //Clear detail
+  //   };
+  // }, [dispatch, idPsychologist]);
+
   useEffect(() => {
     dispatch(getUserPsychologistOne(idPsychologist));
+    setLoader(true);
     smoothscroll()
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000)
     return () => {
       dispatch(clear()); //Clear detail
     };
@@ -37,55 +50,68 @@ export default function PsychologistDetail() {
         <Box className="BoxDetail" borderRadius={'10px'} width='fit-content' height={'fit-content'}><Text className="HeadingDetail" mb={3}>Conoce un poco más sobre tu próximo psicólogo</Text></Box>
         <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content'height={'fit-content'} alignContent='center' alignItems={'center'}>    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} /> </Flex>
       </Flex>
-      <SimpleGrid  columns={1} marginTop={'1.5'} textAlign={'left'} paddingLeft={'32'} spacingX="40px" spacingY="20px">
-      <Box className="BoxDetail"  marginBottom={'50px'} bg="" height="120px" width='120px'>
-        <img src={detail.profileImage} alt="" width='120rem' height='4rem'/>
+    {loader ? <Loader></Loader> : <>
+    
+    <SimpleGrid  columns={1} marginTop={'1.5'} marginLeft={'-20'} marginRight='16' textAlign={'left'} paddingLeft={'32'} spacingX="10" spacingY="20px">
+      <Flex className="BoxDetail"  borderRadius={'200px'} width='fit-content'height={'fit-content'} alignContent='center' alignItems={'center'}>
+      <Box className="BoxDetail" borderTopLeftRadius={'10px'} marginBottom={'50px'} bg="" height="120px" width='120px'>
+          <img className="ProfileImage" src={detail.profileImage} alt=""/>
+          </Box>
+          <Box className="BoxDetail" bg="" borderRadius={'10px'}  height="fit-content" width={'fit-content'} zIndex='2'> 
+            <Text className="HeadingDetail">
+              {`${detail.firstName} ${detail.lastName}`}
+            </Text> 
+          </Box>
+          <Box className="BoxDetail" bg="" borderRadius={'10px'}  height="fit-content" idth={'fit-content'} zIndex='2'>
+          <Text className="HeadingDetail" >
+        {`📍${detail.country}`}
+        </Text>
+          </Box>
+          <Box className="BoxDetail" bg="" borderRadius={'10px'} height="fit-content" width={'fit-content'}>
+        <Text className="HeadingDetail" > 
+          {`📩${detail.email}`}
+        </Text> 
+          </Box>
+          <Box className="BoxDetail" bg="" borderRadius={'10px'} borderTopRightRadius='40px' borderBottomRightRadius={'40px'} height="fit-content" width={'fit-content'}>
+        <Text className="HeadingDetail" > 
+          {`🎓${detail.education}`}
+          <Text className="HeadingDetail" >
+            {`Licencia: ${detail.License}`}
+          </Text>
+        </Text> 
+          </Box>
+      </Flex>
+        <Box className="BoxDetail" bg=""  borderRadius={'10px'} height="80px">
+        <Text className="HeadingDetail" >
+          {` 🎂 ${detail.birthDate}`} 
+        </Text> 
         </Box>
-        <Box className="BoxDetail" bg="" borderRadius={'10px'}  height="80px" zIndex='2'> 
-          <Text className="HeadingDetail">
-            {`${detail.firstName} ${detail.lastName}`}
-          </Text> 
+  
+       
+  
+        <Flex className="BoxDetail" marginLeft={'56'} justifyContent='space-around' borderRadius={'10px'} width='fit-content'height={'fit-content'} alignContent='center' alignItems={'center'}>
+        <Box  bg=""  borderRadius={'10px'}   height="fit-content" marginRight={'10'}>
+        <Text className="HeadingDetail" > 
+          
+          Especialidades: {detail.Specialties && detail.Specialties.map((e)=>  <Badge variant='subtle' colorScheme='purple'>{`${e}`}</Badge> )        
+          }
+        </Text> 
+          </Box>
+        </Flex>
+          </SimpleGrid>
+        <Box className="BoxDetail" bg="" marginRight='20' marginLeft={'24'} borderRadius={'10px'} height="fit-content">
+        <Text className="HeadingDetail" > 
+        <h3>Sobre mí</h3>
+          {`${detail.about}`}
+        </Text> 
+          </Box>
+        <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
+        <Text className="HeadingDetail" > 
+          Mi calificación promedio 😊: <Starts
+                  rating={detail.rating}/>
+        </Text> 
         </Box>
-      <Box className="BoxDetail" bg=""  borderRadius={'10px'} height="80px">
-      <Text className="HeadingDetail" >
-        {` 🎂 ${detail.birthDate}`} 
-      </Text> 
-      <Text className="HeadingDetail" >
-      {`📍${detail.country}`}
-      </Text>
-      </Box>
-
-      <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-      <Text className="HeadingDetail" > 
-        {`📩${detail.email}`}
-      </Text> 
-        </Box>
-
-      <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-      <Text className="HeadingDetail" > 
-        {`🎓${detail.education}, Licencia: ${detail.License}`}
-      </Text> 
-        </Box>
-        <Box className="BoxDetail" bg=""  borderRadius={'10px'}   height="fit-content">
-      <Text className="HeadingDetail" > 
-        
-        Especialidades: {detail.Specialties && detail.Specialties.map((e)=> <ul> <Badge variant='subtle' colorScheme='purple'>{`${e}`}</Badge></ul> )        
-        }
-      </Text> 
-        </Box>
-        </SimpleGrid>
-      <Box className="BoxDetail" bg="" borderRadius={'10px'} height="fit-content">
-      <Text className="HeadingDetail" > 
-      <h3>Sobre mí</h3>
-        {`${detail.about}`}
-      </Text> 
-        </Box>
-      <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-      <Text className="HeadingDetail" > 
-        Mi calificación promedio 😊: <Starts
-                rating={detail.rating}/>
-      </Text> 
-      </Box>
+    </>}          
       </SimpleGrid>
       <Footer />
 </div>
