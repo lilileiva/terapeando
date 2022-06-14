@@ -46,7 +46,7 @@ export default function PostsDetail() {
             <h1 className={"title"}>{post.Title}</h1>
             <p className={"content"}>{post.Content}</p>
             <p>Fecha: {post.Date}</p>
-            {/* <p>Escrito por: {post.idUserPsychologist.firstName} {post.idUserPsychologist.lastName}</p> */}
+            <p>Escrito por: {post.idUserPsychologist.firstName} {post.idUserPsychologist.lastName}</p>
             {/* <p>{post.idUserPsychologist.country}</p> */}
           </div>
         ) : (
