@@ -145,11 +145,11 @@ function RegisterForm() {
         } else {
             dispatch(createClient(signupForm))
         }
-        setIsSubmit(true)            
+        setIsSubmit(true)
     }
 
     useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {            
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
             navigate('/home')
             Swal.fire({
                 position: 'top-end',
@@ -164,11 +164,11 @@ function RegisterForm() {
     return (
         <div className='formContainer'>
 
-            <motion.div
+            <div
                 className='background'
-                initial={{ x: 250 }}
-                animate={{ x: 0, transition: { duration: 0.2 } }}
-                exit={{ x: window.innerWidth }}
+            // initial={{ x: 250 }}
+            // animate={{ x: 0, transition: { duration: 0.2 } }}
+            // exit={{ x: window.innerWidth }}
             >
                 <NavBar />
 
@@ -322,8 +322,7 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-        </motion.div>
-
+            </div>
 
         </div >
     )

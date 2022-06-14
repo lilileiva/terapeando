@@ -55,7 +55,7 @@ export default function PsychologistDetail() {
     <SimpleGrid  columns={1} marginTop={'1.5'} marginLeft={'-20'} marginRight='16' textAlign={'left'} paddingLeft={'32'} spacingX="10" spacingY="20px">
       <Flex className="BoxDetail"  borderRadius={'200px'} width='fit-content'height={'fit-content'} alignContent='center' alignItems={'center'}>
       <Box className="BoxDetail" borderTopLeftRadius={'10px'} marginBottom={'50px'} bg="" height="120px" width='120px'>
-          <img className="ProfileImage" src={detail.profileImage} alt=""/>
+          <img className="ProfileImage" src={detail.profileImage} alt=""/>          
           </Box>
           <Box className="BoxDetail" bg="" borderRadius={'10px'}  height="fit-content" width={'fit-content'} zIndex='2'> 
             <Text className="HeadingDetail">

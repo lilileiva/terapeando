@@ -37,7 +37,6 @@ export default function App() {
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-
     </div>
   );
 }

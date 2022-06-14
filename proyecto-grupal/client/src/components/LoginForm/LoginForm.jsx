@@ -73,11 +73,11 @@ function LoginForm() {
     }, [formErrors, signinForm, isSubmit])
 
     return (           
-        <motion.div
+        <div
             className='background'
-            initial={{ x: 250 }}
-            animate={{ x: 0, transition: { duration: 0.2 } }}            
-            exit={{ x: window.innerWidth }}
+            // initial={{ x: 250 }}
+            // animate={{ x: 0, transition: { duration: 0.2 } }}            
+            // exit={{ x: window.innerWidth }}
         >
             <NavBar />
 
@@ -131,7 +131,7 @@ function LoginForm() {
             </Container>
 
             <Footer />
-        </motion.div >
+        </div >
     )
 }
 
