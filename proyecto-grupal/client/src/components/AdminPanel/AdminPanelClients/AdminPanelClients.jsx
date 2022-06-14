@@ -5,7 +5,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import { Stack, Text } from '@chakra-ui/react';
 
 
-function AdminPanelHome() {
+function AdminPanelClients() {
   return (
     <div className='adminPanelContainer'>
       <AdminPanelNavbar />
@@ -15,7 +15,7 @@ function AdminPanelHome() {
 
 
         <Stack width='100%' bg='white' m='0'>
-          <Text>Contenido</Text>
+          <Text>Contenido clients</Text>
         </Stack>
 
       </Stack>
@@ -25,4 +25,4 @@ function AdminPanelHome() {
   )
 }
 
-export default AdminPanelHome;
+export default AdminPanelClients;

@@ -21,7 +21,7 @@ export function getUserClient(idUserClient) {
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
-    const responseApi = await fetch(`${baseURL}/posts`);
+    const responseApi = await fetch(`${baseURL}/posts`);    
     const json = await responseApi.json();
     if (responseApi) {
       dispatch({ type: "GET_POSTS", payload: json });
