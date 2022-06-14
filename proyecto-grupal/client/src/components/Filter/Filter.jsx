@@ -22,27 +22,31 @@ export default function Filters() {
   }
 
   return (
-    <div>
-      <Select        
-        placeholder="Ordenar por"
-        onChange={handleSubmitOrder}
-        cursor={"pointer"}
-      >
-        <option key={0}>Titulo de A-Z</option>
-        <option key={1}>Titulo de Z-A</option>
-      </Select>
-      <Select 
-        placeholder="Filtrar notas por categoria"
-        onChange={(e) => handleSubmitCategory(e)}
-      >
-        {
-          categories && categories.map(category => {
-              return(
-                  <option key={category.name} value={category.name}> {category.name}</option>
-              )
-          })
-        }
-      </Select>
+    <div className="container">
+      <div className="right">
+        <Select        
+          placeholder="Ordenar por"
+          onChange={handleSubmitOrder}
+          cursor={"pointer"}
+        >
+          <option key={0}>Titulo de A-Z</option>
+          <option key={1}>Titulo de Z-A</option>
+        </Select>
+      </div>
+        <div className="float">
+          <Select 
+            placeholder="Filtrar notas por categoria"
+            onChange={(e) => handleSubmitCategory(e)}
+          >
+            {
+              categories && categories.map(category => {
+                  return(
+                      <option key={category.name} value={category.name}> {category.name}</option>
+                  )
+              })
+            }
+          </Select>
+      </div>
     </div>
   );
 }
