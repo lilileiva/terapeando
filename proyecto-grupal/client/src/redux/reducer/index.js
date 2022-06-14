@@ -1,5 +1,9 @@
-import { GET_USERCLIENT, GET_ALL_PSYCHOLOGIST, CLEAR, CLEAR_CLIENT } from "../actions/types";
-
+import {
+  GET_USERCLIENT,
+  GET_ALL_PSYCHOLOGIST,
+  CLEAR,
+  CLEAR_CLIENT,
+} from "../actions/types";
 
 const initialState = {
   userPsichologistDetail: {},
@@ -7,11 +11,14 @@ const initialState = {
   userClientDetail: [],
   usersClients: [],
   posts: [],
+<<<<<<< HEAD
   categories: [],
+=======
+  postDetail: {},
+>>>>>>> de269d0287c593ceba9a9152bda3402302f66e28
   schedules: [],
   schedule: {},
 };
-
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -25,6 +32,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+    case "GET_POST_DETAIL":
+      return {
+        ...state,
+        postDetail: action.payload
+      }
     case "ORDER_POSTS":
       return {
         ...state,
@@ -35,6 +47,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+<<<<<<< HEAD
       };       
     case GET_ALL_PSYCHOLOGIST:
         return{
@@ -76,6 +89,40 @@ function rootReducer(state = initialState, action) {
         }
     default:
        return{...state}
+=======
+      };
+
+    case GET_ALL_PSYCHOLOGIST:
+      return {
+        ...state,
+        allUsersPsichologists: action.payload,
+      };
+    case "CREATE_CLIENT":
+      return {
+        ...state,
+      };
+    case "CREATE_PSYCHOLOGIST":
+      return {
+        ...state,
+      };
+    case "GET_PSYCHOLOGISTS_ONE":
+      return {
+        ...state,
+        userPsichologistDetail: action.payload,
+      };
+    case CLEAR:
+      return {
+        ...state,
+        userPsichologistDetail: {},
+      };
+    case CLEAR_CLIENT:
+      return {
+        ...state,
+        userClientDetail: [],
+      };
+    default:
+      return { ...state };
+>>>>>>> de269d0287c593ceba9a9152bda3402302f66e28
   }
 }
 

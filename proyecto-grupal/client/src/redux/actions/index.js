@@ -93,6 +93,20 @@ export const getByCategory = (category) => {
 }
 
 
+export function getPostDetail(id) {
+  return async function(dispatch) {
+    try {
+      let detail = await axios.get(`${baseURL}/posts/${id}`)
+      return dispatch({
+        type: "GET_POST_DETAIL",
+        payload: detail.data,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 ////////////////// Post para los user Psychologist ///////////////////
 
 /////// GET para obetener todos los psychologist ////////
