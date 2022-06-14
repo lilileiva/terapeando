@@ -48,6 +48,24 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
       .catch((error: error) => next(error));
   }
 };
+
+const getOnePost = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    let response = await Post.findById(id).populate("idUserPsychologist", {
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      country: 1,
+      License: 1,
+      Specialties: 1,
+    });
+    res.status(200).send(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const createPost = (req: Request, res: Response, next: NextFunction) => {
   const post = req.body;
   //me creo el post con el objeto ue me llega de body
@@ -99,4 +117,5 @@ module.exports = {
   getAllPosts,
   getAllCategory,
   filterPostsCategory,
+  getOnePost,
 };

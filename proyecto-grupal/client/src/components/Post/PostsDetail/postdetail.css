@@ -1,0 +1,37 @@
+.container {
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  display: flex;
+  align-items: center;
+  height: 400px;
+  width: 800px;
+  margin: -20px 250px 10px;
+  border-radius: 5px;
+}
+
+.title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 45px;
+  font-weight: bold;
+  display: flex;
+  margin: 10px 250px 50px;
+}
+
+.content {
+  font-family: "Open Sans", sans-serif;
+  font-size: 22px;
+  width: 800px;
+  margin: -10px 250px 10px;
+  text-align: left;
+}
+
+.tags {
+  display: flex;
+  justify-content: baseline;
+  margin: 5px 250px;
+  padding: 3px;
+}
