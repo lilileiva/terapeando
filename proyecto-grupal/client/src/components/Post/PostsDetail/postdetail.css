@@ -1,0 +1,41 @@
+.container{
+    height: 1000px;
+    display: flex; 
+    flex-direction: column;
+} 
+
+.img{
+    display: flex;
+    align-items: center;
+    height: 400px;
+    width: 800px;
+    margin: -150px 250px 10px;
+    border-radius: 5px;
+}
+
+.title{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    display: flex;
+    margin: 0px 250px 50px;
+}
+
+.content{
+    font-family: 'Open Sans', sans-serif;
+    width: 800px;
+    margin: -20px 250px 10px;
+    text-align: left;
+}
+
+.tags{
+    display: flex;
+    justify-content: baseline;
+    margin: 5px 250px;
+    padding: 3px;
+}
+
+.Badge{
+    background-color: rgba(127, 255, 212, 0.751);
+    
+}
