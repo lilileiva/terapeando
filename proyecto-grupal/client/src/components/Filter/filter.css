@@ -1,0 +1,16 @@
+.container{
+    width: 100%;
+}
+.right{
+   padding-left: 10px;
+   float: left;
+   position: relative;
+   width: 45%;
+   height: auto;
+}
+.float{
+   position: relative;
+   float: left;
+   width: 45%;
+   height: auto;
+}
