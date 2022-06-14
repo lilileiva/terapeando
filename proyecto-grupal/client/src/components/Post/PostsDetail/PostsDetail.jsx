@@ -39,7 +39,7 @@ export default function PostsDetail() {
                 post.Tags?.map((tag) => {
                   return (
                   <Box className={'tags'}>
-                    <Badge variant="subtle" className="Badge">
+                    <Badge variant="subtle" colorScheme="cyan" className="Badge">
                       {tag}
                     </Badge>
                   </Box>
