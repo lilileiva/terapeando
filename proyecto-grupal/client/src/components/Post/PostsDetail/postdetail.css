@@ -8,9 +8,33 @@
   display: flex;
   align-items: center;
   height: 400px;
-  width: 800px;
+  width: 820px;
   margin: -20px 250px 10px;
   border-radius: 5px;
+}
+
+.psyinfo{
+    /* border: black solid 1px; */
+    border-radius: 8px;
+    /* background-color: rgba(233, 241, 247, 0.868); */
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    width: 430px;
+    height: 60px;
+    margin: -80px 420px 50px 
+}
+
+.psytext{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.name{
+    color: rgba(46, 46, 173, 0.897);
+    font-size: 20px;
+    margin-left: 3px;
 }
 
 .title {
@@ -34,4 +58,8 @@
   justify-content: baseline;
   margin: 5px 250px;
   padding: 3px;
+}
+
+.about{
+    width: 300px;
 }

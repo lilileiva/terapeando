@@ -18,7 +18,7 @@ export default function PostsDetail() {
   // console.log('id: ', id)
   const dispatch = useDispatch();
   const post = useSelector((state) => state.postDetail);
-  //console.log("post: ", post);
+  console.log("post: ", post);
 
   useEffect(() => {
     dispatch(getPostDetail(id));
@@ -34,6 +34,19 @@ export default function PostsDetail() {
             <div>
               <img src={post.Image} alt="img" className="img" />
             </div>
+
+            {post.idUserPsychologist ? (
+              <div className="psyinfo">
+                <image href={post.idUserPsychologist.profileImage} alt='img not found'/>
+                <p className='psytext'>
+                  Por <p className='name'>{post.idUserPsychologist.firstName}{" "}
+                  {post.idUserPsychologist.lastName}</p>
+                </p>
+                <p className='psytext'>Fecha: {post.Date}</p>
+                <p className='psytext'>{post.idUserPsychologist.country}</p>
+              </div>
+            ) : null}
+
             {post.Tags?.map((tag) => {
               return (
                 <Box className={"tags"}>
@@ -45,9 +58,15 @@ export default function PostsDetail() {
             })}
             <h1 className={"title"}>{post.Title}</h1>
             <p className={"content"}>{post.Content}</p>
-            <p>Fecha: {post.Date}</p>
-            <p>Escrito por: {post.idUserPsychologist.firstName} {post.idUserPsychologist.lastName}</p>
-            {/* <p>{post.idUserPsychologist.country}</p> */}
+
+            {/* {post.idUserPsychologist ? (
+              <div className='about'>
+                <h2>{post.idUserPsychologist.firstName} {post.idUserPsychologist.lastName}</h2>
+                <image href={post.idUserPsychologist.profileImage} alt='img not found'/>
+                <p>{post.idUserPsychologist.about}</p>
+              </div>
+            ) : null} */}
+
           </div>
         ) : (
           "Loading"

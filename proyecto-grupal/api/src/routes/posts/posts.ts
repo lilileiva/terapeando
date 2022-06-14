@@ -56,6 +56,8 @@ const getOnePost = async (req: Request, res: Response) => {
       firstName: 1,
       lastName: 1,
       email: 1,
+      profileImage: 1,
+      about: 1,
       country: 1,
       License: 1,
       Specialties: 1,
