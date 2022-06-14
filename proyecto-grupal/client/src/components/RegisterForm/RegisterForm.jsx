@@ -166,9 +166,9 @@ function RegisterForm() {
 
             <div
                 className='background'
-            // initial={{ x: 250 }}
-            // animate={{ x: 0, transition: { duration: 0.2 } }}
-            // exit={{ x: window.innerWidth }}
+                // initial={{ x: 250 }}
+                // animate={{ x: 0, transition: { duration: 0.2 } }}
+                // exit={{ x: window.innerWidth }}
             >
                 <NavBar />
 
@@ -322,7 +322,12 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
+<<<<<<< HEAD
             </div>
+=======
+        </div>
+
+>>>>>>> de269d0287c593ceba9a9152bda3402302f66e28
 
         </div >
     )
