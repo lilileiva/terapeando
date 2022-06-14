@@ -17,7 +17,6 @@ export default function Post() {
   }, [dispatch]);
 
   const allPosts = useSelector((state) => state.posts);
-
   /* Paginado */
   const [page, setPage] = useState(1);
   const [postPage, setPostPage] = useState(4);
