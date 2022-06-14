@@ -10,8 +10,7 @@ import {
   Stack,
   Text,
   useColorModeValue,
-  VisuallyHidden,
-  Link
+  VisuallyHidden
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";

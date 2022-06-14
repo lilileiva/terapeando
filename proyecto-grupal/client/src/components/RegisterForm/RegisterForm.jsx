@@ -322,12 +322,8 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-<<<<<<< HEAD
-            </div>
-=======
         </div>
 
->>>>>>> de269d0287c593ceba9a9152bda3402302f66e28
 
         </div >
     )

@@ -16,6 +16,9 @@ import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
 import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
+import AdminPanelLogin from "./components/AdminPanel/AdminPanelLogin/AdminPanelLogin.jsx";
+import AdminPanelHome from './components/AdminPanel/AdminPanelHome/AdminPanelHome.jsx'
+
 
 export default function App() {
   return (
@@ -23,14 +26,14 @@ export default function App() {
       <Routes>
         <Route element={<Footer />} />
         <Route path="/" element={<NavBar />} />
-        <Route path="/post" element={<Post />} />
-        <Route path="/psicologos" element={<Psychologists />} />
         <Route index element={<LandingPage />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<RegisterForm />} />
         <Route path="/signin" element={<LoginForm />} />
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/psicologos" element={<Psychologists />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/post" element={<Post />} />
         <Route path="/home/:idUserClient" element={<ClientDetails />} />
         <Route
           path="/detailPsychologist/:idPsychologist"
@@ -39,6 +42,8 @@ export default function App() {
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
+        <Route path='/adminpanel' element={<AdminPanelLogin />} />
+        <Route path='/adminpanel/home' element={<AdminPanelHome />} />
       </Routes>
     </div>
   );

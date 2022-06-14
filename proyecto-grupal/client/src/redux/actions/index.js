@@ -6,16 +6,17 @@ const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
 export function getUserClient(idUserClient) {
-    return function (dispatch) {
-        axios.get(`${baseURL}/userclient/client/${idUserClient}`)
-            .then((client) => {
-                dispatch({
-                    type: GET_USERCLIENT,
-                    payload: client.data
-                })
-            })
-            .catch((err) => console.log(err))
-    }}
+  return function (dispatch) {
+    axios.get(`${baseURL}/userclient/client/${idUserClient}`)
+      .then((client) => {
+        dispatch({
+          type: GET_USERCLIENT,
+          payload: client.data
+        })
+      })
+      .catch((err) => console.log(err))
+  }
+}
 
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
@@ -67,7 +68,7 @@ export const getPostOrder = (order, arreglo) => {
 };
 
 export function getPostDetail(id) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       let detail = await axios.get(`${baseURL}/posts/${id}`)
       return dispatch({
@@ -110,28 +111,32 @@ export function createPsychologist(signupForm) {
 /////// GET para obetener todos los psychologist ////////
 
 export const getUserPsychologist = () => {
-  return function (dispatch) {
-    axios.get(`${baseURL}/userpsychologist`).then((psychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(`${baseURL}/userpsychologist`)
       dispatch({
         type: "GET_PSYCHOLOGISTS",
         payload: psychologist.data,
       });
-    });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
   };
 };
 
 ////// GET para obtener un solo psychologist //////
 
 export const getUserPsychologistOne = (IdUserPsychologist) => {
-  return function (dispatch) {
-    axios
-      .get(`${baseURL}/userpsychologist/${IdUserPsychologist}`)
-      .then((psychologist) => {
-        dispatch({
-          type: "GET_PSYCHOLOGISTS_ONE",
-          payload: psychologist.data,
-        });
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(`${baseURL}/userpsychologist/${IdUserPsychologist}`)
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
       });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
   };
 };
 
@@ -139,14 +144,14 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
 
 //Clean detail state
 export function clear() {
-    return {
-      type: CLEAR,
-    };
-  }
+  return {
+    type: CLEAR,
+  };
+}
 
 export function clearClient() {
   return {
-      type: CLEAR_CLIENT,
+    type: CLEAR_CLIENT,
   };
 }
 
@@ -158,7 +163,7 @@ export const getAllPsychologist = () => {
         type: GET_ALL_PSYCHOLOGIST,
         payload: json.data,
       });
-    } catch (error) {      
+    } catch (error) {
       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
     }
   };
@@ -190,21 +195,21 @@ export function createClient(payload) {
 
 export function editClient(id, updatedUserClient) {
   return async function () {
-    try{
+    try {
       const data = await axios.put(`${baseURL}/userclient/${id}`, updatedUserClient)
       console.log(data)
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
 }
 
-export function deleteUserClient(id){
-  return async function(){
-    try{
+export function deleteUserClient(id) {
+  return async function () {
+    try {
       await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
-    }catch(err) {
+    } catch (err) {
       console.log(err)
-   }
+    }
   }
 }

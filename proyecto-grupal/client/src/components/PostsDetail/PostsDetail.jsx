@@ -44,12 +44,9 @@ export default function PostsDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.postDetail);
-//   const allPosts = useSelector((state) => state.posts);
-//   console.log("Allpost: ", allPosts);
 
   useEffect(() => {
     dispatch(getPostDetail(id));
-    dispatch(getAllPosts());
   }, [dispatch, id]);
 
   return (
@@ -73,8 +70,10 @@ export default function PostsDetail() {
                 >
                   <Box>
                     <Badge variant="subtle" className="Badge">
-                      {post.Tags}
+                      {post.Tags}                      
                     </Badge>
+                    {post.idUserPsychologist ? <p>{post.idUserPsychologist.firstName}</p> : <p>nada</p>}
+                    {post.idUserPsychologist ? <p>{post.idUserPsychologist.lastName}</p> : <p>nada</p>}
                   </Box>
                 </Stack>
               </Stack>

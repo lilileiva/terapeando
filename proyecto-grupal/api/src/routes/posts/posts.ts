@@ -19,14 +19,6 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
         License: 1,
         Specialties: 1,
       })
-      .populate("idUserPsychologist", {
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        country: 1,
-        License: 1,
-        Specialties: 1,
-      })
       .then((posts) => {
         res.status(200).json(posts);
       })
@@ -52,7 +44,14 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
 const getOnePost = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    let response = await Post.findById(id);
+    let response = await Post.findById(id).populate("idUserPsychologist", {
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      country: 1,
+      License: 1,
+      Specialties: 1,
+    });
     res.status(200).send(response);
   } catch (error) {
     console.error(error);
@@ -94,7 +93,6 @@ const filterPostsCategory = async (
     License: 1,
     Specialties: 1,
   });
-  console.log(postTotals);
   let postFilters: object[] = [];
   for (let i = 0; i < postTotals.length; i++) {
     postTotals[i].Tags.forEach((tag: string) => {
