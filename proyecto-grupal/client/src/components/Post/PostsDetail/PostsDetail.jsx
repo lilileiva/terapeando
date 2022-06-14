@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts, getPostDetail } from "../../../redux/actions/index.js";
+import {
+  getPostDetail,
+  clearStatePostDetail,
+} from "../../../redux/actions/index.js";
 import Navbar from "../../NavBar/NavBar.jsx";
 import Footer from "../../Footer/Footer.jsx";
 import { useParams } from "react-router-dom";
@@ -15,13 +18,11 @@ export default function PostsDetail() {
   // console.log('id: ', id)
   const dispatch = useDispatch();
   const post = useSelector((state) => state.postDetail);
-  //const allPosts = useSelector((state) => state.posts);
-  // console.log("Allpost: ", allPosts);
-  console.log("post: ", post);
+  //console.log("post: ", post);
 
   useEffect(() => {
     dispatch(getPostDetail(id));
-    dispatch(getAllPosts());
+    dispatch(clearStatePostDetail());
   }, [dispatch, id]);
 
   return (
