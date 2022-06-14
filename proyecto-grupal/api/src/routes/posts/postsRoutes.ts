@@ -10,7 +10,7 @@ const {
 const postsRouter: Router = Router();
 
 postsRouter.get("/posts", getAllPosts);
-postsRouter.get("/posts/:id", getOnePost);
+postsRouter.get("/post/:id", getOnePost);
 postsRouter.post("/post", createPost);
 postsRouter.get("/categories", getAllCategory);
 postsRouter.get("/filter/:category", filterPostsCategory);
