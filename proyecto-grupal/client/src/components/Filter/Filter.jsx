@@ -1,7 +1,7 @@
 import React, {useEffect}from "react";
 import './filter.css'
 import { useDispatch, useSelector } from "react-redux";
-import { getPostOrder,getCategories,getByCategory } from "../../../redux/actions";
+import { getPostOrder,getCategories,getByCategory } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 
 
