@@ -5,10 +5,9 @@ import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT }
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
-export function getUserClient(id) {
-  console.log(id)
+export function getUserClient(idUserClient) {
     return function (dispatch) {
-        axios.get(`${baseURL}/userclient/${id}`)
+        axios.get(`${baseURL}/userclient/client/${idUserClient}`)
             .then((client) => {
                 dispatch({
                     type: GET_USERCLIENT,
@@ -66,6 +65,20 @@ export const getPostOrder = (order, arreglo) => {
     dispatch({ type: "ORDER_POSTS", payload: notas });
   };
 };
+
+export function getPostDetail(id) {
+  return async function(dispatch) {
+    try {
+      let detail = await axios.get(`${baseURL}/posts/${id}`)
+      return dispatch({
+        type: "GET_POST_DETAIL",
+        payload: detail.data,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 ////////////////// Post para los user Psychologist ///////////////////
 
@@ -145,7 +158,7 @@ export const getAllPsychologist = () => {
         type: GET_ALL_PSYCHOLOGIST,
         payload: json.data,
       });
-    } catch (error) {
+    } catch (error) {      
       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
     }
   };
@@ -155,7 +168,7 @@ export const getAllPsychologist = () => {
 export function createClient(payload) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userclient/`, {
+      return await fetch(`${baseURL}/userclient/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

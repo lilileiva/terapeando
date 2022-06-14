@@ -26,7 +26,7 @@ export default function Blog() {
           <Text fontWeight='semibold' fontSize='3xl' marginBottom='0.5em' color='green.300'>Notas sobre psicología</Text>
           <div className='syb'>
             <SearchBar />            
-            <Button paddingRight='0' className='btn' onClick={(e) => handleSubmit(e)}>
+            <Button className='btn' onClick={(e) => handleSubmit(e)}>
               Recargar notas
             </Button>            
           </div>

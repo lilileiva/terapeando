@@ -39,12 +39,23 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
                 <Box className="About">
-                    <Text marginBottom='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                        {about}
-                    </Text>
+                    {
+                        about
+                            ? (
+                                <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
+                                    {about}
+                                    <br />
+                                    <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                        <button className="vermas">Ver más</button>
+                                    </Link>
+                                </Text>
+                            ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                                Sin descripción.
+                            </Text>
+                    }
                 </Box>
 
-                <Box className="profile"  >
+                <Box className="profile"  >                
                     <Link to={`/detailPsychologist/${idPsychologist}`}>
                         <Button className="buttonProfile" color='blackAlpha.600' _hover={{
                    bg: 'blackAlpha.300',
@@ -58,12 +69,12 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 </Box>
             </Stack>
 
-            <Box className="containerBottom">
+            <Box className="containerBottom" borderLeftWidth='0.1em' borderColor='#b7b7b7' pl='1em'>
                 <Image className="iconCard" src='https://img.icons8.com/ios/2x/calendar.png' alt='img not found' />
                 <Text color='teal.700' marginTop='1em' className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Button className="appointmentButton" bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
+                <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
                     Pedir cita
                 </Button>
             </Box>

@@ -41,35 +41,35 @@ const getUserPsychologist = async (req: Request, res: Response, next: NextFuncti
 const postUserPsychologist = async (req: Request, res: Response) => {
   try {
     const {
-      firstName,
-      lastName,
+      firstname,
+      lastname,
       email,
       password,
-      birthDate,
+      birthdate,
       country,
-      License,
-      DNI,
-      Specialties,
-      profileImage,
+      license,
+      dni,
+      specialities,
+      profileimage,
       rating,
       education,
-      about,
+      about
     } = req.body;
     const userP = await userPsychologistModel.create({
-      firstName,
-      lastName,
+      firstName: firstname,
+      lastName: lastname,
       email,
       password,
-      birthDate,
+      birthDate: birthdate,
       country,
-      License,
-      DNI,
-      Specialties,
-      profileImage,
+      License: license,
+      DNI: dni,
+      Specialties: specialities,
+      profileImage: profileimage,
       rating,
       appointments: [],
-      about: about,
-      education: education,
+      about,
+      education,
     });
     res.status(201).send(userP);
   } catch (error) {

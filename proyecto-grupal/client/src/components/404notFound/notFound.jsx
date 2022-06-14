@@ -22,7 +22,7 @@ export default function NotFound() {
           Esta página no existe! Volve a tu perfil o ingresa para seguir navegando.
         </Text>
 
-        <Link to='/'>
+        <Link to='/home'>
           <Button
             bgGradient="linear(to-r, green.300, green.400, green.500)"
             color="white"
