@@ -17,7 +17,7 @@ export default function PostsDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const post = useSelector((state) => state.postDetail);
-  
+
 
   useEffect(() => {
     dispatch(getPostDetail(id));
@@ -54,15 +54,15 @@ export default function PostsDetail() {
               </div>
             ) : null}
 
-            {post.Tags?.map((tag) => {
-              return (
-                <Box className={"tags"}>
+            <Box className={"tags"}>
+              {post.Tags?.map((tag) => {
+                return (
                   <Badge variant="subtle" colorScheme="cyan" className="Badge">
                     {tag}
                   </Badge>
-                </Box>
-              );
-            })}
+                );
+              })}
+            </Box>
             <h1 className={"title"}>{post.Title}</h1>
             <div className={"content"}>{post.Content}</div>
           </div>
