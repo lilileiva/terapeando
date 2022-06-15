@@ -17,9 +17,9 @@ import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
 import Reviews from "./components/Reviews/Reviews";
 
+import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
 
 export default function App() {
-
   return (
     <div className="App">
       <Routes>
@@ -33,13 +33,16 @@ export default function App() {
         <Route path="/signup" element={<RegisterForm />} />
         <Route path="/signin" element={<LoginForm />} />
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
-        <Route path="/client/:idUserClient" element={<ClientDetails />} />
-        <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
+        <Route path="/home/:idUserClient" element={<ClientDetails />} />
+        <Route
+          path="/detailPsychologist/:idPsychologist"
+          element={<PsychologistDetail />}
+        />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/postdetail/:id" element={<PostsDetail />} />
       </Routes>
-
     </div>
   );
 }
