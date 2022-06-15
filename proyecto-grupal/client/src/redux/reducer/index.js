@@ -47,6 +47,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
+        posts: []
       };
     case GET_ALL_PSYCHOLOGIST:
       return {
