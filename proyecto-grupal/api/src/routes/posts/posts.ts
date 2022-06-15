@@ -52,7 +52,16 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
 const getOnePost = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    let response = await Post.findById(id);
+    let response = await Post.findById(id).populate("idUserPsychologist", {
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      profileImage: 1,
+      about: 1,
+      country: 1,
+      License: 1,
+      Specialties: 1,
+    });
     res.status(200).send(response);
   } catch (error) {
     console.error(error);

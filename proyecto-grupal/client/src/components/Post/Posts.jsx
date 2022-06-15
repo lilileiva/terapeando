@@ -46,7 +46,7 @@ export default function Post() {
                       <Text fontSize="3xl" marginTop="0em">
                         {post.Title}
                       </Text>
-                      <p>{post.Content}</p>
+                      {/* <p>{post.Content}</p> */}
                       <Text fontSize="20px" color="cyan">
                         Nota de {post.idUserPsychologist.firstName}{" "}
                         {post.idUserPsychologist.lastName}
