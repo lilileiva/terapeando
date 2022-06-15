@@ -45,7 +45,7 @@ export const searchPostsByTitle = (title) => {
         dispatch({ type: "SEARCH_POSTS_BY_TITLE", payload: posts.data });
         Swal.fire(
           "Error",
-          "No hay notas disponibles vuelve a intentar, no escribir letras ni caracteres especiales para la busqueda solamente caracteres validos",
+          "No hay notas disponibles. Vuelve a intentar. No buscar letras ni carácteres especiales.",
           "error"
         );
       }
