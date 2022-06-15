@@ -7,7 +7,7 @@ import Filters from "../Filter/Filter.jsx";
 import { Button, Text } from '@chakra-ui/react'
 import { getAllPosts } from "../../redux/actions/index.js";
 import { useDispatch } from "react-redux";
-
+import { Link } from "@chakra-ui/react";
 import "./blog.css";
 
 export default function Blog() {
@@ -28,7 +28,12 @@ export default function Blog() {
             <SearchBar />            
             <Button className='btn' onClick={(e) => handleSubmit(e)}>
               Recargar notas
-            </Button>             
+            </Button>   
+            <Link href="/createPost">        
+              <Button className='btn'>
+                Crear Nota
+              </Button>
+            </Link>  
           </div>
         </div>
         <Filters />
