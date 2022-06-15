@@ -1,21 +1,22 @@
 import Swal from "sweetalert2";
 import axios from "axios";
-import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT } from "./types";
+
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT} from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
-
 export function getUserClient(idUserClient) {
   return function (dispatch) {
-    axios.get(`${baseURL}/userclient/client/${idUserClient}`)
+    axios
+      .get(`${baseURL}/userclient/client/${idUserClient}`)
       .then((client) => {
         dispatch({
           type: GET_USERCLIENT,
-          payload: client.data
-        })
+          payload: client.data,
+        });
       })
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 }
 
 export const getAllPosts = () => {
@@ -70,16 +71,22 @@ export const getPostOrder = (order, arreglo) => {
 export function getPostDetail(id) {
   return async function (dispatch) {
     try {
-      let detail = await axios.get(`${baseURL}/posts/${id}`)
+      let detail = await axios.get(`${baseURL}/posts/${id}`);
       return dispatch({
         type: "GET_POST_DETAIL",
         payload: detail.data,
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 }
+
+export const clearStatePostDetail = () => {
+  return {
+    type: "CLEAR_POST_DETAIL",
+  };
+};
 
 ////////////////// Post para los user Psychologist ///////////////////
 
@@ -140,8 +147,6 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
   };
 };
 
-
-
 //Clean detail state
 export function clear() {
   return {
@@ -201,15 +206,34 @@ export function editClient(id, updatedUserClient) {
     } catch (err) {
       console.log(err)
     }
-  }
+  };
 }
 
-export function deleteUserClient(id) {
-  return async function () {
-    try {
+
+export function deleteUserClient(id){
+  return async function(){
+    try{
       await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
     } catch (err) {
       console.log(err)
     }
   }
 }
+
+
+export function createReview(payload){
+  return async function() {
+    
+    try {
+      const newReview = axios.post(`${baseURL}/reviews` , payload)
+      return newReview
+      
+    } catch (error) {
+      console.log(error)
+    }
+  };
+}
+
+
+
+

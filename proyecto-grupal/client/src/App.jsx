@@ -15,13 +15,14 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
-import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
+import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import AdminPanelLogin from "./components/AdminPanel/AdminPanelLogin/AdminPanelLogin.jsx";
 import AdminPanelHome from './components/AdminPanel/AdminPanelHome/AdminPanelHome.jsx';
 import AdminPanelClients from './components/AdminPanel/AdminPanelClients/AdminPanelClients.jsx';
 import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsychologists/AdminPanelPsychologists.jsx';
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
+import Reviews from "./components/Reviews/Reviews";
 
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
           element={<PsychologistDetail />}
         />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
         <Route path='/adminpanel/login' element={<AdminPanelLogin />} />
