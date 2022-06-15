@@ -7,7 +7,7 @@ import userPsychologist from "../../models/userPsychologist";
 const getUserPsychologistOne = async (req: Request, res: Response) => {
   try {
     const { IdUserPsychologist } = req.params;
-    const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist);
+    const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist,'-password');
     res.status(200).json(psychologistUser)
   } catch (err) {
     res.status(404).json({ data: err })
@@ -22,13 +22,13 @@ const getUserPsychologist = async (req: Request, res: Response, next: NextFuncti
       userPsychologist.find({
         $or: [{ firstName: { $regex: name, $options: 'i' } },
         { lastName: { $regex: name, $options: 'i' } }]
-      })
+      },'-password')
         .then((psychologist) => {
           res.status(200).json(psychologist)
         })
       .catch((error:any) => next(error))
     } else {
-      const userPsychologist = await userPsychologistModel.find();
+      const userPsychologist = await userPsychologistModel.find({}, '-password');
       res.status(200).json(userPsychologist)
     }
 
@@ -70,6 +70,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
       appointments: [],
       about,
       education,
+      rol: 'psychologist'
     });
     res.status(201).send(userP);
   } catch (error) {

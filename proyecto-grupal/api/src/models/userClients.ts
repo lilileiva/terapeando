@@ -1,5 +1,6 @@
 import {prop, getModelForClass, Ref, pre} from '@typegoose/typegoose'
 import { appointment } from './appointment';
+import roles, { Roles } from './Roles';
 const bcrypt = require('bcryptjs');
 
 
@@ -65,6 +66,9 @@ export class userClient {
 
     @prop({ ref: () => appointment })
     appointments: Ref<appointment>[];
+
+    // @prop({ ref: () => Roles })
+    // rol: Ref<Roles>;
 }
 
 const userClientModel = getModelForClass(userClient)
