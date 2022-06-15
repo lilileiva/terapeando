@@ -11,6 +11,7 @@ const initialState = {
   userClientDetail: [],
   usersClients: [],
   posts: [],
+  categories:[],
   postDetail: {},
   schedule: {},
 }
