@@ -30,8 +30,8 @@ function rootReducer(state = initialState, action) {
     case "GET_POST_DETAIL":
       return {
         ...state,
-        postDetail: action.payload
-      }
+        postDetail: action.payload,
+      };
     case "ORDER_POSTS":
       return {
         ...state,
@@ -43,6 +43,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };       
+
+      };
+    case "CLEAR_POST_DETAIL":
+      return {
+        ...state,
+        postDetail: {},
+      };
     case GET_ALL_PSYCHOLOGIST:
         return{
             ...state,

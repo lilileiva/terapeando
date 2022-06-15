@@ -15,8 +15,8 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
-import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
 import AddPost from "./components/AddPost/AddPost";
+import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 
 export default function App() {
   return (
