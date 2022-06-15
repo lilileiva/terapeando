@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 import axios from "axios";
-import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT } from "./types";
-
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT} from "./types";
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
@@ -194,3 +193,19 @@ export function deleteUserClient(id){
    }
   }
 }
+
+
+export function createReview(payload){
+  return async function() {
+    
+    try {
+      const newReview = axios.post(`${baseURL}/reviews` , payload)
+      return newReview
+      
+    } catch (error) {
+      console.log(error)
+    }
+  };
+}
+
+
