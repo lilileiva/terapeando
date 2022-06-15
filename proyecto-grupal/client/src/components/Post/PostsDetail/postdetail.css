@@ -13,6 +13,7 @@
   width: 900px;
   margin: 0px 20px 10px;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .psyinfo{
@@ -42,6 +43,7 @@
   font-size: 45px;
   font-weight: bold;
   display: flex;
+  margin-top: 1em;
   /* margin: 10px 250px 50px; */
 }
 
@@ -56,9 +58,10 @@
 
 .tags {
   display: flex;
-  justify-content: baseline;
+  flex-direction: row;
+  justify-content: center;
   /* margin: 5px 250px; */
-  padding: 3px;
+  /* padding: 3px; */
 }
 
 .about{

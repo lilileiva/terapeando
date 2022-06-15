@@ -22,7 +22,7 @@ export function getUserClient(idUserClient) {
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
-    const responseApi = await fetch(`${baseURL}/posts`);
+    const responseApi = await fetch(`${baseURL}/posts`);    
     const json = await responseApi.json();
     if (responseApi) {
       dispatch({ type: "GET_POSTS", payload: json });
@@ -145,28 +145,32 @@ export function createPsychologist(signupForm) {
 /////// GET para obetener todos los psychologist ////////
 
 export const getUserPsychologist = () => {
-  return function (dispatch) {
-    axios.get(`${baseURL}/userpsychologist`).then((psychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(`${baseURL}/userpsychologist`)
       dispatch({
         type: "GET_PSYCHOLOGISTS",
         payload: psychologist.data,
       });
-    });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
   };
 };
 
 ////// GET para obtener un solo psychologist //////
 
 export const getUserPsychologistOne = (IdUserPsychologist) => {
-  return function (dispatch) {
-    axios
-      .get(`${baseURL}/userpsychologist/${IdUserPsychologist}`)
-      .then((psychologist) => {
-        dispatch({
-          type: "GET_PSYCHOLOGISTS_ONE",
-          payload: psychologist.data,
-        });
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(`${baseURL}/userpsychologist/${IdUserPsychologist}`)
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
       });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
   };
 };
 
@@ -224,13 +228,10 @@ export function createClient(payload) {
 export function editClient(id, updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(
-        `${baseURL}/userclient/${id}`,
-        updatedUserClient
-      );
-      console.log(data);
+      const data = await axios.put(`${baseURL}/userclient/${id}`, updatedUserClient)
+      console.log(data)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   };
 }
@@ -240,9 +241,9 @@ export function deleteUserClient(id){
   return async function(){
     try{
       await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
-    }catch(err) {
+    } catch (err) {
       console.log(err)
-   }
+    }
   }
 }
 

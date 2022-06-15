@@ -37,7 +37,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
-
     case "SEARCH_POSTS_BY_TITLE":
       return {
         ...state,

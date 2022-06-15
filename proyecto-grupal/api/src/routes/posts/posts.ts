@@ -95,7 +95,6 @@ const filterPostsCategory = async (
     License: 1,
     Specialties: 1,
   });
-  console.log(postTotals);
   let postFilters: object[] = [];
   for (let i = 0; i < postTotals.length; i++) {
     postTotals[i].Tags.forEach((tag: string) => {
