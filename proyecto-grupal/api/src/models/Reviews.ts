@@ -7,7 +7,7 @@ export class Reviews{
     @prop({required: true})  
     Content: string 
     @prop({required: true, min: 1, max: 5})  
-    Stars: number
+    Rating: number
     @prop({ref: () => userClient})
     IdUserClient: Ref<userClient>
     @prop({ref: () => userPsychologist})
