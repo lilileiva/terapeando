@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AdminPanelNavbar from '../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center } from '@chakra-ui/react';
-import { BsFileEarmarkRichtext, BsCashCoin, BsKanban, BsPerson, BsPersonPlus } from "react-icons/bs";
+import { BsFileEarmarkRichtext, BsCashCoin, BsKanban, BsPerson, BsPersonFill } from "react-icons/bs";
 
 
 function AdminPanelHome() {
@@ -20,8 +20,7 @@ function AdminPanelHome() {
           <Wrap justify='center'>
             <WrapItem>
               <Link to='/adminpanel/clients'>
-
-                <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100', scale: '110%' }}>
+                <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100' }}>
                   <Stack direction='column' align='center'>
                     <BsPerson size='50%' />
                     <Text fontSize='2xl' fontWeight='500' color='#2D3748'>
@@ -29,14 +28,13 @@ function AdminPanelHome() {
                     </Text>
                   </Stack>
                 </Center>
-
               </Link>
             </WrapItem>
             <WrapItem>
               <Link to='/adminpanel/psychologists'>
                 <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100' }}>
                   <Stack direction='column' align='center'>
-                    <BsPersonPlus size='50%' />
+                    <BsPersonFill size='50%' />
                     <Text fontSize='2xl' fontWeight='500' color='#2D3748'>
                       USUARIOS PSICÓLOGOS
                     </Text>

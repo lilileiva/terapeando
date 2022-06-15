@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AdminPanelNavbar from '../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center } from '@chakra-ui/react';
-import { BsPersonDash, BsPencilSquare, BsPeople, BsKanban } from "react-icons/bs";
+import { BsPersonDash, BsPencilSquare, BsPeople, BsKanban, BsPersonPlus } from "react-icons/bs";
 
 
 function AdminPanelPsychologists() {
@@ -36,6 +36,18 @@ function AdminPanelPsychologists() {
                     <BsPencilSquare size='50%' />
                     <Text fontSize='2xl' fontWeight='500' color='#2D3748'>
                       EDITAR USUARIOS
+                    </Text>
+                  </Stack>
+                </Center>
+              </Link>
+            </WrapItem>
+            <WrapItem>
+              <Link to=''>
+                <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100', scale: '110%' }}>
+                  <Stack direction='column' align='center'>
+                    <BsPersonPlus size='50%' />
+                    <Text fontSize='2xl' fontWeight='500' color='#2D3748'>
+                      SOLICITUDES DE REGISTRO
                     </Text>
                   </Stack>
                 </Center>
