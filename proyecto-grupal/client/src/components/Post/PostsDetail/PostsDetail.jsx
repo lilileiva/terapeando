@@ -35,6 +35,25 @@ export default function PostsDetail() {
             <div>
               <img src={post.Image} alt="img" className="img" />
             </div>
+
+            {post.idUserPsychologist ? (
+              <div className="psyinfo">
+                <image
+                  src={post.idUserPsychologist.profileImage}
+                  alt="img not found"
+                />
+                <p className="psytext">
+                  Por{" "}
+                  <p className="name">
+                    {post.idUserPsychologist.firstName}{" "}
+                    {post.idUserPsychologist.lastName}
+                  </p>
+                </p>
+                <p className="psytext">Fecha: {post.Date}</p>
+                <p className="psytext">{post.idUserPsychologist.country}</p>
+              </div>
+            ) : null}
+
             {post.Tags?.map((tag) => {
               return (
                 <Box className={"tags"}>
@@ -45,10 +64,7 @@ export default function PostsDetail() {
               );
             })}
             <h1 className={"title"}>{post.Title}</h1>
-            <p className={"content"}>{post.Content}</p>
-            <p>Fecha: {post.Date}</p>
-            <p>Escrito por: {post.idUserPsychologist.firstName ? post.idUserPsychologist.firstName : 'Algo falla'} </p>
-            {/* <p>{post.idUserPsychologist.country}</p> */}
+            <div className={"content"}>{post.Content}</div>
           </div>
         ) : (
           "Loading"

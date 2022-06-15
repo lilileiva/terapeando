@@ -15,7 +15,10 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
+import AddPost from "./components/AddPost/AddPost";
+import Reviews from "./components/Reviews/Reviews";
 import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
+
 
 export default function App() {
   return (
@@ -34,8 +37,10 @@ export default function App() {
         <Route path="/home/:idUserClient" element={<ClientDetails />} />
         <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
+        <Route path="/createPost" element={<AddPost />} />
       </Routes>
     </div>
   );

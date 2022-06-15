@@ -1,12 +1,7 @@
 import Swal from "sweetalert2";
 import axios from "axios";
-import {
-  GET_ALL_PSYCHOLOGIST,
-  GET_USERCLIENT,
-  LOCAL_HOST,
-  CLEAR,
-  CLEAR_CLIENT,
-} from "./types";
+
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT} from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
@@ -72,6 +67,33 @@ export const getPostOrder = (order, arreglo) => {
     dispatch({ type: "ORDER_POSTS", payload: notas });
   };
 };
+//obtener todas las categorias
+export const getCategories = () => {
+  return async function(dispatch){
+    try{
+      const responseBack = await fetch(`${baseURL}/categories`)
+      const jsonBack = await responseBack.json()
+      //envio todas las categorias de mi db
+      dispatch({type:"GET_CATEGORIES",payload:jsonBack}) 
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+//mostrar por categoria 
+export const getByCategory = (category) => {
+  return async function(dispatch){
+  try {
+      const responseBack = await fetch(`${baseURL}/filter/${category}`)
+      const jsonBack = await responseBack.json()
+      //envio las notas que se filtren con esa catagory
+      dispatch({type:"GET_BY_CATEGORY_POST", payload:jsonBack})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 
 export function getPostDetail(id) {
   return async function (dispatch) {
@@ -213,12 +235,31 @@ export function editClient(id, updatedUserClient) {
   };
 }
 
-export function deleteUserClient(id) {
-  return async function () {
+
+export function deleteUserClient(id){
+  return async function(){
+    try{
+      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
+    }catch(err) {
+      console.log(err)
+   }
+  }
+}
+
+
+export function createReview(payload){
+  return async function() {
+    
     try {
-      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`);
-    } catch (err) {
-      console.log(err);
+      const newReview = axios.post(`${baseURL}/reviews` , payload)
+      return newReview
+      
+    } catch (error) {
+      console.log(error)
     }
   };
 }
+
+
+
+
