@@ -18,7 +18,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
     }
 
     return (
-        <Box className="container" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+        <Box className="cardContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
             <Stack className="ProfileBox">
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>

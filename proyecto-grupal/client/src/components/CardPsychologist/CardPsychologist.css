@@ -1,6 +1,7 @@
-.container {
+.cardContainer {
     width: 100%;
     height: 25%;
+    height: 25em;
     position: relative;
     margin-bottom: 2em;
     font-family: sans-serif;
@@ -21,13 +22,12 @@
 }
 
 .ProfileBox {
-    position: relative;
     width: 20%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center;    
 }
 
 .avatar {
@@ -44,6 +44,7 @@
     white-space: wrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
 }
 
 /* .about { */
