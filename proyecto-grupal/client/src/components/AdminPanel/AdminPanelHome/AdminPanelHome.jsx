@@ -8,6 +8,7 @@ import { BsFileEarmarkRichtext, BsCashCoin, BsKanban, BsPerson, BsPersonPlus } f
 
 
 function AdminPanelHome() {
+
   return (
     <div className='adminPanelContainer'>
       <AdminPanelNavbar />
@@ -19,14 +20,16 @@ function AdminPanelHome() {
           <Wrap justify='center'>
             <WrapItem>
               <Link to='/adminpanel/clients'>
-                <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100' }}>
+
+                <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100', scale: '110%' }}>
                   <Stack direction='column' align='center'>
                     <BsPerson size='50%' />
                     <Text fontSize='2xl' fontWeight='500' color='#2D3748'>
-                      USUARIOS CLIENTES
+                      USUARIOS CLIENTES                      
                     </Text>
                   </Stack>
                 </Center>
+
               </Link>
             </WrapItem>
             <WrapItem>
