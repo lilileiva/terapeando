@@ -3,9 +3,12 @@ import morgan from 'morgan'
 const routes = require('./routes/index.ts')
 const cors = require('cors')
 
+require('dotenv').config();
+
 // server  inicializations
 const app = express() 
-app.set( 'port', process.env.PORT || 3001 )
+// app.set( 'port', process.env.PORT || 3001 )
+app.set( 'port', process.env.MONGODB_URI || 3001 )
 
 
 // Middlewares
