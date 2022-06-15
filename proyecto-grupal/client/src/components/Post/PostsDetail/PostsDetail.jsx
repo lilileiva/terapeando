@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 import {
   getPostDetail,
   clearStatePostDetail,
@@ -10,14 +11,14 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import "./postdetail.css";
 // -----------------------------------
-import { Box, Badge } from "@chakra-ui/react";
+import { Box, Badge, Avatar, Stack } from "@chakra-ui/react";
 import { ReactElement } from "react";
+import Loader from "../../Loader/Loader.jsx";
 
 export default function PostsDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const post = useSelector((state) => state.postDetail);
-
 
   useEffect(() => {
     dispatch(getPostDetail(id));
@@ -32,27 +33,33 @@ export default function PostsDetail() {
       <div>
         {post ? (
           <div className={"containerA"}>
-            <div>
-              <img src={post.Image} alt="img" className="img" />
-            </div>
 
-            {post.idUserPsychologist ? (
-              <div className="psyinfo">
-                <image
-                  src={post.idUserPsychologist.profileImage}
-                  alt="img not found"
-                />
-                <p className="psytext">
-                  Por{" "}
-                  <p className="name">
-                    {post.idUserPsychologist.firstName}{" "}
-                    {post.idUserPsychologist.lastName}
-                  </p>
-                </p>
-                <p className="psytext">Fecha: {post.Date}</p>
-                <p className="psytext">{post.idUserPsychologist.country}</p>
-              </div>
-            ) : null}
+            <div className="postImgContainer">
+              <img src={post.Image} alt="post img" className="postImg" />
+              {post.idUserPsychologist ? (
+                <div className="psyinfo">
+                  <Link to={`/detailPsychologist/${post.idUserPsychologist._id}`}>
+                    <Avatar
+                      src={post.idUserPsychologist.profileImage}
+                      alt="img not found"
+                    />
+                  </Link>
+                  <Stack direction='row' align='flex-end'>
+                    <p className="psytext">
+                      Por{" "}
+                    </p>
+                    <p className="name">
+                      <Link to={`/detailPsychologist/${post.idUserPsychologist._id}`}>
+                        {post.idUserPsychologist.firstName}{" "}
+                        {post.idUserPsychologist.lastName}
+                      </Link>
+                    </p>
+                    <p className="psytext">Fecha: {post.Date}</p>
+                    <p className="psytext">{post.idUserPsychologist.country}</p>
+                  </Stack>
+                </div>
+              ) : null}
+            </div>
 
             <Box className={"tags"}>
               {post.Tags?.map((tag) => {
@@ -63,11 +70,27 @@ export default function PostsDetail() {
                 );
               })}
             </Box>
+
             <h1 className={"title"}>{post.Title}</h1>
             <div className={"content"}>{post.Content}</div>
+
+            {post.idUserPsychologist ? (
+              <Stack mt='2.5em' align='end'>
+                <Stack direction='row' align='flex-end'>
+                  <p className="psytext">
+                    Por {post.idUserPsychologist.firstName}{" "}
+                    {post.idUserPsychologist.lastName}.
+                  </p>
+                  <br />
+                  <p className="psytext"> Fecha: {post.Date}.</p>
+                  <p className="psytext"> {post.idUserPsychologist.country}</p>
+                </Stack>
+              </Stack>
+            ) : null}
+
           </div>
         ) : (
-          "Loading"
+          <Loader />
         )}
       </div>
       <Footer />
