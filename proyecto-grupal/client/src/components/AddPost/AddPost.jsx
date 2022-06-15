@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector } from 'react-redux';
-import { addPost,getCategories } from '../../redux/actions';
+import { addPost,getCategories,getAllPosts} from '../../redux/actions';
 import { NavLink } from "react-router-dom";
-
+import './addPost.css';
 function validarCampos(input) {
     //me guardo los errores
       let errors = {}  
@@ -10,9 +10,6 @@ function validarCampos(input) {
       if(!input.date){
           //si no hay nada le agrego objeto.name el mensaje a mostrar
           errors.date = "La fecha es requerida"
-      }else if(!/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[1-9]|2[1-9])$/.test(input.date)){
-          //ponemos la expresion regular y la validamos con el nombre
-          errors.date = "La fecha de creacion de la nota debe ser valida"
       }
       // titulo
       if(!input.title){
@@ -24,11 +21,11 @@ function validarCampos(input) {
         errors.title = "El titulo de la nota solo acepta letras, numeros, guiones medios y parentesis"
       }
       //contenido
-      if(!input.Content){
-          errors.Content = 'El contenido es obligatorio'
+      if(!input.content){
+          errors.content = 'El contenido es obligatorio'
       }else if(!/^[a-zA-Z0-9-() .]+$/.test(input.title)){
         //ponemos la expresion regular y la validamos con el contenido
-        errors.Content = "El contenido de la nota solo acepta letras, numeros, guiones medios y parentesis"
+        errors.content = "El contenido de la nota solo acepta letras, numeros, guiones medios y parentesis"
       }
       //imagen
       if(!input.image){
@@ -57,6 +54,7 @@ export default function AddPost(){
     const posts = useSelector((state) => state.posts)
     useEffect(() => {
         dispatch(getCategories())
+        dispatch(getAllPosts())
     },[dispatch]) 
     function handleSubmit(event) {
         event.preventDefault();
@@ -107,7 +105,7 @@ export default function AddPost(){
             })
         }
     }
-    function handleDeleteGenere(category){
+    function handleDeleteCategory(category){
         setInput({
             ...input,
             tags: input.tags.filter((c) =>  c !== category)
@@ -120,6 +118,21 @@ export default function AddPost(){
             <form onSubmit={(e) => handleSubmit(e)} className="form">
                 <div className='formulario'>
                     <h2 className='titulo'>Crear Nota</h2>
+                    {/* Titulo */}
+                    <div className='group'>
+                        <input className='input1'
+                            required
+                            type={"text"}
+                            name="title"
+                            value={input.title}
+                            onChange={(e) => handleChange(e)}
+                        />
+                        <span className='bar'></span>
+                        <label className='etiqueta'>Titulo</label>
+                        {errors.title && (
+                            <p className='peligro'>{errors.title}</p>   
+                        )}
+                    </div>
                     {/* fecha */}
                     <div className='group'>
                         {/* controlamos tanto como la fecha y el valor cada vez que haya un cambio */}
@@ -131,86 +144,68 @@ export default function AddPost(){
                             onChange={(e) => handleChange(e)}
                         />
                         <span className='bar'></span>
-                        <label className='etiqueta'> Nombre: </label>
+                        <label className='etiqueta'> Fecha de creacion: </label>
                         {/* si hay un error mostramos el valor del objete con ese error */}
-                        {errors.name && (
-                            <p className='peligro'>{errors.name}</p>
+                        {errors.date && (
+                            <p className='peligro'>{errors.date}</p>
                         )}
                     </div>
-                    {/* fecha de lanzamiento */}
-                    <div className='group'>
-                        <input className='input1'
-                            type={"date"}
-                            name="Content"
-                            value={input.Content}
-                            placeholder={"yyyy-mm-dd"}
-                            onChange={(e) => handleChange(e)}
-                        />
-                        <span className='bar'></span>
-                        <label className='etiqueta'>Fecha de Lanzamiento:</label>
-                        {errors.Content && (
-                            <p className='peligro'>{errors.Content}</p>   
-                        )}
-                    </div>
-                    {/* rating */}
+                    {/* imagen */}
                     <div className='group'>
                         <input className='input1'
                             required
-                            type={"number"}
-                            name="rating"
-                            value={input.rating}
+                            type={"url"}
+                            name="image"
+                            value={input.image}
                             onChange={(e) => handleChange(e)}
                         />
                         <span className='bar'></span>
-                        <label className='etiqueta'>Rating: </label>
-                        {errors.rating && (
-                            <p className='peligro'>{errors.rating}</p>   
+                        <label className='etiqueta'>Url de la Imagen: </label>
+                        {errors.image && (
+                            <p className='peligro'>{errors.image}</p>   
                         )}
                     </div>
-                    {/* generos */}
+                    {/* categorias */}
                     <div className='group'>
                         <select className='create_select' defaultValue={""} onChange={(e) => handleCategories(e)}>
                             {/* desabilitamos la opcion vacia */}
-                            <option className='option_group' value='' disable>Elijas los Generos</option>
+                            <option className='option_group' value='' disable>Elijas las Categorias Asociadas</option>
                             {/* me traigo todos mis generos y los muestro */}
                             {categories && categories.map((categorie) => {
                                 return (
-                                    <option className='option_group' value={categories.name}>{categories.name}</option>
+                                    <option className='option_group' value={categorie.name}>{categorie.name}</option>
                                 )
                             })}
                         </select><span className='bar'></span>
                         {/* ahora muestro los generos que ha seleccionado el usuario */}
-                        <label className='etiqueta'>Generos: </label>
-                        {input.tags && input.tags.map((genero) => {
+                        <label className='etiqueta'>Categorias: </label>
+                        {input.tags && input.tags.map((tag) => {
                             return(
                            <div className='opcion'>
-                               <div className='opcion_titulo'>{genero}</div>
-                               <button className='button_delete' onClick={() => handleDeleteGenere(genero)} value={genero} key={genero}><span className={"delete"}>X</span></button>
+                               <div className='opcion_titulo'>{tag}</div>
+                               <button className='button_delete' onClick={() => handleDeleteCategory(tag)} value={tag} key={tag}><span className={"delete"}>X</span></button>
                            </div> )
                         })}
                     </div>
                         {errors.tags && (
                             <p className='peligro'>{errors.tags}</p>   
                         )}
-                    {errors.platforms && (
-                        <p className='peligro'>{errors.platforms}</p>   
-                    )}
                     <div className='group'>
                         <textarea cols="50" rows="10"
                             requerid 
                             type="text"
-                            name="title"
-                            value={input.title}
+                            name="content"
+                            value={input.content}
                             onChange={(e) => handleChange(e)}
                         ></textarea>
-                        <label className='title'>Descripcion: </label>
-                        {errors.title && (
-                            <p className='peligro'>{errors.title}</p>   
+                        <label className='etiqueta'>Contenido: </label>
+                        {errors.content && (
+                            <p className='peligro'>{errors.content}</p>   
                         )}
                     </div>
                 </div>
                 <div>
-                    <button type='submit' className='boton_submit'>Crear Videojuego</button>
+                    <button type='submit' className='boton_submit'>Crear Nota</button>
                 </div>
                 <div className='back_home'>
                     <NavLink to={'/home'} className={"button_home"}>Volver a Home</NavLink>
