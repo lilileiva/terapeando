@@ -31,7 +31,7 @@ export default function PostsDetail() {
       <Navbar />
       <div>
         {post ? (
-          <div className={"container"}>
+          <div className={"containerA"}>
             <div>
               <img src={post.Image} alt="img" className="img" />
             </div>
