@@ -45,14 +45,14 @@ export default function Post() {
                     <div className="card-body">
                       <Text fontSize="3xl" marginTop="0em">
                         {post.Title}
-                      </Text>
-                      <p>{post.Content.slice(0,600)}</p>
+                      </Text>                      
+                      <p>{post.Content.slice(0,400)}...</p>
                       <Text fontSize="20px" color="cyan">
                         Nota de {post.idUserPsychologist.firstName}{" ​​​​"}
                         {post.idUserPsychologist.lastName}
                       </Text>
                       <Text fontSize="15px" color="cyan">
-                        Correo {post.idUserPsychologist.email} | Origen{"​​🌎​"}
+                        Correo {post.idUserPsychologist.email} | Origen {"​​🌎 ​"}
                         {post.idUserPsychologist.country}
                       </Text>
                       <h5>Fecha {post.Date}</h5>
@@ -60,6 +60,7 @@ export default function Post() {
                         direction="row"
                         justifyContent="center"
                         marginTop="2em"
+                        marginBottom="1.5em"
                       >
                         {post.Tags?.map((tag) => {
                           return (

@@ -145,11 +145,11 @@ function RegisterForm() {
         } else {
             dispatch(createClient(signupForm))
         }
-        setIsSubmit(true)            
+        setIsSubmit(true)
     }
 
     useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {            
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
             navigate('/home')
             Swal.fire({
                 position: 'top-end',

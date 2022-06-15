@@ -84,24 +84,25 @@ export default function NavbarHome() {
             </Box>
 
             {/* <div className={'contenedorlinks'}> */}
-            <Stack direction="row">
-              <Link className={"links"} to={"/home"}>
-                <Text fontWeight={"500"} color="gray.600">
+            <Stack direction='row'>
+
+              <Link className={'links'} to={'/home'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Home
                 </Text>
               </Link>
-              <Link className={"links"} to={"/proximasconsultas"}>
-                <Text fontWeight={"500"} color="gray.600">
+              <Link className={'links'} to={'/proximasconsultas'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Proximas consultas
                 </Text>
               </Link>
-              <Link className={"links"} to={"/mipsicologo"}>
-                <Text fontWeight={"500"} color="gray.600">
+              <Link className={'links'} to={'/mipsicologo'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Mi psicólogo
                 </Text>
               </Link>
-              <Link className={"links"} to={"/blog"}>
-                <Text fontWeight={"500"} color="gray.600">
+              <Link className={'links'} to={'/blog'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Blog
                 </Text>
               </Link>

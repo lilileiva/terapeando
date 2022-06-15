@@ -122,7 +122,7 @@ const DesktopNav = () => {
       </Link>
       <Link className={"links"} to={"/psicologos"}>
         <Button bg="white" height="1.5em" _hover={{ bg: "#cbd5e0bb" }}>
-          Psicologos
+          Psicólogos
         </Button>
       </Link>
       <Link className={"links"} to={"/blog"}>
