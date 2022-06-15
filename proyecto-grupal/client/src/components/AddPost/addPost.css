@@ -1,17 +1,16 @@
 .form{
-    background: #83b5b3;
+    background: hsla(210, 20%, 90%, 1);
     padding: 45px 0;
     border-radius: 10px;
-    box-shadow: 
-    0 0 5px rgb(240, 252, 255),
-    0 0 10px rgb(204, 249, 255),
-    0 0 15px rgb(179, 255, 244),
-    0 0 20px rgb(143, 255, 248),
-    0 0 25px rgb(117, 255, 246),
-    0 0 30px rgb(77, 246, 255);
+    box-shadow: 5px 5px 5px 0px #d4d1d1, inset 4px 4px 15px 0px #938e8e, 5px 5px 15px 5px rgba(0,0,0,0);
     height: auto;
     display: inline-block;
     margin-top: 20px;
+    width: 80%;
+}
+.form button{
+    margin-left: 2%;
+    width: 40%;
 }
 .formulario{
     width: 100%;
@@ -21,7 +20,7 @@
     text-align: center;
     font-weight: 700;
     font-family: "Verdana";
-    color: whitesmoke;
+    color: rgb(6, 5, 5);
     font-size: 40px;
     margin-left: 5%;
     margin-right: 5%;
@@ -32,9 +31,13 @@
     margin-top: 35px;
     margin-bottom: 35px;
 }
+.group select{
+    margin-top: 2.5%;
+    border: 1px solid black;
+}
 .input1{
     background: none;
-    color: #f6e8e8;
+    color: #111010;
     font-size: 18px;
     padding: 10px;
     padding-top: 20px;
@@ -48,7 +51,7 @@
     color: #0b0909
 }
 .etiqueta{
-    color: white;
+    color: rgb(11, 11, 11);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 18px;
     position: absolute;
@@ -64,13 +67,13 @@
     margin-top: 10px;
 }
 .create_select{
-    background-color: #cdf1c6;
+    background-color: #eef6ec;
     color: black;
     padding: 7px;
     font-size: 16px;
     appearance: button;
     outline: none;
-    margin: 10px;
+    margin-top: 10%;
     font-family: system-ui;
 }
 .option_group{
@@ -80,9 +83,8 @@
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 15px;
-    background-color: #b1f0fb;
+    background-color: rgb(243, 237, 237);
     padding: 5px;
-    border-radius: 5px;
 }
 .opcion_titulo{
     display: inline-block;
@@ -102,32 +104,31 @@
     color: white;
 }
 .description{
-    color: white;
+    color: black;
     font-family: monospace;
-    font-size: 18px;
+    font-size: 21px;
     position: absolute;
     top: -25px;
     left: 5px;
     transition: 0.5s all;
     pointer-events: none;
 }
+.group textarea{
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+}
 .boton_submit{
-    font-family: system-ui;
-    background: #e8e5ec;
-    border: 1px solid;
-    display: block;
-    width: 80%;
-    margin: 10px auto;
-    color: rgb(15, 10, 10);
-    height: 40px;
-    font-size: 16px;
-    font-weight: 500;
+    transition-property: var(--chakra-transition-property-common);
+    transition-duration: var(--chakra-transition-duration-fast);
+    transition-timing-function: var(--chakra-transition-easing-ease-out);
     cursor: pointer;
-    box-shadow: 
-    0 0 5px #03e9f4,
-    0 0 25px #03e9f4,
-    0 0 50px #03e9f4,
-    0 0 200px #03e9f4;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    color: inherit;
+
 }
 .button_home {
     font-family: system-ui;
@@ -141,13 +142,12 @@
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 
-    0 0 5px #03e9f4,
-    0 0 25px #03e9f4,
-    0 0 50px #03e9f4,
-    0 0 200px #03e9f4;
+    box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25), 0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6pxhsla(0, 0%, 0%, 0.03);
     cursor: pointer;
     text-decoration: none;
+}
+.block{
+    display: block;
 }
 @media (max-width: 600px) {
     .form{

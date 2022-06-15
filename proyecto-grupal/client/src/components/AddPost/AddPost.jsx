@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector } from 'react-redux';
 import { addPost,getCategories,getAllPosts} from '../../redux/actions';
-import { NavLink } from "react-router-dom";
+import NavBar from "../NavBar/NavBar.jsx";
+import Footer from "../Footer/Footer.jsx";
 import './addPost.css';
+import { Select,Link,Button, Textarea } from '@chakra-ui/react'
 function validarCampos(input) {
     //me guardo los errores
       let errors = {}  
@@ -71,6 +73,7 @@ export default function AddPost(){
                 return 
             }else{
                 //creo mi juego
+                console.log(input)
                 dispatch(addPost(input));
                 setInput({
                     date: "",
@@ -115,6 +118,7 @@ export default function AddPost(){
     console.log(errors)
     return(
         <div>
+            <NavBar/>
             <form onSubmit={(e) => handleSubmit(e)} className="form">
                 <div className='formulario'>
                     <h2 className='titulo'>Crear Nota</h2>
@@ -167,16 +171,14 @@ export default function AddPost(){
                     </div>
                     {/* categorias */}
                     <div className='group'>
-                        <select className='create_select' defaultValue={""} onChange={(e) => handleCategories(e)}>
-                            {/* desabilitamos la opcion vacia */}
-                            <option className='option_group' value='' disable>Elijas las Categorias Asociadas</option>
+                        <Select placeholder="Elija las categorias asociadas a la nota creada" defaultValue={""} onChange={(e) => handleCategories(e)} className="alert">
                             {/* me traigo todos mis generos y los muestro */}
                             {categories && categories.map((categorie) => {
                                 return (
-                                    <option className='option_group' value={categorie.name}>{categorie.name}</option>
+                                    <option value={categorie.name}>{categorie.name}</option>
                                 )
                             })}
-                        </select><span className='bar'></span>
+                        </Select><span className='bar'></span>
                         {/* ahora muestro los generos que ha seleccionado el usuario */}
                         <label className='etiqueta'>Categorias: </label>
                         {input.tags && input.tags.map((tag) => {
@@ -191,26 +193,32 @@ export default function AddPost(){
                             <p className='peligro'>{errors.tags}</p>   
                         )}
                     <div className='group'>
-                        <textarea cols="50" rows="10"
+                        <Textarea cols="90" rows="10"
+                            placeholder='Escribe aca el contenido de la nota'
                             requerid 
                             type="text"
                             name="content"
                             value={input.content}
                             onChange={(e) => handleChange(e)}
-                        ></textarea>
-                        <label className='etiqueta'>Contenido: </label>
+                        ></Textarea>
+                        <label className='description'>Contenido: </label>
                         {errors.content && (
                             <p className='peligro'>{errors.content}</p>   
                         )}
                     </div>
                 </div>
                 <div>
-                    <button type='submit' className='boton_submit'>Crear Nota</button>
+                <Button colorScheme='teal' variant='outline'>
+    Button
+  </Button>
                 </div>
-                <div className='back_home'>
-                    <NavLink to={'/home'} className={"button_home"}>Volver a Home</NavLink>
-                </div>
+                <Link href="/">        
+                    <Button className='button_home'>
+                        Volver al Home
+                    </Button>
+                </Link>  
             </form>
+            <Footer/>
         </div>
     )
 } 
