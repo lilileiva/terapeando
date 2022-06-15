@@ -5,8 +5,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 
 const logInPsychologist = async (req: Request, res: Response) => {
-  const { body } = req
-  const { email, password } = body
+  const { email, password } = req.body
 
   const user = await userPsychologistModel.findOne({ email })
 

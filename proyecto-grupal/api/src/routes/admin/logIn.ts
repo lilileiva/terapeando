@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import userClientModel from "../../models/userClients";
-import userPsychologist from "../../models/userPsychologist";
+import adminModel from "../../models/Admin";
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 
-const logInClient = async (req: Request, res: Response) => {
-  const { email, password } = req.body
+const logInAdmin = async (req: Request, res: Response) => {
+  const { body } = req
+  const { email, password } = body
 
-  const user = await userClientModel.findOne({ email })
+  const user = await adminModel.findOne({ email })
 
   const passwordCorrect = user === null
     ? false
@@ -39,4 +39,4 @@ const logInClient = async (req: Request, res: Response) => {
   })
 }
 
-export default logInClient
+export default logInAdmin
