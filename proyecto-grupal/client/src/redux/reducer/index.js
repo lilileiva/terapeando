@@ -43,8 +43,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };       
-
-      };
     case "CLEAR_POST_DETAIL":
       return {
         ...state,
@@ -91,7 +89,7 @@ function rootReducer(state = initialState, action) {
     default:
        return{...state}
       };
-}
+    }
 
 
 export default rootReducer;

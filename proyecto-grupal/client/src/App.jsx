@@ -40,7 +40,7 @@ export default function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
-        <Route path="/createPost" element={<AddPost />} />
+        {/* <Route path="/createPost" element={<AddPost />} /> */}
       </Routes>
     </div>
   );
