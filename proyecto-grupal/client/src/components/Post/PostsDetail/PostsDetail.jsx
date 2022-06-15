@@ -59,14 +59,6 @@ export default function PostsDetail() {
             <h1 className={"title"}>{post.Title}</h1>
             <div className={"content"}>{post.Content}</div>
 
-            {/* {post.idUserPsychologist ? (
-              <div className='about'>
-                <h2>{post.idUserPsychologist.firstName} {post.idUserPsychologist.lastName}</h2>
-                <image href={post.idUserPsychologist.profileImage} alt='img not found'/>
-                <p>{post.idUserPsychologist.about}</p>
-              </div>
-            ) : null} */}
-
           </div>
         ) : (
           "Loading"
