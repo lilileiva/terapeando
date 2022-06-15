@@ -39,6 +39,7 @@ export default function App() {
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
+        <Route path="/createPost" element={<PostsDetail />} />
       </Routes>
     </div>
   );
