@@ -119,16 +119,25 @@
     border: 1px solid black;
 }
 .boton_submit{
-    transition-property: var(--chakra-transition-property-common);
-    transition-duration: var(--chakra-transition-duration-fast);
-    transition-timing-function: var(--chakra-transition-easing-ease-out);
-    cursor: pointer;
-    -webkit-text-decoration: none;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
     text-decoration: none;
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    color: inherit;
-
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+.boton_submit:hover{
+    background-color: #555555;
+    color: white;
 }
 .button_home {
     font-family: system-ui;

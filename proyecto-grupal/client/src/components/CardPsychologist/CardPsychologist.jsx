@@ -18,7 +18,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
     }
 
     return (
-        <Box className="container" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+        <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
             <Stack className="ProfileBox">
                 <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
@@ -43,7 +43,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                         about
                             ? (
                                 <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
-                                    {about}
+                                    {about.slice(0,500)}...
                                     <br />
                                     <Link to={`/detailPsychologist/${idPsychologist}`}>
                                         <button className="vermas">Ver más</button>
