@@ -37,7 +37,7 @@ export default function PostsDetail() {
 
             {post.idUserPsychologist ? (
               <div className="psyinfo">
-                <image href={post.idUserPsychologist.profileImage} alt='img not found'/>
+                <image src={post.idUserPsychologist.profileImage} alt='img not found'/>
                 <p className='psytext'>
                   Por <p className='name'>{post.idUserPsychologist.firstName}{" "}
                   {post.idUserPsychologist.lastName}</p>
@@ -57,7 +57,7 @@ export default function PostsDetail() {
               );
             })}
             <h1 className={"title"}>{post.Title}</h1>
-            <p className={"content"}>{post.Content}</p>
+            <div className={"content"}>{post.Content}</div>
 
             {/* {post.idUserPsychologist ? (
               <div className='about'>

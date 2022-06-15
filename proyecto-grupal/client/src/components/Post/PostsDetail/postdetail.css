@@ -1,28 +1,28 @@
 .container {
-  height: 1000px;
+  height: 3000px;
+  width: 1000px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  background-color: rgba(227, 230, 230, 0.715);
 }
 
 .img {
   display: flex;
-  align-items: center;
   height: 400px;
-  width: 820px;
-  margin: -20px 250px 10px;
+  width: 900px;
+  margin: 0px 20px 10px;
   border-radius: 5px;
 }
 
 .psyinfo{
-    /* border: black solid 1px; */
     border-radius: 8px;
-    /* background-color: rgba(233, 241, 247, 0.868); */
     background-color: #fff;
     display: flex;
     justify-content: space-around;
     width: 430px;
     height: 60px;
-    margin: -80px 420px 50px 
+    margin: -55px 300px 50px 
 }
 
 .psytext{
@@ -42,21 +42,22 @@
   font-size: 45px;
   font-weight: bold;
   display: flex;
-  margin: 10px 250px 50px;
+  /* margin: 10px 250px 50px; */
 }
 
 .content {
   font-family: "Open Sans", sans-serif;
   font-size: 22px;
-  width: 800px;
-  margin: -10px 250px 10px;
+  width: 950px;
+  white-space: pre-wrap;
+  margin-top: 15px;
   text-align: left;
 }
 
 .tags {
   display: flex;
   justify-content: baseline;
-  margin: 5px 250px;
+  /* margin: 5px 250px; */
   padding: 3px;
 }
 
