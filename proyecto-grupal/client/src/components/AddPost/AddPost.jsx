@@ -214,11 +214,6 @@ export default function AddPost(){
                     </button>
                 </div>
             </form>
-                    <Link href="/">        
-                        <button className='boton_submit'>
-                            Volver a home
-                        </button>
-                    </Link>   
             <Footer/>
         </div>
     )
