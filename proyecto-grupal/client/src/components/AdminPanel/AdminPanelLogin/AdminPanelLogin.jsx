@@ -21,7 +21,8 @@ function AdminPanelLogin() {
                         <Text color='#63caa7' fontSize='5xl' fontWeight='500' mt='0.5em' mb='0.5em'>Portal Psico</Text>
                     </Stack>
 
-                    <Stack width='30em' bg='#d6d6d6' borderRadius='1em' pr='1em' pl='1em' mb='2em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                    {/* <Stack width='30em' bg='#d6d6d6' borderRadius='1em' pr='1em' pl='1em' mb='2em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}> */}
+                    <Stack width='30em' bg='gray.100' borderRadius='1em' pr='1em' pl='1em' mb='2em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                         <Text color='#2d3748' fontSize='2xl' mt='0.5em' mb='0.5em'>Panel de administración</Text>
                     </Stack>
 

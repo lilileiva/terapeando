@@ -2,4 +2,8 @@
     display: flex;
     width: 250px;
     gap: 8px;
-} 
+}
+
+.searchbar form {
+    display: inline-flex;
+}
