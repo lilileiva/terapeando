@@ -63,9 +63,10 @@
   justify-content: center;
 }
 .imgen img{
-  width: 100%;
+  /* width: auto; */
   object-fit: cover;
-  height: 33em;
+  height: inherit;
+  /* height: 33em; */
 }
 .card h5 {
   color: #bbb;
