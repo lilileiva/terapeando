@@ -1,0 +1,160 @@
+.form{
+    background: #83b5b3;
+    padding: 45px 0;
+    border-radius: 10px;
+    box-shadow: 
+    0 0 5px rgb(240, 252, 255),
+    0 0 10px rgb(204, 249, 255),
+    0 0 15px rgb(179, 255, 244),
+    0 0 20px rgb(143, 255, 248),
+    0 0 25px rgb(117, 255, 246),
+    0 0 30px rgb(77, 246, 255);
+    height: auto;
+    display: inline-block;
+    margin-top: 20px;
+}
+.formulario{
+    width: 100%;
+    margin: auto;
+}
+.titulo{
+    text-align: center;
+    font-weight: 700;
+    font-family: "Verdana";
+    color: whitesmoke;
+    font-size: 40px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.group{
+    position: relative;
+    margin: 45px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+.input1{
+    background: none;
+    color: #f6e8e8;
+    font-size: 18px;
+    padding: 10px;
+    padding-top: 20px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #49454567;
+}
+.input1:focus{
+    outline: none;
+    color: #0b0909
+}
+.etiqueta{
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    position: absolute;
+    top: -5px;
+    left: 5px;
+    transition: 0.5s all;
+    pointer-events: none;
+}
+.peligro{
+    color: #d90429;
+    line-height: 0px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.create_select{
+    background-color: #cdf1c6;
+    color: black;
+    padding: 7px;
+    font-size: 16px;
+    appearance: button;
+    outline: none;
+    margin: 10px;
+    font-family: system-ui;
+}
+.option_group{
+    padding: 30px;
+}
+.opcion{
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    background-color: #b1f0fb;
+    padding: 5px;
+    border-radius: 5px;
+}
+.opcion_titulo{
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 12px;
+}
+.button_delete{
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    padding: 0;
+    height: 20px;
+    background: #0a0607;
+    cursor: pointer;
+}
+.delete{
+    color: white;
+}
+.description{
+    color: white;
+    font-family: monospace;
+    font-size: 18px;
+    position: absolute;
+    top: -25px;
+    left: 5px;
+    transition: 0.5s all;
+    pointer-events: none;
+}
+.boton_submit{
+    font-family: system-ui;
+    background: #e8e5ec;
+    border: 1px solid;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    color: rgb(15, 10, 10);
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 
+    0 0 5px #03e9f4,
+    0 0 25px #03e9f4,
+    0 0 50px #03e9f4,
+    0 0 200px #03e9f4;
+}
+.button_home {
+    font-family: system-ui;
+    background: #e8e5ec;
+    border: 1px solid;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    color: rgb(12, 9, 9);
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 
+    0 0 5px #03e9f4,
+    0 0 25px #03e9f4,
+    0 0 50px #03e9f4,
+    0 0 200px #03e9f4;
+    cursor: pointer;
+    text-decoration: none;
+}
+@media (max-width: 600px) {
+    .form{
+        width: 90%;
+        padding: 0%;
+    }
+    .group textarea{
+        width: 90%;
+    }
+}
