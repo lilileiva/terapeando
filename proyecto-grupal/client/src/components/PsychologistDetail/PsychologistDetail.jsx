@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, SimpleGrid, Heading, Badge, Text, Flex } from "@chakra-ui/react";
+import { Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clear, getUserPsychologistOne } from "../../redux/actions";
@@ -32,7 +32,7 @@ export default function PsychologistDetail() {
     smoothscroll()
     setTimeout(() => {
       setLoader(false);
-    }, 2000)
+    }, 500)
     return () => {
       dispatch(clear()); //Clear detail
     };
@@ -53,9 +53,9 @@ export default function PsychologistDetail() {
     {loader ? <Loader></Loader> : <>
     
     <SimpleGrid  columns={1} marginTop={'1.5'} marginLeft={'-20'} marginRight='16' textAlign={'left'} paddingLeft={'32'} spacingX="10" spacingY="20px">
-      <Flex className="BoxDetail"  borderRadius={'200px'} width='fit-content'height={'fit-content'} alignContent='center' alignItems={'center'}>
-      <Box className="BoxDetail" borderTopLeftRadius={'10px'} marginBottom={'50px'} bg="" height="120px" width='120px'>
-          <img className="ProfileImage" src={detail.profileImage} alt=""/>
+      <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content'height={'fit-content'} alignContent='center' alignItems={'center'}>
+      <Box className="BoxDetail"   marginTop={'5'} marginBottom={'50px'} bg="" height="150px" width='150px'>
+           <Avatar backgroundColor={'transparent'} src={detail.profileImage} alt='' size='full'></Avatar>
           </Box>
           <Box className="BoxDetail" bg="" borderRadius={'10px'}  height="fit-content" width={'fit-content'} zIndex='2'> 
             <Text className="HeadingDetail">

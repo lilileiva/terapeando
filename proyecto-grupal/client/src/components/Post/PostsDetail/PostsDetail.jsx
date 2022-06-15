@@ -14,15 +14,16 @@ import { Box, Badge } from "@chakra-ui/react";
 import { ReactElement } from "react";
 
 export default function PostsDetail() {
-  const { id } = useParams();
-  // console.log('id: ', id)
   const dispatch = useDispatch();
+  const { id } = useParams();
   const post = useSelector((state) => state.postDetail);
-  console.log("post: ", post);
+  
 
   useEffect(() => {
     dispatch(getPostDetail(id));
-    dispatch(clearStatePostDetail());
+    return () => {
+      dispatch(clearStatePostDetail());
+    }
   }, [dispatch, id]);
 
   return (
