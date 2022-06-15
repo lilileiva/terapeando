@@ -11,15 +11,15 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import "./postdetail.css";
 // -----------------------------------
-import { Box, Badge, Avatar, Stack } from "@chakra-ui/react";
-import { ReactElement } from "react";
+import { Box, Badge, Avatar, Stack, Text } from "@chakra-ui/react";
+import { ArrowLeftIcon } from '@chakra-ui/icons'
 import Loader from "../../Loader/Loader.jsx";
 
 export default function PostsDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const post = useSelector((state) => state.postDetail);
-
+  
   useEffect(() => {
     dispatch(getPostDetail(id));
     return () => {
@@ -27,12 +27,19 @@ export default function PostsDetail() {
     }
   }, [dispatch, id]);
 
+  
   return (
     <div>
-      <Navbar />
-      <div>
-        {post ? (
+      <Navbar />      
+      {
+        Object.keys(post).length !== 0 ? (
           <div className={"containerA"}>
+
+            <Link to='/blog'>
+              <Text color='green.300' fontSize='2xl' textAlign='left'>
+                <ArrowLeftIcon />   Volver
+              </Text>
+            </Link>
 
             <div className="postImgContainer">
               <img src={post.Image} alt="post img" className="postImg" />
@@ -44,6 +51,7 @@ export default function PostsDetail() {
                       alt="img not found"
                     />
                   </Link>
+
                   <Stack direction='row' align='flex-end'>
                     <p className="psytext">
                       Por{" "}
@@ -89,10 +97,9 @@ export default function PostsDetail() {
             ) : null}
 
           </div>
-        ) : (
-          <Loader />
-        )}
-      </div>
+        )
+          : <Loader />
+      }      
       <Footer />
     </div>
   );
