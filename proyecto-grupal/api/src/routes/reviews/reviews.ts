@@ -4,17 +4,17 @@ import reviewsModel from "../../models/Reviews";
 
 
 const createReview = async (req: Request, res: Response) => {
-    const { Content, Stars, IdUserClient, IdUserPsychologist } = req.body
+    const { Content, Rating , IdUserClient, IdUserPsychologist } = req.body
 
     try {
-        const review = new reviewsModel(req.body);
+        //por el moemnto solo esta recibiendo el contenido de la reseña y la calificació
+        const review = new reviewsModel({Content, Rating});
         await review.save();
         res.status(200).send('Review created');
 
     } catch (error) {
         console.log(error)
     }
-
 };
 
 
