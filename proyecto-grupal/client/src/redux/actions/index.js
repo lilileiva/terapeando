@@ -67,6 +67,33 @@ export const getPostOrder = (order, arreglo) => {
     dispatch({ type: "ORDER_POSTS", payload: notas });
   };
 };
+//obtener todas las categorias
+export const getCategories = () => {
+  return async function(dispatch){
+    try{
+      const responseBack = await fetch(`${baseURL}/categories`)
+      const jsonBack = await responseBack.json()
+      //envio todas las categorias de mi db
+      dispatch({type:"GET_CATEGORIES",payload:jsonBack}) 
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+//mostrar por categoria 
+export const getByCategory = (category) => {
+  return async function(dispatch){
+  try {
+      const responseBack = await fetch(`${baseURL}/filter/${category}`)
+      const jsonBack = await responseBack.json()
+      //envio las notas que se filtren con esa catagory
+      dispatch({type:"GET_BY_CATEGORY_POST", payload:jsonBack})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 
 export function getPostDetail(id) {
   return async function (dispatch) {

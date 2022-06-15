@@ -11,11 +11,10 @@ const initialState = {
   userClientDetail: [],
   usersClients: [],
   posts: [],
+  categories:[],
   postDetail: {},
-  schedules: [],
   schedule: {},
-};
-
+}
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USERCLIENT:
@@ -43,44 +42,56 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+      };       
+
       };
     case "CLEAR_POST_DETAIL":
       return {
         ...state,
         postDetail: {},
       };
-
     case GET_ALL_PSYCHOLOGIST:
-      return {
-        ...state,
-        allUsersPsichologists: action.payload,
-      };
+        return{
+            ...state,
+            allUsersPsichologists: action.payload
+      }
     case "CREATE_CLIENT":
-      return {
-        ...state,
-      };
+        return {
+            ...state
+        }
     case "CREATE_PSYCHOLOGIST":
-      return {
-        ...state,
-      };
-    case "GET_PSYCHOLOGISTS_ONE":
-      return {
-        ...state,
-        userPsichologistDetail: action.payload,
-      };
+        return {
+            ...state
+        }
+    case 'GET_PSYCHOLOGISTS_ONE':
+        return {
+            ...state,
+            userPsichologistDetail: action.payload
+        }
     case CLEAR:
-      return {
-        ...state,
-        userPsichologistDetail: {},
-      };
+        return {
+          ...state,
+          userPsichologistDetail: {},
+        };
     case CLEAR_CLIENT:
-      return {
-        ...state,
-        userClientDetail: [],
-      };
+        return {
+          ...state,
+          userClientDetail: []
+        }
+    case "GET_CATEGORIES":
+        return{
+          ...state,
+          categories: action.payload
+        }
+    case "GET_BY_CATEGORY_POST":
+        return{
+          ...state,
+          posts: action.payload
+        }
     default:
-      return { ...state };
-  }
+       return{...state}
+      };
 }
+
 
 export default rootReducer;
