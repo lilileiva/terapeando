@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 require('dotenv').config();
 const { DB_NAME, DB_PASSWORD, DB_USERNAME, DB_CLUSTERNAME } = process.env
+const { MONGODB_URI } = process.env
 // Database Connection
 
 // export default async function connectDB() {
@@ -10,9 +11,9 @@ const { DB_NAME, DB_PASSWORD, DB_USERNAME, DB_CLUSTERNAME } = process.env
 
 export default async function connectDB() {
    try {
-      const db = await mongoose.connect(`${process.env.MONGODB_URI}`)
+      const db = await mongoose.connect(`${MONGODB_URI}`)
       console.log('database is connected to database')
    } catch (error) {
-      console.log('Error al conectar a la base de datos')
+      console.log('Error al conectar a la base de datos')   
    }
 }

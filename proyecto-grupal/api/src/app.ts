@@ -4,11 +4,12 @@ const routes = require('./routes/index.ts')
 const cors = require('cors')
 
 require('dotenv').config();
+const { MONGODB_URI } = process.env
 
 // server  inicializations
 const app = express() 
 // app.set( 'port', process.env.PORT || 3001 )
-app.set( 'port', process.env.MONGODB_URI || 3001 )
+app.set( 'port', MONGODB_URI || 3001 )
 
 
 // Middlewares
