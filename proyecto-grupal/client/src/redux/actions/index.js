@@ -4,6 +4,7 @@ import axios from "axios";
 import {
   GET_ALL_PSYCHOLOGIST,
   GET_ALL_USERCLIENTS,
+  SEARCH_CLIENTS_BY_NAME,
   GET_USERCLIENT,
   LOCAL_HOST,
   CLEAR,
@@ -24,6 +25,21 @@ export function getAllUserClients() {
           payload: data
         })
       })
+      .catch((err) => console.log(err));
+  }
+}
+
+export const searchClientsByName = (name) => {
+  return async function (dispatch) {
+    fetch(`${baseURL}/posts?name=${name}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: SEARCH_CLIENTS_BY_NAME,
+          payload: data
+        });
+      })
+      .catch((err) => console.log(err));
   }
 }
 
@@ -131,15 +147,15 @@ export const getByCategory = (category) => {
 }
 //crear una nota
 export const addPost = (body) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
-      const {info} = await axios.post(
-        `${baseURL}/post`,body
+      const { info } = await axios.post(
+        `${baseURL}/post`, body
       )
       return dispatch({
         type: "CREATE_POST",
         payload: info
-      })     
+      })
     } catch (error) {
       console.log(error)
     }
