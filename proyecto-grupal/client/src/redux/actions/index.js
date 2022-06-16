@@ -4,7 +4,7 @@ import axios from "axios";
 import {
   GET_ALL_PSYCHOLOGIST,
   GET_ALL_USERCLIENTS,
-  SEARCH_CLIENTS_BY_NAME,
+  GET_USER_CLIENTS_BY_NAME,
   GET_USERCLIENT,
   LOCAL_HOST,
   CLEAR,
@@ -30,13 +30,13 @@ export function getAllUserClients() {
   }
 }
 
-export function searchClientsByName(name) {
+export function getUserClientsByName(name) {
   return async function (dispatch) {
-    fetch(`${baseURL}/posts?name=${name}`)
+    fetch(`${baseURL}/userclient/client?name=${name}`)
       .then((res) => res.json())
       .then((data) => {
         dispatch({
-          type: SEARCH_CLIENTS_BY_NAME,
+          type: GET_USER_CLIENTS_BY_NAME,
           payload: data
         });
       })

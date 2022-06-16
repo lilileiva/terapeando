@@ -8,7 +8,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllUserClients, deleteUserClient } from '../../../redux/actions';
+import { getAllUserClients, deleteUserClient, getUserClientsByName } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 
@@ -40,6 +40,13 @@ function AdminPanelClients() {
       }
     })
   }
+
+  const adminSearchbar = useSelector((state) => state.adminSearchbar);
+  useEffect(() => {
+    if (adminSearchbar.length !== 0) {
+      dispatch(getUserClientsByName(adminSearchbar))
+    }
+  }, [dispatch, adminSearchbar])
 
   return (
 

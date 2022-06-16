@@ -1,7 +1,7 @@
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
-  SEARCH_CLIENTS_BY_NAME,
+  GET_USER_CLIENTS_BY_NAME,
   GET_ALL_PSYCHOLOGIST,
   CLEAR,
   CLEAR_CLIENT,
@@ -18,7 +18,7 @@ const initialState = {
   postDetail: {},
   schedule: {},
   email: {},
-  adminSearchbarSearch: ""
+  adminSearchbar: ""
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -27,7 +27,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         usersClients: action.payload,
       };
-    case SEARCH_CLIENTS_BY_NAME:
+    case GET_USER_CLIENTS_BY_NAME:
       return {
         ...state,
         usersClients: action.payload,
@@ -110,7 +110,7 @@ function rootReducer(state = initialState, action) {
     case ADMIN_SEARCHBAR:
       return {
         ...state,
-        adminSearchbarSearch: action.payload,
+        adminSearchbar: action.payload,
       };
     default:
       return { ...state };
