@@ -6,8 +6,7 @@ const cors = require('cors')
 
 // server  inicializations
 const app = express() 
-app.set( 'port', process.env.PORT || 3001 )
-
+app.set( 'port', process.env.HOST || 3001 )
 
 // Middlewares
 app.use(express.json()); // para que entienda el formato json
@@ -18,4 +17,4 @@ app.use(express.urlencoded({extended:false}))
 // routes
 app.use('/', routes)
 
-export default app
+export default app;
