@@ -17,17 +17,13 @@ function AdminClientDetails() {
   const navigate = useNavigate();
 
   const { idUserClient } = useParams();
-  console.log(idUserClient)
-
   useEffect(() => {
     dispatch(getUserClient(idUserClient))
     return () => {
       dispatch(clearClient())
     }
   }, [dispatch])
-
   const userClientDetail = useSelector((state) => state.userClientDetail);
-  console.log(userClientDetail)
 
   const handleAlertDelete = (clientId) => {
     Swal.fire({
@@ -41,6 +37,7 @@ function AdminClientDetails() {
     }).then((result) => {
       if (result.isDenied) {
         dispatch(deleteUserClient(clientId))
+        navigate('/adminpanel/clients')
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
@@ -58,14 +55,11 @@ function AdminClientDetails() {
         <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
           <Stack direction='row' width='100%'>
-
             <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
               <ArrowLeftIcon />
               <Text pr='0.5em'> Volver</Text>
             </Button>
-
           </Stack>
-
           {
             Object.keys(userClientDetail).length !== 0
               ? (
@@ -111,7 +105,6 @@ function AdminClientDetails() {
                 </Stack>
               ) : <Loader />
           }
-
         </Stack>
 
       </Stack>
