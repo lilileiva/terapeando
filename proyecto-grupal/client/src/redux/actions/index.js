@@ -32,7 +32,7 @@ export function getAllUserClients() {
 
 export function getUserClientsByName(name) {
   return async function (dispatch) {
-    fetch(`${baseURL}/userclient/client?name=${name}`)
+    fetch(`${baseURL}/userclient/clients?name=${name}`)
       .then((res) => res.json())
       .then((data) => {
         dispatch({
