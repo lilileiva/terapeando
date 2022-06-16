@@ -1,24 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { GoStar } from "react-icons/go";
 import { createReview } from "../../redux/actions";
 import Swal from "sweetalert2";
 import './Reviews.css';
-import {
-  Box,
-  Stack,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  useDisclosure,
-} from "@chakra-ui/react"
+import { Text, Box, Stack, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, useDisclosure } from "@chakra-ui/react"
+
 
 
 
@@ -51,21 +39,11 @@ export default function Reviews() {
     Rating: rating
   });
 
+  // estado para habilitar o deshabilitar el boton de enviar review
+
+  const [isSubmit, setIsSubmit] = useState(true);
 
   const dispatch = useDispatch();
-
-  const [errors, setErrors] = useState({});
-
-
-const validate = () => {
-  let  errors = {};
-  
-  if (input_review.Content.length < 10) {
-    errors.Content = "La reseña debe tener al menos 10 caracteres";
-  }
-  return errors;
-};
-
 
 
   const handleClick = (value) => {
@@ -85,17 +63,39 @@ const validate = () => {
       ...input_review,
       [e.target.name]: e.target.value
     })
-    setErrors(validate({
-      ...input_review,
-      [e.target.name]: e.target.value
-    }));
   };
+
+  // validando errores
+
+  const validate = (input_review) => {
+
+    let errors = {};
+    if (input_review.Content.length < 10) {
+      errors.Content = "La reseña debe tener al menos 10 caracteres";
+    };
+
+    if (input_review.Rating === 0) {
+      errors.Rating = "Debes asignarle estrellas al psicólogo";
+    };
+
+    return errors;
+
+  };
+
+  const [errorsReview, setErrorsReview] = useState({});
+
+
+  useEffect(() => {
+    setErrorsReview(validate(input_review))
+    Object.keys(errorsReview).length === 0 ?
+      setIsSubmit(false) : setIsSubmit(true);
+  }, [input_review, isSubmit]);
+
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   setErrors(validate(errors));
-    dispatch(createReview(input_review));
+    dispatch(createReview(input_review))
     onClose()
     Swal.fire('Tu reseña fue enviada con exito', '', 'success');
     setRating(0);
@@ -106,14 +106,15 @@ const validate = () => {
     });
   };
 
-  
+
 
   return (
 
     <Stack align={'center'} >
 
-      <Button onClick={onOpen}>Califica a tu Psicologo</Button>
+      <Button onClick={onOpen} bg='green.100' color={'#285e61'} >CALIFICA A TU PSICÓLOGO</Button>
       <Modal
+
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
         isOpen={isOpen}
@@ -123,7 +124,7 @@ const validate = () => {
         <ModalOverlay />
         <ModalContent>
 
-          <ModalHeader>Califica a tu Psicologo</ModalHeader>
+          <ModalHeader margin={'auto'} fontSize='2xl' color={'#285e61'}>CALIFICA A TU PSICÓLOGO</ModalHeader>
           <ModalCloseButton />
 
           <Box className="startsarray">
@@ -143,13 +144,14 @@ const validate = () => {
 
           <ModalBody pb={5}>
             <FormControl >
-              <textarea type="text" className="input_calificacion" value={input_review.Content} name='Content' onChange={(e) => handleInputChange(e)} placeholder="Deja un reseña sobre tu Psicologo" />
-               {errors.Content && <p className="error">{errors.Content}</p>}
+              <textarea type="text" className="input_calificacion" value={input_review.Content} name='Content' onChange={(e) => handleInputChange(e)} placeholder="Deja un reseña sobre tu Psicólogo" />
+              {errorsReview.Rating && <Text fontWeight={'semibold'} color={'#285e61'} >{`> ${errorsReview.Rating}`}</Text>}
+              {errorsReview.Content && <Text fontWeight={'semibold'} color={'#285e61'} >{`> ${errorsReview.Content}`}</Text>}
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button type='submit' disabled={Object.keys(errors).length > 0 ? true : false} onClick={(e) => { handleSubmit(e) }} colorScheme='blue' mr={1}>
+            <Button type='submit' bg={'#285e61'} color='white' variant='outline' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} disabled={isSubmit} onClick={(e) => { handleSubmit(e) }} colorScheme='blue' mr={1}>
               Enviar
             </Button>
           </ModalFooter>

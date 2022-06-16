@@ -9,6 +9,7 @@ import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
 import './psychologist.css'
 import { Text, Stack } from "@chakra-ui/react"
+import FiltersPsichologist from '../FilterPsichologist/FilterPsichologist';
 
 
 export default function Psychologists() {
@@ -37,10 +38,16 @@ export default function Psychologists() {
         <div>
             <NavBar />
             <div className='cardContainer'>
+                
 
                 <Stack width='100%' direction='row' justifyContent='left'>
                     <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
+                    
                 </Stack>
+
+                
+                <FiltersPsichologist/>
+                
                 <div >
                     {
                         AllPsychologist.length !== 0 ?

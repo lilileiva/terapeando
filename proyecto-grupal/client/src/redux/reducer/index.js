@@ -3,6 +3,9 @@ import {
   GET_ALL_PSYCHOLOGIST,
   CLEAR,
   CLEAR_CLIENT,
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING
+
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +17,9 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: {},
+  specialties: [],
+  psichologistByRating: []
+
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -87,6 +93,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+      case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
+      return {
+        ...state,
+        specialties: action.payload,
+      };
+      case ORDER_PSICHOLOGIST_BY_RATING:
+        return{
+          ...state,
+          psichologistByRating: action.payload
+        }
+      
     default:
       return { ...state };
   }

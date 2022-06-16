@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
-import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT} from "./types";
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT, FILTER_PSICHOLOGIST_BY_SPECIALTIES, ORDER_PSICHOLOGIST_BY_RATING } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
@@ -22,7 +22,7 @@ export function getUserClient(idUserClient) {
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
-    const responseApi = await fetch(`${baseURL}/posts`);    
+    const responseApi = await fetch(`${baseURL}/posts`);
     const json = await responseApi.json();
     if (responseApi) {
       dispatch({ type: "GET_POSTS", payload: json });
@@ -69,25 +69,25 @@ export const getPostOrder = (order, arreglo) => {
 };
 //obtener todas las categorias
 export const getCategories = () => {
-  return async function(dispatch){
-    try{
+  return async function (dispatch) {
+    try {
       const responseBack = await fetch(`${baseURL}/categories`)
       const jsonBack = await responseBack.json()
       //envio todas las categorias de mi db
-      dispatch({type:"GET_CATEGORIES",payload:jsonBack}) 
-    }catch(e){
+      dispatch({ type: "GET_CATEGORIES", payload: jsonBack })
+    } catch (e) {
       console.log(e)
     }
   }
 }
 //mostrar por categoria 
 export const getByCategory = (category) => {
-  return async function(dispatch){
-  try {
+  return async function (dispatch) {
+    try {
       const responseBack = await fetch(`${baseURL}/filter/${category}`)
       const jsonBack = await responseBack.json()
       //envio las notas que se filtren con esa catagory
-      dispatch({type:"GET_BY_CATEGORY_POST", payload:jsonBack})
+      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack })
     } catch (error) {
       console.log(error)
     }
@@ -237,9 +237,9 @@ export function editClient(id, updatedUserClient) {
 }
 
 
-export function deleteUserClient(id){
-  return async function(){
-    try{
+export function deleteUserClient(id) {
+  return async function () {
+    try {
       await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
     } catch (err) {
       console.log(err)
@@ -248,19 +248,50 @@ export function deleteUserClient(id){
 }
 
 
-export function createReview(payload){
-  return async function() {
-    
+export function createReview(payload) {
+  return async function () {
+
     try {
-      const newReview = axios.post(`${baseURL}/reviews` , payload)
+      const newReview = axios.post(`${baseURL}/reviews`, payload)
       return newReview
-      
+
     } catch (error) {
       console.log(error)
     }
   };
-}
+};
 
 
+
+export function getBySpecialties(specialties) {
+  return async function (dispatch) {
+
+    try {
+      const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
+      dispatch({
+        type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+        payload: json.data
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export function orderByRating() {
+  return async function (dispatch) {
+
+    try {
+      const json = await axios.get(`${baseURL}/userpsychologist/filterrating/rating`);
+      dispatch({
+        type: ORDER_PSICHOLOGIST_BY_RATING,
+        payload: json.data
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 

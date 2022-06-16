@@ -1,25 +1,27 @@
-import React, { useEffect } from "react";
-import './filter.css'
-import { useDispatch, useSelector } from "react-redux";
-import { getPostOrder, getCategories, getByCategory } from "../../redux/actions";
+import React, { useEffect} from "react";
+import './FilterPsichologist.css'
+import { useDispatch, useSelector} from "react-redux";
+import { getBySpecialties, getCategories, orderByRating } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
+import { specialitiesList } from './specialities';
+import {  useParams } from "react-router-dom";
 
 
 
-export default function Filters() {
+export default function FiltersPsichologist() {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+ const psichologist = useSelector((state) => state.allUsersPsichologists);
   const categories = useSelector((state) => state.categories)
-  useEffect(() => {
-    dispatch(getCategories())
-  }, [dispatch])
+const params = useParams();
+console.log(params);
+
 
   function handleSubmitOrder(e) {
     // console.log(e.target.value);
-    dispatch(getPostOrder(e.target.value, posts));
+    dispatch(orderByRating());
   }
   function handleSubmitCategory(e) {
-    dispatch(getByCategory(e.target.value))
+    dispatch(getBySpecialties(e.target.value))
   }
 
   return (
@@ -39,9 +41,9 @@ export default function Filters() {
         onChange={(e) => handleSubmitCategory(e)}
       >
         {
-          categories && categories.map(category => {
+          specialitiesList && specialitiesList.map(s => {
             return (
-              <option key={category.name} value={category.name}> {category.name}</option>
+              <option key={s} value={s}> {s}</option>
             )
           })
         }

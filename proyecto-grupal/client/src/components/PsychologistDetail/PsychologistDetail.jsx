@@ -11,6 +11,7 @@ import Footer from '../Footer/Footer.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import smoothscroll from "../../animations";
 import Loader from "../Loader/Loader";
+import Reviews from "../Reviews/Reviews";
 
 export default function PsychologistDetail() {
   const dispatch = useDispatch();
@@ -110,6 +111,7 @@ export default function PsychologistDetail() {
           Mi calificación promedio 😊: <Starts
                   rating={detail.rating}/>
         </Text> 
+          {<Reviews/>}
         </Box>
     </>}          
       </SimpleGrid>
