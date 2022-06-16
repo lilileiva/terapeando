@@ -7,8 +7,9 @@ import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient } from '../../../../redux/actions';
+import { getUserClient, clearClient, deleteUserClient } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
+import Swal from 'sweetalert2';
 
 
 function AdminClientDetails() {
@@ -20,10 +21,30 @@ function AdminClientDetails() {
 
   useEffect(() => {
     dispatch(getUserClient(idUserClient))
+    return () => {
+      dispatch(clearClient())
+    }
   }, [dispatch])
 
   const userClientDetail = useSelector((state) => state.userClientDetail);
   console.log(userClientDetail)
+
+  const handleAlertDelete = (clientId) => {
+    Swal.fire({
+      title: '¿Estás seguro que quieres eliminar a este usuario?',
+      text: "Estos cambios no se podrán revertir.",
+      icon: 'info',
+      showConfirmButton: false,
+      showDenyButton: true,
+      showCancelButton: true,
+      denyButtonText: 'Sí',
+    }).then((result) => {
+      if (result.isDenied) {
+        dispatch(deleteUserClient(clientId))
+        Swal.fire('Usuario eliminado correctamente!', '', 'success')
+      }
+    })
+  }
 
   return (
 
@@ -81,7 +102,7 @@ function AdminClientDetails() {
                       <BsPencilSquare />
                       <Text pr='0.5em'> Editar usuario</Text>
                     </Button>
-                    <Button width='50%' colorScheme='red' variant='outline'>
+                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(userClientDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar usuario</Text>
                     </Button>
