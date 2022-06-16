@@ -8,7 +8,7 @@ import { specialitiesList } from './specialities';
 import { BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
 import Footer from '../Footer/Footer.jsx';
-import { createClient, createPsychologist } from '../../redux/actions/index.js';
+import { createClient, createPsychologist, getAllPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
@@ -148,16 +148,18 @@ function RegisterForm() {
         setIsSubmit(true)
     }
 
+
+
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            navigate('/home')
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Usuario creado correctamente',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            navigate('/signin')
+            // Swal.fire({
+            //     position: 'top-end',
+            //     icon: 'success',
+            //     title: 'Usuario creado correctamente',
+            //     showConfirmButton: false,
+            //     timer: 1500
+            // })
         }
     }, [formErrors, isSubmit])
 

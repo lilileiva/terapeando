@@ -1,14 +1,20 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
-import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT} from "./types";
+import {
+  GET_ALL_PSYCHOLOGIST,
+  GET_USERCLIENT,
+  LOCAL_HOST,
+  CLEAR,
+  CLEAR_CLIENT,
+} from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 export function getUserClient(idUserClient) {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/userclient/client/${idUserClient}`)
+      .get(`${baseURL}/userclient/client/login${idUserClient}`)
       .then((client) => {
         dispatch({
           type: GET_USERCLIENT,
@@ -18,11 +24,25 @@ export function getUserClient(idUserClient) {
       .catch((err) => console.log(err));
   };
 }
+// export async function signIn(payload) {
+//   return function(dispatch){
+//     try {
+//       const userToken = await axios.post(`${baseURL}/userclient/client/login`, payload)
+//       const token = userToken.data.token
+//       window.localStorage.setItem('token', token)
+//       console.log(userToken.data)
+//       console.log(token)
+//      return userToken
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+// }
 
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
-    const responseApi = await fetch(`${baseURL}/posts`);    
+    const responseApi = await fetch(`${baseURL}/posts`);
     const json = await responseApi.json();
     if (responseApi) {
       dispatch({ type: "GET_POSTS", payload: json });
@@ -69,31 +89,30 @@ export const getPostOrder = (order, arreglo) => {
 };
 //obtener todas las categorias
 export const getCategories = () => {
-  return async function(dispatch){
-    try{
-      const responseBack = await fetch(`${baseURL}/categories`)
-      const jsonBack = await responseBack.json()
+  return async function (dispatch) {
+    try {
+      const responseBack = await fetch(`${baseURL}/categories`);
+      const jsonBack = await responseBack.json();
       //envio todas las categorias de mi db
-      dispatch({type:"GET_CATEGORIES",payload:jsonBack}) 
-    }catch(e){
-      console.log(e)
+      dispatch({ type: "GET_CATEGORIES", payload: jsonBack });
+    } catch (e) {
+      console.log(e);
     }
-  }
-}
-//mostrar por categoria 
+  };
+};
+//mostrar por categoria
 export const getByCategory = (category) => {
-  return async function(dispatch){
-  try {
-      const responseBack = await fetch(`${baseURL}/filter/${category}`)
-      const jsonBack = await responseBack.json()
+  return async function (dispatch) {
+    try {
+      const responseBack = await fetch(`${baseURL}/filter/${category}`);
+      const jsonBack = await responseBack.json();
       //envio las notas que se filtren con esa catagory
-      dispatch({type:"GET_BY_CATEGORY_POST", payload:jsonBack})
+      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
-
+  };
+};
 
 export function getPostDetail(id) {
   return async function (dispatch) {
@@ -137,7 +156,7 @@ export function createPsychologist(signupForm) {
           });
         });
     } catch (error) {
-      return console.log(error);
+      Swal.fire("Error", "Los datos ingresados ya existen", "error");
     }
   };
 }
@@ -147,7 +166,7 @@ export function createPsychologist(signupForm) {
 export const getUserPsychologist = () => {
   return async function (dispatch) {
     try {
-      const psychologist = await axios.get(`${baseURL}/userpsychologist`)
+      const psychologist = await axios.get(`${baseURL}/userpsychologist`);
       dispatch({
         type: "GET_PSYCHOLOGISTS",
         payload: psychologist.data,
@@ -158,12 +177,25 @@ export const getUserPsychologist = () => {
   };
 };
 
+//getPsychologist by email
+export const getPsychologistByEmail = () => {
+  return async function(dispatch) {
+    const psychologist = await axios.get(`${baseURL}/userpsychologist/email/psychologistEmail`)
+    dispatch({
+      type: "GET_EMAIL_PSY",
+      payload: psychologist.data
+    })
+  } 
+}
+
 ////// GET para obtener un solo psychologist //////
 
 export const getUserPsychologistOne = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
-      const psychologist = await axios.get(`${baseURL}/userpsychologist/${IdUserPsychologist}`)
+      const psychologist = await axios.get(
+        `${baseURL}/userpsychologist/${IdUserPsychologist}`
+      );
       dispatch({
         type: "GET_PSYCHOLOGISTS_ONE",
         payload: psychologist.data,
@@ -205,7 +237,7 @@ export const getAllPsychologist = () => {
 export function createClient(payload) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userclient/client`, {
+      return await fetch(`${baseURL}/userclient/client/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -228,39 +260,34 @@ export function createClient(payload) {
 export function editClient(id, updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(`${baseURL}/userclient/${id}`, updatedUserClient)
-      console.log(data)
+      const data = await axios.put(
+        `${baseURL}/userclient/${id}`,
+        updatedUserClient
+      );
+      console.log(data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 }
 
-
-export function deleteUserClient(id){
-  return async function(){
-    try{
-      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-}
-
-
-export function createReview(payload){
-  return async function() {
-    
+export function deleteUserClient(id) {
+  return async function () {
     try {
-      const newReview = axios.post(`${baseURL}/reviews` , payload)
-      return newReview
-      
-    } catch (error) {
-      console.log(error)
+      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`);
+    } catch (err) {
+      console.log(err);
     }
   };
 }
 
-
-
-
+export function createReview(payload) {
+  return async function () {
+    try {
+      const newReview = axios.post(`${baseURL}/reviews`, payload);
+      return newReview;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
