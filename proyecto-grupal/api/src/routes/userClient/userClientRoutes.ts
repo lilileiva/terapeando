@@ -1,5 +1,5 @@
 import { Router } from "express";
-import logInClient from "./logIn";
+import logInClient from "./signIn";
 const {
     getAllUserClient,
     getUserClient,
