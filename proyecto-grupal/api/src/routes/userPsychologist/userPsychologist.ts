@@ -13,6 +13,15 @@ const getUserPsychologistOne = async (req: Request, res: Response) => {
     res.status(404).json({ data: err })
   }
 }
+const getUserPsychologistByEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const psychologistUserEmail = await userPsychologistModel.findOne({'email':email},'-password');
+    res.status(200).json(psychologistUserEmail)
+  } catch (err) {
+    res.status(404).json({ data: err })
+  }
+}
 
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -39,42 +48,48 @@ const getUserPsychologist = async (req: Request, res: Response, next: NextFuncti
 ////Post/////
 
 const postUserPsychologist = async (req: Request, res: Response) => {
+  const {
+    firstname,
+    lastname,
+    email,
+    password,
+    birthdate,
+    country,
+    license,
+    dni,
+    specialities,
+    profileimage,
+    rating,
+    education,
+    about
+  } = req.body;
+  
   try {
-    const {
-      firstname,
-      lastname,
-      email,
-      password,
-      birthdate,
-      country,
-      license,
-      dni,
-      specialities,
-      profileimage,
-      rating,
-      education,
-      about
-    } = req.body;
-    const userP = await userPsychologistModel.create({
-      firstName: firstname,
-      lastName: lastname,
-      email,
-      password,
-      birthDate: birthdate,
-      country,
-      License: license,
-      DNI: dni,
-      Specialties: specialities,
-      profileImage: profileimage,
-      rating,
-      appointments: [],
-      about,
-      education,
-      rol: 'psychologist'
-    });
-    res.status(201).send(userP);
+      const psychologistExist = await userPsychologistModel.findOne({'email': email})
+      if(psychologistExist){
+        res.status(404).send('Invalid mail or password')
+      } else {
+        const userP = await userPsychologistModel.create({
+          firstName: firstname,
+          lastName: lastname,
+          email,
+          password,
+          birthDate: birthdate,
+          country,
+          License: license,
+          DNI: dni,
+          Specialties: specialities,
+          profileImage: profileimage,
+          rating,
+          appointments: [],
+          about,
+          education,
+          role: 'psychologist'
+        });
+        res.status(201).send('Welcome to our community, now you can sign in');
+      }
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404).send('Verified your personal data');
   }
 };
 ///// Delete /////
@@ -149,5 +164,6 @@ module.exports = {
   deleteUserPsychologist,
   putUserPsychologist,
   filterPsichologistSpecialities,
-  filterPsichologistRating
+  filterPsichologistRating,
+  getUserPsychologistByEmail
 }

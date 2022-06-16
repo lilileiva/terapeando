@@ -11,13 +11,15 @@ const registerAdmin = async (req: Request, res: Response) => {
       } = req.body;
     try {
       const exist = await adminModel.findOne({'email':email})
-      if(exist) res.status(200).send('Choose another email')
+      if(exist) res.status(200).send('Invalid email or password')
       else {
         const Admin = await adminModel.create({
             firstName: firstname,
             lastName: lastname,
             email,
-            password
+            password,
+            role: 'Admin',
+            passwordAdmin: process.env.PASSWORD_ADMIN
           });
           res.status(201).send('Welcome to our community, now you can sign in');
       }
