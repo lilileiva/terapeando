@@ -8,6 +8,7 @@ import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
 import { getUserClient } from '../../../../redux/actions';
+import Loader from '../../../Loader/Loader.jsx';
 
 
 function AdminClientDetails() {
@@ -47,7 +48,7 @@ function AdminClientDetails() {
           <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
             <ul className='userClientsList'>
               {
-                userClientDetail
+                Object.keys(userClientDetail).length !== 0
                   ?
                   <>
                     <Stack w='100%' direction='column' justify='center' align='center' p='1em'>
@@ -73,7 +74,7 @@ function AdminClientDetails() {
                     </Stack>
                     <hr />
                   </>
-                  : null
+                  : <Loader />
               }
             </ul>
           </Stack>
