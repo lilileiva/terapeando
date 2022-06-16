@@ -41,13 +41,14 @@ export default function App() {
         <Route path="/psicologos" element={<Psychologists />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
-        <Route path="/createPost" element={<AddPost/>}/>
+        <Route path="/createPost" element={<AddPost />} />
         <Route path="/home/:idUserClient" element={<ClientDetails />} />
         <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
+        {/*-----------------------admin panel---------------------*/}
         <Route path='/adminpanel/login' element={<AdminPanelLogin />} />
         <Route path='/adminpanel/inicio' element={<AdminPanelHome />} />
         <Route path='/adminpanel/clients' element={<AdminPanelClients />} />

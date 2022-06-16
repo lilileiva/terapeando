@@ -1,6 +1,7 @@
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
+  SEARCH_CLIENTS_BY_NAME,
   GET_ALL_PSYCHOLOGIST,
   CLEAR,
   CLEAR_CLIENT,
@@ -20,6 +21,11 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_USERCLIENTS:
+      return {
+        ...state,
+        usersClients: action.payload,
+      };
+    case SEARCH_CLIENTS_BY_NAME:
       return {
         ...state,
         usersClients: action.payload,
