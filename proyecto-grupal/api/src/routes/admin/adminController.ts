@@ -18,7 +18,8 @@ const registerAdmin = async (req: Request, res: Response) => {
             lastName: lastname,
             email,
             password,
-            role: 'Admin'
+            role: 'Admin',
+            passwordAdmin: process.env.PASSWORD_ADMIN
           });
           res.status(201).send('Welcome to our community, now you can sign in');
       }

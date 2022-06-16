@@ -38,6 +38,9 @@ export class Admin {
     email: string
 
     @prop()
+    passwordAdmin: string
+
+    @prop()
     role: string
 }
 

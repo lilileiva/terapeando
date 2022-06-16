@@ -13,6 +13,15 @@ const getUserPsychologistOne = async (req: Request, res: Response) => {
     res.status(404).json({ data: err })
   }
 }
+const getUserPsychologistByEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const psychologistUserEmail = await userPsychologistModel.findOne({'email':email},'-password');
+    res.status(200).json(psychologistUserEmail)
+  } catch (err) {
+    res.status(404).json({ data: err })
+  }
+}
 
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -115,4 +124,5 @@ module.exports = {
   postUserPsychologist,
   deleteUserPsychologist,
   putUserPsychologist,
+  getUserPsychologistByEmail
 }
