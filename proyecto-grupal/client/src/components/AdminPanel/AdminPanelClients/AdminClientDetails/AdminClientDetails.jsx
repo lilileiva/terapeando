@@ -57,7 +57,7 @@ function AdminClientDetails() {
           <Stack direction='row' width='100%'>
             <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
               <ArrowLeftIcon />
-              <Text pr='0.5em'> Volver</Text>
+              <Text ml='0.5em'> Volver</Text>
             </Button>
           </Stack>
           {
