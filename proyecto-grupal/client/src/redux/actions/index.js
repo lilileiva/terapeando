@@ -1,27 +1,30 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
+
 import {
-  GET_ALL_PSYCHOLOGIST,
-  GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_ALL_USERCLIENTS,
   GET_USER_CLIENTS_BY_NAME,
   GET_USERCLIENT,
   CREATE_CLIENT,
+  GET_ALL_PSYCHOLOGIST,
+  GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
   LOCAL_HOST,
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING,
   CLEAR,
   CLEAR_CLIENT,
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
-  ADMIN_SEARCHBAR,
-  ADMIN_SEARCHBAR_CLEAR
+  ADMIN_SEARCHBAR
 } from "./types";
+
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
-/*---------USER CLIENT ACTIONS------*/
+/*-------------------USER CLIENT ACTIONS----------------*/
 export function getAllUserClients() {
   return async function (dispatch) {
     fetch(`${baseURL}/userclient/clients`)
@@ -125,8 +128,8 @@ export function deleteUserClient(id) {
 //   }
 // }
 
-/*----------USER PSYCHOLOGIST ACTIONS--------*/
 
+/*-----------------------USER PSYCHOLOGIST ACTIONS---------------------------*/
 //GET para obetener todos los psychologist
 export const getUserPsychologist = () => {
   return async function (dispatch) {
@@ -235,8 +238,27 @@ export function createPsychologist(signupForm) {
   };
 }
 
+export function getBySpecialties(payload) {
+  return {
+    type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+    payload: payload
+  }
+};
 
-/*-------------POST ACTIONS--------------*/
+export function orderByRating(order, array) {
+  return function (dispatch) {
+    //me traigo el arreglo de las posts
+    const psicologos = array.slice();
+    //empiezo a ordenar con sort
+    if (order === "Ascendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (order === "Desendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+    dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
+  };
+};
+
+/*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
@@ -303,7 +325,7 @@ export const addPost = (body) => {
   }
 }
 
-/*----------CATEGORIES ACTIONS--------*/
+/*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
 export const getCategories = () => {
   return async function (dispatch) {
@@ -313,7 +335,6 @@ export const getCategories = () => {
       //envio todas las categorias de mi db
       dispatch({ type: "GET_CATEGORIES", payload: jsonBack });
     } catch (e) {
-      console.log(e);
     }
   };
 };
@@ -353,7 +374,7 @@ export const clearStatePostDetail = () => {
 };
 
 
-/*-----------REVIEWS ACTIONS---------*/
+/*---------------------REVIEWS ACTIONS-------------------*/
 
 export function createReview(payload) {
   return async function () {
@@ -362,11 +383,12 @@ export function createReview(payload) {
       return newReview;
     } catch (error) {
       console.log(error);
+
     }
   };
 }
 
-/*-----------CLEAR ACTIONS---------*/
+/*---------------------CLEAR ACTIONS-------------------*/
 //Clean detail state
 export function clear() {
   return {
@@ -392,19 +414,28 @@ export function clearPsychologistList() {
   };
 }
 
-/*-----------ADMIN SEARCHBAR ACTION---------*/
+/*---------------------ADMIN SEARCHBAR ACTION-------------------*/
 export function adminSearchbar(inputText) {
   return {
     type: ADMIN_SEARCHBAR,
     payload: inputText
-  };
-}
-export function adminSearchbarClear() {
-  return {
-    type: ADMIN_SEARCHBAR_CLEAR
-  };
-}
 
+  };
+};
 
+// export function getBySpecialties(specialties) {
+//   return async function (dispatch) {
+
+//     try {
+//       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
+//       dispatch({
+//         type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+//         payload: json.data
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
 
 

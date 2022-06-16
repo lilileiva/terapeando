@@ -1,3 +1,4 @@
+
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
@@ -6,17 +7,19 @@ import {
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   CLEAR_PSYCHOLOGIST_LIST,
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
   CLEAR,
   CLEAR_CLIENT,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR,
-  ADMIN_SEARCHBAR_CLEAR
+  ADMIN_SEARCHBAR
 } from "../actions/types";
 
 const initialState = {
   userPsichologistDetail: {},
-  allUsersPsichologists: [],
+  allUsersPsichologists: [], // actual 
+  UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
   posts: [],
@@ -29,6 +32,8 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+
+    /*-----------CLIENTS-----------*/
     case GET_ALL_USERCLIENTS:
       return {
         ...state,
@@ -48,6 +53,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+
+    /*-----------PSYCHOLOGISTS-----------*/
     case GET_ALL_PSYCHOLOGIST:
       return {
         ...state,
@@ -72,6 +79,24 @@ function rootReducer(state = initialState, action) {
         ...state,
         email: action.payload,
       };
+    case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
+      const psichologists = state.UserPsichologists
+      const filterBySpecialties = psichologists.filter(el => {
+        let specialties = el.Specialties.map(el => el)
+        return specialties.includes(action.payload)
+      })
+      return {
+        ...state,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
+      };
+    case ORDER_PSICHOLOGIST_BY_RATING:
+
+      return {
+        ...state,
+        allUsersPsichologists: action.payload
+      }
+
+    /*-----------POSTS-----------*/
     case GET_POSTS:
       return {
         ...state,
@@ -108,6 +133,8 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+
+    /*-----------CLEAR-----------*/
     case CLEAR:
       return {
         ...state,
@@ -132,11 +159,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         adminSearchbar: action.payload,
-      };
-    case ADMIN_SEARCHBAR_CLEAR:
-      return {
-        ...state,
-        adminSearchbar: ""
       };
     default:
       return { ...state };
