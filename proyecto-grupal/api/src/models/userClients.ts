@@ -63,6 +63,9 @@ export class userClient {
     @prop({ required: true })
     profileImage: string
 
+    @prop()
+    role: string
+
     @prop({ ref: () => appointment })
     appointments: Ref<appointment>[];
 }
