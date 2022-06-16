@@ -1,3 +1,4 @@
+
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
@@ -5,12 +6,15 @@ import {
   GET_ALL_PSYCHOLOGIST,
   CLEAR,
   CLEAR_CLIENT,
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING
   ADMIN_SEARCHBAR
 } from "../actions/types";
 
 const initialState = {
   userPsichologistDetail: {},
-  allUsersPsichologists: [],
+  allUsersPsichologists: [], // actual 
+  UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
   posts: [],
@@ -68,6 +72,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
       };
     case "CREATE_CLIENT":
       return {
@@ -107,11 +112,33 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+
+    case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
+
+      const psichologists = state.UserPsichologists
+      const filterBySpecialties = psichologists.filter(el => {
+        let specialties = el.Specialties.map(el => el)
+        return specialties.includes(action.payload)
+      })
+
+      return {
+        ...state,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
+      };
+
+    case ORDER_PSICHOLOGIST_BY_RATING:
+
+      return {
+        ...state,
+        allUsersPsichologists: action.payload
+      }
+
     case ADMIN_SEARCHBAR:
       return {
         ...state,
         adminSearchbar: action.payload,
       };
+
     default:
       return { ...state };
   }

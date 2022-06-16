@@ -25,6 +25,7 @@ import AdminClientDetails from './components/AdminPanel/AdminPanelClients/AdminC
 import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsychologists/AdminPanelPsychologists.jsx';
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
+import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 
 
 export default function App() {
@@ -56,6 +57,7 @@ export default function App() {
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
+        <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
       </Routes>
     </div>
   );

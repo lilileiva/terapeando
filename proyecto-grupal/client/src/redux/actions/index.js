@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
+
 import {
   GET_ALL_PSYCHOLOGIST,
   GET_ALL_USERCLIENTS,
@@ -9,8 +10,11 @@ import {
   LOCAL_HOST,
   CLEAR,
   CLEAR_CLIENT,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING
 } from "./types";
+
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
@@ -197,7 +201,6 @@ export const getCategories = () => {
       //envio todas las categorias de mi db
       dispatch({ type: "GET_CATEGORIES", payload: jsonBack });
     } catch (e) {
-      console.log(e);
     }
   };
 };
@@ -344,6 +347,13 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
 
 /*-----------REVIEWS ACTIONS---------*/
 
+export function deleteUserClient(id) {
+  return async function () {
+    try {
+      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
+    } catch (err) {
+      console.log(err)
+
 export function createReview(payload) {
   return async function () {
     try {
@@ -351,6 +361,7 @@ export function createReview(payload) {
       return newReview;
     } catch (error) {
       console.log(error);
+
     }
   };
 }
@@ -363,6 +374,18 @@ export function clear() {
   };
 }
 
+
+export function createReview(payload) {
+  return async function () {
+
+    try {
+      const newReview = axios.post(`${baseURL}/reviews`, payload)
+      return newReview
+
+    } catch (error) {
+      console.log(error)
+    }
+
 export function clearClient() {
   return {
     type: CLEAR_CLIENT,
@@ -374,9 +397,51 @@ export function adminSearchbar(inputText) {
   return {
     type: ADMIN_SEARCHBAR,
     payload: inputText
-  };
-}
 
+  };
+};
+
+
+
+// export function getBySpecialties(specialties) {
+//   return async function (dispatch) {
+
+//     try {
+//       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
+//       dispatch({
+//         type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+//         payload: json.data
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
+
+
+export function getBySpecialties(payload){
+
+    return  {
+    type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+    payload: payload
+    }
+};
+
+
+
+export  function orderByRating (order, array){
+  return function (dispatch) {
+    //me traigo el arreglo de las posts
+    const psicologos = array.slice();
+    //empiezo a ordenar con sort
+    if (order === "Ascendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (order === "Desendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+    dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
+  };
+   
+  };
 
 
 
