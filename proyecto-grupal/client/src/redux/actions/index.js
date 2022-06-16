@@ -8,7 +8,8 @@ import {
   GET_USERCLIENT,
   LOCAL_HOST,
   CLEAR,
-  CLEAR_CLIENT
+  CLEAR_CLIENT,
+  ADMIN_SEARCHBAR
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -365,6 +366,14 @@ export function clear() {
 export function clearClient() {
   return {
     type: CLEAR_CLIENT,
+  };
+}
+
+/*-----------ADMIN SEARCHBAR ACTION---------*/
+export function adminSearchbar(inputText) {
+  return {
+    type: ADMIN_SEARCHBAR,
+    payload: inputText
   };
 }
 

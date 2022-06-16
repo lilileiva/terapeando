@@ -5,6 +5,7 @@ import {
   GET_ALL_PSYCHOLOGIST,
   CLEAR,
   CLEAR_CLIENT,
+  ADMIN_SEARCHBAR
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: {},
-  email: {}
+  email: {},
+  adminSearchbarSearch: ""
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -104,6 +106,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+      };
+    case ADMIN_SEARCHBAR:
+      return {
+        ...state,
+        adminSearchbarSearch: action.payload,
       };
     default:
       return { ...state };
