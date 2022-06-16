@@ -263,20 +263,36 @@ export function createReview(payload) {
 
 
 
-export function getBySpecialties(specialties) {
-  return async function (dispatch) {
+// export function getBySpecialties(specialties) {
+//   return async function (dispatch) {
 
-    try {
-      const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
-      dispatch({
-        type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-        payload: json.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+//     try {
+//       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
+//       dispatch({
+//         type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+//         payload: json.data
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
+
+
+export function getBySpecialties(specialtie, arreglodepsicologos) {
+  return async function (dispatch) {
+    const filterPsichologist = arreglodepsicologos.filter(p => {
+      const especialidades =  p.Specialties.map(s => s) // [psicologia clinica, psicologia infantil, psicologia infantil]
+      return(
+        especialidades === specialtie
+      )
+    })
+    dispatch({
+      type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+      payload: filterPsichologist
+    });
 };
+}
 
 export function orderByRating() {
   return async function (dispatch) {

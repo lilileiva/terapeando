@@ -1,19 +1,24 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import './FilterPsichologist.css'
-import { useDispatch, useSelector} from "react-redux";
-import { getBySpecialties, getCategories, orderByRating } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getBySpecialties, orderByRating } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 import { specialitiesList } from './specialities';
-import {  useParams } from "react-router-dom";
+
 
 
 
 export default function FiltersPsichologist() {
   const dispatch = useDispatch();
- const psichologist = useSelector((state) => state.allUsersPsichologists);
-  const categories = useSelector((state) => state.categories)
-const params = useParams();
-console.log(params);
+  const psichologist = useSelector((state) => state.allUsersPsichologists);
+
+ 
+
+
+
+
+
+
 
 
   function handleSubmitOrder(e) {
@@ -21,7 +26,7 @@ console.log(params);
     dispatch(orderByRating());
   }
   function handleSubmitCategory(e) {
-    dispatch(getBySpecialties(e.target.value))
+    dispatch(getBySpecialties(e.target.value, psichologist));
   }
 
   return (
