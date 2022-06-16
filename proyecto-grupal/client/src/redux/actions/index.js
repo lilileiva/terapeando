@@ -4,17 +4,18 @@ import axios from "axios";
 import {
   GET_ALL_PSYCHOLOGIST,
   GET_ALL_USERCLIENTS,
-  SEARCH_CLIENTS_BY_NAME,
+  GET_USER_CLIENTS_BY_NAME,
   GET_USERCLIENT,
   LOCAL_HOST,
   CLEAR,
-  CLEAR_CLIENT
+  CLEAR_CLIENT,
+  ADMIN_SEARCHBAR
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
-
+/*---------USER CLIENT ACTIONS------*/
 export function getAllUserClients() {
   return async function (dispatch) {
     fetch(`${baseURL}/userclient/clients`)
@@ -29,13 +30,13 @@ export function getAllUserClients() {
   }
 }
 
-export const searchClientsByName = (name) => {
+export function getUserClientsByName(name) {
   return async function (dispatch) {
-    fetch(`${baseURL}/posts?name=${name}`)
+    fetch(`${baseURL}/userclient/clients?name=${name}`)
       .then((res) => res.json())
       .then((data) => {
         dispatch({
-          type: SEARCH_CLIENTS_BY_NAME,
+          type: GET_USER_CLIENTS_BY_NAME,
           payload: data
         });
       })
@@ -56,6 +57,53 @@ export function getUserClient(idUserClient) {
       .catch((err) => console.log(err));
   };
 }
+
+export function createClient(payload) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userclient/client/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: "CREATE_CLIENT",
+            payload: data,
+          });
+        });
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+}
+
+export function editClient(id, updatedUserClient) {
+  return async function () {
+    try {
+      const data = await axios.put(
+        `${baseURL}/userclient/${id}`,
+        updatedUserClient
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export function deleteUserClient(id) {
+  return async function () {
+    try {
+      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
 // export async function signIn(payload) {
 //   return function(dispatch){
 //     try {
@@ -71,6 +119,8 @@ export function getUserClient(idUserClient) {
 //   }
 // }
 
+
+/*-------------POST ACTIONS--------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
@@ -119,6 +169,25 @@ export const getPostOrder = (order, arreglo) => {
     dispatch({ type: "ORDER_POSTS", payload: notas });
   };
 };
+
+//crear una nota
+export const addPost = (body) => {
+  return async function (dispatch) {
+    try {
+      const { info } = await axios.post(
+        `${baseURL}/post`, body
+      )
+      return dispatch({
+        type: "CREATE_POST",
+        payload: info
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+/*----------CATEGORIES ACTIONS--------*/
 //obtener todas las categorias
 export const getCategories = () => {
   return async function (dispatch) {
@@ -145,22 +214,7 @@ export const getByCategory = (category) => {
     }
   }
 }
-//crear una nota
-export const addPost = (body) => {
-  return async function (dispatch) {
-    try {
-      const { info } = await axios.post(
-        `${baseURL}/post`, body
-      )
-      return dispatch({
-        type: "CREATE_POST",
-        payload: info
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
+
 
 export function getPostDetail(id) {
   return async function (dispatch) {
@@ -182,10 +236,10 @@ export const clearStatePostDetail = () => {
   };
 };
 
-////////////////// Post para los user Psychologist ///////////////////
 
-/////// GET para obetener todos los psychologist ////////
+/*----------USER PSYCHOLOGIST ACTIONS--------*/
 
+//Post para los user Psychologist
 export function createPsychologist(signupForm) {
   return async function (dispatch) {
     try {
@@ -209,8 +263,7 @@ export function createPsychologist(signupForm) {
   };
 }
 
-/////// GET para obetener todos los psychologist ////////
-
+//GET para obetener todos los psychologist
 export const getUserPsychologist = () => {
   return async function (dispatch) {
     try {
@@ -218,6 +271,20 @@ export const getUserPsychologist = () => {
       dispatch({
         type: "GET_PSYCHOLOGISTS",
         payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+export const getAllPsychologist = () => {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`${baseURL}/userpsychologist`);
+      dispatch({
+        type: GET_ALL_PSYCHOLOGIST,
+        payload: json.data,
       });
     } catch (error) {
       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
@@ -258,8 +325,7 @@ export function getPsychologistByEmail(signupForm) {
 //   } 
 // }
 
-////// GET para obtener un solo psychologist //////
-
+//GET para obtener un solo psychologist
 export const getUserPsychologistOne = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
@@ -276,6 +342,20 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
   };
 };
 
+/*-----------REVIEWS ACTIONS---------*/
+
+export function createReview(payload) {
+  return async function () {
+    try {
+      const newReview = axios.post(`${baseURL}/reviews`, payload);
+      return newReview;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+/*-----------CLEAR ACTIONS---------*/
 //Clean detail state
 export function clear() {
   return {
@@ -289,75 +369,14 @@ export function clearClient() {
   };
 }
 
-export const getAllPsychologist = () => {
-  return async function (dispatch) {
-    try {
-      const json = await axios.get(`${baseURL}/userpsychologist`);
-      dispatch({
-        type: GET_ALL_PSYCHOLOGIST,
-        payload: json.data,
-      });
-    } catch (error) {
-      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-    }
-  };
-};
-/////////       post para los userClient        /////////
-
-export function createClient(payload) {
-  return async function (dispatch) {
-    try {
-      return await fetch(`${baseURL}/userclient/client/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch({
-            type: "CREATE_CLIENT",
-            payload: data,
-          });
-        });
-    } catch (error) {
-      return console.log(error);
-    }
+/*-----------ADMIN SEARCHBAR ACTION---------*/
+export function adminSearchbar(inputText) {
+  return {
+    type: ADMIN_SEARCHBAR,
+    payload: inputText
   };
 }
 
-export function editClient(id, updatedUserClient) {
-  return async function () {
-    try {
-      const data = await axios.put(
-        `${baseURL}/userclient/${id}`,
-        updatedUserClient
-      );
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-}
 
-export function deleteUserClient(id) {
-  return async function () {
-    try {
-      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-}
 
-export function createReview(payload) {
-  return async function () {
-    try {
-      const newReview = axios.post(`${baseURL}/reviews`, payload);
-      return newReview;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
+

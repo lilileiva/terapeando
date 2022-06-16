@@ -5,9 +5,10 @@ import Footer from '../../Footer/Footer.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import AdminPanelNavbar from '../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
+import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllUserClients, deleteUserClient } from '../../../redux/actions';
+import { getAllUserClients, deleteUserClient, getUserClientsByName } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 
@@ -22,7 +23,6 @@ function AdminPanelClients() {
   }, [dispatch])
 
   const allUserClients = useSelector((state) => state.usersClients);
-
 
   const handleAlertDelete = (clientId) => {
     Swal.fire({
@@ -41,6 +41,13 @@ function AdminPanelClients() {
     })
   }
 
+  const adminSearchbar = useSelector((state) => state.adminSearchbar);
+  useEffect(() => {
+    if (adminSearchbar.length !== 0) {
+      dispatch(getUserClientsByName(adminSearchbar))
+    }
+  }, [dispatch, adminSearchbar])
+
   return (
 
     <div className='adminPanelContainer'>
@@ -54,10 +61,9 @@ function AdminPanelClients() {
               ? (
                 <>
                   <Stack direction='row' width='100%'>
-                    <Input focusBorderColor='teal.400' placeholder='Buscar usuarios clientes' />
-                    <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllUserClients())}>
-                      <BsSearch />
-                    </Button>
+
+                    <AdminSearchbar />
+
                     <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllUserClients())}>
                       <BsPeople />
                       <Text pr='0.5em'> Todos los usuarios</Text>
