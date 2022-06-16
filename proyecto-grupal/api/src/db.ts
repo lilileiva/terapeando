@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
 require('dotenv').config();
 const {DB_NAME, DB_PASSWORD, DB_USERNAME, DB_CLUSTERNAME} = process.env
-// Database Connection
 
+
+// Database Connection
 export default async function connectDB() {
    try{
       // const db = await mongoose.connect('mongodb+srv://proyectogrupal:VNWSkd5ixj7hLVTo@proyectogrupal.z5mrv.mongodb.net/ProyectoGrupaltest?retryWrites=true&w=majority')

@@ -3,18 +3,50 @@ import axios from "axios";
 
 import {
   GET_ALL_PSYCHOLOGIST,
+  GET_ALL_USERCLIENTS,
+  SEARCH_CLIENTS_BY_NAME,
   GET_USERCLIENT,
   LOCAL_HOST,
   CLEAR,
-  CLEAR_CLIENT,
+  CLEAR_CLIENT
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
+
+
+export function getAllUserClients() {
+  return async function (dispatch) {
+    fetch(`${baseURL}/userclient/clients`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_ALL_USERCLIENTS,
+          payload: data
+        })
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
+export const searchClientsByName = (name) => {
+  return async function (dispatch) {
+    fetch(`${baseURL}/posts?name=${name}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: SEARCH_CLIENTS_BY_NAME,
+          payload: data
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
 export function getUserClient(idUserClient) {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/userclient/client/login${idUserClient}`)
+      .get(`${baseURL}/userclient/client/${idUserClient}`)
       .then((client) => {
         dispatch({
           type: GET_USERCLIENT,
@@ -65,7 +97,7 @@ export const searchPostsByTitle = (title) => {
         dispatch({ type: "SEARCH_POSTS_BY_TITLE", payload: posts.data });
         Swal.fire(
           "Error",
-          "No hay notas disponibles vuelve a intentar, no escribir letras ni caracteres especiales para la busqueda solamente caracteres validos",
+          "No hay notas disponibles. Vuelve a intentar. No buscar letras ni carácteres especiales.",
           "error"
         );
       }
@@ -115,15 +147,15 @@ export const getByCategory = (category) => {
 }
 //crear una nota
 export const addPost = (body) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
-      const {info} = await axios.post(
-        `${baseURL}/post`,body
+      const { info } = await axios.post(
+        `${baseURL}/post`, body
       )
       return dispatch({
         type: "CREATE_POST",
         payload: info
-      })     
+      })
     } catch (error) {
       console.log(error)
     }
