@@ -30,7 +30,7 @@ export function getAllUserClients() {
 export function getUserClient(idUserClient) {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/userclient/client/login${idUserClient}`)
+      .get(`${baseURL}/userclient/client/${idUserClient}`)
       .then((client) => {
         dispatch({
           type: GET_USERCLIENT,
