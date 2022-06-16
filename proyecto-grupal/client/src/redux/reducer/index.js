@@ -1,3 +1,4 @@
+
 import {
   GET_USERCLIENT,
   GET_ALL_PSYCHOLOGIST,
@@ -10,15 +11,14 @@ import {
 
 const initialState = {
   userPsichologistDetail: {},
-  allUsersPsichologists: [],
+  allUsersPsichologists: [], // actual 
+  UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
   posts: [],
   categories: [],
   postDetail: {},
   schedule: {},
-  specialties: [],
-  psichologistByRating: []
 
 };
 function rootReducer(state = initialState, action) {
@@ -59,6 +59,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
       };
     case "CREATE_CLIENT":
       return {
@@ -93,17 +94,27 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
-      case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
+    case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
+
+      const psichologists = state.UserPsichologists
+      console.log(psichologists)
+      const filterBySpecialties = psichologists.filter(el => {
+        let specialties = el.Specialties.map(el => el)
+        return specialties.includes(action.payload)
+      })
+
       return {
         ...state,
-        specialties: action.payload,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
       };
-      case ORDER_PSICHOLOGIST_BY_RATING:
-        return{
-          ...state,
-          psichologistByRating: action.payload
-        }
-      
+
+    case ORDER_PSICHOLOGIST_BY_RATING:
+
+      return {
+        ...state,
+        allUsersPsichologists: action.payload
+      }
+
     default:
       return { ...state };
   }

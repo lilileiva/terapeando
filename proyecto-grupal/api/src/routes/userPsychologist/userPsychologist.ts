@@ -7,7 +7,7 @@ import userPsychologist from "../../models/userPsychologist";
 const getUserPsychologistOne = async (req: Request, res: Response) => {
   try {
     const { IdUserPsychologist } = req.params;
-    const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist,'-password');
+    const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist, '-password');
     res.status(200).json(psychologistUser)
   } catch (err) {
     res.status(404).json({ data: err })
@@ -17,16 +17,16 @@ const getUserPsychologistOne = async (req: Request, res: Response) => {
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.query;
-    
+
     if (name) {
       userPsychologist.find({
         $or: [{ firstName: { $regex: name, $options: 'i' } },
         { lastName: { $regex: name, $options: 'i' } }]
-      },'-password')
+      }, '-password')
         .then((psychologist) => {
           res.status(200).json(psychologist)
         })
-      .catch((error:any) => next(error))
+        .catch((error: any) => next(error))
     } else {
       const userPsychologist = await userPsychologistModel.find({}, '-password');
       res.status(200).json(userPsychologist)
@@ -101,6 +101,45 @@ const putUserPsychologist = async (req: Request, res: Response) => {
   }
 }
 
+const filterPsichologistSpecialities = async (req: Request, res: Response) => {
+  const { specialtie } = req.params;
+  console.log(specialtie);
+  try {
+    const PsychologistBySpecialtie = await userPsychologistModel.find({
+      Specialties: { $in: [specialtie] }
+    });
+    if (PsychologistBySpecialtie.length !== 0) {
+      res.status(200).json(PsychologistBySpecialtie)
+    }
+    else {
+      res.status(404).json({ msj: 'No hay psicologos con esa especialidad' })
+    }
+
+  } catch (error) {
+    console.log(error)
+    return res.status(404).send({ msj: 'No se encontraron resultados' });
+  }
+
+};
+
+const filterPsichologistRating = async (req: Request, res: Response) => {
+
+  try {
+    const PsichologistByRating = await userPsychologistModel.find({}, { 'rating': 1, "_id": 0 });
+    const orderDesc = PsichologistByRating.sort((a, b) => b.rating - a.rating);
+    res.status(200).json(orderDesc)
+
+  } catch (error) {
+    console.log(error)
+    return res.status(404).send({ msj: 'No se encontraron resultados' });
+  }
+
+};
+
+
+
+
+
 
 
 module.exports = {
@@ -109,4 +148,6 @@ module.exports = {
   postUserPsychologist,
   deleteUserPsychologist,
   putUserPsychologist,
+  filterPsichologistSpecialities,
+  filterPsichologistRating
 }

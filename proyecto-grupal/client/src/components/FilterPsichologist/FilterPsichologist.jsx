@@ -1,54 +1,54 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import './FilterPsichologist.css'
 import { useDispatch, useSelector } from "react-redux";
-import { getBySpecialties, orderByRating } from "../../redux/actions";
+import { getBySpecialties , orderByRating} from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 import { specialitiesList } from './specialities';
 
 
-
-
 export default function FiltersPsichologist() {
   const dispatch = useDispatch();
-  const psichologist = useSelector((state) => state.allUsersPsichologists);
 
  
-
-
-
-
-
-
+  const psichologists = useSelector((state) => state.allUsersPsichologists);
 
 
   function handleSubmitOrder(e) {
-    // console.log(e.target.value);
-    dispatch(orderByRating());
+    e.preventDefault();
+    dispatch(orderByRating(e.target.value,psichologists ));
+    console.log(e.target.value);
+  
+    
   }
+
+
+
   function handleSubmitCategory(e) {
-    dispatch(getBySpecialties(e.target.value, psichologist));
+    dispatch(getBySpecialties(e.target.value));
+    
   }
 
   return (
     <div className="filterContainer">
       <Select
         w='49%'
-        placeholder="Ordenar por"
+        placeholder="Ordenar por calificación"
         onChange={handleSubmitOrder}
         cursor={"pointer"}
       >
-        <option key={0}>Titulo de A-Z</option>
-        <option key={1}>Titulo de Z-A</option>
+        <option key={1} value="Desendente" >Desendente</option>
+        <option key={0} value="Ascendente" >Ascendente</option>
+        
       </Select>
       <Select
         w='49%'
-        placeholder="Filtrar notas por categoria"
+        placeholder="Filtrar por especialidad"
         onChange={(e) => handleSubmitCategory(e)}
       >
         {
           specialitiesList && specialitiesList.map(s => {
             return (
-              <option key={s} value={s}> {s}</option>
+              <option key={s} value={s}>{s}</option>
             )
           })
         }

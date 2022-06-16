@@ -21,6 +21,7 @@ export const specialitiesList = [
     'Psicología de ingeniería',
     'Psicología del marketing',
     'Sexología',
-    'Psicología comunitaria'
+    'Psicología comunitaria',
+    'Todas'
 ];
 

@@ -279,35 +279,29 @@ export function createReview(payload) {
 // };
 
 
-export function getBySpecialties(specialtie, arreglodepsicologos) {
-  return async function (dispatch) {
-    const filterPsichologist = arreglodepsicologos.filter(p => {
-      const especialidades =  p.Specialties.map(s => s) // [psicologia clinica, psicologia infantil, psicologia infantil]
-      return(
-        especialidades === specialtie
-      )
-    })
-    dispatch({
-      type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-      payload: filterPsichologist
-    });
-};
-}
+export function getBySpecialties(payload){
 
-export function orderByRating() {
-  return async function (dispatch) {
-
-    try {
-      const json = await axios.get(`${baseURL}/userpsychologist/filterrating/rating`);
-      dispatch({
-        type: ORDER_PSICHOLOGIST_BY_RATING,
-        payload: json.data
-      });
-
-    } catch (error) {
-      console.log(error);
+    return  {
+    type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+    payload: payload
     }
-  };
 };
+
+
+
+export  function orderByRating (order, array){
+  return function (dispatch) {
+    //me traigo el arreglo de las posts
+    const psicologos = array.slice();
+    //empiezo a ordenar con sort
+    if (order === "Ascendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (order === "Desendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+    dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
+  };
+   
+  };
+
 
 
