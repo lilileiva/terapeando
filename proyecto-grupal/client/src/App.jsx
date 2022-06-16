@@ -21,6 +21,7 @@ import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import AdminPanelLogin from "./components/AdminPanel/AdminPanelLogin/AdminPanelLogin.jsx";
 import AdminPanelHome from './components/AdminPanel/AdminPanelHome/AdminPanelHome.jsx';
 import AdminPanelClients from './components/AdminPanel/AdminPanelClients/AdminPanelClients.jsx';
+import AdminClientDetails from './components/AdminPanel/AdminPanelClients/AdminClientDetails/AdminClientDetails.jsx';
 import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsychologists/AdminPanelPsychologists.jsx';
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
@@ -50,6 +51,7 @@ export default function App() {
         <Route path='/adminpanel/login' element={<AdminPanelLogin />} />
         <Route path='/adminpanel/inicio' element={<AdminPanelHome />} />
         <Route path='/adminpanel/clients' element={<AdminPanelClients />} />
+        <Route path='/adminpanel/clients/:idUserClient' element={<AdminClientDetails />} />
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />

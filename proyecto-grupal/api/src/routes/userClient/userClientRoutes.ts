@@ -1,10 +1,17 @@
-import { Router} from "express";
+import { Router } from "express";
 import logInClient from "./logIn";
-const { getUserClient, createUserClient, deleteUserClient, putUserClient } = require('./userClient.ts')
+const {
+    getAllUserClient,
+    getUserClient,
+    createUserClient,
+    deleteUserClient,
+    putUserClient
+} = require('./userClient.ts')
 
 const clientRouter: Router = Router();
 
 
+clientRouter.get('/clients', getAllUserClient);
 clientRouter.get('/client/:IdUserClient', getUserClient);
 clientRouter.post('/client', createUserClient)
 clientRouter.post('/client/login', logInClient)
