@@ -8,8 +8,8 @@ import { specialitiesList } from './specialities';
 import { BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
 import Footer from '../Footer/Footer.jsx';
-import { createClient, createPsychologist } from '../../redux/actions/index.js';
-import { useDispatch } from 'react-redux';
+import { createClient, createPsychologist, getAllPsychologist, getPsychologistByEmail } from '../../redux/actions/index.js';
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 
@@ -17,7 +17,7 @@ import { motion } from 'framer-motion';
 function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const emailPsychologist = useSelector((state)=> state.email)
     const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
@@ -148,16 +148,32 @@ function RegisterForm() {
         setIsSubmit(true)
     }
 
+
+
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            navigate('/home')
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Usuario creado correctamente',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            dispatch(getPsychologistByEmail(signupForm.email))
+            if(Object.keys(emailPsychologist).length !== 0) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Usuario  ya existe',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                navigate('/signup')
+                // console.log(`Aqui existe${emailPsychologist}`)
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Usuario creado correctamente',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                navigate('/signin')
+                // console.log(`Aqui no existe${emailPsychologist}`)
+            }
         }
     }, [formErrors, isSubmit])
 

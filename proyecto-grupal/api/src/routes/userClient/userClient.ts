@@ -13,22 +13,26 @@ const createUserClient = async (req: Request, res: Response) => {
       password
    } = req.body
 
-   try {      
-      const userClient = new userClientModel({
-         firstName: firstname,
-         lastName: lastname,
-         birthDate: birthdate,
-         country: country,
-         email: email,
-         profileImage: profileimage,
-         password: password
-      })
-      await userClient.save()
-      res.status(201).send('User Created')
+   try {
+       const userExist = await userClientModel.findOne({'email': email})
+       if(userExist){
+         res.send('Invalid mail or password')
+       } else {
+         const userClient = await userClientModel.create({
+            firstName: firstname,
+            lastName: lastname,
+            birthDate: birthdate,
+            country: country,
+            email: email,
+            profileImage: profileimage,
+            password: password,
+            role: 'client'
+         })
+         res.status(201).send('Welcome to our community, now you can sign in');
+       }
    }
-   catch (err) {
-      console.log(err)
-      res.status(404).send('There was an error...');
+   catch (error) {
+      res.status(405).send(error);
    }
 }
 
