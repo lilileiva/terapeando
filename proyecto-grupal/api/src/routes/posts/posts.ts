@@ -61,9 +61,15 @@ const getOnePost = async (req: Request, res: Response) => {
 };
 
 const createPost = (req: Request, res: Response, next: NextFunction) => {
-  const post = req.body;
+  const {Date, Title, Image, Tags, Content} = req.body;
   //me creo el post con el objeto ue me llega de body
-  Post.create(post)
+  Post.create({
+    Date,
+    Title,
+    Image, 
+    Tags,
+    Content
+  })
     .then((createdPost) => {
       createdPost.save();
       res.send(createdPost);
@@ -86,7 +92,7 @@ const filterPostsCategory = async (
   next: NextFunction
 ) => {
   const { category } = req.params;
-  console.log(category);
+  
   const postTotals = await Post.find().populate("idUserPsychologist", {
     firstName: 1,
     lastName: 1,

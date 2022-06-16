@@ -1,9 +1,52 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
-import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT, FILTER_PSICHOLOGIST_BY_SPECIALTIES, ORDER_PSICHOLOGIST_BY_RATING } from "./types";
+
+import {
+  GET_ALL_PSYCHOLOGIST,
+  GET_ALL_USERCLIENTS,
+  GET_USER_CLIENTS_BY_NAME,
+  GET_USERCLIENT,
+  LOCAL_HOST,
+  CLEAR,
+  CLEAR_CLIENT,
+  ADMIN_SEARCHBAR,
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING
+} from "./types";
+
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
+
+
+/*---------USER CLIENT ACTIONS------*/
+export function getAllUserClients() {
+  return async function (dispatch) {
+    fetch(`${baseURL}/userclient/clients`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_ALL_USERCLIENTS,
+          payload: data
+        })
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
+export function getUserClientsByName(name) {
+  return async function (dispatch) {
+    fetch(`${baseURL}/userclient/clients?name=${name}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_CLIENTS_BY_NAME,
+          payload: data
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+}
 
 export function getUserClient(idUserClient) {
   return function (dispatch) {
@@ -19,6 +62,69 @@ export function getUserClient(idUserClient) {
   };
 }
 
+export function createClient(payload) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userclient/client/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: "CREATE_CLIENT",
+            payload: data,
+          });
+        });
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+}
+
+export function editClient(id, updatedUserClient) {
+  return async function () {
+    try {
+      const data = await axios.put(
+        `${baseURL}/userclient/${id}`,
+        updatedUserClient
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export function deleteUserClient(id) {
+  return async function () {
+    try {
+      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+// export async function signIn(payload) {
+//   return function(dispatch){
+//     try {
+//       const userToken = await axios.post(`${baseURL}/userclient/client/login`, payload)
+//       const token = userToken.data.token
+//       window.localStorage.setItem('token', token)
+//       console.log(userToken.data)
+//       console.log(token)
+//      return userToken
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+// }
+
+
+/*-------------POST ACTIONS--------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
@@ -45,7 +151,7 @@ export const searchPostsByTitle = (title) => {
         dispatch({ type: "SEARCH_POSTS_BY_TITLE", payload: posts.data });
         Swal.fire(
           "Error",
-          "No hay notas disponibles vuelve a intentar, no escribir letras ni caracteres especiales para la busqueda solamente caracteres validos",
+          "No hay notas disponibles. Vuelve a intentar. No buscar letras ni carácteres especiales.",
           "error"
         );
       }
@@ -67,29 +173,47 @@ export const getPostOrder = (order, arreglo) => {
     dispatch({ type: "ORDER_POSTS", payload: notas });
   };
 };
+
+//crear una nota
+export const addPost = (body) => {
+  return async function (dispatch) {
+    try {
+      const { info } = await axios.post(
+        `${baseURL}/post`, body
+      )
+      return dispatch({
+        type: "CREATE_POST",
+        payload: info
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+/*----------CATEGORIES ACTIONS--------*/
 //obtener todas las categorias
 export const getCategories = () => {
   return async function (dispatch) {
     try {
-      const responseBack = await fetch(`${baseURL}/categories`)
-      const jsonBack = await responseBack.json()
+      const responseBack = await fetch(`${baseURL}/categories`);
+      const jsonBack = await responseBack.json();
       //envio todas las categorias de mi db
-      dispatch({ type: "GET_CATEGORIES", payload: jsonBack })
+      dispatch({ type: "GET_CATEGORIES", payload: jsonBack });
     } catch (e) {
-      console.log(e)
     }
-  }
-}
-//mostrar por categoria 
+  };
+};
+//mostrar por categoria
 export const getByCategory = (category) => {
   return async function (dispatch) {
     try {
-      const responseBack = await fetch(`${baseURL}/filter/${category}`)
-      const jsonBack = await responseBack.json()
+      const responseBack = await fetch(`${baseURL}/filter/${category}`);
+      const jsonBack = await responseBack.json();
       //envio las notas que se filtren con esa catagory
-      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack })
+      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 }
@@ -115,10 +239,10 @@ export const clearStatePostDetail = () => {
   };
 };
 
-////////////////// Post para los user Psychologist ///////////////////
 
-/////// GET para obetener todos los psychologist ////////
+/*----------USER PSYCHOLOGIST ACTIONS--------*/
 
+//Post para los user Psychologist
 export function createPsychologist(signupForm) {
   return async function (dispatch) {
     try {
@@ -137,17 +261,16 @@ export function createPsychologist(signupForm) {
           });
         });
     } catch (error) {
-      return console.log(error);
+      console.error(error)
     }
   };
 }
 
-/////// GET para obetener todos los psychologist ////////
-
+//GET para obetener todos los psychologist
 export const getUserPsychologist = () => {
   return async function (dispatch) {
     try {
-      const psychologist = await axios.get(`${baseURL}/userpsychologist`)
+      const psychologist = await axios.get(`${baseURL}/userpsychologist`);
       dispatch({
         type: "GET_PSYCHOLOGISTS",
         payload: psychologist.data,
@@ -157,35 +280,6 @@ export const getUserPsychologist = () => {
     }
   };
 };
-
-////// GET para obtener un solo psychologist //////
-
-export const getUserPsychologistOne = (IdUserPsychologist) => {
-  return async function (dispatch) {
-    try {
-      const psychologist = await axios.get(`${baseURL}/userpsychologist/${IdUserPsychologist}`)
-      dispatch({
-        type: "GET_PSYCHOLOGISTS_ONE",
-        payload: psychologist.data,
-      });
-    } catch (error) {
-      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-    }
-  };
-};
-
-//Clean detail state
-export function clear() {
-  return {
-    type: CLEAR,
-  };
-}
-
-export function clearClient() {
-  return {
-    type: CLEAR_CLIENT,
-  };
-}
 
 export const getAllPsychologist = () => {
   return async function (dispatch) {
@@ -200,42 +294,58 @@ export const getAllPsychologist = () => {
     }
   };
 };
-/////////       post para los userClient        /////////
 
-export function createClient(payload) {
+//getPsychologist by email
+export function getPsychologistByEmail(signupForm) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userclient/client`, {
-        method: "POST",
+      return await fetch(`${baseURL}/userpsychologist/email/psychologistEmail`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(signupForm),
       })
         .then((res) => res.json())
         .then((data) => {
           dispatch({
-            type: "CREATE_CLIENT",
+            type: "GET_EMAIL_PSY",
             payload: data,
           });
         });
     } catch (error) {
-      return console.log(error);
+      console.error(error)
     }
   };
 }
+// export const getPsychologistByEmail = (email) => {
+//   return async function(dispatch) {
+//     const psychologist = await axios.get(`${baseURL}/userpsychologist/email/psychologistEmail`, email)
+//     dispatch({
+//       type: "GET_EMAIL_PSY",
+//       payload: psychologist.data
+//     })
+//   } 
+// }
 
-export function editClient(id, updatedUserClient) {
-  return async function () {
+//GET para obtener un solo psychologist
+export const getUserPsychologistOne = (IdUserPsychologist) => {
+  return async function (dispatch) {
     try {
-      const data = await axios.put(`${baseURL}/userclient/${id}`, updatedUserClient)
-      console.log(data)
-    } catch (err) {
-      console.log(err)
+      const psychologist = await axios.get(
+        `${baseURL}/userpsychologist/${IdUserPsychologist}`
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
     }
   };
-}
+};
 
+/*-----------REVIEWS ACTIONS---------*/
 
 export function deleteUserClient(id) {
   return async function () {
@@ -243,8 +353,25 @@ export function deleteUserClient(id) {
       await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`)
     } catch (err) {
       console.log(err)
+
+export function createReview(payload) {
+  return async function () {
+    try {
+      const newReview = axios.post(`${baseURL}/reviews`, payload);
+      return newReview;
+    } catch (error) {
+      console.log(error);
+
     }
-  }
+  };
+}
+
+/*-----------CLEAR ACTIONS---------*/
+//Clean detail state
+export function clear() {
+  return {
+    type: CLEAR,
+  };
 }
 
 
@@ -258,6 +385,19 @@ export function createReview(payload) {
     } catch (error) {
       console.log(error)
     }
+
+export function clearClient() {
+  return {
+    type: CLEAR_CLIENT,
+  };
+}
+
+/*-----------ADMIN SEARCHBAR ACTION---------*/
+export function adminSearchbar(inputText) {
+  return {
+    type: ADMIN_SEARCHBAR,
+    payload: inputText
+
   };
 };
 
