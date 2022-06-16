@@ -67,7 +67,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   try {
       const psychologistExist = await userPsychologistModel.findOne({'email': email})
       if(psychologistExist){
-        res.status(404).send('Invalid mail or password')
+        return res.json({ error: "User already exists" });
       } else {
         const userP = await userPsychologistModel.create({
           firstName: firstname,
@@ -89,7 +89,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         res.status(201).send('Welcome to our community, now you can sign in');
       }
   } catch (error) {
-    res.status(404).send('Verified your personal data');
+    res.send({error: 'Validate your personal data'})
   }
 };
 ///// Delete /////
