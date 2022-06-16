@@ -156,7 +156,7 @@ export function createPsychologist(signupForm) {
           });
         });
     } catch (error) {
-      Swal.fire("Error", "Los datos ingresados ya existen", "error");
+      console.error(error)
     }
   };
 }
@@ -178,15 +178,37 @@ export const getUserPsychologist = () => {
 };
 
 //getPsychologist by email
-export const getPsychologistByEmail = () => {
-  return async function(dispatch) {
-    const psychologist = await axios.get(`${baseURL}/userpsychologist/email/psychologistEmail`)
-    dispatch({
-      type: "GET_EMAIL_PSY",
-      payload: psychologist.data
-    })
-  } 
+export function getPsychologistByEmail(signupForm) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userpsychologist/email/psychologistEmail`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signupForm),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: "GET_EMAIL_PSY",
+            payload: data,
+          });
+        });
+    } catch (error) {
+      console.error(error)
+    }
+  };
 }
+// export const getPsychologistByEmail = (email) => {
+//   return async function(dispatch) {
+//     const psychologist = await axios.get(`${baseURL}/userpsychologist/email/psychologistEmail`, email)
+//     dispatch({
+//       type: "GET_EMAIL_PSY",
+//       payload: psychologist.data
+//     })
+//   } 
+// }
 
 ////// GET para obtener un solo psychologist //////
 
