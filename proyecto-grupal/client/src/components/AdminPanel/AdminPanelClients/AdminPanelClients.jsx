@@ -9,7 +9,7 @@ import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from 
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
 import { getAllUserClients } from '../../../redux/actions';
 import Swal from 'sweetalert2';
-import ClientDetails from './AdminClientDetails/AdminClientDetails.jsx';
+import Loader from '../../Loader/Loader.jsx';
 
 
 function AdminPanelClients() {
@@ -68,7 +68,7 @@ function AdminPanelClients() {
           <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
             <ul className='userClientsList'>
               {
-                allUserClients
+                allUserClients.length !== 0
                   ? allUserClients.map(client => (
                     <>
                       <hr />
@@ -91,7 +91,7 @@ function AdminPanelClients() {
                       <hr />
                     </>
                   ))
-                  : null
+                  : <Loader />
               }
             </ul>
           </Stack>
