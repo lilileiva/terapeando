@@ -1,13 +1,19 @@
 export const LOCAL_HOST = "http://localhost:3001"
 
 export const GET_ALL_PSYCHOLOGIST = "GET_ALL_PSYCHOLOGIST";
-export const CLEAR = "CLEAR"; //Clear detail state
+export const GET_USER_PSYCHOLOGISTS_BY_NAME = "GET_USER_PSYCHOLOGISTS_BY_NAME";
 export const UPDATE_PSYCHOLOGIST = "UPDATE_PSYCHOLOGIST";
+export const CLEAR_PSYCHOLOGIST_LIST = "CLEAR_PSYCHOLOGIST_LIST";
 export const DETAILS = "DETAILS";
 export const GET_ALL_USERCLIENTS = 'GET_ALL_USERCLIENTS';
 export const GET_USERCLIENT = 'GET_USERCLIENT';
-export const CLEAR_CLIENT = 'CLEAR_CLIENT';
 export const GET_USER_CLIENTS_BY_NAME = 'GET_USER_CLIENTS_BY_NAME';
+export const CREATE_CLIENT = 'CREATE_CLIENT';
+export const CLEAR_CLIENT = 'CLEAR_CLIENT';
+export const CLEAR_CLIENT_LIST = 'CLEAR_CLIENT_LIST';
+export const GET_POSTS = 'GET_POSTS';
+export const CLEAR = "CLEAR"; //Clear detail state
 export const ADMIN_SEARCHBAR = 'ADMIN_SEARCHBAR';
+export const ADMIN_SEARCHBAR_CLEAR = 'ADMIN_SEARCHBAR_CLEAR';
 
 
