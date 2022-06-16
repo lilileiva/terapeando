@@ -95,6 +95,9 @@ export class userPsychologist {
   @prop({ ref: () => appointment })
   appointments?: Ref<appointment>[];
 
+  @prop()
+  role: string
+
   // @prop({ ref: () => Schedule })
   // schedule?: Ref<Schedule>[]; 
 }

@@ -36,6 +36,12 @@ export class Admin {
         trim: true
     })
     email: string
+
+    @prop()
+    passwordAdmin: string
+
+    @prop()
+    role: string
 }
 
 const adminModel = getModelForClass(Admin)

@@ -15,6 +15,7 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: {},
+  email: {}
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -72,6 +73,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         userPsichologistDetail: action.payload,
+      };
+    case "GET_EMAIL_PSY":
+      return {
+        ...state,
+        email: action.payload,
       };
     case CLEAR:
       return {
