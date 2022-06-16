@@ -5,7 +5,7 @@ import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
-import { ArrowLeftIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
 import { getUserClient } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
@@ -45,40 +45,51 @@ function AdminClientDetails() {
 
           </Stack>
 
-          <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
-            <ul className='userClientsList'>
-              {
-                Object.keys(userClientDetail).length !== 0
-                  ?
-                  <>
-                    <Stack w='100%' direction='column' justify='center' align='center' p='1em'>
+          {
+            Object.keys(userClientDetail).length !== 0
+              ? (
+                <Stack w='100%' direction='column' justify='center' align='center' p='2em'>
 
-                      <Avatar src={userClientDetail.profileImage} size='xl'></Avatar>
-                      <Stack direction='row'>
-                        <Text fontSize='xl'> Nombre: </Text>
-                        <Text fontSize='xl'> {userClientDetail.firstName} </Text>
-                      </Stack>
-                      <Stack direction='row'>
-                        <Text fontSize='xl'> Apellido: </Text>
-                        <Text fontSize='xl'> {userClientDetail.lastName} </Text>
-                      </Stack>
-                      <Stack direction='row'>
-                        <Text fontSize='xl'> País: </Text>
-                        <Text fontSize='xl'> {userClientDetail.country} </Text>
-                      </Stack>
-                      <Stack direction='row'>
-                        <Text fontSize='xl'> Fecha de nacimiento: </Text>
-                        <Text fontSize='xl'> {userClientDetail.birthDate} </Text>
-                      </Stack>
+                  <Avatar src={userClientDetail.profileImage} size='xl' />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600' > Nombre: </Text>
+                    <Text fontSize='xl'> {userClientDetail.firstName} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Apellido: </Text>
+                    <Text fontSize='xl'> {userClientDetail.lastName} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> País: </Text>
+                    <Text fontSize='xl'> {userClientDetail.country} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Fecha de nacimiento: </Text>
+                    <Text fontSize='xl'> {userClientDetail.birthDate} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Email: </Text>
+                    <Text fontSize='xl'> {userClientDetail.email} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Button width='50%' colorScheme='teal' variant='outline'>
+                      <BsPencilSquare />
+                      <Text pr='0.5em'> Editar usuario</Text>
+                    </Button>
+                    <Button width='50%' colorScheme='red' variant='outline'>
+                      <CloseIcon />
+                      <Text pr='0.5em'> Eliminar usuario</Text>
+                    </Button>
+                  </Stack>
 
-                    </Stack>
-                    <hr />
-                  </>
-                  : <Loader />
-              }
-            </ul>
-          </Stack>
-
+                </Stack>
+              ) : <Loader />
+          }
 
         </Stack>
 
