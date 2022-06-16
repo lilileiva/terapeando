@@ -1,13 +1,28 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import AdminPanelNavbar from '../AdminPanelNavbar/AdminPanelNavbar.jsx';
-import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
+import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
+import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
+import { getUserClient } from '../../../../redux/actions';
+
 
 function AdminClientDetails() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { idUserClient } = useParams();
+  console.log(idUserClient)
+
+  useEffect(() => {
+    dispatch(getUserClient(idUserClient))
+  }, [dispatch])
+
+  const userClientDetail = useSelector((state) => state.userClientDetail);
+  console.log(userClientDetail)
 
   return (
 
@@ -24,7 +39,7 @@ function AdminClientDetails() {
 
             <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
               <ArrowLeftIcon />
-              <Text pr='0.5em'>Volver</Text>
+              <Text pr='0.5em'> Volver</Text>
             </Button>
 
           </Stack>
@@ -32,29 +47,32 @@ function AdminClientDetails() {
           <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
             <ul className='userClientsList'>
               {
-                allUserClients
-                  ? allUserClients.map(client => (
-                    <>
-                      <hr />
-                      <Stack w='100%' direction='row' justify='space-between' align='center' pt='0.5em' pb='0.5em' pr='1em'>
+                userClientDetail
+                  ?
+                  <>
+                    <Stack w='100%' direction='column' justify='center' align='center' p='1em'>
 
-                        <Stack direction='row' align='center'>
-                          <Avatar src={client.profileImage}></Avatar>
-                          <Text fontSize='xl'>
-                            {client.firstName} {client.lastName}
-                          </Text>
-                        </Stack>
-
-                        <Stack direction='row' align='center'>
-                          <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/clients/${client._id}`)} />
-                          <BsPencilSquare size='1.5em' color='gray' cursor='pointer' />
-                          <BsPersonDash size='1.5em' color='gray' cursor='pointer' onClick={handleAlertDelete} />
-                        </Stack>
-
+                      <Avatar src={userClientDetail.profileImage} size='xl'></Avatar>
+                      <Stack direction='row'>
+                        <Text fontSize='xl'> Nombre: </Text>
+                        <Text fontSize='xl'> {userClientDetail.firstName} </Text>
                       </Stack>
-                      <hr />
-                    </>
-                  ))
+                      <Stack direction='row'>
+                        <Text fontSize='xl'> Apellido: </Text>
+                        <Text fontSize='xl'> {userClientDetail.lastName} </Text>
+                      </Stack>
+                      <Stack direction='row'>
+                        <Text fontSize='xl'> País: </Text>
+                        <Text fontSize='xl'> {userClientDetail.country} </Text>
+                      </Stack>
+                      <Stack direction='row'>
+                        <Text fontSize='xl'> Fecha de nacimiento: </Text>
+                        <Text fontSize='xl'> {userClientDetail.birthDate} </Text>
+                      </Stack>
+
+                    </Stack>
+                    <hr />
+                  </>
                   : null
               }
             </ul>

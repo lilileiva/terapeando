@@ -2,19 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './AdminPanelClients.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../../Footer/Footer.jsx';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AdminPanelNavbar from '../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
 import { getAllUserClients } from '../../../redux/actions';
 import Swal from 'sweetalert2';
-import AdminClientDetails from './AdminClientDetails/AdminClientDetails.jsx';
+import ClientDetails from './AdminClientDetails/AdminClientDetails.jsx';
 
 
 function AdminPanelClients() {
-
-  const { idUserClient } = useParams();
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
