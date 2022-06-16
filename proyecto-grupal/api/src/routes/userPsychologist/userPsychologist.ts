@@ -16,21 +16,23 @@ const getUserPsychologistOne = async (req: Request, res: Response) => {
 
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name } = req.query;
+    // const { name } = req.query;
     
-    if (name) {
-      userPsychologist.find({
-        $or: [{ firstName: { $regex: name, $options: 'i' } },
-        { lastName: { $regex: name, $options: 'i' } }]
-      },'-password')
-        .then((psychologist) => {
-          res.status(200).json(psychologist)
-        })
-      .catch((error:any) => next(error))
-    } else {
-      const userPsychologist = await userPsychologistModel.find({}, '-password');
-      res.status(200).json(userPsychologist)
-    }
+    // if (name) {
+    //   userPsychologist.find({
+    //     $or: [{ firstName: { $regex: name, $options: 'i' } },
+    //     { lastName: { $regex: name, $options: 'i' } }]
+    //   },'-password')
+    //     .then((psychologist) => {
+    //       res.status(200).json(psychologist)
+    //     })
+    //   .catch((error:any) => next(error))
+    // } else {
+    //   const userPsychologist = await userPsychologistModel.find({}, '-password');
+    //   res.status(200).json(userPsychologist)
+    // }
+
+    res.status(200).json('userPsychologist')
 
   } catch (err) {
     res.status(404).json({ data: err })

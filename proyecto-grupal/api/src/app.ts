@@ -3,7 +3,6 @@ import morgan from 'morgan'
 const routes = require('./routes/index.ts')
 const cors = require('cors')
 
-require('dotenv').config();
 
 // server  inicializations
 const app = express() 
