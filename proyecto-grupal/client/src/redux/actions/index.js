@@ -111,8 +111,24 @@ export const getByCategory = (category) => {
     } catch (error) {
       console.log(error);
     }
-  };
-};
+  }
+}
+//crear una nota
+export const addPost = (body) => {
+  return async function (dispatch){
+    try {
+      const {info} = await axios.post(
+        `${baseURL}/post`,body
+      )
+      return dispatch({
+        type: "CREATE_POST",
+        payload: info
+      })     
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export function getPostDetail(id) {
   return async function (dispatch) {
