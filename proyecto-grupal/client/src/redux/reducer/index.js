@@ -59,6 +59,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
+
       };
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
       return {
@@ -85,6 +87,7 @@ function rootReducer(state = initialState, action) {
         let specialties = el.Specialties.map(el => el)
         return specialties.includes(action.payload)
       })
+    
       return {
         ...state,
         allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
