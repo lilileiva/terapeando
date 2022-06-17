@@ -335,27 +335,11 @@ export const getByCatego = (category) => {
   };
 };
 
-export function getPostDetail(id) {
-  return async function (dispatch) {
-    try {
-      let detail = await axios.get(`${baseURL}/post/${id}`);
-      return dispatch({
-        type: "GET_POST_DETAIL",
-        payload: detail.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  }
-
-
 export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
   };
 };
-
 
 /*----------USER PSYCHOLOGIST ACTIONS--------*/
 
