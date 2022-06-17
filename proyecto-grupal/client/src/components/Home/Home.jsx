@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPsychologist } from '../../redux/actions';
 import NavbarHome from '../NavbarHome/NavbarHome';
+import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import CardPsychologist from '../CardPsychologist/CardPsychologist';
 import './Home.css'
@@ -37,10 +38,15 @@ export default function Home() {
     dispatch(getAllPsychologist())
   }
 
+  const token = window.localStorage.getItem('token')
+  console.log(token)
+
 
   return (
     <div>
-      <NavbarHome />
+      {
+        token ? <NavbarHome /> : <NavBar />        
+      }
       <div className='cardContainer'>
 
         <Stack mt='1em' mb='1em' width='100%' direction='row' justifyContent='left'>
