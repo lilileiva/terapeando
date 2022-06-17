@@ -9,7 +9,7 @@ const logInPsychologist = async (req: Request, res: Response) => {
     if (!email || !password) {
       return res
       .status(400)
-      .json({ error: "Email and Password are both required." }); 
+      .json({ error: "Email and Pas sword are both required." }); 
     } else {
       const user = await userPsychologistModel.findOne({ email });
 

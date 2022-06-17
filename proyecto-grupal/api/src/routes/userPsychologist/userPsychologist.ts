@@ -151,22 +151,13 @@ const filterPsichologistRating = async (req: Request, res: Response) => {
 
 };
 
-
-
-
-
-
-
 module.exports = {
   getUserPsychologistOne,
   getUserPsychologist,
   postUserPsychologist,
   deleteUserPsychologist,
   putUserPsychologist,
-
   filterPsichologistSpecialities,
-  filterPsichologistRating
-
+  filterPsichologistRating,
   getUserPsychologistByEmail
-
 }
