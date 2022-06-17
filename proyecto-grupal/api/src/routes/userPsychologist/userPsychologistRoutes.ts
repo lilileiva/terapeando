@@ -1,6 +1,6 @@
 import { Router} from "express";
 import logInPsychologist from "./signIn";
-const {getUserPsychologistByEmail,getUserPsychologistOne ,getUserPsychologist, postUserPsychologist, deleteUserPsychologist, putUserPsychologist} = require('./userPsychologist.ts');
+const {getUserPsychologistByEmail,getUserPsychologistOne ,getUserPsychologist, postUserPsychologist, deleteUserPsychologist, putUserPsychologist, filterPsichologistSpecialities, filterPsichologistRating} = require('./userPsychologist.ts');
 
 const psychologistRouter: Router = Router();
 
