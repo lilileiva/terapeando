@@ -112,7 +112,7 @@ const filterPostsCategory = async (
   res.json(postFilters);
 };
 //eliminar nota
-const deleteUserClient = async (req: Request, res: Response) => {
+const deletePost = async (req: Request, res: Response) => {
   const { IdPost } = req.params;
   try {
      const postDelete = await Post.findOneAndDelete({ _id: IdPost })
@@ -127,4 +127,5 @@ module.exports = {
   getAllCategory,
   filterPostsCategory,
   getOnePost,
+  deletePost,
 };
