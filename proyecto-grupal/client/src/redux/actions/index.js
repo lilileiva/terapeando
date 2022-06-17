@@ -114,6 +114,42 @@ export const getByCategory = (category) => {
   };
 };
 
+export const getPostsAuthors = () => {
+  return async function (dispatch) {
+    try {
+      const response = await fetch(`${baseURL}/author`);
+      const json = await response.json();
+      //json trae un obj de arrays con first y last Name
+      dispatch({
+        type: "GET_POSTS_AUTHORS",
+        payload: json,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const filterByAuthor = (payload) => {
+  return {
+    type: "FILTER_POSTS_BY_AUTHOR",
+    payload,
+  }
+}
+
+export const getByCatego = (category) => {
+  return async function (dispatch) {
+    try {
+      const responseBack = await fetch(`${baseURL}/filter/${category}`);
+      const jsonBack = await responseBack.json();
+      //envio las notas que se filtren con esa catagory
+      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export function getPostDetail(id) {
   return async function (dispatch) {
     try {
@@ -156,7 +192,7 @@ export function createPsychologist(signupForm) {
           });
         });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 }
@@ -181,13 +217,16 @@ export const getUserPsychologist = () => {
 export function getPsychologistByEmail(signupForm) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userpsychologist/email/psychologistEmail`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupForm),
-      })
+      return await fetch(
+        `${baseURL}/userpsychologist/email/psychologistEmail`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupForm),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           dispatch({
@@ -196,7 +235,7 @@ export function getPsychologistByEmail(signupForm) {
           });
         });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 }
@@ -207,7 +246,7 @@ export function getPsychologistByEmail(signupForm) {
 //       type: "GET_EMAIL_PSY",
 //       payload: psychologist.data
 //     })
-//   } 
+//   }
 // }
 
 ////// GET para obtener un solo psychologist //////

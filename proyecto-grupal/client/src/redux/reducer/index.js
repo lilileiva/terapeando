@@ -11,10 +11,11 @@ const initialState = {
   userClientDetail: [],
   usersClients: [],
   posts: [],
+  postsCopy: [],
   categories: [],
   postDetail: {},
   schedule: {},
-  email: {}
+  email: {},
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -27,6 +28,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+        postsCopy: action.payload,
       };
     case "GET_POST_DETAIL":
       return {
@@ -38,17 +40,46 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+
+    case "FILTER_POSTS_BY_AUTHOR":
+      const filterPost = state.postsCopy;
+      //filterByAuthor = array de obj con first y last Name
+      const actFiltered =
+        action.payload === "All"
+          ? filterPost
+          : filterPost.filter(
+              (a) => a.firstName + a.lastName === action.payload
+            );
+      return {
+        ...state,
+        posts: actFiltered,
+      };
+
+    case "GET_POSTS_AUTHORS":
+      return {
+        ...state,
+        allUsersPsichologists: action.payload,
+      };
     case "SEARCH_POSTS_BY_TITLE":
       return {
         ...state,
         posts: action.payload,
       };
-
+    case "GET_CATEGORIES":
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case "GET_BY_CATEGORY_POST":
+      return {
+        ...state,
+        posts: action.payload,
+      };
     case "CLEAR_POST_DETAIL":
       return {
         ...state,
         postDetail: {},
-        posts: []
+        posts: [],
       };
     case GET_ALL_PSYCHOLOGIST:
       return {
@@ -82,16 +113,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         userClientDetail: [],
-      };
-    case "GET_CATEGORIES":
-      return {
-        ...state,
-        categories: action.payload,
-      };
-    case "GET_BY_CATEGORY_POST":
-      return {
-        ...state,
-        posts: action.payload,
       };
     default:
       return { ...state };

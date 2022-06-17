@@ -43,7 +43,7 @@ export default function Post() {
                     className="postdetaillink"
                   >
                     <div className="card" key={post._id}>
-                      {post.idUserPsychologist ? (
+                      {post.Image ? (
                         <div className="imgen">
                           <img src={post.Image} alt="img" />
                         </div>
