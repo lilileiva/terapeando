@@ -34,11 +34,11 @@ export default function Post() {
     <>
       <div className="postContainer">
         <SimpleGrid columns={3} spacing={10}>
-          
-            {showPostPage &&
-              showPostPage.map((post) => {
-                return (
-                  <Box>
+
+          {showPostPage &&
+            showPostPage.map((post) => {
+              return (
+                <Box>
                   <Link href={`/postdetail/${post._id}`} className='postdetaillink'>
                     <div className="card" key={post._id}>
                       <div className="imgen">
@@ -49,16 +49,23 @@ export default function Post() {
                           {post.Title}
                         </Text>
                         {/* <p>{post.Content.slice(0,400)}...</p> */}
-                        <Text fontSize="20px" className='cardInfo'>
-                          Nota de {post.idUserPsychologist.firstName}
-                          {" ​​​​"}
-                          {post.idUserPsychologist.lastName}
-                        </Text>
-                        <Text fontSize="15px" className='cardInfo'>
-                          Correo {post.idUserPsychologist.email} | Origen{" "}
-                          {"​​🌎 ​"}
-                          {post.idUserPsychologist.country}
-                        </Text>
+                        {
+                          post.idUserPsychologist
+                            ? (
+                              <>
+                                <Text fontSize="20px" className='cardInfo'>
+                                  Nota de {post.idUserPsychologist.firstName}
+                                  {" ​​​​"}
+                                  {post.idUserPsychologist.lastName}
+                                </Text>
+                                <Text fontSize="15px" className='cardInfo'>
+                                  Correo {post.idUserPsychologist.email} | Origen{" "}
+                                  {"​​🌎 ​"}
+                                  {post.idUserPsychologist.country}
+                                </Text>
+                              </>
+                            ) : null
+                        }
                         <h5>Fecha {post.Date}</h5>
                         <Stack
                           direction="row"
@@ -81,10 +88,10 @@ export default function Post() {
                       </div>
                     </div>
                   </Link>
-                  </Box>
-                );
-              })}
-          
+                </Box>
+              );
+            })}
+
         </SimpleGrid>
       </div>
       <div>
