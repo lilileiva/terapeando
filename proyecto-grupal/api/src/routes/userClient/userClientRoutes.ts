@@ -7,16 +7,16 @@ const {
     deleteUserClient,
     putUserClient
 } = require('./userClient.ts')
-const validate = require('../../middleware/extractJWT')
+const validateClient = require('../../middleware/validateClientOrAdmin')
+const validateAdmin = require('../../middleware/validatePsychologistOrAdmin')
 const clientRouter: Router = Router();
 
 
-clientRouter.get('/clients', getAllUserClient);
-clientRouter.get('/client/:IdUserClient', getUserClient);
+clientRouter.get('/clients', validateAdmin, getAllUserClient);
+clientRouter.get('/client/:IdUserClient', validateClient, getUserClient);
 clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)
-clientRouter.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
-clientRouter.put('/:IdUserClient', putUserClient)
-// clientRouter.put('/:IdUserClient',validate, putUserClient)
-
+clientRouter.delete('/deleteuserclient/:IdUserClient', validateClient, deleteUserClient)
+clientRouter.put('/:IdUserClient', validateClient, putUserClient)
+//Falta middleware solo de admin
 module.exports = clientRouter;
