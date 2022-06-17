@@ -160,5 +160,5 @@ module.exports = {
   putUserPsychologist,
   getUserPsychologistByEmail,
   filterPsichologistSpecialities,
-  filterPsichologistRating,
+  filterPsichologistRating
 }

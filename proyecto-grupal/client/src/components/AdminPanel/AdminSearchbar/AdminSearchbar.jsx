@@ -25,7 +25,7 @@ function AdminSearchbar() {
 
     return (
         <form className='formSearchbar' onSubmit={(e) => handleInputSubmit(e)}>
-            <Input name='inputText' value={inputText} focusBorderColor='teal.400' placeholder='Buscar usuarios clientes' onChange={(e) => handleInputChange(e)} />
+            <Input name='inputText' value={inputText} focusBorderColor='teal.400' placeholder='Buscar...' onChange={(e) => handleInputChange(e)} />
             <Button type='submit' colorScheme='teal' variant='outline' ml='0.5em'>
                 <BsSearch />
             </Button>

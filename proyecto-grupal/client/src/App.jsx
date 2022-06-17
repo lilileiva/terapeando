@@ -25,6 +25,7 @@ import AdminClientDetails from './components/AdminPanel/AdminPanelClients/AdminC
 import AdminClientEdit from './components/AdminPanel/AdminPanelClients/AdminClientEdit/AdminClientEdit.jsx';
 import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsychologists/AdminPanelPsychologists.jsx';
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
+import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDetails/AdminPostDetail";
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 
@@ -58,6 +59,7 @@ export default function App() {
         <Route path='/adminpanel/clients/edit/:idUserClient' element={<AdminClientEdit />} />
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
+        <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
       </Routes>
