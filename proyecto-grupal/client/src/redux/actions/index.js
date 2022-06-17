@@ -390,7 +390,6 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
   };
 };
 
-/*-----------REVIEWS ACTIONS---------*/
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 

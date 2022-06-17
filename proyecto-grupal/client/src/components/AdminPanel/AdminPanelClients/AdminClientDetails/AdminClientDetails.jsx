@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
-import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
+import { Stack, Button, Avatar, Text, Select } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient, clearClient, deleteUserClient } from '../../../../redux/actions';
+import { getUserClient, clearClient, deleteUserClient, editClient } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 
@@ -42,6 +42,53 @@ function AdminClientDetails() {
       }
     })
   }
+
+  const [inputText, setInputText] = useState({
+    role: ""
+  });
+
+  const validate = (inputText) => {
+    let errors = {};
+    if (!inputText.role) {
+      errors.role = 'Seleccione un rol'
+    }
+    if (inputText.role && inputText.role !== 'client' && inputText.role !== 'psychologist' && inputText.role !== 'Admin') {
+      errors.role = 'Seleccione un rol válido'
+    }
+    return errors
+  }
+  const [formErrors, setFormErrors] = useState({})
+
+  const [editRole, setEditRole] = useState(false);
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    setInputText({
+      role: e.target.value
+    })
+  }
+
+  const [isSubmit, setIsSubmit] = useState(false)
+  const handleInputSubmit = (e) => {
+    e.preventDefault();
+    setFormErrors(validate(inputText))
+    setIsSubmit(true)
+    console.log(inputText.role)
+    console.log(formErrors)
+  }
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      dispatch(editClient(userClientDetail._id, inputText))
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario editado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      setEditRole(false)
+    }
+  }, [dispatch])
 
   return (
 
@@ -93,16 +140,53 @@ function AdminClientDetails() {
                   </Stack>
                   <br />
                   <Stack direction='row'>
-                    <Button width='50%' colorScheme='teal' variant='outline'>
-                      <BsPencilSquare />
-                      <Link to={`/adminpanel/clients/edit/${userClientDetail._id}`}>
-                        <Text pr='0.5em'> Editar usuario</Text>
-                      </Link>
-                    </Button>
-                    <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
-                      <CloseIcon />
-                      <Text pr='0.5em'> Eliminar usuario</Text>
-                    </Button>
+                    {
+                      editRole
+                        ? (
+                          <form>
+                            <Stack direction='column'>
+                              <Stack direction='row'>
+                                <Text fontSize='xl' fontWeight='600'> Rol: </Text>
+                                <Select placeholder='Rol' color='gray.500' mt='2em' onChange={handleInputChange} >
+                                  <option name='role' value='client'>client</option>
+                                  <option name='role' value='psychologist'>psychologist</option>
+                                  <option name='role' value='Admin'>Admin</option>
+                                </Select>
+                              </Stack>
+                              {formErrors.role && <Text fontSize='sm' color='teal.500'>{formErrors.role}</Text>}
+                              <br />
+                              <Stack direction='row'>
+                                <Button type='submit' width='50%' colorScheme='green' variant='outline' onClick={handleInputSubmit}>
+                                  <BsPencilSquare />
+                                  <Text pr='0.5em'> Guardar rol</Text>
+                                </Button>
+                                <Button width='50%' colorScheme='red' variant='outline' onClick={() => setEditRole(false)}>
+                                  <CloseIcon />
+                                  <Text pr='0.5em'> Cancelar edición</Text>
+                                </Button>
+                              </Stack>
+                            </Stack>
+                          </form>
+                        ) : (
+                          <Stack direction='column'>
+                            <Stack direction='row' justify='center'>
+                              <Text fontSize='xl' fontWeight='600'> Rol: </Text>
+                              <Text fontSize='xl'> {userClientDetail.role} </Text>
+                            </Stack>
+                            <br />
+                            <Stack direction='row'>
+                              <Button width='50%' colorScheme='teal' variant='outline' onClick={() => setEditRole(true)}>
+                                <BsPencilSquare />
+                                <Text pr='0.5em'> Editar rol</Text>
+                              </Button>
+                              <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
+                                <CloseIcon />
+                                <Text pr='0.5em'> Eliminar usuario</Text>
+                              </Button>
+                            </Stack>
+                          </Stack>
+                        )
+                    }
                   </Stack>
 
                 </Stack>
@@ -110,10 +194,10 @@ function AdminClientDetails() {
           }
         </Stack>
 
-      </Stack>
+      </Stack >
 
       <Footer />
-    </div>
+    </div >
   )
 }
 
