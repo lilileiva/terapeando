@@ -1,10 +1,15 @@
-import { Router} from "express";
-
-import logInPsychologist from "./logIn";
-const {getUserPsychologistOne ,getUserPsychologist, postUserPsychologist, deleteUserPsychologist, putUserPsychologist, filterPsichologistSpecialities ,filterPsichologistRating} = require('./userPsychologist.ts');
-
+import { Router } from "express";
 import logInPsychologist from "./signIn";
-const {getUserPsychologistByEmail,getUserPsychologistOne ,getUserPsychologist, postUserPsychologist, deleteUserPsychologist, putUserPsychologist} = require('./userPsychologist.ts');
+const {
+    getUserPsychologistOne,
+    getUserPsychologist,
+    getUserPsychologistByEmail,
+    postUserPsychologist,
+    deleteUserPsychologist,
+    putUserPsychologist,
+    filterPsichologistSpecialities,
+    filterPsichologistRating
+} = require('./userPsychologist.ts');
 
 
 const psychologistRouter: Router = Router();
@@ -19,6 +24,6 @@ psychologistRouter.post('/login', logInPsychologist)
 psychologistRouter.delete('/deleteuserpsychologist/:IdUserPsychologist', deleteUserPsychologist);
 psychologistRouter.put('/put_userpsychologist/:IdUserPsychologist', putUserPsychologist)
 psychologistRouter.get('/filterspecialties/specialties/:specialtie', filterPsichologistSpecialities);
-psychologistRouter.get('/filterrating/rating', filterPsichologistRating );
+psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
 
 module.exports = psychologistRouter;
