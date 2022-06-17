@@ -152,6 +152,7 @@ function RegisterForm() {
                 showConfirmButton: false,
                 timer: 3000
             })
+            navigate('/signin/psychologist')
            } else {
             Swal.fire({
                 position: 'top-end',
