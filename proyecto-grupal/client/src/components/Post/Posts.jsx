@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { Link } from 'react-router-dom';
 import { getAllPosts } from "../../redux/actions";
-import { Tag, TagLabel, Text, Stack, Link } from "@chakra-ui/react";
+import { Tag, TagLabel, Text, Stack } from "@chakra-ui/react";
 import "./post.css";
 import Paged from "../Paged/Paged";
 import smoothscroll from "../../animations";
@@ -39,15 +39,17 @@ export default function Post() {
             showPostPage.map((post) => {
               return (
                 <Box>
-                  <Link href={`/postdetail/${post._id}`} className='postdetaillink'>
+                  <Link to={`/postdetail/${post._id}`}>
                     <div className="card" key={post._id}>
                       <div className="imgen">
                         <img src={post.Image} alt="img" />
                       </div>
                       <div className="card-body">
-                        <Text fontSize="3xl" marginTop="0em" className="pTitle">
-                          {post.Title}
-                        </Text>
+                        <Stack height='40%'>
+                          <Text fontSize="3xl" marginTop="0em" className="pTitle">
+                            {post.Title}
+                          </Text>
+                        </Stack>
                         {/* <p>{post.Content.slice(0,400)}...</p> */}
                         {
                           post.idUserPsychologist
@@ -59,7 +61,7 @@ export default function Post() {
                                   {post.idUserPsychologist.lastName}
                                 </Text>
                                 <Text fontSize="15px" className='cardInfo'>
-                                  Correo {post.idUserPsychologist.email} | Origen{" "}
+                                  {post.idUserPsychologist.email} | {" "}
                                   {"​​🌎 ​"}
                                   {post.idUserPsychologist.country}
                                 </Text>
@@ -70,7 +72,7 @@ export default function Post() {
                         <Stack
                           direction="row"
                           justifyContent="center"
-                          marginTop="2em"
+                          marginTop="1em"
                           marginBottom="1.5em"
                         >
                           {post.Tags?.map((tag) => {
