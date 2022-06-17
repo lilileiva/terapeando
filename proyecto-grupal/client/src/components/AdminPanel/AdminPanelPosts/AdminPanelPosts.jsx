@@ -7,7 +7,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Center, Avatar, Button, } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill,} from "react-icons/bs";
-import { getAllPosts  , deleteUserClient, searchPostsByTitle } from '../../../redux/actions';
+import { getAllPosts  , searchPostsByTitle, deletePost } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 
@@ -32,7 +32,7 @@ function AdminPanelPosts() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserClient(postId))
+        dispatch(deletePost(postId))
         Swal.fire('Post eliminado correctamente!', '', 'success')
       }
     })

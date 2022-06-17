@@ -1,12 +1,14 @@
 .containerA {
   height: fit-content;
-  width: 60%;
+  width: 90%;
   margin: 2em auto;
   margin-bottom: 3em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: rgba(227, 230, 230, 0.715);
+  padding: 5%;
+  border-radius: 2vw;
 }
 
 .postImgContainer {
