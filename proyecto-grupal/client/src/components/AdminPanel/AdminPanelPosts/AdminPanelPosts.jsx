@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../../Footer/Footer.jsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AdminPanelNavbar from '../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
-import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
-import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllPosts  , deleteUserClient, getUserClientsByName, searchPostsByTitle } from '../../../redux/actions';
+import { Stack, Text, Center, Avatar, Button, } from '@chakra-ui/react';
+import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill,} from "react-icons/bs";
+import { getAllPosts  , deleteUserClient, searchPostsByTitle } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
-
-
-
 
 function AdminPanelPosts() {
   const dispatch = useDispatch()

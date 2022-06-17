@@ -111,6 +111,16 @@ const filterPostsCategory = async (
   }
   res.json(postFilters);
 };
+//eliminar nota
+const deleteUserClient = async (req: Request, res: Response) => {
+  const { IdPost } = req.params;
+  try {
+     const postDelete = await Post.findOneAndDelete({ _id: IdPost })
+     res.send('Post eliminado correctamente')
+  } catch (err) {
+     res.status(404).send('error: ' + err);
+  }
+}
 module.exports = {
   createPost,
   getAllPosts,
