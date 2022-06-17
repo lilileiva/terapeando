@@ -247,9 +247,10 @@ export const addPost = (body) => {
 }
 //eliminar nota
 export const deletePost = (id) => {
-  return async function (){
+  return async function (dispatch){
     try {
       await axios.delete(`${baseURL}/deletePost/${id}`)
+      dispatch({type:"DELETE_POST", payload:id})
     } catch (error) {
       console.log(error)
     }
@@ -288,7 +289,7 @@ export function getPostDetail(id) {
   return async function (dispatch) {
     try {
       let detail = await axios.get(`${baseURL}/post/${id}`);
-      return dispatch({
+      return dispatch({ 
         type: "GET_POST_DETAIL",
         payload: detail.data,
       });

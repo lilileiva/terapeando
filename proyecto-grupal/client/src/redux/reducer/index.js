@@ -121,7 +121,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
-        posts: []
       };
     case "GET_CATEGORIES":
       return {
@@ -133,6 +132,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+    case "DELETE_POST":
+      return{
+          ...state,
+          posts: state.posts.filter(posts => posts.id !== action.payload)
+      }
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:

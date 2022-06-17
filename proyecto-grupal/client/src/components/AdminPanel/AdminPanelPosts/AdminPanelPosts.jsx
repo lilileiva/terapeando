@@ -6,7 +6,7 @@ import AdminPanelNavbar from '../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Center, Avatar, Button, } from '@chakra-ui/react';
-import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill,} from "react-icons/bs";
+import {BsFillFileEarmarkXFill, BsPencilSquare, BsPeople, BsFillEyeFill,} from "react-icons/bs";
 import { getAllPosts  , searchPostsByTitle, deletePost } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
@@ -34,6 +34,7 @@ function AdminPanelPosts() {
       if (result.isDenied) {
         dispatch(deletePost(postId))
         Swal.fire('Post eliminado correctamente!', '', 'success')
+        dispatch(getAllPosts())
       }
     })
   }
@@ -85,7 +86,7 @@ function AdminPanelPosts() {
                               <Stack direction='row' align='center'>
                                 <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)} />
                                 <BsPencilSquare size='1.5em' color='gray' cursor='pointer' />
-                                <BsPersonDash size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(post._id)} />
+                                <BsFillFileEarmarkXFill size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(post._id)} />
                               </Stack>
 
                             </Stack>
