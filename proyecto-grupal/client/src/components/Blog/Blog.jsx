@@ -1,5 +1,6 @@
 import React from "react";
 import Post from "../Post/Posts.jsx";
+import NavbarHome from "../NavbarHome/NavbarHome.jsx";
 import NavBar from "../NavBar/NavBar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
@@ -18,9 +19,13 @@ export default function Blog() {
     dispatch(getAllPosts());
   }
 
+  const token = window.localStorage.getItem('token')
+
   return (
     <div>
-      <NavBar />
+            {
+        token ? <NavbarHome /> : <NavBar />        
+      }
       <div className="blogContainer">
         <div className="row">
           <Text
