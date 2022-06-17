@@ -171,9 +171,9 @@ export function orderByRating(order, array) {
     //me traigo el arreglo de las posts
     const psicologos = array.slice();
     //empiezo a ordenar con sort
-    if (order === "Ascendente")
-      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
     if (order === "Desendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (order === "Ascendente")
       psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
@@ -437,7 +437,6 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
   };
 };
 
-/*-----------REVIEWS ACTIONS---------*/
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 

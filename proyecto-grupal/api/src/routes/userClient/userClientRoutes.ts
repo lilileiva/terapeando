@@ -16,6 +16,7 @@ clientRouter.get('/client/:IdUserClient', getUserClient);
 clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)
 clientRouter.delete('/deleteuserclient/:IdUserClient', deleteUserClient)
-clientRouter.put('/:IdUserClient',validate, putUserClient)
+clientRouter.put('/:IdUserClient', putUserClient)
+// clientRouter.put('/:IdUserClient',validate, putUserClient)
 
 module.exports = clientRouter;
