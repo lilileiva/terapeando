@@ -5,8 +5,8 @@ import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, Select } from '@chakra-ui/react';
-import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
-import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
+import { ArrowLeftIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
+import { BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
 import { getUserClient, clearClient, deleteUserClient, editClient } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
@@ -52,7 +52,7 @@ function AdminClientDetails() {
     if (!inputText.role) {
       errors.role = 'Seleccione un rol'
     }
-    if (inputText.role && inputText.role !== 'client' && inputText.role !== 'psychologist' && inputText.role !== 'Admin') {
+    if (inputText.role && inputText.role !== 'client' && inputText.role !== 'Admin') {
       errors.role = 'Seleccione un rol válido'
     }
     return errors
@@ -72,13 +72,12 @@ function AdminClientDetails() {
     e.preventDefault();
     setFormErrors(validate(inputText))
     setIsSubmit(true)
-    console.log(inputText.role)
-    console.log(formErrors)
   }
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       dispatch(editClient(userClientDetail._id, inputText))
+      dispatch(getUserClient(idUserClient))
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -88,7 +87,7 @@ function AdminClientDetails() {
       })
       setEditRole(false)
     }
-  }, [dispatch])
+  }, [dispatch, inputText, isSubmit])
 
   return (
 
@@ -147,17 +146,17 @@ function AdminClientDetails() {
                             <Stack direction='column'>
                               <Stack direction='row'>
                                 <Text fontSize='xl' fontWeight='600'> Rol: </Text>
-                                <Select placeholder='Rol' color='gray.500' mt='2em' onChange={handleInputChange} >
-                                  <option name='role' value='client'>client</option>
-                                  <option name='role' value='psychologist'>psychologist</option>
-                                  <option name='role' value='Admin'>Admin</option>
+                                <Select name='role' placeholder='Rol' color='gray.500' mt='2em' onChange={handleInputChange} >
+                                  <option value='client'>client</option>
+                                  {/* <option value='psychologist'>psychologist</option> */}
+                                  <option value='Admin'>Admin</option>
                                 </Select>
                               </Stack>
                               {formErrors.role && <Text fontSize='sm' color='teal.500'>{formErrors.role}</Text>}
                               <br />
                               <Stack direction='row'>
-                                <Button type='submit' width='50%' colorScheme='green' variant='outline' onClick={handleInputSubmit}>
-                                  <BsPencilSquare />
+                                <Button width='50%' colorScheme='green' variant='outline' onClick={handleInputSubmit}>
+                                  <CheckIcon />
                                   <Text pr='0.5em'> Guardar rol</Text>
                                 </Button>
                                 <Button width='50%' colorScheme='red' variant='outline' onClick={() => setEditRole(false)}>

@@ -38,8 +38,7 @@ function AdminClientEdit() {
       showCancelButton: true,
       confirmButtonText: 'Sí',
     }).then((result) => {
-      if (result.isConfirmed) {
-        console.log(inputText)
+      if (result.isConfirmed) {        
         // dispatch(deleteUserClient(clientId))
         navigate(`/adminpanel/clients/${clientId}`)
         Swal.fire('Usuario editado correctamente!', '', 'success')
