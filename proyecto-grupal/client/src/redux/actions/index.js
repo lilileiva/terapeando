@@ -294,6 +294,21 @@ export const searchPostsByTitle = (title) => {
   };
 };
 
+export function getPostDetail(id) {
+  return async function (dispatch) {
+    try {
+      let detail = await axios.get(`${baseURL}/post/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    });
+      return dispatch({
+        type: "GET_POST_DETAIL",
+        payload: detail.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export const getPostOrder = (order, arreglo) => {
   return function (dispatch) {
     //me traigo el arreglo de las posts
@@ -349,22 +364,6 @@ export const getByCategory = (category) => {
       console.log(error);
     }
   }
-}
-
-
-export function getPostDetail(id) {
-  return async function (dispatch) {
-    try {
-      let detail = await axios.get(`${baseURL}/post/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-    });
-      return dispatch({
-        type: "GET_POST_DETAIL",
-        payload: detail.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 }
 
 export const clearStatePostDetail = () => {
