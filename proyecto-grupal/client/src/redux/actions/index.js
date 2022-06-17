@@ -245,6 +245,16 @@ export const addPost = (body) => {
     }
   }
 }
+//eliminar nota
+export const deletePost = (id) => {
+  return async function (){
+    try {
+      await axios.delete(`${baseURL}/deletePost/${id}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
