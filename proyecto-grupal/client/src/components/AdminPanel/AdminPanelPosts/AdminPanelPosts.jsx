@@ -66,29 +66,29 @@ function AdminPanelPosts() {
 
                     <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllPosts())}>
                       <BsPeople />
-                      <Text pr='0.5em'> Todos los usuarios</Text>
+                      <Text pr='0.5em'> Todos los posts</Text>
                     </Button>
                   </Stack>
 
                   <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
                     <ul className='userClientsList'>
                       {
-                        allPosts.map(client => (
+                        allPosts.map(post => (
                           <>
                             <hr />
                             <Stack w='100%' direction='row' justify='space-between' align='center' pt='0.5em' pb='0.5em' pr='1em'>
 
-                              <Stack direction='row' align='center' cursor='pointer' onClick={() => navigate(`/adminpanel/clients/${client._id}`)}>
-                                <Avatar src={client.profileImage}></Avatar>
+                              <Stack direction='row' align='center' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)}>
+                                <Avatar src={post.Image}></Avatar>
                                 <Text fontSize='xl'>
-                                  {client.firstName} {client.lastName}
+                                  {post.Title}
                                 </Text>
                               </Stack>
 
                               <Stack direction='row' align='center'>
-                                <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/clients/${client._id}`)} />
+                                <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)} />
                                 <BsPencilSquare size='1.5em' color='gray' cursor='pointer' />
-                                <BsPersonDash size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(client._id)} />
+                                <BsPersonDash size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(post._id)} />
                               </Stack>
 
                             </Stack>
@@ -107,7 +107,7 @@ function AdminPanelPosts() {
                               {allPosts.length}
                             </Text>
                             <Text fontSize='xl' fontWeight='500' color='#2D3748'>
-                              Usuarios registrados
+                              Post Registrados
                             </Text>
                           </Stack>
                         </Center>

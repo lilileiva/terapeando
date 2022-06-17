@@ -8,7 +8,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllUserClients, deleteUserClient, getUserClientsByName } from '../../../redux/actions';
+import { getAllUserClients, deleteUserClient, getUserClientsByName, clearClientList } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 
@@ -44,6 +44,7 @@ function AdminPanelClients() {
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   useEffect(() => {
     if (adminSearchbar.length !== 0) {
+      dispatch(clearClientList())
       dispatch(getUserClientsByName(adminSearchbar))
     }
   }, [dispatch, adminSearchbar])
@@ -56,20 +57,20 @@ function AdminPanelClients() {
       <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
         <AdminPanelSidebar />
         <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+          <Stack direction='row' width='100%'>
+
+            <AdminSearchbar />
+
+            <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllUserClients())}>
+              <BsPeople />
+              <Text pr='0.5em'> Todos los usuarios</Text>
+            </Button>
+          </Stack>
+
           {
             allUserClients.length !== 0
               ? (
                 <>
-                  <Stack direction='row' width='100%'>
-
-                    <AdminSearchbar />
-
-                    <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllUserClients())}>
-                      <BsPeople />
-                      <Text pr='0.5em'> Todos los usuarios</Text>
-                    </Button>
-                  </Stack>
-
                   <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
                     <ul className='userClientsList'>
                       {
@@ -98,21 +99,18 @@ function AdminPanelClients() {
                       }
                     </ul>
                   </Stack>
-                  {
-                    allUserClients
-                      ? (
-                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
-                          <Stack direction='column' align='center'>
-                            <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
-                              {allUserClients.length}
-                            </Text>
-                            <Text fontSize='xl' fontWeight='500' color='#2D3748'>
-                              Usuarios registrados
-                            </Text>
-                          </Stack>
-                        </Center>
-                      ) : null
-                  }
+
+                  <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
+                    <Stack direction='column' align='center'>
+                      <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
+                        {allUserClients.length}
+                      </Text>
+                      <Text fontSize='xl' fontWeight='500' color='#2D3748'>
+                        Usuarios Registrados
+                      </Text>
+                    </Stack>
+                  </Center>
+
                 </>
               ) : <Loader />
           }

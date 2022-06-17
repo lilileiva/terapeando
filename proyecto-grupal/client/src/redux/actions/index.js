@@ -1,25 +1,29 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
-
 import {
-  GET_ALL_PSYCHOLOGIST,
   GET_ALL_USERCLIENTS,
   GET_USER_CLIENTS_BY_NAME,
   GET_USERCLIENT,
+  CREATE_CLIENT,
+  GET_ALL_PSYCHOLOGIST,
+  GET_USER_PSYCHOLOGISTS_BY_NAME,
+  GET_POSTS,
   LOCAL_HOST,
-  CLEAR,
-  CLEAR_CLIENT,
-  ADMIN_SEARCHBAR,
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-  ORDER_PSICHOLOGIST_BY_RATING
+  ORDER_PSICHOLOGIST_BY_RATING,
+  CLEAR_PSYCHOLOGIST,
+  CLEAR_CLIENT,
+  CLEAR_CLIENT_LIST,
+  CLEAR_PSYCHOLOGIST_LIST,
+  ADMIN_SEARCHBAR
 } from "./types";
 
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 
-/*---------USER CLIENT ACTIONS------*/
+/*-------------------USER CLIENT ACTIONS----------------*/
 export function getAllUserClients() {
   return async function (dispatch) {
     fetch(`${baseURL}/userclient/clients`)
@@ -75,7 +79,7 @@ export function createClient(payload) {
         .then((res) => res.json())
         .then((data) => {
           dispatch({
-            type: "CREATE_CLIENT",
+            type: CREATE_CLIENT,
             payload: data,
           });
         });
@@ -124,14 +128,65 @@ export function deleteUserClient(id) {
 // }
 
 
-/*-------------POST ACTIONS--------------*/
+/*-----------------------USER PSYCHOLOGIST ACTIONS---------------------------*/
+//GET para obetener todos los psychologist
+
+export const getAllPsychologist = () => {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`${baseURL}/userpsychologist`);
+      dispatch({
+        type: GET_ALL_PSYCHOLOGIST,
+        payload: json.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+export function getUserPsychologistByName(name) {
+  return async function (dispatch) {
+    fetch(`${baseURL}/userpsychologist?name=${name}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_PSYCHOLOGISTS_BY_NAME,
+          payload: data
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
+export function getBySpecialties(payload) {
+  return {
+    type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+    payload: payload
+  }
+};
+
+export function orderByRating(order, array) {
+  return function (dispatch) {
+    //me traigo el arreglo de las posts
+    const psicologos = array.slice();
+    //empiezo a ordenar con sort
+    if (order === "Ascendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (order === "Desendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+    dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
+  };
+};
+
+/*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
   return async function (dispatch) {
     const responseApi = await fetch(`${baseURL}/posts`);
     const json = await responseApi.json();
     if (responseApi) {
-      dispatch({ type: "GET_POSTS", payload: json });
+      dispatch({ type: GET_POSTS, payload: json });
     } else {
       Swal.fire("Error", "No Hay Notas Disponibles Vuelve a Intentar", "error");
     }
@@ -191,7 +246,7 @@ export const addPost = (body) => {
   }
 }
 
-/*----------CATEGORIES ACTIONS--------*/
+/*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
 export const getCategories = () => {
   return async function (dispatch) {
@@ -281,19 +336,6 @@ export const getUserPsychologist = () => {
   };
 };
 
-export const getAllPsychologist = () => {
-  return async function (dispatch) {
-    try {
-      const json = await axios.get(`${baseURL}/userpsychologist`);
-      dispatch({
-        type: GET_ALL_PSYCHOLOGIST,
-        payload: json.data,
-      });
-    } catch (error) {
-      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-    }
-  };
-};
 
 //getPsychologist by email
 export function getPsychologistByEmail(signupForm) {
@@ -318,15 +360,7 @@ export function getPsychologistByEmail(signupForm) {
     }
   };
 }
-// export const getPsychologistByEmail = (email) => {
-//   return async function(dispatch) {
-//     const psychologist = await axios.get(`${baseURL}/userpsychologist/email/psychologistEmail`, email)
-//     dispatch({
-//       type: "GET_EMAIL_PSY",
-//       payload: psychologist.data
-//     })
-//   } 
-// }
+
 
 //GET para obtener un solo psychologist
 export const getUserPsychologistOne = (IdUserPsychologist) => {
@@ -347,6 +381,7 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
 
 /*-----------REVIEWS ACTIONS---------*/
 
+/*---------------------REVIEWS ACTIONS-------------------*/
 
 export function createReview(payload) {
   return async function () {
@@ -360,11 +395,11 @@ export function createReview(payload) {
   };
 }
 
-/*-----------CLEAR ACTIONS---------*/
+/*---------------------CLEAR ACTIONS-------------------*/
 //Clean detail state
 export function clear() {
   return {
-    type: CLEAR,
+    type: CLEAR_PSYCHOLOGIST,
   };
 }
 
@@ -374,7 +409,19 @@ export function clearClient() {
   };
 }
 
-/*-----------ADMIN SEARCHBAR ACTION---------*/
+export function clearClientList() {
+  return {
+    type: CLEAR_CLIENT_LIST,
+  };
+}
+
+export function clearPsychologistList() {
+  return {
+    type: CLEAR_PSYCHOLOGIST_LIST,
+  };
+}
+
+/*---------------------ADMIN SEARCHBAR ACTION-------------------*/
 export function adminSearchbar(inputText) {
   return {
     type: ADMIN_SEARCHBAR,
@@ -382,8 +429,6 @@ export function adminSearchbar(inputText) {
 
   };
 };
-
-
 
 // export function getBySpecialties(specialties) {
 //   return async function (dispatch) {
@@ -400,29 +445,6 @@ export function adminSearchbar(inputText) {
 //   };
 // };
 
-
-export function getBySpecialties(payload){
-
-    return  {
-    type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-    payload: payload
-    }
-};
-
-
-
-export  function orderByRating (order, array){
-  return function (dispatch) {
-    //me traigo el arreglo de las posts
-    const psicologos = array.slice();
-    //empiezo a ordenar con sort
-    if (order === "Ascendente")
-      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
-    if (order === "Desendente")
-      psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
-    dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
-  };
-};
 
 
 
