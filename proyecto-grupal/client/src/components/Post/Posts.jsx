@@ -45,7 +45,7 @@ export default function Post() {
                         <img src={post.Image} alt="img" />
                       </div>
                       <div className="card-body">
-                        <Stack height='40%'>
+                        <Stack height='40%' mb='0.5em'>
                           <Text fontSize="3xl" marginTop="0em" className="pTitle">
                             {post.Title}
                           </Text>
