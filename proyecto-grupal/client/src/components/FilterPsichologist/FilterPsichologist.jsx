@@ -16,7 +16,6 @@ export default function FiltersPsichologist() {
   function handleSubmitOrder(e) {
     e.preventDefault();
     dispatch(orderByRating(e.target.value, psichologists));
-    console.log(e.target.value);
   }
 
   function handleSubmitCategory(e) {
@@ -32,7 +31,7 @@ export default function FiltersPsichologist() {
         cursor={"pointer"}
       >
         <option key={0} value="Ascendente" >Ascendente</option>
-        <option key={1} value="Desendente" >Desendente</option>
+        <option key={1} value="Desendente" >Descendente</option>
 
       </Select>
       <Select

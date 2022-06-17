@@ -34,7 +34,7 @@ export default function Blog() {
           <div className="syb">
             <SearchBar />
             <Button className="btn" onClick={(e) => handleSubmit(e)}>
-              Recargar notas
+              Todas las notas
             </Button>
             <Link href="/createPost">
               <Button className="btn">Crear Nota</Button>

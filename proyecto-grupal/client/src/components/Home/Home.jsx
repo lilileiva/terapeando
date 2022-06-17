@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getAllPsychologist } from '../../redux/actions';
 import NavbarHome from '../NavbarHome/NavbarHome';
 import Footer from '../Footer/Footer';
@@ -8,7 +8,7 @@ import './Home.css'
 import Loader from '../Loader/Loader';
 import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
-import { Text, Container, Stack } from "@chakra-ui/react";
+import { Text, Container, Stack, Button } from "@chakra-ui/react";
 import FiltersPsichologist from '../FilterPsichologist/FilterPsichologist';
 
 
@@ -33,16 +33,27 @@ export default function Home() {
     smoothscroll();
   }
 
+  const handleSubmit = () => {
+    dispatch(getAllPsychologist())
+  }
+
 
   return (
     <div>
       <NavbarHome />
       <div className='cardContainer'>
 
-        <Stack width='100%' direction='row' justifyContent='left'>
-          <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
+        <Stack mt='1em' mb='1em' width='100%' direction='row' justifyContent='left'>
+          <Text fontWeight='semibold' fontSize='3xl' color='green.300'>
+            Psicólogos
+          </Text>
         </Stack>
-        <FiltersPsichologist/>
+        <Stack width='100%' direction='row'>
+          <FiltersPsichologist />
+          <Button variant='outline' colorScheme='teal' onClick={handleSubmit}>
+            Todas los psicólogos
+          </Button>
+        </Stack>
         {
           AllPsychologists.length !== 0 ?
             AllPsychologists.map(el => {
@@ -53,7 +64,7 @@ export default function Home() {
                   profileImage={el.profileImage}
                   rating={el.rating}
                   education={el.education}
-                  about= {el.about}
+                  about={el.about}
                   // about= {`${el.about.slice(0, 270)}...`}
                   idPsychologist={el._id}
                   Specialties={el.Specialties}
