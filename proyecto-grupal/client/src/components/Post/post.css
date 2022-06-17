@@ -65,9 +65,15 @@
   color: rgb(58, 57, 57);
 }
 
-.imgen img{
+.imgen {
+  height: 40%;
+}
+
+.imgen img {
   object-fit: cover;
-  height: inherit;
+  height: 100%;
+  width: 100%;
+  
 }
 
 .card h5 {
