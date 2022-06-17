@@ -8,28 +8,28 @@ const logInPsychologist = async (req: Request, res: Response) => {
   try {
     if (!email || !password) {
       return res
-      .status(400)
-      .json({ error: "Email and Pas sword are both required." }); 
+        .status(400)
+        .json({ error: "Email and Password are both required." });
     } else {
       const user = await userPsychologistModel.findOne({ email });
 
       const passwordCorrect =
         user === null ? false : await bcrypt.compare(password, user.password);
-  
+
       if (!(user && passwordCorrect)) {
         res.status(401).json({
           error: "invalid user or password",
         });
       } else {
         const userForToken = {
-          id: user?._id,
-          email: user?.email,
+          id: user._id,
+          email: user.email,
         };
-  
+
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {
           expiresIn: 60 * 60 * 24 * 7,
         });
-  
+
         res.send({
           name: `${user?.firstName} ${user?.lastName}`,
           email: user?.email,

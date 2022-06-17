@@ -22,8 +22,8 @@ const logInAdmin = async (req: Request, res: Response) => {
         });
       } else {
         const userForToken = {
-          id: user?._id,
-          email: user?.email,
+          id: user._id,
+          email: user.email,
         };
 
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {
@@ -37,7 +37,9 @@ const logInAdmin = async (req: Request, res: Response) => {
         });
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default logInAdmin;
