@@ -147,8 +147,7 @@ function AdminClientDetails() {
                               <Stack direction='row'>
                                 <Text fontSize='xl' fontWeight='600'> Rol: </Text>
                                 <Select name='role' placeholder='Rol' color='gray.500' mt='2em' onChange={handleInputChange} >
-                                  <option value='client'>client</option>
-                                  {/* <option value='psychologist'>psychologist</option> */}
+                                  <option value='client'>client</option>                                  
                                   <option value='Admin'>Admin</option>
                                 </Select>
                               </Stack>
