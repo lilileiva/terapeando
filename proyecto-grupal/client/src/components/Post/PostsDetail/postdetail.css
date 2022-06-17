@@ -1,59 +1,76 @@
 .containerA {
-  height: 3000px;
-  width: 1000px;
-  margin: 0 auto;
+  height: fit-content;
+  width: 60%;
+  margin: 2em auto;
+  margin-bottom: 3em;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: rgba(227, 230, 230, 0.715);
 }
 
-.img {
+.postImgContainer {
+  height: 30em;
+  width: 100%;
   display: flex;
-  height: 400px;
-  width: 900px;
-  margin: 0px 20px 10px;
-  border-radius: 5px;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
+
+.postImg {
+  display: flex;
+  height: inherit;
+  width: inherit;
+  border-radius: 1em;
   object-fit: cover;
 }
 
-.psyinfo{
-    border-radius: 8px;
-    background-color: #fff;
-    display: flex;
-    justify-content: space-around;
-    width: 430px;
-    height: 60px;
-    margin: -55px 300px 50px 
+.psyinfo {
+  position: absolute;
+  z-index: 3;
+  top: 35.5em;
+  padding: 0 1em;
+  border-radius: 8px;
+  background-color: #fff;
+  /* justify-content: space-around; */
+  width: fit-content;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.psytext{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.psytext {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.name{
-    color: rgba(46, 46, 173, 0.897);
-    font-size: 20px;
-    margin-left: 3px;
+.name {
+  /* color: rgba(46, 46, 173, 0.897); */
+  font-size: 20px;
+  margin-left: 3px;
 }
 
 .title {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
+  color: #545454;
   font-size: 45px;
-  font-weight: bold;
+  font-weight: 500;
   display: flex;
-  margin-top: 1em;
-  /* margin: 10px 250px 50px; */
+  text-align: left;
+  margin-top: 0.5em;
 }
 
 .content {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
   font-size: 22px;
-  width: 950px;
+  width: 100%;
   white-space: pre-wrap;
   margin-top: 15px;
-  text-align: left;
+  text-align: justify;
 }
 
 .tags {
@@ -64,6 +81,6 @@
   /* padding: 3px; */
 }
 
-.about{
-    width: 300px;
+.about {
+  width: 300px;
 }

@@ -92,7 +92,7 @@ const filterPostsCategory = async (
   next: NextFunction
 ) => {
   const { category } = req.params;
-  console.log(category);
+  
   const postTotals = await Post.find().populate("idUserPsychologist", {
     firstName: 1,
     lastName: 1,

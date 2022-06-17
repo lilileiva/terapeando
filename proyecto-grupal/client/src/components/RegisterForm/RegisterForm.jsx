@@ -199,12 +199,7 @@ function RegisterForm() {
     return (
         <div className='formContainer'>
 
-            <div
-                className='background'
-                // initial={{ x: 250 }}
-                // animate={{ x: 0, transition: { duration: 0.2 } }}
-                // exit={{ x: window.innerWidth }}
-            >
+            <div className='background'>
                 <NavBar />
 
                 <Container padding='2em' zIndex='1' height='inherit' centerContent>
@@ -252,7 +247,7 @@ function RegisterForm() {
                                     color='gray.500'
                                     bg='white' mt='2em'
                                     type='text'
-                                    placeholder=' Birthdate'
+                                    placeholder=' Fecha de nacimiento'
                                     onFocus={(e) => (e.target.type = "date")}
                                     onChange={handleInputChange} />
                                 {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
@@ -357,8 +352,7 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-        </div>
-
+            </div>
 
         </div >
     )

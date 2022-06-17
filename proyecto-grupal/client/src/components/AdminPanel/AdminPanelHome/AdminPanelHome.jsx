@@ -13,10 +13,11 @@ function AdminPanelHome() {
     <div className='adminPanelContainer'>
       <AdminPanelNavbar />
 
-      <Stack bg='#2D3748' height='fit-content' direction='row' justifyContent='center' pl='0' pt='2%' pb='2%' pr='2%'>
+      <Stack bg='#d6d6d6' height='fit-content' direction='row' justifyContent='center' pl='0' pt='2%' pb='2%' pr='2%'>
+      {/* <Stack bg='#2D3748' height='fit-content' direction='row' justifyContent='center' pl='0' pt='2%' pb='2%' pr='2%'> */}
         <AdminPanelSidebar />
 
-        <Stack width='100%' bg='white' p='2%' direction='column' justifyContent='center'>
+        <Stack width='100%' bg='white' p='2%' direction='column' justifyContent='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
           <Wrap justify='center'>
             <WrapItem>
               <Link to='/adminpanel/clients'>

@@ -4,10 +4,10 @@ import morgan from 'morgan'
 const routes = require('./routes/index.ts')
 const cors = require('cors')
 
+
 // server  inicializations
 const app = express() 
 app.set( 'port', process.env.PORT || 3001 )
-
 
 // Middlewares
 app.use(cors())

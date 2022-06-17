@@ -9,7 +9,7 @@ import Loader from '../Loader/Loader';
 import smoothscroll from '../../animations';
 import Paged from '../Paged/Paged';
 import { Text, Container, Stack } from "@chakra-ui/react";
-import Psychologists from '../Psychologists/Psychologists';
+import FiltersPsichologist from '../FilterPsichologist/FilterPsichologist';
 
 
 export default function Home() {
@@ -42,6 +42,7 @@ export default function Home() {
         <Stack width='100%' direction='row' justifyContent='left'>
           <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
         </Stack>
+        <FiltersPsichologist/>
         {
           AllPsychologists.length !== 0 ?
             AllPsychologists.map(el => {

@@ -5,6 +5,7 @@ import { getPostOrder, getCategories, getByCategory } from "../../redux/actions"
 import { Select } from "@chakra-ui/react";
 
 
+
 export default function Filters() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
