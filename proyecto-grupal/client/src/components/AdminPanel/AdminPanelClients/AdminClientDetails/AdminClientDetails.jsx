@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
@@ -66,6 +66,7 @@ function AdminClientDetails() {
                 <Stack w='100%' direction='column' justify='center' align='center' p='2em'>
 
                   <Avatar src={userClientDetail.profileImage} size='xl' />
+                  <br />
                   <Stack direction='row'>
                     <Text fontSize='xl' fontWeight='600' > Nombre: </Text>
                     <Text fontSize='xl'> {userClientDetail.firstName} </Text>
@@ -94,7 +95,9 @@ function AdminClientDetails() {
                   <Stack direction='row'>
                     <Button width='50%' colorScheme='teal' variant='outline'>
                       <BsPencilSquare />
-                      <Text pr='0.5em'> Editar usuario</Text>
+                      <Link to={`/adminpanel/clients/edit/${userClientDetail._id}`}>
+                        <Text pr='0.5em'> Editar usuario</Text>
+                      </Link>
                     </Button>
                     <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(userClientDetail._id)}>
                       <CloseIcon />
