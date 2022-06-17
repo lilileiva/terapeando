@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
-import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, CloseIcon,AddIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
 import { clearStatePostDetail, deletePost, deleteUserClient, getPostDetail } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 function AdminPostDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+    const [showMore, setShowMore] = useState(false);
   const { idPost } = useParams();
   useEffect(() => {
     dispatch(getPostDetail(idPost))
@@ -78,7 +78,11 @@ function AdminPostDetail() {
                   <br />
                   <Stack direction='row'>
                     <Text fontSize='xl' fontWeight='600'> Contenido: </Text>
-                    <Text fontSize='xl'> {postDetail.Content} </Text>
+                    <Text fontSize='xl'> {showMore ? postDetail.Content : postDetail.Content.substring(0,250)}
+                    <Button colorScheme='blackAlpha' variant='outline' onClick={() => setShowMore(!showMore)} size="sm" marginLeft={"2%"}>
+                        <Text> {showMore ? " Ver Menos":" Ver Mas"}</Text>
+                    </Button>
+                     </Text>
                   </Stack>
                   <br />
                   <Stack direction='row'>
