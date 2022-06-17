@@ -88,7 +88,7 @@ function AdminPanelClients() {
 
                               <Stack direction='row' align='center'>
                                 <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/clients/${client._id}`)} />
-                                <BsPencilSquare size='1.5em' color='gray' cursor='pointer' />
+                                <BsPencilSquare size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/clients/edit/${client._id}`)} />
                                 <BsPersonDash size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(client._id)} />
                               </Stack>
 

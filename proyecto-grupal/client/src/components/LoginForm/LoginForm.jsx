@@ -6,12 +6,14 @@ import { FaGoogle } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.jsx';
 import Footer from '../Footer/Footer.jsx';
 import { motion } from 'framer-motion';
-
+import Swal from 'sweetalert2';
 //login/logout con google
 import {gapi} from 'gapi-script'
 import Login from '../LogGoogle/LogInGoogle';
+import axios from 'axios';
+import {LOCAL_HOST} from "../../redux/actions/types";
 const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
-
+const baseURL =  LOCAL_HOST;
 function LoginForm() {
     const navigate = useNavigate()
 
@@ -59,18 +61,46 @@ function LoginForm() {
     }
     
     const [isSubmit, setIsSubmit] = useState(false)
+ 
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signinForm))
-        setIsSubmit(true)
+        setIsSubmit(true) 
+        if (Object.keys(formErrors).length === 0 && isSubmit){
+            console.log('signInForm',signinForm)
+            const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+            const token = response.data.token
+          window.localStorage.setItem('token', token)
+          console.log('Este es el .data del response', response.data)
+         console.log('Este es todo el token',token)
+         if(response.status === 200) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Bienvenido',
+                showConfirmButton: false,
+                timer: 3000
+            })
+         } else {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Datos incorrectos',
+                showConfirmButton: false,
+                timer: 3000
+            })
+         }
+               
+        }
+// 
     }
 
-    useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {            
-            navigate('/home')
-            setSigninForm({})
-        }
-    }, [formErrors, signinForm, isSubmit])
+    // useEffect(() => {
+    //     if (Object.keys(formErrors).length === 0 && isSubmit) {            
+    //         navigate('/home')
+    //         setSigninForm({})
+    //     }
+    // }, [formErrors, signinForm, isSubmit])
 
     return (           
         <div

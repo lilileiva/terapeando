@@ -65,31 +65,31 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   } = req.body;
 
   try {
-    const psychologistExist = await userPsychologistModel.findOne({ 'email': email })
-    if (psychologistExist) {
-      res.status(404).send('Invalid mail or password')
-    } else {
-      const userP = await userPsychologistModel.create({
-        firstName: firstname,
-        lastName: lastname,
-        email,
-        password,
-        birthDate: birthdate,
-        country,
-        License: license,
-        DNI: dni,
-        Specialties: specialities,
-        profileImage: profileimage,
-        rating,
-        appointments: [],
-        about,
-        education,
-        role: 'psychologist'
-      });
-      res.status(201).send('Welcome to our community, now you can sign in');
-    }
+      const psychologistExist = await userPsychologistModel.findOne({'email': email})
+      if(psychologistExist){
+        return res.json({ error: "User already exists" });
+      } else {
+        const userP = await userPsychologistModel.create({
+          firstName: firstname,
+          lastName: lastname,
+          email,
+          password,
+          birthDate: birthdate,
+          country,
+          License: license,
+          DNI: dni,
+          Specialties: specialities,
+          profileImage: profileimage,
+          rating,
+          appointments: [],
+          about,
+          education,
+          role: 'psychologist'
+        });
+        res.status(201).send('Welcome to our community, now you can sign in');
+      }
   } catch (error) {
-    res.status(404).send('Verified your personal data');
+    res.send({error: 'Validate your personal data'})
   }
 };
 ///// Delete /////
