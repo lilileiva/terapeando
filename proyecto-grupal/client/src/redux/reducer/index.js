@@ -5,12 +5,6 @@ import {
   GET_USER_CLIENTS_BY_NAME,
   CREATE_CLIENT,
   GET_ALL_PSYCHOLOGIST,
-<<<<<<< HEAD
-  CLEAR,
-  CLEAR_CLIENT,
-  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-  ORDER_PSICHOLOGIST_BY_RATING,
-=======
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   CLEAR_PSYCHOLOGIST_LIST,
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
@@ -19,7 +13,6 @@ import {
   CLEAR_CLIENT,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
->>>>>>> 8a8ccef561e34ccc5834e8f95982dca0511e3349
   ADMIN_SEARCHBAR
 } from "../actions/types";
 
@@ -140,17 +133,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
-<<<<<<< HEAD
-    case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
-
-      const psichologists = state.UserPsichologists
-      console.log(psichologists)
-      const filterBySpecialties = psichologists.filter(el => {
-        let specialties = el.Specialties.map(el => el)
-        return specialties.includes(action.payload)
-      })
-=======
->>>>>>> 8a8ccef561e34ccc5834e8f95982dca0511e3349
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:
@@ -161,11 +143,6 @@ function rootReducer(state = initialState, action) {
     case CLEAR_PSYCHOLOGIST:
       return {
         ...state,
-<<<<<<< HEAD
-        allUsersPsichologists: action.payload
-      }
-
-=======
         userPsichologistDetail: {},
       };
     case CLEAR_CLIENT_LIST:
@@ -178,7 +155,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         usersClients: [],
       };
->>>>>>> 8a8ccef561e34ccc5834e8f95982dca0511e3349
     case ADMIN_SEARCHBAR:
       return {
         ...state,

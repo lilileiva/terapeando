@@ -7,7 +7,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllPsychologist, deleteUserClient, getUserPsychologistByName, clearPsychologistList } from '../../../redux/actions';
+import { getAllPsychologist, deleteUserPsichologist, getUserPsychologistByName, clearPsychologistList } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 
@@ -20,6 +20,9 @@ function AdminPanelPsychologists() {
   useEffect(() => {
     dispatch(getAllPsychologist())
   }, [dispatch])
+
+
+ 
 
   const allUsersPsichologists = useSelector((state) => state.allUsersPsichologists);
 
@@ -34,7 +37,8 @@ function AdminPanelPsychologists() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        // dispatch(deleteUserClient(psychologistId))
+        console.log(psychologistId)
+        dispatch(deleteUserPsichologist(psychologistId))
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
@@ -88,6 +92,7 @@ function AdminPanelPsychologists() {
                               <Stack direction='row' align='center'>
                                 <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/psychologists/${psychologist._id}`)} />
                                 <BsPencilSquare size='1.5em' color='gray' cursor='pointer' />
+                                {console.log(psychologist._id)}
                                 <BsPersonDash size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(psychologist._id)} />
                               </Stack>
 
@@ -102,6 +107,7 @@ function AdminPanelPsychologists() {
                   <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
                     <Stack direction='column' align='center'>
                       <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
+                        {console.log(allUsersPsichologists.length)}
                         {allUsersPsichologists.length}
                       </Text>
                       <Text fontSize='xl' fontWeight='500' color='#2D3748'>

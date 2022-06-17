@@ -10,19 +10,14 @@ import {
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
   LOCAL_HOST,
-  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-  ORDER_PSICHOLOGIST_BY_RATING,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
-<<<<<<< HEAD
-  ADMIN_SEARCHBAR,
-  FILTER_PSICHOLOGIST_BY_SPECIALTIES, 
-  ORDER_PSICHOLOGIST_BY_RATING
-=======
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING,
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
-  ADMIN_SEARCHBAR
->>>>>>> 8a8ccef561e34ccc5834e8f95982dca0511e3349
+  ADMIN_SEARCHBAR,
+  DELETE_PSYCHOLOGIST
 } from "./types";
 
 
@@ -243,6 +238,19 @@ export function createPsychologist(signupForm) {
   };
 }
 
+
+export function deleteUserPsichologist(id) {
+  return async function () {
+    try {
+      await axios.delete(`${baseURL}/userpsychologist/deleteuserpsychologist/${id}`);
+    } catch (error) {
+      console.error(error);
+    } 
+  };
+};
+
+
+
 export function getBySpecialties(payload) {
   return {
     type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
@@ -427,20 +435,4 @@ export function adminSearchbar(inputText) {
 
   };
 };
-
-// export function getBySpecialties(specialties) {
-//   return async function (dispatch) {
-
-//     try {
-//       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
-//       dispatch({
-//         type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-//         payload: json.data
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
-
 

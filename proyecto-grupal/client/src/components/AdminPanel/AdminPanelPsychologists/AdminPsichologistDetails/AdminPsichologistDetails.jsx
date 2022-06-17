@@ -4,29 +4,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
-import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
+import { Stack, Button, Avatar, Text , List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient, clearClient, deleteUserClient } from '../../../../redux/actions';
+import { getUserClient, clearClient, deleteUserClient , getUserPsychologistOne, deleteUserPsichologist } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 
 
-function AdminClientDetails() {
+export default  function AdminPsichologisttDetails() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { idUserClient } = useParams();
-  console.log(idUserClient)
+  const { idUserPsichologist } = useParams();
+  console.log(idUserPsichologist)
   useEffect(() => {
-    dispatch(getUserClient(idUserClient))
+    dispatch(getUserPsychologistOne(idUserPsichologist))
     return () => {
       dispatch(clearClient())
     }
   }, [dispatch])
-  const userClientDetail = useSelector((state) => state.userClientDetail);
+  const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
 
-  const handleAlertDelete = (clientId) => {
+  const handleAlertDelete = (psychologistId) => {
     Swal.fire({
       title: '¿Estás seguro que quieres eliminar a este usuario?',
       text: "Estos cambios no se podrán revertir.",
@@ -37,8 +37,8 @@ function AdminClientDetails() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserClient(clientId))
-        navigate('/adminpanel/clients')
+        dispatch(deleteUserPsichologist(psychologistId))
+        navigate('/adminpanel/psychologists')
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
@@ -56,40 +56,47 @@ function AdminClientDetails() {
         <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
           <Stack direction='row' width='100%'>
-            <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
+            <Button cursor={'pointer'} colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/psychologists')}>
               <ArrowLeftIcon />
               <Text ml='0.5em'> Volver</Text>
             </Button>
           </Stack>
           {
-            Object.keys(userClientDetail).length !== 0
+            Object.keys(userPsichologistDetail).length !== 0
               ? (
-                <Stack w='100%' direction='column' justify='center' align='center' p='2em'>
+                <Stack w='100%' direction='column' justify='center' align='center' position={'relative'} top={-12} >
 
-                  <Avatar src={userClientDetail.profileImage} size='xl' />
-                  <Stack direction='row'>
+                  <Stack direction='column'>
+                  <Avatar src={userPsichologistDetail.profileImage} size='xl' />
+                  </Stack>
+                  <Stack direction={'row'} >
                     <Text fontSize='xl' fontWeight='600' > Nombre: </Text>
-                    <Text fontSize='xl'> {userClientDetail.firstName} </Text>
-                  </Stack>
-                  <br />
-                  <Stack direction='row'>
-                    <Text fontSize='xl' fontWeight='600'> Apellido: </Text>
-                    <Text fontSize='xl'> {userClientDetail.lastName} </Text>
-                  </Stack>
-                  <br />
-                  <Stack direction='row'>
+                    <Text fontSize='xl'> {userPsichologistDetail.firstName} {userPsichologistDetail.lastName} </Text>
                     <Text fontSize='xl' fontWeight='600'> País: </Text>
-                    <Text fontSize='xl'> {userClientDetail.country} </Text>
-                  </Stack>
-                  <br />
-                  <Stack direction='row'>
+                    <Text fontSize='xl'> {userPsichologistDetail.country} </Text>
+                    
+                    
+                    </Stack>
+              
+                  <Stack direction='row' display={'flex'} position='relative'>
                     <Text fontSize='xl' fontWeight='600'> Fecha de nacimiento: </Text>
-                    <Text fontSize='xl'> {userClientDetail.birthDate} </Text>
-                  </Stack>
-                  <br />
-                  <Stack direction='row'>
+                    <Text fontSize='xl'> {userPsichologistDetail.birthDate} </Text>
+                    </Stack>
+                    <Stack direction='row' display={'flex'} position='relative'>
                     <Text fontSize='xl' fontWeight='600'> Email: </Text>
-                    <Text fontSize='xl'> {userClientDetail.email} </Text>
+                    <Text fontSize='xl'> {userPsichologistDetail.email} </Text>
+                  </Stack>
+                
+                  <br />
+                  <Stack direction='column'>
+                    <Text fontSize='xl' fontWeight='600'> Especialidades: </Text>
+                    {userPsichologistDetail.Specialties && userPsichologistDetail.Specialties.map( el => {
+                      return(
+                        <UnorderedList>
+                         <ListItem fontSize='xl' key={el}> {el} </ListItem>
+                        </UnorderedList>
+                      )
+                    })}
                   </Stack>
                   <br />
                   <Stack direction='row'>
@@ -97,7 +104,7 @@ function AdminClientDetails() {
                       <BsPencilSquare />
                       <Text pr='0.5em'> Editar usuario</Text>
                     </Button>
-                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(userClientDetail._id)}>
+                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(userPsichologistDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar usuario</Text>
                     </Button>
@@ -115,4 +122,3 @@ function AdminClientDetails() {
   )
 }
 
-export default AdminClientDetails;
