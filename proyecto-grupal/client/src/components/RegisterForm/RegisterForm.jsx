@@ -8,16 +8,18 @@ import { specialitiesList } from './specialities';
 import { BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
 import Footer from '../Footer/Footer.jsx';
-import { createClient, createPsychologist, getAllPsychologist, getPsychologistByEmail } from '../../redux/actions/index.js';
-import { useDispatch, useSelector } from 'react-redux';
+import { createClient, createPsychologist } from '../../redux/actions/index.js';
+import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
-
+import axios from 'axios';
+import {LOCAL_HOST} from "../../redux/actions/types";
+const baseURL =  LOCAL_HOST;
 
 function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const emailPsychologist = useSelector((state)=> state.email)
+
     const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
@@ -140,52 +142,64 @@ function RegisterForm() {
         e.preventDefault()
         setFormErrors(validate(signupForm))
         setIsSubmit(true)
-        if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education) {
-            dispatch(createPsychologist(signupForm))
-        } else {
-            dispatch(createClient(signupForm))
-        }
-        setIsSubmit(true)
-    }
-
-
-
-    useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            dispatch(getPsychologistByEmail(signupForm.email))
-            if(Object.keys(emailPsychologist).length !== 0) {
+        if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0) {
+           const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
+           if(response.status === 201){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'succes',
+                title: 'Usuario creado correctamente',
+                showConfirmButton: false,
+                timer: 3000
+            })
+           } else {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Usuario existente',
+                showConfirmButton: false,
+                timer: 3000
+            })
+           }
+        } else if(Object.keys(formErrors).length === 0) {
+            const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
+            if(response.status === 201){
                 Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Usuario  ya existe',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-                navigate('/signup')
-                // console.log(`Aqui existe${emailPsychologist}`)
-            } else {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
+                    position: 'top-end',
+                    icon: 'succes',
                     title: 'Usuario creado correctamente',
                     showConfirmButton: false,
                     timer: 3000
                 })
-                navigate('/signin')
-                // console.log(`Aqui no existe${emailPsychologist}`)
-            }
+               } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Usuario existente',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+               }
         }
-    }, [formErrors, isSubmit])
+        setIsSubmit(true)
+    }
+    // useEffect(() => {
+    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
+    //         navigate('/signin')
+    //         Swal.fire({
+    //             position: 'top-end',
+    //             icon: 'success',
+    //             title: 'Usuario creado correctamente',
+    //             showConfirmButton: false,
+    //             timer: 3000
+    //         })
+    //     }
+    // }, [formErrors, isSubmit])
 
     return (
         <div className='formContainer'>
 
-            <div
-                className='background'
-                // initial={{ x: 250 }}
-                // animate={{ x: 0, transition: { duration: 0.2 } }}
-                // exit={{ x: window.innerWidth }}
-            >
+            <div className='background'>
                 <NavBar />
 
                 <Container padding='2em' zIndex='1' height='inherit' centerContent>
@@ -233,7 +247,7 @@ function RegisterForm() {
                                     color='gray.500'
                                     bg='white' mt='2em'
                                     type='text'
-                                    placeholder=' Birthdate'
+                                    placeholder=' Fecha de nacimiento'
                                     onFocus={(e) => (e.target.type = "date")}
                                     onChange={handleInputChange} />
                                 {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
@@ -338,8 +352,7 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-        </div>
-
+            </div>
 
         </div >
     )

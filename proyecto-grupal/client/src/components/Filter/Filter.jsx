@@ -75,7 +75,7 @@ export default function Filters() {
         <option value="All">Todos los autores</option>
         {author.length &&
           author.map((el) => {
-            console.log('EL: ', el)
+            console.log("EL: ", el);
             return (
               <option key={el.email} value={el.firstName + el.lastName}>
                 {el.firstName + " " + el.lastName}

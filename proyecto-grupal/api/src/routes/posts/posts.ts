@@ -112,7 +112,7 @@ const filterPostsCategory = async (
   next: NextFunction
 ) => {
   const { category } = req.params;
-  console.log(category);
+  
   const postTotals = await Post.find().populate("idUserPsychologist", {
     firstName: 1,
     lastName: 1,
@@ -142,6 +142,16 @@ const filterPostsCategory = async (
 //   res.json(postTotals);
 // };
 
+//eliminar nota
+const deletePost = async (req: Request, res: Response) => {
+  const { IdPost } = req.params;
+  try {
+     const postDelete = await Post.findOneAndDelete({ _id: IdPost })
+     res.send('Post eliminado correctamente')
+  } catch (err) {
+     res.status(404).send('error: ' + err);
+  }
+}
 module.exports = {
   createPost,
   getAllPosts,
@@ -150,4 +160,5 @@ module.exports = {
   getOnePost,
   getPostAuthors,
   // filterPostsByAuthor
+  deletePost,
 };

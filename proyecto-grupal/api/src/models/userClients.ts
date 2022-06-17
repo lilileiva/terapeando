@@ -3,7 +3,7 @@ import { appointment } from './appointment';
 const bcrypt = require('bcryptjs');
 
 
-const saltRounds = 10;
+const saltRounds = Number(process.env.SALTROUNDS);
 
 @pre<userClient>('save', function(next) {
     if (this.isModified('password')) {        

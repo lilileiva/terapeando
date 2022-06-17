@@ -1,0 +1,5 @@
+.formSearchbar {
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+}
