@@ -117,7 +117,8 @@ export const getByCategory = (category) => {
 export function getPostDetail(id) {
   return async function (dispatch) {
     try {
-      let detail = await axios.get(`${baseURL}/post/${id}`);
+      let detail = await axios.get(`${baseURL}/post/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    });
       return dispatch({
         type: "GET_POST_DETAIL",
         payload: detail.data,
@@ -137,7 +138,7 @@ export const clearStatePostDetail = () => {
 ////////////////// Post para los user Psychologist ///////////////////
 
 /////// GET para obetener todos los psychologist ////////
-
+//La reemplacé con axios, no encontraba como usarla :c
 export function createPsychologist(signupForm) {
   return async function (dispatch) {
     try {
@@ -177,38 +178,7 @@ export const getUserPsychologist = () => {
   };
 };
 
-//getPsychologist by email
-export function getPsychologistByEmail(signupForm) {
-  return async function (dispatch) {
-    try {
-      return await fetch(`${baseURL}/userpsychologist/email/psychologistEmail`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupForm),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch({
-            type: "GET_EMAIL_PSY",
-            payload: data,
-          });
-        });
-    } catch (error) {
-      console.error(error)
-    }
-  };
-}
-// export const getPsychologistByEmail = (email) => {
-//   return async function(dispatch) {
-//     const psychologist = await axios.get(`${baseURL}/userpsychologist/email/psychologistEmail`, email)
-//     dispatch({
-//       type: "GET_EMAIL_PSY",
-//       payload: psychologist.data
-//     })
-//   } 
-// }
+
 
 ////// GET para obtener un solo psychologist //////
 
@@ -255,7 +225,7 @@ export const getAllPsychologist = () => {
   };
 };
 /////////       post para los userClient        /////////
-
+//Lo mismo que el psicologo :c
 export function createClient(payload) {
   return async function (dispatch) {
     try {
