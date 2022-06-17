@@ -99,7 +99,7 @@ function AdminClientDetails() {
                         <Text pr='0.5em'> Editar usuario</Text>
                       </Link>
                     </Button>
-                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(userClientDetail._id)}>
+                    <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar usuario</Text>
                     </Button>
