@@ -9,12 +9,17 @@ const logInPsychologist = async (req: Request, res: Response) => {
     if (!email || !password) {
       return res
 <<<<<<< HEAD
+<<<<<<< HEAD
       .status(400)
       .json({ error: "Email and Pas sword are both required." }); 
 =======
         .status(400)
         .json({ error: "Email and Password are both required." });
 >>>>>>> 4b2c6ecfb9bebab9ece4e199cb6c09529fda2a8a
+=======
+        .status(400)
+        .json({ error: "Email and Password are both required." });
+>>>>>>> aa9ab94f403d1db777956fbb398918a3b5f427bf
     } else {
       const user = await userPsychologistModel.findOne({ email });
 
@@ -28,7 +33,7 @@ const logInPsychologist = async (req: Request, res: Response) => {
       } else {
         const userForToken = {
           id: user._id,
-          email: user.email,
+          role: user.role
         };
 
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {

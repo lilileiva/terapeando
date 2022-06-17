@@ -171,9 +171,9 @@ export function orderByRating(order, array) {
     //me traigo el arreglo de las posts
     const psicologos = array.slice();
     //empiezo a ordenar con sort
-    if (order === "Ascendente")
-      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
     if (order === "Desendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (order === "Ascendente")
       psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
@@ -249,7 +249,8 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body
+        `${baseURL}/post`, body,  {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      }
       )
       return dispatch({
         type: "CREATE_POST",
@@ -300,6 +301,7 @@ export const getByCategory = (category) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 export function getPostDetail(id) {
   return async function (dispatch) {
@@ -317,6 +319,8 @@ export function getPostDetail(id) {
 
 =======
 >>>>>>> 4b2c6ecfb9bebab9ece4e199cb6c09529fda2a8a
+=======
+>>>>>>> aa9ab94f403d1db777956fbb398918a3b5f427bf
 export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
@@ -408,7 +412,6 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
   };
 };
 
-/*-----------REVIEWS ACTIONS---------*/
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './LoginForm.css';
+import './LoginFormPsychologist.css';
 import { useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
@@ -14,7 +14,7 @@ import axios from 'axios';
 import {LOCAL_HOST} from "../../redux/actions/types";
 const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
 const baseURL =  LOCAL_HOST;
-function LoginForm() {
+function LoginFormPsychologist() {
     const navigate = useNavigate()
 
     //login/logout con google
@@ -68,7 +68,7 @@ function LoginForm() {
         setIsSubmit(true) 
         if (Object.keys(formErrors).length === 0 && isSubmit){
             console.log('signInForm',signinForm)
-            const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+            const response = await axios.post(`${baseURL}/userpsychologist/login`, signinForm)
             const token = response.data.token
           window.localStorage.setItem('token', token)
           console.log('Este es el .data del response', response.data)
@@ -105,7 +105,7 @@ function LoginForm() {
 
     return (           
         <div
-            className='background'
+            className='backgroundLoginP'
             // initial={{ x: 250 }}
             // animate={{ x: 0, transition: { duration: 0.2 } }}            
             // exit={{ x: window.innerWidth }}
@@ -115,7 +115,7 @@ function LoginForm() {
             <Container padding='2em' zIndex='1'pb='10%' centerContent>
 
                 <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                    Inicia sesión
+                    Inicia sesión / Psicólogo
                 </Text>
 
                 <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
@@ -167,4 +167,4 @@ function LoginForm() {
 }
 
 
-export default LoginForm;
+export default LoginFormPsychologist;
