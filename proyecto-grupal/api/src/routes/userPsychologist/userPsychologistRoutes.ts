@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import { Router} from "express";
-import logInPsychologist from "./signIn";
-const {getUserPsychologistByEmail,getUserPsychologistOne ,getUserPsychologist, postUserPsychologist, deleteUserPsychologist, putUserPsychologist, filterPsichologistSpecialities, filterPsichologistRating} = require('./userPsychologist.ts');
-=======
 import { Router } from "express";
 import logInPsychologist from "./signIn";
 const {
@@ -16,7 +11,6 @@ const {
     filterPsichologistRating
 } = require('./userPsychologist.ts');
 
->>>>>>> 8a8ccef561e34ccc5834e8f95982dca0511e3349
 
 const psychologistRouter: Router = Router();
 

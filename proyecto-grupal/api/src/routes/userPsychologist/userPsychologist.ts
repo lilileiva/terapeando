@@ -94,15 +94,25 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 };
 ///// Delete /////
 
+
 const deleteUserPsychologist = async (req: Request, res: Response) => {
-  const { idPsychologist } = req.params;
+  const { IdUserPsychologist } = req.params;
+
   try {
-    await userPsychologistModel.findOneAndDelete({ idPsychologist });
-    res.send("User deleted succesfully");
-  } catch (error) {
-    res.status(404).send(error);
+     const userPsichologistDelete = await userPsychologistModel.findByIdAndDelete(IdUserPsychologist,
+      function(err: any, docs: any) {
+        if(err){
+          console.log(err)
+        } 
+        else {
+          console.log("deleted: ", docs);
+        }
+      } );
+     res.send('Psicologo eliminado correctamente')
+  } catch (err) {
+     res.status(404).send('There was an error...');
   }
-};
+}
 
 
 const putUserPsychologist = async (req: Request, res: Response) => {
@@ -158,13 +168,7 @@ module.exports = {
   postUserPsychologist,
   deleteUserPsychologist,
   putUserPsychologist,
-<<<<<<< HEAD
-  filterPsichologistSpecialities,
-  filterPsichologistRating,
-  getUserPsychologistByEmail
-=======
   getUserPsychologistByEmail,
   filterPsichologistSpecialities,
   filterPsichologistRating,
->>>>>>> 8a8ccef561e34ccc5834e8f95982dca0511e3349
 }
