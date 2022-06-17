@@ -23,8 +23,8 @@ export default function Blog() {
 
   return (
     <div>
-            {
-        token ? <NavbarHome /> : <NavBar />        
+      {
+        token ? <NavbarHome /> : <NavBar />
       }
       <div className="blogContainer">
         <div className="row">
