@@ -10,8 +10,8 @@ import {
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
-  CLEAR,
   CLEAR_CLIENT,
+  CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
   ADMIN_SEARCHBAR
 } from "../actions/types";
@@ -135,15 +135,15 @@ function rootReducer(state = initialState, action) {
       };
 
     /*-----------CLEAR-----------*/
-    case CLEAR:
-      return {
-        ...state,
-        userPsichologistDetail: {},
-      };
     case CLEAR_CLIENT:
       return {
         ...state,
         userClientDetail: [],
+      };
+    case CLEAR_PSYCHOLOGIST:
+      return {
+        ...state,
+        userPsichologistDetail: {},
       };
     case CLEAR_CLIENT_LIST:
       return {

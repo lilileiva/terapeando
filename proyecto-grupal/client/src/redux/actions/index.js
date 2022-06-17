@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
-
 import {
   GET_ALL_USERCLIENTS,
   GET_USER_CLIENTS_BY_NAME,
@@ -13,7 +12,7 @@ import {
   LOCAL_HOST,
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
-  CLEAR,
+  CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
@@ -392,7 +391,7 @@ export function createReview(payload) {
 //Clean detail state
 export function clear() {
   return {
-    type: CLEAR,
+    type: CLEAR_PSYCHOLOGIST,
   };
 }
 
