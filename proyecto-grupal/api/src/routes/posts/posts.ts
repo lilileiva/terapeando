@@ -1,6 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import Post from "../../models/Post";
 import Category from "../../models/Category";
+import userPsychologistModel from "../../models/userPsychologist";
 interface error {
   status: number;
   message: string;
@@ -57,6 +58,31 @@ const getOnePost = async (req: Request, res: Response) => {
     res.status(200).send(response);
   } catch (error) {
     console.error(error);
+  }
+};
+
+const getPostAuthors = async (req: Request, res: Response) => {
+  try {
+    const allPosts = await Post.find().populate("idUserPsychologist", {
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+    });
+    const authors = allPosts.map((au) => {
+      const response = userPsychologistModel.findById(au.idUserPsychologist);
+      return  response
+    });
+    Promise.all(authors)
+    console.log(authors)
+    // let autoresFiltrados: string[] = [];
+    // const authorsS = authors.forEach( (au) => {
+    //   if (!autoresFiltrados.includes( + " " + au.lastName)) {
+    //     autoresFiltrados.push(au);
+    //   }
+    // });
+    res.status(200).json(authors);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -128,4 +154,5 @@ module.exports = {
   filterPostsCategory,
   getOnePost,
   deletePost,
+  getPostAuthors
 };

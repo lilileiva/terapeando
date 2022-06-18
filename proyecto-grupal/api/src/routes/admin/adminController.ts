@@ -11,7 +11,7 @@ const registerAdmin = async (req: Request, res: Response) => {
         adminPassword
       } = req.body;
     try {
-        if(adminPassword === process.env.PASSWORD_ADMIN) {
+        if(adminPassword === process.env.OWNER_PASSWORD) {
           const exist = await adminModel.findOne({'email':email})
           if(exist) res.status(200).send('Invalid email or password')
           else {
@@ -24,6 +24,8 @@ const registerAdmin = async (req: Request, res: Response) => {
               });
               res.status(201).send('Welcome to our community, now you can sign in');
           }
+        } else {
+          res.status(401).send({error:'Unauthorized'});
         }
     } catch (error) {
       res.status(401).send(error);

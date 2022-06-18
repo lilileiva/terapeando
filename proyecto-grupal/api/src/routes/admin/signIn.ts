@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const logInAdmin = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password, adminPassword } = req.body;
   try {
     if (!email || !password) {
       return res
