@@ -1,25 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import './LoginForm.css';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.jsx';
+import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
 //login/logout con google
-import {gapi} from 'gapi-script'
+import { gapi } from 'gapi-script'
 import Login from '../LogGoogle/LogInGoogle';
 import axios from 'axios';
-import {LOCAL_HOST} from "../../redux/actions/types";
+import { loginClient } from "../../redux/actions";
+import { LOCAL_HOST } from "../../redux/actions/types";
 const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
-const baseURL =  LOCAL_HOST;
+const baseURL = LOCAL_HOST;
+
+
+
 function LoginForm() {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const token = window.localStorage.getItem('token')
 
     //login/logout con google
     useEffect(() => {
-        function start(){
+        function start() {
             gapi.client.init({
                 clientId: clientId,
                 scope: ''
@@ -59,9 +68,9 @@ function LoginForm() {
             [e.target.name]: e.target.value
         })
     }
-    
+
     const [isSubmit, setIsSubmit] = useState(false)
- 
+
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signinForm))
@@ -70,7 +79,7 @@ function LoginForm() {
 
     const afterSubmit = async () => {
         if (Object.keys(formErrors).length === 0) {
-            // console.log('signInForm', signinForm)
+            // console.log('signInForm', signinForm)            
             let response;
             try {
                 response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
@@ -107,70 +116,76 @@ function LoginForm() {
         afterSubmit();
     }
 
-    // useEffect(() => {
-    //     if (Object.keys(formErrors).length === 0 && isSubmit) {            
-    //         navigate('/home')
-    //         setSigninForm({})
-    //     }
-    // }, [formErrors, signinForm, isSubmit])
-
-    return (           
-        <div
-            className='background'
-            // initial={{ x: 250 }}
-            // animate={{ x: 0, transition: { duration: 0.2 } }}            
-            // exit={{ x: window.innerWidth }}
-        >
-            <NavBar />
-
-            <Container padding='2em' zIndex='1'pb='10%' centerContent>
-
-                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                    Inicia sesión
-                </Text>
-
-                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
-                    <Box direction='column' align='center' width='60%'>
-                        <form onSubmit={handleInputSubmit}>
-
-                            <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='3em' onChange={handleInputChange} />
-                            {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
-
-                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
-                                <Input
-                                    name='password'
-                                    pr='4.5rem'
-                                    type={show ? 'text' : 'password'}
-                                    placeholder=' Contraseña'
-                                    onChange={handleInputChange}
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                        {show ? 'Hide' : 'Show'}
+    return (
+        <div className='background'>
+            {
+                token ? <NavbarHome /> : <NavBar />
+            }
+            <Container padding='2em' zIndex='1' pb='10%' centerContent>
+                {
+                    token
+                        ? (
+                            <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
+                                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
+                                    Ya has iniciado sesión
+                                </Text>
+                                <Link to='/home'>
+                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}>
+                                        Ir al home
                                     </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                            {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
+                                </Link>
+                            </Box>
+                        ) : (
+                            <>
+                                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
+                                    Inicia sesión
+                                </Text>
 
-                            <Stack direction='column' align='center'>
-                                <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>                                
-                                    Iniciar sesión
-                                </Button>
+                                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
+                                    <Box direction='column' align='center' width='60%'>
+                                        <form onSubmit={handleInputSubmit}>
 
-                                <Button bg='green.100' color={'#63caa7'} >
-                                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                                    <Login />
-                                </Button>
+                                            <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='3em' onChange={handleInputChange} />
+                                            {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
-                                <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
-                                    ¿Aún no tienes una cuenta?
-                                </Button>
-                            </Stack>
-                        </form>
+                                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
+                                                <Input
+                                                    name='password'
+                                                    pr='4.5rem'
+                                                    type={show ? 'text' : 'password'}
+                                                    placeholder=' Contraseña'
+                                                    onChange={handleInputChange}
+                                                />
+                                                <InputRightElement width='4.5rem'>
+                                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                                        {show ? 'Hide' : 'Show'}
+                                                    </Button>
+                                                </InputRightElement>
+                                            </InputGroup>
+                                            {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
-                    </Box>
-                </Box>
-            </Container>
+                                            <Stack direction='column' align='center'>
+                                                <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>
+                                                    Iniciar sesión
+                                                </Button>
+
+                                                <Login mt='1em' />
+                                                {/* <Button bg='green.100' color={'#63caa7'}> */}
+                                                {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                                                {/* </Button> */}
+
+                                                <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
+                                                    ¿Aún no tienes una cuenta?
+                                                </Button>
+                                            </Stack>
+                                        </form>
+
+                                    </Box>
+                                </Box>
+                            </>
+                        )
+                }
+            </Container >
 
             <Footer />
         </div >

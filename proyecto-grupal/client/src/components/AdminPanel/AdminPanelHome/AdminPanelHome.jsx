@@ -9,6 +9,9 @@ import { BsFileEarmarkRichtext, BsCashCoin, BsKanban, BsPerson, BsPersonFill } f
 
 function AdminPanelHome() {
 
+  const token = window.localStorage.getItem('token')
+  console.log(token)
+
   return (
     <div className='adminPanelContainer'>
       <AdminPanelNavbar />

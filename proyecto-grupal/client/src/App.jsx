@@ -15,6 +15,12 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
+import Payments from "./components/Payments/Payments";
+import CheckoutPayment from "./components/Payments/CheckoutPayment";
+import '@stripe/stripe-js'
+import Success from "./components/Payments/CheckoutComponent/Success";
+import Cancel from "./components/Payments/CheckoutComponent/Cancel";
+import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
 import AddPost from "./components/AddPost/AddPost";
 import Reviews from "./components/Reviews/Reviews";
 import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
@@ -24,9 +30,15 @@ import AdminPanelClients from './components/AdminPanel/AdminPanelClients/AdminPa
 import AdminClientDetails from './components/AdminPanel/AdminPanelClients/AdminClientDetails/AdminClientDetails.jsx';
 import AdminClientEdit from './components/AdminPanel/AdminPanelClients/AdminClientEdit/AdminClientEdit.jsx';
 import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsychologists/AdminPanelPsychologists.jsx';
+import AdminPsichologisttDetails from './components/AdminPanel/AdminPanelPsychologists/AdminPsichologistDetails/AdminPsichologistDetails.jsx';
+import AdminPsichologistEdit from './components/AdminPanel/AdminPanelPsychologists/AdminPsichologistEdit/AdminPsichologistEdit.jsx';
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDetails/AdminPostDetail";
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
+import PaymentsAdmin from './components/AdminPanel/AdminPanelPayments/Components/PaymentsAdmin.jsx';
+import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components/CancelPayment.jsx';
+import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
+import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 import LoginFormPsychologist from "./components/LoginFormPsychologist/LoginFormPsychologist";
 
@@ -48,11 +60,15 @@ export default function App() {
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />
         <Route path="/home/:idUserClient" element={<ClientDetails />} />
-        <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
+        <Route path="/detailPsychologist/:idPsychologist" element={<AdminPsichologisttDetails />} />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
+        <Route path='/mypayments' element={<Payments />} />
+        <Route path='/checkout/:idPsychologist' element={<CheckoutPayment />} />
+        <Route path='success' element={<Success />} />
+        <Route path='canceled' element={<Cancel />} />
         {/*-----------------------admin panel---------------------*/}
         <Route path='/adminpanel/login' element={<AdminPanelLogin />} />
         <Route path='/adminpanel/inicio' element={<AdminPanelHome />} />
@@ -60,10 +76,16 @@ export default function App() {
         <Route path='/adminpanel/clients/:idUserClient' element={<AdminClientDetails />} />
         <Route path='/adminpanel/clients/edit/:idUserClient' element={<AdminClientEdit />} />
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
+        <Route path='/adminpanel/psychologists/:idUserPsichologist' element={<AdminPsichologisttDetails/>} />
+        <Route path='/adminpanel/psychologists/edit/:idUserPsichologist' element={<AdminPsichologistEdit />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
+        <Route path='adminpanel/payments/allpayments' element={<PaymentsAdmin />} />
+        <Route path='adminpanel/cancelpayment' element={<CancelPayment />} />
+        <Route path='adminpanel/accreditedpayment' element={<AccreditedPayment />} />
+        <Route path='adminpanel/estadisticas' element={<Estadisticas />} />
       </Routes>
     </div>
   );

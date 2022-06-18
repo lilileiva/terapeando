@@ -61,31 +61,6 @@ const getOnePost = async (req: Request, res: Response) => {
   }
 };
 
-const getPostAuthors = async (req: Request, res: Response) => {
-  try {
-    const allPosts = await Post.find().populate("idUserPsychologist", {
-      firstName: 1,
-      lastName: 1,
-      email: 1,
-    });
-    const authors = allPosts.map((au) => {
-      const response = userPsychologistModel.findById(au.idUserPsychologist);
-      return  response
-    });
-    Promise.all(authors)
-    console.log(authors)
-    // let autoresFiltrados: string[] = [];
-    // const authorsS = authors.forEach( (au) => {
-    //   if (!autoresFiltrados.includes( + " " + au.lastName)) {
-    //     autoresFiltrados.push(au);
-    //   }
-    // });
-    res.status(200).json(authors);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const createPost = (req: Request, res: Response, next: NextFunction) => {
   const {Date, Title, Image, Tags, Content} = req.body;
   //me creo el post con el objeto ue me llega de body
@@ -111,7 +86,27 @@ const getAllCategory = (req: Request, res: Response, next: NextFunction) => {
     })
     .catch((error: error) => next(error));
 };
-//
+
+const getPostAuthors = async (req: Request, res: Response) => {
+  try {
+    const allPosts = await Post.find().populate("idUserPsychologist", {
+      firstName: 1,
+      lastName: 1,
+      email: 1
+    });
+    const authors = allPosts.map((au) => {
+      return au.idUserPsychologist
+    })
+    // const authorsS = authors.filter((au) => {
+    //   return au.email === 'miguelgar@gmail.com'
+    // })
+    // console.log(authors)
+    res.status(200).json(authors)
+  } catch (error) {
+    console.log(error)
+}
+}
+
 const filterPostsCategory = async (
   req: Request,
   res: Response,
@@ -137,6 +132,17 @@ const filterPostsCategory = async (
   }
   res.json(postFilters);
 };
+
+// const filterPostsByAuthor = async (req: Request, res: Response,) => {
+//   const { author } = req.params;
+//   // console.log('autorBack: ', author);
+//   const postTotals = await Post.find().populate("idUserPsychologist", {
+//     firstName: 1,
+//     lastName: 1,
+//   });
+//   res.json(postTotals);
+// };
+
 //eliminar nota
 const deletePost = async (req: Request, res: Response) => {
   const { IdPost } = req.params;
@@ -153,6 +159,7 @@ module.exports = {
   getAllCategory,
   filterPostsCategory,
   getOnePost,
+  getPostAuthors,
+  // filterPostsByAuthor
   deletePost,
-  getPostAuthors
 };

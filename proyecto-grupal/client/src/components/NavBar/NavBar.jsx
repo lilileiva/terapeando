@@ -112,7 +112,7 @@ const DesktopNav = () => {
     <div className={"contenedorlinks"}>
       <Link className={"links"} to={"/home"}>
         <Text fontWeight={"500"} color="gray.600">
-          Home
+          Psicólogos
         </Text>
       </Link>
       <Link className={"links"} to={"/preguntasfrecuentes"}>
@@ -120,11 +120,11 @@ const DesktopNav = () => {
           Preguntas Frecuentes
         </Button>
       </Link>
-      <Link className={"links"} to={"/psicologos"}>
+      {/* <Link className={"links"} to={"/psicologos"}>
         <Button bg="white" height="1.5em" _hover={{ bg: "#cbd5e0bb" }}>
           Psicólogos
         </Button>
-      </Link>
+      </Link> */}
       <Link className={"links"} to={"/blog"}>
         <Button bg="white" height="1.5em" _hover={{ bg: "#cbd5e0bb" }}>
           Blog

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import adminModel, { Admin } from "../../models/Admin";
 
-
 const registerAdmin = async (req: Request, res: Response) => {
     const {
         firstname,
@@ -30,8 +29,8 @@ const registerAdmin = async (req: Request, res: Response) => {
     } catch (error) {
       res.status(401).send(error);
     }
-  };
+};
 
 module.exports = {
-    registerAdmin
-}
+  registerAdmin,
+};

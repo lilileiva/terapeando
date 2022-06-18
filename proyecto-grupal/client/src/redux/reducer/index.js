@@ -3,6 +3,7 @@ import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
   GET_USER_CLIENTS_BY_NAME,
+  LOGIN_CLIENT,
   CREATE_CLIENT,
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
@@ -11,9 +12,16 @@ import {
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
   CLEAR_CLIENT,
+  GET_PAYMENT,
+  GET_PAYMENT_PSY,
+  GET_PAYMENT_CLIENT,
+  GET_RANGE_BY_DATE,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
+  SORT_BY_DATE,
+  GET_ALL_PSYCHOLOGIST_BY_STATUS
+
 } from "../actions/types";
 
 const initialState = {
@@ -23,9 +31,13 @@ const initialState = {
   userClientDetail: [],
   usersClients: [],
   posts: [],
+  postsCopy: [],
   categories: [],
   postDetail: {},
   schedule: {},
+  paymentDetailsClient: [],
+  paymentDetailsPsychologist: [],
+  allPayments: [],
   email: {},
   adminSearchbar: ""
 };
@@ -49,9 +61,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         userClientDetail: action.payload,
       };
+    case LOGIN_CLIENT:
+      return {
+        ...state,
+      };
     case CREATE_CLIENT:
       return {
         ...state,
+        posts: action.payload,
+        postsCopy: action.payload,
       };
 
     /*-----------PSYCHOLOGISTS-----------*/
@@ -59,8 +77,70 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
+
       };
+    case GET_ALL_PSYCHOLOGIST_BY_STATUS:
+      return {
+        ...state,
+        allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
+      };
+    
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
+      return {
+        ...state,
+        allUsersPsichologists: action.payload,
+      };
+
+    // case "FILTER_POSTS_BY_AUTHOR":
+    //   const filterPost = state.postsCopy;
+    //   //filterByAuthor = array de obj con first y last Name
+    //   const actFiltered =
+    //     action.payload === "All"
+    //       ? filterPost
+    //       : filterPost.filter(
+    //           (a) => a.firstName + a.lastName === action.payload
+    //         );
+    //   return {
+    //     ...state,
+    //     posts: actFiltered,
+    //   };
+
+    case "FILTER_POSTS_BY_AUTHOR":
+      let postsCopy = state.posts;
+      //filterByAuthor = array de obj con first y last Name
+      let filterPost = []
+      postsCopy.filter(el => {
+        if (`${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}` === action.payload) {
+          filterPost.push(el)
+        }
+        // return console.log('nomb', `${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}`)
+      })
+      return {
+        ...state,
+        posts: filterPost,
+      };
+
+
+      // case "FILTER_POSTS_BY_AUTHOR":
+      //   const filterPost = state.postsCopy;
+      //   //filterByAuthor = array de obj con first y last Name
+      //   const actFiltered =
+      //     action.payload === "All"
+      //       ? filterPost
+      //       : filterPost.filter(
+      //           (a) => {
+      //             const author = a.idUserPsychologist.firstName + " " +  a.idUserPsychologist.lastName
+      //             return author.includes(action.payload)
+      //           }
+      //         );
+      //   return {
+      //     ...state,
+      //     posts: actFiltered,
+      //   };
+
+    case "GET_POSTS_AUTHORS":
       return {
         ...state,
         allUsersPsichologists: action.payload,
@@ -70,6 +150,22 @@ function rootReducer(state = initialState, action) {
         ...state,
         userPsichologistDetail: action.payload,
       };
+    case "GET_CATEGORIES":
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case "GET_BY_CATEGORY_POST":
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    case "CLEAR_POST_DETAIL":
+      return {
+        ...state,
+        postDetail: {},
+        posts: [],
+      }
     case "CREATE_PSYCHOLOGIST":
       return {
         ...state,
@@ -85,16 +181,17 @@ function rootReducer(state = initialState, action) {
         let specialties = el.Specialties.map(el => el)
         return specialties.includes(action.payload)
       })
+
       return {
         ...state,
-        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties.length > 0 ? filterBySpecialties : psichologists,
       };
     case ORDER_PSICHOLOGIST_BY_RATING:
 
       return {
         ...state,
         allUsersPsichologists: action.payload
-      }
+      };
 
     /*-----------POSTS-----------*/
     case GET_POSTS:
@@ -133,9 +230,9 @@ function rootReducer(state = initialState, action) {
         posts: action.payload,
       };
     case "DELETE_POST":
-      return{
-          ...state,
-          posts: state.posts.filter(posts => posts.id !== action.payload)
+      return {
+        ...state,
+        posts: state.posts.filter(posts => posts.id !== action.payload)
       }
 
     /*-----------CLEAR-----------*/
@@ -164,6 +261,43 @@ function rootReducer(state = initialState, action) {
         ...state,
         adminSearchbar: action.payload,
       };
+    case GET_PAYMENT:
+      return {
+        ...state,
+        allPayments: action.payload,
+      };
+    case GET_PAYMENT_CLIENT:
+      return {
+        ...state,
+        paymentDetailsClient: action.payload,
+      };
+    case GET_PAYMENT_PSY:
+      return {
+        ...state,
+        paymentDetailsPsychologist: action.payload
+      };
+    case GET_RANGE_BY_DATE:
+      const allPayments = state.allPayments;
+      const filterByMonth = allPayments.filter((p) => 
+        p.createdAt?.some((date) => (new Date(p.createdAt).getUTCMonth() + 1) === action.payload)
+      ) 
+      return {
+        ...state,
+        allPayments: filterByMonth
+      }
+    case SORT_BY_DATE:
+      let sortedPayments = [state.allPayments];
+      sortedPayments = action.payload === "asc" ?
+      state.allPayments.sort(function(a, b){
+          return new Date(a.createdAt) - new Date(b.createdAt)
+        })
+        : state.allPayments.sort(function(a,b){
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        })    
+      return {
+          ...state,
+          allPayments: sortedPayments
+      }
     default:
       return { ...state };
   }
