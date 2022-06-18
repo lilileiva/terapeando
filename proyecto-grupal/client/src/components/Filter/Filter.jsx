@@ -17,17 +17,12 @@ export default function Filters() {
   const categories = useSelector((state) => state.categories);
   const author = useSelector((state) => state.allUsersPsichologists);
   //author tiene un array de objetos con first y last Name [{},{}]
+  
   let authorNoRepeat = []
   author.map((au) => (
     (!authorNoRepeat.includes(`${au.firstName} ${au.lastName}`))
       ? authorNoRepeat.push(`${au.firstName} ${au.lastName}`) : null
   ))
-  //   console.log('nom', posts.map(el => (`${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}`)))
-  // posts.filter((a) => {
-  //   if (`${a.idUserPsychologist.firstName} ${a.idUserPsychologist.lastName}` === 'Juan Carlos Prieto') {
-  //     return a
-  //   }
-  // });
 
   useEffect(() => {
     dispatch(getCategories());
