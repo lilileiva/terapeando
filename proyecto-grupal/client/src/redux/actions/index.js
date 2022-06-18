@@ -30,7 +30,10 @@ const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 /*-------------------USER CLIENT ACTIONS----------------*/
 export function getAllUserClients() {
   return async function (dispatch) {
-    fetch(`${baseURL}/userclient/clients`)
+    fetch(
+      `${baseURL}/userclient/clients`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    )
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -44,7 +47,10 @@ export function getAllUserClients() {
 
 export function getUserClientsByName(name) {
   return async function (dispatch) {
-    fetch(`${baseURL}/userclient/clients?name=${name}`)
+    fetch(
+      `${baseURL}/userclient/clients?name=${name}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    )
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -59,7 +65,10 @@ export function getUserClientsByName(name) {
 export function getUserClient(idUserClient) {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/userclient/client/${idUserClient}`)
+      .get(
+        `${baseURL}/userclient/client/${idUserClient}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      )
       .then((client) => {
         dispatch({
           type: GET_USERCLIENT,
@@ -121,7 +130,8 @@ export function editClient(id, updatedUserClient) {
     try {
       const data = await axios.put(
         `${baseURL}/userclient/${id}`,
-        updatedUserClient
+        updatedUserClient,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       console.log(data);
     } catch (err) {
@@ -133,7 +143,10 @@ export function editClient(id, updatedUserClient) {
 export function deleteUserClient(id) {
   return async function () {
     try {
-      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`);
+      await axios.delete(
+        `${baseURL}/userclient/deleteuserclient/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -172,6 +185,7 @@ export const getAllPsychologist = () => {
   };
 };
 
+
 //GET para obtener los psicologos con status activo 
 export const getPsychologistByStatus = () => {
   return async function (dispatch) {
@@ -189,6 +203,8 @@ export const getPsychologistByStatus = () => {
   }
 };
 
+
+//GET para obtener los psicologos por nombre
 
 export function getUserPsychologistByName(name) {
   return async function (dispatch) {
@@ -274,7 +290,10 @@ export function createPsychologist(signupForm) {
 export function deleteUserPsichologist(id) {
   return async function () {
     try {
-      await axios.delete(`${baseURL}/userpsychologist/deleteuserpsychologist/${id}`);
+      await axios.delete(
+        `${baseURL}/userpsychologist/deleteuserpsychologist/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      );
     } catch (error) {
       console.error(error);
     }
@@ -286,7 +305,12 @@ export function deleteUserPsichologist(id) {
 export function editUserPsichologist(id, updatedUserPsychologist) {
   return async function () {
     try {
-      const editPsichologist = axios.put(`${baseURL}/userpsychologist/put_userpsychologist/${id}`, updatedUserPsychologist)
+      const editPsichologist = axios.put(
+        `${baseURL}/userpsychologist/put_userpsychologist/${id}`,
+        updatedUserPsychologist,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
     } catch (error) {
       console.error(error)
     }
@@ -393,9 +417,7 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      }
+        `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
       )
       return dispatch({
         type: "CREATE_POST",
