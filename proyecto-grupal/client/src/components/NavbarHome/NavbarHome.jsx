@@ -154,7 +154,9 @@ export default function NavbarHome() {
                   <MenuItem>Ayuda</MenuItem>
                 </Link>
                 <MenuDivider />
-                <MenuItem>Mis Pagos</MenuItem>
+                <Link to={"/mypayments"}>
+                  <MenuItem>Mis Pagos</MenuItem>
+                </Link>
               </MenuList>
             </Menu>
           </Flex>

@@ -115,21 +115,21 @@ function FormEditClient() {
                  <FormControl id="firstName">
                    <FormLabel>Nombre</FormLabel>
                    <Input type="text" name='firstName' value={input.firstName} onChange={(e) => handleChange(e)}/>
-                   {error.firstName && <Badge>{error.firstName}</Badge>}
+                   {error.firstName && <Badge colorScheme='red'>{error.firstName}</Badge>}
                  </FormControl>
                </Box>
                <Box>
                  <FormControl id="lastName">
                    <FormLabel>Apellido</FormLabel>
                    <Input type="text" name='lastName' value={input.lastName} onChange={(e) => handleChange(e)}/>
-                   {error.lastName && <Badge>{error.lastName}</Badge>}
+                   {error.lastName && <Badge colorScheme='red'>{error.lastName}</Badge>}
                  </FormControl>
                </Box>
              </HStack>
              <FormControl id="email">
                <FormLabel>Email</FormLabel>
                <Input type="email" name='email' value={input.email} onChange={(e) => handleChange(e)}/>
-               {error.email && <Badge>{error.email}</Badge>}
+               {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
              </FormControl>
              <FormControl id="country">
                <FormLabel>Pais de residencia</FormLabel>
@@ -138,7 +138,7 @@ function FormEditClient() {
              <FormControl id="profileImage">
                <FormLabel>Imagen de perfil</FormLabel>
                <Input type="profileImage" name='profileImage' value={input.profileImage} onChange={(e) => handleChange(e)}/>
-               {error.profileImage && <Badge>{error.profileImage}</Badge>}
+               {error.profileImage && <Badge colorScheme='red'>{error.profileImage}</Badge>}
                <Avatar
           size={"2xl"}
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_JlCFnIGX5omgjEjgV9F3sBRq14eTERK9w&usqp=CAU'
