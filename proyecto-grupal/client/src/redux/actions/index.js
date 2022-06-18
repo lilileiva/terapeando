@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import axios from "axios";
-import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT } from "./types";
+import { GET_ALL_PSYCHOLOGIST, GET_USERCLIENT, LOCAL_HOST, CLEAR, CLEAR_CLIENT, GET_PAYMENT, GET_PAYMENT_PSY, GET_PAYMENT_CLIENT } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
@@ -208,3 +208,83 @@ export function deleteUserClient(id){
    }
   }
 }
+
+/* ---------------------- PAYMENTS ---------------------- */
+
+export function createPayment(payload){
+  console.log(payload)
+  return async function () {
+    try{
+    let payment = await axios.post(`${baseURL}/payment/checkoutpayment`, payload) 
+    console.log(payment)
+    } catch (err){
+      console.log(err)
+   }
+  }
+}
+
+export const getAllPayments = () => {
+  return async function (dispatch) {
+    try {
+      const payments = await axios.get(`${baseURL}/payment`);
+      dispatch({
+        type: GET_PAYMENT,
+        payload: payments.data,
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const getPaymentByClientId = (clientId) => {
+  return function (dispatch) {
+    axios
+      .get(`${baseURL}/payment/${clientId}`)
+      .then((payment) => {
+        dispatch({
+          type: GET_PAYMENT_CLIENT,
+          payload: payment.data
+        })
+      })
+  }
+}
+
+export const getPaymentByPsyId = (idPsychologist) => {
+  return function (dispatch) {
+    axios
+      .get(`${baseURL}/payment/${idPsychologist}`)
+      .then((payment) => {
+        dispatch({
+          type: GET_PAYMENT_PSY,
+          payload: payment.data
+        })
+      })
+  }
+}
+
+
+/* export function sortByDate(payload){
+  return async function (){
+    function parseDate( ddMMyyyy ) {
+    
+        const components = ddMMyyyy.split( '/' );
+        if( components.length != 3 ) return null; 
+    
+        const dd   = parseInt( components[0] );
+        const MM   = parseInt( components[1] );
+        const yyyy = parseInt( components[2] );
+
+        if( dd >= 1 && dd <= 31 && MM >= 1 && MM <= 12 && yyyy >= 0 && yyyy <= 9999 ) {
+            return new Date( yyyy, MM - 1, dd ); 
+        } 
+        else {
+            return null;
+        }
+    }
+    let sortedParsedDates = dates
+        .map( parseDate )
+        .filter( dt => dt instanceof Date )
+        .sort( ( x, y ) => x.getTime() - y.getTime() );
+  }
+} */
