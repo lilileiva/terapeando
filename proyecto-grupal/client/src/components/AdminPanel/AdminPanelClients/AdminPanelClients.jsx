@@ -23,7 +23,6 @@ function AdminPanelClients() {
   }, [dispatch])
 
   const allUserClients = useSelector((state) => state.usersClients);
-  console.log(allUserClients)
 
   const handleAlertDelete = (clientId) => {
     Swal.fire({
@@ -37,7 +36,7 @@ function AdminPanelClients() {
     }).then((result) => {
       if (result.isDenied) {
         dispatch(deleteUserClient(clientId))        
-        dispatch(getAllUserClients())        
+        dispatch(getAllUserClients())
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
