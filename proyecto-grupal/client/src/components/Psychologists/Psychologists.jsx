@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllPsychologist } from '../../redux/actions';
+import { getPsychologistByStatus } from '../../redux/actions';
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import CardPsychologist from '../CardPsychologist/CardPsychologist';
@@ -19,13 +19,13 @@ export default function Psychologists() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllPsychologist())
+        dispatch(getPsychologistByStatus())
         smoothscroll();
     }, [dispatch]);
 
     /* Paginado */
     const [page, setPage] = useState(1);
-    const [postPage, setPostPage] = useState(10);
+    const [postPage, setPostPage] = useState(5);
     const quantityPostPage = page * postPage;
     const firstPage = quantityPostPage - postPage;
     const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
@@ -51,7 +51,7 @@ export default function Psychologists() {
 
                 <div >
                     {AllPsychologist && AllPsychologist.length > 0 ?
-                        AllPsychologists.filter(el => el.status === 'Activo').map(el => {
+                        AllPsychologists.map(el => {
                             {console.log(el.status)}
                             return (
                               

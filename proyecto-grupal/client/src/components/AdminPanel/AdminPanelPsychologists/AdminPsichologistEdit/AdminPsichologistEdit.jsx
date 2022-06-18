@@ -27,7 +27,6 @@ export default function AdminPsichologisttDetails() {
     const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
     const [statusSwitch, setStatusSwitch] = useState('');
 
-
     const handleAlertDelete = (psychologistId) => {
         Swal.fire({
             title: '¿Estás seguro que quieres eliminar a este usuario?',
@@ -48,9 +47,9 @@ export default function AdminPsichologisttDetails() {
 
 
     const handleLabel = (e) => {
-        e.target.value === 'Pendiente'?
-        document.getElementById('lbl').innerText= "Activo":
-        document.getElementById('lbl').innerText= "Pendiente"
+        e.target.value === 'Pendiente' ?
+            document.getElementById('lbl').innerText = "Activo" :
+            document.getElementById('lbl').innerText = "Pendiente"
     };
 
 
@@ -58,7 +57,9 @@ export default function AdminPsichologisttDetails() {
         e.target.value === 'Pendiente' ?
             dispatch(editUserPsichologist(psychologistId, { status: 'Activo' }))
             : dispatch(editUserPsichologist(psychologistId, { status: 'Pendiente' }))
-            handleLabel(e)
+        handleLabel(e)
+
+        dispatch(getUserPsychologistOne(idUserPsichologist))
     };
 
 
@@ -81,8 +82,8 @@ export default function AdminPsichologisttDetails() {
                             <Text ml='0.5em'> Volver</Text>
                         </Button>
                     </Stack>
-                 
-                      
+
+
                     {
                         Object.keys(userPsichologistDetail).length !== 0
                             ? (
@@ -94,18 +95,18 @@ export default function AdminPsichologisttDetails() {
                                     <Text fontSize={'xl'}>{userPsichologistDetail.firstName} {userPsichologistDetail.lastName}</Text>
                                     <Stack>
                                         {userPsichologistDetail.status === 'Pendiente' ?
-                                        <Text color={'red.500'} fontSize={'2xl'}> Cambia el estado del usuario a activo solo si su informacíon esta completa</Text>:
-                                        <Text color={'red.500'} fontSize={'2xl'}> Cambia el estado del usuario a pendiente si hay inconsistencias en su informacíon</Text>}
-                                    
-                                        
+                                            <Text color={'red.500'} fontSize={'2xl'}> Cambia el estado del usuario a activo solo si su informacíon esta completa</Text> :
+                                            <Text color={'red.500'} fontSize={'2xl'}> Cambia el estado del usuario a pendiente si hay inconsistencias en su informacíon</Text>}
+
+
                                     </Stack>
-                                    <Stack border={'solid'} padding={'15px'} borderRadius={10} borderColor={'#63caa7'} Stack direction='column'> 
+                                    <Stack border={'solid'} padding={'15px'} borderRadius={10} borderColor={'#63caa7'} Stack direction='column'>
                                         <FormControl display='flex' alignItems='center'>
                                             <FormLabel fontSize={'xl'} id="lbl" mb='0'>{`Estado ${userPsichologistDetail.status}`}</FormLabel>
                                             <Switch size='lg' name={'status'} value={userPsichologistDetail.status} onChange={(e) => handleInputChange(e, userPsichologistDetail._id)} />
                                         </FormControl>
                                     </Stack>
-                               
+
                                 </Stack>
                             ) : <Loader />
                     }
