@@ -5,7 +5,7 @@ import { Schedule } from './Schedule';
 const bcrypt = require('bcryptjs');
 
 
-const saltRounds = 10;
+const saltRounds = Number(process.env.SALTROUNDS);
 @pre<userPsychologist>('save', function (next) {
   if (this.isModified('password')) {
     bcrypt.hash(this.password, saltRounds, (err: any, hashedPassword: any) => {
@@ -91,6 +91,9 @@ export class userPsychologist {
 
   @prop()
   rating: number
+
+  @prop()
+  status:string
 
   @prop({ ref: () => appointment })
   appointments?: Ref<appointment>[];

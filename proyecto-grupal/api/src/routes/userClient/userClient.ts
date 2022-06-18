@@ -47,7 +47,7 @@ const createUserClient = async (req: Request, res: Response) => {
    try {
        const userExist = await userClientModel.findOne({'email': email})
        if(userExist){
-         res.send('Invalid mail or password')
+         return res.json({ error: "User already exists" });
        } else {
          const userClient = await userClientModel.create({
             firstName: firstname,

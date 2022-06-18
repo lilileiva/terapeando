@@ -2,7 +2,7 @@ import {prop, getModelForClass, pre} from '@typegoose/typegoose'
 const bcrypt = require('bcryptjs');
 
 
-const saltRounds = 10;
+const saltRounds = Number(process.env.SALTROUNDS)
 
 @pre<Admin>('save', function(next) {
     if (this.isModified('password')) {        
@@ -36,10 +36,6 @@ export class Admin {
         trim: true
     })
     email: string
-
-    @prop()
-    passwordAdmin: string
-
     @prop()
     role: string
 }

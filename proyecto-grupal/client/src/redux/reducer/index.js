@@ -13,7 +13,7 @@ import {
   CLEAR_CLIENT,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
 } from "../actions/types";
 
 const initialState = {
@@ -90,14 +90,14 @@ function rootReducer(state = initialState, action) {
     
       return {
         ...state,
-        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties.length > 0 ? filterBySpecialties : psichologists,
       };
     case ORDER_PSICHOLOGIST_BY_RATING:
 
       return {
         ...state,
         allUsersPsichologists: action.payload
-      }
+      };
 
     /*-----------POSTS-----------*/
     case GET_POSTS:
@@ -124,7 +124,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
-        posts: []
       };
     case "GET_CATEGORIES":
       return {
@@ -136,6 +135,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+    case "DELETE_POST":
+      return{
+          ...state,
+          posts: state.posts.filter(posts => posts.id !== action.payload)
+      }
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:

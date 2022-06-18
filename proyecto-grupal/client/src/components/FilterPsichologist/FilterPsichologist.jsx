@@ -14,7 +14,6 @@ export default function FiltersPsichologist() {
 
 
   function handleSubmitOrder(e) {
-    e.preventDefault();
     dispatch(orderByRating(e.target.value, psichologists )); 
   }
 

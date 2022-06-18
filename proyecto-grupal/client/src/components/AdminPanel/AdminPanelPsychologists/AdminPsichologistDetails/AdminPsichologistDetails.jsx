@@ -17,7 +17,6 @@ export default  function AdminPsichologisttDetails() {
   const navigate = useNavigate();
 
   const { idUserPsichologist } = useParams();
-  console.log(idUserPsichologist)
   useEffect(() => {
     dispatch(getUserPsychologistOne(idUserPsichologist))
     return () => {
@@ -64,7 +63,7 @@ export default  function AdminPsichologisttDetails() {
           {
             Object.keys(userPsichologistDetail).length !== 0
               ? (
-                <Stack w='100%' direction='column' justify='center' align='center' position={'relative'} top={-12} >
+                <Stack w='100%' direction='column' justify='center' align='center' position={'relative'} top={-5}>
 
                   <Stack direction='column'>
                   <Avatar src={userPsichologistDetail.profileImage} size='xl' />
@@ -93,16 +92,16 @@ export default  function AdminPsichologisttDetails() {
                     {userPsichologistDetail.Specialties && userPsichologistDetail.Specialties.map( el => {
                       return(
                         <UnorderedList>
-                         <ListItem fontSize='xl' key={el}> {el} </ListItem>
+                         <ListItem fontSize='m' key={el}> {el} </ListItem>
                         </UnorderedList>
                       )
                     })}
                   </Stack>
                   <br />
                   <Stack direction='row'>
-                    <Button width='50%' colorScheme='teal' variant='outline'>
+                    <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/psychologists/edit/${userPsichologistDetail._id}`)}>
                       <BsPencilSquare />
-                      <Text pr='0.5em'> Editar usuario</Text>
+                      <Text pr='0.5em'> Cambiar Estado</Text>
                     </Button>
                     <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(userPsichologistDetail._id)}>
                       <CloseIcon />

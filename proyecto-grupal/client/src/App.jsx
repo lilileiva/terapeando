@@ -22,9 +22,12 @@ import AdminPanelLogin from "./components/AdminPanel/AdminPanelLogin/AdminPanelL
 import AdminPanelHome from './components/AdminPanel/AdminPanelHome/AdminPanelHome.jsx';
 import AdminPanelClients from './components/AdminPanel/AdminPanelClients/AdminPanelClients.jsx';
 import AdminClientDetails from './components/AdminPanel/AdminPanelClients/AdminClientDetails/AdminClientDetails.jsx';
+import AdminClientEdit from './components/AdminPanel/AdminPanelClients/AdminClientEdit/AdminClientEdit.jsx';
 import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsychologists/AdminPanelPsychologists.jsx';
 import AdminPsichologisttDetails from './components/AdminPanel/AdminPanelPsychologists/AdminPsichologistDetails/AdminPsichologistDetails.jsx';
+import AdminPsichologistEdit from './components/AdminPanel/AdminPanelPsychologists/AdminPsichologistEdit/AdminPsichologistEdit.jsx';
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
+import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDetails/AdminPostDetail";
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 
@@ -55,9 +58,12 @@ export default function App() {
         <Route path='/adminpanel/inicio' element={<AdminPanelHome />} />
         <Route path='/adminpanel/clients' element={<AdminPanelClients />} />
         <Route path='/adminpanel/clients/:idUserClient' element={<AdminClientDetails />} />
+        <Route path='/adminpanel/clients/edit/:idUserClient' element={<AdminClientEdit />} />
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
         <Route path='/adminpanel/psychologists/:idUserPsichologist' element={<AdminPsichologisttDetails/>} />
+        <Route path='/adminpanel/psychologists/edit/:idUserPsichologist' element={<AdminPsichologistEdit />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
+        <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
       </Routes>

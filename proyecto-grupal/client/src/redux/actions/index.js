@@ -17,7 +17,6 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
-  DELETE_PSYCHOLOGIST
 } from "./types";
 
 
@@ -131,19 +130,6 @@ export function deleteUserClient(id) {
 
 /*-----------------------USER PSYCHOLOGIST ACTIONS---------------------------*/
 //GET para obetener todos los psychologist
-export const getUserPsychologist = () => {
-  return async function (dispatch) {
-    try {
-      const psychologist = await axios.get(`${baseURL}/userpsychologist`);
-      dispatch({
-        type: "GET_PSYCHOLOGISTS",
-        payload: psychologist.data,
-      });
-    } catch (error) {
-      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-    }
-  };
-};
 
 export const getAllPsychologist = () => {
   return async function (dispatch) {
@@ -158,6 +144,8 @@ export const getAllPsychologist = () => {
     }
   };
 };
+
+//GET para obtener los psicologos por nombre
 
 export function getUserPsychologistByName(name) {
   return async function (dispatch) {
@@ -238,6 +226,7 @@ export function createPsychologist(signupForm) {
   };
 }
 
+// DELETE user psychologist
 
 export function deleteUserPsichologist(id) {
   return async function () {
@@ -249,6 +238,21 @@ export function deleteUserPsichologist(id) {
   };
 };
 
+// PUT para editar usuario psicologo 
+
+export function editUserPsichologist(id , updatedUserPsychologist ){
+  return async function (){
+    try{
+      const editPsichologist = axios.put(`${baseURL}/userpsychologist/put_userpsychologist/${id}`, updatedUserPsychologist)
+    }catch(error){
+      console.error(error)
+    }
+  }
+}
+
+
+
+// filtrar psicologs por  especialidad 
 
 
 export function getBySpecialties(payload) {
@@ -257,6 +261,8 @@ export function getBySpecialties(payload) {
     payload: payload
   }
 };
+
+// ordenar psicolofos por calificacion
 
 export function orderByRating(order, array) {
   return function (dispatch) {
@@ -270,6 +276,10 @@ export function orderByRating(order, array) {
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
 };
+
+
+
+
 
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
@@ -308,6 +318,21 @@ export const searchPostsByTitle = (title) => {
   };
 };
 
+export function getPostDetail(id) {
+  return async function (dispatch) {
+    try {
+      let detail = await axios.get(`${baseURL}/post/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    });
+      return dispatch({
+        type: "GET_POST_DETAIL",
+        payload: detail.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export const getPostOrder = (order, arreglo) => {
   return function (dispatch) {
     //me traigo el arreglo de las posts
@@ -332,6 +357,17 @@ export const addPost = (body) => {
         type: "CREATE_POST",
         payload: info
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+//eliminar nota
+export const deletePost = (id) => {
+  return async function (dispatch){
+    try {
+      await axios.delete(`${baseURL}/deletePost/${id}`)
+      dispatch({type:"DELETE_POST", payload:id})
     } catch (error) {
       console.log(error)
     }
@@ -365,27 +401,15 @@ export const getByCategory = (category) => {
   }
 }
 
-
-export function getPostDetail(id) {
-  return async function (dispatch) {
-    try {
-      let detail = await axios.get(`${baseURL}/post/${id}`);
-      return dispatch({
-        type: "GET_POST_DETAIL",
-        payload: detail.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
-
 export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
   };
 };
 
+
+
+/*-----------REVIEWS ACTIONS---------*/
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
@@ -435,4 +459,9 @@ export function adminSearchbar(inputText) {
 
   };
 };
+
+
+
+
+
 

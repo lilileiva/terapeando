@@ -37,7 +37,6 @@ function AdminPanelPsychologists() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        console.log(idUserPsichologist)
         dispatch(deleteUserPsichologist(idUserPsichologist))
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
@@ -91,8 +90,7 @@ function AdminPanelPsychologists() {
 
                               <Stack direction='row' align='center'>
                                 <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/psychologists/${psychologist._id}`)} />
-                                <BsPencilSquare size='1.5em' color='gray' cursor='pointer' />
-                                {console.log(psychologist._id)}
+                                <BsPencilSquare size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/psychologists/edit/${psychologist._id}`)} />
                                 <BsPersonDash size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(psychologist._id)} />
                               </Stack>
 
@@ -107,7 +105,7 @@ function AdminPanelPsychologists() {
                   <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
                     <Stack direction='column' align='center'>
                       <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
-                        {console.log(allUsersPsichologists.length)}
+        
                         {allUsersPsichologists.length}
                       </Text>
                       <Text fontSize='xl' fontWeight='500' color='#2D3748'>

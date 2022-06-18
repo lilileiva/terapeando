@@ -1,34 +1,33 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect,useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
-import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, CloseIcon,AddIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient, clearClient, deleteUserClient } from '../../../../redux/actions';
+import { clearStatePostDetail, deletePost, deleteUserClient, getPostDetail } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 
 
-function AdminClientDetails() {
+function AdminPostDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { idUserClient } = useParams();
-  console.log(idUserClient)
+    const [showMore, setShowMore] = useState(false);
+  const { idPost } = useParams();
   useEffect(() => {
-    dispatch(getUserClient(idUserClient))
+    dispatch(getPostDetail(idPost))
     return () => {
-      dispatch(clearClient())
+      dispatch(clearStatePostDetail())
     }
   }, [dispatch])
-  const userClientDetail = useSelector((state) => state.userClientDetail);
+  const postDetail = useSelector((state) => state.postDetail);
 
-  const handleAlertDelete = (clientId) => {
+  const handleAlertDelete = (postId) => {
     Swal.fire({
-      title: '¿Estás seguro que quieres eliminar a este usuario?',
+      title: '¿Estás seguro que quieres eliminar este post o nota?',
       text: "Estos cambios no se podrán revertir.",
       icon: 'info',
       showConfirmButton: false,
@@ -37,9 +36,9 @@ function AdminClientDetails() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserClient(clientId))
-        navigate('/adminpanel/clients')
-        Swal.fire('Usuario eliminado correctamente!', '', 'success')
+        dispatch(deletePost(postId))
+        navigate('/adminpanel/posts')
+        Swal.fire('Post eliminado correctamente!', '', 'success')
       }
     })
   }
@@ -56,53 +55,54 @@ function AdminClientDetails() {
         <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
           <Stack direction='row' width='100%'>
-            <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
+            <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/posts')}>
               <ArrowLeftIcon />
               <Text ml='0.5em'> Volver</Text>
             </Button>
           </Stack>
           {
-            Object.keys(userClientDetail).length !== 0
+            Object.keys(postDetail).length !== 0
               ? (
                 <Stack w='100%' direction='column' justify='center' align='center' p='2em'>
 
-                  <Avatar src={userClientDetail.profileImage} size='xl' />
-                  <br />
+                  <Avatar src={postDetail.Image} size='xl' />
                   <Stack direction='row'>
-                    <Text fontSize='xl' fontWeight='600' > Nombre: </Text>
-                    <Text fontSize='xl'> {userClientDetail.firstName} </Text>
+                    <Text fontSize='xl' fontWeight='600' > Titulo: </Text>
+                    <Text fontSize='xl'> {postDetail.Title} </Text>
                   </Stack>
                   <br />
                   <Stack direction='row'>
-                    <Text fontSize='xl' fontWeight='600'> Apellido: </Text>
-                    <Text fontSize='xl'> {userClientDetail.lastName} </Text>
+                    <Text fontSize='xl' fontWeight='600'> Fecha de creacion: </Text>
+                    <Text fontSize='xl'> {postDetail.Date} </Text>
                   </Stack>
                   <br />
                   <Stack direction='row'>
-                    <Text fontSize='xl' fontWeight='600'> País: </Text>
-                    <Text fontSize='xl'> {userClientDetail.country} </Text>
+                    <Text fontSize='xl' fontWeight='600'> Contenido: </Text>
+                    <Text fontSize='xl'> {showMore ? postDetail.Content : postDetail.Content.substring(0,250)}
+                    <Button colorScheme='blackAlpha' variant='outline' onClick={() => setShowMore(!showMore)} size="sm" marginLeft={"2%"}>
+                        <Text> {showMore ? " Ver Menos":" Ver Mas"}</Text>
+                    </Button>
+                     </Text>
                   </Stack>
                   <br />
                   <Stack direction='row'>
-                    <Text fontSize='xl' fontWeight='600'> Fecha de nacimiento: </Text>
-                    <Text fontSize='xl'> {userClientDetail.birthDate} </Text>
+                    <Text fontSize='xl' fontWeight='600'> Categorias </Text>
+                    <Text fontSize='xl'> {postDetail.Tags} </Text>
                   </Stack>
                   <br />
                   <Stack direction='row'>
-                    <Text fontSize='xl' fontWeight='600'> Email: </Text>
-                    <Text fontSize='xl'> {userClientDetail.email} </Text>
+                    <Text fontSize='xl' fontWeight='600'> Nota del psicologo: </Text>
+                    <Text fontSize='xl'> {postDetail.idUserPsychologist.firstName} {postDetail.idUserPsychologist.lastName}  </Text>
                   </Stack>
                   <br />
                   <Stack direction='row'>
                     <Button width='50%' colorScheme='teal' variant='outline'>
                       <BsPencilSquare />
-                      <Link to={`/adminpanel/clients/edit/${userClientDetail._id}`}>
-                        <Text pr='0.5em'> Editar usuario</Text>
-                      </Link>
+                      <Text pr='0.5em'> Editar nota</Text>
                     </Button>
-                    <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
+                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
-                      <Text pr='0.5em'> Eliminar usuario</Text>
+                      <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>
                   </Stack>
 
@@ -118,4 +118,4 @@ function AdminClientDetails() {
   )
 }
 
-export default AdminClientDetails;
+export default AdminPostDetail;
