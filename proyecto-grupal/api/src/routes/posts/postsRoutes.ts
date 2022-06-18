@@ -5,7 +5,8 @@ const {
   getAllCategory,
   filterPostsCategory,
   getOnePost,
-  deletePost
+  deletePost,
+  putPost
 } = require("./posts.ts");
 
 const validatePsychologistOrAdmin = require('../../middleware/validatePsychologistOrAdmin')
@@ -19,4 +20,5 @@ postsRouter.post("/post", validatePsychologistOrAdmin, createPost);
 postsRouter.get("/categories", getAllCategory);
 postsRouter.get("/filter/:category", filterPostsCategory);
 postsRouter.delete("/deletePost/:IdPost", validatePsychologistOrAdmin ,deletePost)
+postsRouter.put("/:IdPost",putPost)
 module.exports = postsRouter;
