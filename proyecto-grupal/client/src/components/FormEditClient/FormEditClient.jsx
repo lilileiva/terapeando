@@ -37,7 +37,6 @@ function FormEditClient() {
   const {idUserClient} = useParams();
 
   const [error, setError] = useState({});
-
   const [input, setInput] = useState({
     firstName: "",
     lastName: "",

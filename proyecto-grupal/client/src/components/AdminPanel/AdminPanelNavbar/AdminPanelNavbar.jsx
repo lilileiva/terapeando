@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Stack, Text, Box, Button } from '@chakra-ui/react';
 import { BsPersonCircle } from "react-icons/bs";
 
 
 function AdminPanelNavbar() {
+  const navigate = useNavigate()
 
   const [dropdown, setDropdown] = useState(false);
 
   const handleDropdown = () => {
     dropdown ? setDropdown(false) : setDropdown(true)
+  }
+
+  const handleSignOut = () => {
+    window.localStorage.clear();
+    navigate('/adminpanel/login');
   }
 
   return (
@@ -38,7 +45,11 @@ function AdminPanelNavbar() {
 
         {
           dropdown
-            ? <Button bg='green.100' borderRadius='0' position='absolute' width='100%' top='2em'>Cerrar sesión</Button> : null
+            ? (
+              <Button bg='green.100' borderRadius='0' position='absolute' width='100%' top='2em' onClick={handleSignOut}>
+                Cerrar sesión
+              </Button>
+            ) : null
         }
 
       </Stack>

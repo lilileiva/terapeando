@@ -157,7 +157,6 @@ export default function NavbarHome() {
                 <MenuItem onClick={handleSignOut}>
                   Cerrar sesión
                 </MenuItem>
-
               </MenuList>
             </Menu>
           </Flex>
