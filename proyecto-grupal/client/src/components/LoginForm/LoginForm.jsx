@@ -75,14 +75,30 @@ function LoginForm() {
         e.preventDefault()
         setFormErrors(validate(signinForm))
         setIsSubmit(true)
+    }
 
+    const afterSubmit = async () => {
         if (Object.keys(formErrors).length === 0) {
-            // console.log('signInForm', signinForm)
-            // const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+            // console.log('signInForm', signinForm)            
             let response;
             try {
                 response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+                const token = response.data.token
+                window.localStorage.setItem('token', token)
+                // console.log('Este es el .data del response', response.data)
+                // console.log('Este es todo el token', token)
+                if (response.status === 200) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Bienvenido',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    navigate('/home')
+                }
             } catch (error) {
+                setIsSubmit(false);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
@@ -91,21 +107,13 @@ function LoginForm() {
                     timer: 3000
                 })
             }
-            const token = response.data.token
-            window.localStorage.setItem('token', token)
-            // console.log('Este es el .data del response', response.data)
-            // console.log('Este es todo el token', token)
-            if (response.status === 200) {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Bienvenido',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
-                navigate('/home')
-            }
+        } else {
+            setIsSubmit(false);
         }
+    }
+
+    if (isSubmit) {
+        afterSubmit();
     }
 
     return (

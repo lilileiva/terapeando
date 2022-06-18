@@ -190,6 +190,8 @@ function RegisterForm() {
                     timer: 3000
                 })
             }
+        } else {
+            setIsSubmit(false);
         }
     }
 
