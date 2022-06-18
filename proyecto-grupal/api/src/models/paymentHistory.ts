@@ -5,19 +5,49 @@ import { userPsychologist } from './userPsychologist'
 export class paymentHistory{
    
    @prop({ type: String })
-   status: string
+   idPsychologist: string
+
+   @prop({ type: String })
+   idClient: string
 
    @prop({ type: Number })
-   price: number
+   amount: number
    
    @prop({ type: String })
+   email: string
+
+   @prop({ type: String })
+   firstName: string
+
+   @prop({ type: String })
+   lastName: string
+
+   @prop({ type: String })
+   phone: string
+
+   @prop({ type: String })
+   address: string
+
+   @prop({ type: String })
+   country: string
+
+   @prop({ type: String })
+   city: string
+
+   @prop({ type: String })
+   currency: string
+
+   @prop({ type: Number })
+   celphone: number
+
+   @prop({ type: String })
+   psyName: string
+
+   @prop({ default: 'Card' })
    type: string
 
-   @prop({ref: () => userClient})
-   client: Ref<userClient>
-
-   @prop({ref: () => userPsychologist})
-   psychologist: Ref<userPsychologist>
+   @prop({default: Date.now()})
+   createdAt: Date 
 }
 
 const paymentHistoryModel = getModelForClass(paymentHistory)
