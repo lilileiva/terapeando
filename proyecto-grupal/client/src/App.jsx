@@ -15,21 +15,10 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
-<<<<<<< HEAD
-import Payments from "./components/Payments/Payments";
-import CheckoutPayment from "./components/Payments/CheckoutPayment";
-import '@stripe/stripe-js'
-import Success from "./components/Payments/CheckoutComponent/Success";
-import Cancel from "./components/Payments/CheckoutComponent/Cancel";
-=======
-import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
-
 import Payments from "./components/Payments/Payments";
 import CheckoutPayment from "./components/Payments/CheckoutPayment";
 import Success from "./components/Payments/CheckoutComponent/Success";
 import Cancel from "./components/Payments/CheckoutComponent/Cancel";
-
->>>>>>> 7151c953715e64b51b0748b1fa1ccfe2de302bd2
 import AddPost from "./components/AddPost/AddPost";
 import Reviews from "./components/Reviews/Reviews";
 import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
@@ -51,10 +40,6 @@ import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Compon
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 import LoginFormPsychologist from "./components/LoginFormPsychologist/LoginFormPsychologist";
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7151c953715e64b51b0748b1fa1ccfe2de302bd2
 export default function App() {
   return (
     <div className="App">
