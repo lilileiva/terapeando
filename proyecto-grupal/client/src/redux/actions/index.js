@@ -441,9 +441,20 @@ export function adminSearchbar(inputText) {
   };
 };
 
+export const signInAdmin = (signupForm) => {
+  return async function () {
+    try {
+      const psychologist = await axios.post(`${baseURL}/admin/logIn}`, signupForm);
+     return psychologist;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 // export function getBySpecialties(specialties) {
 //   return async function (dispatch) {
-
+//admin/logIn
 //     try {
 //       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
 //       dispatch({
