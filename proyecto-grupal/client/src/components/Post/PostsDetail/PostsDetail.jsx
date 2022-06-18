@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import "./postdetail.css";
 // -----------------------------------
 import { Box, Badge, Avatar, Stack, Text } from "@chakra-ui/react";
-import { ArrowLeftIcon } from '@chakra-ui/icons'
+import { ArrowLeftIcon } from '@chakra-ui/icons';
 import Loader from "../../Loader/Loader.jsx";
 
 export default function PostsDetail() {
