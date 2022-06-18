@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const { deleteAppointmentModel, postAppointmentModel, getAllAppointment } = require('./appointments');
+const appoimentRouter = (0, express_1.Router)();
+const validateUsers = require("../../middleware/validateUsers");
+appoimentRouter.post('/', validateUsers, postAppointmentModel);
+appoimentRouter.delete('/', validateUsers, deleteAppointmentModel);
+appoimentRouter.get('/', validateUsers, getAllAppointment);
+module.exports = appoimentRouter;

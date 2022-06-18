@@ -20,11 +20,10 @@ import {
   ADMIN_SEARCHBAR,
   GET_PAYMENT,
   GET_PAYMENT_PSY,
-  GET_PAYMENT_CLIENT
+  GET_PAYMENT_CLIENT,
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
-
 
 /*-------------------USER CLIENT ACTIONS----------------*/
 export function getAllUserClients() {
@@ -34,11 +33,11 @@ export function getAllUserClients() {
       .then((data) => {
         dispatch({
           type: GET_ALL_USERCLIENTS,
-          payload: data
-        })
+          payload: data,
+        });
       })
       .catch((err) => console.log(err));
-  }
+  };
 }
 
 export function getUserClientsByName(name) {
@@ -48,11 +47,11 @@ export function getUserClientsByName(name) {
       .then((data) => {
         dispatch({
           type: GET_USER_CLIENTS_BY_NAME,
-          payload: data
+          payload: data,
         });
       })
       .catch((err) => console.log(err));
-  }
+  };
 }
 
 export function getUserClient(idUserClient) {
@@ -153,7 +152,6 @@ export function deleteUserClient(id) {
 //   }
 // }
 
-
 /*-----------------------USER PSYCHOLOGIST ACTIONS---------------------------*/
 //GET para obetener todos los psychologist
 
@@ -180,24 +178,27 @@ export function getUserPsychologistByName(name) {
       .then((data) => {
         dispatch({
           type: GET_USER_PSYCHOLOGISTS_BY_NAME,
-          payload: data
+          payload: data,
         });
       })
       .catch((err) => console.log(err));
-  }
+  };
 }
 
 //getPsychologist by email
 export function getPsychologistByEmail(signupForm) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userpsychologist/email/psychologistEmail`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupForm),
-      })
+      return await fetch(
+        `${baseURL}/userpsychologist/email/psychologistEmail`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupForm),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           dispatch({
@@ -206,7 +207,7 @@ export function getPsychologistByEmail(signupForm) {
           });
         });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 }
@@ -247,7 +248,7 @@ export function createPsychologist(signupForm) {
           });
         });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 }
@@ -257,36 +258,38 @@ export function createPsychologist(signupForm) {
 export function deleteUserPsichologist(id) {
   return async function () {
     try {
-      await axios.delete(`${baseURL}/userpsychologist/deleteuserpsychologist/${id}`);
+      await axios.delete(
+        `${baseURL}/userpsychologist/deleteuserpsychologist/${id}`
+      );
     } catch (error) {
       console.error(error);
-    } 
-  };
-};
-
-// PUT para editar usuario psicologo 
-
-export function editUserPsichologist(id , updatedUserPsychologist ){
-  return async function (){
-    try{
-      const editPsichologist = axios.put(`${baseURL}/userpsychologist/put_userpsychologist/${id}`, updatedUserPsychologist)
-    }catch(error){
-      console.error(error)
     }
-  }
+  };
 }
 
+// PUT para editar usuario psicologo
 
+export function editUserPsichologist(id, updatedUserPsychologist) {
+  return async function () {
+    try {
+      const editPsichologist = axios.put(
+        `${baseURL}/userpsychologist/put_userpsychologist/${id}`,
+        updatedUserPsychologist
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
 
-// filtrar psicologs por  especialidad 
-
+// filtrar psicologs por  especialidad
 
 export function getBySpecialties(payload) {
   return {
     type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-    payload: payload
-  }
-};
+    payload: payload,
+  };
+}
 
 // ordenar psicolofos por calificacion
 
@@ -301,11 +304,7 @@ export function orderByRating(order, array) {
       psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
-};
-
-
-
-
+}
 
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
@@ -347,8 +346,9 @@ export const searchPostsByTitle = (title) => {
 export function getPostDetail(id) {
   return async function (dispatch) {
     try {
-      let detail = await axios.get(`${baseURL}/post/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-    });
+      let detail = await axios.get(`${baseURL}/post/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       return dispatch({
         type: "GET_POST_DETAIL",
         payload: detail.data,
@@ -376,30 +376,29 @@ export const getPostOrder = (order, arreglo) => {
 export const addPost = (body) => {
   return async function (dispatch) {
     try {
-      const { info } = await axios.post(
-        `${baseURL}/post`, body,  {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      }
-      )
+      const { info } = await axios.post(`${baseURL}/post`, body, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       return dispatch({
         type: "CREATE_POST",
-        payload: info
-      })
+        payload: info,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
+  };
+};
 //eliminar nota
 export const deletePost = (id) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
-      await axios.delete(`${baseURL}/deletePost/${id}`)
-      dispatch({type:"DELETE_POST", payload:id})
+      await axios.delete(`${baseURL}/deletePost/${id}`);
+      dispatch({ type: "DELETE_POST", payload: id });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
+  };
+};
 
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
@@ -410,8 +409,7 @@ export const getCategories = () => {
       const jsonBack = await responseBack.json();
       //envio todas las categorias de mi db
       dispatch({ type: "GET_CATEGORIES", payload: jsonBack });
-    } catch (e) {
-    }
+    } catch (e) {}
   };
 };
 //mostrar por categoria
@@ -428,6 +426,21 @@ export const getByCategory = (category) => {
   };
 };
 
+// export const getPostsAuthors = () => {
+//   return async function (dispatch) {
+//     try {
+//       const response = await fetch(`${baseURL}/posts/authors`);
+//       const json = await response.json();
+//       //json trae un obj de arrays con first y last Name
+//       dispatch({
+//         type: "GET_POSTS_AUTHORS",
+//         payload: json,
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
 export const getPostsAuthors = () => {
   return async function (dispatch) {
     try {
@@ -470,9 +483,6 @@ export const clearStatePostDetail = () => {
   };
 };
 
-
-
-
 /*---------------------REVIEWS ACTIONS-------------------*/
 
 export function createReview(payload) {
@@ -482,23 +492,25 @@ export function createReview(payload) {
       return newReview;
     } catch (error) {
       console.log(error);
-
     }
   };
 }
 
 /* ---------------------- PAYMENTS ---------------------- */
 
-export function createPayment(payload){
-  console.log(payload)
+export function createPayment(payload) {
+  console.log(payload);
   return async function () {
-    try{
-    let payment = await axios.post(`${baseURL}/payment/checkoutpayment`, payload) 
-    console.log(payment)
-    } catch (err){
-      console.log(err)
-   }
-  }
+    try {
+      let payment = await axios.post(
+        `${baseURL}/payment/checkoutpayment`,
+        payload
+      );
+      console.log(payment);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 
 export const getAllPayments = () => {
@@ -510,37 +522,32 @@ export const getAllPayments = () => {
         payload: payments.data,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
-}
+  };
+};
 
 export const getPaymentByClientId = (clientId) => {
   return function (dispatch) {
-    axios
-      .get(`${baseURL}/payment/${clientId}`)
-      .then((payment) => {
-        dispatch({
-          type: GET_PAYMENT_CLIENT,
-          payload: payment.data
-        })
-      })
-  }
-}
+    axios.get(`${baseURL}/payment/${clientId}`).then((payment) => {
+      dispatch({
+        type: GET_PAYMENT_CLIENT,
+        payload: payment.data,
+      });
+    });
+  };
+};
 
 export const getPaymentByPsyId = (idPsychologist) => {
   return function (dispatch) {
-    axios
-      .get(`${baseURL}/payment/${idPsychologist}`)
-      .then((payment) => {
-        dispatch({
-          type: GET_PAYMENT_PSY,
-          payload: payment.data
-        })
-      })
-  }
-}
-
+    axios.get(`${baseURL}/payment/${idPsychologist}`).then((payment) => {
+      dispatch({
+        type: GET_PAYMENT_PSY,
+        payload: payment.data,
+      });
+    });
+  };
+};
 
 /* export function sortByDate(payload){
   return async function (){
@@ -597,10 +604,9 @@ export function clearPsychologistList() {
 export function adminSearchbar(inputText) {
   return {
     type: ADMIN_SEARCHBAR,
-    payload: inputText
-
+    payload: inputText,
   };
-};
+}
 
 //     try {
 //       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
@@ -613,4 +619,3 @@ export function adminSearchbar(inputText) {
 //     }
 //   };
 // };
-

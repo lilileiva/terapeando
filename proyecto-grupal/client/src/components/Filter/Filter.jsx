@@ -7,7 +7,7 @@ import {
   getByCategory,
   filterByAuthor,
   getPostsAuthors,
-  getUserPsychologist,
+  getAllPsychologist,
 } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 
@@ -16,16 +16,30 @@ export default function Filters() {
   const posts = useSelector((state) => state.posts);
   const categories = useSelector((state) => state.categories);
   const author = useSelector((state) => state.allUsersPsichologists);
+  //console.log('AUTHOR: ', author)
   //author tiene un array de objetos con first y last Name [{},{}]
+
+  let authorNoRepeat = [];
+  author.map((au) =>
+    !authorNoRepeat.includes(`${au.firstName} ${au.lastName}`)
+      ? authorNoRepeat.push(`${au.firstName} ${au.lastName}`)
+      : null
+  );
+  console.log("authorNoRepeat: ", authorNoRepeat)
+
+  // useEffect(() => {
+  //   dispatch(getCategories());
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(getCategories());
     dispatch(filterByAuthor());
+    dispatch(getAllPsychologist());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getUserPsychologist());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getPostsAuthors());
+  // }, []);
 
   function handleSubmitOrder(e) {
     // console.log(e.target.value);
@@ -72,14 +86,31 @@ export default function Filters() {
         onChange={(e) => handleSubmitAuthor(e)}
       >
         <option value="All">Todos los autores</option>
-        {author.length &&
-          author.map((el) => {
-            return (
-              <option key={el.email} value={el.firstName + el.lastName}>
-                {el.firstName + " " + el.lastName}
-              </option>
-            );
-          })}
+
+        {/* {
+            author.length ? 
+            author.map((au)=>{
+              return (
+                <option key={au.email} value={au.firstName? au.firstName + " " + au.lastName : null}>{au.firstName? au.firstName + " " + au.lastName : null}</option>
+              )
+            }) : null
+          } */}
+
+        <Select
+          w="49%"
+          placeholder="Filtrar notas por autor"
+          onChange={(e) => handleSubmitAuthor(e)}
+        >
+          <option value="All">Todos los autores</option>
+          {authorNoRepeat.length &&
+            authorNoRepeat.map((el) => {
+              return (
+                <option key={el} value={el}>
+                  {el}
+                </option>
+              );
+            })}
+        </Select>
       </Select>
     </div>
   );

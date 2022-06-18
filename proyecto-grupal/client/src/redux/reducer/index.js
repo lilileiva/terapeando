@@ -1,4 +1,3 @@
-
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
@@ -23,7 +22,7 @@ import {
 
 const initialState = {
   userPsichologistDetail: {},
-  allUsersPsichologists: [], // actual 
+  allUsersPsichologists: [], // actual
   UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
@@ -36,12 +35,11 @@ const initialState = {
   paymentDetailsPsychologist: [],
   allPayments: [],
   email: {},
-  adminSearchbar: ""
+  adminSearchbar: "",
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-
     /*-----------CLIENTS-----------*/
     case GET_ALL_USERCLIENTS:
       return {
@@ -66,7 +64,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
-        postsCopy: action.payload,
       };
 
     /*-----------PSYCHOLOGISTS-----------*/
@@ -75,7 +72,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload,
         UserPsichologists: action.payload,
-
       };
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
       return {
@@ -83,19 +79,39 @@ function rootReducer(state = initialState, action) {
         allUsersPsichologists: action.payload,
       };
 
+    // case "FILTER_POSTS_BY_AUTHOR":
+    //   const filterPost = state.postsCopy;
+    //   //filterByAuthor = array de obj con first y last Name
+    //   const actFiltered =
+    //     action.payload === "All"
+    //       ? filterPost
+    //       : filterPost.filter(
+    //           (a) => {
+    //             const author = a.idUserPsychologist.firstName + " " +  a.idUserPsychologist.lastName
+    //             return author.includes(action.payload)
+    //           }
+    //         );
+    //   return {
+    //     ...state,
+    //     posts: actFiltered,
+    //   };
+
     case "FILTER_POSTS_BY_AUTHOR":
-      const filterPost = state.postsCopy;
+      let postsCopy = state.posts;
       //filterByAuthor = array de obj con first y last Name
-      const actFiltered =
-        action.payload === "All"
-          ? filterPost
-          : filterPost.filter(
-              (a) => a.firstName + a.lastName === action.payload
-            );
+      let filterPost = []
+      postsCopy.filter(el => {
+        if (`${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}` === action.payload) {
+          filterPost.push(el)
+        }
+        // return console.log('nomb', `${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}`)
+      })
       return {
         ...state,
-        posts: actFiltered,
+        posts: filterPost,
       };
+
+
 
     case "GET_POSTS_AUTHORS":
       return {
@@ -122,7 +138,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         postDetail: {},
         posts: [],
-      }
+      };
     case "CREATE_PSYCHOLOGIST":
       return {
         ...state,
@@ -133,21 +149,25 @@ function rootReducer(state = initialState, action) {
         email: action.payload,
       };
     case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
-      const psichologists = state.UserPsichologists
-      const filterBySpecialties = psichologists.filter(el => {
-        let specialties = el.Specialties.map(el => el)
-        return specialties.includes(action.payload)
-      })
-    
-      return {
-        ...state,
-        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties.length > 0 ? filterBySpecialties : psichologists,
-      };
-    case ORDER_PSICHOLOGIST_BY_RATING:
+      const psichologists = state.UserPsichologists;
+      const filterBySpecialties = psichologists.filter((el) => {
+        let specialties = el.Specialties.map((el) => el);
+        return specialties.includes(action.payload);
+      });
 
       return {
         ...state,
-        allUsersPsichologists: action.payload
+        allUsersPsichologists:
+          action.payload === "Todas"
+            ? psichologists
+            : filterBySpecialties.length > 0
+            ? filterBySpecialties
+            : psichologists,
+      };
+    case ORDER_PSICHOLOGIST_BY_RATING:
+      return {
+        ...state,
+        allUsersPsichologists: action.payload,
       };
 
     /*-----------POSTS-----------*/
@@ -155,6 +175,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+        postsCopy: action.payload,
       };
     case "GET_POST_DETAIL":
       return {
@@ -189,8 +210,8 @@ function rootReducer(state = initialState, action) {
     case "DELETE_POST":
       return {
         ...state,
-        posts: state.posts.filter(posts => posts.id !== action.payload)
-      }
+        posts: state.posts.filter((posts) => posts.id !== action.payload),
+      };
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:
@@ -231,8 +252,8 @@ function rootReducer(state = initialState, action) {
     case GET_PAYMENT_PSY:
       return {
         ...state,
-        paymentDetailsPsychologist: action.payload
-      }
+        paymentDetailsPsychologist: action.payload,
+      };
     default:
       return { ...state };
   }

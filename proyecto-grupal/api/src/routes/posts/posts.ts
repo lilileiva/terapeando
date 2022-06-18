@@ -61,14 +61,14 @@ const getOnePost = async (req: Request, res: Response) => {
 };
 
 const createPost = (req: Request, res: Response, next: NextFunction) => {
-  const {Date, Title, Image, Tags, Content} = req.body;
+  const { Date, Title, Image, Tags, Content } = req.body;
   //me creo el post con el objeto ue me llega de body
   Post.create({
     Date,
     Title,
-    Image, 
+    Image,
     Tags,
-    Content
+    Content,
   })
     .then((createdPost) => {
       createdPost.save();
@@ -91,20 +91,27 @@ const getPostAuthors = async (req: Request, res: Response) => {
     const allPosts = await Post.find().populate("idUserPsychologist", {
       firstName: 1,
       lastName: 1,
-      email: 1
+      email: 1,
     });
     const authors = allPosts.map((au) => {
-      return au.idUserPsychologist
+      return au.idUserPsychologist;
+    });
+    console.log(authors)
+    let authorsFiltered = authors.filter((au: any) => {
+      const author = au.firstName + " " +  au.lastName
+      return author
     })
-    // const authorsS = authors.filter((au) => {
-    //   return au.email === 'miguelgar@gmail.com'
-    // })
-    // console.log(authors)
-    res.status(200).json(authors)
+    // let autoresFiltrados: string[];
+    // const authorsS = authors.forEach((au) => {
+    //   if (!autoresFiltrados.includes(au.firstName + " " + au.lastName)) {
+    //     autoresFiltrados.push(au);
+    //   }
+    // });
+    res.status(200).json(authorsFiltered);
   } catch (error) {
-    console.log(error)
-}
-}
+    console.log(error);
+  }
+};
 
 const filterPostsCategory = async (
   req: Request,
@@ -112,7 +119,7 @@ const filterPostsCategory = async (
   next: NextFunction
 ) => {
   const { category } = req.params;
-  
+
   const postTotals = await Post.find().populate("idUserPsychologist", {
     firstName: 1,
     lastName: 1,
@@ -146,12 +153,12 @@ const filterPostsCategory = async (
 const deletePost = async (req: Request, res: Response) => {
   const { IdPost } = req.params;
   try {
-     const postDelete = await Post.findOneAndDelete({ _id: IdPost })
-     res.send('Post eliminado correctamente')
+    const postDelete = await Post.findOneAndDelete({ _id: IdPost });
+    res.send("Post eliminado correctamente");
   } catch (err) {
-     res.status(404).send('error: ' + err);
+    res.status(404).send("error: " + err);
   }
-}
+};
 module.exports = {
   createPost,
   getAllPosts,
