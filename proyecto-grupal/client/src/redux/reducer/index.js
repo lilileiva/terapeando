@@ -12,6 +12,10 @@ import {
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
   CLEAR_CLIENT,
+  GET_PAYMENT,
+  GET_ONE_PAYMENT,
+  GET_PAYMENT_PSY,
+  GET_PAYMENT_CLIENT,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
   ADMIN_SEARCHBAR,
@@ -28,6 +32,9 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: {},
+  paymentDetailsClient: [],
+  paymentDetailsPsychologist: [],
+  allPayments: [],
   email: {},
   adminSearchbar: ""
 };
@@ -211,6 +218,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         adminSearchbar: action.payload,
       };
+    case GET_PAYMENT:
+      return {
+        ...state,
+        allPayments: [],
+      };
+    case GET_PAYMENT_CLIENT:
+      return {
+        ...state,
+        paymentDetailsClient: action.payload,
+      };
+    case GET_PAYMENT_PSY:
+      return {
+        ...state,
+        paymentDetailsPsychologist: action.payload
+      }
     default:
       return { ...state };
   }

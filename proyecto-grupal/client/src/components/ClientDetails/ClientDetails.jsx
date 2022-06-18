@@ -14,7 +14,7 @@ import {
   Button,
   Badge,
   VStack,
-  HStack,
+  Container,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,16 +39,44 @@ export default function ClientDetails() {
   return arr.length <= 1 ? (
     <Loader />
   ) : (
-    <Center py={6} h={"100%"}>
+    <Center>
+    <Container maxW={'container.lg'} py={6} h={"100%"}>
       <Box
         w={"50%"}
-        bg={"#2D3748"}
+        bg={"gray.200"}
         boxShadow={"2xl"}
         rounded={"lg"}
         p={6}
         textAlign={"center"}
       >
-          <Stack direction={"row"} spacing={4} w={'100%'} 
+
+        <Stack
+          direction={"row"}
+          spacing={4}
+          w={"100%"}
+          justifyContent={"space-between"}
+        >
+          <Text fontWeight={500} color={"blackAlpha.800"} mb={10} fontSize="3xl">
+            Información Personal
+          </Text>
+          <Button
+            maxW={"40%"}
+            fontSize={"sm"}
+            rounded={"full"}
+            _focus={{
+              bg: "teal.600",
+            }}
+            bg={"green.100"}
+            color="teal.500"
+            _hover={{
+              bg: "green.500",
+              color: "white",
+            }}
+          >
+            <Link to={`/editprofile/${idUserClient}`}>Edit Profile</Link>
+          </Button>
+        </Stack>
+      <Stack direction={"row"} spacing={4} w={'100%'} 
           justifyContent={'space-between'}> 
         
         <Text fontWeight={500} color={"gray.300"} mb={10} fontSize='3xl'> 
@@ -78,45 +106,45 @@ export default function ClientDetails() {
           alt={clientDetails.firstName}
           mb={4}
         />
-        <Heading color={"gray.300"} fontSize={"2xl"} fontFamily={"body"}>
+        <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
           {clientDetails.firstName} {clientDetails.lastName}{" "}
           <ChangePasswordModal />
         </Heading>
 
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          <Badge px={2} py={1} color={"gray.300"} fontWeight={"600"}>
+          <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
             {clientDetails.email}
           </Badge>
-          <Badge px={2} py={1} color={"gray.300"} fontWeight={"600"}>
+          <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
             {clientDetails.birthDate}
           </Badge>
-          <Badge px={2} py={1} color={"gray.300"} fontWeight={"600"}>
+          <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
             {clientDetails.country}
           </Badge>
         </Stack>
 
         <Stack mt={"40px"} alignItems="center">
           <CalendarIcon />
-          <Heading color={"gray.300"}>Citas</Heading>
+          <Heading color={"blackAlpha.800"}>Citas</Heading>
           <VStack alignItems="left" spacing="24px">
-            <Text color={"gray.300"}>
+            <Text color={"blackAlpha.800"}>
               Terapeuta: Ana Gomez <ExternalLinkIcon cursor={"pointer"} />
             </Text>
             <Badge
               px={2}
               py={1}
-              color={"gray.300"}
+              color={"blackAlpha.800"}
               fontWeight={"600"}
               fontSize="1em"
             >
-              <Text mb={"10px"}> Martes 14, | 15:00 - 15:45 </Text>
+              <Text color={"blackAlpha.800"} mb={"10px"}> Martes 14, | 15:00 - 15:45 </Text>
               <DeleteIcon mr={"10px"} cursor={"pointer"} />
               <EditIcon cursor={"pointer"} />
             </Badge>
             <Badge
               px={2}
               py={1}
-              color={"gray.300"}
+              color={"blackAlpha.800"}
               fontWeight={"600"}
               fontSize="1em"
               w={"100%"}
@@ -126,6 +154,7 @@ export default function ClientDetails() {
           </VStack>
         </Stack>
       </Box>
+    </Container>
     </Center>
   );
 }
