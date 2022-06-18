@@ -18,7 +18,7 @@ function AdminPanelPayments() {
         <Stack width='100%' bg='white' p='2%' direction='column' justifyContent='center'>
           <Wrap justify='center'>
             <WrapItem>
-              <Link to=''>
+              <Link to='allpayments'>
                 <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100', scale: '110%' }}>
                   <Stack direction='column' align='center'>
                     <BsCashCoin size='50%' />

@@ -18,9 +18,11 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
-  GET_PAYMENT,
-  GET_PAYMENT_PSY,
+  GET_PAYMENT, 
+  GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
+  GET_RANGE_BY_DATE,
+  SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS
 } from "./types";
 
@@ -580,31 +582,20 @@ export const getPaymentByPsyId = (idPsychologist) => {
   }
 }
 
-
-/* export function sortByDate(payload){
-  return async function (){
-    function parseDate( ddMMyyyy ) {
-    
-        const components = ddMMyyyy.split( '/' );
-        if( components.length != 3 ) return null; 
-    
-        const dd   = parseInt( components[0] );
-        const MM   = parseInt( components[1] );
-        const yyyy = parseInt( components[2] );
-
-        if( dd >= 1 && dd <= 31 && MM >= 1 && MM <= 12 && yyyy >= 0 && yyyy <= 9999 ) {
-            return new Date( yyyy, MM - 1, dd ); 
-        } 
-        else {
-            return null;
-        }
-    }
-    let sortedParsedDates = dates
-        .map( parseDate )
-        .filter( dt => dt instanceof Date )
-        .sort( ( x, y ) => x.getTime() - y.getTime() );
+/* filtrar por rango de fechas */
+export const getRangeByDate = (payload) => {
+  return{
+          type: GET_RANGE_BY_DATE,
+          payload
   }
-} */
+}
+
+export const sortByDate = (payload) => {
+  return {
+    type: SORT_BY_DATE,
+    payload
+  }
+}
 
 /*---------------------CLEAR ACTIONS-------------------*/
 //Clean detail state
@@ -641,6 +632,9 @@ export function adminSearchbar(inputText) {
   };
 };
 
+
+// export function getBySpecialties(specialties) {
+//   return async function (dispatch) {
 //     try {
 //       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
 //       dispatch({
@@ -652,4 +646,3 @@ export function adminSearchbar(inputText) {
 //     }
 //   };
 // };
-
