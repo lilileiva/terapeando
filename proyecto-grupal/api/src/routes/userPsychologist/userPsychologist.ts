@@ -7,8 +7,17 @@ import userPsychologist from "../../models/userPsychologist";
 const getUserPsychologistOne = async (req: Request, res: Response) => {
   try {
     const { IdUserPsychologist } = req.params;
-    const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist);
+    const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist, '-password');
     res.status(200).json(psychologistUser)
+  } catch (err) {
+    res.status(404).json({ data: err })
+  }
+}
+const getUserPsychologistByEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const psychologistUserEmail = await userPsychologistModel.findOne({ 'email': email }, '-password');
+    res.status(200).json(psychologistUserEmail)
   } catch (err) {
     res.status(404).json({ data: err })
   }
@@ -17,18 +26,18 @@ const getUserPsychologistOne = async (req: Request, res: Response) => {
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.query;
-    
+
     if (name) {
       userPsychologist.find({
         $or: [{ firstName: { $regex: name, $options: 'i' } },
         { lastName: { $regex: name, $options: 'i' } }]
-      })
+      }, '-password')
         .then((psychologist) => {
           res.status(200).json(psychologist)
         })
-      .catch((error:any) => next(error))
+        .catch((error: any) => next(error))
     } else {
-      const userPsychologist = await userPsychologistModel.find();
+      const userPsychologist = await userPsychologistModel.find({}, '-password');
       res.status(200).json(userPsychologist)
     }
 
@@ -39,41 +48,48 @@ const getUserPsychologist = async (req: Request, res: Response, next: NextFuncti
 ////Post/////
 
 const postUserPsychologist = async (req: Request, res: Response) => {
+  const {
+    firstname,
+    lastname,
+    email,
+    password,
+    birthdate,
+    country,
+    license,
+    dni,
+    specialities,
+    profileimage,
+    rating,
+    education,
+    about
+  } = req.body;
+
   try {
-    const {
-      firstname,
-      lastname,
-      email,
-      password,
-      birthdate,
-      country,
-      license,
-      dni,
-      specialities,
-      profileimage,
-      rating,
-      education,
-      about
-    } = req.body;
-    const userP = await userPsychologistModel.create({
-      firstName: firstname,
-      lastName: lastname,
-      email,
-      password,
-      birthDate: birthdate,
-      country,
-      License: license,
-      DNI: dni,
-      Specialties: specialities,
-      profileImage: profileimage,
-      rating,
-      appointments: [],
-      about,
-      education,
-    });
-    res.status(201).send(userP);
+      const psychologistExist = await userPsychologistModel.findOne({'email': email})
+      if(psychologistExist){
+        return res.json({ error: "User already exists" });
+      } else {
+        const userP = await userPsychologistModel.create({
+          firstName: firstname,
+          lastName: lastname,
+          email,
+          password,
+          birthDate: birthdate,
+          country,
+          License: license,
+          DNI: dni,
+          Specialties: specialities,
+          profileImage: profileimage,
+          rating,
+          appointments: [],
+          about,
+          education,
+          role: 'psychologist'
+        });
+        res.status(201).send('Welcome to our community, now you can sign in');
+      }
   } catch (error) {
-    res.status(404).send(error);
+    res.send({error: 'Validate your personal data'})
   }
 };
 ///// Delete /////
@@ -100,6 +116,40 @@ const putUserPsychologist = async (req: Request, res: Response) => {
   }
 }
 
+const filterPsichologistSpecialities = async (req: Request, res: Response) => {
+  const { specialtie } = req.params;
+  console.log(specialtie);
+  try {
+    const PsychologistBySpecialtie = await userPsychologistModel.find({
+      Specialties: { $in: [specialtie] }
+    });
+    if (PsychologistBySpecialtie.length !== 0) {
+      res.status(200).json(PsychologistBySpecialtie)
+    }
+    else {
+      res.status(404).json({ msj: 'No hay psicologos con esa especialidad' })
+    }
+
+  } catch (error) {
+    console.log(error)
+    return res.status(404).send({ msj: 'No se encontraron resultados' });
+  }
+
+};
+
+const filterPsichologistRating = async (req: Request, res: Response) => {
+
+  try {
+    const PsichologistByRating = await userPsychologistModel.find({}, { 'rating': 1, "_id": 0 });
+    const orderDesc = PsichologistByRating.sort((a, b) => b.rating - a.rating);
+    res.status(200).json(orderDesc)
+
+  } catch (error) {
+    console.log(error)
+    return res.status(404).send({ msj: 'No se encontraron resultados' });
+  }
+
+};
 
 
 module.exports = {
@@ -108,4 +158,7 @@ module.exports = {
   postUserPsychologist,
   deleteUserPsychologist,
   putUserPsychologist,
+  getUserPsychologistByEmail,
+  filterPsichologistSpecialities,
+  filterPsichologistRating
 }

@@ -1,0 +1,14 @@
+.startsarray{
+    margin: auto;
+    margin-bottom: 25px;
+    margin-top: 25px;
+
+}
+
+.input_calificacion{
+    width: 100%;
+    height: 80px;
+    border: 1px solid #a9a9a9;
+    border-radius: 5px;
+    margin: 20px ,
+}

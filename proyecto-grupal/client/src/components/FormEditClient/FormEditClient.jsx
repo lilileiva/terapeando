@@ -22,14 +22,12 @@ import DeleteModal from '../Modals/DeleteModal';
 
 const regNames = /^[A-Za-z]+$/;
 const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-/* const regUrlImage = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g; */
 
 function validate(input) {
   const error = {};
   if(!regNames.test(input.firstname)) error.firstName = 'El nombre no es valido'
   if(!regNames.test(input.lastname)) error.lastName = 'El apellido no es válido'
   if(!regEmail.test(input.email)) error.email = 'El email no es válido'
-  /* if(!regUrlImage.test(input.profileimage)) error.profileImage = 'La URL de la imagen no es valida' */
   return error
 }
 
@@ -37,6 +35,7 @@ function FormEditClient() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {idUserClient} = useParams();
+
   const [error, setError] = useState({});
 
   const [input, setInput] = useState({

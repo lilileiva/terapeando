@@ -49,6 +49,7 @@ export default function ClientDetails() {
         p={6}
         textAlign={"center"}
       >
+
         <Stack
           direction={"row"}
           spacing={4}
@@ -75,6 +76,30 @@ export default function ClientDetails() {
             <Link to={`/editprofile/${idUserClient}`}>Edit Profile</Link>
           </Button>
         </Stack>
+      <Stack direction={"row"} spacing={4} w={'100%'} 
+          justifyContent={'space-between'}> 
+        
+        <Text fontWeight={500} color={"gray.300"} mb={10} fontSize='3xl'> 
+          Información Personal
+        </Text>
+        <Button
+         maxW={"40%"}
+         fontSize={"sm"}
+         rounded={"full"}
+         _focus={{
+           bg: "teal.600",
+         }}
+         bg={'green.100'}
+        color='teal.500'
+        _hover={{
+          bg: 'green.500',
+          color:'white'
+        }}>
+          <Link to={`/editprofile/${idUserClient}`}>
+            Edit Profile
+          </Link>
+         </Button>
+         </Stack>
         <Avatar
           size={"2xl"}
           src={clientDetails.profileImage}
