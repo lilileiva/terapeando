@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  getPsychologistByStatus,
   getAllPsychologist,
   getUserPsychologistByName,
   clearPsychologistList,
@@ -24,7 +25,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllPsychologist());
+    dispatch(getPsychologistByStatus());
     smoothscroll();
   }, [dispatch]);
 
@@ -48,7 +49,7 @@ export default function Home() {
   };
 
   const handleSubmit = () => {
-    dispatch(getAllPsychologist())
+    dispatch(getPsychologistByStatus())
   }
 
   const token = window.localStorage.getItem('token')
@@ -83,7 +84,7 @@ export default function Home() {
         </Stack>
 
         {AllPsychologist && AllPsychologist.length > 0 ?
-          AllPsychologists.filter(el => el.status === 'Activo').map(el => {
+          AllPsychologists.map(el => {
             { console.log(el.status) }
             return (
 
