@@ -7,6 +7,7 @@ const schedule = require("./schedule/scheduleRoutes.ts");
 const userClient = require("./userClient/userClientRoutes.ts");
 const userPsychologist = require("./userPsychologist/userPsychologistRoutes");
 
+
 const router: Router = Router();
 
 router.use('/appointment', appointment)
@@ -16,5 +17,6 @@ router.use('/reviews', reviews)
 router.use('/schedule', schedule)
 router.use('/userclient', userClient)
 router.use('/userpsychologist', userPsychologist)
+
 
 module.exports = router;
