@@ -20,7 +20,8 @@ import {
   ADMIN_SEARCHBAR,
   GET_PAYMENT,
   GET_PAYMENT_PSY,
-  GET_PAYMENT_CLIENT
+  GET_PAYMENT_CLIENT,
+  GET_ALL_PSYCHOLOGIST_BY_STATUS
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -184,7 +185,27 @@ export const getAllPsychologist = () => {
   };
 };
 
+
+//GET para obtener los psicologos con status activo 
+export const getPsychologistByStatus = () => {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`${baseURL}/userpsychologist/status/psycologiststatus`);
+      dispatch({
+        type: GET_ALL_PSYCHOLOGIST_BY_STATUS,
+        payload: json.data,
+      });
+
+    } catch (error) {
+      console.log(error);
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  }
+};
+
+
 //GET para obtener los psicologos por nombre
+
 export function getUserPsychologistByName(name) {
   return async function (dispatch) {
     fetch(`${baseURL}/userpsychologist?name=${name}`)
@@ -396,9 +417,7 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      }
+        `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
       )
       return dispatch({
         type: "CREATE_POST",
