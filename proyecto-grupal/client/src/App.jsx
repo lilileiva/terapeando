@@ -16,6 +16,12 @@ import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
 import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
+import Payments from "./components/Payments/Payments";
+import CheckoutPayment from "./components/Payments/CheckoutPayment";
+import '@stripe/stripe-js'
+import Success from "./components/Payments/CheckoutComponent/Success";
+import Cancel from "./components/Payments/CheckoutComponent/Cancel";
+import Chart from "./components/PaymentHistoryAdmin/Chart";
 
 export default function App() {
   return (
@@ -39,6 +45,11 @@ export default function App() {
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/postdetail/:id" element={<PostsDetail />} />
+        <Route path='/mypayments' element={<Payments />} />
+        <Route path='/checkout/:idPsychologist' element={<CheckoutPayment />} />
+        <Route path='success' element={<Success />} />
+        <Route path='canceled' element={<Cancel />} />
+        <Route path='chart' element={<Chart />} />
       </Routes>
     </div>
   );
