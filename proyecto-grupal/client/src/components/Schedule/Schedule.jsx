@@ -6,6 +6,7 @@ import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 
+
 function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalendar }) {
 
     return (
