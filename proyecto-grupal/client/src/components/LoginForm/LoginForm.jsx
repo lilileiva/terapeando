@@ -78,7 +78,19 @@ function LoginForm() {
 
         if (Object.keys(formErrors).length === 0) {
             // console.log('signInForm', signinForm)
-            const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)                        
+            // const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+            let response;
+            try {
+                response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+            } catch (error) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Datos incorrectos',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }
             const token = response.data.token
             window.localStorage.setItem('token', token)
             // console.log('Este es el .data del response', response.data)
@@ -92,16 +104,7 @@ function LoginForm() {
                     timer: 3000
                 })
                 navigate('/home')
-            } else {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Datos incorrectos',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
             }
-
         }
     }
 
