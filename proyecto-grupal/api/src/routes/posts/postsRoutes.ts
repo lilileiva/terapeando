@@ -16,7 +16,7 @@ const ClientOrAdmin = require('../../middleware/validateClientOrAdmin')
 const postsRouter: Router = Router();
 
 postsRouter.get("/posts", getAllPosts);
-postsRouter.get("/post/:id",getOnePost);
+postsRouter.get("/post/:id", getOnePost);
 postsRouter.post("/post", validatePsychologistOrAdmin, createPost);
 postsRouter.get("/categories", getAllCategory);
 

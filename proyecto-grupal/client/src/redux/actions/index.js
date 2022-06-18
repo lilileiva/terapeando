@@ -31,7 +31,10 @@ const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 /*-------------------USER CLIENT ACTIONS----------------*/
 export function getAllUserClients() {
   return async function (dispatch) {
-    fetch(`${baseURL}/userclient/clients`)
+    fetch(
+      `${baseURL}/userclient/clients`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    )
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -45,7 +48,10 @@ export function getAllUserClients() {
 
 export function getUserClientsByName(name) {
   return async function (dispatch) {
-    fetch(`${baseURL}/userclient/clients?name=${name}`)
+    fetch(
+      `${baseURL}/userclient/clients?name=${name}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    )
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -60,7 +66,10 @@ export function getUserClientsByName(name) {
 export function getUserClient(idUserClient) {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/userclient/client/${idUserClient}`)
+      .get(
+        `${baseURL}/userclient/client/${idUserClient}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      )
       .then((client) => {
         dispatch({
           type: GET_USERCLIENT,
@@ -122,7 +131,8 @@ export function editClient(id, updatedUserClient) {
     try {
       const data = await axios.put(
         `${baseURL}/userclient/${id}`,
-        updatedUserClient
+        updatedUserClient,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       console.log(data);
     } catch (err) {
@@ -134,7 +144,10 @@ export function editClient(id, updatedUserClient) {
 export function deleteUserClient(id) {
   return async function () {
     try {
-      await axios.delete(`${baseURL}/userclient/deleteuserclient/${id}`);
+      await axios.delete(
+        `${baseURL}/userclient/deleteuserclient/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -174,7 +187,6 @@ export const getAllPsychologist = () => {
 };
 
 //GET para obtener los psicologos por nombre
-
 export function getUserPsychologistByName(name) {
   return async function (dispatch) {
     fetch(`${baseURL}/userpsychologist?name=${name}`)
@@ -259,20 +271,28 @@ export function createPsychologist(signupForm) {
 export function deleteUserPsichologist(id) {
   return async function () {
     try {
-      await axios.delete(`${baseURL}/userpsychologist/deleteuserpsychologist/${id}`);
+      await axios.delete(
+        `${baseURL}/userpsychologist/deleteuserpsychologist/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      );
     } catch (error) {
       console.error(error);
-    } 
+    }
   };
 };
 
 // PUT para editar usuario psicologo 
 
-export function editUserPsichologist(id , updatedUserPsychologist ){
-  return async function (){
-    try{
-      const editPsichologist = axios.put(`${baseURL}/userpsychologist/put_userpsychologist/${id}`, updatedUserPsychologist)
-    }catch(error){
+export function editUserPsichologist(id, updatedUserPsychologist) {
+  return async function () {
+    try {
+      const editPsichologist = axios.put(
+        `${baseURL}/userpsychologist/put_userpsychologist/${id}`,
+        updatedUserPsychologist,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
+    } catch (error) {
       console.error(error)
     }
   }
@@ -349,8 +369,7 @@ export const searchPostsByTitle = (title) => {
 export function getPostDetail(id) {
   return async function (dispatch) {
     try {
-      let detail = await axios.get(`${baseURL}/post/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-    });
+      let detail = await axios.get(`${baseURL}/post/${id}`);
       return dispatch({
         type: "GET_POST_DETAIL",
         payload: detail.data,
@@ -379,7 +398,8 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body,  {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        `${baseURL}/post`, body, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       }
       )
       return dispatch({
@@ -393,10 +413,10 @@ export const addPost = (body) => {
 }
 //eliminar nota
 export const deletePost = (id) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
       await axios.delete(`${baseURL}/deletePost/${id}`)
-      dispatch({type:"DELETE_POST", payload:id})
+      dispatch({ type: "DELETE_POST", payload: id })
     } catch (error) {
       console.log(error)
     }
@@ -491,15 +511,15 @@ export function createReview(payload) {
 
 /* ---------------------- PAYMENTS ---------------------- */
 
-export function createPayment(payload){
+export function createPayment(payload) {
   console.log(payload)
   return async function () {
-    try{
-    let payment = await axios.post(`${baseURL}/payment/checkoutpayment`, payload) 
-    console.log(payment)
-    } catch (err){
+    try {
+      let payment = await axios.post(`${baseURL}/payment/checkoutpayment`, payload)
+      console.log(payment)
+    } catch (err) {
       console.log(err)
-   }
+    }
   }
 }
 

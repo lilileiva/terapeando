@@ -13,6 +13,7 @@ import { ArrowLeftIcon, CheckIcon } from '@chakra-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import NavBar from '../NavBar/NavBar.jsx';
+import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 
 // Replace test data with your own
@@ -24,14 +25,18 @@ const features = Array.apply(null, Array(4)).map(function (x, i) {
   };
 });
 
-export default function Faqs() {
 
+export default function Faqs() {
+  
   const navigate = useNavigate();
+
+  const token = window.localStorage.getItem('token');
 
   return (
     <div className='faqsContainer'>
-      <NavBar />
-
+      {
+        token ? <NavbarHome /> : <NavBar />
+      }
       <Box p={4} bgColor={'#E2E8F0'}>
         <Link to={'/'}>
           <ArrowLeftIcon color={'green.300'} alignItems={'left'} onClick={() => navigate(-1)} />
