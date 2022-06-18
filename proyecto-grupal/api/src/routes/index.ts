@@ -6,12 +6,8 @@ const reviews = require("./reviews/reviewsRoutes.ts");
 const schedule = require("./schedule/scheduleRoutes.ts");
 const userClient = require("./userClient/userClientRoutes.ts");
 const userPsychologist = require("./userPsychologist/userPsychologistRoutes");
-<<<<<<< HEAD
 
-
-=======
 const admin = require("./admin/adminRoutes")
->>>>>>> b409cb2e9a49477ba848bd9159964cf760ad3bcc
 const router: Router = Router();
 
 router.use('/appointment', appointment)

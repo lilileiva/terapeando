@@ -13,12 +13,13 @@ import {
   GET_POSTS,
   CLEAR_CLIENT,
   GET_PAYMENT,
-  GET_ONE_PAYMENT,
   GET_PAYMENT_PSY,
-  GET_PAYMENT_CLIENT
+  GET_PAYMENT_CLIENT,
+  GET_RANGE_BY_DATE,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
+  SORT_BY_DATE
 } from "../actions/types";
 
 const initialState = {
@@ -179,7 +180,7 @@ function rootReducer(state = initialState, action) {
     case GET_PAYMENT:
       return {
         ...state,
-        allPayments: [],
+        allPayments: action.payload,
       };
     case GET_PAYMENT_CLIENT:
       return {
@@ -190,6 +191,28 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         paymentDetailsPsychologist: action.payload
+      };
+    case GET_RANGE_BY_DATE:
+      const allPayments = state.allPayments;
+      const filterByMonth = allPayments.filter((p) => 
+        p.createdAt?.some((date) => (new Date(p.createdAt).getUTCMonth() + 1) === action.payload)
+      ) 
+      return {
+        ...state,
+        allPayments: filterByMonth
+      }
+    case SORT_BY_DATE:
+      let sortedPayments = [state.allPayments];
+      sortedPayments = action.payload === "asc" ?
+      state.allPayments.sort(function(a, b){
+          return new Date(a.createdAt) - new Date(b.createdAt)
+        })
+        : state.allPayments.sort(function(a,b){
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        })    
+      return {
+          ...state,
+          allPayments: sortedPayments
       }
     default:
       return { ...state };

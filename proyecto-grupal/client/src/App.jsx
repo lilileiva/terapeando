@@ -15,7 +15,6 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
-import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
 import Payments from "./components/Payments/Payments";
 import CheckoutPayment from "./components/Payments/CheckoutPayment";
 import '@stripe/stripe-js'
@@ -33,6 +32,10 @@ import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsycholog
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDetails/AdminPostDetail";
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
+import PaymentsAdmin from './components/AdminPanel/AdminPanelPayments/Components/PaymentsAdmin.jsx';
+import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components/CancelPayment.jsx';
+import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
+import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 import LoginFormPsychologist from "./components/LoginFormPsychologist/LoginFormPsychologist";
 
@@ -74,6 +77,10 @@ export default function App() {
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
+        <Route path='adminpanel/payments/allpayments' element={<PaymentsAdmin />} />
+        <Route path='adminpanel/cancelpayment' element={<CancelPayment />} />
+        <Route path='adminpanel/accreditedpayment' element={<AccreditedPayment />} />
+        <Route path='adminpanel/estadisticas' element={<Estadisticas />} />
       </Routes>
     </div>
   );
