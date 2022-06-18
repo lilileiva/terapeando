@@ -20,5 +20,5 @@ postsRouter.post("/post", validatePsychologistOrAdmin, createPost);
 postsRouter.get("/categories", getAllCategory);
 postsRouter.get("/filter/:category", filterPostsCategory);
 postsRouter.delete("/deletePost/:IdPost", validatePsychologistOrAdmin ,deletePost)
-postsRouter.put("/:IdPost",putPost)
+postsRouter.put("/edit/:IdPost",putPost)
 module.exports = postsRouter;

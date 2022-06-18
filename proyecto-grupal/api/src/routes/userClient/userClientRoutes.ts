@@ -12,7 +12,7 @@ const validateAdmin = require('../../middleware/validatePsychologistOrAdmin')
 const clientRouter: Router = Router();
 
 
-clientRouter.get('/clients',  getAllUserClient);
+clientRouter.get('/clients', getAllUserClient);
 clientRouter.get('/client/:IdUserClient', getUserClient);
 clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)

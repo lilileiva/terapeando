@@ -96,11 +96,7 @@ function AdminPostDetail() {
                   </Stack>
                   <br />
                   <Stack direction='row'>
-                    <Button width='50%' colorScheme='teal' variant='outline'>
-                      <BsPencilSquare />
-                      <Text pr='0.5em'> Editar nota</Text>
-                    </Button>
-                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+                    <Button width='85%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>

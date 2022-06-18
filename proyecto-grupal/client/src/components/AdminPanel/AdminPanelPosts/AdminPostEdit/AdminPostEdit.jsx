@@ -6,7 +6,7 @@ import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, Input, Select } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
-import { getUserClient, clearClient, deleteUserClient, getPostDetail, clearStatePostDetail} from '../../../../redux/actions';
+import { getUserClient, clearClient, deleteUserClient, getPostDetail, clearStatePostDetail, getCategories} from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 import countryList from 'react-select-country-list';
@@ -16,11 +16,12 @@ function AdminPostEdit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const countries = useMemo(() => countryList().getData(), [])
+  const categories = useSelector((state) => state.categories)
 
   const { idPost } = useParams();
 
   useEffect(() => {
+    dispatch(getCategories())
     dispatch(getPostDetail(idPost))
     return () => {
       dispatch(clearStatePostDetail())
@@ -28,22 +29,6 @@ function AdminPostEdit() {
   }, [dispatch])
   const postDetail = useSelector((state) => state.postDetail);
   console.log(postDetail)
-
-  const handleAlertEdit = (clientId) => {
-    Swal.fire({
-      title: '¿Estás seguro que quieres guardar estos cambios?',
-      icon: 'info',
-      showConfirmButton: true,
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: 'Sí',
-    }).then((result) => {
-      if (result.isConfirmed) {        
-        navigate(`/adminpanel/posts/${clientId}`)
-        Swal.fire('Post editado correctamente!', '', 'success')
-      }
-    })
-  }
 
   const [inputText, setInputText] = useState({
     Date: "",
@@ -83,32 +68,71 @@ function AdminPostEdit() {
           errors.Image = 'La Imagen es obligatoria'
       }
       //Tags
-      if(!input.Tags.length){
-        errors.Tags = 'Es obligatorio tener por lo menos una categoria'
-      }
+     
   
       return errors //la funcion valiDate devuelve el objeto errors, ya sea vacio o con alguna propiedad si es q encuentra un error
     };
   const [formErrors, setFormErrors] = useState({})
   /*------------------fin-validaciones----------------*/
 
-  const handleCountries = (e) => {
-    setInputText({
-      ...inputText,
-      country: e.target.value
-    })
-  }
-
+  const posts = useSelector((state) => state.posts)
   const handleInputChange = (e) => {
     setInputText({
-      ...inputText,
+      ...inputText, 
       [e.target.name]: e.target.value
     })
   }
+  function handleCategories(event){
+    const {value} = event.target
+    if(!inputText.Tags.includes(value)){
+        //me lleno el input.Tags con el valor que me pasaron por genero
+        setInputText({
+            ...inputText,
+            Tags: [...inputText.Tags, value]
+        })
+    }
+}
+function handleDeleteCategory(category){
+  setInputText({
+      ...inputText,
+      Tags: inputText.Tags.filter((c) =>  c !== category)
+  })
+}
 
   const handleInputSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validarCampos(inputText))
+        //para no repetir titlos de las notas
+        let noRepetir = posts.filter(post => post.Title === inputText.Title)
+        if(noRepetir.length !== 0){
+            Swal.fire('Error', 'Ya existe una nota con ese nombre, por favor escriba otro','error')
+        }else{
+            let error = validarCampos(inputText)
+            //solo habra propiedades si es que HAY ALGUN ERROR
+            if(!error){
+                //Entonces si hay algun error,la variable error va a ser un array con la propiedad en donde haya un error
+                Swal.fire('Error','Llene los campos correctamente','error')
+                return 
+            }else{
+                //creo mi juego
+                console.log(inputText)
+               const response = dispatch(addPost(inputText));
+                setInputText({
+                    Date: "",
+                    Title:"",
+                    Content: "",
+                    Image: "",
+                    Tags: [],
+                });
+                if(response.status === 201) {
+                    Swal.fire('OK','Felicitaciones, tu nota ha sido editada exitosamente','success')
+                } else {
+                    Swal.fire('😥','Hubo un error en nuestros servidores','error')
+                }
+                
+            }
+            //navigate('/home')
+        }
+   
   }
 
   return (
@@ -137,61 +161,55 @@ function AdminPostEdit() {
                     <br />
                     <form onSubmit={handleInputSubmit}>
                       <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600' textAlign='left'> Imagen : </Text>
+                        <Text fontSize='xl' fontWeight='600' textAlign='left'> Imagen: </Text>
                         <Input name='Image' value={inputText.Image} placeholder={postDetail.Image} borderColor='gray' onChange={handleInputChange} />
                         {formErrors.Image && <Text fontSize='sm' color='teal.500'>{formErrors.Image}</Text>}
                       </Stack>
                       <br />
                       <Stack direction='row' width='100%'>
                         <Text fontSize='xl' fontWeight='600' > Titulo: </Text>
-                        <Input name='firstName' value={inputText.firstName} placeholder={postDetail.firstName} borderColor='gray' onChange={handleInputChange} />
-                        {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
+                        <Input name='Title' value={inputText.Title} placeholder={postDetail.Title} borderColor='gray' onChange={handleInputChange} />
+                        {formErrors.Title && <Text fontSize='sm' color='teal.500'>{formErrors.Title}</Text>}
                       </Stack>
                       <br />
                       <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600'> Apellido: </Text>
-                        <Input name='lastName' value={inputText.lastName} placeholder={postDetail.lastName} borderColor='gray' width='100%' onChange={handleInputChange} />
-                        {formErrors.lastName && <Text fontSize='sm' color='teal.500'>{formErrors.lastName}</Text>}
+                        <Text fontSize='xl' fontWeight='600'> Content: </Text>
+                        <Input name='Content' value={inputText.Content} placeholder={postDetail.Content} borderColor='gray' width='100%' onChange={handleInputChange} />
+                        {formErrors.Content && <Text fontSize='sm' color='teal.500'>{formErrors.Content}</Text>}
                       </Stack>
                       <br />
                       <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600'> País: </Text>
-                        <Select placeholder=' País' color='gray.500' mt='2em' onChange={handleCountries} >
+                        <Text fontSize='xl' fontWeight='600'> Categorias: </Text>
+                        <Select placeholder='Categorias' color='gray.500' mt='2em' onChange={handleCategories} >
                           {
-                            countries.map(c => (
-                              <option key={c.label} value={c.label}>{c.label}</option>
+                            categories.map(c => (
+                              <option key={c._id} value={c.name}>{c.name}</option>
                             ))
                           }
                         </Select>
-                        {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
+                        <label className='etiqueta'>Categorias: </label>
+                        {inputText.Tags && inputText.Tags.map((tag) => {
+                            return(
+                           <div className='opcion'>
+                               <div className='opcion_titulo'>{tag}</div>
+                               <button className='button_delete' onClick={() => handleDeleteCategory(tag)} value={tag} key={tag}><span className={"delete"}>X</span></button>
+                           </div> )
+                        })}
+                        {formErrors.Tags && <Text fontSize='sm' color='teal.500'>{formErrors.Tags}</Text>}
                       </Stack>
                       <br />
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600' textAlign='left'> Fecha de nacimiento: </Text>
-                        <Input type='date' value={inputText.date} placeholder={postDetail.birthDate} borderColor='gray' onChange={handleInputChange} />
-                        {formErrors.date && <Text fontSize='sm' color='teal.500'>{formErrors.date}</Text>}
-                      </Stack>
-                      <br />
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600'> Email: </Text>
-                        <Input name='email' value={inputText.email} placeholder={postDetail.email} borderColor='gray' onChange={handleInputChange} />
-                        {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
-                      </Stack>
-                    </form>
-                    <br />
                     <Stack direction='row' width='100%'>
                       <Button width='50%' colorScheme='teal' variant='outline' onClick={handleInputSubmit}>
                         <CheckIcon />
                         <Text pr='0.5em'> Guardar cambios</Text>
                       </Button>
-                      <Button width='50%' colorScheme='red' variant='outline' onClick={() => navigate(`/adminpanel/clients/${postDetail._id}`)}>
+                      <Button width='50%' colorScheme='red' variant='outline' onClick={() => navigate(`/adminpanel/posts/${postDetail._id}`)}>
                         <CloseIcon />
                         <Text pr='0.5em'> Cancelar cambios</Text>
                       </Button>
                     </Stack>
-
+                  </form>
                   </Stack>
-
                 </Stack>
               ) : <Loader />
           }

@@ -29,6 +29,7 @@ import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDe
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 import LoginFormPsychologist from "./components/LoginFormPsychologist/LoginFormPsychologist";
+import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
 
 
 export default function App() {
@@ -62,6 +63,7 @@ export default function App() {
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
+        <Route path="/adminpanel/posts/edit/:idPost" element={<AdminPostEdit/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
       </Routes>
