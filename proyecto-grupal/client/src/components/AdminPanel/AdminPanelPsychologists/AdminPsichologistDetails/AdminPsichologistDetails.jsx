@@ -88,14 +88,15 @@ export default  function AdminPsichologisttDetails() {
                 
                   <br />
                   <Stack direction='column'>
-                    <Text fontSize='xl' fontWeight='600'> Especialidades: </Text>
-                    {userPsichologistDetail.Specialties && userPsichologistDetail.Specialties.map( el => {
-                      return(
-                        <UnorderedList>
-                         <ListItem fontSize='m' key={el}> {el} </ListItem>
+                     {userPsichologistDetail.status === 'Pendiente' ? <Text fontSize={'xl'} color={'red'}>Estado: {`${userPsichologistDetail.status} de aprobación`}</Text>:
+                    <Text fontSize={'xl'} color={'green'}>Estado: {userPsichologistDetail.status}</Text>}
+                    <Text fontSize='xl' fontWeight='600'> DATOS PARA VALIDAR: </Text>
+                    
+                     <UnorderedList>
+                         <ListItem fontSize='m'> {`DNI: ${userPsichologistDetail.DNI}`} </ListItem>
+                         <ListItem fontSize='m'> {`LICENCIA: ${userPsichologistDetail.License}`} </ListItem>
                         </UnorderedList>
-                      )
-                    })}
+
                   </Stack>
                   <br />
                   <Stack direction='row'>
