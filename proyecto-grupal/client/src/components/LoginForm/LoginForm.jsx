@@ -76,13 +76,13 @@ function LoginForm() {
         setFormErrors(validate(signinForm))
         setIsSubmit(true)
 
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            console.log('signInForm', signinForm)
-            const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+        if (Object.keys(formErrors).length === 0) {
+            // console.log('signInForm', signinForm)
+            const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)                        
             const token = response.data.token
             window.localStorage.setItem('token', token)
-            console.log('Este es el .data del response', response.data)
-            console.log('Este es todo el token', token)
+            // console.log('Este es el .data del response', response.data)
+            // console.log('Este es todo el token', token)
             if (response.status === 200) {
                 Swal.fire({
                     position: 'top-end',
@@ -103,40 +103,7 @@ function LoginForm() {
             }
 
         }
-
     }
-
-    // useEffect(() => {
-    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
-    //         console.log('signInForm', signinForm)
-    //         const response = axios.post(`${baseURL}/userclient/client/login`, signinForm)
-    //         // const response = dispatch(loginClient(signinForm))
-    //         console.log(response)
-    //         const token = response.data.token
-    //         window.localStorage.setItem('token', token)
-    //         console.log('Este es el .data del response', response.data)
-    //         console.log('Este es todo el token', token)
-    //         if (response.status === 200) {
-    //             Swal.fire({
-    //                 position: 'top-end',
-    //                 icon: 'success',
-    //                 title: 'Bienvenido',
-    //                 showConfirmButton: false,
-    //                 timer: 3000
-    //             })
-    //             navigate('/home')
-    //         } else {
-    //             Swal.fire({
-    //                 position: 'top-end',
-    //                 icon: 'error',
-    //                 title: 'Datos incorrectos',
-    //                 showConfirmButton: false,
-    //                 timer: 3000
-    //             })
-    //         }
-
-    //     }
-    // }, [formErrors, signinForm, isSubmit])
 
     return (
         <div className='background'>
@@ -191,10 +158,10 @@ function LoginForm() {
                                                     Iniciar sesión
                                                 </Button>
 
-                                                <Button bg='green.100' color={'#63caa7'} >
-                                                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                                                    <Login />
-                                                </Button>
+                                                <Login mt='1em' />
+                                                {/* <Button bg='green.100' color={'#63caa7'}> */}
+                                                {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                                                {/* </Button> */}
 
                                                 <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
                                                     ¿Aún no tienes una cuenta?
