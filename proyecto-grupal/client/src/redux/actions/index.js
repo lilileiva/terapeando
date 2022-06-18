@@ -5,6 +5,7 @@ import {
   GET_ALL_USERCLIENTS,
   GET_USER_CLIENTS_BY_NAME,
   GET_USERCLIENT,
+  LOGIN_CLIENT,
   CREATE_CLIENT,
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
@@ -80,6 +81,29 @@ export function createClient(payload) {
         .then((data) => {
           dispatch({
             type: CREATE_CLIENT,
+            payload: data,
+          });
+        });
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+}
+
+export function loginClient(signinForm) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userclient/client/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signinForm),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: LOGIN_CLIENT,
             payload: data,
           });
         });
