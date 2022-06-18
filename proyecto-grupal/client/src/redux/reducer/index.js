@@ -19,7 +19,9 @@ import {
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
   ADMIN_SEARCHBAR,
-  SORT_BY_DATE
+  SORT_BY_DATE,
+  GET_ALL_PSYCHOLOGIST_BY_STATUS
+
 } from "../actions/types";
 
 const initialState = {
@@ -78,6 +80,13 @@ function rootReducer(state = initialState, action) {
         UserPsichologists: action.payload,
 
       };
+    case GET_ALL_PSYCHOLOGIST_BY_STATUS:
+      return {
+        ...state,
+        allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
+      };
+    
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
       return {
         ...state,
@@ -108,7 +117,6 @@ function rootReducer(state = initialState, action) {
         }
         // return console.log('nomb', `${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}`)
       })
-      console.log('action', action.payload)
       return {
         ...state,
         posts: filterPost,
