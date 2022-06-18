@@ -148,14 +148,14 @@ function RegisterForm() {
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0) {
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
             if (response.status === 201) {
+                navigate('/signin/psychologist')
                 Swal.fire({
                     position: 'top-end',
-                    icon: 'succes',
+                    icon: 'success',
                     title: 'Usuario creado correctamente',
                     showConfirmButton: false,
                     timer: 3000
                 })
-                navigate('/signin/psychologist')
             } else {
                 Swal.fire({
                     position: 'top-end',
@@ -168,9 +168,10 @@ function RegisterForm() {
         } else if (Object.keys(formErrors).length === 0) {
             const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
             if (response.status === 201) {
+                navigate('/signin')
                 Swal.fire({
                     position: 'top-end',
-                    icon: 'succes',
+                    icon: 'success',
                     title: 'Usuario creado correctamente',
                     showConfirmButton: false,
                     timer: 3000
@@ -187,18 +188,6 @@ function RegisterForm() {
         }
         setIsSubmit(true)
     }
-    // useEffect(() => {
-    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
-    //         navigate('/signin')
-    //         Swal.fire({
-    //             position: 'top-end',
-    //             icon: 'success',
-    //             title: 'Usuario creado correctamente',
-    //             showConfirmButton: false,
-    //             timer: 3000
-    //         })
-    //     }
-    // }, [formErrors, isSubmit])
 
     return (
         <div className='backgroundRegister'>
