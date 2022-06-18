@@ -1,24 +1,27 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './RegisterForm.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement, Select } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
 import { specialitiesList } from './specialities';
 import { BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
+import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import {LOCAL_HOST} from "../../redux/actions/types";
-const baseURL =  LOCAL_HOST;
+import { LOCAL_HOST } from "../../redux/actions/types";
+const baseURL = LOCAL_HOST;
 
 function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const token = window.localStorage.getItem('token')
 
     const countries = useMemo(() => countryList().getData(), [])
 
@@ -143,28 +146,8 @@ function RegisterForm() {
         setFormErrors(validate(signupForm))
         setIsSubmit(true)
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0) {
-           const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
-           if(response.status === 201){
-            Swal.fire({
-                position: 'top-end',
-                icon: 'succes',
-                title: 'Usuario creado correctamente',
-                showConfirmButton: false,
-                timer: 3000
-            })
-            navigate('/signin/psychologist')
-           } else {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'Usuario existente',
-                showConfirmButton: false,
-                timer: 3000
-            })
-           }
-        } else if(Object.keys(formErrors).length === 0) {
-            const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
-            if(response.status === 201){
+            const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
+            if (response.status === 201) {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'succes',
@@ -172,7 +155,8 @@ function RegisterForm() {
                     showConfirmButton: false,
                     timer: 3000
                 })
-               } else {
+                navigate('/signin/psychologist')
+            } else {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
@@ -180,7 +164,26 @@ function RegisterForm() {
                     showConfirmButton: false,
                     timer: 3000
                 })
-               }
+            }
+        } else if (Object.keys(formErrors).length === 0) {
+            const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
+            if (response.status === 201) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'succes',
+                    title: 'Usuario creado correctamente',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Usuario existente',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }
         }
         setIsSubmit(true)
     }
@@ -201,159 +204,178 @@ function RegisterForm() {
         <div className='formContainer'>
 
             <div className='background'>
-                <NavBar />
+                {token ? <NavbarHome /> : <NavBar />}
 
-                <Container padding='2em' zIndex='1' height='inherit' centerContent>
+                <Container padding='2em' zIndex='1' height='inherit' direction='column' justifyContent='center' pb='10em' centerContent>
 
-                    <Text fontSize='2xl' color={'#285e61'} paddingBottom='1em'>
-                        Registro
-                    </Text>
+                    {
+                        token
+                            ? (
+                                <Box width='100%' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
+                                    <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
+                                        No puedes registrarte mientras tu sesión siga abierta
+                                    </Text>
+                                    <Link to='/home'>
+                                        <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}>
+                                            Ir al home
+                                        </Button>
+                                    </Link>
+                                </Box>
+                            ) : (
+                                <>
+                                    <Text fontSize='2xl' color={'#285e61'} paddingBottom='1em'>
+                                        Registro
+                                    </Text>
 
-                    <Box minWidth='container.sm' direction='row' align='center' >
-                        <Button
-                            bg={userClientBtn ? 'green.100' : 'blackAlpha.200'}
-                            variant='solid'
-                            width='50%'
-                            color='teal.800'
-                            onClick={() => setUserClientBtn(true)}
-                        >
-                            Usuario
-                        </Button>
-                        <Button
-                            bg={userClientBtn ? 'blackAlpha.200' : 'green.100'}
-                            variant='solid'
-                            width='50%'
-                            color='teal.800'
-                            onClick={() => setUserClientBtn(false)}
-                        >
-                            Psicólogo
-                        </Button>
-                    </Box>
+                                    <Box minWidth='container.sm' direction='row' align='center' >
+                                        <Button
+                                            bg={userClientBtn ? 'green.100' : 'blackAlpha.200'}
+                                            variant='solid'
+                                            width='50%'
+                                            color='teal.800'
+                                            onClick={() => setUserClientBtn(true)}
+                                        >
+                                            Usuario
+                                        </Button>
+                                        <Button
+                                            bg={userClientBtn ? 'blackAlpha.200' : 'green.100'}
+                                            variant='solid'
+                                            width='50%'
+                                            color='teal.800'
+                                            onClick={() => setUserClientBtn(false)}
+                                        >
+                                            Psicólogo
+                                        </Button>
+                                    </Box>
 
-                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' pt='1em' pb='2em' align='center'>
-                        <Box direction='column' align='center' width='60%'>
-                            <form onSubmit={handleInputSubmit}>
-                                <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' mt='2em' onChange={handleInputChange} />
-                                {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
+                                    <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' pt='1em' pb='2em' align='center'>
+                                        <Box direction='column' align='center' width='60%'>
+                                            <form onSubmit={handleInputSubmit}>
+                                                <Input name='firstname' variant='flushed' placeholder=' Nombre' bg='white' mt='2em' onChange={handleInputChange} />
+                                                {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
 
-                                <Input name='lastname' variant='flushed' placeholder=' Apellido' bg='white' mt='2em' onChange={handleInputChange} />
-                                {formErrors.lastname && <Text fontSize='sm' color='teal.500'>{formErrors.lastname}</Text>}
+                                                <Input name='lastname' variant='flushed' placeholder=' Apellido' bg='white' mt='2em' onChange={handleInputChange} />
+                                                {formErrors.lastname && <Text fontSize='sm' color='teal.500'>{formErrors.lastname}</Text>}
 
-                                <Input name='email' variant='flushed' placeholder=' Email' bg='white' mt='2em' onChange={handleInputChange} />
-                                {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
+                                                <Input name='email' variant='flushed' placeholder=' Email' bg='white' mt='2em' onChange={handleInputChange} />
+                                                {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
-                                <Input
-                                    name='birthdate'
-                                    variant='flushed'
-                                    color='gray.500'
-                                    bg='white' mt='2em'
-                                    type='text'
-                                    placeholder=' Fecha de nacimiento'
-                                    onFocus={(e) => (e.target.type = "date")}
-                                    onChange={handleInputChange} />
-                                {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
+                                                <Input
+                                                    name='birthdate'
+                                                    variant='flushed'
+                                                    color='gray.500'
+                                                    bg='white' mt='2em'
+                                                    type='text'
+                                                    placeholder=' Fecha de nacimiento'
+                                                    onFocus={(e) => (e.target.type = "date")}
+                                                    onChange={handleInputChange} />
+                                                {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
 
-                                <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
-                                    {
-                                        countries.map(c => (
-                                            <option key={c.label} value={c.label}>{c.label}</option>
-                                        ))
-                                    }
-                                </Select>
-                                {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
-                                {
-                                    !userClientBtn
-                                        ? (
-                                            <>
-                                                <Select onChange={handleSpecialities} name='specialities' variant='flushed' placeholder=' Especialidades' color='gray.500' bg='white' marginTop='2em'>
+                                                <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
                                                     {
-                                                        specialitiesList.map(e => (
-                                                            <option key={e} name='specialities' value={e}>{e}</option>
+                                                        countries.map(c => (
+                                                            <option key={c.label} value={c.label}>{c.label}</option>
                                                         ))
                                                     }
                                                 </Select>
-                                                {formErrors.specialities && <Text fontSize='sm' color='teal.500'>{formErrors.specialities}</Text>}
+                                                {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
+                                                {
+                                                    !userClientBtn
+                                                        ? (
+                                                            <>
+                                                                <Select onChange={handleSpecialities} name='specialities' variant='flushed' placeholder=' Especialidades' color='gray.500' bg='white' marginTop='2em'>
+                                                                    {
+                                                                        specialitiesList.map(e => (
+                                                                            <option key={e} name='specialities' value={e}>{e}</option>
+                                                                        ))
+                                                                    }
+                                                                </Select>
+                                                                {formErrors.specialities && <Text fontSize='sm' color='teal.500'>{formErrors.specialities}</Text>}
 
-                                                <ul>
-                                                    {signupForm.specialities ? signupForm.specialities.map((e) => (
-                                                        <Stack direction='row' margin='0.2em'>
-                                                            <Text fontSize='md' color='teal.700'>{e}</Text>
-                                                            <BiX onClick={() => handleSpecialitiesDelete(e)} className='iconX' />
-                                                        </Stack>
-                                                    ))
+                                                                <ul>
+                                                                    {signupForm.specialities ? signupForm.specialities.map((e) => (
+                                                                        <Stack direction='row' margin='0.2em'>
+                                                                            <Text fontSize='md' color='teal.700'>{e}</Text>
+                                                                            <BiX onClick={() => handleSpecialitiesDelete(e)} className='iconX' />
+                                                                        </Stack>
+                                                                    ))
+                                                                        : null
+                                                                    }
+                                                                </ul>
+
+                                                                <Input name='license' variant='flushed' placeholder=' Matrícula' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                                                {formErrors.license && <Text fontSize='sm' color='teal.500'>{formErrors.license}</Text>}
+
+                                                                <Input name='dni' variant='flushed' placeholder=' D.N.I.' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                                                {formErrors.dni && <Text fontSize='sm' color='teal.500'>{formErrors.dni}</Text>}
+
+                                                                <Input name='education' variant='flushed' placeholder=' Educacion' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                                                {formErrors.education && <Text fontSize='sm' color='teal.500'>{formErrors.education}</Text>}
+                                                            </>
+                                                        )
                                                         : null
+                                                }
+                                                <Input name='profileimage' variant='flushed' placeholder=' Profile image link' bg='white' marginTop='2em' onChange={handleInputChange} />
+                                                {formErrors.profileimage && <Text fontSize='sm' color='teal.500'>{formErrors.profileimage}</Text>}
+
+                                                <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
+                                                    <Input
+                                                        name='password'
+                                                        pr='4.5rem'
+                                                        type={show ? 'text' : 'password'}
+                                                        placeholder=' Contraseña'
+                                                        onChange={handleInputChange}
+                                                    />
+                                                    <InputRightElement width='4.5rem'>
+                                                        <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                                            {show ? 'Hide' : 'Show'}
+                                                        </Button>
+                                                    </InputRightElement>
+                                                </InputGroup>
+                                                {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
+
+                                                <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
+                                                    <Input
+                                                        name='repeatpassword'
+                                                        pr='4.5rem'
+                                                        type={show ? 'text' : 'password'}
+                                                        placeholder=' Repita la contraseña'
+                                                        onChange={handleInputChange}
+                                                    />
+                                                    <InputRightElement width='4.5rem' marginBottom='2em' >
+                                                        <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                                            {show ? 'Hide' : 'Show'}
+                                                        </Button>
+                                                    </InputRightElement>
+                                                </InputGroup>
+
+                                                <Stack direction='column' align='center'>
+                                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='2em'>
+                                                        Registrarse
+                                                    </Button>
+                                                    {
+                                                        userClientBtn
+                                                            ? <Button bg='green.100' color={'#63caa7'} >
+                                                                Registrate con &nbsp; <FaGoogle />
+                                                            </Button>
+                                                            : null
                                                     }
-                                                </ul>
+                                                    <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signin')} >
+                                                        ¿Ya tienes una cuenta?
+                                                    </Button>
+                                                </Stack>
+                                            </form>
 
-                                                <Input name='license' variant='flushed' placeholder=' Matrícula' bg='white' marginTop='2em' onChange={handleInputChange} />
-                                                {formErrors.license && <Text fontSize='sm' color='teal.500'>{formErrors.license}</Text>}
+                                        </Box>
+                                    </Box>
+                                </>
+                            )
+                    }
 
-                                                <Input name='dni' variant='flushed' placeholder=' D.N.I.' bg='white' marginTop='2em' onChange={handleInputChange} />
-                                                {formErrors.dni && <Text fontSize='sm' color='teal.500'>{formErrors.dni}</Text>}
-
-                                                <Input name='education' variant='flushed' placeholder=' Educacion' bg='white' marginTop='2em' onChange={handleInputChange} />
-                                                {formErrors.education && <Text fontSize='sm' color='teal.500'>{formErrors.education}</Text>}
-                                            </>
-                                        )
-                                        : null
-                                }
-                                <Input name='profileimage' variant='flushed' placeholder=' Profile image link' bg='white' marginTop='2em' onChange={handleInputChange} />
-                                {formErrors.profileimage && <Text fontSize='sm' color='teal.500'>{formErrors.profileimage}</Text>}
-
-                                <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
-                                    <Input
-                                        name='password'
-                                        pr='4.5rem'
-                                        type={show ? 'text' : 'password'}
-                                        placeholder=' Contraseña'
-                                        onChange={handleInputChange}
-                                    />
-                                    <InputRightElement width='4.5rem'>
-                                        <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                            {show ? 'Hide' : 'Show'}
-                                        </Button>
-                                    </InputRightElement>
-                                </InputGroup>
-                                {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
-
-                                <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
-                                    <Input
-                                        name='repeatpassword'
-                                        pr='4.5rem'
-                                        type={show ? 'text' : 'password'}
-                                        placeholder=' Repita la contraseña'
-                                        onChange={handleInputChange}
-                                    />
-                                    <InputRightElement width='4.5rem' marginBottom='2em' >
-                                        <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                            {show ? 'Hide' : 'Show'}
-                                        </Button>
-                                    </InputRightElement>
-                                </InputGroup>
-
-                                <Stack direction='column' align='center'>
-                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='2em'>
-                                        Registrarse
-                                    </Button>
-                                    {
-                                        userClientBtn
-                                            ? <Button bg='green.100' color={'#63caa7'} >
-                                                Registrate con &nbsp; <FaGoogle />
-                                            </Button>
-                                            : null
-                                    }
-                                    <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signin')} >
-                                        ¿Ya tienes una cuenta?
-                                    </Button>
-                                </Stack>
-                            </form>
-
-                        </Box>
-                    </Box>
                 </Container>
 
                 <Footer />
-            </div>
+            </div >
 
         </div >
     )

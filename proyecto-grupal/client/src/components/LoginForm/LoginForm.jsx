@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.jsx';
+import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
@@ -144,7 +145,9 @@ function LoginForm() {
         // animate={{ x: 0, transition: { duration: 0.2 } }}            
         // exit={{ x: window.innerWidth }}
         >
-            <NavBar />
+            {
+                token ? <NavbarHome /> : <NavBar />
+            }
 
             <Container padding='2em' zIndex='1' pb='10%' centerContent>
 
