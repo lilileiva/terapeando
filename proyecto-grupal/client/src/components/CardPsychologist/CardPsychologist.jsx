@@ -86,6 +86,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                             lastName={lastName}
                             profileImage={profileImage}
                             rating={rating}
+                            idPsychologist={idPsychologist}
                             setCalendar={setCalendar} />
                     </div>
                     : null
