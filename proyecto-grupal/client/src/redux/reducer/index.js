@@ -18,7 +18,7 @@ import {
   GET_PAYMENT_CLIENT,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
 } from "../actions/types";
 
 const initialState = {
@@ -71,6 +71,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
+
       };
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
       return {
@@ -97,16 +99,17 @@ function rootReducer(state = initialState, action) {
         let specialties = el.Specialties.map(el => el)
         return specialties.includes(action.payload)
       })
+    
       return {
         ...state,
-        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties.length > 0 ? filterBySpecialties : psichologists,
       };
     case ORDER_PSICHOLOGIST_BY_RATING:
 
       return {
         ...state,
         allUsersPsichologists: action.payload
-      }
+      };
 
     /*-----------POSTS-----------*/
     case GET_POSTS:

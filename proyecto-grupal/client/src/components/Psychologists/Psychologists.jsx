@@ -14,7 +14,7 @@ import FiltersPsichologist from '../FilterPsichologist/FilterPsichologist';
 
 export default function Psychologists() {
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
-    
+
 
     const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ export default function Psychologists() {
 
     /* Paginado */
     const [page, setPage] = useState(1);
-    const [postPage, setPostPage] = useState(5);
+    const [postPage, setPostPage] = useState(10);
     const quantityPostPage = page * postPage;
     const firstPage = quantityPostPage - postPage;
     const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage)
@@ -39,35 +39,36 @@ export default function Psychologists() {
         <div>
             <NavBar />
             <div className='cardContainer'>
-                
+
 
                 <Stack width='100%' direction='row' justifyContent='left'>
                     <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
-                    
+
                 </Stack>
 
-                
-                <FiltersPsichologist/>
-                
+
+                <FiltersPsichologist />
+
                 <div >
-                    {
-                        AllPsychologist.length !== 0 ?
-                            AllPsychologist.map(el => {
-                                return (
-                                    <CardPsychologist
-                                        key={el._id}
-                                        firstName={el.firstName}
-                                        lastName={el.lastName}
-                                        profileImage={el.profileImage}
-                                        rating={el.rating}
-                                        education={el.education}
-                                        about={el.about}
-                                        // about={`${el.about.slice(0, 270)}...`}
-                                        idPsychologist={el._id}
-                                        Specialties={el.Specialties}                                        
-                                    />
-                                )
-                            }) : null
+                    {AllPsychologist && AllPsychologist.length > 0 ?
+                        AllPsychologists.filter(el => el.status === 'Activo').map(el => {
+                            {console.log(el.status)}
+                            return (
+                              
+                                <CardPsychologist
+                                    key={el._id}
+                                    firstName={el.firstName}
+                                    lastName={el.lastName}
+                                    profileImage={el.profileImage}
+                                    rating={el.rating}
+                                    education={el.education}
+                                    about={el.about}
+                                    // about={`${el.about.slice(0, 270)}...`}
+                                    idPsychologist={el._id}
+                                    Specialties={el.Specialties}
+                                />
+                            )
+                        }) : null
                     }
                 </div>
                 <Paged
