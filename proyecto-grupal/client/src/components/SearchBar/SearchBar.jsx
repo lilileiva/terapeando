@@ -5,7 +5,7 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchPostsByTitle } from "../../redux/actions";
+import { searchPostsByTitle, clearStatePostDetail } from "../../redux/actions";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -19,18 +19,23 @@ export default function SearchBar() {
     e.preventDefault();
     // if (name.length === 0) alert("Type name of psychologist");
     // if (isNaN(name) !== true) alert("Psychologist name cannot be a number");
+    dispatch(clearStatePostDetail());
     dispatch(searchPostsByTitle(title));
     setTitle("");
   }
 
   return (
     <div className="searchbar">
-      <Input onChange={(e) => handleInputChange(e)} value={title} placeholder='Buscar notas' />
-      <ButtonGroup variant="outline">
-        <Button widht={40} onClick={(e) => handleSubmit(e)}>
-          <SearchIcon />
-        </Button>
-      </ButtonGroup>
+      
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <Input onChange={(e) => handleInputChange(e)} value={title} placeholder='Buscar notas' />
+        <ButtonGroup direction='row' variant="outline">
+          <Button type='submit' widht={40}>
+            <SearchIcon />
+          </Button>
+        </ButtonGroup>
+      </form>
+
     </div>
   );
 }

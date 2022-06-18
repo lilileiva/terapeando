@@ -19,14 +19,6 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
         License: 1,
         Specialties: 1,
       })
-      .populate("idUserPsychologist", {
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        country: 1,
-        License: 1,
-        Specialties: 1,
-      })
       .then((posts) => {
         res.status(200).json(posts);
       })
@@ -52,7 +44,16 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
 const getOnePost = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    let response = await Post.findById(id);
+    let response = await Post.findById(id).populate("idUserPsychologist", {
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      profileImage: 1,
+      about: 1,
+      country: 1,
+      License: 1,
+      Specialties: 1,
+    });
     res.status(200).send(response);
   } catch (error) {
     console.error(error);
@@ -60,12 +61,18 @@ const getOnePost = async (req: Request, res: Response) => {
 };
 
 const createPost = (req: Request, res: Response, next: NextFunction) => {
-  const post = req.body;
+  const {Date, Title, Image, Tags, Content} = req.body;
   //me creo el post con el objeto ue me llega de body
-  Post.create(post)
+  Post.create({
+    Date,
+    Title,
+    Image, 
+    Tags,
+    Content
+  })
     .then((createdPost) => {
       createdPost.save();
-      res.send(createdPost);
+      res.status(201).send(createdPost);
     })
     .catch((error: error) => next(error));
 };
@@ -85,7 +92,7 @@ const filterPostsCategory = async (
   next: NextFunction
 ) => {
   const { category } = req.params;
-  console.log(category);
+  
   const postTotals = await Post.find().populate("idUserPsychologist", {
     firstName: 1,
     lastName: 1,
@@ -94,7 +101,6 @@ const filterPostsCategory = async (
     License: 1,
     Specialties: 1,
   });
-  console.log(postTotals);
   let postFilters: object[] = [];
   for (let i = 0; i < postTotals.length; i++) {
     postTotals[i].Tags.forEach((tag: string) => {
@@ -105,10 +111,21 @@ const filterPostsCategory = async (
   }
   res.json(postFilters);
 };
+//eliminar nota
+const deletePost = async (req: Request, res: Response) => {
+  const { IdPost } = req.params;
+  try {
+     const postDelete = await Post.findOneAndDelete({ _id: IdPost })
+     res.send('Post eliminado correctamente')
+  } catch (err) {
+     res.status(404).send('error: ' + err);
+  }
+}
 module.exports = {
   createPost,
   getAllPosts,
   getAllCategory,
   filterPostsCategory,
   getOnePost,
+  deletePost,
 };

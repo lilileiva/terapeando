@@ -1,0 +1,88 @@
+.containerA {
+  height: fit-content;
+  width: 90%;
+  margin: 2em auto;
+  margin-bottom: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(227, 230, 230, 0.715);
+  padding: 5%;
+  border-radius: 2vw;
+}
+
+.postImgContainer {
+  height: 30em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
+
+.postImg {
+  display: flex;
+  height: inherit;
+  width: inherit;
+  border-radius: 1em;
+  object-fit: cover;
+}
+
+.psyinfo {
+  position: absolute;
+  z-index: 3;
+  top: 35.5em;
+  padding: 0 1em;
+  border-radius: 8px;
+  background-color: #fff;
+  /* justify-content: space-around; */
+  width: fit-content;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.psytext {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.name {
+  /* color: rgba(46, 46, 173, 0.897); */
+  font-size: 20px;
+  margin-left: 3px;
+}
+
+.title {
+  /* font-family: "Open Sans", sans-serif; */
+  color: #545454;
+  font-size: 45px;
+  font-weight: 500;
+  display: flex;
+  text-align: left;
+  margin-top: 0.5em;
+}
+
+.content {
+  /* font-family: "Open Sans", sans-serif; */
+  font-size: 22px;
+  width: 100%;
+  white-space: pre-wrap;
+  margin-top: 15px;
+  text-align: justify;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* margin: 5px 250px; */
+  /* padding: 3px; */
+}
+
+.about {
+  width: 300px;
+}

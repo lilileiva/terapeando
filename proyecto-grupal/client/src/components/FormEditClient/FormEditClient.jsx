@@ -37,6 +37,10 @@ function FormEditClient() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {idUserClient} = useParams();
+<<<<<<< HEAD
+=======
+  
+>>>>>>> b409cb2e9a49477ba848bd9159964cf760ad3bcc
   const [error, setError] = useState({});
 
   const [input, setInput] = useState({

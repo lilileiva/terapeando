@@ -12,7 +12,9 @@ import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
-
+import axios from 'axios';
+import {LOCAL_HOST} from "../../redux/actions/types";
+const baseURL =  LOCAL_HOST;
 
 function RegisterForm() {
     const dispatch = useDispatch();
@@ -76,7 +78,7 @@ function RegisterForm() {
             errors.profileimage = 'Inserte una imagen de perfil'
         }
         if (signupForm.profileimage && !(signupForm.profileimage).match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
-            errors.profileimage = 'Image URL not valid'
+            errors.profileimage = 'URL no válido'
         }
         if (!signupForm.password) {
             errors.password = 'Inserte una contraseña'
@@ -140,36 +142,65 @@ function RegisterForm() {
         e.preventDefault()
         setFormErrors(validate(signupForm))
         setIsSubmit(true)
-        if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education) {
-            dispatch(createPsychologist(signupForm))
-        } else {
-            dispatch(createClient(signupForm))
-        }
-        setIsSubmit(true)            
-    }
-
-    useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {            
-            navigate('/home')
+        if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0) {
+           const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
+           if(response.status === 201){
             Swal.fire({
                 position: 'top-end',
-                icon: 'success',
+                icon: 'succes',
                 title: 'Usuario creado correctamente',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 3000
             })
+            navigate('/signin/psychologist')
+           } else {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Usuario existente',
+                showConfirmButton: false,
+                timer: 3000
+            })
+           }
+        } else if(Object.keys(formErrors).length === 0) {
+            const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
+            if(response.status === 201){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'succes',
+                    title: 'Usuario creado correctamente',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+               } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Usuario existente',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+               }
         }
-    }, [formErrors, isSubmit])
+        setIsSubmit(true)
+    }
+    // useEffect(() => {
+    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
+    //         navigate('/signin')
+    //         Swal.fire({
+    //             position: 'top-end',
+    //             icon: 'success',
+    //             title: 'Usuario creado correctamente',
+    //             showConfirmButton: false,
+    //             timer: 3000
+    //         })
+    //     }
+    // }, [formErrors, isSubmit])
 
     return (
         <div className='formContainer'>
 
-            <div
-                className='background'
-                // initial={{ x: 250 }}
-                // animate={{ x: 0, transition: { duration: 0.2 } }}
-                // exit={{ x: window.innerWidth }}
-            >
+            <div className='background'>
                 <NavBar />
 
                 <Container padding='2em' zIndex='1' height='inherit' centerContent>
@@ -217,7 +248,7 @@ function RegisterForm() {
                                     color='gray.500'
                                     bg='white' mt='2em'
                                     type='text'
-                                    placeholder=' Birthdate'
+                                    placeholder=' Fecha de nacimiento'
                                     onFocus={(e) => (e.target.type = "date")}
                                     onChange={handleInputChange} />
                                 {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
@@ -322,8 +353,7 @@ function RegisterForm() {
                 </Container>
 
                 <Footer />
-        </div>
-
+            </div>
 
         </div >
     )

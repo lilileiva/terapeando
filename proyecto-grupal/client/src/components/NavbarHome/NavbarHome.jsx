@@ -17,7 +17,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
 
@@ -60,8 +60,16 @@ const NavLink = ({ children }) => (
     </Text>
   </Link>
 );
+
 export default function NavbarHome() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    window.localStorage.clear();
+    navigate('/');
+  }
 
   return (
     <>
@@ -84,24 +92,25 @@ export default function NavbarHome() {
             </Box>
 
             {/* <div className={'contenedorlinks'}> */}
-            <Stack direction="row">
-              <Link className={"links"} to={"/home"}>
-                <Text fontWeight={"500"} color="gray.600">
+            <Stack direction='row'>
+
+              <Link className={'links'} to={'/home'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Home
                 </Text>
               </Link>
-              <Link className={"links"} to={"/proximasconsultas"}>
-                <Text fontWeight={"500"} color="gray.600">
+              <Link className={'links'} to={'/proximasconsultas'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Proximas consultas
                 </Text>
               </Link>
-              <Link className={"links"} to={"/mipsicologo"}>
-                <Text fontWeight={"500"} color="gray.600">
+              <Link className={'links'} to={'/mipsicologo'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Mi psicólogo
                 </Text>
               </Link>
-              <Link className={"links"} to={"/blog"}>
-                <Text fontWeight={"500"} color="gray.600">
+              <Link className={'links'} to={'/blog'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Blog
                 </Text>
               </Link>
@@ -153,10 +162,15 @@ export default function NavbarHome() {
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
                 </Link>
-                <MenuDivider />
                 <Link to={"/mypayments"}>
                   <MenuItem>Mis Pagos</MenuItem>
                 </Link>
+
+                <MenuItem>Mis Pagos</MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={handleSignOut}>
+                  Cerrar sesión
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
