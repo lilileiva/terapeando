@@ -15,7 +15,6 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
-import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
 
 import Payments from "./components/Payments/Payments";
 import CheckoutPayment from "./components/Payments/CheckoutPayment";

@@ -48,11 +48,10 @@ export default function Home() {
   };
 
   const handleSubmit = () => {
-    dispatch(getAllPsychologist());
-  };
+    dispatch(getAllPsychologist())
+  }
 
-  const token = window.localStorage.getItem("token");
-  //console.log(token);
+  const token = window.localStorage.getItem('token')
 
   return (
     <div>
@@ -63,49 +62,46 @@ export default function Home() {
           mb="1em"
           width="100%"
           direction="row"
-          justifyContent="left"
+          justifyContent="space-between"
+          align='center'
         >
           <Text fontWeight="semibold" fontSize="3xl" color="green.300">
             Psicólogos
           </Text>
-        </Stack>
 
-        <div className="adminsearchhome">
-          <AdminSearchbar />
-          <Button
-            variant="outline"
-            colorScheme="teal"
-            onClick={handleSubmit}
-            className="btnhome"
-          >
-            Todas los psicólogos
-          </Button>
-        </div>
+          <Stack direction='row' width='50%' justify='right'>
+            <AdminSearchbar width='50%' />
+            <Button variant='outline' width='40%' colorScheme='teal' onClick={handleSubmit}>
+              Todos los psicólogos
+            </Button>
+          </Stack>
+
+        </Stack>
 
         <Stack width="100%" direction="row">
           <FiltersPsichologist />
         </Stack>
 
         {AllPsychologist && AllPsychologist.length > 0 ?
-                        AllPsychologists.filter(el => el.status === 'Activo').map(el => {
-                            {console.log(el.status)}
-                            return (
-                              
-                                <CardPsychologist
-                                    key={el._id}
-                                    firstName={el.firstName}
-                                    lastName={el.lastName}
-                                    profileImage={el.profileImage}
-                                    rating={el.rating}
-                                    education={el.education}
-                                    about={el.about}
-                                    // about={`${el.about.slice(0, 270)}...`}
-                                    idPsychologist={el._id}
-                                    Specialties={el.Specialties}
-                                />
-                            )
-                        }) : null
-                    }
+          AllPsychologists.filter(el => el.status === 'Activo').map(el => {
+            { console.log(el.status) }
+            return (
+
+              <CardPsychologist
+                key={el._id}
+                firstName={el.firstName}
+                lastName={el.lastName}
+                profileImage={el.profileImage}
+                rating={el.rating}
+                education={el.education}
+                about={el.about}
+                // about={`${el.about.slice(0, 270)}...`}
+                idPsychologist={el._id}
+                Specialties={el.Specialties}
+              />
+            )
+          }) : null
+        }
 
         {/* <Psychologists></Psychologists> */}
       </div>
