@@ -9,6 +9,7 @@ import './addPost.css';
 import { Select, Button, Textarea, Text, Stack, Box } from '@chakra-ui/react'
 import Swal from 'sweetalert2';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
+import NotFound from '../404notFound/notFound.jsx';
 
 
 function validarCampos(input) {
@@ -240,18 +241,7 @@ export default function AddPost() {
                             </form>
                         </Stack>
                     ) : (
-                        <div className='background'>
-                            <Box width='30%' bg='green.100' color='#262626' borderRadius='1em' margin='auto' mt='15em' paddingTop='2em' paddingBottom='2em' align='center'>
-                                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                                    Debes ser usuario psicólogo para poder crear una nota
-                                </Text>
-                                <Link to='/blog'>
-                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}>
-                                        Ir al blog
-                                    </Button>
-                                </Link>
-                            </Box>
-                        </div>
+                        <NotFound />
                     )
             }
             <Footer />
