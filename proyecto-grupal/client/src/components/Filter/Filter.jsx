@@ -16,7 +16,6 @@ export default function Filters() {
   const posts = useSelector((state) => state.posts);
   const categories = useSelector((state) => state.categories);
   const author = useSelector((state) => state.allUsersPsichologists);
-  console.log("AU: ", author);
   //author tiene un array de objetos con first y last Name [{},{}]
 
   useEffect(() => {
@@ -75,7 +74,6 @@ export default function Filters() {
         <option value="All">Todos los autores</option>
         {author.length &&
           author.map((el) => {
-            console.log("EL: ", el);
             return (
               <option key={el.email} value={el.firstName + el.lastName}>
                 {el.firstName + " " + el.lastName}

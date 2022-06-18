@@ -88,7 +88,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload,
       };
-    case "SEARCH_POSTS_BY_TITLE":
     case "GET_PSYCHOLOGISTS_ONE":
       return {
         ...state,

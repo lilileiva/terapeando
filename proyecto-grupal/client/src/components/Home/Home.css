@@ -1,13 +1,25 @@
-.cardContainer{
-   box-sizing: border-box;
-   width: 100%;
-   height: fit-content;
-   background-color: #EDF2F7;
-   padding-left:10%;
-   padding-right:10%;
-   display: flex;
-   flex-direction: column;
-   justify-items: center;
-   align-items: center;
+.cardContainer {
+  box-sizing: border-box;
+  width: 100%;
+  height: fit-content;
+  background-color: #edf2f7;
+  padding-left: 10%;
+  padding-right: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 
+.adminsearchhome {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 3px;
+  margin-left: 755px;
+  margin-bottom: 10px;
+}
+
+.btnhome {
+  margin-left: 5px;
+}
