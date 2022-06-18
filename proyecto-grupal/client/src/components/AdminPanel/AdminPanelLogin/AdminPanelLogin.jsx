@@ -64,7 +64,6 @@ function AdminPanelLogin() {
 
     const handleInputSubmit = async (e) => {
         e.preventDefault()
-        console.log(signinForm)
         setFormErrors(validate(signinForm))
         setIsSubmit(true)
     }
