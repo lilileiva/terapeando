@@ -16,7 +16,6 @@ import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
 
-
 import Payments from "./components/Payments/Payments";
 import CheckoutPayment from "./components/Payments/CheckoutPayment";
 import Success from "./components/Payments/CheckoutComponent/Success";
