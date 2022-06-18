@@ -20,10 +20,9 @@ import CheckoutPayment from "./components/Payments/CheckoutPayment";
 import '@stripe/stripe-js'
 import Success from "./components/Payments/CheckoutComponent/Success";
 import Cancel from "./components/Payments/CheckoutComponent/Cancel";
-import PostsDetail from "./components/PostsDetail/PostsDetail.jsx";
+import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import AddPost from "./components/AddPost/AddPost";
 import Reviews from "./components/Reviews/Reviews";
-import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import AdminPanelLogin from "./components/AdminPanel/AdminPanelLogin/AdminPanelLogin.jsx";
 import AdminPanelHome from './components/AdminPanel/AdminPanelHome/AdminPanelHome.jsx';
 import AdminPanelClients from './components/AdminPanel/AdminPanelClients/AdminPanelClients.jsx';
