@@ -69,8 +69,7 @@ function LoginForm() {
         e.preventDefault()
         setFormErrors(validate(signinForm))
         setIsSubmit(true)
-
-        // dispatch(loginClient(signinForm))
+        
         if (Object.keys(formErrors).length === 0 && isSubmit){
             console.log('signInForm',signinForm)
             const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
