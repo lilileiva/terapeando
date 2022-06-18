@@ -52,7 +52,9 @@ export default function Psychologists() {
                 <div >
                     {AllPsychologist && AllPsychologist.length > 0 ?
                         AllPsychologists.filter(el => el.status === 'Activo').map(el => {
+                            {console.log(el.status)}
                             return (
+                              
                                 <CardPsychologist
                                     key={el._id}
                                     firstName={el.firstName}
