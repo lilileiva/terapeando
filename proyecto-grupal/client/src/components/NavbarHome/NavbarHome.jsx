@@ -17,7 +17,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
 
@@ -60,8 +60,16 @@ const NavLink = ({ children }) => (
     </Text>
   </Link>
 );
+
 export default function NavbarHome() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    window.localStorage.clear();
+    navigate('/');
+  }
 
   return (
     <>
@@ -154,8 +162,11 @@ export default function NavbarHome() {
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
                 </Link>
-                <MenuDivider />
                 <MenuItem>Mis Pagos</MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={handleSignOut}>
+                  Cerrar sesión
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
