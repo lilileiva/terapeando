@@ -3,6 +3,7 @@ import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
   GET_USER_CLIENTS_BY_NAME,
+  LOGIN_CLIENT,
   CREATE_CLIENT,
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
@@ -13,7 +14,7 @@ import {
   CLEAR_CLIENT,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
 } from "../actions/types";
 
 const initialState = {
@@ -50,6 +51,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         userClientDetail: action.payload,
       };
+    case LOGIN_CLIENT:
+      return {
+        ...state,
+      };
     case CREATE_CLIENT:
       return {
         ...state,
@@ -62,6 +67,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
+
       };
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
       return {
@@ -124,16 +131,17 @@ function rootReducer(state = initialState, action) {
         let specialties = el.Specialties.map(el => el)
         return specialties.includes(action.payload)
       })
+    
       return {
         ...state,
-        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties.length > 0 ? filterBySpecialties : psichologists,
       };
     case ORDER_PSICHOLOGIST_BY_RATING:
 
       return {
         ...state,
         allUsersPsichologists: action.payload
-      }
+      };
 
     /*-----------POSTS-----------*/
     case GET_POSTS:
@@ -172,9 +180,9 @@ function rootReducer(state = initialState, action) {
         posts: action.payload,
       };
     case "DELETE_POST":
-      return{
-          ...state,
-          posts: state.posts.filter(posts => posts.id !== action.payload)
+      return {
+        ...state,
+        posts: state.posts.filter(posts => posts.id !== action.payload)
       }
 
     /*-----------CLEAR-----------*/

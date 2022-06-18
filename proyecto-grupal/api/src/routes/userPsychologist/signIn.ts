@@ -23,7 +23,7 @@ const logInPsychologist = async (req: Request, res: Response) => {
       } else {
         const userForToken = {
           id: user._id,
-          email: user.email,
+          role: user.role
         };
 
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {

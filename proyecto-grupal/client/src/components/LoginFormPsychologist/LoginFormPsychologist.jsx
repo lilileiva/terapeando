@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './LoginForm.css';
-import { useDispatch } from 'react-redux';
+import './LoginFormPsychologist.css';
 import { useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
@@ -9,20 +8,18 @@ import Footer from '../Footer/Footer.jsx';
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
 //login/logout con google
-import { gapi } from 'gapi-script'
+import {gapi} from 'gapi-script'
 import Login from '../LogGoogle/LogInGoogle';
 import axios from 'axios';
-import { loginClient } from "../../redux/actions";
-import { LOCAL_HOST } from "../../redux/actions/types";
+import {LOCAL_HOST} from "../../redux/actions/types";
 const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
-const baseURL = LOCAL_HOST;
-function LoginForm() {
-    const dispatch = useDispatch()
+const baseURL =  LOCAL_HOST;
+function LoginFormPsychologist() {
     const navigate = useNavigate()
 
     //login/logout con google
     useEffect(() => {
-        function start() {
+        function start(){
             gapi.client.init({
                 clientId: clientId,
                 scope: ''
@@ -62,18 +59,16 @@ function LoginForm() {
             [e.target.name]: e.target.value
         })
     }
-
+    
     const [isSubmit, setIsSubmit] = useState(false)
-
+ 
     const handleInputSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(signinForm))
-        setIsSubmit(true)
-
-        // dispatch(loginClient(signinForm))
+        setIsSubmit(true) 
         if (Object.keys(formErrors).length === 0 && isSubmit){
             console.log('signInForm',signinForm)
-            const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
+            const response = await axios.post(`${baseURL}/userpsychologist/login`, signinForm)
             const token = response.data.token
           window.localStorage.setItem('token', token)
           console.log('Este es el .data del response', response.data)
@@ -96,56 +91,31 @@ function LoginForm() {
                 timer: 3000
             })
          }
-
+               
         }
-        
+// 
     }
 
     // useEffect(() => {
-    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
-    //         console.log('signInForm', signinForm)
-    //         const response = axios.post(`${baseURL}/userclient/client/login`, signinForm)
-    //         // const response = dispatch(loginClient(signinForm))
-    //         console.log(response)
-    //         const token = response.data.token
-    //         window.localStorage.setItem('token', token)
-    //         console.log('Este es el .data del response', response.data)
-    //         console.log('Este es todo el token', token)
-    //         if (response.status === 200) {
-    //             Swal.fire({
-    //                 position: 'top-end',
-    //                 icon: 'success',
-    //                 title: 'Bienvenido',
-    //                 showConfirmButton: false,
-    //                 timer: 3000
-    //             })
-    //             navigate('/home')
-    //         } else {
-    //             Swal.fire({
-    //                 position: 'top-end',
-    //                 icon: 'error',
-    //                 title: 'Datos incorrectos',
-    //                 showConfirmButton: false,
-    //                 timer: 3000
-    //             })
-    //         }
-
+    //     if (Object.keys(formErrors).length === 0 && isSubmit) {            
+    //         navigate('/home')
+    //         setSigninForm({})
     //     }
     // }, [formErrors, signinForm, isSubmit])
 
-    return (
+    return (           
         <div
-            className='background'
-        // initial={{ x: 250 }}
-        // animate={{ x: 0, transition: { duration: 0.2 } }}            
-        // exit={{ x: window.innerWidth }}
+            className='backgroundLoginP'
+            // initial={{ x: 250 }}
+            // animate={{ x: 0, transition: { duration: 0.2 } }}            
+            // exit={{ x: window.innerWidth }}
         >
             <NavBar />
 
-            <Container padding='2em' zIndex='1' pb='10%' centerContent>
+            <Container padding='2em' zIndex='1'pb='10%' centerContent>
 
                 <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                    Inicia sesión
+                    Inicia sesión / Psicólogo
                 </Text>
 
                 <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
@@ -172,7 +142,7 @@ function LoginForm() {
                             {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
                             <Stack direction='column' align='center'>
-                                <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>
+                                <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>                                
                                     Iniciar sesión
                                 </Button>
 
@@ -197,4 +167,4 @@ function LoginForm() {
 }
 
 
-export default LoginForm;
+export default LoginFormPsychologist;

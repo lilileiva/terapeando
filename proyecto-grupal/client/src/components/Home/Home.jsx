@@ -86,23 +86,27 @@ export default function Home() {
           <FiltersPsichologist />
         </Stack>
 
-        {AllPsychologists.length !== 0
-          ? AllPsychologists.map((el) => {
-              return (
-                <CardPsychologist
-                  firstName={el.firstName}
-                  lastName={el.lastName}
-                  profileImage={el.profileImage}
-                  rating={el.rating}
-                  education={el.education}
-                  about={el.about}
-                  // about= {`${el.about.slice(0, 270)}...`}
-                  idPsychologist={el._id}
-                  Specialties={el.Specialties}
-                />
-              );
-            })
-          : null}
+        {AllPsychologist && AllPsychologist.length > 0 ?
+                        AllPsychologists.filter(el => el.status === 'Activo').map(el => {
+                            {console.log(el.status)}
+                            return (
+                              
+                                <CardPsychologist
+                                    key={el._id}
+                                    firstName={el.firstName}
+                                    lastName={el.lastName}
+                                    profileImage={el.profileImage}
+                                    rating={el.rating}
+                                    education={el.education}
+                                    about={el.about}
+                                    // about={`${el.about.slice(0, 270)}...`}
+                                    idPsychologist={el._id}
+                                    Specialties={el.Specialties}
+                                />
+                            )
+                        }) : null
+                    }
+
         {/* <Psychologists></Psychologists> */}
       </div>
       <Paged

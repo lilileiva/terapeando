@@ -82,6 +82,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
           profileImage: profileimage,
           rating,
           appointments: [],
+          status: "Pendiente",
           about,
           education,
           role: 'psychologist'
@@ -94,15 +95,25 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 };
 ///// Delete /////
 
+
 const deleteUserPsychologist = async (req: Request, res: Response) => {
-  const { idPsychologist } = req.params;
+  const { IdUserPsychologist } = req.params;
+
   try {
-    await userPsychologistModel.findOneAndDelete({ idPsychologist });
-    res.send("User deleted succesfully");
-  } catch (error) {
-    res.status(404).send(error);
+     const userPsichologistDelete = await userPsychologistModel.findByIdAndDelete(IdUserPsychologist,
+      function(err: any, docs: any) {
+        if(err){
+          console.log(err)
+        } 
+        else {
+          console.log("deleted: ", docs);
+        }
+      } );
+     res.send('Psicologo eliminado correctamente')
+  } catch (err) {
+     res.status(404).send('There was an error...');
   }
-};
+}
 
 
 const putUserPsychologist = async (req: Request, res: Response) => {

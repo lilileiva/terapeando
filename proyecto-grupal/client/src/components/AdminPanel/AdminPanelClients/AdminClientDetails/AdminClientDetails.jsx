@@ -17,6 +17,7 @@ function AdminClientDetails() {
   const navigate = useNavigate();
 
   const { idUserClient } = useParams();
+  console.log(idUserClient)
   useEffect(() => {
     dispatch(getUserClient(idUserClient))
     return () => {

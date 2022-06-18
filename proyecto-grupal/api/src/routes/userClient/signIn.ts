@@ -23,7 +23,7 @@ const logInClient = async (req: Request, res: Response) => {
       } else {
         const userForToken = {
           id: user._id,
-          email: user.email,
+          role: user.role
         };
 
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {
@@ -31,8 +31,10 @@ const logInClient = async (req: Request, res: Response) => {
         });
 
         res.send({
-          name: `${user?.firstName} ${user?.lastName}`,
-          email: user?.email,
+          name: user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
+          // name: `${user?.firstName} ${user?.lastName}`,
+          email: user.email ? user.email : null,
+          // email: user?.email,
           token,
         });
       }

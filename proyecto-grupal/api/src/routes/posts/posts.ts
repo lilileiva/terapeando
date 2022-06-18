@@ -72,7 +72,7 @@ const createPost = (req: Request, res: Response, next: NextFunction) => {
   })
     .then((createdPost) => {
       createdPost.save();
-      res.send(createdPost);
+      res.status(201).send(createdPost);
     })
     .catch((error: error) => next(error));
 };

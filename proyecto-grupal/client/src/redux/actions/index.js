@@ -5,18 +5,19 @@ import {
   GET_ALL_USERCLIENTS,
   GET_USER_CLIENTS_BY_NAME,
   GET_USERCLIENT,
+  LOGIN_CLIENT,
   CREATE_CLIENT,
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
   LOCAL_HOST,
-  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-  ORDER_PSICHOLOGIST_BY_RATING,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
+  FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  ORDER_PSICHOLOGIST_BY_RATING,
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
 } from "./types";
 
 
@@ -89,6 +90,29 @@ export function createClient(payload) {
   };
 }
 
+export function loginClient(signinForm) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userclient/client/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signinForm),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: LOGIN_CLIENT,
+            payload: data,
+          });
+        });
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+}
+
 export function editClient(id, updatedUserClient) {
   return async function () {
     try {
@@ -145,6 +169,8 @@ export const getAllPsychologist = () => {
   };
 };
 
+//GET para obtener los psicologos por nombre
+
 export function getUserPsychologistByName(name) {
   return async function (dispatch) {
     fetch(`${baseURL}/userpsychologist?name=${name}`)
@@ -159,12 +185,108 @@ export function getUserPsychologistByName(name) {
   }
 }
 
+//getPsychologist by email
+export function getPsychologistByEmail(signupForm) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userpsychologist/email/psychologistEmail`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signupForm),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: "GET_EMAIL_PSY",
+            payload: data,
+          });
+        });
+    } catch (error) {
+      console.error(error)
+    }
+  };
+}
+
+//GET para obtener un solo psychologist
+export const getUserPsychologistOne = (IdUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
+        `${baseURL}/userpsychologist/${IdUserPsychologist}`
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+//Post para los user Psychologist
+export function createPsychologist(signupForm) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userpsychologist`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signupForm),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: "CREATE_PSYCHOLOGIST",
+            payload: data,
+          });
+        });
+    } catch (error) {
+      console.error(error)
+    }
+  };
+}
+
+// DELETE user psychologist
+
+export function deleteUserPsichologist(id) {
+  return async function () {
+    try {
+      await axios.delete(`${baseURL}/userpsychologist/deleteuserpsychologist/${id}`);
+    } catch (error) {
+      console.error(error);
+    } 
+  };
+};
+
+// PUT para editar usuario psicologo 
+
+export function editUserPsichologist(id , updatedUserPsychologist ){
+  return async function (){
+    try{
+      const editPsichologist = axios.put(`${baseURL}/userpsychologist/put_userpsychologist/${id}`, updatedUserPsychologist)
+    }catch(error){
+      console.error(error)
+    }
+  }
+}
+
+
+
+// filtrar psicologs por  especialidad 
+
+
 export function getBySpecialties(payload) {
   return {
     type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
     payload: payload
   }
 };
+
+// ordenar psicolofos por calificacion
 
 export function orderByRating(order, array) {
   return function (dispatch) {
@@ -178,6 +300,10 @@ export function orderByRating(order, array) {
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
 };
+
+
+
+
 
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
@@ -249,7 +375,8 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body
+        `${baseURL}/post`, body,  {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      }
       )
       return dispatch({
         type: "CREATE_POST",
@@ -341,101 +468,7 @@ export const clearStatePostDetail = () => {
   };
 };
 
-/*----------USER PSYCHOLOGIST ACTIONS--------*/
 
-//Post para los user Psychologist
-export function createPsychologist(signupForm) {
-  return async function (dispatch) {
-    try {
-      return await fetch(`${baseURL}/userpsychologist`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupForm),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch({
-            type: "CREATE_PSYCHOLOGIST",
-            payload: data,
-          });
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-}
-
-//GET para obetener todos los psychologist
-export const getUserPsychologist = () => {
-  return async function (dispatch) {
-    try {
-      const psychologist = await axios.get(`${baseURL}/userpsychologist`);
-      dispatch({
-        type: "GET_PSYCHOLOGISTS",
-        payload: psychologist.data,
-      });
-    } catch (error) {
-      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-    }
-  };
-};
-
-
-//getPsychologist by email
-export function getPsychologistByEmail(signupForm) {
-  return async function (dispatch) {
-    try {
-      return await fetch(
-        `${baseURL}/userpsychologist/email/psychologistEmail`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(signupForm),
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch({
-            type: "GET_EMAIL_PSY",
-            payload: data,
-          });
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-}
-// export const getPsychologistByEmail = (email) => {
-//   return async function(dispatch) {
-//     const psychologist = await axios.get(`${baseURL}/userpsychologist/email/psychologistEmail`, email)
-//     dispatch({
-//       type: "GET_EMAIL_PSY",
-//       payload: psychologist.data
-//     })
-//   }
-// }
-
-
-//GET para obtener un solo psychologist
-export const getUserPsychologistOne = (IdUserPsychologist) => {
-  return async function (dispatch) {
-    try {
-      const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${IdUserPsychologist}`
-      );
-      dispatch({
-        type: "GET_PSYCHOLOGISTS_ONE",
-        payload: psychologist.data,
-      });
-    } catch (error) {
-      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-    }
-  };
-};
 
 
 /*---------------------REVIEWS ACTIONS-------------------*/
@@ -487,20 +520,7 @@ export function adminSearchbar(inputText) {
   };
 };
 
-// export function getBySpecialties(specialties) {
-//   return async function (dispatch) {
 
-//     try {
-//       const json = await axios.get(`${baseURL}/userpsychologist/filterspecialties/specialties/${specialties}`);
-//       dispatch({
-//         type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-//         payload: json.data
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
 
 
 

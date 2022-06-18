@@ -77,6 +77,8 @@ const deleteUserClient = async (req: Request, res: Response) => {
    }
 }
 
+
+
 const putUserClient = async (req: Request, res: Response) => {
    const { IdUserClient } = req.params;
    try {

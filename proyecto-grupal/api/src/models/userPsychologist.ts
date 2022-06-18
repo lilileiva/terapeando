@@ -1,6 +1,7 @@
 import { prop, getModelForClass, Ref, pre } from '@typegoose/typegoose'
 import * as mongoose from 'mongoose';
 import { appointment } from './appointment';
+import reviewsModel, { Reviews } from './Reviews';
 import { Schedule } from './Schedule';
 const bcrypt = require('bcryptjs');
 
@@ -91,6 +92,11 @@ export class userPsychologist {
 
   @prop()
   rating: number
+
+  @prop()
+  status:string
+  // @prop()
+  // Reviews?: String[];
 
   @prop({ ref: () => appointment })
   appointments?: Ref<appointment>[];
