@@ -3,6 +3,7 @@ import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
   GET_USER_CLIENTS_BY_NAME,
+  LOGIN_CLIENT,
   CREATE_CLIENT,
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
@@ -48,6 +49,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         userClientDetail: action.payload,
+      };
+    case LOGIN_CLIENT:
+      return {
+        ...state,
       };
     case CREATE_CLIENT:
       return {
@@ -136,9 +141,9 @@ function rootReducer(state = initialState, action) {
         posts: action.payload,
       };
     case "DELETE_POST":
-      return{
-          ...state,
-          posts: state.posts.filter(posts => posts.id !== action.payload)
+      return {
+        ...state,
+        posts: state.posts.filter(posts => posts.id !== action.payload)
       }
 
     /*-----------CLEAR-----------*/
@@ -160,7 +165,7 @@ function rootReducer(state = initialState, action) {
     case CLEAR_PSYCHOLOGIST_LIST:
       return {
         ...state,
-        usersClients: [],
+        allUsersPsichologists: [],
       };
     case ADMIN_SEARCHBAR:
       return {

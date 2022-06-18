@@ -1,7 +1,7 @@
-import React, { useEffect , useState } from "react";
+import React, { useEffect, useState } from "react";
 import './FilterPsichologist.css'
 import { useDispatch, useSelector } from "react-redux";
-import { getBySpecialties , orderByRating} from "../../redux/actions";
+import { getBySpecialties, orderByRating } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 import { specialitiesList } from './specialities';
 
@@ -9,19 +9,17 @@ import { specialitiesList } from './specialities';
 export default function FiltersPsichologist() {
   const dispatch = useDispatch();
 
- 
+
   const psichologists = useSelector((state) => state.allUsersPsichologists);
 
 
   function handleSubmitOrder(e) {
-    dispatch(orderByRating(e.target.value, psichologists )); 
+    e.preventDefault();
+    dispatch(orderByRating(e.target.value, psichologists));
   }
-
-
 
   function handleSubmitCategory(e) {
     dispatch(getBySpecialties(e.target.value));
-    
   }
 
   return (
@@ -32,9 +30,9 @@ export default function FiltersPsichologist() {
         onChange={handleSubmitOrder}
         cursor={"pointer"}
       >
-        <option key={1} value="Desendente" >Desendente</option>
         <option key={0} value="Ascendente" >Ascendente</option>
-        
+        <option key={1} value="Desendente" >Descendente</option>
+
       </Select>
       <Select
         w='49%'

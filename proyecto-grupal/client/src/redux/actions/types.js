@@ -3,6 +3,7 @@ export const LOCAL_HOST = "http://localhost:3001"
 export const GET_ALL_USERCLIENTS = 'GET_ALL_USERCLIENTS';
 export const GET_USERCLIENT = 'GET_USERCLIENT';
 export const GET_USER_CLIENTS_BY_NAME = 'GET_USER_CLIENTS_BY_NAME';
+export const LOGIN_CLIENT = 'LOGIN_CLIENT';
 export const CREATE_CLIENT = 'CREATE_CLIENT';
 
 export const GET_ALL_PSYCHOLOGIST = "GET_ALL_PSYCHOLOGIST";

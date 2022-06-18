@@ -75,7 +75,7 @@ export default function AddPost(){
             }else{
                 //creo mi juego
                 console.log(input)
-                dispatch(addPost(input));
+               const response = dispatch(addPost(input));
                 setInput({
                     Date: "",
                     Title:"",
@@ -83,7 +83,12 @@ export default function AddPost(){
                     Image: "",
                     Tags: [],
                 });
-                Swal.fire('OK','Felicitaciones, tu nota ha sido creado exitosamente','success')
+                if(response.status === 201) {
+                    Swal.fire('OK','Felicitaciones, tu nota ha sido creado exitosamente','success')
+                } else {
+                    Swal.fire('😥','Hubo un error en nuestros servidores','error')
+                }
+                
             }
             //navigate('/home')
         }

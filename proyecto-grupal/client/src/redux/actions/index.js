@@ -5,6 +5,7 @@ import {
   GET_ALL_USERCLIENTS,
   GET_USER_CLIENTS_BY_NAME,
   GET_USERCLIENT,
+  LOGIN_CLIENT,
   CREATE_CLIENT,
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
@@ -80,6 +81,29 @@ export function createClient(payload) {
         .then((data) => {
           dispatch({
             type: CREATE_CLIENT,
+            payload: data,
+          });
+        });
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+}
+
+export function loginClient(signinForm) {
+  return async function (dispatch) {
+    try {
+      return await fetch(`${baseURL}/userclient/client/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signinForm),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({
+            type: LOGIN_CLIENT,
             payload: data,
           });
         });
@@ -269,9 +293,9 @@ export function orderByRating(order, array) {
     //me traigo el arreglo de las posts
     const psicologos = array.slice();
     //empiezo a ordenar con sort
-    if (order === "Ascendente")
-      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
     if (order === "Desendente")
+      psicologos.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (order === "Ascendente")
       psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
@@ -351,7 +375,8 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body
+        `${baseURL}/post`, body,  {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      }
       )
       return dispatch({
         type: "CREATE_POST",
@@ -409,7 +434,6 @@ export const clearStatePostDetail = () => {
 
 
 
-/*-----------REVIEWS ACTIONS---------*/
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
