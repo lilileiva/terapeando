@@ -207,7 +207,6 @@ function RegisterForm() {
                 {token ? <NavbarHome /> : <NavBar />}
 
                 <Container padding='2em' zIndex='1' height='inherit' direction='column' justifyContent='center' pb='10em' centerContent>
-
                     {
                         token
                             ? (
