@@ -145,6 +145,9 @@ function RegisterForm() {
         e.preventDefault()
         setFormErrors(validate(signupForm))
         setIsSubmit(true)
+    }
+
+    const afterSubmit = async() => {
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0) {
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
             if (response.status === 201) {
@@ -157,6 +160,7 @@ function RegisterForm() {
                     timer: 3000
                 })
             } else {
+                setIsSubmit(false);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
@@ -177,6 +181,7 @@ function RegisterForm() {
                     timer: 3000
                 })
             } else {
+                setIsSubmit(false);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
@@ -186,7 +191,10 @@ function RegisterForm() {
                 })
             }
         }
-        setIsSubmit(true)
+    }
+
+    if (isSubmit) {
+        afterSubmit();
     }
 
     return (
