@@ -7,5 +7,7 @@ export const CLEAR = "CLEAR";
 export const UPDATE_PSYCHOLOGIST = "UPDATE_PSYCHOLOGIST";
 export const DETAILS = "DETAILS";
 export const GET_USERCLIENT = 'GET_USERCLIENT';
-export const CLEAR_CLIENT = 'CLEAR_CLIENT'
-
+export const CLEAR_CLIENT = 'CLEAR_CLIENT';
+export const GET_PAYMENT = 'GET_PAYMENT';
+export const GET_PAYMENT_PSY = 'GET_PAYMENT_PSY';
+export const GET_PAYMENT_CLIENT = 'GET_PAYMENT_CLIENT';

@@ -3,6 +3,10 @@ import {
   GET_ALL_PSYCHOLOGIST,
   CLEAR,
   CLEAR_CLIENT,
+  GET_PAYMENT,
+  GET_ONE_PAYMENT,
+  GET_PAYMENT_PSY,
+  GET_PAYMENT_CLIENT
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +18,9 @@ const initialState = {
   postDetail: {},
   schedules: [],
   schedule: {},
+  paymentDetailsClient: [],
+  paymentDetailsPsychologist: [],
+  allPayments: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -73,6 +80,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         userClientDetail: [],
       };
+    case GET_PAYMENT:
+      return {
+        ...state,
+        allPayments: [],
+      };
+    case GET_PAYMENT_CLIENT:
+      return {
+        ...state,
+        paymentDetailsClient: action.payload,
+      };
+    case GET_PAYMENT_PSY:
+      return {
+        ...state,
+        paymentDetailsPsychologist: action.payload
+      }
     default:
       return { ...state };
   }
