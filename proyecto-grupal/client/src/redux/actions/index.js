@@ -423,8 +423,44 @@ export const getByCategory = (category) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const getPostsAuthors = () => {
+  return async function (dispatch) {
+    try {
+      const response = await fetch(`${baseURL}/author`);
+      const json = await response.json();
+      //json trae un obj de arrays con first y last Name
+      dispatch({
+        type: "GET_POSTS_AUTHORS",
+        payload: json,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const filterByAuthor = (payload) => {
+  return {
+    type: "FILTER_POSTS_BY_AUTHOR",
+    payload,
   }
 }
+
+export const getByCatego = (category) => {
+  return async function (dispatch) {
+    try {
+      const responseBack = await fetch(`${baseURL}/filter/${category}`);
+      const jsonBack = await responseBack.json();
+      //envio las notas que se filtren con esa catagory
+      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 export const clearStatePostDetail = () => {
   return {
