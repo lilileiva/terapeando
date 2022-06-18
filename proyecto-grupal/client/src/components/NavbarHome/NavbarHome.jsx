@@ -90,8 +90,6 @@ export default function NavbarHome() {
             <Box>
               <Image src={img} w={"50px"} />
             </Box>
-
-            {/* <div className={'contenedorlinks'}> */}
             <Stack direction='row'>
 
               <Link className={'links'} to={'/home'}>
@@ -115,17 +113,6 @@ export default function NavbarHome() {
                 </Text>
               </Link>
             </Stack>
-            {/* </div> */}
-
-            {/* <HStack
-               as={"nav"} 
-               spacing={4}
-               display={{ base: "none", md: "flex" }}
-             >
-               {Links.map((link) => (
-                 <NavLink key={link} className={({isActive}) => isActive ? "active" : ""}>{link}</NavLink>
-               ))}
-             </HStack> */}
           </HStack>
           <Flex alignItems={"center"}>
             <Button
@@ -162,11 +149,15 @@ export default function NavbarHome() {
                 <MenuItem>Mis Pagos</MenuItem>
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
+                </Link>        
+                <Link to={"/mypayments"}>
+                  <MenuItem>Mis Pagos</MenuItem>
                 </Link>
                 <MenuDivider />
                 <MenuItem onClick={handleSignOut}>
                   Cerrar sesión
                 </MenuItem>
+
               </MenuList>
             </Menu>
           </Flex>

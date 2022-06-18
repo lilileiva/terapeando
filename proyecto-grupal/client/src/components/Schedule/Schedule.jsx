@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUserPsychologistOne, clear } from '../../redux/actions'
 import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
 
 function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalendar }) {
 
@@ -31,7 +32,10 @@ function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalend
                     {/* <Calendar /> */}
 
                 </Stack>
-
+            {/* voy a poner provisoriamente esto para tomar el id del psicologo */}
+            <Link to={`/checkout/${idPsychologist}`}>
+            <Button>Agendar</Button>
+            </Link>
             </Stack>
         </Stack>
     )

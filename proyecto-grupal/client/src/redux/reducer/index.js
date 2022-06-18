@@ -12,9 +12,13 @@ import {
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
   CLEAR_CLIENT,
+  GET_PAYMENT,
+  GET_ONE_PAYMENT,
+  GET_PAYMENT_PSY,
+  GET_PAYMENT_CLIENT,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
 } from "../actions/types";
 
 const initialState = {
@@ -24,9 +28,13 @@ const initialState = {
   userClientDetail: [],
   usersClients: [],
   posts: [],
+  postsCopy: [],
   categories: [],
   postDetail: {},
   schedule: {},
+  paymentDetailsClient: [],
+  paymentDetailsPsychologist: [],
+  allPayments: [],
   email: {},
   adminSearchbar: ""
 };
@@ -57,6 +65,8 @@ function rootReducer(state = initialState, action) {
     case CREATE_CLIENT:
       return {
         ...state,
+        posts: action.payload,
+        postsCopy: action.payload,
       };
 
     /*-----------PSYCHOLOGISTS-----------*/
@@ -64,8 +74,30 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsersPsichologists: action.payload,
+        UserPsichologists: action.payload,
+
       };
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
+      return {
+        ...state,
+        allUsersPsichologists: action.payload,
+      };
+
+    case "FILTER_POSTS_BY_AUTHOR":
+      const filterPost = state.postsCopy;
+      //filterByAuthor = array de obj con first y last Name
+      const actFiltered =
+        action.payload === "All"
+          ? filterPost
+          : filterPost.filter(
+              (a) => a.firstName + a.lastName === action.payload
+            );
+      return {
+        ...state,
+        posts: actFiltered,
+      };
+
+    case "GET_POSTS_AUTHORS":
       return {
         ...state,
         allUsersPsichologists: action.payload,
@@ -75,6 +107,22 @@ function rootReducer(state = initialState, action) {
         ...state,
         userPsichologistDetail: action.payload,
       };
+    case "GET_CATEGORIES":
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case "GET_BY_CATEGORY_POST":
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    case "CLEAR_POST_DETAIL":
+      return {
+        ...state,
+        postDetail: {},
+        posts: [],
+      }
     case "CREATE_PSYCHOLOGIST":
       return {
         ...state,
@@ -90,16 +138,17 @@ function rootReducer(state = initialState, action) {
         let specialties = el.Specialties.map(el => el)
         return specialties.includes(action.payload)
       })
+    
       return {
         ...state,
-        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties,
+        allUsersPsichologists: action.payload === "Todas" ? psichologists : filterBySpecialties.length > 0 ? filterBySpecialties : psichologists,
       };
     case ORDER_PSICHOLOGIST_BY_RATING:
 
       return {
         ...state,
         allUsersPsichologists: action.payload
-      }
+      };
 
     /*-----------POSTS-----------*/
     case GET_POSTS:
@@ -169,6 +218,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         adminSearchbar: action.payload,
       };
+    case GET_PAYMENT:
+      return {
+        ...state,
+        allPayments: [],
+      };
+    case GET_PAYMENT_CLIENT:
+      return {
+        ...state,
+        paymentDetailsClient: action.payload,
+      };
+    case GET_PAYMENT_PSY:
+      return {
+        ...state,
+        paymentDetailsPsychologist: action.payload
+      }
     default:
       return { ...state };
   }
