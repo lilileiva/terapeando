@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './LoginForm.css';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightElement } from '@chakra-ui/react';
 import { FaGoogle } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.jsx';
@@ -16,9 +16,14 @@ import { loginClient } from "../../redux/actions";
 import { LOCAL_HOST } from "../../redux/actions/types";
 const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
 const baseURL = LOCAL_HOST;
+
+
+
 function LoginForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const token = window.localStorage.getItem('token')
 
     //login/logout con google
     useEffect(() => {
@@ -69,35 +74,35 @@ function LoginForm() {
         e.preventDefault()
         setFormErrors(validate(signinForm))
         setIsSubmit(true)
-        
-        if (Object.keys(formErrors).length === 0 && isSubmit){
-            console.log('signInForm',signinForm)
+
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            console.log('signInForm', signinForm)
             const response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
             const token = response.data.token
-          window.localStorage.setItem('token', token)
-          console.log('Este es el .data del response', response.data)
-         console.log('Este es todo el token',token)
-         if(response.status === 200) {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Bienvenido',
-                showConfirmButton: false,
-                timer: 3000
-            })
-            navigate('/home')
-         } else {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'Datos incorrectos',
-                showConfirmButton: false,
-                timer: 3000
-            })
-         }
+            window.localStorage.setItem('token', token)
+            console.log('Este es el .data del response', response.data)
+            console.log('Este es todo el token', token)
+            if (response.status === 200) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Bienvenido',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                navigate('/home')
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Datos incorrectos',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }
 
         }
-        
+
     }
 
     // useEffect(() => {
@@ -143,52 +148,71 @@ function LoginForm() {
 
             <Container padding='2em' zIndex='1' pb='10%' centerContent>
 
-                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                    Inicia sesión
-                </Text>
-
-                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
-                    <Box direction='column' align='center' width='60%'>
-                        <form onSubmit={handleInputSubmit}>
-
-                            <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='3em' onChange={handleInputChange} />
-                            {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
-
-                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
-                                <Input
-                                    name='password'
-                                    pr='4.5rem'
-                                    type={show ? 'text' : 'password'}
-                                    placeholder=' Contraseña'
-                                    onChange={handleInputChange}
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                        {show ? 'Hide' : 'Show'}
+                {
+                    token
+                        ? (
+                            <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
+                                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
+                                    Ya has iniciado sesión
+                                </Text>
+                                <Link to='/home'>
+                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}>
+                                        Ir al home
                                     </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                            {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
+                                </Link>
+                            </Box>
+                        ) : (
+                            <>
+                                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
+                                    Inicia sesión
+                                </Text>
 
-                            <Stack direction='column' align='center'>
-                                <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>
-                                    Iniciar sesión
-                                </Button>
+                                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
+                                    <Box direction='column' align='center' width='60%'>
+                                        <form onSubmit={handleInputSubmit}>
 
-                                <Button bg='green.100' color={'#63caa7'} >
-                                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                                    <Login />
-                                </Button>
+                                            <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='3em' onChange={handleInputChange} />
+                                            {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
-                                <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
-                                    ¿Aún no tienes una cuenta?
-                                </Button>
-                            </Stack>
-                        </form>
+                                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
+                                                <Input
+                                                    name='password'
+                                                    pr='4.5rem'
+                                                    type={show ? 'text' : 'password'}
+                                                    placeholder=' Contraseña'
+                                                    onChange={handleInputChange}
+                                                />
+                                                <InputRightElement width='4.5rem'>
+                                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                                        {show ? 'Hide' : 'Show'}
+                                                    </Button>
+                                                </InputRightElement>
+                                            </InputGroup>
+                                            {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
 
-                    </Box>
-                </Box>
-            </Container>
+                                            <Stack direction='column' align='center'>
+                                                <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>
+                                                    Iniciar sesión
+                                                </Button>
+
+                                                <Button bg='green.100' color={'#63caa7'} >
+                                                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                                                    <Login />
+                                                </Button>
+
+                                                <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
+                                                    ¿Aún no tienes una cuenta?
+                                                </Button>
+                                            </Stack>
+                                        </form>
+
+                                    </Box>
+                                </Box>
+                            </>
+                        )
+                }
+
+            </Container >
 
             <Footer />
         </div >
