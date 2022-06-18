@@ -39,8 +39,6 @@ export default function Home() {
   }
 
   const token = window.localStorage.getItem('token')
-  console.log(token)
-
 
   return (
     <div>
@@ -57,7 +55,7 @@ export default function Home() {
         <Stack width='100%' direction='row'>
           <FiltersPsichologist />
           <Button variant='outline' colorScheme='teal' onClick={handleSubmit}>
-            Todas los psicólogos
+            Todos los psicólogos
           </Button>
         </Stack>
         {

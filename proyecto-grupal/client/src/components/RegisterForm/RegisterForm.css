@@ -1,21 +1,18 @@
-.background {
+.backgroundRegister {
     background-image: url('../../assets/landing-bg.png');
     background-size: 100%;    
-    height: inherit;
+    /* height: 100%; */
     width: 100%;
     background-position: top center;
     z-index: 1;
-}
 
-.iconX {
-    cursor: pointer;
-}
-
-
-.formContainer {
-    height: inherit;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-content: space-between;
     justify-content: space-around;
+}
+
+.iconX {
+    cursor: pointer;
 }

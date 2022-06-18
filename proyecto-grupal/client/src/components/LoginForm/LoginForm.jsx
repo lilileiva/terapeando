@@ -139,18 +139,11 @@ function LoginForm() {
     // }, [formErrors, signinForm, isSubmit])
 
     return (
-        <div
-            className='background'
-        // initial={{ x: 250 }}
-        // animate={{ x: 0, transition: { duration: 0.2 } }}            
-        // exit={{ x: window.innerWidth }}
-        >
+        <div className='background'>
             {
                 token ? <NavbarHome /> : <NavBar />
             }
-
             <Container padding='2em' zIndex='1' pb='10%' centerContent>
-
                 {
                     token
                         ? (
@@ -214,7 +207,6 @@ function LoginForm() {
                             </>
                         )
                 }
-
             </Container >
 
             <Footer />
