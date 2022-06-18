@@ -85,10 +85,7 @@ function AdminPanelHome() {
                       </Center>
                     </WrapItem>
                   </Wrap>
-
                 </Stack>
-
-
               </Stack>
 
               <Footer />
