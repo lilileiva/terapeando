@@ -5,7 +5,8 @@ import {
   getPostDetail,
   clearStatePostDetail,
 } from "../../../redux/actions/index.js";
-import Navbar from "../../NavBar/NavBar.jsx";
+import NavBar from "../../NavBar/NavBar.jsx";
+import NavbarHome from "../../NavbarHome/NavbarHome.jsx";
 import Footer from "../../Footer/Footer.jsx";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -27,10 +28,13 @@ export default function PostsDetail() {
     }
   }, [dispatch, id]);
 
+  const token = window.localStorage.getItem('token');
   
   return (
     <div>
-      <Navbar />      
+      {
+        token ? <NavbarHome /> : <NavBar /> 
+      }     
       {
         Object.keys(post).length !== 0 ? (
           <div className={"containerA"}>
