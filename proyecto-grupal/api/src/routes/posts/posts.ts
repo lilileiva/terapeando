@@ -144,15 +144,34 @@ const filterPostsCategory = async (
 // };
 
 //eliminar nota
+// const deletePost = async (req: Request, res: Response) => {
+//   const { IdPost } = req.params;
+//   try {
+//     const postDelete = await Post.findOneAndDelete({ _id: IdPost });
+//     res.send("Post eliminado correctamente");
+//   } catch (err) {
+//     res.status(404).send("error: " + err);
+//   }
+// };
+
 const deletePost = async (req: Request, res: Response) => {
   const { IdPost } = req.params;
+
   try {
-    const postDelete = await Post.findOneAndDelete({ _id: IdPost });
-    res.send("Post eliminado correctamente");
+     const postDelete = await Post.findByIdAndDelete(IdPost,
+      function(err: any, docs: any) {
+        if(err){
+          console.log(err)
+        } 
+        else {
+          console.log("deleted: ", docs);
+        }
+      } );
+     res.send('Post eliminado correctamente')
   } catch (err) {
-    res.status(404).send("error: " + err);
+     res.status(404).send('There was an error...');
   }
-};
+}
 module.exports = {
   createPost,
   getAllPosts,
