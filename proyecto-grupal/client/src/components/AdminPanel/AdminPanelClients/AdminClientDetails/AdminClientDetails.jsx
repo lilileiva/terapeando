@@ -45,52 +45,6 @@ function AdminClientDetails() {
     })
   }
 
-  const [inputText, setInputText] = useState({
-    role: ""
-  });
-
-  const validate = (inputText) => {
-    let errors = {};
-    if (!inputText.role) {
-      errors.role = 'Seleccione un rol'
-    }
-    if (inputText.role && inputText.role !== 'client' && inputText.role !== 'Admin') {
-      errors.role = 'Seleccione un rol válido'
-    }
-    return errors
-  }
-  const [formErrors, setFormErrors] = useState({})
-
-  const [editRole, setEditRole] = useState(false);
-  const handleInputChange = (e) => {
-    e.preventDefault();
-    setInputText({
-      role: e.target.value
-    })
-  }
-
-  const [isSubmit, setIsSubmit] = useState(false)
-  const handleInputSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(inputText))
-    setIsSubmit(true)
-  }
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      dispatch(editClient(userClientDetail._id, inputText))
-      dispatch(getUserClient(idUserClient))
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Usuario editado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      setEditRole(false)
-    }
-  }, [dispatch, inputText, isSubmit])
-
   const token = window.localStorage.getItem('token');
 
   return (
@@ -146,59 +100,30 @@ function AdminClientDetails() {
                           </Stack>
                           <br />
                           <Stack direction='row'>
-                            {
-                              editRole
-                                ? (
-                                  <form>
-                                    <Stack direction='column'>
-                                      <Stack direction='row'>
-                                        <Text fontSize='xl' fontWeight='600'> Rol: </Text>
-                                        <Select name='role' placeholder='Rol' color='gray.500' mt='2em' onChange={handleInputChange} >
-                                          <option value='client'>client</option>
-                                          <option value='Admin'>Admin</option>
-                                        </Select>
-                                      </Stack>
-                                      {formErrors.role && <Text fontSize='sm' color='teal.500'>{formErrors.role}</Text>}
-                                      <br />
-                                      <Stack direction='row'>
-                                        <Button width='50%' colorScheme='green' variant='outline' onClick={handleInputSubmit}>
-                                          <CheckIcon />
-                                          <Text pr='0.5em'> Guardar rol</Text>
-                                        </Button>
-                                        <Button width='50%' colorScheme='red' variant='outline' onClick={() => setEditRole(false)}>
-                                          <CloseIcon />
-                                          <Text pr='0.5em'> Cancelar edición</Text>
-                                        </Button>
-                                      </Stack>
-                                    </Stack>
-                                  </form>
-                                ) : (
-                                  <Stack direction='column'>
-                                    <Stack direction='row' justify='center'>
-                                      <Text fontSize='xl' fontWeight='600'> Rol: </Text>
-                                      <Text fontSize='xl'> {userClientDetail.role} </Text>
-                                    </Stack>
-                                    <br />
-                                    <Stack direction='row'>
-                                      <Button width='50%' colorScheme='teal' variant='outline' onClick={() => setEditRole(true)}>
-                                        <BsPencilSquare />
-                                        <Text pr='0.5em'> Editar rol</Text>
-                                      </Button>
-                                      <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
-                                        <CloseIcon />
-                                        <Text pr='0.5em'> Eliminar usuario</Text>
-                                      </Button>
-                                    </Stack>
-                                  </Stack>
-                                )
-                            }
+
+                            <Stack direction='column'>
+                              <Stack direction='row' justify='center'>
+                                <Text fontSize='xl' fontWeight='600'> Rol: </Text>
+                                <Text fontSize='xl'> {userClientDetail.role} </Text>
+                              </Stack>
+                              <br />
+                              <Stack direction='row'>
+                                <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/clients/edit/${userClientDetail._id}`)}>
+                                  <BsPencilSquare />
+                                  <Text pr='0.5em'> Editar rol</Text>
+                                </Button>
+                                <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
+                                  <CloseIcon />
+                                  <Text pr='0.5em'> Eliminar usuario</Text>
+                                </Button>
+                              </Stack>
+                            </Stack>
                           </Stack>
 
                         </Stack>
                       ) : <Loader />
                   }
                 </Stack>
-
               </Stack >
 
               <Footer />
