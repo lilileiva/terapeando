@@ -37,6 +37,7 @@ function AdminPanelPsychologists() {
     }).then((result) => {
       if (result.isDenied) {
         dispatch(deleteUserPsichologist(idUserPsichologist))
+        dispatch(getAllPsychologist())
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
