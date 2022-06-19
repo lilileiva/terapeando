@@ -51,7 +51,7 @@ function AdminPanelClients() {
     }
   }, [dispatch, adminSearchbar])
 
-  const token = window.localStorage.getItem('token');
+  const token = window.localStorage.getItem('tokenAdmin');
 
   return (
     <>

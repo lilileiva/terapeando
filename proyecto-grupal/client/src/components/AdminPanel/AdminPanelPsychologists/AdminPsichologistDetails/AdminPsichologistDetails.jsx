@@ -44,7 +44,7 @@ export default function AdminPsichologisttDetails() {
     })
   }
 
-  const token = window.localStorage.getItem('token')
+  const token = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>

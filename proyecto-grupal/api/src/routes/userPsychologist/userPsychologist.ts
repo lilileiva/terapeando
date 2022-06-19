@@ -6,14 +6,15 @@ import userPsychologist from "../../models/userPsychologist";
 
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
+  const {IdUserPsychologist} = req.params
   try {
-    const { IdUserPsychologist } = req.params;
     const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist, '-password');
     res.status(200).json(psychologistUser)
   } catch (err) {
     res.status(404).json({ data: err })
   }
 }
+
 const getUserPsychologistByEmail = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
@@ -111,10 +112,8 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 
 
 const deleteUserPsychologist = async (req: Request, res: Response) => {
-  const { IdUserPsychologist } = req.params;
-
   try {
-     const userPsichologistDelete = await userPsychologistModel.findByIdAndDelete(IdUserPsychologist,
+     const userPsichologistDelete = await userPsychologistModel.findByIdAndDelete(req.user,
       function(err: any, docs: any) {
         if(err){
           console.log(err)
@@ -131,10 +130,8 @@ const deleteUserPsychologist = async (req: Request, res: Response) => {
 
 
 const putUserPsychologist = async (req: Request, res: Response) => {
-  const { IdUserPsychologist } = req.params;
-  console.log(IdUserPsychologist)
   try {
-    await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, { new: true })
+    await userPsychologistModel.findByIdAndUpdate(req.user, req.body, { new: true })
     res.status(200).send('Usuario editado correctamente')
   } catch (error) {
     res.status(404).send(error);

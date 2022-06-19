@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import NotFound from '../404notFound/notFound.jsx';
 
-
 function validarCampos(input) {
     //me guardo los errores
     let errors = {}
