@@ -1,7 +1,6 @@
 import { Router } from "express";
 import logInClient from "./signIn";
 const {
-    getAllUserClient,
     getUserClient,
     createUserClient,
     deleteUserClient,
@@ -13,7 +12,6 @@ const validateAdmin = require('../../middleware/ValidateAdminToken')
 const clientRouter: Router = Router();
 
 
-clientRouter.get('/clients', validateAdmin, getAllUserClient); // Admin path
 clientRouter.get('/client/', validateClient, getUserClient);
 clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)

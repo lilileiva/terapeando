@@ -29,46 +29,13 @@ import {
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 /*-------------------USER CLIENT ACTIONS----------------*/
-export function getAllUserClients() {
-  return async function (dispatch) {
-    fetch(
-      `${baseURL}/userclient/clients`,
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: GET_ALL_USERCLIENTS,
-          payload: data,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-}
 
-export function getUserClientsByName(name) {
-  return async function (dispatch) {
-    fetch(
-      `${baseURL}/userclient/clients?name=${name}`,
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: GET_USER_CLIENTS_BY_NAME,
-          payload: data,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-}
-
-export function getUserClient(idUserClient) {
+export function getUserClient() {
   return function (dispatch) {
     axios
       .get(
-        `${baseURL}/userclient/client/${idUserClient}`,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        `${baseURL}/userclient/client`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
       .then((client) => {
         dispatch({
@@ -126,13 +93,13 @@ export function loginClient(signinForm) {
   };
 }
 
-export function editClient(id, updatedUserClient) {
+export function editClient(updatedUserClient) {
   return async function () {
     try {
       const data = await axios.put(
-        `${baseURL}/userclient/${id}`,
+        `${baseURL}/userclient`,
         updatedUserClient,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       console.log(data);
     } catch (err) {
@@ -141,12 +108,12 @@ export function editClient(id, updatedUserClient) {
   };
 }
 
-export function deleteUserClient(id) {
+export function deleteUserClient() {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/userclient/deleteuserclient/${id}`,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        `${baseURL}/userclient/deleteuserclient`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
     } catch (err) {
       console.log(err);
@@ -276,11 +243,11 @@ export function createPsychologist(signupForm) {
 
 // DELETE user psychologist
 
-export function deleteUserPsichologist(id) {
+export function deleteUserPsichologist() {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/userpsychologist/deleteuserpsychologist/${id}`,
+        `${baseURL}/userpsychologist/deleteuserpsychologist`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
     } catch (error) {
@@ -616,7 +583,7 @@ export function clearPsychologistList() {
   };
 }
 
-/*---------------------ADMIN SEARCHBAR ACTION-------------------*/
+/*---------------------ADMIN ACTIONS-------------------*/
 export function adminSearchbar(inputText) {
   return {
     type: ADMIN_SEARCHBAR,
@@ -649,3 +616,100 @@ export const signInAdmin = (signupForm) => {
 //     }
 //   };
 // };
+
+//------>          admin clients actions 
+export function AdminGetUserClient(idClient) {
+  return function (dispatch) {
+    axios
+      .get(
+        `${baseURL}/admin/userclient/client/:${idClient}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      )
+      .then((client) => {
+        dispatch({
+          type: GET_USERCLIENT,
+          payload: client.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+export function AdminGetAllUserClients() {
+  return async function (dispatch) {
+    fetch(
+      `${baseURL}/admin/userclient/clients`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_ALL_USERCLIENTS,
+          payload: data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+export function AdminGetUserClientsByName(name) {
+  return async function (dispatch) {
+    fetch(
+      `${baseURL}/admin/userclient/clients?name=${name}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_CLIENTS_BY_NAME,
+          payload: data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+export function AdminEditClient(id, updatedUserClient) {
+  return async function () {
+    try {
+      const data = await axios.put(
+        `${baseURL}/admin/userclient/${id}`,
+        updatedUserClient,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export function AdminDeleteUserClient(id) {
+  return async function () {
+    try {
+      await axios.delete(
+        `${baseURL}/admimn/userclient/deleteuserclient/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
+        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};

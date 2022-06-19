@@ -34,6 +34,37 @@ const registerAdmin = async (req: Request, res: Response) => {
 };
 // Controllers clients
 
+const getAllUserClient = async (req: Request, res: Response) => {
+  const { name } = req.query;
+
+  try {
+     if (name) {
+        const userClient = await userClientModel.find({
+           $or: [{ firstName: { $regex: name, $options: 'i' } },
+           { lastName: { $regex: name, $options: 'i' } }]
+        })
+        res.status(200).json(userClient);
+     } else {
+        const userClients = await userClientModel.find();
+        res.status(200).json(userClients);
+     }
+  }
+  catch (err) {
+     res.status(404).send('There was an error...');
+  }
+};
+
+const getUserClient = async (req: Request, res: Response) => {
+     req.user
+     try {
+        const userClient = await userClientModel.findById(req.user);
+        res.status(200).json(userClient);
+     }
+     catch (err) {
+        res.status(404).send('There was an error...');
+     }
+  };
+
 const updateClientDetails = async (req: Request, res: Response) => {
   const { IdUserClient } = req.params;
   try {
@@ -121,6 +152,8 @@ const deletePost = async (req: Request, res: Response) => {
 module.exports = {
   registerAdmin,
   updateClientDetails,
+  getAllUserClient,
+  getUserClient,
   getClientDetails,
   deleteClient,
   getPsychologistDetail,
