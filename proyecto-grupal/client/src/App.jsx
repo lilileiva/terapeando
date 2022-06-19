@@ -39,7 +39,6 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
-import LoginFormPsychologist from "./components/LoginFormPsychologist/LoginFormPsychologist";
 
 
 export default function App() {
@@ -51,7 +50,6 @@ export default function App() {
         <Route index element={<LandingPage />} />
         <Route path="/signup" element={<RegisterForm />} />
         <Route path="/signin" element={<LoginForm />} />
-        <Route path="/signin/psychologist" element={<LoginFormPsychologist />} />
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />

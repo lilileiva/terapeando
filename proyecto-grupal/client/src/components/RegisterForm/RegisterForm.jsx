@@ -146,7 +146,7 @@ function RegisterForm() {
     }
 
     const afterSubmit = async () => {
-        if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0) {
+        if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0 && !userClientBtn) {
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
             if (response.status === 201) {
                 navigate('/signin/psychologist')
@@ -167,7 +167,7 @@ function RegisterForm() {
                     timer: 3000
                 })
             }
-        } else if (Object.keys(formErrors).length === 0) {
+        } else if (Object.keys(formErrors).length === 0 && userClientBtn) {
             const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
             if (response.status === 201) {
                 navigate('/signin')
