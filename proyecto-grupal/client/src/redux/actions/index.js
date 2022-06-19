@@ -16,7 +16,8 @@ import {
   CLEAR_CLIENT,
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
+  PUT_POSTS
 } from "./types";
 
 
@@ -258,6 +259,18 @@ export const addPost = (body) => {
       })
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+export const putPost = (body, id) => {
+  return async function (dispatch) {
+    try{
+      const {info} = await axios.post(
+        `${baseURL}/edit/${id}`,body
+      )
+      return dispatch({type:PUT_POSTS, pyaload:info})
+    }catch(e){
+      console.log(e)
     }
   }
 }

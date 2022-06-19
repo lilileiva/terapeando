@@ -13,7 +13,8 @@ import {
   CLEAR_CLIENT,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
-  ADMIN_SEARCHBAR
+  ADMIN_SEARCHBAR,
+  PUT_POSTS
 } from "../actions/types";
 
 const initialState = {
@@ -136,6 +137,11 @@ function rootReducer(state = initialState, action) {
       return{
           ...state,
           posts: state.posts.filter(posts => posts.id !== action.payload)
+      }
+    case PUT_POSTS:
+      return{
+        ...state,
+        posts: action.payload
       }
 
     /*-----------CLEAR-----------*/

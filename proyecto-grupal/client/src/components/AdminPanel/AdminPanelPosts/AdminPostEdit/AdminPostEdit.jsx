@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, Input, Select } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
-import { getUserClient, clearClient, deleteUserClient, getPostDetail, clearStatePostDetail, getCategories} from '../../../../redux/actions';
+import { getPostDetail, clearStatePostDetail, getCategories, putPost} from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
-import countryList from 'react-select-country-list';
+
 
 
 function AdminPostEdit() {
@@ -115,7 +115,7 @@ function handleDeleteCategory(category){
             }else{
                 //creo mi juego
                 console.log(inputText)
-               const response = dispatch(addPost(inputText));
+               const response = dispatch(putPost(inputText));
                 setInputText({
                     Date: "",
                     Title:"",
