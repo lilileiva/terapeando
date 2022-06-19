@@ -42,9 +42,14 @@ export default function Blog() {
             <Button className="btn" onClick={(e) => handleSubmit(e)}>
               Todas las notas
             </Button>
-            <Link href="/createPost">
-              <Button className="btn">Crear Nota</Button>
-            </Link>
+            {
+              tokenPsychologist
+                ? (
+                  <Link href="/createPost">
+                    <Button className="btn">Crear Nota</Button>
+                  </Link>
+                ) : null
+            }
           </div>
         </div>
         <Filters />
