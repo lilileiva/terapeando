@@ -86,32 +86,26 @@ const getAllCategory = (req: Request, res: Response, next: NextFunction) => {
     .catch((error: error) => next(error));
 };
 
-const getPostAuthors = async (req: Request, res: Response) => {
-  try {
-    const allPosts = await Post.find().populate("idUserPsychologist", {
-      firstName: 1,
-      lastName: 1,
-      email: 1,
-    });
-    const authors = allPosts.map((au) => {
-      return au.idUserPsychologist;
-    });
-    console.log(authors)
-    let authorsFiltered = authors.filter((au: any) => {
-      const author = au.firstName + " " +  au.lastName
-      return author
-    })
-    // let autoresFiltrados: string[];
-    // const authorsS = authors.forEach((au) => {
-    //   if (!autoresFiltrados.includes(au.firstName + " " + au.lastName)) {
-    //     autoresFiltrados.push(au);
-    //   }
-    // });
-    res.status(200).json(authorsFiltered);
-  } catch (error) {
-    console.log(error);
-  }
-};
+// const getPostAuthors = async (req: Request, res: Response) => {
+//   try {
+//     const allPosts = await Post.find().populate("idUserPsychologist", {
+//       firstName: 1,
+//       lastName: 1,
+//       email: 1,
+//     });
+//     const authors = allPosts.map((au) => {
+//       return au.idUserPsychologist;
+//     });
+//     console.log(authors)
+//     let authorsFiltered = authors.filter((au: any) => {
+//       const author = au.firstName + " " +  au.lastName
+//       return author
+//     })
+//     res.status(200).json(authorsFiltered);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const filterPostsCategory = async (
   req: Request,
@@ -165,7 +159,6 @@ module.exports = {
   getAllCategory,
   filterPostsCategory,
   getOnePost,
-  getPostAuthors,
-  // filterPostsByAuthor
+  //getPostAuthors,
   deletePost,
 };

@@ -160,7 +160,6 @@ function AdminPanelLogin() {
 
             <Footer />
         </div >
-
     )
 }
 

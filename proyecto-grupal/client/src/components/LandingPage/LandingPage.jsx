@@ -17,12 +17,13 @@ import './landingpage.css'
 
 function LandingPage() {
 
-  const token = window.localStorage.getItem('token')
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
     <>
       {
-        token
+        tokenClient || tokenPsychologist
           ? (
             <Home />
           ) : (
@@ -58,7 +59,7 @@ function LandingPage() {
                             bg: 'green.100',
                             zIndex: -1,
                           }}>
-                          Portal Psico
+                          Terapeando
                         </Text>
                         <br />
                         <Text as={'span'} color={'green.300'}>
