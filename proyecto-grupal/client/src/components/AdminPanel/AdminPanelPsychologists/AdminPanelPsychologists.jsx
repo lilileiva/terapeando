@@ -50,7 +50,7 @@ function AdminPanelPsychologists() {
     }
   }, [dispatch, adminSearchbar])
 
-  const token = window.localStorage.getItem('token')
+  const token = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>

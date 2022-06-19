@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo}from "react";
 import {
   Flex,
   Box,
@@ -15,7 +15,8 @@ import {
   Badge,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import countryList from 'react-select-country-list';
+import { useDispatch, useSelector } from 'react-redux';
 import { editClient, getUserClient } from '../../redux/actions';
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
@@ -33,18 +34,24 @@ function validate(input) {
 }
 
 function FormEditClient() {
+  
+  const countries = useMemo(() => countryList().getData(), [])
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { idUserClient } = useParams();
-
+  // const { idUserClient } = useParams();
+  const clientDetails = useSelector((state) => state.userClientDetail)
   const [error, setError] = useState({});
   const [input, setInput] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    country: "",
-    profileImage: ""
+    firstName: clientDetails.firstName,
+    lastName: clientDetails.lastName,
+    email: clientDetails.email,
+    country: clientDetails.country,
+    profileImage: clientDetails.profileImage
   })
+
+  useEffect(() => {
+    dispatch(getUserClient());
+  }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();
@@ -58,6 +65,7 @@ function FormEditClient() {
       return newInput;
     });
   }
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -73,7 +81,7 @@ function FormEditClient() {
     ) {
       alert("Tu perfil necesita esta información, por favor no dejes campos en blanco");
     } else {
-      dispatch(editClient(idUserClient, input))
+      dispatch(editClient(input))
       console.log(input)
       setInput({
         firstName: '',
@@ -119,30 +127,30 @@ function FormEditClient() {
                         <Box>
                           <FormControl id="firstName">
                             <FormLabel>Nombre</FormLabel>
-                            <Input type="text" name='firstName' value={input.firstName} onChange={(e) => handleChange(e)} />
+                            <Input type="text" name='firstName' placeholder={clientDetails.firstName} value={input.firstName} onChange={(e) => handleChange(e)} />
                             {error.firstName && <Badge colorScheme='red'>{error.firstName}</Badge>}
                           </FormControl>
                         </Box>
                         <Box>
                           <FormControl id="lastName">
                             <FormLabel>Apellido</FormLabel>
-                            <Input type="text" name='lastName' value={input.lastName} onChange={(e) => handleChange(e)} />
+                            <Input type="text" name='lastName' placeholder={clientDetails.lastName} value={input.lastName} onChange={(e) => handleChange(e)} />
                             {error.lastName && <Badge colorScheme='red'>{error.lastName}</Badge>}
                           </FormControl>
                         </Box>
                       </HStack>
                       <FormControl id="email">
                         <FormLabel>Email</FormLabel>
-                        <Input type="email" name='email' value={input.email} onChange={(e) => handleChange(e)} />
+                        <Input type="email" name='email' placeholder={clientDetails.email} value={input.email} onChange={(e) => handleChange(e)} />
                         {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                       </FormControl>
                       <FormControl id="country">
                         <FormLabel>Pais de residencia</FormLabel>
-                        <Input type="country" name='country' value={input.country} onChange={(e) => handleChange(e)} />
+                        <Input type="country" name='country' placeholder={clientDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
                       </FormControl>
                       <FormControl id="profileImage">
                         <FormLabel>Imagen de perfil</FormLabel>
-                        <Input type="profileImage" name='profileImage' value={input.profileImage} onChange={(e) => handleChange(e)} />
+                        <Input type="profileImage" name='profileImage' placeholder={clientDetails.profileImage} value={input.profileImage} onChange={(e) => handleChange(e)} />
                         {error.profileImage && <Badge colorScheme='red'>{error.profileImage}</Badge>}
                         <Avatar
                           size={"2xl"}

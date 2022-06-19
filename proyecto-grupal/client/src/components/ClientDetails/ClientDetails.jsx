@@ -27,11 +27,9 @@ import NotFound from '../404notFound/notFound.jsx';
 
 export default function ClientDetails() {
   const dispatch = useDispatch();
-  const { idUserClient } = useParams();
-  console.log(idUserClient);
 
   useEffect(() => {
-    dispatch(getUserClient(idUserClient));
+    dispatch(getUserClient());
   }, [dispatch]);
 
   const clientDetails = useSelector((state) => state.userClientDetail);
@@ -86,10 +84,10 @@ export default function ClientDetails() {
                                 color: "white",
                               }}
                             >
-                              <Link to={`/editprofile/${idUserClient}`}>Edit Profile</Link>
+                              <Link to={`/editprofile/${clientDetails.firstName}`}>Edit Profile</Link>
                             </Button>
                           </Stack>
-                          <Stack direction={"row"} spacing={4} w={'100%'}
+                          {/* <Stack direction={"row"} spacing={4} w={'100%'}
                             justifyContent={'space-between'}>
 
                             <Text fontWeight={500} color={"gray.300"} mb={10} fontSize='3xl'>
@@ -108,11 +106,11 @@ export default function ClientDetails() {
                                 bg: 'green.500',
                                 color: 'white'
                               }}>
-                              <Link to={`/editprofile/${idUserClient}`}>
+                              <Link to={`/editprofile/${name}`}>
                                 Edit Profile
                               </Link>
                             </Button>
-                          </Stack>
+                          </Stack> */}
                           <Avatar
                             size={"2xl"}
                             src={clientDetails.profileImage}

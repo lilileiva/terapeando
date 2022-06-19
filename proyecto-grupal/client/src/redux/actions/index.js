@@ -34,7 +34,7 @@ export function getAllUserClients() {
   return async function (dispatch) {
     fetch(
       `${baseURL}/userclient/clients`,
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -64,12 +64,12 @@ export function getUserClientsByName(name) {
   }
 }
 
-export function getUserClient(idUserClient) {
+export function getUserClient() {
   return function (dispatch) {
     axios
       .get(
-        `${baseURL}/userclient/client/${idUserClient}`,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        `${baseURL}/userclient/client`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
       .then((client) => {
         dispatch({
@@ -127,13 +127,13 @@ export function loginClient(signinForm) {
   };
 }
 
-export function editClient(id, updatedUserClient) {
+export function editClient(updatedUserClient) {
   return async function () {
     try {
       const data = await axios.put(
-        `${baseURL}/userclient/${id}`,
+        `${baseURL}/userclient/`,
         updatedUserClient,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       console.log(data);
     } catch (err) {
