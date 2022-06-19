@@ -25,12 +25,13 @@ export default function AdminPsichologisttDetails() {
     }, [dispatch])
 
     const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
-    const [statusSwitch, setStatusSwitch] = useState('');
+    
 
-    const handleAlertDelete = (psychologistId) => {
+
+    const handleAlertEdit = (e, psychologistId) => {
         Swal.fire({
-            title: '¿Estás seguro que quieres eliminar a este usuario?',
-            text: "Estos cambios no se podrán revertir.",
+            title: '¿Estás seguro que quieres cambiar el estado de este usuario?',
+            text: "Verifica la informacion del usuario antes de cambiar el estado",
             icon: 'info',
             showConfirmButton: false,
             showDenyButton: true,
@@ -38,9 +39,13 @@ export default function AdminPsichologisttDetails() {
             denyButtonText: 'Sí',
         }).then((result) => {
             if (result.isDenied) {
-                dispatch(deleteUserPsichologist(psychologistId))
-                navigate('/adminpanel/psychologists')
-                Swal.fire('Usuario eliminado correctamente!', '', 'success')
+                e.target.value === 'Pendiente' ?
+                    dispatch(editUserPsichologist(psychologistId, { status: 'Activo' }))
+                    : dispatch(editUserPsichologist(psychologistId, { status: 'Pendiente' }))
+                navigate(`/adminpanel/psychologists/${psychologistId}`)
+                Swal.fire('Cambio de estado exitoso!', '', 'success')
+            } else {
+                navigate(`/adminpanel/psychologists/${psychologistId}`)
             }
         })
     }
@@ -48,19 +53,20 @@ export default function AdminPsichologisttDetails() {
 
     const handleLabel = (e) => {
         e.target.value === 'Pendiente' ?
-            document.getElementById('lbl').innerText = "Activo" :
-            document.getElementById('lbl').innerText = "Pendiente"
+            document.getElementById('lbl').innerText = "Pendiente" :
+            document.getElementById('lbl').innerText = "Activo"
     };
+
+
+
 
 
     const handleInputChange = (e, psychologistId) => {
-        e.target.value === 'Pendiente' ?
-            dispatch(editUserPsichologist(psychologistId, { status: 'Activo' }))
-            : dispatch(editUserPsichologist(psychologistId, { status: 'Pendiente' }))
+        handleAlertEdit(e, psychologistId)
         handleLabel(e)
-
-        dispatch(getUserPsychologistOne(idUserPsichologist))
     };
+
+
 
 
 
@@ -77,7 +83,7 @@ export default function AdminPsichologisttDetails() {
                 <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
                     <Stack direction='row' width='100%'>
-                        <Button cursor={'pointer'} colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/psychologists')}>
+                        <Button cursor={'pointer'} colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/psychologists/${userPsichologistDetail._id}`)}>
                             <ArrowLeftIcon />
                             <Text ml='0.5em'> Volver</Text>
                         </Button>
@@ -103,7 +109,9 @@ export default function AdminPsichologisttDetails() {
                                     <Stack border={'solid'} padding={'15px'} borderRadius={10} borderColor={'#63caa7'} Stack direction='column'>
                                         <FormControl display='flex' alignItems='center'>
                                             <FormLabel fontSize={'xl'} id="lbl" mb='0'>{`Estado ${userPsichologistDetail.status}`}</FormLabel>
-                                            <Switch size='lg' name={'status'} value={userPsichologistDetail.status} onChange={(e) => handleInputChange(e, userPsichologistDetail._id)} />
+                                            {userPsichologistDetail.status === 'Pendiente' ?
+                                                <Switch size='lg' name={'status'} value={userPsichologistDetail.status} onChange={(e) => handleInputChange(e, userPsichologistDetail._id)} /> :
+                                                <Switch isChecked size='lg' name={'status'} value={userPsichologistDetail.status} onChange={(e) => handleInputChange(e, userPsichologistDetail._id)} />}
                                         </FormControl>
                                     </Stack>
 

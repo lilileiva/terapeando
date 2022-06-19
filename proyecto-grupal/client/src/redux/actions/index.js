@@ -519,14 +519,16 @@ export const clearStatePostDetail = () => {
 export function createReview(payload) {
   return async function () {
     try {
-      const newReview = axios.post(`${baseURL}/reviews`, payload);
+      const newReview = axios.post(`${baseURL}/reviews`, payload , {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }});
       return newReview;
     } catch (error) {
       console.log(error);
-
     }
   };
 }
+
+
+  
 
 /* ---------------------- PAYMENTS ---------------------- */
 
