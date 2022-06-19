@@ -63,13 +63,17 @@ const getOnePost = async (req: Request, res: Response) => {
 
 const createPost = (req: Request, res: Response, next: NextFunction) => {
   const {Date, Title, Image, Tags, Content} = req.body;
+  req.user
+  console.log(req.user)
   //me creo el post con el objeto ue me llega de body
   Post.create({
     Date,
     Title,
     Image, 
     Tags,
-    Content
+    Content,
+    idUserPsychologist: req.user
+    
   })
     .then((createdPost) => {
       createdPost.save();

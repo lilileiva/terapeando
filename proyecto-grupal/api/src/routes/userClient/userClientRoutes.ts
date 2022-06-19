@@ -13,7 +13,7 @@ const clientRouter: Router = Router();
 
 
 clientRouter.get('/clients', validateAdmin, getAllUserClient);
-clientRouter.get('/client/:IdUserClient', validateClient, getUserClient);
+clientRouter.get('/client/', validateClient, getUserClient);
 clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)
 clientRouter.delete('/deleteuserclient/:IdUserClient', validateClient, deleteUserClient)

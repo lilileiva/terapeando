@@ -23,9 +23,9 @@ const getAllUserClient = async (req: Request, res: Response) => {
 };
 
 const getUserClient = async (req: Request, res: Response) => {
-   const { IdUserClient } = req.params
+   req.user
    try {
-      const userClient = await userClientModel.findById(IdUserClient);
+      const userClient = await userClientModel.findById(req.user);
       res.status(200).json(userClient);
    }
    catch (err) {
