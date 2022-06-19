@@ -697,6 +697,24 @@ export function AdminDeleteUserClient(id) {
   };
 }
 
+// ----->        admin psychologist actions
+
+
+//
+// export const AdminGetAllPsychologist = () => {
+//   return async function (dispatch) {
+//     try {
+//       const json = await axios.get(`${baseURL}/admin/userpsychologist`)
+//       dispatch({
+//         type: GET_ALL_PSYCHOLOGIST,
+//         payload: json.data,
+//       });
+//     } catch (error) {
+//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+//     }
+//   };
+// };
+
 export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {

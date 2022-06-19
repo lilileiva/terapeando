@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import adminModel, { Admin } from "../../models/Admin";
 import userClientModel from "../../models/userClients";
 import userPsychologistModel from "../../models/userPsychologist";
+import userPsychologist from "../../models/userPsychologist";
 import Post from "../../models/Post";
 const registerAdmin = async (req: Request, res: Response) => {
     const {
@@ -54,7 +55,7 @@ const getAllUserClient = async (req: Request, res: Response) => {
   }
 };
 
-const getUserClient = async (req: Request, res: Response) => {
+const getUserClientById = async (req: Request, res: Response) => {
      req.user
      try {
         const userClient = await userClientModel.findById(req.user);
@@ -97,6 +98,30 @@ const getClientDetails = async (req: Request, res: Response) => {
 };
 
 //Controller Psychologist
+
+const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { name } = req.query;
+
+    if (name) {
+      userPsychologist.find({
+        $or: [{ firstName: { $regex: name, $options: 'i' } },
+        { lastName: { $regex: name, $options: 'i' } }]
+      }, '-password')
+        .then((psychologist) => {
+          res.status(200).json(psychologist)
+        })
+        .catch((error: any) => next(error))
+    } else {
+      const userPsychologist = await userPsychologistModel.find({}, '-password');
+      res.status(200).json(userPsychologist)
+    }
+
+  } catch (err) {
+    res.status(404).json({ data: err })
+  }
+}
+
 const getPsychologistDetail = async (req: Request, res: Response) => {
   try {
     const { IdUserPsychologist } = req.params;
@@ -149,13 +174,15 @@ const deletePost = async (req: Request, res: Response) => {
      res.status(404).send('error: ' + err);
   }
 }
+
 module.exports = {
   registerAdmin,
   updateClientDetails,
   getAllUserClient,
-  getUserClient,
+  getUserClientById,
   getClientDetails,
   deleteClient,
+  getUserPsychologist,
   getPsychologistDetail,
   updateUserPsychologist,
   deleteUserPsychologist,

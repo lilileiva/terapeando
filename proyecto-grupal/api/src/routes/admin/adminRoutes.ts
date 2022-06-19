@@ -5,11 +5,12 @@ const {
   getClientDetails,
   updateClientDetails,
   deleteClient,
+  getUserPsychologist,
   updateUserPsychologist,
   deleteUserPsychologist,
   getPsychologistDetail,
   getAllUserClient,
-  getUserClient,
+  getUserClientById,
   deletePost,
 } = require("./adminController");
 const adminRouter: Router = Router();
@@ -21,12 +22,13 @@ adminRouter.post("/signUp", registerAdmin);
 
 //Rutas admin cliente
 adminRouter.get("/client/:IdUserClient", ValidateAdmin, getClientDetails);
-adminRouter.get('/client/', ValidateAdmin, getUserClient);
+adminRouter.get('/client/', ValidateAdmin, getUserClientById);
 adminRouter.get('/clients', ValidateAdmin, getAllUserClient);
 adminRouter.put("/update/:IdUserClient", ValidateAdmin, updateClientDetails);
 adminRouter.delete("/deleteuserclient/:IdUserClient", ValidateAdmin, deleteClient);
 
 //Rutas admin psicologo
+adminRouter.get("/:IdUserPsychologist", ValidateAdmin, getUserPsychologist);
 adminRouter.get("/:IdUserPsychologist", ValidateAdmin, getPsychologistDetail);
 adminRouter.put("/put_userpsychologist/:IdUserPsychologist",ValidateAdmin,updateUserPsychologist);
 adminRouter.delete("/deleteuserpsychologist/:IdUserPsychologist", ValidateAdmin,deleteUserPsychologist);
