@@ -2,15 +2,14 @@ import { Router } from "express";
 import logInAdmin from "./signIn";
 const {
   registerAdmin,
-  getClientDetails,
+  getAllUserClient,
+  getUserClientById,
   updateClientDetails,
   deleteClient,
-  getUserPsychologist,
+  getAllUserPsychologist,
   updateUserPsychologist,
   deleteUserPsychologist,
   getPsychologistDetail,
-  getAllUserClient,
-  getUserClientById,
   deletePost,
 } = require("./adminController");
 const adminRouter: Router = Router();
@@ -21,14 +20,13 @@ adminRouter.post("/logIn", logInAdmin);
 adminRouter.post("/signUp", registerAdmin);
 
 //Rutas admin cliente
-adminRouter.get("/client/:IdUserClient", ValidateAdmin, getClientDetails);
 adminRouter.get('/client/', ValidateAdmin, getUserClientById);
 adminRouter.get('/clients', ValidateAdmin, getAllUserClient);
 adminRouter.put("/update/:IdUserClient", ValidateAdmin, updateClientDetails);
 adminRouter.delete("/deleteuserclient/:IdUserClient", ValidateAdmin, deleteClient);
 
 //Rutas admin psicologo
-adminRouter.get("/:IdUserPsychologist", ValidateAdmin, getUserPsychologist);
+adminRouter.get("/", ValidateAdmin, getAllUserPsychologist);
 adminRouter.get("/:IdUserPsychologist", ValidateAdmin, getPsychologistDetail);
 adminRouter.put("/put_userpsychologist/:IdUserPsychologist",ValidateAdmin,updateUserPsychologist);
 adminRouter.delete("/deleteuserpsychologist/:IdUserPsychologist", ValidateAdmin,deleteUserPsychologist);

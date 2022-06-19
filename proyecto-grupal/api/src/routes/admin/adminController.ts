@@ -4,6 +4,7 @@ import userClientModel from "../../models/userClients";
 import userPsychologistModel from "../../models/userPsychologist";
 import userPsychologist from "../../models/userPsychologist";
 import Post from "../../models/Post";
+
 const registerAdmin = async (req: Request, res: Response) => {
     const {
         firstname,
@@ -33,6 +34,7 @@ const registerAdmin = async (req: Request, res: Response) => {
       res.status(401).send(error);
     }
 };
+
 // Controllers clients
 
 const getAllUserClient = async (req: Request, res: Response) => {
@@ -99,7 +101,7 @@ const getClientDetails = async (req: Request, res: Response) => {
 
 //Controller Psychologist
 
-const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
+const getAllUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.query;
 
@@ -182,7 +184,7 @@ module.exports = {
   getUserClientById,
   getClientDetails,
   deleteClient,
-  getUserPsychologist,
+  getAllUserPsychologist,
   getPsychologistDetail,
   updateUserPsychologist,
   deleteUserPsychologist,
