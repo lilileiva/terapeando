@@ -108,7 +108,7 @@ function rootReducer(state = initialState, action) {
     //   };
 
     case "FILTER_POSTS_BY_AUTHOR":
-      let postsCopy = state.posts;
+      let postsCopy = state.postsCopy;
       //filterByAuthor = array de obj con first y last Name
       let filterPost = []
       postsCopy.filter(el => {
@@ -198,6 +198,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+        postsCopy: action.payload
       };
     case "GET_POST_DETAIL":
       return {
