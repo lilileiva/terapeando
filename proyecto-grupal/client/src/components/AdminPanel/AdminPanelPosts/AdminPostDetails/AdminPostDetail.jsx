@@ -46,6 +46,7 @@ function AdminPostDetail() {
       showCancelButton: true,
       denyButtonText: "Sí",
     }).then((result) => {
+      console.log("R:", result)
       if (result.isDenied) {
         dispatch(deletePost(postId));
         navigate("/adminpanel/posts");
