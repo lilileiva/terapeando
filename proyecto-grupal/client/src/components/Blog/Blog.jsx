@@ -19,12 +19,13 @@ export default function Blog() {
     dispatch(getAllPosts());
   }
 
-  const token = window.localStorage.getItem('token')
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
     <div>
       {
-        token ? <NavbarHome /> : <NavBar />
+        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
       }
       <div className="blogContainer">
         <div className="row">

@@ -24,8 +24,6 @@ function LoginForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const token = window.localStorage.getItem('token')
-
     //login/logout con google
     useEffect(() => {
         function start() {
@@ -116,14 +114,17 @@ function LoginForm() {
         afterSubmit();
     }
 
+    const tokenClient = window.localStorage.getItem('tokenClient')
+    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
     return (
         <div className='background'>
             {
-                token ? <NavbarHome /> : <NavBar />
+                tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
             }
             <Container padding='2em' zIndex='1' pb='10%' centerContent>
                 {
-                    token
+                    tokenClient || tokenPsychologist
                         ? (
                             <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
                                 <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>

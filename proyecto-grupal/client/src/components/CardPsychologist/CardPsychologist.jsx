@@ -18,7 +18,8 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
         }
     }
 
-    const token = window.localStorage.getItem('token')
+    const tokenClient = window.localStorage.getItem('tokenClient')
+    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
     return (
         <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
@@ -49,7 +50,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                                     {about.slice(0, 500)}...
                                     <br />
                                     {
-                                        token
+                                        tokenClient || tokenPsychologist
                                             ? (
                                                 <Link to={`/detailPsychologist/${idPsychologist}`}>
                                                     <button className="vermas">Ver más</button>
@@ -69,7 +70,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
 
                 <Box className="profile"  >
                     {
-                        token
+                        tokenClient || tokenPsychologist
                             ? (
                                 <Link to={`/detailPsychologist/${idPsychologist}`}>
                                     <Button className="buttonProfile" color='blackAlpha.600' _hover={{
@@ -103,7 +104,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
                 {
-                    token
+                    tokenClient || tokenPsychologist
                         ? (
                             <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
                                 Pedir cita
