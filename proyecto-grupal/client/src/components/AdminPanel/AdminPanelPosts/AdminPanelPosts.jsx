@@ -15,7 +15,7 @@ import {
 import {
   getAllPosts,
   searchPostsByTitle,
-  deletePost,
+  AdminDeletePost,
 } from "../../../redux/actions";
 import Swal from "sweetalert2";
 import Loader from "../../Loader/Loader.jsx";
@@ -42,7 +42,7 @@ function AdminPanelPosts() {
       denyButtonText: "Sí",
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deletePost(postId));
+        dispatch(AdminDeletePost(postId));
         Swal.fire("Post eliminado correctamente!", "", "success");
         dispatch(getAllPosts());
       }

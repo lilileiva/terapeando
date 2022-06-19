@@ -15,8 +15,7 @@ import {
 } from "react-icons/bs";
 import {
   clearStatePostDetail,
-  deletePost,
-  deleteUserClient,
+  AdminDeletePost,
   getPostDetail,
 } from "../../../../redux/actions";
 import Loader from "../../../Loader/Loader.jsx";
@@ -48,7 +47,7 @@ function AdminPostDetail() {
     }).then((result) => {
       console.log("R:", result)
       if (result.isDenied) {
-        dispatch(deletePost(postId));
+        dispatch(AdminDeletePost(postId));
         navigate("/adminpanel/posts");
         Swal.fire("Post eliminado correctamente!", "", "success");
       }

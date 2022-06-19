@@ -7,7 +7,7 @@ import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient, clearClient, deleteUserClient, getUserPsychologistOne, deleteUserPsichologist } from '../../../../redux/actions';
+import { getUserClient, clearClient, deleteUserClient, AdminGetUserPsychologistDetail, AdminDeleteUserPsichologist } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 import NotFound from '../../../404notFound/notFound.jsx';
@@ -19,7 +19,7 @@ export default function AdminPsichologisttDetails() {
 
   const { idUserPsichologist } = useParams();
   useEffect(() => {
-    dispatch(getUserPsychologistOne(idUserPsichologist))
+    dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
     return () => {
       dispatch(clearClient())
     }
@@ -37,7 +37,7 @@ export default function AdminPsichologisttDetails() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserPsichologist(psychologistId))
+        dispatch(AdminDeleteUserPsichologist(psychologistId))
         navigate('/adminpanel/psychologists')
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }

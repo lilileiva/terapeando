@@ -241,37 +241,7 @@ export function createPsychologist(signupForm) {
   };
 }
 
-// DELETE user psychologist
 
-export function deleteUserPsichologist() {
-  return async function () {
-    try {
-      await axios.delete(
-        `${baseURL}/userpsychologist/deleteuserpsychologist`,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
-}
-
-// PUT para editar usuario psicologo
-
-export function editUserPsichologist(id, updatedUserPsychologist) {
-  return async function () {
-    try {
-      const editPsichologist = axios.put(
-        `${baseURL}/userpsychologist/put_userpsychologist/${id}`,
-        updatedUserPsychologist,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-        })
-    } catch (error) {
-      console.error(error)
-    }
-  };
-}
 
 // filtrar psicologs por  especialidad
 
@@ -372,19 +342,6 @@ export const addPost = (body) => {
         type: "CREATE_POST",
         payload: info,
       });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-//eliminar nota
-export const deletePost = (id) => {
-  return async function (dispatch) {
-    try {
-      await axios.delete(`${baseURL}/deletePost/${id}`);
-      dispatch({ type: "DELETE_POST", payload: id });
-      await axios.delete(`${baseURL}/deletePost/${id}`)
-      dispatch({ type: "DELETE_POST", payload: id })
     } catch (error) {
       console.log(error);
     }
@@ -699,7 +656,6 @@ export function AdminDeleteUserClient(id) {
 
 // ----->        admin psychologist actions
 
-//
 export const AdminGetAllPsychologist = () => {
   return async function (dispatch) {
     try {
@@ -715,6 +671,38 @@ export const AdminGetAllPsychologist = () => {
   };
 };
 
+export function AdminGetUserPsychologistByName(name) {
+  return async function (dispatch) {
+    fetch(`${baseURL}/userpsychologist?name=${name}`, 
+    { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } } )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_PSYCHOLOGISTS_BY_NAME,
+          payload: data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+// PUT para editar usuario psicologo
+
+export function AdminEditUserPsichologist(id, updatedUserPsychologist) {
+  return async function () {
+    try {
+      const editPsichologist = axios.put(
+        `${baseURL}/admin/userpsychologist/put_userpsychologist/${id}`,
+        updatedUserPsychologist,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` }
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  };
+}
+
 export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
@@ -728,6 +716,36 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
       });
     } catch (error) {
       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+// DELETE user psychologist
+
+export function AdminDeleteUserPsichologist() {
+  return async function () {
+    try {
+      await axios.delete(
+        `${baseURL}/userpsychologist/deleteuserpsychologist`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+//-------> admin actions posts
+//eliminar nota
+export const AdminDeletePost = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${baseURL}/deletePost/${id}`);
+      dispatch({ type: "DELETE_POST", payload: id });
+      await axios.delete(`${baseURL}/deletePost/${id}`)
+      dispatch({ type: "DELETE_POST", payload: id })
+    } catch (error) {
+      console.log(error);
     }
   };
 };
