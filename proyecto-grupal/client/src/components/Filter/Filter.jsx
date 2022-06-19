@@ -18,13 +18,18 @@ export default function Filters() {
   const author = useSelector((state) => state.allUsersPsichologists);
   //console.log('AUTHOR: ', author)
   //author tiene un array de objetos con first y last Name [{},{}]
+  let authorNoRepeat = []
+  author.map((au) => (
+    (!authorNoRepeat.includes(`${au.firstName} ${au.lastName}`))
+      ? authorNoRepeat.push(`${au.firstName} ${au.lastName}`) : null
+  ))
+  //   console.log('nom', posts.map(el => (`${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}`)))
+  // posts.filter((a) => {
+  //   if (`${a.idUserPsychologist.firstName} ${a.idUserPsychologist.lastName}` === 'Juan Carlos Prieto') {
+  //     return a
+  //   }
+  // });
 
-  let authorNoRepeat = [];
-  author.map((au) =>
-    !authorNoRepeat.includes(`${au.firstName} ${au.lastName}`)
-      ? authorNoRepeat.push(`${au.firstName} ${au.lastName}`)
-      : null
-  );
   console.log("authorNoRepeat: ", authorNoRepeat)
 
   // useEffect(() => {
@@ -33,13 +38,12 @@ export default function Filters() {
 
   useEffect(() => {
     dispatch(getCategories());
-    dispatch(filterByAuthor());
     dispatch(getAllPsychologist());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(getPostsAuthors());
-  // }, []);
+  useEffect(() => {
+    dispatch(filterByAuthor());
+  }, []);
 
   function handleSubmitOrder(e) {
     // console.log(e.target.value);
@@ -80,7 +84,7 @@ export default function Filters() {
           })}
       </Select>
 
-      <Select
+      {/* <Select
         w="49%"
         placeholder="Filtrar notas por autor"
         onChange={(e) => handleSubmitAuthor(e)}
@@ -96,21 +100,20 @@ export default function Filters() {
             }) : null
           } */}
 
-        <Select
-          w="49%"
-          placeholder="Filtrar notas por autor"
-          onChange={(e) => handleSubmitAuthor(e)}
-        >
-          <option value="All">Todos los autores</option>
-          {authorNoRepeat.length &&
-            authorNoRepeat.map((el) => {
-              return (
-                <option key={el} value={el}>
-                  {el}
-                </option>
-              );
-            })}
-        </Select>
+      <Select
+        w="49%"
+        placeholder="Filtrar notas por autor"
+        onChange={(e) => handleSubmitAuthor(e)}
+      >
+        <option value="All">Todos los autores</option>
+        {authorNoRepeat.length &&
+          authorNoRepeat.map((el) => {
+            return (
+              <option key={el} value={el}>
+                {el}
+              </option>
+            );
+          })}
       </Select>
     </div>
   );

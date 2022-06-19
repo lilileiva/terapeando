@@ -35,7 +35,8 @@ function AdminPanelClients() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserClient(clientId))
+        dispatch(deleteUserClient(clientId))        
+        dispatch(getAllUserClients())
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })

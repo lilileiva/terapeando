@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 import userPsychologistModel from "../../models/userPsychologist";
 import userPsychologist from "../../models/userPsychologist";
+//import { userPsychologist } from '../../models/userPsychologist';
 
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
@@ -22,6 +23,19 @@ const getUserPsychologistByEmail = async (req: Request, res: Response) => {
     res.status(404).json({ data: err })
   }
 }
+
+const getUserPsychologistByStatus = async ( req: Request, res: Response) => {
+try {
+
+  const userPsychologistStatus = await userPsychologistModel.find({ 'status': 'Activo' }, '-password');
+  res.status(200).json(userPsychologistStatus)
+  
+} catch (error) {
+  console.log(error)
+  return res.status(404).send({ msj: 'No se encontraron resultados' });
+}
+  
+};
 
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -171,5 +185,6 @@ module.exports = {
   putUserPsychologist,
   getUserPsychologistByEmail,
   filterPsichologistSpecialities,
-  filterPsichologistRating
+  filterPsichologistRating,
+  getUserPsychologistByStatus
 }

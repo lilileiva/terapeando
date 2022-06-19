@@ -146,6 +146,7 @@ export default function NavbarHome() {
                 <Link to={`/editprofile/${idUserClient}`}>
                   <MenuItem>Editar Perfil</MenuItem>
                 </Link>
+                <MenuItem>Mis Pagos</MenuItem>
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
                 </Link>        
@@ -156,7 +157,6 @@ export default function NavbarHome() {
                 <MenuItem onClick={handleSignOut}>
                   Cerrar sesión
                 </MenuItem>
-
               </MenuList>
             </Menu>
           </Flex>
