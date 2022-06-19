@@ -279,7 +279,7 @@ function RegisterForm() {
           </Box>
         ) : (
           <>
-            <Text fontSize="2xl" color={"#285e61"} paddingBottom="1em">
+            <Text fontSize="2xl" color={"#285e61"} paddingBottom="1em" marginTop="350px">
               Registro
             </Text>
 
@@ -564,8 +564,9 @@ function RegisterForm() {
           </>
         )}
       </Container>
-
+      <div className="footerRegister">
       <Footer />
+      </div>
     </div>
   );
 }
