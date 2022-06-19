@@ -3,11 +3,11 @@ const { createPayment, getAllPayments, getPaymentByClientId} = require('./paymen
 const { createCheckoutSession } = require('./Stripe/checkout.js')
 
 const paymentHistoryRouter: Router = Router();
-const validateClientOrAdmin = require('../../middleware/validateClientOrAdmin')
+
 
 paymentHistoryRouter.get('/', getAllPayments)
-paymentHistoryRouter.get('/', validateClientOrAdmin ,getPaymentByClientId)
-paymentHistoryRouter.post('/checkoutpayment', validateClientOrAdmin ,createPayment)
+paymentHistoryRouter.get('/' ,getPaymentByClientId)
+paymentHistoryRouter.post('/checkoutpayment' ,createPayment)
 paymentHistoryRouter.post('/checkout', createCheckoutSession)
 
 module.exports = paymentHistoryRouter;
