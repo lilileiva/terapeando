@@ -58,7 +58,7 @@ function LandingPage() {
                             bg: 'green.100',
                             zIndex: -1,
                           }}>
-                          Portal Psico
+                          Terapeando
                         </Text>
                         <br />
                         <Text as={'span'} color={'green.300'}>
