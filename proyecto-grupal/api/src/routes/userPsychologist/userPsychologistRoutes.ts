@@ -28,4 +28,6 @@ psychologistRouter.put('/put_userpsychologist/:IdUserPsychologist', validatePych
 psychologistRouter.get('/filterspecialties/specialties/:specialtie', filterPsichologistSpecialities);
 psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
 
+
+
 module.exports = psychologistRouter;

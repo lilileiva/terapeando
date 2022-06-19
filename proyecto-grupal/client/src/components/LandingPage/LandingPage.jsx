@@ -17,12 +17,13 @@ import './landingpage.css'
 
 function LandingPage() {
 
-  const token = window.localStorage.getItem('token')
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
     <>
       {
-        token
+        tokenClient || tokenPsychologist
           ? (
             <Home />
           ) : (
