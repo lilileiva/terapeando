@@ -27,15 +27,16 @@ const features = Array.apply(null, Array(4)).map(function (x, i) {
 
 
 export default function Faqs() {
-  
+
   const navigate = useNavigate();
 
-  const token = window.localStorage.getItem('token');
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
     <div className='faqsContainer'>
       {
-        token ? <NavbarHome /> : <NavBar />
+        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
       }
       <Box p={4} bgColor={'#E2E8F0'}>
         <Link to={'/'}>

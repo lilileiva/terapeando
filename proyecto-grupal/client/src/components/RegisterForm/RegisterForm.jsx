@@ -21,8 +21,6 @@ function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const token = window.localStorage.getItem('token')
-
     const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
@@ -147,7 +145,7 @@ function RegisterForm() {
         setIsSubmit(true)
     }
 
-    const afterSubmit = async() => {
+    const afterSubmit = async () => {
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0) {
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
             if (response.status === 201) {
@@ -199,14 +197,17 @@ function RegisterForm() {
         afterSubmit();
     }
 
+    const tokenClient = window.localStorage.getItem('tokenClient')
+    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
     return (
-        <div className='backgroundRegister'>
+        <div className='background'>
             {
-                token ? <NavbarHome /> : <NavBar />
+                tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
             }
             <Container zIndex='1' height='inherit' direction='column' justifyContent='center' p='2em' centerContent>
                 {
-                    token
+                    tokenClient || tokenPsychologist
                         ? (
                             <Box width='100%' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
                                 <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>

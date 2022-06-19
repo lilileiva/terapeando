@@ -5,7 +5,6 @@ import './notfoundContainer.css'
 export default function NotFound() {
   return (
     <div className='notfoundContainer'>
-
       <Box textAlign="center" py={10} px={6}>
         <Heading
           display="inline-block"
@@ -31,7 +30,6 @@ export default function NotFound() {
           </Button>
         </Link>
       </Box>
-
     </div>
   );
 }

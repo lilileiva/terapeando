@@ -92,54 +92,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload,
       };
-
-    // case "FILTER_POSTS_BY_AUTHOR":
-    //   const filterPost = state.postsCopy;
-    //   //filterByAuthor = array de obj con first y last Name
-    //   const actFiltered =
-    //     action.payload === "All"
-    //       ? filterPost
-    //       : filterPost.filter(
-    //           (a) => a.firstName + a.lastName === action.payload
-    //         );
-    //   return {
-    //     ...state,
-    //     posts: actFiltered,
-    //   };
-
-    case "FILTER_POSTS_BY_AUTHOR":
-      let postsCopy = state.postsCopy;
-      //filterByAuthor = array de obj con first y last Name
-      let filterPost = []
-      postsCopy.filter(el => {
-        if (`${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}` === action.payload) {
-          filterPost.push(el)
-        }
-        // return console.log('nomb', `${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}`)
-      })
-      return {
-        ...state,
-        posts: filterPost,
-      };
-
-
-      // case "FILTER_POSTS_BY_AUTHOR":
-      //   const filterPost = state.postsCopy;
-      //   //filterByAuthor = array de obj con first y last Name
-      //   const actFiltered =
-      //     action.payload === "All"
-      //       ? filterPost
-      //       : filterPost.filter(
-      //           (a) => {
-      //             const author = a.idUserPsychologist.firstName + " " +  a.idUserPsychologist.lastName
-      //             return author.includes(action.payload)
-      //           }
-      //         );
-      //   return {
-      //     ...state,
-      //     posts: actFiltered,
-      //   };
-
     case "GET_POSTS_AUTHORS":
       return {
         ...state,

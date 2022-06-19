@@ -10,6 +10,7 @@ import { getUserClient, clearClient, deleteUserClient } from '../../../../redux/
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 import countryList from 'react-select-country-list';
+import NotFound from '../../../404notFound/notFound.jsx';
 
 
 function AdminClientEdit() {
@@ -38,7 +39,7 @@ function AdminClientEdit() {
       showCancelButton: true,
       confirmButtonText: 'Sí',
     }).then((result) => {
-      if (result.isConfirmed) {        
+      if (result.isConfirmed) {
         // dispatch(deleteUserClient(clientId))
         navigate(`/adminpanel/clients/${clientId}`)
         Swal.fire('Usuario editado correctamente!', '', 'success')
@@ -117,96 +118,106 @@ function AdminClientEdit() {
     setFormErrors(validate(inputText))
   }
 
+  const token = window.localStorage.getItem('token');
+
   return (
+    <>
+      {
+        token
+          ? (
+            <div className='adminPanelContainer'>
+              <AdminPanelNavbar />
 
-    <div className='adminPanelContainer'>
-      <AdminPanelNavbar />
+              <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
 
-      <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
+                <AdminPanelSidebar />
 
-        <AdminPanelSidebar />
+                <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
-        <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-
-          <Stack direction='row' width='100%'>
-            <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
-              <ArrowLeftIcon />
-              <Text ml='0.5em'> Volver</Text>
-            </Button>
-          </Stack>
-          {
-            Object.keys(userClientDetail).length !== 0
-              ? (
-                <Stack w='100%' direction='column' justify='center' align='center' p='2em'>
-                  <Avatar src={userClientDetail.profileImage} size='xl' />
-                  <Stack w='25em' direction='column' justify='center' align='flex-start'>
-                    <br />
-                    <form onSubmit={handleInputSubmit}>
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600' textAlign='left'> Imagen de perfil: </Text>
-                        <Input name='profileImage' value={inputText.profileImage} placeholder={userClientDetail.profileImage} borderColor='gray' onChange={handleInputChange} />
-                        {formErrors.profileImage && <Text fontSize='sm' color='teal.500'>{formErrors.profileImage}</Text>}
-                      </Stack>
-                      <br />
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600' > Nombre: </Text>
-                        <Input name='firstName' value={inputText.firstName} placeholder={userClientDetail.firstName} borderColor='gray' onChange={handleInputChange} />
-                        {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
-                      </Stack>
-                      <br />
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600'> Apellido: </Text>
-                        <Input name='lastName' value={inputText.lastName} placeholder={userClientDetail.lastName} borderColor='gray' width='100%' onChange={handleInputChange} />
-                        {formErrors.lastName && <Text fontSize='sm' color='teal.500'>{formErrors.lastName}</Text>}
-                      </Stack>
-                      <br />
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600'> País: </Text>
-                        <Select placeholder=' País' color='gray.500' mt='2em' onChange={handleCountries} >
-                          {
-                            countries.map(c => (
-                              <option key={c.label} value={c.label}>{c.label}</option>
-                            ))
-                          }
-                        </Select>
-                        {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
-                      </Stack>
-                      <br />
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600' textAlign='left'> Fecha de nacimiento: </Text>
-                        <Input type='date' value={inputText.date} placeholder={userClientDetail.birthDate} borderColor='gray' onChange={handleInputChange} />
-                        {formErrors.date && <Text fontSize='sm' color='teal.500'>{formErrors.date}</Text>}
-                      </Stack>
-                      <br />
-                      <Stack direction='row' width='100%'>
-                        <Text fontSize='xl' fontWeight='600'> Email: </Text>
-                        <Input name='email' value={inputText.email} placeholder={userClientDetail.email} borderColor='gray' onChange={handleInputChange} />
-                        {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
-                      </Stack>
-                    </form>
-                    <br />
-                    <Stack direction='row' width='100%'>
-                      <Button width='50%' colorScheme='teal' variant='outline' onClick={handleInputSubmit}>
-                        <CheckIcon />
-                        <Text pr='0.5em'> Guardar cambios</Text>
-                      </Button>
-                      <Button width='50%' colorScheme='red' variant='outline' onClick={() => navigate(`/adminpanel/clients/${userClientDetail._id}`)}>
-                        <CloseIcon />
-                        <Text pr='0.5em'> Cancelar cambios</Text>
-                      </Button>
-                    </Stack>
-
+                  <Stack direction='row' width='100%'>
+                    <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
+                      <ArrowLeftIcon />
+                      <Text ml='0.5em'> Volver</Text>
+                    </Button>
                   </Stack>
+                  {
+                    Object.keys(userClientDetail).length !== 0
+                      ? (
+                        <Stack w='100%' direction='column' justify='center' align='center' p='2em'>
+                          <Avatar src={userClientDetail.profileImage} size='xl' />
+                          <Stack w='25em' direction='column' justify='center' align='flex-start'>
+                            <br />
+                            <form onSubmit={handleInputSubmit}>
+                              <Stack direction='row' width='100%'>
+                                <Text fontSize='xl' fontWeight='600' textAlign='left'> Imagen de perfil: </Text>
+                                <Input name='profileImage' value={inputText.profileImage} placeholder={userClientDetail.profileImage} borderColor='gray' onChange={handleInputChange} />
+                                {formErrors.profileImage && <Text fontSize='sm' color='teal.500'>{formErrors.profileImage}</Text>}
+                              </Stack>
+                              <br />
+                              <Stack direction='row' width='100%'>
+                                <Text fontSize='xl' fontWeight='600' > Nombre: </Text>
+                                <Input name='firstName' value={inputText.firstName} placeholder={userClientDetail.firstName} borderColor='gray' onChange={handleInputChange} />
+                                {formErrors.firstname && <Text fontSize='sm' color='teal.500'>{formErrors.firstname}</Text>}
+                              </Stack>
+                              <br />
+                              <Stack direction='row' width='100%'>
+                                <Text fontSize='xl' fontWeight='600'> Apellido: </Text>
+                                <Input name='lastName' value={inputText.lastName} placeholder={userClientDetail.lastName} borderColor='gray' width='100%' onChange={handleInputChange} />
+                                {formErrors.lastName && <Text fontSize='sm' color='teal.500'>{formErrors.lastName}</Text>}
+                              </Stack>
+                              <br />
+                              <Stack direction='row' width='100%'>
+                                <Text fontSize='xl' fontWeight='600'> País: </Text>
+                                <Select placeholder=' País' color='gray.500' mt='2em' onChange={handleCountries} >
+                                  {
+                                    countries.map(c => (
+                                      <option key={c.label} value={c.label}>{c.label}</option>
+                                    ))
+                                  }
+                                </Select>
+                                {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
+                              </Stack>
+                              <br />
+                              <Stack direction='row' width='100%'>
+                                <Text fontSize='xl' fontWeight='600' textAlign='left'> Fecha de nacimiento: </Text>
+                                <Input type='date' value={inputText.date} placeholder={userClientDetail.birthDate} borderColor='gray' onChange={handleInputChange} />
+                                {formErrors.date && <Text fontSize='sm' color='teal.500'>{formErrors.date}</Text>}
+                              </Stack>
+                              <br />
+                              <Stack direction='row' width='100%'>
+                                <Text fontSize='xl' fontWeight='600'> Email: </Text>
+                                <Input name='email' value={inputText.email} placeholder={userClientDetail.email} borderColor='gray' onChange={handleInputChange} />
+                                {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
+                              </Stack>
+                            </form>
+                            <br />
+                            <Stack direction='row' width='100%'>
+                              <Button width='50%' colorScheme='teal' variant='outline' onClick={handleInputSubmit}>
+                                <CheckIcon />
+                                <Text pr='0.5em'> Guardar cambios</Text>
+                              </Button>
+                              <Button width='50%' colorScheme='red' variant='outline' onClick={() => navigate(`/adminpanel/clients/${userClientDetail._id}`)}>
+                                <CloseIcon />
+                                <Text pr='0.5em'> Cancelar cambios</Text>
+                              </Button>
+                            </Stack>
 
+                          </Stack>
+
+                        </Stack>
+                      ) : <Loader />
+                  }
                 </Stack>
-              ) : <Loader />
-          }
-        </Stack>
 
-      </Stack>
+              </Stack>
 
-      <Footer />
-    </div>
+              <Footer />
+            </div>
+          ) : (
+            <NotFound />
+          )
+      }
+    </>
   )
 }
 
