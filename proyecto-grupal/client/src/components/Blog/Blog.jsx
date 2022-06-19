@@ -19,12 +19,13 @@ export default function Blog() {
     dispatch(getAllPosts());
   }
 
-  const token = window.localStorage.getItem('token')
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
     <div>
       {
-        token ? <NavbarHome /> : <NavBar />
+        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
       }
       <div className="blogContainer">
         <div className="row">
@@ -41,9 +42,14 @@ export default function Blog() {
             <Button className="btn" onClick={(e) => handleSubmit(e)}>
               Todas las notas
             </Button>
-            <Link href="/createPost">
-              <Button className="btn">Crear Nota</Button>
-            </Link>
+            {
+              tokenPsychologist
+                ? (
+                  <Link href="/createPost">
+                    <Button className="btn">Crear Nota</Button>
+                  </Link>
+                ) : null
+            }
           </div>
         </div>
         <Filters />

@@ -6,6 +6,7 @@ import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 
+
 function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalendar }) {
 
     return (
@@ -21,7 +22,7 @@ function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalend
                     </Text>
                     <Avatar className="avatar" src={profileImage} alt="img not found" size='xl'></Avatar>
                 </Stack>
-                
+
                 <Stack direction='column' pt='1em' pb='2em' borderTopWidth='0.1em' borderColor='#b7b7b7' width='80%'>
                     <Text fontSize='2xl' color='#285e61' marginBottom='0' textAlign='left'>
                         Calendario
@@ -32,10 +33,12 @@ function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalend
                     {/* <Calendar /> */}
 
                 </Stack>
-            {/* voy a poner provisoriamente esto para tomar el id del psicologo */}
-            <Link to={`/checkout/${idPsychologist}`}>
-            <Button>Agendar</Button>
-            </Link>
+                {/* voy a poner provisoriamente esto para tomar el id del psicologo */}
+                <Link to={`/checkout/${idPsychologist}`}>
+                    <Button bg='#63caa7' color='white' mb='2em' colorScheme='teal'>
+                        Agendar
+                    </Button>
+                </Link>
             </Stack>
         </Stack>
     )

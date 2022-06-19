@@ -49,8 +49,6 @@ function validarCampos(input) {
 };
 export default function AddPost() {
 
-    const token = window.localStorage.getItem('token');
-
     const [input, setInput] = useState({
         Date: "",
         Title: "",
@@ -129,117 +127,118 @@ export default function AddPost() {
             Tags: input.Tags.filter((c) => c !== category)
         })
     }
-    console.log(input.Tags)
+
+    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist');
 
     return (
         <>
             {
-                token ? <NavbarHome /> : <NavBar />
-            }
-            {
-                token
+                tokenPsychologist
                     ? (
-                        <Stack direction='column' width='70%' margin='auto' mt='2em' mb='3em'>
-                            <Link to='/blog'>
-                                <Text color='green.300' fontSize='2xl' textAlign='left' mb='1em'>
-                                    <ArrowLeftIcon />   Volver
-                                </Text>
-                            </Link>
-                            <form onSubmit={(e) => handleSubmit(e)} className="form">
-                                <div className='formulario'>
-                                    <h2 className='titulo'>Crear Nota</h2>
-                                    {/* Titulo */}
-                                    <div className='group'>
-                                        <input className='input1'
-                                            required
-                                            type={"text"}
-                                            name="Title"
-                                            value={input.Title}
-                                            onChange={(e) => handleChange(e)}
-                                        />
-                                        <span className='bar'></span>
-                                        <label className='etiqueta'>Titulo</label>
-                                        {errors.Title && (
-                                            <p className='peligro'>{errors.Title}</p>
-                                        )}
-                                    </div>
-                                    {/* fecha */}
-                                    <div className='group'>
-                                        {/* controlamos tanto como la fecha y el valor cada vez que haya un cambio */}
-                                        <input className='input1'
-                                            type={"Date"}
-                                            required
-                                            name="Date"
-                                            value={input.Date}
-                                            onChange={(e) => handleChange(e)}
-                                        />
-                                        <span className='bar'></span>
-                                        <label className='etiqueta'> Fecha de creacion: </label>
-                                        {/* si hay un error mostramos el valor del objete con ese error */}
-                                        {errors.Date && (
-                                            <p className='peligro'>{errors.Date}</p>
-                                        )}
-                                    </div>
-                                    {/* Imagen */}
-                                    <div className='group'>
-                                        <input className='input1'
-                                            required
-                                            type={"url"}
-                                            name="Image"
-                                            value={input.Image}
-                                            onChange={(e) => handleChange(e)}
-                                        />
-                                        <span className='bar'></span>
-                                        <label className='etiqueta'>Url de la Imagen: </label>
-                                        {errors.Image && (
-                                            <p className='peligro'>{errors.Image}</p>
-                                        )}
-                                    </div>
-                                    {/* categorias */}
-                                    <div className='group'>
-                                        <Select placeholder="Elija las categorias asociadas a la nota creada" defaultValue={""} onChange={(e) => handleCategories(e)} className="alert">
-                                            {/* me traigo todos mis generos y los muestro */}
-                                            {categories && categories.map((categorie) => {
+                        <>
+                            <NavbarHome />
+                            <Stack direction='column' width='70%' margin='auto' mt='2em' mb='3em'>
+                                <Link to='/blog'>
+                                    <Text color='green.300' fontSize='2xl' textAlign='left' mb='1em'>
+                                        <ArrowLeftIcon />   Volver
+                                    </Text>
+                                </Link>
+                                <form onSubmit={(e) => handleSubmit(e)} className="form">
+                                    <div className='formulario'>
+                                        <h2 className='titulo'>Crear Nota</h2>
+                                        {/* Titulo */}
+                                        <div className='group'>
+                                            <input className='input1'
+                                                required
+                                                type={"text"}
+                                                name="Title"
+                                                value={input.Title}
+                                                onChange={(e) => handleChange(e)}
+                                            />
+                                            <span className='bar'></span>
+                                            <label className='etiqueta'>Titulo</label>
+                                            {errors.Title && (
+                                                <p className='peligro'>{errors.Title}</p>
+                                            )}
+                                        </div>
+                                        {/* fecha */}
+                                        <div className='group'>
+                                            {/* controlamos tanto como la fecha y el valor cada vez que haya un cambio */}
+                                            <input className='input1'
+                                                type={"Date"}
+                                                required
+                                                name="Date"
+                                                value={input.Date}
+                                                onChange={(e) => handleChange(e)}
+                                            />
+                                            <span className='bar'></span>
+                                            <label className='etiqueta'> Fecha de creacion: </label>
+                                            {/* si hay un error mostramos el valor del objete con ese error */}
+                                            {errors.Date && (
+                                                <p className='peligro'>{errors.Date}</p>
+                                            )}
+                                        </div>
+                                        {/* Imagen */}
+                                        <div className='group'>
+                                            <input className='input1'
+                                                required
+                                                type={"url"}
+                                                name="Image"
+                                                value={input.Image}
+                                                onChange={(e) => handleChange(e)}
+                                            />
+                                            <span className='bar'></span>
+                                            <label className='etiqueta'>Url de la Imagen: </label>
+                                            {errors.Image && (
+                                                <p className='peligro'>{errors.Image}</p>
+                                            )}
+                                        </div>
+                                        {/* categorias */}
+                                        <div className='group'>
+                                            <Select placeholder="Elija las categorias asociadas a la nota creada" defaultValue={""} onChange={(e) => handleCategories(e)} className="alert">
+                                                {/* me traigo todos mis generos y los muestro */}
+                                                {categories && categories.map((categorie) => {
+                                                    return (
+                                                        <option value={categorie.name}>{categorie.name}</option>
+                                                    )
+                                                })}
+                                            </Select><span className='bar'></span>
+                                            {/* ahora muestro los generos que ha seleccionado el usuario */}
+                                            <label className='etiqueta'>Categorias: </label>
+                                            {input.Tags && input.Tags.map((tag) => {
                                                 return (
-                                                    <option value={categorie.name}>{categorie.name}</option>
-                                                )
+                                                    <div className='opcion'>
+                                                        <div className='opcion_titulo'>{tag}</div>
+                                                        <button className='button_delete' onClick={() => handleDeleteCategory(tag)} value={tag} key={tag}><span className={"delete"}>X</span></button>
+                                                    </div>)
                                             })}
-                                        </Select><span className='bar'></span>
-                                        {/* ahora muestro los generos que ha seleccionado el usuario */}
-                                        <label className='etiqueta'>Categorias: </label>
-                                        {input.Tags && input.Tags.map((tag) => {
-                                            return (
-                                                <div className='opcion'>
-                                                    <div className='opcion_titulo'>{tag}</div>
-                                                    <button className='button_delete' onClick={() => handleDeleteCategory(tag)} value={tag} key={tag}><span className={"delete"}>X</span></button>
-                                                </div>)
-                                        })}
-                                    </div>
-                                    {errors.Tags && (
-                                        <p className='peligro'>{errors.Tags}</p>
-                                    )}
-                                    <div className='group'>
-                                        <Textarea cols="90" rows="10"
-                                            placeholder='Escribe aca el contenido de la nota'
-                                            requerid
-                                            type="text"
-                                            name="Content"
-                                            value={input.Content}
-                                            onChange={(e) => handleChange(e)}
-                                        ></Textarea>
-                                        <label className='description'>Contenido: </label>
-                                        {errors.Content && (
-                                            <p className='peligro'>{errors.Content}</p>
+                                        </div>
+                                        {errors.Tags && (
+                                            <p className='peligro'>{errors.Tags}</p>
                                         )}
+                                        <div className='group'>
+                                            <Textarea cols="90" rows="10"
+                                                placeholder='Escribe aca el contenido de la nota'
+                                                requerid
+                                                type="text"
+                                                name="Content"
+                                                value={input.Content}
+                                                onChange={(e) => handleChange(e)}
+                                            ></Textarea>
+                                            <label className='description'>Contenido: </label>
+                                            {errors.Content && (
+                                                <p className='peligro'>{errors.Content}</p>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <button className='boton_submit'>
-                                        Crear Nota
-                                    </button>
-                                </div>
-                            </form>
-                        </Stack>
+                                    <div>
+                                        <button className='boton_submit'>
+                                            Crear Nota
+                                        </button>
+                                    </div>
+                                </form>
+                            </Stack>
+                        </>
                     ) : (
                         <NotFound />
                     )

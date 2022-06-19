@@ -154,20 +154,6 @@ export function deleteUserClient(id) {
     }
   };
 }
-// export async function signIn(payload) {
-//   return function(dispatch){
-//     try {
-//       const userToken = await axios.post(`${baseURL}/userclient/client/login`, payload)
-//       const token = userToken.data.token
-//       window.localStorage.setItem('token', token)
-//       console.log(userToken.data)
-//       console.log(token)
-//      return userToken
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
 
 
 /*-----------------------USER PSYCHOLOGIST ACTIONS---------------------------*/

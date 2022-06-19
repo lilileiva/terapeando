@@ -15,19 +15,6 @@ export default function Filters() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const categories = useSelector((state) => state.categories);
-  const author = useSelector((state) => state.allUsersPsichologists);
-  //author tiene un array de objetos con first y last Name [{},{}]
-  let authorNoRepeat = []
-  author.map((au) => (
-    (!authorNoRepeat.includes(`${au.firstName} ${au.lastName}`))
-      ? authorNoRepeat.push(`${au.firstName} ${au.lastName}`) : null
-  ))
-  //   console.log('nom', posts.map(el => (`${el.idUserPsychologist.firstName} ${el.idUserPsychologist.lastName}`)))
-  // posts.filter((a) => {
-  //   if (`${a.idUserPsychologist.firstName} ${a.idUserPsychologist.lastName}` === 'Juan Carlos Prieto') {
-  //     return a
-  //   }
-  // });
 
   useEffect(() => {
     dispatch(getCategories());
@@ -69,38 +56,6 @@ export default function Filters() {
               <option key={category.name} value={category.name}>
                 {" "}
                 {category.name}
-              </option>
-            );
-          })}
-      </Select>
-
-      {/* <Select
-        w="49%"
-        placeholder="Filtrar notas por autor"
-        onChange={(e) => handleSubmitAuthor(e)}
-      >
-        <option value="All">Todos los autores</option>
-        {author.length &&
-          author.map((el) => {
-            return (
-              <option key={el.email} value={el.firstName + el.lastName}>
-                {el.firstName + " " + el.lastName}
-              </option>
-            );
-          })}
-      </Select> */}
-
-      <Select
-        w="49%"
-        placeholder="Filtrar notas por autor"
-        onChange={(e) => handleSubmitAuthor(e)}
-      >
-        <option value="All">Todos los autores</option>
-        {authorNoRepeat.length &&
-          authorNoRepeat.map((el) => {
-            return (
-              <option key={el} value={el}>
-                {el}
               </option>
             );
           })}

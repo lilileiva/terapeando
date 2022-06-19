@@ -16,13 +16,13 @@ import Psychologists from "./components/Psychologists/Psychologists.jsx";
 import Footer from "./components/Footer/Footer";
 import Faqs from "./components/faqs/Faqs";
 import Payments from "./components/Payments/Payments";
+import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import CheckoutPayment from "./components/Payments/CheckoutPayment";
 import '@stripe/stripe-js'
 import Success from "./components/Payments/CheckoutComponent/Success";
 import Cancel from "./components/Payments/CheckoutComponent/Cancel";
 import AddPost from "./components/AddPost/AddPost";
 import Reviews from "./components/Reviews/Reviews";
-import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import AdminPanelLogin from "./components/AdminPanel/AdminPanelLogin/AdminPanelLogin.jsx";
 import AdminPanelHome from './components/AdminPanel/AdminPanelHome/AdminPanelHome.jsx';
 import AdminPanelClients from './components/AdminPanel/AdminPanelClients/AdminPanelClients.jsx';
@@ -55,11 +55,11 @@ export default function App() {
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />
+        <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />
         <Route path="/home/:idUserClient" element={<ClientDetails />} />
-        <Route path="/detailPsychologist/:idPsychologist" element={<AdminPsichologisttDetails />} />
         <Route path="/editprofile/:idUserClient" element={<FormEditClient />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/*" element={<NotFound />} />
