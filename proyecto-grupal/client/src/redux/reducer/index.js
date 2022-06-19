@@ -144,7 +144,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
-        postsCopy: action.payload,
+        postsCopy: action.payload
       };
     case "GET_POST_DETAIL":
       return {

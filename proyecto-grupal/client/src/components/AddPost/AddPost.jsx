@@ -5,11 +5,11 @@ import { addPost, getCategories, getAllPosts } from "../../redux/actions";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavbarHome from "../NavbarHome/NavbarHome.jsx";
 import Footer from "../Footer/Footer.jsx";
-import "./addPost.css";
-import { Select, Button, Textarea, Text, Stack, Box } from "@chakra-ui/react";
-import Swal from "sweetalert2";
-import { ArrowLeftIcon } from "@chakra-ui/icons";
-import NotFound from "../404notFound/notFound.jsx";
+import './addPost.css';
+import { Select, Button, Textarea, Text, Stack, Box } from '@chakra-ui/react'
+import Swal from 'sweetalert2';
+import { ArrowLeftIcon } from '@chakra-ui/icons';
+import NotFound from '../404notFound/notFound.jsx';
 
 function validarCampos(input) {
   //me guardo los errores
