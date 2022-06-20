@@ -1,8 +1,12 @@
 .cardContainer {
   box-sizing: border-box;
   width: 100%;
+<<<<<<< HEAD
   min-height: initial;
   max-height: fit-content;
+=======
+  min-height: 100%;
+>>>>>>> 11b4e39 (copiando ultimo push dev-dani)
   background-color: #edf2f7;
   padding-left: 10%;
   padding-right: 10%;

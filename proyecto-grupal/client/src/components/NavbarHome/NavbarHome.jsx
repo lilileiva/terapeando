@@ -49,7 +49,6 @@ function removeAcc(str) {
 const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 const idUserClient = "62a3a0b4cc3f8656e112d930";
 const NavLink = ({ children }) => (
-  
   <Link exact to={removeAcc(children)}>
     <Text
       px={2}
@@ -66,8 +65,7 @@ const NavLink = ({ children }) => (
 );
 
 export default function NavbarHome() {
-
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserClient());
@@ -80,8 +78,8 @@ const dispatch = useDispatch()
 
   const handleSignOut = () => {
     window.localStorage.clear();
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <>
@@ -102,25 +100,24 @@ const dispatch = useDispatch()
             <Box>
               <Image src={img} w={"50px"} />
             </Box>
-            <Stack direction='row'>
-
-              <Link className={'links'} to={'/home'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+            <Stack direction="row">
+              <Link className={"links"} to={"/home"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Home
                 </Text>
               </Link>
-              <Link className={'links'} to={'/proximasconsultas'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+              <Link className={"links"} to={"/proximasconsultas"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Proximas consultas
                 </Text>
               </Link>
-              <Link className={'links'} to={'/mipsicologo'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+              <Link className={"links"} to={"/mipsicologo"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Mi psicólogo
                 </Text>
               </Link>
-              <Link className={'links'} to={'/blog'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+              <Link className={"links"} to={"/blog"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Blog
                 </Text>
               </Link>
@@ -160,14 +157,12 @@ const dispatch = useDispatch()
                 </Link>
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
-                </Link>        
+                </Link>
                 <Link to={"/mypayments"}>
                   <MenuItem>Mis Pagos</MenuItem>
                 </Link>
                 <MenuDivider />
-                <MenuItem onClick={handleSignOut}>
-                  Cerrar sesión
-                </MenuItem>
+                <MenuItem onClick={handleSignOut}>Cerrar sesión</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

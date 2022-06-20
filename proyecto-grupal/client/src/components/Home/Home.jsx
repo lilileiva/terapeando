@@ -38,7 +38,11 @@ export default function Home() {
       setLoader(true);
       setTimeout(() => {
         setLoader(false);
+<<<<<<< HEAD
       }, 1500);
+=======
+      }, 1500)
+>>>>>>> 11b4e39 (copiando ultimo push dev-dani)
     }
   }, [dispatch, adminSearchbar]);
 
@@ -49,6 +53,7 @@ export default function Home() {
     }, 1500);
   }, [dispatch]);
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   setErrorMessage(true);
   //   setTimeout(() => {
@@ -56,6 +61,8 @@ export default function Home() {
   //   }, 5000);
   // }, [dispatch]);
 
+=======
+>>>>>>> 11b4e39 (copiando ultimo push dev-dani)
   /* Paginado */
   const [page, setPage] = useState(1);
   const [postPage, setPostPage] = useState(5);
@@ -76,6 +83,7 @@ export default function Home() {
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
+<<<<<<< HEAD
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
       <Stack>
         {
@@ -100,6 +108,24 @@ export default function Home() {
                 Todos los psicólogos
               </Button>
             </Stack>
+=======
+    <Stack>
+      {
+        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
+      }
+      <div className="cardContainer">
+        <Stack
+          mt="1em"
+          mb="1em"
+          width="100%"
+          direction="row"
+          justifyContent="space-between"
+          align='center'
+        >
+          <Text fontWeight="semibold" fontSize="3xl" color="green.300">
+            Psicólogos
+          </Text>
+>>>>>>> 11b4e39 (copiando ultimo push dev-dani)
 
           </Stack>
 
@@ -111,6 +137,7 @@ export default function Home() {
               { console.log(el.status) }
               return (
 
+<<<<<<< HEAD
                 <CardPsychologist
                   key={el._id}
                   firstName={el.firstName}
@@ -139,6 +166,40 @@ export default function Home() {
         />
         <Footer />
       </Stack>
+=======
+        <Stack width="100%" direction="row">
+          <FiltersPsichologist />
+        </Stack>
+      { loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ? 
+          AllPsychologists.map(el => {
+            { console.log(el.status) }
+            return (
+
+              <CardPsychologist
+                key={el._id}
+                firstName={el.firstName}
+                lastName={el.lastName}
+                profileImage={el.profileImage}
+                rating={el.rating}
+                education={el.education}
+                about={el.about}
+                idPsychologist={el._id}
+                Specialties={el.Specialties}
+              />
+            )
+          }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>  }
+
+
+      </div>
+      <Paged
+        postPage={postPage}
+        allPosts={AllPsychologist.length}
+        paged={paged}
+        page={page}
+        setPage={setPage}
+      />
+      <Footer />
+>>>>>>> 11b4e39 (copiando ultimo push dev-dani)
     </Stack>
   );
 }
