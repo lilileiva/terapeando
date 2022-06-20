@@ -79,7 +79,7 @@ export default function App() {
         <Route path='/adminpanel/psychologists/edit/:idUserPsichologist' element={<AdminPsichologistEdit />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
-        <Route path="/adminpanel/posts/edit/:idPost" element={<AdminPostEdit/>}/>
+        <Route path="/adminpanel/posts/edit/:IdPost" element={<AdminPostEdit/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
         <Route path='/adminpanel/statistics' element={<AdminPanelStatistics />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />

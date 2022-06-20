@@ -16,6 +16,8 @@ import {
   getAllPosts,
   searchPostsByTitle,
   AdminDeletePost,
+  clearStatePostDetail,
+  clearAdminSearchbar
 } from "../../../redux/actions";
 import Swal from "sweetalert2";
 import Loader from "../../Loader/Loader.jsx";
@@ -27,6 +29,10 @@ function AdminPanelPosts() {
 
   useEffect(() => {
     dispatch(getAllPosts());
+    return () => {
+      dispatch(clearStatePostDetail())
+      dispatch(clearAdminSearchbar())
+    }
   }, [dispatch]);
 
   const allPosts = useSelector((state) => state.posts);

@@ -344,11 +344,11 @@ export const addPost = (body) => {
     }
   }
 }
-export const putPost = (body, id) => {
+export const putPost = (body, IdPost) => {
   return async function (dispatch) {
     try{
-      const {info} = await axios.post(
-        `${baseURL}/edit/${id}`,body
+      const {info} = await axios.put(
+        `${baseURL}/edit/${IdPost}`,body
       )
       return dispatch({type:PUT_POSTS, pyaload:info})
     }catch(e){

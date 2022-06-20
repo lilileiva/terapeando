@@ -160,9 +160,9 @@ const deletePost = async (req: Request, res: Response) => {
 }
 //editando nota
 const putPost = async (req: Request, res: Response) => {
-  const {id} = req.params;
+  const {IdPost} = req.params;
   try {
-     const post = await Post.findByIdAndUpdate(id, req.body)
+     const post = await Post.findByIdAndUpdate(IdPost, req.body)
      res.status(200).send('Post editado correctamente')
   } catch (err) {
      res.status(404).send('There was an error...');
