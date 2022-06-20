@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllPosts } from "../../redux/actions";
 import { Tag, TagLabel, Text, Stack } from "@chakra-ui/react";
 import "./post.css";
 import Paged from "../Paged/Paged";
 import smoothscroll from "../../animations";
 import { SimpleGrid, Box } from "@chakra-ui/react";
 
-export default function Post() {
+export default function Post({allPosts}) {
   //me traigo todos los posts apenas se me monte el componente
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllPosts());
-  }, [dispatch]);
-
-  const allPosts = useSelector((state) => state.posts);
   /* Paginado */
   const [page, setPage] = useState(1);
   const [postPage] = useState(6);

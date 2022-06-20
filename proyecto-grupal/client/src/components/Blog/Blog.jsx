@@ -18,6 +18,7 @@ import Loader from "../Loader/Loader.jsx";
 export default function Blog() {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
+  const [noResults, setNoResults] = useState(false);
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getAllPosts());
@@ -87,7 +88,7 @@ export default function Blog() {
             loader
               ? <Loader />
               : posts && posts.length > 0
-                ? <Post />
+                ? <Post allPosts={posts} />
                 : <Stack height={'100%'} justify={"flex-start"} mt='7em' >
                   <Text fontSize={'xl'}>No hay resultados</Text>
                 </Stack>

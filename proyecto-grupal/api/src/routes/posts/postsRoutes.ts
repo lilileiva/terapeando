@@ -7,7 +7,6 @@ const {
   getOnePost,
   putPost,
   getPostAuthors,
-  // filterPostsByAuthor
   deletePost
 } = require("./posts.ts");
 
@@ -16,6 +15,7 @@ const validateClient = require('../../middleware/validateClient')
 const validatePsychologist = require('../../middleware/validatePsychologist')
 
 const postsRouter: Router = Router();
+
 
 postsRouter.put("/edit/:IdPost", putPost)
 postsRouter.get("/posts", getAllPosts);

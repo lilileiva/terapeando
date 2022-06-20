@@ -18,7 +18,6 @@ import Faqs from "./components/faqs/Faqs";
 import Payments from "./components/Payments/Payments";
 import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import CheckoutPayment from "./components/Payments/CheckoutPayment";
-import '@stripe/stripe-js'
 import Success from "./components/Payments/CheckoutComponent/Success";
 import Cancel from "./components/Payments/CheckoutComponent/Cancel";
 import AddPost from "./components/AddPost/AddPost";
@@ -84,9 +83,9 @@ export default function App() {
         <Route path='/adminpanel/statistics' element={<AdminPanelStatistics />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
         <Route path='adminpanel/payments/allpayments' element={<PaymentsAdmin />} />
-        <Route path='adminpanel/cancelpayment' element={<CancelPayment />} />
-        <Route path='adminpanel/accreditedpayment' element={<AccreditedPayment />} />
-        <Route path='adminpanel/estadisticas' element={<Estadisticas />} />
+        <Route path='adminpanel/payments/cancelpayment' element={<CancelPayment />} />
+        <Route path='adminpanel/payments/accreditedpayment' element={<AccreditedPayment />} />
+        <Route path='adminpanel/payments/estadisticas' element={<Estadisticas />} />
       </Routes>
     </div>
   );
