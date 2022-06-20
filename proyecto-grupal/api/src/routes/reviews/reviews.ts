@@ -5,11 +5,10 @@ import userPsychologistModel from "../../models/userPsychologist";
 
 
 const createReview = async (req: Request, res: Response) => {
-    const { Content, Rating , IdUserClient, IdUserPsychologist } = req.body
-
+    const { Content, Rating, email} = req.body
     try {
         //por el moemnto solo esta recibiendo el contenido de la reseña y la calificació
-        const Psychologist = userPsychologistModel.findById(IdUserPsychologist)
+        const Psychologist = userPsychologistModel.findOne({email:email})
         let promedio = 0;
         let reviews = Psychologist.reviews.map((e:any)=> e.rating) 
         for (let i = 0; i < reviews.length; i++) {
@@ -17,7 +16,7 @@ const createReview = async (req: Request, res: Response) => {
         }
         promedio = promedio / reviews.length;
         const review = new reviewsModel({Content, Rating});
-        const psychologistUpdated = userPsychologistModel.findByIdAndUpdate(IdUserPsychologist,{ rating: promedio}, {new: true})
+        const psychologistUpdated = userPsychologistModel.findByIdAndUpdate(Psychologist._id,{ rating: promedio}, {new: true})
         await review.save();
         res.status(200).send('Review created');
 

@@ -8,13 +8,13 @@ import { clearClient, deleteUserClient } from '../../redux/actions'
 
 function DeleteModal() {
 
-   const {id} = useParams()
+  //  const {id} = useParams()
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
    function handleDeleteUser(e){
     e.preventDefault();
-    dispatch(deleteUserClient(id))
+    dispatch(deleteUserClient())
     navigate('/')
    }
 

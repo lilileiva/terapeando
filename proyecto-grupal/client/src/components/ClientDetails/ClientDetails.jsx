@@ -18,33 +18,38 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { getUserClient } from "../../redux/actions";
+import { Link } from "react-router-dom";
+import { getUserClient, getUserPsychologistOne } from "../../redux/actions";
 import ChangePasswordModal from "../Modals/ChangePasswordModal";
 import Loader from "../Loader/Loader";
 import NotFound from '../404notFound/notFound.jsx';
 
 
 export default function ClientDetails() {
-  const dispatch = useDispatch();
-  const { idUserClient } = useParams();
-  console.log(idUserClient);
-
-  useEffect(() => {
-    dispatch(getUserClient(idUserClient));
-  }, [dispatch]);
-
-  const clientDetails = useSelector((state) => state.userClientDetail);
-
-  let arr = Object.values(clientDetails);
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(tokenClient) dispatch(getUserClient())
+    if(tokenPsychologist) dispatch(getUserPsychologistOne())
+  }, [dispatch, tokenClient, tokenPsychologist]);
+
+    const clientDetails = useSelector((state) => state.userClientDetail);
+    const psychologistDetails = useSelector((state) => state.psychologistProfile)
+
+  
+  
+
+  let arr = Object.values(clientDetails);
+  let arr1 = Object.values(psychologistDetails)
+
   return (
     <>
       {
-        tokenClient || tokenPsychologist
+        tokenClient
           ? (
             <>
               {
@@ -86,31 +91,7 @@ export default function ClientDetails() {
                                 color: "white",
                               }}
                             >
-                              <Link to={`/editprofile/${idUserClient}`}>Edit Profile</Link>
-                            </Button>
-                          </Stack>
-                          <Stack direction={"row"} spacing={4} w={'100%'}
-                            justifyContent={'space-between'}>
-
-                            <Text fontWeight={500} color={"gray.300"} mb={10} fontSize='3xl'>
-                              Información Personal
-                            </Text>
-                            <Button
-                              maxW={"40%"}
-                              fontSize={"sm"}
-                              rounded={"full"}
-                              _focus={{
-                                bg: "teal.600",
-                              }}
-                              bg={'green.100'}
-                              color='teal.500'
-                              _hover={{
-                                bg: 'green.500',
-                                color: 'white'
-                              }}>
-                              <Link to={`/editprofile/${idUserClient}`}>
-                                Edit Profile
-                              </Link>
+                              <Link to={`/editprofile/${clientDetails.firstName}`}>Edit Profile</Link>
                             </Button>
                           </Stack>
                           <Avatar
@@ -173,11 +154,86 @@ export default function ClientDetails() {
               }
             </>
 
-          ) : (
-            <NotFound />
-          )
-      }
-      )
+          ) : tokenPsychologist ? ( 
+              <>
+                        {
+                arr1.length <= 1
+                  ? (
+                    <Loader />
+                  ) : (
+                    <Center>
+                      <Container maxW={'container.lg'} py={6} h={"100%"}>
+                        <Box
+                          w={"50%"}
+                          bg={"gray.200"}
+                          boxShadow={"2xl"}
+                          rounded={"lg"}
+                          p={6}
+                          textAlign={"center"}
+                        >
+
+                          <Stack
+                            direction={"row"}
+                            spacing={4}
+                            w={"100%"}
+                            justifyContent={"space-between"}
+                          >
+                            <Text fontWeight={500} color={"blackAlpha.800"} mb={10} fontSize="3xl">
+                              Información Personal
+                            </Text>
+                            <Button
+                              maxW={"40%"}
+                              fontSize={"sm"}
+                              rounded={"full"}
+                              _focus={{
+                                bg: "teal.600",
+                              }}
+                              bg={"green.100"}
+                              color="teal.500"
+                              _hover={{
+                                bg: "green.500",
+                                color: "white",
+                              }}
+                            >
+                              <Link to={`/editprofile/${psychologistDetails.firstName}`}>Edit Profile</Link>
+                            </Button>
+                          </Stack>
+                          <Avatar
+                            size={"2xl"}
+                            src={psychologistDetails.profileImage}
+                            alt={psychologistDetails.firstName}
+                            mb={4}
+                          />
+                          <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
+                            {psychologistDetails.firstName} {psychologistDetails.lastName}{" "}
+                            <ChangePasswordModal />
+                          </Heading>
+
+                          <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              {psychologistDetails.email}
+                            </Badge>
+                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              {psychologistDetails.birthDate}
+                            </Badge>
+                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              {psychologistDetails.country}
+                            </Badge>
+                          </Stack>
+
+                          <Stack mt={"40px"} alignItems="center">
+                            <CalendarIcon />
+                            <Heading color={"blackAlpha.800"}>Citas</Heading>
+                          </Stack>
+                        </Box>
+                      </Container>
+                    </Center>
+                  )
+              }
+            </>
+            )
+          : (<NotFound />)
+          }
     </>
   );
 }

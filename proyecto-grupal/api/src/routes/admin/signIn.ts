@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const logInAdmin = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password, adminPassword } = req.body;
   try {
     if (!email || !password) {
       return res
@@ -29,11 +29,10 @@ const logInAdmin = async (req: Request, res: Response) => {
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {
           expiresIn: 60 * 60 * 24 * 7,
         });
-
+    
         res.send({
-          name: `${user?.firstName} ${user?.lastName}`,
-          email: user?.email,
-          token,
+          id: user._id,
+          token
         });
       }
     }

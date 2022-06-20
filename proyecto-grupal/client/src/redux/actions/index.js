@@ -29,24 +29,7 @@ import {
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
-
 /*-------------------USER CLIENT ACTIONS----------------*/
-export function getAllUserClients() {
-  return async function (dispatch) {
-    fetch(
-      `${baseURL}/userclient/clients`,
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: GET_ALL_USERCLIENTS,
-          payload: data
-        })
-      })
-      .catch((err) => console.log(err));
-  }
-}
 
 export function getUserClientsByName(name) {
   return async function (dispatch) {
@@ -65,12 +48,12 @@ export function getUserClientsByName(name) {
   }
 }
 
-export function getUserClient(idUserClient) {
+export function getUserClient() {
   return function (dispatch) {
     axios
       .get(
-        `${baseURL}/userclient/client/${idUserClient}`,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        `${baseURL}/userclient/client/`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
       .then((client) => {
         dispatch({
@@ -128,13 +111,13 @@ export function loginClient(signinForm) {
   };
 }
 
-export function editClient(id, updatedUserClient) {
+export function editClient(updatedUserClient) {
   return async function () {
     try {
       const data = await axios.put(
-        `${baseURL}/userclient/${id}`,
+        `${baseURL}/userclient/editprofile`,
         updatedUserClient,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       console.log(data);
     } catch (err) {
@@ -143,19 +126,18 @@ export function editClient(id, updatedUserClient) {
   };
 }
 
-export function deleteUserClient(id) {
+export function deleteUserClient() {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/userclient/deleteuserclient/${id}`,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        `${baseURL}/userclient/deleteuserclient`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
     } catch (err) {
       console.log(err);
     }
   };
 }
-
 
 /*-----------------------USER PSYCHOLOGIST ACTIONS---------------------------*/
 //GET para obetener todos los psychologist
@@ -202,24 +184,27 @@ export function getUserPsychologistByName(name) {
       .then((data) => {
         dispatch({
           type: GET_USER_PSYCHOLOGISTS_BY_NAME,
-          payload: data
+          payload: data,
         });
       })
       .catch((err) => console.log(err));
-  }
+  };
 }
 
 //getPsychologist by email
 export function getPsychologistByEmail(signupForm) {
   return async function (dispatch) {
     try {
-      return await fetch(`${baseURL}/userpsychologist/email/psychologistEmail`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupForm),
-      })
+      return await fetch(
+        `${baseURL}/userpsychologist/email/psychologistEmail`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupForm),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           dispatch({
@@ -228,20 +213,37 @@ export function getPsychologistByEmail(signupForm) {
           });
         });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 }
 
 //GET para obtener un solo psychologist
-export const getUserPsychologistOne = (IdUserPsychologist) => {
+export const getUserPsychologistOne = () => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${IdUserPsychologist}`
+        `${baseURL}/userpsychologist/profile`,{ headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+// GET USE RPSYCHOLOGIST DETAILS
+export const getUserPsychologistDetails = (IdUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
+        `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_DETAILS",
         payload: psychologist.data,
       });
     } catch (error) {
@@ -269,36 +271,20 @@ export function createPsychologist(signupForm) {
           });
         });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 }
 
-// DELETE user psychologist
-
-export function deleteUserPsichologist(id) {
+//PUT para editar usuario psicologo
+export function editUserPsichologist( updatedUserPsychologist) {
   return async function () {
     try {
-      await axios.delete(
-        `${baseURL}/userpsychologist/deleteuserpsychologist/${id}`,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
-};
-
-// PUT para editar usuario psicologo 
-
-export function editUserPsichologist(id, updatedUserPsychologist) {
-  return async function () {
-    try {
-      const editPsichologist = axios.put(
-        `${baseURL}/userpsychologist/put_userpsychologist/${id}`,
+      axios.put(
+        `${baseURL}/userpsychologist/put_userpsychologist/`,
         updatedUserPsychologist,
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+          headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }
         })
     } catch (error) {
       console.error(error)
@@ -306,17 +292,14 @@ export function editUserPsichologist(id, updatedUserPsychologist) {
   }
 }
 
-
-
-// filtrar psicologs por  especialidad 
-
+// filtrar psicologs por  especialidad
 
 export function getBySpecialties(payload) {
   return {
     type: FILTER_PSICHOLOGIST_BY_SPECIALTIES,
-    payload: payload
-  }
-};
+    payload: payload,
+  };
+}
 
 // ordenar psicolofos por calificacion
 
@@ -331,11 +314,7 @@ export function orderByRating(order, array) {
       psicologos.sort((a, b) => (a.rating > b.rating ? -1 : 1));
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
-};
-
-
-
-
+}
 
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
@@ -406,7 +385,7 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
+        `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }}
       )
       return dispatch({
         type: "CREATE_POST",
@@ -442,8 +421,8 @@ export const deletePost = (id) => {
       console.log(error)
       Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
     }
-  }
-}
+  };
+};
 
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
@@ -454,8 +433,7 @@ export const getCategories = () => {
       const jsonBack = await responseBack.json();
       //envio todas las categorias de mi db
       dispatch({ type: "GET_CATEGORIES", payload: jsonBack });
-    } catch (e) {
-    }
+    } catch (e) {}
   };
 };
 //mostrar por categoria
@@ -471,6 +449,13 @@ export const getByCategory = (category) => {
     }
   }
 }
+
+export const clearStatePostDetail = () => {
+  return {
+    type: "CLEAR_POST_DETAIL",
+
+  };
+};
 
 export const getPostsAuthors = () => {
   return async function (dispatch) {
@@ -508,14 +493,11 @@ export const getByCatego = (category) => {
   };
 };
 
-export const clearStatePostDetail = () => {
+/* export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
   };
-};
-
-
-
+}; */
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
@@ -539,7 +521,7 @@ export function createPayment(payload) {
   console.log(payload)
   return async function () {
     try {
-      let payment = await axios.post(`${baseURL}/payment/checkoutpayment`, payload)
+      let payment = await axios.post(`${baseURL}/payment/checkoutpayment`, payload, {headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }})
       console.log(payment)
     } catch (err) {
       console.log(err)
@@ -550,21 +532,21 @@ export function createPayment(payload) {
 export const getAllPayments = () => {
   return async function (dispatch) {
     try {
-      const payments = await axios.get(`${baseURL}/payment`);
+      const payments = await axios.get(`${baseURL}/payment`, {headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` }});
       dispatch({
         type: GET_PAYMENT,
         payload: payments.data,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
-}
+  };
+};
 
-export const getPaymentByClientId = (clientId) => {
+export const getPaymentByClientId = () => {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/payment/${clientId}`)
+      .get(`${baseURL}/payment/paymentsclient`, {headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }})
       .then((payment) => {
         dispatch({
           type: GET_PAYMENT_CLIENT,
@@ -574,10 +556,10 @@ export const getPaymentByClientId = (clientId) => {
   }
 }
 
-export const getPaymentByPsyId = (idPsychologist) => {
+export const getPaymentByPsyId = () => {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/payment/${idPsychologist}`)
+      .get(`${baseURL}/payment/paymentspsi`, {headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }})
       .then((payment) => {
         dispatch({
           type: GET_PAYMENT_PSY,
@@ -628,14 +610,13 @@ export function clearPsychologistList() {
   };
 }
 
-/*---------------------ADMIN SEARCHBAR ACTION-------------------*/
+/*---------------------ADMIN ACTIONS-------------------*/
 export function adminSearchbar(inputText) {
   return {
     type: ADMIN_SEARCHBAR,
-    payload: inputText
-
+    payload: inputText,
   };
-};
+}
 
 
 // export function getBySpecialties(specialties) {
@@ -651,3 +632,179 @@ export function adminSearchbar(inputText) {
 //     }
 //   };
 // };
+
+//------>          admin clients actions 
+export function AdminGetUserClient(idClient) {
+  return function (dispatch) {
+    axios
+      .get(
+        `${baseURL}/admin/userclient/client/:${idClient}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      )
+      .then((client) => {
+        dispatch({
+          type: GET_USERCLIENT,
+          payload: client.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+export function AdminGetAllUserClients() {
+  return async function (dispatch) {
+    fetch(
+      `${baseURL}/admin/userclient/clients`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_ALL_USERCLIENTS,
+          payload: data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+export function AdminGetUserClientsByName(name) {
+  return async function (dispatch) {
+    fetch(
+      `${baseURL}/admin/userclient/clients?name=${name}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_CLIENTS_BY_NAME,
+          payload: data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+export function AdminEditClient(id, updatedUserClient) {
+  return async function () {
+    try {
+      const data = await axios.put(
+        `${baseURL}/admin/userclient/${id}`,
+        updatedUserClient,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export function AdminDeleteUserClient(id) {
+  return async function () {
+    try {
+      await axios.delete(
+        `${baseURL}/admin/userclient/deleteuserclient/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+// ----->        admin psychologist actions
+
+export const AdminGetAllPsychologist = () => {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`${baseURL}/admin/userpsychologist`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } } )
+      dispatch({
+        type: GET_ALL_PSYCHOLOGIST,
+        payload: json.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+export function AdminGetUserPsychologistByName(name) {
+  return async function (dispatch) {
+    fetch(`${baseURL}/admin/userpsychologist?name=${name}`, 
+    { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } } )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_PSYCHOLOGISTS_BY_NAME,
+          payload: data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+}
+
+// PUT para editar usuario psicologo
+
+export function AdminEditUserPsichologist(id, updatedUserPsychologist) {
+  return async function () {
+    try {
+      const editPsichologist = axios.put(
+        `${baseURL}/admin/userpsychologist/put_userpsychologist/${id}`,
+        updatedUserPsychologist,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` }
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  };
+}
+
+export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
+        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+// DELETE user psychologist
+
+export function AdminDeleteUserPsichologist() {
+  return async function () {
+    try {
+      await axios.delete(
+        `${baseURL}/admin/userpsychologist/deleteuserpsychologist`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+//-------> admin actions posts
+//eliminar nota
+export const AdminDeletePost = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${baseURL}/admin/deletePost/${id}`);
+      dispatch({ type: "DELETE_POST", payload: id });
+      await axios.delete(`${baseURL}/deletePost/${id}`)
+      dispatch({ type: "DELETE_POST", payload: id })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

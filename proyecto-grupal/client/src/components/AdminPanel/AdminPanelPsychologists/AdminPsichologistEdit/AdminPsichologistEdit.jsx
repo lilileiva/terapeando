@@ -7,7 +7,7 @@ import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, FormControl, FormLabel, FormErrorMessage, FormHelperText, Input, Select, Switch } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch, BsChevronCompactLeft, } from "react-icons/bs";
-import { editUserPsichologist, getUserPsychologistOne, deleteUserPsichologist } from '../../../../redux/actions';
+import { AdminEditUserPsichologist, AdminGetUserPsychologistDetail, AdminDeleteUserPsichologist } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 
@@ -20,7 +20,7 @@ export default function AdminPsichologisttDetails() {
 
     const { idUserPsichologist } = useParams();
     useEffect(() => {
-        dispatch(getUserPsychologistOne(idUserPsichologist))
+        dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
 
     }, [dispatch])
 
@@ -40,8 +40,8 @@ export default function AdminPsichologisttDetails() {
         }).then((result) => {
             if (result.isDenied) {
                 e.target.value === 'Pendiente' ?
-                    dispatch(editUserPsichologist(psychologistId, { status: 'Activo' }))
-                    : dispatch(editUserPsichologist(psychologistId, { status: 'Pendiente' }))
+                    dispatch(AdminEditUserPsichologist(psychologistId, { status: 'Activo' }))
+                    : dispatch(AdminEditUserPsichologist(psychologistId, { status: 'Pendiente' }))
                 navigate(`/adminpanel/psychologists/${psychologistId}`)
                 Swal.fire('Cambio de estado exitoso!', '', 'success')
             } else {
