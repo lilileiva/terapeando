@@ -23,7 +23,7 @@ export default function Blog() {
   }
 
   useEffect(() => {
-   dispatch(getAllPosts());
+    dispatch(getAllPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -33,45 +33,47 @@ export default function Blog() {
     }, 1500);
   }, [dispatch]);
 
-const posts =useSelector((state)=>state.posts)
+  const posts = useSelector((state) => state.posts)
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
-    <div>
-      {
-        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
-      }
-      <div className="blogContainer">
-        <div className="row">
-          <Text
-            fontWeight="semibold"
-            fontSize="3xl"
-            marginBottom="0.5em"
-            color="green.300"
-          >
-            Notas sobre psicología
-          </Text>
-          <div className="syb">
-            <SearchBar />
-            <Button className="btn" onClick={(e) => handleSubmit(e)}>
-              Todas las notas
-            </Button>
-            {
-              tokenPsychologist
-                ? (
-                  <Link href="/createPost">
-                    <Button className="btn">Crear Nota</Button>
-                  </Link>
-                ) : null
-            }
+    <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
+      <Stack>
+        {
+          tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
+        }
+        <div className="blogContainer">
+          <div className="row">
+            <Text
+              fontWeight="semibold"
+              fontSize="3xl"
+              marginBottom="0.5em"
+              color="green.300"
+            >
+              Notas sobre psicología
+            </Text>
+            <div className="syb">
+              <SearchBar />
+              <Button className="btn" onClick={(e) => handleSubmit(e)}>
+                Todas las notas
+              </Button>
+              {
+                tokenPsychologist
+                  ? (
+                    <Link href="/createPost">
+                      <Button className="btn">Crear Nota</Button>
+                    </Link>
+                  ) : null
+              }
+            </div>
           </div>
-        </div>
-        <Filters />
+          <Filters />
 
-        {posts && posts.length > 0 ? loader ? <Loader></Loader> : <Post /> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>} 
-      </div>
+          {posts && posts.length > 0 ? loader ? <Loader></Loader> : <Post /> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}
+        </div>
+      </Stack>
       <Footer />
-    </div>
+    </Stack>
   );
 }
