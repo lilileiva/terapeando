@@ -34,6 +34,7 @@ import AdminPsichologistEdit from './components/AdminPanel/AdminPanelPsychologis
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDetails/AdminPostDetail";
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
+import AdminPanelStatistics from './components/AdminPanel/AdminPanelStatistics/AdminPanelStatistics.jsx';
 import PaymentsAdmin from './components/AdminPanel/AdminPanelPayments/Components/PaymentsAdmin.jsx';
 import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components/CancelPayment.jsx';
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
@@ -78,6 +79,7 @@ export default function App() {
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
+        <Route path='/adminpanel/statistics' element={<AdminPanelStatistics />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
         <Route path='adminpanel/payments/allpayments' element={<PaymentsAdmin />} />
         <Route path='adminpanel/cancelpayment' element={<CancelPayment />} />

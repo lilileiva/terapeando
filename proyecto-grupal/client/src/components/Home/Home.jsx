@@ -105,7 +105,7 @@ export default function Home() {
                 Specialties={el.Specialties}
               />
             )
-          }) : null
+          }) : <Loader />
         }
 
         {/* <Psychologists></Psychologists> */}

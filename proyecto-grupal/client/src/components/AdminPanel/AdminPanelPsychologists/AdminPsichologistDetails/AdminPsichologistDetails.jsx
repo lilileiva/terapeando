@@ -94,7 +94,6 @@ export default function AdminPsichologisttDetails() {
                             <Text fontSize='xl' fontWeight='600'> Educación: </Text>
                             <Text fontSize='xl'> {userPsichologistDetail.education} </Text>
                           </Stack>
-
                           {
                             userPsichologistDetail.about
                               ? (
@@ -109,8 +108,6 @@ export default function AdminPsichologisttDetails() {
                                 </Stack>
                               )
                           }
-
-
                           <br />
                           <Stack direction='column'>
                             {userPsichologistDetail.status === 'Pendiente' ? <Text fontSize={'xl'} color={'red'}>Estado: {`${userPsichologistDetail.status} de aprobación`}</Text> :
