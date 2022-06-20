@@ -27,7 +27,7 @@ function AdminClientDetails() {
   const navigate = useNavigate();
 
   const { idUserClient } = useParams();
-  console.log(idUserClient);
+  //console.log(idUserClient);
   useEffect(() => {
     dispatch(AdminGetUserClient(idUserClient));
     return () => {
@@ -35,6 +35,7 @@ function AdminClientDetails() {
     };
   }, [dispatch]);
   const userClientDetail = useSelector((state) => state.userClientDetail);
+  console.log('uasdf: ', userClientDetail)
 
   const handleAlertDelete = (clientId) => {
     Swal.fire({
@@ -104,7 +105,7 @@ function AdminClientDetails() {
     }
   }, [dispatch, inputText, isSubmit]);
 
-  const token = window.localStorage.getItem("tokenAdmin");
+  const token = window.localStorage.getItem('tokenAdmin');
 
   return (
     <>
@@ -135,7 +136,7 @@ function AdminClientDetails() {
               align="center"
               boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}
             >
-              <Stack direction="row" width="100%">
+              <Stack >
                 <Button
                   colorScheme="teal"
                   variant="outline"

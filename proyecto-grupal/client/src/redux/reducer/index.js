@@ -18,6 +18,7 @@ import {
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
   ADMIN_SEARCHBAR,
+  CLEAR_ADMIN_SEARCHBAR,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
 } from "../actions/types";
@@ -28,6 +29,7 @@ const initialState = {
   UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
+  usersClientsSearch: [],
   posts: [],
   postsCopy: [],
   categories: [],
@@ -38,6 +40,7 @@ const initialState = {
   allPayments: [],
   email: {},
   adminSearchbar: "",
+  clearAdminSearchbar: "",
 };
 
 function rootReducer(state = initialState, action) {
@@ -52,6 +55,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         usersClients: action.payload,
+        usersClientsSearch: action.payload
       };
     case GET_USERCLIENT:
       return {
@@ -207,6 +211,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         adminSearchbar: action.payload,
+      };
+    case CLEAR_ADMIN_SEARCHBAR:
+      return {
+        ...state,
+        adminSearchbar: [],
       };
     case GET_PAYMENT:
       return {

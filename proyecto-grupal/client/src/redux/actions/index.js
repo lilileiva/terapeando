@@ -18,6 +18,7 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
+  CLEAR_ADMIN_SEARCHBAR,
   GET_PAYMENT, 
   GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
@@ -29,7 +30,6 @@ import {
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 /*-------------------USER CLIENT ACTIONS----------------*/
-
 export function getUserClient() {
   return function (dispatch) {
     axios
@@ -96,11 +96,7 @@ export function loginClient(signinForm) {
 export function editClient(updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(
-        `${baseURL}/userclient`,
-        updatedUserClient,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-      );
+      const data = await axios.put(`${baseURL}/userclient`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -199,6 +195,9 @@ export function getPsychologistByEmail(signupForm) {
     }
   };
 }
+
+
+
 
 //GET para obtener un solo psychologist
 export const getUserPsychologistOne = (IdUserPsychologist) => {
@@ -374,21 +373,6 @@ export const getByCategory = (category) => {
   };
 };
 
-// export const getPostsAuthors = () => {
-//   return async function (dispatch) {
-//     try {
-//       const response = await fetch(`${baseURL}/posts/authors`);
-//       const json = await response.json();
-//       //json trae un obj de arrays con first y last Name
-//       dispatch({
-//         type: "GET_POSTS_AUTHORS",
-//         payload: json,
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
 export const getPostsAuthors = () => {
   return async function (dispatch) {
     try {
@@ -404,13 +388,6 @@ export const getPostsAuthors = () => {
     }
   };
 };
-
-export const filterByAuthor = (payload) => {
-  return {
-    type: "FILTER_POSTS_BY_AUTHOR",
-    payload,
-  }
-}
 
 export const getByCatego = (category) => {
   return async function (dispatch) {
@@ -595,9 +572,12 @@ export function AdminGetUserClient(idClient) {
 export function AdminGetAllUserClients() {
   return async function (dispatch) {
     fetch(
-      `${baseURL}/admin/userclient/clients`,
-      { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
-    )
+      `${baseURL}/admin/userclient/clients`,{
+      method: 'GET',
+      headers: {
+        Authorization:`Bearer ${localStorage.getItem("tokenAdmin")}`
+      }  
+    })
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -641,6 +621,12 @@ export function AdminEditClient(id, updatedUserClient) {
   };
 }
 
+export function clearAdminSearchbar() {
+  return {
+    type: CLEAR_ADMIN_SEARCHBAR
+  };
+};
+
 export function AdminDeleteUserClient(id) {
   return async function () {
     try {
@@ -673,8 +659,10 @@ export const AdminGetAllPsychologist = () => {
 
 export function AdminGetUserPsychologistByName(name) {
   return async function (dispatch) {
-    fetch(`${baseURL}/admin/userpsychologist?name=${name}`, 
-    { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } } )
+    fetch(`${baseURL}/userpsychologist?name=${name}`, {
+      method: 'GET',
+      Authorization:`Bearer ${localStorage.getItem("tokenAdmin")}`
+    })
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -742,8 +730,6 @@ export const AdminDeletePost = (id) => {
     try {
       await axios.delete(`${baseURL}/admin/deletePost/${id}`);
       dispatch({ type: "DELETE_POST", payload: id });
-      await axios.delete(`${baseURL}/deletePost/${id}`)
-      dispatch({ type: "DELETE_POST", payload: id })
     } catch (error) {
       console.log(error);
     }

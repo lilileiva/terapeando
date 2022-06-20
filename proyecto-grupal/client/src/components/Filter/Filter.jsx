@@ -5,7 +5,6 @@ import {
   getPostOrder,
   getCategories,
   getByCategory,
-  getAllPsychologist,
 } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 
@@ -16,7 +15,6 @@ export default function Filters() {
 
   useEffect(() => {
     dispatch(getCategories());
-    dispatch(getAllPsychologist());
   }, [dispatch]);
 
   function handleSubmitOrder(e) {

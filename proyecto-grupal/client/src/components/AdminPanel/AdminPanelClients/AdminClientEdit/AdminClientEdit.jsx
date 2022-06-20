@@ -118,7 +118,7 @@ function AdminClientEdit() {
     setFormErrors(validate(inputText))
   }
 
-  const token = window.localStorage.getItem('token');
+  const token = window.localStorage.getItem('tokenAdmin');
 
   return (
     <>
