@@ -646,11 +646,11 @@ export function AdminGetUserPsychologistByName(name) {
 }
 
 // PUT para editar usuario psicologo
-export function AdminEditUserPsichologist(id, updatedUserPsychologist) {
+export function AdminEditUserPsichologist(IdUserPsychologist, updatedUserPsychologist) {
   return async function () {
     try {
       const editPsichologist = axios.put(
-        `${baseURL}/admin/userpsychologist/put_userpsychologist/${id}`,
+        `${baseURL}/admin/userpsychologist/put_userpsychologist/${IdUserPsychologist}`,
         updatedUserPsychologist,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` }

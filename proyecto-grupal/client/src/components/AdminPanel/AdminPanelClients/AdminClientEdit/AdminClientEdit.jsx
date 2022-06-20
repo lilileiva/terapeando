@@ -88,7 +88,7 @@ function AdminClientEdit() {
                 <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
                   <Stack direction='row' width='100%'>
-                    <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/clients')}>
+                    <Button colorScheme='teal' variant='outline' onClick={() => navigate(-1)}>
                       <ArrowLeftIcon />
                       <Text ml='0.5em'> Volver</Text>
                     </Button>

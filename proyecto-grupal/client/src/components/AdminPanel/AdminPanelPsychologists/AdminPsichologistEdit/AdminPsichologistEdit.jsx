@@ -16,9 +16,8 @@ export default function AdminPsichologisttDetails() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
-
     const { idUserPsichologist } = useParams();
+
     useEffect(() => {
         dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
 
@@ -26,8 +25,6 @@ export default function AdminPsichologisttDetails() {
 
     const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
     
-
-
     const handleAlertEdit = (e, psychologistId) => {
         Swal.fire({
             title: '¿Estás seguro que quieres cambiar el estado de este usuario?',
@@ -50,26 +47,16 @@ export default function AdminPsichologisttDetails() {
         })
     }
 
-
     const handleLabel = (e) => {
         e.target.value === 'Pendiente' ?
             document.getElementById('lbl').innerText = "Pendiente" :
             document.getElementById('lbl').innerText = "Activo"
     };
 
-
-
-
-
     const handleInputChange = (e, psychologistId) => {
         handleAlertEdit(e, psychologistId)
         handleLabel(e)
     };
-
-
-
-
-
 
     return (
 
@@ -83,7 +70,7 @@ export default function AdminPsichologisttDetails() {
                 <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
                     <Stack direction='row' width='100%'>
-                        <Button cursor={'pointer'} colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/psychologists/${userPsichologistDetail._id}`)}>
+                        <Button cursor={'pointer'} colorScheme='teal' variant='outline' onClick={() => navigate(-1)}>
                             <ArrowLeftIcon />
                             <Text ml='0.5em'> Volver</Text>
                         </Button>

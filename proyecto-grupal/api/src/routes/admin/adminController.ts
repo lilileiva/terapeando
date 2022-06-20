@@ -156,7 +156,7 @@ const deleteUserPsychologist = async (req: Request, res: Response) => {
 
 const updateUserPsychologist = async (req: Request, res: Response) => {
   const { IdUserPsychologist } = req.params;
-  console.log(IdUserPsychologist)
+
   try {
     await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, { new: true })
     res.status(200).send('Usuario editado correctamente')
