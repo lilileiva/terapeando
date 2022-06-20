@@ -19,9 +19,10 @@ import {
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
   ADMIN_SEARCHBAR,
+
+  PUT_POSTS
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS
-
 } from "../actions/types";
 
 const initialState = {
@@ -185,6 +186,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: state.posts.filter(posts => posts.id !== action.payload)
+      }
+    case PUT_POSTS:
+      return{
+        ...state,
+        posts: action.payload
       }
 
     /*-----------CLEAR-----------*/

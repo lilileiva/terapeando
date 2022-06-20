@@ -18,6 +18,9 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
+
+  PUT_POSTS
+
   GET_PAYMENT, 
   GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
@@ -373,6 +376,7 @@ export const searchPostsByTitle = (title) => {
   };
 };
 
+
 export function getPostDetail(id) {
   return async function (dispatch) {
     try {
@@ -386,7 +390,6 @@ export function getPostDetail(id) {
     }
   };
 }
-
 export const getPostOrder = (order, arreglo) => {
   return function (dispatch) {
     //me traigo el arreglo de las posts
@@ -413,6 +416,18 @@ export const addPost = (body) => {
       })
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+export const putPost = (body, id) => {
+  return async function (dispatch) {
+    try{
+      const {info} = await axios.post(
+        `${baseURL}/edit/${id}`,body
+      )
+      return dispatch({type:PUT_POSTS, pyaload:info})
+    }catch(e){
+      console.log(e)
     }
   }
 }
@@ -452,6 +467,13 @@ export const getByCategory = (category) => {
     } catch (error) {
       console.log(error);
     }
+  }
+}
+
+export const clearStatePostDetail = () => {
+  return {
+    type: "CLEAR_POST_DETAIL",
+
   };
 };
 

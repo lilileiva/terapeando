@@ -5,6 +5,7 @@ const {
   getAllCategory,
   filterPostsCategory,
   getOnePost,
+  putPost,
   getPostAuthors,
   // filterPostsByAuthor
   deletePost
@@ -15,6 +16,7 @@ const ClientOrAdmin = require('../../middleware/validateClientOrAdmin')
 
 const postsRouter: Router = Router();
 
+postsRouter.put("/edit/:id",putPost)
 postsRouter.get("/posts", getAllPosts);
 postsRouter.get("/post/:id", getOnePost);
 postsRouter.post("/post", validatePsychologistOrAdmin, createPost);

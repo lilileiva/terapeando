@@ -23,6 +23,7 @@ export const SORT_BY_DATE = 'SORT_BY_DATE';
 
 
 export const GET_POSTS = 'GET_POSTS';
+export const PUT_POSTS = "PUT_POSTS"
 
 export const CLEAR_PSYCHOLOGIST = "CLEAR_PSYCHOLOGIST"; //Clear detail state
 export const CLEAR_CLIENT = 'CLEAR_CLIENT';
