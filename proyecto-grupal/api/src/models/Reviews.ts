@@ -16,7 +16,7 @@ export class Reviews{
     @prop({ref: () => userClient})
     IdUserClient: Ref<userClient>
     @prop({ref: () => userPsychologist})
-    IdUserPsychologist: Ref<userClient>
+    IdUserPsychologist: Ref<userPsychologist>
  }
 
 const reviewsModel = getModelForClass(Reviews)

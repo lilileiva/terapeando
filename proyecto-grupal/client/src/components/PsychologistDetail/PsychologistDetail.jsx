@@ -29,6 +29,8 @@ export default function PsychologistDetail() {
   //   };
   // }, [dispatch, idPsychologist]);
 
+
+
   useEffect(() => {
     dispatch(getUserPsychologistOne(idPsychologist));
     setLoader(true);
@@ -116,9 +118,8 @@ export default function PsychologistDetail() {
                   </Box>
                   <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
                     <Text className="HeadingDetail" >
-                      Mi calificación promedio 😊: <Starts
-                      
-                        rating={Math.round(detail.rating)} />
+                      Mi calificación promedio 😊: 
+                      { detail.rating ? <Starts rating={5} />: null}
                     </Text>
                     {<Reviews />}
                   </Box>

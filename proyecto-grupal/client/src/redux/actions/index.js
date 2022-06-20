@@ -432,10 +432,10 @@ export const clearStatePostDetail = () => {
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
-export function createReview(payload) {
+export function createReview(IdUserPsychologist, payload) {
   return async function () {
     try {
-      const newReview = axios.post(`${baseURL}/reviews`, payload , {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }});
+      const newReview = axios.post(`${baseURL}/reviews/${IdUserPsychologist}`, payload , {headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }});
       return newReview;
     } catch (error) {
       console.log(error);

@@ -20,9 +20,6 @@ export default function AdminPsichologisttDetails() {
   const { idUserPsichologist } = useParams();
   useEffect(() => {
     dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
-    return () => {
-      dispatch(clearClient())
-    }
   }, [dispatch])
   const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
 

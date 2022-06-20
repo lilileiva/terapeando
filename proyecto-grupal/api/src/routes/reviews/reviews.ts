@@ -1,3 +1,4 @@
+import { CannotBeSymbolError } from "@typegoose/typegoose/lib/internal/errors";
 import { Request, Response } from "express";
 import reviewsModel from "../../models/Reviews";
 import userPsychologistModel from "../../models/userPsychologist";
@@ -5,7 +6,9 @@ import userPsychologistModel from "../../models/userPsychologist";
 
 
 const createReview = async (req: Request, res: Response) => {
-    const { Content, Rating, IdUserPsychologist } = req.body
+    const { Content, Rating} = req.body
+    const {IdUserPsychologist} = req.params;
+    
 
     try {
 
