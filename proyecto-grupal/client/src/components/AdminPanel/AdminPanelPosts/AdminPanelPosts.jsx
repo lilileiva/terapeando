@@ -88,75 +88,42 @@ function AdminPanelPosts() {
             >
               {allPosts.length !== 0 ? (
                 <>
-                  <Stack direction="row" width="100%">
-                    <AdminSearchbar />
+                          <Stack direction='row' width='100%'>
 
-                    <Button
-                      colorScheme="teal"
-                      variant="outline"
-                      onClick={() => dispatch(getAllPosts())}
-                    >
-                      <BsPeople />
-                      <Text pr="0.5em"> Todos los posts</Text>
-                    </Button>
-                  </Stack>
+                            <AdminSearchbar />
 
-                  <Stack
-                    width="100%"
-                    height="30em"
-                    position="sticky"
-                    overflowY="scroll"
-                  >
-                    <ul className="userClientsList">
-                      {allPosts.map((post) => (
-                        <>
-                          <hr />
-                          <Stack
-                            w="100%"
-                            direction="row"
-                            justify="space-between"
-                            align="center"
-                            pt="0.5em"
-                            pb="0.5em"
-                            pr="1em"
-                          >
-                            <Stack
-                              direction="row"
-                              align="center"
-                              cursor="pointer"
-                              onClick={() =>
-                                navigate(`/adminpanel/posts/${post._id}`)
-                              }
-                            >
-                              <Avatar src={post.Image}></Avatar>
-                              <Text fontSize="xl">{post.Title}</Text>
-                            </Stack>
-
-                            <Stack direction="row" align="center">
-                              <BsFillEyeFill
-                                size="1.5em"
-                                color="gray"
-                                cursor="pointer"
-                                onClick={() =>
-                                  navigate(`/adminpanel/posts/${post._id}`)
-                                }
-                              />
-                              <BsPencilSquare
-                                size="1.5em"
-                                color="gray"
-                                cursor="pointer"
-                              />
-                              <BsFillFileEarmarkXFill
-                                size="1.5em"
-                                color="gray"
-                                cursor="pointer"
-                                onClick={() => handleAlertDelete(post._id)}
-                              />
-                            </Stack>
+                            <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllPosts())}>
+                              <BsPeople />
+                              <Text pr='0.5em'> Todos los posts</Text>
+                            </Button>
                           </Stack>
-                          <hr />
-                        </>
-                      ))}
+
+                          <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
+                            <ul className='userClientsList'>
+                              {
+                                allPosts.map(post => (
+                                  <>
+                                    <hr />
+                                    <Stack w='100%' direction='row' justify='space-between' align='center' pt='0.5em' pb='0.5em' pr='1em'>
+
+                                      <Stack direction='row' align='center' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)}>
+                                        <Avatar src={post.Image}></Avatar>
+                                        <Text fontSize='xl'>
+                                          {post.Title}
+                                        </Text>
+                                      </Stack>
+
+                                      <Stack direction='row' align='center'>
+                                        <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)} />
+                                         <BsPencilSquare size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/edit/${post._id}`)} />
+                                        <BsFillFileEarmarkXFill size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(post._id)} />
+                                      </Stack>
+
+                                    </Stack>
+                                    <hr />
+                                  </>
+                                ))
+}
                     </ul>
                   </Stack>
                   {allPosts ? (

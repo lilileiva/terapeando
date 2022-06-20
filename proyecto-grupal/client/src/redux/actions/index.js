@@ -18,6 +18,7 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
+  PUT_POSTS,
   GET_PAYMENT, 
   GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
@@ -299,6 +300,7 @@ export const searchPostsByTitle = (title) => {
   };
 };
 
+
 export function getPostDetail(id) {
   return async function (dispatch) {
     try {
@@ -312,7 +314,6 @@ export function getPostDetail(id) {
     }
   };
 }
-
 export const getPostOrder = (order, arreglo) => {
   return function (dispatch) {
     //me traigo el arreglo de las posts
@@ -340,8 +341,31 @@ export const addPost = (body) => {
     } catch (error) {
       console.log(error);
     }
-  };
-};
+  }
+}
+export const putPost = (body, id) => {
+  return async function (dispatch) {
+    try{
+      const {info} = await axios.post(
+        `${baseURL}/edit/${id}`,body
+      )
+      return dispatch({type:PUT_POSTS, pyaload:info})
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+//eliminar nota
+export const deletePost = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${baseURL}/deletePost/${id}`)
+      dispatch({ type: "DELETE_POST", payload: id })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
@@ -366,6 +390,13 @@ export const getByCategory = (category) => {
     } catch (error) {
       console.log(error);
     }
+  }
+}
+
+export const clearStatePostDetail = () => {
+  return {
+    type: "CLEAR_POST_DETAIL",
+
   };
 };
 
@@ -407,24 +438,7 @@ export const filterByAuthor = (payload) => {
   }
 }
 
-export const getByCatego = (category) => {
-  return async function (dispatch) {
-    try {
-      const responseBack = await fetch(`${baseURL}/filter/${category}`);
-      const jsonBack = await responseBack.json();
-      //envio las notas que se filtren con esa catagory
-      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
 
-export const clearStatePostDetail = () => {
-  return {
-    type: "CLEAR_POST_DETAIL",
-  };
-};
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
