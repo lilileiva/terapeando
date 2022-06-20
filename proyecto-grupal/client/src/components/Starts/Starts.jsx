@@ -5,9 +5,11 @@ import '../Starts/Starts.css';
 
 export default function Starts ({rating}) {
 
+
+
   return (
     <div className="starts">
-        {Array(rating).fill(<GoStar size={16} style={{
+        {Array(Math.round(rating)).fill(<GoStar size={16} style={{
          color: 'orange',
          position: 'relative',
          display: 'inline-block',

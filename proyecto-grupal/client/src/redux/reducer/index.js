@@ -20,7 +20,8 @@ import {
   CLEAR_CLIENT_LIST,
   ADMIN_SEARCHBAR,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS
+  GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  FILTER_PSYCHOLOGIST_BY_RATING
 
 } from "../actions/types";
 
@@ -39,7 +40,8 @@ const initialState = {
   paymentDetailsPsychologist: [],
   allPayments: [],
   email: {},
-  adminSearchbar: ""
+  adminSearchbar: "",
+  reviews: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -250,6 +252,7 @@ function rootReducer(state = initialState, action) {
           ...state,
           allPayments: sortedPayments
       }
+      
     default:
       return { ...state };
   }

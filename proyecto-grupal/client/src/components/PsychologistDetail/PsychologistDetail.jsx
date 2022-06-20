@@ -98,7 +98,6 @@ export default function PsychologistDetail() {
                     </Box>
 
 
-
                     <Flex className="BoxDetail" marginLeft={'56'} justifyContent='space-around' borderRadius={'10px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>
                       <Box bg="" borderRadius={'10px'} height="fit-content" marginRight={'10'}>
                         <Text className="HeadingDetail" >
@@ -118,7 +117,8 @@ export default function PsychologistDetail() {
                   <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
                     <Text className="HeadingDetail" >
                       Mi calificación promedio 😊: <Starts
-                        rating={detail.rating} />
+                      
+                        rating={Math.round(detail.rating)} />
                     </Text>
                     {<Reviews />}
                   </Box>

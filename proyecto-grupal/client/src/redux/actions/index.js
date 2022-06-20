@@ -23,7 +23,8 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS
+  GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  FILTER_PSYCHOLOGIST_BY_RATING
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -336,6 +337,9 @@ export function orderByRating(order, array) {
 
 
 
+
+
+
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
@@ -512,6 +516,20 @@ export function createReview(payload) {
     }
   };
 }
+
+export function filterReviewsBySychologist(payload){
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`${baseURL}/reviews/filter/review/${payload}`);
+      dispatch({
+        type: FILTER_PSYCHOLOGIST_BY_RATING,
+        payload: json.data,
+      })
+    } catch (error) {
+      console.log(error);
+    }
+    }
+  };
 
 
   

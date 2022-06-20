@@ -9,7 +9,8 @@ const {
     putUserPsychologist,
     filterPsichologistSpecialities,
     filterPsichologistRating,
-    getUserPsychologistByStatus
+    getUserPsychologistByStatus,
+    getReviews
 } = require('./userPsychologist.ts');
 
 const validatePychologist = require ('../../middleware/validatePsychologistOrAdmin')
@@ -26,7 +27,8 @@ psychologistRouter.post('/login', logInPsychologist)
 psychologistRouter.delete('/deleteuserpsychologist/:IdUserPsychologist', validatePychologist , deleteUserPsychologist);
 psychologistRouter.put('/put_userpsychologist/:IdUserPsychologist', validatePychologist ,putUserPsychologist)
 psychologistRouter.get('/filterspecialties/specialties/:specialtie', filterPsichologistSpecialities);
-psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
+//psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
+psychologistRouter.get('/rese/reviews', getReviews);
 
 
 
