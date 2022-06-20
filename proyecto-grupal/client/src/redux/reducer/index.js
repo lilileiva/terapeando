@@ -93,6 +93,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload,
       };
+    case "GET_PSYCHOLOGISTS_DETAILS":
+      return {
+        ...state,
+        userPsichologistDetail: action.payload
+      };
     case "GET_PSYCHOLOGISTS_ONE":
       return {
         ...state,
@@ -118,7 +123,6 @@ function rootReducer(state = initialState, action) {
         let specialties = el.Specialties.map((el) => el);
         return specialties.includes(action.payload);
       });
-
       return {
         ...state,
         allUsersPsichologists:
@@ -160,7 +164,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
-        posts:[]
+        posts: []
       };
     case "GET_CATEGORIES":
       return {
@@ -173,15 +177,15 @@ function rootReducer(state = initialState, action) {
         posts: state.posts.filter(posts => posts.id !== action.payload)
       }
     case "CREATE_POST":
-      return{
+      return {
         ...state,
-        posts:[...state.posts,action.payload]
-    }
+        posts: [...state.posts, action.payload]
+      }
     case PUT_POSTS:
-      return{
+      return {
         ...state,
-        posts:[...state.posts,action.payload]
-    }
+        posts: [...state.posts, action.payload]
+      }
 
     /*-----------PAYMENT-----------*/
     case GET_PAYMENT:

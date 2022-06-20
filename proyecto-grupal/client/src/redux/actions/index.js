@@ -219,7 +219,7 @@ export const getUserPsychologistDetails = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        `${baseURL}/userpsychologist/details/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
