@@ -30,10 +30,10 @@ function AdminPostEdit() {
   const postDetail = useSelector((state) => state.postDetail);
 
   const [inputText, setInputText] = useState({
-    Date: "",
-    Title: "",
-    Content: "",
-    Image: "",
+    Date: postDetail.Date,
+    Title: postDetail.Title,
+    Content: postDetail.Content,
+    Image: postDetail.Image,
     Tags: []
   })
 
