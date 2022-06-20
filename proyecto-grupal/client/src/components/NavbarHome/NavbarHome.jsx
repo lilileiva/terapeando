@@ -159,11 +159,12 @@ const dispatch = useDispatch()
               <Avatar
                  size={"sm"}
                  src={clientDetails.profileImage}
-               /> :  
-               <Avatar
-               size={"sm"}
-               src={userPsichologistDetail.profileImage}
-             />
+               /> )
+               :  
+              (
+                <Avatar
+                size={"sm"}
+                src={userPsichologistDetail.profileImage}/>
               )
             }
              </MenuButton>

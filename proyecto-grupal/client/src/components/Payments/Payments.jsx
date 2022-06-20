@@ -11,6 +11,7 @@ import NotFound from '../404notFound/notFound.jsx';
 function Payments() {
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  console.log(tokenPsychologist)
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -79,7 +80,11 @@ function Payments() {
                  <Td><Badge cursor={'pointer'} colorScheme='green'>Abonado</Badge></Td> 
                  <Td><Link to='/detail/:idPago'><ExternalLinkIcon /></Link></Td>
                  </>
-                 : <Td><Badge cursor={'pointer'} colorScheme='purple'>En Proceso</Badge></Td>}
+                 : 
+                 <>
+                 <Td><Badge cursor={'pointer'} colorScheme='purple'>En Proceso</Badge></Td>
+                    <Td></Td>
+                 </>}
                </Tr>
              )
            })}

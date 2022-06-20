@@ -223,7 +223,7 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/profile?IdUserPsychologist=${IdUserPsychologist}`,{ headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        `${baseURL}/userpsychologist/profile`,{ headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_ONE",
@@ -259,7 +259,21 @@ export function createPsychologist(signupForm) {
   };
 }
 
-
+//PUT para editar usuario psicologo
+export function editUserPsichologist( updatedUserPsychologist) {
+  return async function () {
+    try {
+      axios.put(
+        `${baseURL}/userpsychologist/put_userpsychologist/`,
+        updatedUserPsychologist,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 // filtrar psicologs por  especialidad
 
@@ -539,7 +553,7 @@ export const getPaymentByClientId = () => {
 export const getPaymentByPsyId = () => {
   return function (dispatch) {
     axios
-      .get(`${baseURL}/payment`, {headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }})
+      .get(`${baseURL}/payment/paymentspsi`, {headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }})
       .then((payment) => {
         dispatch({
           type: GET_PAYMENT_PSY,

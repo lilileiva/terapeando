@@ -44,6 +44,7 @@ export default function ClientDetails() {
   
 
   let arr = Object.values(clientDetails);
+  let arr1 = Object.values(psychologistDetails)
 
   return (
     <>
@@ -156,7 +157,7 @@ export default function ClientDetails() {
           ) : tokenPsychologist ? ( 
               <>
                         {
-                arr.length <= 1
+                arr1.length <= 1
                   ? (
                     <Loader />
                   ) : (
