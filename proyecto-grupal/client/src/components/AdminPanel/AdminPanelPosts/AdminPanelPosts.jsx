@@ -34,7 +34,6 @@ function AdminPanelPosts() {
     }).then((result) => {
       if (result.isDenied) {
         dispatch(deletePost(postId))
-        Swal.fire('Post eliminado correctamente!', '', 'success')
         dispatch(getAllPosts())
       }
     })
@@ -47,7 +46,7 @@ function AdminPanelPosts() {
     }
   }, [dispatch, adminSearchbar])
 
-  const token = window.localStorage.getItem('token')
+  const token = true;
 
   return (
     <>

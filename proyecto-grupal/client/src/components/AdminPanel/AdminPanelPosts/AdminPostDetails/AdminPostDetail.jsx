@@ -93,6 +93,7 @@ function AdminPostDetail() {
                     <Button width='85%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar nota</Text>
+                    </Button>
                   <Stack direction='row' width='100%'>
                     <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/posts')}>
                       <ArrowLeftIcon />
@@ -103,7 +104,7 @@ function AdminPostDetail() {
                 </Stack>
 
               </Stack>
-
+              </Stack>
               <Footer />
             </div>
           ) : (
