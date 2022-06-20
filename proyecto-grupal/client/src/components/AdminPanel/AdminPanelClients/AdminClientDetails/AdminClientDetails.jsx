@@ -104,7 +104,7 @@ function AdminClientDetails() {
     }
   }, [dispatch, inputText, isSubmit]);
 
-  const token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem("tokenAdmin");
 
   return (
     <>

@@ -645,7 +645,7 @@ export function AdminDeleteUserClient(id) {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/admimn/userclient/deleteuserclient/${id}`,
+        `${baseURL}/admin/userclient/deleteuserclient/${id}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (err) {
@@ -673,7 +673,7 @@ export const AdminGetAllPsychologist = () => {
 
 export function AdminGetUserPsychologistByName(name) {
   return async function (dispatch) {
-    fetch(`${baseURL}/userpsychologist?name=${name}`, 
+    fetch(`${baseURL}/admin/userpsychologist?name=${name}`, 
     { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } } )
       .then((res) => res.json())
       .then((data) => {
@@ -726,7 +726,7 @@ export function AdminDeleteUserPsichologist() {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/userpsychologist/deleteuserpsychologist`,
+        `${baseURL}/admin/userpsychologist/deleteuserpsychologist`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (error) {
@@ -740,7 +740,7 @@ export function AdminDeleteUserPsichologist() {
 export const AdminDeletePost = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`${baseURL}/deletePost/${id}`);
+      await axios.delete(`${baseURL}/admin/deletePost/${id}`);
       dispatch({ type: "DELETE_POST", payload: id });
       await axios.delete(`${baseURL}/deletePost/${id}`)
       dispatch({ type: "DELETE_POST", payload: id })
