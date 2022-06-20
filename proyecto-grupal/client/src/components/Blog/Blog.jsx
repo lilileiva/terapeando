@@ -16,7 +16,7 @@ import Loader from "../Loader/Loader.jsx";
 
 export default function Blog() {
   const dispatch = useDispatch();
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getAllPosts());
@@ -27,11 +27,10 @@ export default function Blog() {
   }, [dispatch]);
 
   useEffect(() => {
-    setLoader(true);
     setTimeout(() => {
       setLoader(false);
     }, 1500);
-  }, [dispatch]);
+  }, [setLoader]);
 
   const posts = useSelector((state) => state.posts)
   const tokenClient = window.localStorage.getItem('tokenClient')
@@ -70,7 +69,15 @@ export default function Blog() {
           </div>
           <Filters />
 
-          {posts && posts.length > 0 ? loader ? <Loader></Loader> : <Post /> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}
+          {
+            loader
+              ? <Loader />
+              : posts && posts.length > 0
+                ? <Post />
+                : <Stack height={'100%'} justify={"flex-start"} mt='7em' >
+                  <Text fontSize={'xl'}>No hay resultados</Text>
+                </Stack>
+          }
         </div>
       </Stack>
       <Footer />
