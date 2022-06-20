@@ -91,7 +91,7 @@ const dispatch = useDispatch()
 
   const clientDetails = useSelector((state) => state.userClientDetail);
   const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
-  console.log(userPsichologistDetail)
+  console.log(userPsichologistDetail._id)
 
   return (
       <>
