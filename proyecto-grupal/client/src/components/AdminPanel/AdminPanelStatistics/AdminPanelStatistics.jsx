@@ -58,96 +58,112 @@ function AdminPanelStatistics() {
         responsive: true
     }
 
-    const token = window.localStorage.getItem('tokenAdmin');
+    const tokenAdmin = window.localStorage.getItem('tokenAdmin');
+
+    const [loader, setLoader] = useState(false)
+    useEffect(() => {
+        setLoader(true)
+        setTimeout(() => {
+            setLoader(false)
+        }, 1000)
+    })
 
     return (
         <>
             {
-                token
+                tokenAdmin
                     ? (
                         <div className='adminPanelContainer'>
                             <AdminPanelNavbar />
 
                             <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
                                 <AdminPanelSidebar />
-                                <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='center' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>                                    
+                                <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='center' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                                     {
-                                        (allUserClients.length !== 0 && allUsersPsichologists.length !== 0 && posts.length !== 0 && allPayments.length !== 0)
-                                            ? <Stack height='25em' width='100%'>
-                                                <Bar data={data} options={options} />
-                                            </Stack>
-                                            : null
+                                        loader
+                                            ? <Loader />
+                                            : (
+                                                <>
+                                                    {
+                                                        (allUserClients.length !== 0 && allUsersPsichologists.length !== 0 && posts.length !== 0 && allPayments.length !== 0)
+                                                            ? <Stack height='25em' width='100%'>
+                                                                <Bar data={data} options={options} />
+                                                            </Stack>
+                                                            : null
+                                                    }
+                                                    <Stack direction='row' p='0'>
+                                                        {
+                                                            allUserClients.length !== 0
+                                                                ? (
+                                                                    <>
+                                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em'>
+                                                                            <Stack direction='column' align='center'>
+                                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
+                                                                                    {allUserClients.length}
+                                                                                </Text>
+                                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
+                                                                                    Usuarios Clientes
+                                                                                </Text>
+                                                                            </Stack>
+                                                                        </Center>
+                                                                    </>
+                                                                ) : null
+                                                        }
+                                                        {
+                                                            allUsersPsichologists.length !== 0
+                                                                ? (
+                                                                    <>
+                                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
+                                                                            <Stack direction='column' align='center'>
+                                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
+                                                                                    {allUsersPsichologists.length}
+                                                                                </Text>
+                                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
+                                                                                    Usuarios Psicólogos
+                                                                                </Text>
+                                                                            </Stack>
+                                                                        </Center>
+                                                                    </>
+                                                                ) : null
+                                                        }
+                                                        {
+                                                            posts.length !== 0
+                                                                ? (
+                                                                    <>
+                                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
+                                                                            <Stack direction='column' align='center'>
+                                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
+                                                                                    {posts.length}
+                                                                                </Text>
+                                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
+                                                                                    Posts
+                                                                                </Text>
+                                                                            </Stack>
+                                                                        </Center>
+                                                                    </>
+                                                                ) : null
+                                                        }
+                                                        {
+                                                            allPayments.length !== 0
+                                                                ? (
+                                                                    <>
+                                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
+                                                                            <Stack direction='column' align='center'>
+                                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
+                                                                                    {allPayments.length}
+                                                                                </Text>
+                                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
+                                                                                    Pagos
+                                                                                </Text>
+                                                                            </Stack>
+                                                                        </Center>
+                                                                    </>
+                                                                ) : null
+                                                        }
+                                                    </Stack>
+                                                </>
+                                            )
                                     }
-                                    <Stack direction='row' p='0'>
-                                        {
-                                            allUserClients.length !== 0
-                                                ? (
-                                                    <>
-                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em'>
-                                                            <Stack direction='column' align='center'>
-                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
-                                                                    {allUserClients.length}
-                                                                </Text>
-                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
-                                                                    Usuarios Clientes
-                                                                </Text>
-                                                            </Stack>
-                                                        </Center>
-                                                    </>
-                                                ) : null
-                                        }
-                                        {
-                                            allUsersPsichologists.length !== 0
-                                                ? (
-                                                    <>
-                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
-                                                            <Stack direction='column' align='center'>
-                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
-                                                                    {allUsersPsichologists.length}
-                                                                </Text>
-                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
-                                                                    Usuarios Psicólogos
-                                                                </Text>
-                                                            </Stack>
-                                                        </Center>
-                                                    </>
-                                                ) : null
-                                        }
-                                        {
-                                            posts.length !== 0
-                                                ? (
-                                                    <>
-                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
-                                                            <Stack direction='column' align='center'>
-                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
-                                                                    {posts.length}
-                                                                </Text>
-                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
-                                                                    Posts
-                                                                </Text>
-                                                            </Stack>
-                                                        </Center>
-                                                    </>
-                                                ) : null
-                                        }
-                                        {
-                                            allPayments.length !== 0
-                                                ? (
-                                                    <>
-                                                        <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
-                                                            <Stack direction='column' align='center'>
-                                                                <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
-                                                                    {allPayments.length}
-                                                                </Text>
-                                                                <Text fontSize='xl' fontWeight='500' color='#2D3748'>
-                                                                    Pagos
-                                                                </Text>
-                                                            </Stack>
-                                                        </Center>
-                                                    </>
-                                                ) : null
-                                        }
-                                    </Stack>
                                 </Stack>
                             </Stack>
 
