@@ -21,7 +21,7 @@ import {
   ADMIN_SEARCHBAR,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
-  FILTER_PSYCHOLOGIST_BY_RATING
+  
 
 } from "../actions/types";
 
@@ -252,7 +252,7 @@ function rootReducer(state = initialState, action) {
           ...state,
           allPayments: sortedPayments
       }
-      
+    
     default:
       return { ...state };
   }

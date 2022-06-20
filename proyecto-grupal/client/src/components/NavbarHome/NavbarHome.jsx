@@ -20,6 +20,9 @@ import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserClient } from "../../redux/actions";
+import { useEffect } from "react";
 
 function removeAcc(str) {
   const acentos = {
@@ -46,6 +49,7 @@ function removeAcc(str) {
 const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 const idUserClient = "62a3a0b4cc3f8656e112d930";
 const NavLink = ({ children }) => (
+  
   <Link exact to={removeAcc(children)}>
     <Text
       px={2}
@@ -62,6 +66,14 @@ const NavLink = ({ children }) => (
 );
 
 export default function NavbarHome() {
+
+const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUserClient());
+  }, [dispatch]);
+  const clientDetails = useSelector((state) => state.userClientDetail);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const navigate = useNavigate();
@@ -140,10 +152,10 @@ export default function NavbarHome() {
                 />
               </MenuButton>
               <MenuList>
-                <Link to={`/home/${idUserClient}`}>
+                <Link to={`/home/${clientDetails.firstName}`}>
                   <MenuItem>Mi Perfil</MenuItem>
                 </Link>
-                <Link to={`/editprofile/${idUserClient}`}>
+                <Link to={`/editprofile/${clientDetails.firstName}`}>
                   <MenuItem>Editar Perfil</MenuItem>
                 </Link>
                 <MenuItem>Mis Pagos</MenuItem>

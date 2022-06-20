@@ -75,7 +75,7 @@ function AdminPanelLogin() {
             try {
                 response = await axios.post(`${baseURL}/admin/login`, signinForm)
                 const token = response.data.token
-                window.localStorage.setItem('token', token)
+                window.localStorage.setItem('tokenAdmin', token)
                 // console.log('Este es el .data del response', response.data)
                 // console.log('Este es todo el token', token)
                 if (response.status === 200) {
@@ -107,7 +107,7 @@ function AdminPanelLogin() {
         afterSubmit();
     }
 
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem('tokenAdmin');
 
     return (
         <div className='adminPanelContainer'>

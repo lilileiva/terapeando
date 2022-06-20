@@ -6,7 +6,7 @@ import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, Input, Select } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
-import { getUserClient, clearClient, deleteUserClient } from '../../../../redux/actions';
+import { AdminGetUserClient, clearClient, AdminDeleteUserClient } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 import countryList from 'react-select-country-list';
@@ -22,7 +22,7 @@ function AdminClientEdit() {
   const { idUserClient } = useParams();
 
   useEffect(() => {
-    dispatch(getUserClient(idUserClient))
+    dispatch(AdminGetUserClient(idUserClient))
     return () => {
       dispatch(clearClient())
     }
@@ -118,7 +118,7 @@ function AdminClientEdit() {
     setFormErrors(validate(inputText))
   }
 
-  const token = window.localStorage.getItem('token');
+  const token = window.localStorage.getItem('tokenAdmin');
 
   return (
     <>
