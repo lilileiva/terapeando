@@ -9,7 +9,8 @@ const {
     putUserPsychologist,
     filterPsichologistSpecialities,
     filterPsichologistRating,
-    getUserPsychologistByStatus
+    getUserPsychologistByStatus,
+    getPsychologistDetails
 } = require('./userPsychologist.ts');
 
 const validatePsychologist = require ('../../middleware/validatePsychologist')
@@ -19,6 +20,7 @@ const psychologistRouter: Router = Router();
 
 // psychologistRouter.get('/', validatePychologist , getUserPsychologistOne); aca sería validación para inicio de sesión
 psychologistRouter.get('/profile', validatePsychologist, getUserPsychologistOne);
+psychologistRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)
 psychologistRouter.get('/', getUserPsychologist);
 psychologistRouter.get('/status/psycologiststatus', getUserPsychologistByStatus);
 psychologistRouter.post('/', postUserPsychologist); //registro

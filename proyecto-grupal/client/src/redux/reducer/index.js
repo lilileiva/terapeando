@@ -25,6 +25,7 @@ import {
 
 const initialState = {
   userPsichologistDetail: {},
+  psychologistProfile: [],
   allUsersPsichologists: [], // actual
   UserPsichologists: [], // nuevo
   userClientDetail: [],
@@ -91,8 +92,13 @@ function rootReducer(state = initialState, action) {
     case "GET_PSYCHOLOGISTS_ONE":
       return {
         ...state,
-        userPsichologistDetail: action.payload,
+        psychologistProfile: action.payload,
       };
+    case "GET_PSYCHOLOGISTS_DETAILS":
+      return {
+        ...state,
+        userPsichologistDetail: action.payload
+      }
     case "GET_CATEGORIES":
       return {
         ...state,

@@ -219,7 +219,7 @@ export function getPsychologistByEmail(signupForm) {
 }
 
 //GET para obtener un solo psychologist
-export const getUserPsychologistOne = (IdUserPsychologist) => {
+export const getUserPsychologistOne = () => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
@@ -227,6 +227,23 @@ export const getUserPsychologistOne = (IdUserPsychologist) => {
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_ONE",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
+// GET USE RPSYCHOLOGIST DETAILS
+export const getUserPsychologistDetails = (IdUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
+        `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_DETAILS",
         payload: psychologist.data,
       });
     } catch (error) {

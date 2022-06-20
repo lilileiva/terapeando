@@ -48,7 +48,7 @@ function FormEditClient() {
   }, [dispatch, tokenClient, tokenPsychologist]);
 
   const clientDetails = useSelector((state) => state.userClientDetail)
-  const psychologistDetails = useSelector((state) => state.userPsichologistDetail)
+  const psychologistDetails = useSelector((state) => state.psychologistProfile)
 
 
   const [error, setError] = useState({});
