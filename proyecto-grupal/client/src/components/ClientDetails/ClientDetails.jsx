@@ -19,25 +19,31 @@ import {
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getUserClient } from "../../redux/actions";
+import { getUserClient, getUserPsychologistOne } from "../../redux/actions";
 import ChangePasswordModal from "../Modals/ChangePasswordModal";
 import Loader from "../Loader/Loader";
 import NotFound from '../404notFound/notFound.jsx';
 
 
 export default function ClientDetails() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUserClient());
-  }, [dispatch]);
-
-  const clientDetails = useSelector((state) => state.userClientDetail);
-
-  let arr = Object.values(clientDetails);
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
+  const dispatch = useDispatch();
+
+  
+
+  useEffect(() => {
+    tokenClient ? dispatch(getUserClient()) : dispatch(getUserPsychologistOne())
+  }, [dispatch, tokenClient]);
+
+  const clientDetails = useSelector((state) => state.userClientDetail);
+  const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail)
+
+  let arr = Object.values(clientDetails);
+
+
 
   return (
     <>

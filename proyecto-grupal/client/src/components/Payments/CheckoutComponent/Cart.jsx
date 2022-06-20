@@ -1,7 +1,7 @@
 import { AspectRatio, Divider, Heading, HStack, Image, Stack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 
-let psychologistCommission = 800;
+let psychologistCommission = 80000;
 let stripeTax = psychologistCommission*0.04;
 let terapeandoTax = psychologistCommission*0.05;
 let total = (psychologistCommission + stripeTax + terapeandoTax)
@@ -19,28 +19,28 @@ function Cart({last, name, pic}) {
       <Heading size="md">{name} {last}</Heading>
       <Text>Duracion 45 minutos</Text>
       </VStack>
-      <Heading size="sm" textAlign="end">${psychologistCommission}</Heading>
+      <Heading size="sm" textAlign="end">${psychologistCommission/100}</Heading>
       </Stack>
       </HStack>
 
       <VStack spacing={4} alignItems="stretch" w="full">
         <HStack justifyContent="space-between">
           <Text color={'gray.600'}>Subtotal</Text>
-          <Heading size="sm">${psychologistCommission}</Heading>
+          <Heading size="sm">${psychologistCommission/100}</Heading>
         </HStack>
         <HStack justifyContent="space-between">
           <Text color={'gray.600'}>Cargos del sitio</Text>
-          <Heading size="sm">${terapeandoTax}</Heading>
+          <Heading size="sm">${terapeandoTax/100}</Heading>
         </HStack>
         <HStack justifyContent="space-between">
           <Text color={'gray.600'}>Impuestos (estimated)</Text>
-          <Heading size="sm">${stripeTax}</Heading>
+          <Heading size="sm">${stripeTax/100}</Heading>
         </HStack>
       </VStack>
       <Divider />
       <HStack justifyContent="space-between" w="full">
         <Text color={'gray.600'} fontWeight={'bold'}>Total</Text>
-        <Heading size="lg">${total}</Heading>
+        <Heading size="lg">${total/100}</Heading>
       </HStack>
    </VStack>
   )

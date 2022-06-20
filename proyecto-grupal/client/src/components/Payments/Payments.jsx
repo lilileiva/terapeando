@@ -1,37 +1,98 @@
 import { ExternalLinkIcon, ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons'
 import Swal from "sweetalert2";
 import { Button, VStack, Container, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, HStack, Badge, Text } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavbarHome from '../NavbarHome/NavbarHome'
 import { useDispatch, useSelector } from "react-redux";
-import { getPaymentByClientId } from "../../redux/actions"
+import { getPaymentByClientId, sortByDate, getPaymentByPsyId } from "../../redux/actions"
 import NotFound from '../404notFound/notFound.jsx';
 
-const clientId = '62a3a0b4cc3f8656e112d930';
-
 function Payments() {
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getPaymentByClientId(clientId));
-  }, [dispatch]);
-  const payments = useSelector((state) => state.paymentDetailsClient)
-
-  if (payments === "") return (
-    Swal.fire('Todavía no tienes un registro de pagos, agenda una sesión antes ✨ ')
-  )
-
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(tokenClient) dispatch(getPaymentByClientId());
+    if(tokenPsychologist) dispatch(getPaymentByPsyId());
+
+  }, [dispatch, tokenClient, tokenPsychologist]);
+
+  const paymentsCli = useSelector((state) => state.paymentDetailsClient)
+  const psymentsPsy = useSelector((state) => state.paymentDetailsPsychologist)
+
+  const [order, setOrder] = useState('')
+  function handleDateSort(e){
+    e.preventDefault();
+    dispatch(sortByDate(e.target.value))
+    setOrder(`Order ${e.target.value}`)
+  }
+ 
+
+
   return (
     <>
-      {
-        tokenClient || tokenPsychologist
-          ? (
-            <>
-              <NavbarHome />
+    { tokenPsychologist ?  
+      <>
+   <NavbarHome />
+   <Container maxW={'container.lg'} p={0}>
+     <HStack justifyContent={'space-between'}>
+       <Heading py={12}>Historial de Pagos</Heading>
+       <VStack alignItems={'flex-start'}>
+         <HStack alignItems={'center'}>
+           <Text>Filtro por Fecha: </Text>
+           <Button size='sm' value='asc' onClick={e => handleDateSort(e)}><ArrowUpIcon /></Button>
+      <Button size='sm' value='desc' onClick={e => handleDateSort(e)}><ArrowDownIcon /></Button>
+         </HStack>
+         <HStack justifyContent={'flex-end'}>
+                      <Text>Filtro por Estado: </Text>
+                      <Badge cursor={'pointer'} colorScheme='green'>Abonado</Badge>
+                      <Badge cursor={'pointer'} colorScheme='purple'>En Proceso</Badge>
+                    </HStack>
+
+       </VStack>
+     </HStack>
+     <TableContainer>
+       <Table variant='striped' colorScheme='teal'>
+         <TableCaption><Button>Tengo un problema con mis cobros</Button></TableCaption>
+         <Thead>
+           <Tr>
+             <Th>Fecha</Th>
+             <Th>Cliente</Th>
+             <Th isNumeric>Ingreso</Th>
+             <Th >Tipo de pago</Th>
+             <Th >Estado</Th>
+             <Th >Detalle de factura</Th>
+           </Tr>
+         </Thead>
+         <Tbody>
+           {psymentsPsy.map((p) => {
+             return (
+               <Tr>
+                 <Td>{p.createdAt}</Td>
+                 <Td>{p.firstName} {p.lastName}</Td>
+                 <Td isNumeric>$ {(p.amount - p.amount*0.04 - p.amount*0.05)}</Td>
+                 <Td>{p.type}</Td>
+                 {p.status ?
+                 <> 
+                 <Td><Badge cursor={'pointer'} colorScheme='green'>Abonado</Badge></Td> 
+                 <Td><Link to='/detail/:idPago'><ExternalLinkIcon /></Link></Td>
+                 </>
+                 : <Td><Badge cursor={'pointer'} colorScheme='purple'>En Proceso</Badge></Td>}
+               </Tr>
+             )
+           })}
+
+         </Tbody>
+         <Divider />
+       </Table>
+     </TableContainer>
+   </Container>
+ </> 
+   : tokenClient ? (
+    <>
+    <NavbarHome />
               <Container maxW={'container.lg'} p={0}>
                 <HStack justifyContent={'space-between'}>
                   <Heading py={12}>Historial de Pagos</Heading>
@@ -40,11 +101,6 @@ function Payments() {
                       <Text>Filtro por Fecha: </Text>
                       <Button size='sm'><ArrowUpIcon /></Button>
                       <Button size='sm'> <ArrowDownIcon /></Button>
-                    </HStack>
-                    <HStack justifyContent={'flex-end'}>
-                      <Text>Filtro por Estado: </Text>
-                      <Badge cursor={'pointer'} colorScheme='green'>Abonado</Badge>
-                      <Badge cursor={'pointer'} colorScheme='purple'>En Proceso</Badge>
                     </HStack>
                   </VStack>
                 </HStack>
@@ -61,14 +117,13 @@ function Payments() {
                       </Tr>
                     </Thead>
                     <Tbody>
-                      {payments.map((payment) => {
-                        //let date = payment.createdAt.Substring(0,10);
+                      {paymentsCli.map((p) => {
                         return (
                           <Tr>
-                            <Td>{payment.createdAt}</Td>
-                            <Td>{payment.psyName}</Td>
-                            <Td isNumeric>$ {payment.amount}</Td>
-                            <Td>{payment.type}</Td>
+                            <Td>{p.createdAt}</Td>
+                            <Td>{p.psyName}</Td>
+                            <Td isNumeric>$ {p.amount}</Td>
+                            <Td>{p.type}</Td>
                             <Td><Link to='/detail/:idPago'><ExternalLinkIcon /></Link></Td>
                           </Tr>
                         )
@@ -80,11 +135,9 @@ function Payments() {
                 </TableContainer>
               </Container>
             </>
-          ) : (
-            <NotFound />
-          )
-      }
-    </>
+   ) : <NotFound /> }
+  </>
+              
   )
 }
 

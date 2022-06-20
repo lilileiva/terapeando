@@ -202,7 +202,7 @@ function rootReducer(state = initialState, action) {
     case CLEAR_CLIENT_LIST:
       return {
         ...state,
-        allUsersPsichologists: [],
+        usersClients: [],
       };
     case CLEAR_PSYCHOLOGIST_LIST:
       return {

@@ -1,13 +1,17 @@
 import { Router} from "express";
-const { createPayment, getAllPayments, getPaymentByClientId} = require('./paymentHistory.ts');
+const { createPayment, getAllPayments, getPaymentByClientId, getPaymentByPsychologistId} = require('./paymentHistory.ts');
 const { createCheckoutSession } = require('./Stripe/checkout.js')
+const validatePychologist = require ('../../middleware/validatePsychologist')
+const validateClient = require ('../../middleware/validateClient')
+const validateAdmin = require ('../../middleware/validateAdminToken')
 
 const paymentHistoryRouter: Router = Router();
 
 
-paymentHistoryRouter.get('/', getAllPayments)
-paymentHistoryRouter.get('/' ,getPaymentByClientId)
-paymentHistoryRouter.post('/checkoutpayment' ,createPayment)
-paymentHistoryRouter.post('/checkout', createCheckoutSession)
+paymentHistoryRouter.get('/', validateAdmin, getAllPayments)
+paymentHistoryRouter.get('/paymentsclient', validateClient, getPaymentByClientId)
+paymentHistoryRouter.post('/checkoutpayment' , validateClient, createPayment)
+paymentHistoryRouter.post('/checkout', validateClient, createCheckoutSession)
+paymentHistoryRouter.get('/paymentspsi', validatePychologist, getPaymentByPsychologistId)
 
 module.exports = paymentHistoryRouter;
