@@ -20,7 +20,6 @@ import {
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
   CLEAR_ADMIN_SEARCHBAR,
-  PUT_POSTS,
   GET_PAYMENT, 
   GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
@@ -449,12 +448,6 @@ export const getPostsAuthors = () => {
   };
 };
 
-export const filterByAuthor = (payload) => {
-  return {
-    type: "FILTER_POSTS_BY_AUTHOR",
-    payload,
-  }
-}
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
