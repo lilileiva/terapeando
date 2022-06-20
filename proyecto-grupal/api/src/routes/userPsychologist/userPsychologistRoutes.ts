@@ -21,7 +21,7 @@ const psychologistRouter: Router = Router();
 // psychologistRouter.get('/', validatePychologist , getUserPsychologistOne); aca sería validación para inicio de sesión
 psychologistRouter.get('/:IdUserPsychologist', getUserPsychologistOne);
 psychologistRouter.get('/', getUserPsychologist);
-psychologistRouter.get('/status/psycologiststatus', getUserPsychologistByStatus);
+psychologistRouter.get('/status/psycologiststatus', getUserPsychologistByStatus); //Uso admin
 psychologistRouter.post('/', postUserPsychologist); //registro
 psychologistRouter.post('/login', logInPsychologist)
 psychologistRouter.delete('/deleteuserpsychologist/', validatePychologist , deleteUserPsychologist);
