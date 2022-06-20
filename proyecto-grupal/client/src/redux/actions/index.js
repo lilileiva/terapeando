@@ -303,9 +303,10 @@ export const getAllPosts = () => {
     const json = await responseApi.json();
     if (responseApi) {
       dispatch({ type: GET_POSTS, payload: json });
-    } else {
-      Swal.fire("Error", "No Hay Notas Disponibles Vuelve a Intentar", "error");
-    }
+    } 
+    // else {
+    //   Swal.fire("Error", "No Hay Notas Disponibles Vuelve a Intentar", "error");
+    // }
   };
 };
 //buscar notas por titulo

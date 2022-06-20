@@ -222,7 +222,7 @@ function LoginForm() {
                                                     Iniciar sesión
                                                 </Button>
 
-                                                <Login mt='1em' />
+                                                {/* <Login mt='1em' /> */}
                                                 {/* <Button bg='green.100' color={'#63caa7'}> */}
                                                 {/* Inicia sesión con &nbsp; <FaGoogle /> */}
                                                 {/* </Button> */}

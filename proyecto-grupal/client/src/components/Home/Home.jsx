@@ -70,6 +70,7 @@ export default function Home() {
 
   const handleSubmit = () => {
     dispatch(getPsychologistByStatus())
+    setPage(1)
   }
 
   const tokenClient = window.localStorage.getItem('tokenClient')

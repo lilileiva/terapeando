@@ -351,13 +351,13 @@ function RegisterForm() {
                                                 <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='2em'>
                                                     Registrarse
                                                 </Button>
-                                                {
+                                                {/* {
                                                     userClientBtn
                                                         ? <Button bg='green.100' color={'#63caa7'} >
                                                             Registrate con &nbsp; <FaGoogle />
                                                         </Button>
                                                         : null
-                                                }
+                                                } */}
                                                 <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signin')} >
                                                     ¿Ya tienes una cuenta?
                                                 </Button>
