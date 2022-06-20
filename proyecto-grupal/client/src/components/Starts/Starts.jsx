@@ -10,6 +10,7 @@ export default function Starts ({ rating }) {
   return (
     <div className="starts">
        {Array(roundRating).fill(<GoStar size={16} style={{
+
          color: 'orange',
          position: 'relative',
          display: 'inline-block',

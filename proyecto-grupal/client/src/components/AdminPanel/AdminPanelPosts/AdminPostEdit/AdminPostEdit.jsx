@@ -18,11 +18,13 @@ function AdminPostEdit() {
 
   const categories = useSelector((state) => state.categories)
 
+
   const { IdPost } = useParams();
 
   useEffect(() => {
     dispatch(getCategories())
     dispatch(getPostDetail(IdPost))
+
     return () => {
       dispatch(clearStatePostDetail())
     }
@@ -112,8 +114,9 @@ function handleDeleteCategory(category){
                 Swal.fire('Error','Llene los campos correctamente','error')
                 return 
             }else{
-                //creo mi juego
+
                const response = dispatch(putPost(inputText, IdPost));
+
                 setInputText({
                     Date: "",
                     Title:"",

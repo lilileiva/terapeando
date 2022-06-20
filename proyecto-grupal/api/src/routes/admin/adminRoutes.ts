@@ -31,6 +31,7 @@ adminRouter.get("/userpsychologist/:IdUserPsychologist", ValidateAdmin, getPsych
 adminRouter.put("/userpsychologist/put_userpsychologist/:IdUserPsychologist", ValidateAdmin, updateUserPsychologist);
 adminRouter.delete("/deleteuserpsychologist/:IdUserPsychologist", ValidateAdmin, deleteUserPsychologist);
 
+
 //Post
 adminRouter.delete("/deletePost/:IdPost", deletePost);
 
