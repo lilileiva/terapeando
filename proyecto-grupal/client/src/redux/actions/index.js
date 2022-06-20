@@ -10,6 +10,7 @@ import {
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
+  PUT_POSTS,
   LOCAL_HOST,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
@@ -347,6 +348,19 @@ export const addPost = (body) => {
   };
 };
 
+export const putPost = (body, IdPost) => {
+  return async function (dispatch) {
+    try{
+      const {info} = await axios.put(
+        `${baseURL}/edit/${IdPost}`,body
+      )
+      return dispatch({type:PUT_POSTS, pyaload:info})
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
 export const getCategories = () => {
@@ -367,22 +381,6 @@ export const getByCategory = (category) => {
       const jsonBack = await responseBack.json();
       //envio las notas que se filtren con esa catagory
       dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const getPostsAuthors = () => {
-  return async function (dispatch) {
-    try {
-      const response = await fetch(`${baseURL}/author`);
-      const json = await response.json();
-      //json trae un obj de arrays con first y last Name
-      dispatch({
-        type: "GET_POSTS_AUTHORS",
-        payload: json,
-      });
     } catch (error) {
       console.log(error);
     }
@@ -627,11 +625,11 @@ export function clearAdminSearchbar() {
   };
 };
 
-export function AdminDeleteUserClient(id) {
+export function AdminDeleteUserClient(idUserClient) {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/admin/userclient/deleteuserclient/${id}`,
+        `${baseURL}/admin/userclient/deleteuserclient/${idUserClient}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (err) {
@@ -676,11 +674,11 @@ export function AdminGetUserPsychologistByName(name) {
 
 // PUT para editar usuario psicologo
 
-export function AdminEditUserPsichologist(id, updatedUserPsychologist) {
+export function AdminEditUserPsichologist(IdUserPsychologist, updatedUserPsychologist) {
   return async function () {
     try {
       const editPsichologist = axios.put(
-        `${baseURL}/admin/userpsychologist/put_userpsychologist/${id}`,
+        `${baseURL}/admin/userpsychologist/put_userpsychologist/${IdUserPsychologist}`,
         updatedUserPsychologist,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` }
@@ -710,11 +708,11 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
 
 // DELETE user psychologist
 
-export function AdminDeleteUserPsichologist() {
+export function AdminDeleteUserPsichologist(IdUserPsychologist) {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/admin/userpsychologist/deleteuserpsychologist`,
+        `${baseURL}/admin/deleteuserpsychologist/${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (error) {

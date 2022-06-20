@@ -10,6 +10,7 @@ import {
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
+  PUT_POSTS,
   CLEAR_CLIENT,
   GET_PAYMENT,
   GET_PAYMENT_PSY,
@@ -55,7 +56,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         usersClients: action.payload,
-        usersClientsSearch: action.payload
+        usersClientsSearch: action.payload,
       };
     case GET_USERCLIENT:
       return {
@@ -148,7 +149,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
-        postsCopy: action.payload
+        postsCopy: action.payload,
       };
     case "GET_POST_DETAIL":
       return {
@@ -184,6 +185,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: state.posts.filter((posts) => posts.id !== action.payload),
+      };
+    case PUT_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
       };
 
     /*-----------CLEAR-----------*/
