@@ -24,6 +24,8 @@ function LoginForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const [userClientBtn, setUserClientBtn] = useState(true);
+
     //login/logout con google
     useEffect(() => {
         function start() {
@@ -76,13 +78,40 @@ function LoginForm() {
     }
 
     const afterSubmit = async () => {
-        if (Object.keys(formErrors).length === 0) {
-            // console.log('signInForm', signinForm)            
+        if (Object.keys(formErrors).length === 0 && userClientBtn) {
             let response;
             try {
                 response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
                 const token = response.data.token
                 window.localStorage.setItem('tokenClient', token)
+                // console.log('Este es el .data del response', response.data)
+                // console.log('Este es todo el token', token)
+                if (response.status === 200) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Bienvenido',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    navigate('/home')
+                }
+            } catch (error) {
+                setIsSubmit(false);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Datos incorrectos',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }
+        } else if (Object.keys(formErrors).length === 0 && !userClientBtn) {
+            let response;
+            try {
+                response = await axios.post(`${baseURL}/userpsychologist/login`, signinForm)
+                const token = response.data.token
+                window.localStorage.setItem('tokenPsychologist', token)
                 // console.log('Este es el .data del response', response.data)
                 // console.log('Este es todo el token', token)
                 if (response.status === 200) {
@@ -122,27 +151,50 @@ function LoginForm() {
             {
                 tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
             }
-            <Container padding='2em' zIndex='1' pb='10%' centerContent>
+            <Container height='inherit' padding='2em' zIndex='1' pb='10%' centerContent>
                 {
                     tokenClient || tokenPsychologist
                         ? (
-                            <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
-                                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                                    Ya has iniciado sesión
-                                </Text>
-                                <Link to='/home'>
-                                    <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}>
-                                        Ir al home
-                                    </Button>
-                                </Link>
-                            </Box>
+                            <Stack height='inherit'>
+                                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
+                                    <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
+                                        Ya has iniciado sesión
+                                    </Text>
+                                    <Link to='/home'>
+                                        <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}>
+                                            Ir al home
+                                        </Button>
+                                    </Link>
+                                </Box>
+                            </Stack>
                         ) : (
                             <>
                                 <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
                                     Inicia sesión
                                 </Text>
 
-                                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
+                                <Box minWidth='container.sm' direction='row' align='center' >
+                                    <Button
+                                        bg={userClientBtn ? 'green.100' : 'blackAlpha.200'}
+                                        variant='solid'
+                                        width='50%'
+                                        color='teal.800'
+                                        onClick={() => setUserClientBtn(true)}
+                                    >
+                                        Usuario
+                                    </Button>
+                                    <Button
+                                        bg={userClientBtn ? 'blackAlpha.200' : 'green.100'}
+                                        variant='solid'
+                                        width='50%'
+                                        color='teal.800'
+                                        onClick={() => setUserClientBtn(false)}
+                                    >
+                                        Psicólogo
+                                    </Button>
+                                </Box>
+
+                                <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
                                     <Box direction='column' align='center' width='60%'>
                                         <form onSubmit={handleInputSubmit}>
 

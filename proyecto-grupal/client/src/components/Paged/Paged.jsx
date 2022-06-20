@@ -25,9 +25,11 @@ function Paged({postPage, allPosts, paged, page, setPage}) {
       smoothscroll();
     }
 
+
+
    return(
       <>
-      {pages.length < 1 ? <Loader />:
+      {pages.length < 1 ? null :
          <>
          <div className={style.container} >
             <ArrowBackIcon onClick={() => getPrevious(pages)} />

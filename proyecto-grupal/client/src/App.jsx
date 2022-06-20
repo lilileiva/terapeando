@@ -18,7 +18,6 @@ import Faqs from "./components/faqs/Faqs";
 import Payments from "./components/Payments/Payments";
 import PostsDetail from "./components/Post/PostsDetail/PostsDetail.jsx";
 import CheckoutPayment from "./components/Payments/CheckoutPayment";
-import '@stripe/stripe-js'
 import Success from "./components/Payments/CheckoutComponent/Success";
 import Cancel from "./components/Payments/CheckoutComponent/Cancel";
 import AddPost from "./components/AddPost/AddPost";
@@ -34,12 +33,13 @@ import AdminPsichologistEdit from './components/AdminPanel/AdminPanelPsychologis
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDetails/AdminPostDetail";
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
+import AdminPanelStatistics from './components/AdminPanel/AdminPanelStatistics/AdminPanelStatistics.jsx';
 import PaymentsAdmin from './components/AdminPanel/AdminPanelPayments/Components/PaymentsAdmin.jsx';
 import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components/CancelPayment.jsx';
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
-import LoginFormPsychologist from "./components/LoginFormPsychologist/LoginFormPsychologist";
+import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
 
 
 export default function App() {
@@ -51,7 +51,6 @@ export default function App() {
         <Route index element={<LandingPage />} />
         <Route path="/signup" element={<RegisterForm />} />
         <Route path="/signin" element={<LoginForm />} />
-        <Route path="/signin/psychologist" element={<LoginFormPsychologist />} />
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />
@@ -79,12 +78,14 @@ export default function App() {
         <Route path='/adminpanel/psychologists/edit/:idUserPsichologist' element={<AdminPsichologistEdit />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
+        <Route path="/adminpanel/posts/edit/:IdPost" element={<AdminPostEdit/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />
+        <Route path='/adminpanel/statistics' element={<AdminPanelStatistics />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
         <Route path='adminpanel/payments/allpayments' element={<PaymentsAdmin />} />
-        <Route path='adminpanel/cancelpayment' element={<CancelPayment />} />
-        <Route path='adminpanel/accreditedpayment' element={<AccreditedPayment />} />
-        <Route path='adminpanel/estadisticas' element={<Estadisticas />} />
+        <Route path='adminpanel/payments/cancelpayment' element={<CancelPayment />} />
+        <Route path='adminpanel/payments/accreditedpayment' element={<AccreditedPayment />} />
+        <Route path='adminpanel/payments/estadisticas' element={<Estadisticas />} />
       </Routes>
     </div>
   );
