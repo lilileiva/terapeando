@@ -18,17 +18,16 @@ function AdminPostEdit() {
 
   const categories = useSelector((state) => state.categories)
 
-  const { idPost } = useParams();
+  const { IdPost } = useParams();
 
   useEffect(() => {
     dispatch(getCategories())
-    dispatch(getPostDetail(idPost))
+    dispatch(getPostDetail(IdPost))
     return () => {
       dispatch(clearStatePostDetail())
     }
   }, [dispatch])
   const postDetail = useSelector((state) => state.postDetail);
-  console.log(postDetail)
 
   const [inputText, setInputText] = useState({
     Date: "",
@@ -114,8 +113,7 @@ function handleDeleteCategory(category){
                 return 
             }else{
                 //creo mi juego
-                console.log(inputText)
-               const response = dispatch(putPost(inputText));
+               const response = dispatch(putPost(inputText, IdPost));
                 setInputText({
                     Date: "",
                     Title:"",
@@ -125,6 +123,7 @@ function handleDeleteCategory(category){
                 });
                 if(response.status === 201) {
                     Swal.fire('OK','Felicitaciones, tu nota ha sido editada exitosamente','success')
+                    navigate(`/adminpanel/posts/${IdPost}`)
                 } else {
                     Swal.fire('😥','Hubo un error en nuestros servidores','error')
                 }

@@ -71,7 +71,7 @@ function Payments() {
            {psymentsPsy.map((p) => {
              return (
                <Tr>
-                 <Td>{p.createdAt}</Td>
+                 <Td>{p.createdAt.substring(0,10)}</Td>
                  <Td>{p.firstName} {p.lastName}</Td>
                  <Td isNumeric>$ {(p.amount - p.amount*0.04 - p.amount*0.05)}</Td>
                  <Td>{p.type}</Td>

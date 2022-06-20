@@ -5,20 +5,35 @@ import NavBar from "../NavBar/NavBar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Filters from "../Filter/Filter.jsx";
-import { Button, Text } from "@chakra-ui/react";
+import { Button, Stack, Text } from "@chakra-ui/react";
 import { getAllPosts } from "../../redux/actions/index.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "@chakra-ui/react";
 import "./blog.css";
+import { useState } from "react";
+import { useEffect } from "react";
+import Loader from "../Loader/Loader.jsx";
 
 export default function Blog() {
   const dispatch = useDispatch();
-
+  const [loader, setLoader] = useState(false);
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getAllPosts());
   }
 
+  useEffect(() => {
+   dispatch(getAllPosts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, [dispatch]);
+
+const posts =useSelector((state)=>state.posts)
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
@@ -54,7 +69,7 @@ export default function Blog() {
         </div>
         <Filters />
 
-        <Post />
+        {posts && posts.length > 0 ? loader ? <Loader></Loader> : <Post /> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>} 
       </div>
       <Footer />
     </div>

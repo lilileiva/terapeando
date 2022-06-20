@@ -22,7 +22,7 @@ const psychologistRouter: Router = Router();
 psychologistRouter.get('/profile', validatePsychologist, getUserPsychologistOne);
 psychologistRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)
 psychologistRouter.get('/', getUserPsychologist);
-psychologistRouter.get('/status/psycologiststatus', getUserPsychologistByStatus);
+psychologistRouter.get('/status/psycologiststatus', getUserPsychologistByStatus); //Uso admin
 psychologistRouter.post('/', postUserPsychologist); //registro
 psychologistRouter.post('/login', logInPsychologist)
 psychologistRouter.delete('/deleteuserpsychologist/', validatePsychologist , deleteUserPsychologist);

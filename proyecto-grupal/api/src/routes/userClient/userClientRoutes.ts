@@ -14,7 +14,7 @@ const clientRouter: Router = Router();
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)
-clientRouter.delete('/deleteuserclient/:IdUserClient', validateClient, deleteUserClient)
+clientRouter.delete('/deleteuserclient', validateClient, deleteUserClient)
 clientRouter.put('/editprofile', validateClient ,putUserClient)
 
 //Falta middleware solo de admin

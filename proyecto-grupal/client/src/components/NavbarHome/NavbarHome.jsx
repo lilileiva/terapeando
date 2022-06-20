@@ -90,7 +90,7 @@ const dispatch = useDispatch()
   }, [dispatch, tokenClient, tokenPsychologist]);
 
   const clientDetails = useSelector((state) => state.userClientDetail);
-  const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail)
+  const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
   console.log(userPsichologistDetail)
 
   return (
