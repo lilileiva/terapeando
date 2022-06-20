@@ -7,7 +7,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllPsychologist, deleteUserPsichologist, getUserPsychologistByName, clearPsychologistList } from '../../../redux/actions';
+import { AdminGetAllPsychologist, AdminDeleteUserPsichologist, AdminGetUserPsychologistByName, clearPsychologistList } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 import NotFound from '../../404notFound/notFound.jsx';
@@ -19,7 +19,7 @@ function AdminPanelPsychologists() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(getAllPsychologist())
+    dispatch(AdminGetAllPsychologist())
   }, [dispatch])
 
 
@@ -36,7 +36,7 @@ function AdminPanelPsychologists() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserPsichologist(idUserPsichologist))
+        dispatch(AdminDeleteUserPsichologist(idUserPsichologist))
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
@@ -46,7 +46,7 @@ function AdminPanelPsychologists() {
   useEffect(() => {
     if (adminSearchbar.length !== 0) {
       dispatch(clearPsychologistList())
-      dispatch(getUserPsychologistByName(adminSearchbar))
+      dispatch(AdminGetUserPsychologistByName(adminSearchbar))
     }
   }, [dispatch, adminSearchbar])
 
@@ -67,7 +67,7 @@ function AdminPanelPsychologists() {
 
                     <AdminSearchbar />
 
-                    <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllPsychologist())}>
+                    <Button colorScheme='teal' variant='outline' onClick={() => dispatch(AdminGetAllPsychologist())}>
                       <BsPeople />
                       <Text pr='0.5em'> Todos los usuarios</Text>
                     </Button>

@@ -2,26 +2,6 @@ import { Request, Response } from "express";
 import userClientModel from "../../models/userClients";
 
 
-const getAllUserClient = async (req: Request, res: Response) => {
-   const { name } = req.query;
-
-   try {
-      if (name) {
-         const userClient = await userClientModel.find({
-            $or: [{ firstName: { $regex: name, $options: 'i' } },
-            { lastName: { $regex: name, $options: 'i' } }]
-         })
-         res.status(200).json(userClient);
-      } else {
-         const userClients = await userClientModel.find();
-         res.status(200).json(userClients);
-      }
-   }
-   catch (err) {
-      res.status(404).send('There was an error...');
-   }
-};
-
 const getUserClient = async (req: Request, res: Response) => {
    req.user
    try {
@@ -89,7 +69,6 @@ const putUserClient = async (req: Request, res: Response) => {
 
 
 module.exports = {
-   getAllUserClient,
    getUserClient,
    createUserClient,
    deleteUserClient,

@@ -33,7 +33,6 @@
     "dotenv": "^16.0.1",
     "mongoose": "^6.3.5",
     "stripe": "^9.8.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.5"
+    "jsonwebtoken": "^8.5.1"
   }
 }

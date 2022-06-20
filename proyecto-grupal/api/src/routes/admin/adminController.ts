@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import adminModel, { Admin } from "../../models/Admin";
 import userClientModel from "../../models/userClients";
 import userPsychologistModel from "../../models/userPsychologist";
+import userPsychologist from "../../models/userPsychologist";
 import Post from "../../models/Post";
+
 const registerAdmin = async (req: Request, res: Response) => {
     const {
         firstname,
@@ -32,7 +34,39 @@ const registerAdmin = async (req: Request, res: Response) => {
       res.status(401).send(error);
     }
 };
+
 // Controllers clients
+
+const getAllUserClient = async (req: Request, res: Response) => {
+  const { name } = req.query;
+
+  try {
+     if (name) {
+        const userClient = await userClientModel.find({
+           $or: [{ firstName: { $regex: name, $options: 'i' } },
+           { lastName: { $regex: name, $options: 'i' } }]
+        })
+        res.status(200).json(userClient);
+     } else {
+        const userClients = await userClientModel.find();
+        res.status(200).json(userClients);
+     }
+  }
+  catch (err) {
+     res.status(404).send('There was an error...');
+  }
+};
+
+const getUserClientById = async (req: Request, res: Response) => {
+     req.user
+     try {
+        const userClient = await userClientModel.findById(req.user);
+        res.status(200).json(userClient);
+     }
+     catch (err) {
+        res.status(404).send('There was an error...');
+     }
+  };
 
 const updateClientDetails = async (req: Request, res: Response) => {
   const { IdUserClient } = req.params;
@@ -66,6 +100,30 @@ const getClientDetails = async (req: Request, res: Response) => {
 };
 
 //Controller Psychologist
+
+const getAllUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { name } = req.query;
+
+    if (name) {
+      userPsychologist.find({
+        $or: [{ firstName: { $regex: name, $options: 'i' } },
+        { lastName: { $regex: name, $options: 'i' } }]
+      }, '-password')
+        .then((psychologist) => {
+          res.status(200).json(psychologist)
+        })
+        .catch((error: any) => next(error))
+    } else {
+      const userPsychologist = await userPsychologistModel.find({}, '-password');
+      res.status(200).json(userPsychologist)
+    }
+
+  } catch (err) {
+    res.status(404).json({ data: err })
+  }
+}
+
 const getPsychologistDetail = async (req: Request, res: Response) => {
   try {
     const { IdUserPsychologist } = req.params;
@@ -118,11 +176,15 @@ const deletePost = async (req: Request, res: Response) => {
      res.status(404).send('error: ' + err);
   }
 }
+
 module.exports = {
   registerAdmin,
   updateClientDetails,
+  getAllUserClient,
+  getUserClientById,
   getClientDetails,
   deleteClient,
+  getAllUserPsychologist,
   getPsychologistDetail,
   updateUserPsychologist,
   deleteUserPsychologist,
