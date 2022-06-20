@@ -6,13 +6,14 @@ import Footer from "../Footer/Footer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Filters from "../Filter/Filter.jsx";
 import { Button, Stack, Text } from "@chakra-ui/react";
-import { getAllPosts } from "../../redux/actions/index.js";
+import { getAllPosts, clearStatePostDetail, searchPostsByTitle, clearAdminSearchbar } from "../../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "@chakra-ui/react";
 import "./blog.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import Loader from "../Loader/Loader.jsx";
+
 
 export default function Blog() {
   const dispatch = useDispatch();
@@ -24,7 +25,11 @@ export default function Blog() {
 
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [dispatch]);
+    return () => {
+      dispatch(clearStatePostDetail())
+      dispatch(clearAdminSearchbar())
+    }
+  }, [dispatch, getAllPosts, clearStatePostDetail, clearAdminSearchbar]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,6 +40,15 @@ export default function Blog() {
   const posts = useSelector((state) => state.posts)
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
+
+  const adminSearchbar = useSelector((state) => state.adminSearchbar)
+  useEffect(() => {
+    if (adminSearchbar.length !== 0) {
+      dispatch(clearStatePostDetail())
+      dispatch(searchPostsByTitle(adminSearchbar))
+    }
+  }, [dispatch, adminSearchbar])
 
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
@@ -53,7 +67,7 @@ export default function Blog() {
               Notas sobre psicología
             </Text>
             <div className="syb">
-              <SearchBar />
+              <SearchBar />              
               <Button className="btn" onClick={(e) => handleSubmit(e)}>
                 Todas las notas
               </Button>
