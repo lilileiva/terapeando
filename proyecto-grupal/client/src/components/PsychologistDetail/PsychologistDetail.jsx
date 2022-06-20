@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, getUserPsychologistOne } from "../../redux/actions";
+import { clear, getUserPsychologistDetails } from "../../redux/actions";
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
@@ -21,6 +21,7 @@ export default function PsychologistDetail() {
   const [loader, setLoader] = useState(false);
   const detail = useSelector((state) => state.userPsichologistDetail);
   const navigate = useNavigate();
+  console.log(detail)
   // useEffect(() => {
   //   dispatch(getUserPsychologistOne(idPsychologist));
   //   smoothscroll()
@@ -29,8 +30,10 @@ export default function PsychologistDetail() {
   //   };
   // }, [dispatch, idPsychologist]);
 
+
+
   useEffect(() => {
-    dispatch(getUserPsychologistOne(idPsychologist));
+    dispatch(getUserPsychologistDetails(idPsychologist));
     setLoader(true);
     smoothscroll()
     setTimeout(() => {
@@ -97,7 +100,6 @@ export default function PsychologistDetail() {
                         {` 🎂 ${detail.birthDate}`}
                       </Text>
                     </Box>
-
 
 
                     <Flex className="BoxDetail" marginLeft={'56'} justifyContent='space-around' borderRadius={'10px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>

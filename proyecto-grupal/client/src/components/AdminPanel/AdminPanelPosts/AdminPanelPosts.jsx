@@ -124,7 +124,6 @@ function AdminPanelPosts() {
                                 <BsPencilSquare size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/edit/${post._id}`)} />
                                 <BsFillFileEarmarkXFill size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(post._id)} />
                               </Stack>
-
                             </Stack>
                             <hr />
                           </>

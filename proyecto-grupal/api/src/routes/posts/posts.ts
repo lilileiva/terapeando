@@ -160,6 +160,7 @@ const deletePost = async (req: Request, res: Response) => {
 }
 //editando nota
 const putPost = async (req: Request, res: Response) => {
+
   const {IdPost} = req.params;
   try {
      const post = await Post.findByIdAndUpdate(IdPost, req.body)

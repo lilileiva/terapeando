@@ -12,11 +12,11 @@ const getAllPayments = async (req: Request, res: Response) => {
 }
 
 const createPayment = async (req: Request, res: Response) =>{
-    const { amount, city, country, firstName, lastName, currency, idClient, celphone, email, address, psyName, idPsychologist } = req.body
+    const { amount, city, country, firstName, lastName, currency, celphone, email, address, psyName, idPsychologist, status } = req.body
     try{
         const newPayment =  new paymentHistoryModel({
             idPsychologist: idPsychologist,
-            idClient: idClient,
+            idClient: req.user,
             firstName: firstName,
             lastName: lastName,
             country: country,
@@ -27,6 +27,7 @@ const createPayment = async (req: Request, res: Response) =>{
             amount: amount,
             currency: currency,
             psyName: psyName,
+            status: status,
         })
 
         console.log('This is newPayment: ',newPayment)
@@ -42,20 +43,29 @@ const createPayment = async (req: Request, res: Response) =>{
 
 
 const getPaymentByClientId = async (req: Request, res: Response) => {
-    const { clientId } = req.params;
-    console.log(clientId)
     try {
-     const payment = await paymentHistoryModel.find({idClient: clientId});
-     console.log(payment)
+     const payment = await paymentHistoryModel.find({idClient: req.user});
         res.status(200).json(payment);
-
+    
     } catch (error) {
         res.status(404).send(error);
     }
 };
 
+const getPaymentByPsychologistId = async (req: Request, res: Response) => {
+    req.user
+    try{
+     const payment = await paymentHistoryModel.find({idPsychologist: req.user});
+     res.status(200).json(payment);
+     console.log(payment);
+    }catch(error){
+        res.status(404).send(error);
+    }
+}
+
 module.exports = {
     getPaymentByClientId,
     createPayment,
-    getAllPayments
+    getAllPayments,
+    getPaymentByPsychologistId
 }

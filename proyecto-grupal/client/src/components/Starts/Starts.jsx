@@ -7,6 +7,8 @@ export default function Starts ({ rating }) {
 
   const roundRating = Math.round(rating)
 
+
+
   return (
     <div className="starts">
        {Array(roundRating).fill(<GoStar size={16} style={{
