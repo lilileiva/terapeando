@@ -104,7 +104,7 @@ function AdminPostDetail() {
                 </Stack>
 
               </Stack>
-
+              </Stack>
               <Footer />
             </div>
           ) : (

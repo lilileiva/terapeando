@@ -23,7 +23,8 @@ export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
-
+  const [loader, setLoader] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   useEffect(() => {
     dispatch(getPsychologistByStatus());
     smoothscroll();
@@ -33,8 +34,26 @@ export default function Home() {
     if (adminSearchbar.length !== 0) {
       dispatch(clearPsychologistList());
       dispatch(getUserPsychologistByName(adminSearchbar));
+      setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
     }
   }, [dispatch, adminSearchbar]);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   setErrorMessage(true);
+  //   setTimeout(() => {
+  //     setErrorMessage(false);
+  //   }, 5000);
+  // }, [dispatch]);
 
   /* Paginado */
   const [page, setPage] = useState(1);
@@ -85,8 +104,7 @@ export default function Home() {
         <Stack width="100%" direction="row">
           <FiltersPsichologist />
         </Stack>
-
-        {AllPsychologist && AllPsychologist.length > 0 ?
+      { loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ? 
           AllPsychologists.map(el => {
             { console.log(el.status) }
             return (
@@ -104,8 +122,7 @@ export default function Home() {
                 Specialties={el.Specialties}
               />
             )
-          }) : null
-        }
+          }) : loader ? <Loader></Loader> : 'No hay resultados' }
 
         {/* <Psychologists></Psychologists> */}
       </div>
