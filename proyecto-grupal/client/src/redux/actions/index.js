@@ -18,6 +18,7 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
+  CLEAR_ADMIN_SEARCHBAR,
   GET_PAYMENT, 
   GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
@@ -617,6 +618,12 @@ export function adminSearchbar(inputText) {
     type: ADMIN_SEARCHBAR,
     payload: inputText
 
+  };
+};
+
+export function clearAdminSearchbar() {
+  return {
+    type: CLEAR_ADMIN_SEARCHBAR
   };
 };
 

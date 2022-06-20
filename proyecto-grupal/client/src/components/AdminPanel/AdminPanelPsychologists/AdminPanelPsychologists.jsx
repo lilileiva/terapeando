@@ -7,7 +7,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllPsychologist, deleteUserPsichologist, getUserPsychologistByName, clearPsychologistList } from '../../../redux/actions';
+import { getAllPsychologist, deleteUserPsichologist, getUserPsychologistByName, clearPsychologistList, clearAdminSearchbar } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 import NotFound from '../../404notFound/notFound.jsx';
@@ -20,6 +20,10 @@ function AdminPanelPsychologists() {
 
   useEffect(() => {
     dispatch(getAllPsychologist())
+    return () => {
+      dispatch(clearAdminSearchbar())
+      dispatch(clearPsychologistList())
+    }
   }, [dispatch])
 
 

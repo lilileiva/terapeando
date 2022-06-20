@@ -18,6 +18,7 @@ import {
   GET_RANGE_BY_DATE,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
+  CLEAR_ADMIN_SEARCHBAR,
   ADMIN_SEARCHBAR,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS
@@ -30,6 +31,7 @@ const initialState = {
   UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
+  usersClientsSearch: [],
   posts: [],
   postsCopy: [],
   categories: [],
@@ -54,7 +56,8 @@ function rootReducer(state = initialState, action) {
     case GET_USER_CLIENTS_BY_NAME:
       return {
         ...state,
-        usersClients: action.payload,
+        usersClientsSearch: action.payload,
+        usersClients: action.payload
       };
     case GET_USERCLIENT:
       return {
@@ -86,7 +89,7 @@ function rootReducer(state = initialState, action) {
         allUsersPsichologists: action.payload,
         UserPsichologists: action.payload,
       };
-    
+
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
       return {
         ...state,
@@ -187,32 +190,7 @@ function rootReducer(state = initialState, action) {
         posts: state.posts.filter(posts => posts.id !== action.payload)
       }
 
-    /*-----------CLEAR-----------*/
-    case CLEAR_CLIENT:
-      return {
-        ...state,
-        userClientDetail: [],
-      };
-    case CLEAR_PSYCHOLOGIST:
-      return {
-        ...state,
-        userPsichologistDetail: {},
-      };
-    case CLEAR_CLIENT_LIST:
-      return {
-        ...state,
-        allUsersPsichologists: [],
-      };
-    case CLEAR_PSYCHOLOGIST_LIST:
-      return {
-        ...state,
-        allUsersPsichologists: [],
-      };
-    case ADMIN_SEARCHBAR:
-      return {
-        ...state,
-        adminSearchbar: action.payload,
-      };
+    /*-----------PAYMENT-----------*/
     case GET_PAYMENT:
       return {
         ...state,
@@ -230,9 +208,9 @@ function rootReducer(state = initialState, action) {
       };
     case GET_RANGE_BY_DATE:
       const allPayments = state.allPayments;
-      const filterByMonth = allPayments.filter((p) => 
+      const filterByMonth = allPayments.filter((p) =>
         p.createdAt?.some((date) => (new Date(p.createdAt).getUTCMonth() + 1) === action.payload)
-      ) 
+      )
       return {
         ...state,
         allPayments: filterByMonth
@@ -240,16 +218,49 @@ function rootReducer(state = initialState, action) {
     case SORT_BY_DATE:
       let sortedPayments = [state.allPayments];
       sortedPayments = action.payload === "asc" ?
-      state.allPayments.sort(function(a, b){
+        state.allPayments.sort(function (a, b) {
           return new Date(a.createdAt) - new Date(b.createdAt)
         })
-        : state.allPayments.sort(function(a,b){
+        : state.allPayments.sort(function (a, b) {
           return new Date(b.createdAt) - new Date(a.createdAt)
-        })    
+        })
       return {
-          ...state,
-          allPayments: sortedPayments
+        ...state,
+        allPayments: sortedPayments
       }
+
+    /*-----------SEARCHBAR-----------*/
+    case ADMIN_SEARCHBAR:
+      return {
+        ...state,
+        adminSearchbar: action.payload,
+      };
+    /*-----------CLEAR-----------*/
+    case CLEAR_CLIENT:
+      return {
+        ...state,
+        userClientDetail: [],
+      };
+    case CLEAR_PSYCHOLOGIST:
+      return {
+        ...state,
+        userPsichologistDetail: {},
+      };
+    case CLEAR_CLIENT_LIST:
+      return {
+        ...state,
+        usersClients: [],
+      };
+    case CLEAR_PSYCHOLOGIST_LIST:
+      return {
+        ...state,
+        allUsersPsichologists: [],
+      };
+    case CLEAR_ADMIN_SEARCHBAR:
+      return {
+        ...state,
+        adminSearchbar: [],
+      };
     default:
       return { ...state };
   }
