@@ -1,6 +1,4 @@
 import {prop, getModelForClass, Ref} from '@typegoose/typegoose'
-import { userClient } from './userClients'
-import { userPsychologist } from './userPsychologist'
 
 export class paymentHistory{
    
@@ -48,6 +46,9 @@ export class paymentHistory{
 
    @prop({default: Date.now()})
    createdAt: Date 
+
+   @prop({type: Boolean})
+   status: boolean
 }
 
 const paymentHistoryModel = getModelForClass(paymentHistory)

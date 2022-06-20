@@ -6,6 +6,15 @@ import userPsychologist from "../../models/userPsychologist";
 
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
+    try {
+      const psychologistUser = await userPsychologistModel.findById(req.user, '-password');
+      res.status(200).json(psychologistUser)
+    } catch (err) {
+      res.status(404).json({ data: err })
+    }
+}
+
+const getPsychologistDetails = async (req: Request, res: Response) => {
   const {IdUserPsychologist} = req.params
   try {
     const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist, '-password');
@@ -201,5 +210,6 @@ module.exports = {
   filterPsichologistSpecialities,
   //filterPsichologistRating,
   getUserPsychologistByStatus,
-  getReviews
+  getReviews,
+  getPsychologistDetails
 }

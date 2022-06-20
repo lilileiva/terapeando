@@ -54,7 +54,7 @@ function AdminPanelPayments() {
               </Link>
             </WrapItem>
             <WrapItem>
-              <Link to=''>
+              <Link to='estadisticas'>
                 <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100' }}>
                   <Stack direction='column' align='center'>
                     <BsKanban size='50%' />

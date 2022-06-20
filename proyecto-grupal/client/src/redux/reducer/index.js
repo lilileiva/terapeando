@@ -22,14 +22,13 @@ import {
   ADMIN_SEARCHBAR,
   PUT_POSTS,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS,
-  
-
+  GET_ALL_PSYCHOLOGIST_BY_STATUS
 } from "../actions/types";
 
 const initialState = {
   userPsichologistDetail: {},
-  allUsersPsichologists: [], // actual 
+  psychologistProfile: [],
+  allUsersPsichologists: [], // actual
   UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
@@ -106,9 +105,8 @@ function rootReducer(state = initialState, action) {
     case "GET_PSYCHOLOGISTS_ONE":
       return {
         ...state,
-        userPsichologistDetail: action.payload,
+        psychologistProfile: action.payload,
       };
-   
     case "GET_BY_CATEGORY_POST":
       return {
         ...state,
