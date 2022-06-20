@@ -331,7 +331,7 @@ export const addPost = (body) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.post(
-        `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
+        `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }}
       )
       return dispatch({
         type: "CREATE_POST",
