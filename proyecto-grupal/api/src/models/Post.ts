@@ -2,7 +2,7 @@ import {prop,Ref, getModelForClass} from '@typegoose/typegoose'
 import {userPsychologist} from './userPsychologist'
 
 class Post {
-    @prop()
+    @prop({default:Date.now()})
     Date: string;
     @prop()
     Title:string;

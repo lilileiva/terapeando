@@ -110,7 +110,7 @@ function AdminPanelPosts() {
                     <ul className="userClientsList">
                       {allPosts.map((post) => (
                         <>
-                          <hr />
+                        <hr />
                           <Stack
                             w="100%"
                             direction="row"
@@ -125,9 +125,7 @@ function AdminPanelPosts() {
                               align="center"
                               cursor="pointer"
                               onClick={() =>
-                                navigate(`/adminpanel/posts/${post._id}`)
-                              }
-                            >
+                                navigate(`/adminpanel/posts/${post._id}`)}>
                               <Avatar src={post.Image}></Avatar>
                               <Text fontSize="xl">{post.Title}</Text>
                             </Stack>
