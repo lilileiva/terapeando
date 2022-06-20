@@ -157,7 +157,17 @@ const deletePost = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(404).send("error: " + err);
   }
-};
+}
+//editando nota
+const putPost = async (req: Request, res: Response) => {
+  const {IdPost} = req.params;
+  try {
+     const post = await Post.findByIdAndUpdate(IdPost, req.body)
+     res.status(200).send('Post editado correctamente')
+  } catch (err) {
+     res.status(404).send('There was an error...');
+  }
+}
 module.exports = {
   createPost,
   getAllPosts,
@@ -166,4 +176,5 @@ module.exports = {
   getOnePost,
   //getPostAuthors,
   deletePost,
+  putPost
 };

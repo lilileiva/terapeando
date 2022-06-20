@@ -45,11 +45,12 @@ export default function PsychologistDetail() {
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>
       {
-        tokenClient || tokenPsychologist
+        tokenClient || tokenPsychologist || tokenAdmin
           ? (
             <div>
               <NavbarHome />
@@ -117,10 +118,14 @@ export default function PsychologistDetail() {
                     </Text>
                   </Box>
                   <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
-                    <Text className="HeadingDetail" >
-                      Mi calificación promedio 😊: 
-                      { detail.rating ? <Starts rating={5} />: null}
-                    </Text>
+                    {
+                      detail.rating
+                        ? (
+                          <Text className="HeadingDetail" >
+                            Mi calificación promedio 😊: <Starts rating={detail.rating} />
+                          </Text>
+                        ) : null
+                    }
                     {<Reviews />}
                   </Box>
                 </>}

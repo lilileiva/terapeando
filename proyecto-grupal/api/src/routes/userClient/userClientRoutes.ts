@@ -17,5 +17,6 @@ clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)
 clientRouter.delete('/deleteuserclient/', validateClient, deleteUserClient)
 clientRouter.put('/', validateClient, putUserClient)
+
 //Falta middleware solo de admin
 module.exports = clientRouter;

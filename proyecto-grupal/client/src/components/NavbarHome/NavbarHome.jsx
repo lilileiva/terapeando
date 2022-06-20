@@ -158,7 +158,6 @@ const dispatch = useDispatch()
                 <Link to={`/editprofile/${clientDetails.firstName}`}>
                   <MenuItem>Editar Perfil</MenuItem>
                 </Link>
-                <MenuItem>Mis Pagos</MenuItem>
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
                 </Link>        

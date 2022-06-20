@@ -16,7 +16,6 @@ export default function Filters() {
 
   useEffect(() => {
     dispatch(getCategories());
-    dispatch(getAllPsychologist());
   }, [dispatch]);
 
   function handleSubmitOrder(e) {
