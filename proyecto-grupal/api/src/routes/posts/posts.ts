@@ -91,27 +91,6 @@ const getAllCategory = (req: Request, res: Response, next: NextFunction) => {
     .catch((error: error) => next(error));
 };
 
-// const getPostAuthors = async (req: Request, res: Response) => {
-//   try {
-//     const allPosts = await Post.find().populate("idUserPsychologist", {
-//       firstName: 1,
-//       lastName: 1,
-//       email: 1,
-//     });
-//     const authors = allPosts.map((au) => {
-//       return au.idUserPsychologist;
-//     });
-//     console.log(authors)
-//     let authorsFiltered = authors.filter((au: any) => {
-//       const author = au.firstName + " " +  au.lastName
-//       return author
-//     })
-//     res.status(200).json(authorsFiltered);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 const filterPostsCategory = async (
   req: Request,
   res: Response,
@@ -138,16 +117,6 @@ const filterPostsCategory = async (
   res.json(postFilters);
 };
 
-// const filterPostsByAuthor = async (req: Request, res: Response,) => {
-//   const { author } = req.params;
-//   // console.log('autorBack: ', author);
-//   const postTotals = await Post.find().populate("idUserPsychologist", {
-//     firstName: 1,
-//     lastName: 1,
-//   });
-//   res.json(postTotals);
-// };
-
 //eliminar nota
 const deletePost = async (req: Request, res: Response) => {
   const { IdPost } = req.params;
@@ -158,6 +127,19 @@ const deletePost = async (req: Request, res: Response) => {
     res.status(404).send("error: " + err);
   }
 };
+
+//editando nota
+const putPost = async (req: Request, res: Response) => {
+
+  const {IdPost} = req.params;
+  try {
+     const post = await Post.findByIdAndUpdate(IdPost, req.body)
+
+     res.status(200).send('Post editado correctamente')
+  } catch (err) {
+     res.status(404).send('There was an error...');
+  }
+}
 module.exports = {
   createPost,
   getAllPosts,
