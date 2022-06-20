@@ -115,7 +115,7 @@ function handleDeleteCategory(category){
             }else{
                 //creo mi juego
                 console.log(inputText)
-               const response = dispatch(putPost(inputText));
+                dispatch(putPost(inputText, idPost));
                 setInputText({
                     Date: "",
                     Title:"",
@@ -123,12 +123,6 @@ function handleDeleteCategory(category){
                     Image: "",
                     Tags: [],
                 });
-                if(response.status === 201) {
-                    Swal.fire('OK','Felicitaciones, tu nota ha sido editada exitosamente','success')
-                } else {
-                    Swal.fire('😥','Hubo un error en nuestros servidores','error')
-                }
-                
             }
             //navigate('/home')
         }

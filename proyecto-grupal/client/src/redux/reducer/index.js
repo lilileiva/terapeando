@@ -178,21 +178,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         categories: action.payload,
       };
-    case "GET_BY_CATEGORY_POST":
-      return {
-        ...state,
-        posts: action.payload,
-      };
     case "DELETE_POST":
       return {
         ...state,
         posts: state.posts.filter(posts => posts.id !== action.payload)
       }
+    case "CREATE_POST":
+      return{
+        ...state,
+        posts:[...state.posts,action.payload]
+    }
     case PUT_POSTS:
       return{
         ...state,
-        posts: action.payload
-      }
+        posts:[...state.posts,action.payload]
+    }
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:

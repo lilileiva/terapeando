@@ -399,12 +399,14 @@ export const addPost = (body) => {
 export const putPost = (body, id) => {
   return async function (dispatch) {
     try{
-      const {info} = await axios.post(
+      const {info} = await axios.put(
         `${baseURL}/edit/${id}`,body
       )
-      return dispatch({type:PUT_POSTS, pyaload:info})
+      dispatch({type:PUT_POSTS, pyaload:info})
+      Swal.fire('Post editada correctamente!', 'muy bien', 'success')
     }catch(e){
       console.log(e)
+      Swal.fire('Error', `No se puede editar la nota por ${e}`,'error')
     }
   }
 }
@@ -414,8 +416,10 @@ export const deletePost = (id) => {
     try {
       await axios.delete(`${baseURL}/deletePost/${id}`)
       dispatch({ type: "DELETE_POST", payload: id })
+      Swal.fire('Post eliminado correctamente!', '', 'success')
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
     }
   };
 };
@@ -453,21 +457,6 @@ export const clearStatePostDetail = () => {
   };
 };
 
-// export const getPostsAuthors = () => {
-//   return async function (dispatch) {
-//     try {
-//       const response = await fetch(`${baseURL}/posts/authors`);
-//       const json = await response.json();
-//       //json trae un obj de arrays con first y last Name
-//       dispatch({
-//         type: "GET_POSTS_AUTHORS",
-//         payload: json,
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
 export const getPostsAuthors = () => {
   return async function (dispatch) {
     try {
