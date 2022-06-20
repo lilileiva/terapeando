@@ -49,7 +49,8 @@ function AdminPostDetail() {
 
   return (
     <>
-      {tokenAdmin ? (
+      {tokenAdmin ? 
+      (
         <div className="adminPanelContainer">
           <AdminPanelNavbar />
 
@@ -122,10 +123,10 @@ function AdminPostDetail() {
                       <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>
                   </Stack>
-
+                
                 </Stack>
-
-              </Stack>
+             
+                </Stack>
               </Stack>
               <Footer />
             </div>
