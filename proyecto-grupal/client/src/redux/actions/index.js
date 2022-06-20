@@ -530,11 +530,11 @@ export const signInAdmin = (signupForm) => {
 };
 
 //------>          admin clients actions 
-export function AdminGetUserClient(idClient) {
+export function AdminGetUserClient(idUserClient) {
   return function (dispatch) {
     axios
       .get(
-        `${baseURL}/admin/userclient/client/:${idClient}`,
+        `${baseURL}/admin/userclient/clients/${idUserClient}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       )
       .then((client) => {
@@ -588,7 +588,7 @@ export function AdminEditClient(id, updatedUserClient) {
   return async function () {
     try {
       const data = await axios.put(
-        `${baseURL}/admin/userclient/${id}`,
+        `${baseURL}/admin/userclient/update/${id}`,
         updatedUserClient,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
@@ -599,11 +599,11 @@ export function AdminEditClient(id, updatedUserClient) {
   };
 }
 
-export function AdminDeleteUserClient(id) {
+export function AdminDeleteUserClient(IdUserPsychologist) {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/admimn/userclient/deleteuserclient/${id}`,
+        `${baseURL}/admin/userclient/deleteuserclient/${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (err) {

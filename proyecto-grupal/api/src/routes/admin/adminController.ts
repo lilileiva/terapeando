@@ -5,6 +5,7 @@ import userPsychologistModel from "../../models/userPsychologist";
 import userPsychologist from "../../models/userPsychologist";
 import Post from "../../models/Post";
 
+
 const registerAdmin = async (req: Request, res: Response) => {
     const {
         firstname,
@@ -58,9 +59,9 @@ const getAllUserClient = async (req: Request, res: Response) => {
 };
 
 const getUserClientById = async (req: Request, res: Response) => {
-     req.user
+     const  { IdUserClient } = req.params;
      try {
-        const userClient = await userClientModel.findById(req.user);
+        const userClient = await userClientModel.findById(IdUserClient);
         res.status(200).json(userClient);
      }
      catch (err) {

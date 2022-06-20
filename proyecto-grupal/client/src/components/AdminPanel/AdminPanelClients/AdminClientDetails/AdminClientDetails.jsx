@@ -49,7 +49,7 @@ function AdminClientDetails() {
     }).then((result) => {
       if (result.isDenied) {
         dispatch(AdminDeleteUserClient(clientId));
-        navigate("/adminpanel/clients");
+        navigate('/adminpanel/clients');
         Swal.fire("Usuario eliminado correctamente!", "", "success");
       }
     });
@@ -127,45 +127,26 @@ function AdminClientDetails() {
                             <Text fontSize="xl"> {userClientDetail.email} </Text>
                           </Stack>
                           <br />
+                          <Stack direction='row'>
 
-                          <Stack direction="row">
-                            <br />
-                            <Stack direction='row'>
-                              <Text fontSize='xl' fontWeight='600'> País: </Text>
-                              <Text fontSize='xl'> {userClientDetail.country} </Text>
-                            </Stack>
-                            <br />
-                            <Stack direction='row'>
-                              <Text fontSize='xl' fontWeight='600'> Fecha de nacimiento: </Text>
-                              <Text fontSize='xl'> {userClientDetail.birthDate} </Text>
-                            </Stack>
-                            <br />
-                            <Stack direction='row'>
-                              <Text fontSize='xl' fontWeight='600'> Email: </Text>
-                              <Text fontSize='xl'> {userClientDetail.email} </Text>
-                            </Stack>
-                            <br />
-                            <Stack direction='row'>
-
-                              <Stack direction='column'>
-                                <Stack direction='row' justify='center'>
-                                  <Text fontSize='xl' fontWeight='600'> Rol: </Text>
-                                  <Text fontSize='xl'> {userClientDetail.role} </Text>
-                                </Stack>
-                                <br />
-                                <Stack direction='row'>
-                                  <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/clients/edit/${userClientDetail._id}`)}>
-                                    <BsPencilSquare />
-                                    <Text pr='0.5em'> Editar rol</Text>
-                                  </Button>
-                                  <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
-                                    <CloseIcon />
-                                    <Text pr='0.5em'> Eliminar usuario</Text>
-                                  </Button>
-                                </Stack>
+                            <Stack direction='column'>
+                              <Stack direction='row' justify='center'>
+                                <Text fontSize='xl' fontWeight='600'> Rol: </Text>
+                                <Text fontSize='xl'> {userClientDetail.role} </Text>
                               </Stack>
-
+                              <br />
+                              <Stack direction='row'>
+                                <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/clients/edit/${userClientDetail._id}`)}>
+                                  <BsPencilSquare />
+                                  <Text pr='0.5em'> Editar rol</Text>
+                                </Button>
+                                <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
+                                  <CloseIcon />
+                                  <Text pr='0.5em'> Eliminar usuario</Text>
+                                </Button>
+                              </Stack>
                             </Stack>
+
                           </Stack>
                         </Stack>
                       ) : (

@@ -20,10 +20,10 @@ adminRouter.post("/logIn", logInAdmin);
 adminRouter.post("/signUp", registerAdmin);
 
 //Rutas admin cliente
-adminRouter.get('/client/', ValidateAdmin, getUserClientById);
+adminRouter.get('/userclient/clients/:IdUserClient', ValidateAdmin, getUserClientById);
 adminRouter.get('/userclient/clients', ValidateAdmin, getAllUserClient);
-adminRouter.put("/update/:IdUserClient", ValidateAdmin, updateClientDetails);
-adminRouter.delete("/deleteuserclient/:IdUserClient", ValidateAdmin, deleteClient);
+adminRouter.put("/userclient/update/:IdUserClient", ValidateAdmin, updateClientDetails);
+adminRouter.delete("/userclient/deleteuserclient/:IdUserClient", ValidateAdmin, deleteClient);
 
 //Rutas admin psicologo
 adminRouter.get("/userpsychologist", ValidateAdmin, getAllUserPsychologist);

@@ -28,6 +28,7 @@ function AdminPanelClients() {
   }, [dispatch, AdminGetAllUserClients, clearAdminSearchbar, clearClientList])
 
   const allUserClients = useSelector((state) => state.usersClients);
+
   let usersClientsSearch = useSelector((state) => state.usersClientsSearch);
 
   const handleAlertDelete = (clientId) => {
@@ -42,7 +43,7 @@ function AdminPanelClients() {
     }).then((result) => {
       if (result.isDenied) {
         dispatch(AdminDeleteUserClient(clientId))
-        dispatch(AdminGetAllUserClients())
+        dispatch(AdminGetAllUserClients())        
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
