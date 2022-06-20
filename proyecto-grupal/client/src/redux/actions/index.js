@@ -420,11 +420,11 @@ export const addPost = (body) => {
 export const putPost = (body, id) => {
   return async function (dispatch) {
     try{
-      const {info} = await axios.post(
+      const {info} = await axios.put(
         `${baseURL}/edit/${id}`,body
       )
       dispatch({type:PUT_POSTS, pyaload:info})
-      Swal.fire('Post editada correctamente!', '', 'success')
+      Swal.fire('Post editada correctamente!', 'muy bien', 'success')
     }catch(e){
       console.log(e)
       Swal.fire('Error', `No se puede editar la nota por ${e}`,'error')

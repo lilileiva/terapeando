@@ -46,7 +46,7 @@ function AdminPanelPosts() {
     }
   }, [dispatch, adminSearchbar])
 
-  const token = window.localStorage.getItem('token')
+  const token = true;
 
   return (
     <>
