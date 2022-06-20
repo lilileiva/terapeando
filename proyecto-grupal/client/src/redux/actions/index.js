@@ -599,11 +599,11 @@ export function AdminEditClient(id, updatedUserClient) {
   };
 }
 
-export function AdminDeleteUserClient(IdUserPsychologist) {
+export function AdminDeleteUserClient(idUserClient) {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/admin/userclient/deleteuserclient/${IdUserPsychologist}`,
+        `${baseURL}/admin/userclient/deleteuserclient/${idUserClient}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (err) {
@@ -679,11 +679,11 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
 };
 
 // DELETE user psychologist
-export function AdminDeleteUserPsichologist() {
+export function AdminDeleteUserPsichologist(IdUserPsychologist) {
   return async function () {
     try {
       await axios.delete(
-        `${baseURL}/userpsychologist/deleteuserpsychologist`,
+        `${baseURL}/admin/deleteuserpsychologist/${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (error) {

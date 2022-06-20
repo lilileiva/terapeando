@@ -149,7 +149,7 @@ function RegisterForm() {
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0 && !userClientBtn) {
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
             if (response.status === 201) {
-                navigate('/signin/psychologist')
+                navigate('/signin')
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

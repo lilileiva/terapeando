@@ -116,10 +116,14 @@ export default function PsychologistDetail() {
                     </Text>
                   </Box>
                   <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
-                    <Text className="HeadingDetail" >
-                      Mi calificación promedio 😊: <Starts
-                        rating={detail.rating} />
-                    </Text>
+                    {
+                      detail.rating
+                        ? (
+                          <Text className="HeadingDetail" >
+                            Mi calificación promedio 😊: <Starts rating={detail.rating} />
+                          </Text>
+                        ) : null
+                    }
                     {<Reviews />}
                   </Box>
                 </>}
