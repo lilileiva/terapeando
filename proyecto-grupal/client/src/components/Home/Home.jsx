@@ -25,7 +25,7 @@ export default function Home() {
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+
   useEffect(() => {
     dispatch(getPsychologistByStatus());
     smoothscroll();
@@ -76,7 +76,7 @@ export default function Home() {
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
-    <div>
+    <Stack>
       {
         tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
       }
@@ -123,7 +123,7 @@ export default function Home() {
                 Specialties={el.Specialties}
               />
             )
-          }) : loader ? <Loader></Loader> : 'No hay resultados' }
+          }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>  }
 
         {/* <Psychologists></Psychologists> */}
       </div>
@@ -135,6 +135,6 @@ export default function Home() {
         setPage={setPage}
       />
       <Footer />
-    </div>
+    </Stack>
   );
 }
