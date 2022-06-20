@@ -59,7 +59,7 @@ function AdminPanelSidebar() {
             Historial de pagos
           </Button>
         </NavLink>
-        <NavLink exact to='/adminpanel/estadisticas'
+        <NavLink exact to='/adminpanel/statistics'
           className='sidebarButtons'
           style={({ isActive }) => ({
             color: isActive ? '#63caa7' : 'white',

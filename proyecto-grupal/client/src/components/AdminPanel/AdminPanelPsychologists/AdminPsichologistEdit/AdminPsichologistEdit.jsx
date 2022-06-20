@@ -7,7 +7,7 @@ import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, FormControl, FormLabel, FormErrorMessage, FormHelperText, Input, Select, Switch } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch, BsChevronCompactLeft, } from "react-icons/bs";
-import { editUserPsichologist, getUserPsychologistOne, deleteUserPsichologist } from '../../../../redux/actions';
+import { AdminEditUserPsichologist, AdminGetUserPsychologistDetail, AdminDeleteUserPsichologist } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 
@@ -16,17 +16,14 @@ export default function AdminPsichologisttDetails() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
-
     const { idUserPsichologist } = useParams();
+
     useEffect(() => {
-        dispatch(getUserPsychologistOne(idUserPsichologist))
+        dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
 
     }, [dispatch])
 
     const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
-    
-
 
     const handleAlertEdit = (e, psychologistId) => {
         Swal.fire({
@@ -40,8 +37,8 @@ export default function AdminPsichologisttDetails() {
         }).then((result) => {
             if (result.isDenied) {
                 e.target.value === 'Pendiente' ?
-                    dispatch(editUserPsichologist(psychologistId, { status: 'Activo' }))
-                    : dispatch(editUserPsichologist(psychologistId, { status: 'Pendiente' }))
+                    dispatch(AdminEditUserPsichologist(psychologistId, { status: 'Activo' }))
+                    : dispatch(AdminEditUserPsichologist(psychologistId, { status: 'Pendiente' }))
                 navigate(`/adminpanel/psychologists/${psychologistId}`)
                 Swal.fire('Cambio de estado exitoso!', '', 'success')
             } else {
@@ -50,26 +47,16 @@ export default function AdminPsichologisttDetails() {
         })
     }
 
-
     const handleLabel = (e) => {
         e.target.value === 'Pendiente' ?
             document.getElementById('lbl').innerText = "Pendiente" :
             document.getElementById('lbl').innerText = "Activo"
     };
 
-
-
-
-
     const handleInputChange = (e, psychologistId) => {
         handleAlertEdit(e, psychologistId)
         handleLabel(e)
     };
-
-
-
-
-
 
     return (
 
@@ -83,7 +70,7 @@ export default function AdminPsichologisttDetails() {
                 <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
                     <Stack direction='row' width='100%'>
-                        <Button cursor={'pointer'} colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/psychologists/${userPsichologistDetail._id}`)}>
+                        <Button cursor={'pointer'} colorScheme='teal' variant='outline' onClick={() => navigate(-1)}>
                             <ArrowLeftIcon />
                             <Text ml='0.5em'> Volver</Text>
                         </Button>
@@ -94,11 +81,12 @@ export default function AdminPsichologisttDetails() {
                         Object.keys(userPsichologistDetail).length !== 0
                             ? (
                                 <Stack w='100%' direction='column' justify='center' align='center' position={'relative'} top={-5}>
-
+                                    <br />
                                     <Stack direction='column'>
                                         <Avatar src={userPsichologistDetail.profileImage} size='xl' />
                                     </Stack>
                                     <Text fontSize={'xl'}>{userPsichologistDetail.firstName} {userPsichologistDetail.lastName}</Text>
+                                    <br />
                                     <Stack>
                                         {userPsichologistDetail.status === 'Pendiente' ?
                                             <Text color={'red.500'} fontSize={'2xl'}> Cambia el estado del usuario a activo solo si su informacíon esta completa</Text> :

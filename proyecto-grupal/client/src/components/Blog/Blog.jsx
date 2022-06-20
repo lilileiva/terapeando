@@ -5,58 +5,82 @@ import NavBar from "../NavBar/NavBar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Filters from "../Filter/Filter.jsx";
-import { Button, Text } from "@chakra-ui/react";
+import { Button, Stack, Text } from "@chakra-ui/react";
 import { getAllPosts } from "../../redux/actions/index.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "@chakra-ui/react";
 import "./blog.css";
+import { useState } from "react";
+import { useEffect } from "react";
+import Loader from "../Loader/Loader.jsx";
 
 export default function Blog() {
   const dispatch = useDispatch();
-
+  const [loader, setLoader] = useState(true);
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getAllPosts());
   }
 
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, [setLoader]);
+
+  const posts = useSelector((state) => state.posts)
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
-    <div>
-      {
-        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
-      }
-      <div className="blogContainer">
-        <div className="row">
-          <Text
-            fontWeight="semibold"
-            fontSize="3xl"
-            marginBottom="0.5em"
-            color="green.300"
-          >
-            Notas sobre psicología
-          </Text>
-          <div className="syb">
-            <SearchBar />
-            <Button className="btn" onClick={(e) => handleSubmit(e)}>
-              Todas las notas
-            </Button>
-            {
-              tokenPsychologist
-                ? (
-                  <Link href="/createPost">
-                    <Button className="btn">Crear Nota</Button>
-                  </Link>
-                ) : null
-            }
+    <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
+      <Stack>
+        {
+          tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
+        }
+        <div className="blogContainer">
+          <div className="row">
+            <Text
+              fontWeight="semibold"
+              fontSize="3xl"
+              marginBottom="0.5em"
+              color="green.300"
+            >
+              Notas sobre psicología
+            </Text>
+            <div className="syb">
+              <SearchBar />
+              <Button className="btn" onClick={(e) => handleSubmit(e)}>
+                Todas las notas
+              </Button>
+              {
+                tokenPsychologist
+                  ? (
+                    <Link href="/createPost">
+                      <Button className="btn">Crear Nota</Button>
+                    </Link>
+                  ) : null
+              }
+            </div>
           </div>
-        </div>
-        <Filters />
+          <Filters />
 
-        <Post />
-      </div>
+          {
+            loader
+              ? <Loader />
+              : posts && posts.length > 0
+                ? <Post />
+                : <Stack height={'100%'} justify={"flex-start"} mt='7em' >
+                  <Text fontSize={'xl'}>No hay resultados</Text>
+                </Stack>
+          }
+        </div>
+      </Stack>
       <Footer />
-    </div>
+    </Stack>
   );
 }

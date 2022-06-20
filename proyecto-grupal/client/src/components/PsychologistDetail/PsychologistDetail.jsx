@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, getUserPsychologistOne } from "../../redux/actions";
+import { clear, getUserPsychologistDetails } from "../../redux/actions";
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
@@ -21,6 +21,7 @@ export default function PsychologistDetail() {
   const [loader, setLoader] = useState(false);
   const detail = useSelector((state) => state.userPsichologistDetail);
   const navigate = useNavigate();
+  console.log(detail)
   // useEffect(() => {
   //   dispatch(getUserPsychologistOne(idPsychologist));
   //   smoothscroll()
@@ -30,7 +31,7 @@ export default function PsychologistDetail() {
   // }, [dispatch, idPsychologist]);
 
   useEffect(() => {
-    dispatch(getUserPsychologistOne(idPsychologist));
+    dispatch(getUserPsychologistDetails(idPsychologist));
     setLoader(true);
     smoothscroll()
     setTimeout(() => {
@@ -43,11 +44,12 @@ export default function PsychologistDetail() {
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>
       {
-        tokenClient || tokenPsychologist
+        tokenClient || tokenPsychologist || tokenAdmin
           ? (
             <div>
               <NavbarHome />
@@ -116,10 +118,14 @@ export default function PsychologistDetail() {
                     </Text>
                   </Box>
                   <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
-                    <Text className="HeadingDetail" >
-                      Mi calificación promedio 😊: <Starts
-                        rating={detail.rating} />
-                    </Text>
+                    {
+                      detail.rating
+                        ? (
+                          <Text className="HeadingDetail" >
+                            Mi calificación promedio 😊: <Starts rating={detail.rating} />
+                          </Text>
+                        ) : null
+                    }
                     {<Reviews />}
                   </Box>
                 </>}

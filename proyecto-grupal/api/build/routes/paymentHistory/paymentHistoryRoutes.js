@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const { createPayment, getAllPayments, getPaymentByClientId } = require('./paymentHistory.ts');
+const { createCheckoutSession } = require('./Stripe/checkout.js');
+const paymentHistoryRouter = (0, express_1.Router)();
+paymentHistoryRouter.get('/', getAllPayments);
+paymentHistoryRouter.get('/:clientId', getPaymentByClientId);
+paymentHistoryRouter.post('/checkoutpayment', createPayment);
+paymentHistoryRouter.post('/checkout', createCheckoutSession);
+module.exports = paymentHistoryRouter;

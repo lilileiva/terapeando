@@ -5,8 +5,6 @@ import {
   getPostOrder,
   getCategories,
   getByCategory,
-  filterByAuthor,
-  getPostsAuthors,
   getAllPsychologist,
 } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
@@ -18,8 +16,6 @@ export default function Filters() {
 
   useEffect(() => {
     dispatch(getCategories());
-    dispatch(filterByAuthor());
-    dispatch(getAllPsychologist());
   }, [dispatch]);
 
   function handleSubmitOrder(e) {
@@ -28,10 +24,6 @@ export default function Filters() {
   }
   function handleSubmitCategory(e) {
     dispatch(getByCategory(e.target.value));
-  }
-  function handleSubmitAuthor(e) {
-    e.preventDefault();
-    dispatch(filterByAuthor(e.target.value));
   }
 
   return (

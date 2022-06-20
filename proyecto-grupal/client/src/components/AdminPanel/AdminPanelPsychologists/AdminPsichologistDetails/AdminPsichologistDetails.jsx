@@ -7,7 +7,7 @@ import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient, clearClient, deleteUserClient, getUserPsychologistOne, deleteUserPsichologist } from '../../../../redux/actions';
+import { getUserClient, clearClient, deleteUserClient, AdminGetUserPsychologistDetail, AdminDeleteUserPsichologist } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 import NotFound from '../../../404notFound/notFound.jsx';
@@ -19,7 +19,7 @@ export default function AdminPsichologisttDetails() {
 
   const { idUserPsichologist } = useParams();
   useEffect(() => {
-    dispatch(getUserPsychologistOne(idUserPsichologist))
+    dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
     return () => {
       dispatch(clearClient())
     }
@@ -37,14 +37,14 @@ export default function AdminPsichologisttDetails() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserPsichologist(psychologistId))
+        dispatch(AdminDeleteUserPsichologist(psychologistId))
         navigate('/adminpanel/psychologists')
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
   }
 
-  const token = window.localStorage.getItem('token')
+  const token = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>
@@ -70,19 +70,18 @@ export default function AdminPsichologisttDetails() {
                     Object.keys(userPsichologistDetail).length !== 0
                       ? (
                         <Stack w='100%' direction='column' justify='center' align='center' position={'relative'} top={-5}>
-
+                          <br />
                           <Stack direction='column'>
                             <Avatar src={userPsichologistDetail.profileImage} size='xl' />
                           </Stack>
                           <Stack direction={'row'} >
                             <Text fontSize='xl' fontWeight='600' > Nombre: </Text>
                             <Text fontSize='xl'> {userPsichologistDetail.firstName} {userPsichologistDetail.lastName} </Text>
+                          </Stack>
+                          <Stack direction={'row'} >
                             <Text fontSize='xl' fontWeight='600'> País: </Text>
                             <Text fontSize='xl'> {userPsichologistDetail.country} </Text>
-
-
                           </Stack>
-
                           <Stack direction='row' display={'flex'} position='relative'>
                             <Text fontSize='xl' fontWeight='600'> Fecha de nacimiento: </Text>
                             <Text fontSize='xl'> {userPsichologistDetail.birthDate} </Text>
@@ -91,17 +90,43 @@ export default function AdminPsichologisttDetails() {
                             <Text fontSize='xl' fontWeight='600'> Email: </Text>
                             <Text fontSize='xl'> {userPsichologistDetail.email} </Text>
                           </Stack>
-
+                          <Stack direction='row' display={'flex'} position='relative'>
+                            <Text fontSize='xl' fontWeight='600'> Educación: </Text>
+                            <Text fontSize='xl'> {userPsichologistDetail.education} </Text>
+                          </Stack>
+                          {
+                            userPsichologistDetail.about
+                              ? (
+                                <Stack direction='row' display={'flex'} position='relative' w='40%' height='6em'>
+                                  <Text fontSize='xl' fontWeight='600'> Descripción: </Text>
+                                  <Text fontSize='xl' overflowY='scroll'> {userPsichologistDetail.about} </Text>
+                                </Stack>
+                              ) : (
+                                <Stack direction='row' display={'flex'} position='relative'>
+                                  <Text fontSize='xl' fontWeight='600'> Descripción: </Text>
+                                  <Text fontSize='xl'>Sin descripción</Text>
+                                </Stack>
+                              )
+                          }
                           <br />
                           <Stack direction='column'>
                             {userPsichologistDetail.status === 'Pendiente' ? <Text fontSize={'xl'} color={'red'}>Estado: {`${userPsichologistDetail.status} de aprobación`}</Text> :
                               <Text fontSize={'xl'} color={'green'}>Estado: {userPsichologistDetail.status}</Text>}
                             <Text fontSize='xl' fontWeight='600'> DATOS PARA VALIDAR: </Text>
 
-                            <UnorderedList>
+                            {/* <UnorderedList>
                               <ListItem fontSize='m'> {`DNI: ${userPsichologistDetail.DNI}`} </ListItem>
                               <ListItem fontSize='m'> {`LICENCIA: ${userPsichologistDetail.License}`} </ListItem>
-                            </UnorderedList>
+                            </UnorderedList> */}
+
+                            <Stack direction='row' display={'flex'} position='relative'>
+                              <Text fontSize='xl' fontWeight='600'> DNI: </Text>
+                              <Text fontSize='xl'> {userPsichologistDetail.DNI} </Text>
+                            </Stack>
+                            <Stack direction='row' display={'flex'} position='relative'>
+                              <Text fontSize='xl' fontWeight='600'> LICENCIA: </Text>
+                              <Text fontSize='xl'> {userPsichologistDetail.License} </Text>
+                            </Stack>
 
                           </Stack>
                           <br />
