@@ -7,6 +7,7 @@ const {
   getOnePost,
   putPost,
   getPostAuthors,
+  // filterPostsByAuthor
   deletePost
 } = require("./posts.ts");
 

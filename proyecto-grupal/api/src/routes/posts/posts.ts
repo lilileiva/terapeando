@@ -169,7 +169,6 @@ const putPost = async (req: Request, res: Response) => {
      res.status(404).send('There was an error...');
   }
 }
-
 module.exports = {
   createPost,
   getAllPosts,

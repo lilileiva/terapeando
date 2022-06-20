@@ -107,10 +107,10 @@ export default function PaymentsAdmin() {
       </Thead>
       <Tbody>
         {showPaymentPage && showPaymentPage.map((payment) => {
-          //let date = payment.createdAt.Substring(0,10);
+          //let date = payment.createdAt.substring(0,10);
            return(
               <Tr key={payment._id}>
-              <Td>{payment.createdAt}</Td>
+              <Td>{payment.createdAt.substring(0,10)}</Td>
               <Td>{payment.psyName}</Td>
               <Td isNumeric>$ {payment.amount}</Td>
               <Td>{payment.type}</Td>

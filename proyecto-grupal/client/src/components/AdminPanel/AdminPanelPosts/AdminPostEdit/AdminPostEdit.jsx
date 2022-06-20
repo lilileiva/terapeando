@@ -114,9 +114,9 @@ function handleDeleteCategory(category){
                 Swal.fire('Error','Llene los campos correctamente','error')
                 return 
             }else{
-
-               const response = dispatch(putPost(inputText, IdPost));
-
+                //creo mi juego
+                console.log(inputText)
+                dispatch(putPost(inputText, IdPost));
                 setInputText({
                     Date: "",
                     Title:"",

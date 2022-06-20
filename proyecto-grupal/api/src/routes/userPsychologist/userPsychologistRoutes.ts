@@ -10,6 +10,7 @@ const {
     filterPsichologistSpecialities,
     filterPsichologistRating,
     getUserPsychologistByStatus,
+    getReviews,
     getPsychologistDetails
 } = require('./userPsychologist.ts');
 
@@ -28,7 +29,8 @@ psychologistRouter.post('/login', logInPsychologist)
 psychologistRouter.delete('/deleteuserpsychologist/', validatePsychologist , deleteUserPsychologist);
 psychologistRouter.put('/put_userpsychologist', validatePsychologist ,putUserPsychologist)
 psychologistRouter.get('/filterspecialties/specialties/:specialtie', filterPsichologistSpecialities);
-psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
+//psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
+psychologistRouter.get('/rese/reviews', getReviews);
 
 
 
