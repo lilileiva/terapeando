@@ -169,6 +169,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
+        posts:[]
       };
     case "GET_CATEGORIES":
       return {
