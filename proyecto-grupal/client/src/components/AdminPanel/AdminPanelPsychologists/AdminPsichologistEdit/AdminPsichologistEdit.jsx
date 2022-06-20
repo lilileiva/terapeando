@@ -24,7 +24,7 @@ export default function AdminPsichologisttDetails() {
     }, [dispatch])
 
     const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
-    
+
     const handleAlertEdit = (e, psychologistId) => {
         Swal.fire({
             title: '¿Estás seguro que quieres cambiar el estado de este usuario?',
@@ -81,11 +81,12 @@ export default function AdminPsichologisttDetails() {
                         Object.keys(userPsichologistDetail).length !== 0
                             ? (
                                 <Stack w='100%' direction='column' justify='center' align='center' position={'relative'} top={-5}>
-
+                                    <br />
                                     <Stack direction='column'>
                                         <Avatar src={userPsichologistDetail.profileImage} size='xl' />
                                     </Stack>
                                     <Text fontSize={'xl'}>{userPsichologistDetail.firstName} {userPsichologistDetail.lastName}</Text>
+                                    <br />
                                     <Stack>
                                         {userPsichologistDetail.status === 'Pendiente' ?
                                             <Text color={'red.500'} fontSize={'2xl'}> Cambia el estado del usuario a activo solo si su informacíon esta completa</Text> :
