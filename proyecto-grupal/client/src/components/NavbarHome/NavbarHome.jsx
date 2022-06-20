@@ -17,7 +17,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
 
@@ -60,8 +60,16 @@ const NavLink = ({ children }) => (
     </Text>
   </Link>
 );
+
 export default function NavbarHome() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    window.localStorage.clear();
+    navigate('/');
+  }
 
   return (
     <>
@@ -82,8 +90,6 @@ export default function NavbarHome() {
             <Box>
               <Image src={img} w={"50px"} />
             </Box>
-
-            {/* <div className={'contenedorlinks'}> */}
             <Stack direction='row'>
 
               <Link className={'links'} to={'/home'}>
@@ -107,17 +113,6 @@ export default function NavbarHome() {
                 </Text>
               </Link>
             </Stack>
-            {/* </div> */}
-
-            {/* <HStack
-               as={"nav"} 
-               spacing={4}
-               display={{ base: "none", md: "flex" }}
-             >
-               {Links.map((link) => (
-                 <NavLink key={link} className={({isActive}) => isActive ? "active" : ""}>{link}</NavLink>
-               ))}
-             </HStack> */}
           </HStack>
           <Flex alignItems={"center"}>
             <Button
@@ -151,11 +146,17 @@ export default function NavbarHome() {
                 <Link to={`/editprofile/${idUserClient}`}>
                   <MenuItem>Editar Perfil</MenuItem>
                 </Link>
+                <MenuItem>Mis Pagos</MenuItem>
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
+                </Link>        
+                <Link to={"/mypayments"}>
+                  <MenuItem>Mis Pagos</MenuItem>
                 </Link>
                 <MenuDivider />
-                <MenuItem>Mis Pagos</MenuItem>
+                <MenuItem onClick={handleSignOut}>
+                  Cerrar sesión
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>

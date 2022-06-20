@@ -1,5 +1,6 @@
 import React from "react";
 import Post from "../Post/Posts.jsx";
+import NavbarHome from "../NavbarHome/NavbarHome.jsx";
 import NavBar from "../NavBar/NavBar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
@@ -18,9 +19,14 @@ export default function Blog() {
     dispatch(getAllPosts());
   }
 
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
   return (
     <div>
-      <NavBar />
+      {
+        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
+      }
       <div className="blogContainer">
         <div className="row">
           <Text
@@ -36,9 +42,14 @@ export default function Blog() {
             <Button className="btn" onClick={(e) => handleSubmit(e)}>
               Todas las notas
             </Button>
-            <Link href="/createPost">
-              <Button className="btn">Crear Nota</Button>
-            </Link>
+            {
+              tokenPsychologist
+                ? (
+                  <Link href="/createPost">
+                    <Button className="btn">Crear Nota</Button>
+                  </Link>
+                ) : null
+            }
           </div>
         </div>
         <Filters />

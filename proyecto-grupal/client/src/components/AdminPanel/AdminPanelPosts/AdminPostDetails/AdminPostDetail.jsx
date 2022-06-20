@@ -1,21 +1,22 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
 import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text } from '@chakra-ui/react';
-import { ArrowLeftIcon, CloseIcon,AddIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
 import { clearStatePostDetail, deletePost, deleteUserClient, getPostDetail } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
+import NotFound from '../../../404notFound/notFound.jsx';
 
 
 function AdminPostDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-    const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const { idPost } = useParams();
   useEffect(() => {
     dispatch(getPostDetail(idPost))
@@ -43,28 +44,21 @@ function AdminPostDetail() {
     })
   }
 
+  const token = window.localStorage.getItem('token')
+
   return (
+    <>
+      {
+        token
+          ? (
+            <div className='adminPanelContainer'>
+              <AdminPanelNavbar />
 
-    <div className='adminPanelContainer'>
-      <AdminPanelNavbar />
+              <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
 
-      <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
+                <AdminPanelSidebar />
 
-        <AdminPanelSidebar />
-
-        <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-
-          <Stack direction='row' width='100%'>
-            <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/posts')}>
-              <ArrowLeftIcon />
-              <Text ml='0.5em'> Volver</Text>
-            </Button>
-          </Stack>
-          {
-            Object.keys(postDetail).length !== 0
-              ? (
-                <Stack w='100%' direction='column' justify='center' align='center' p='2em'>
-
+                <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                   <Avatar src={postDetail.Image} size='xl' />
                   <Stack direction='row'>
                     <Text fontSize='xl' fontWeight='600' > Titulo: </Text>
@@ -99,18 +93,24 @@ function AdminPostDetail() {
                     <Button width='85%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar nota</Text>
+                  <Stack direction='row' width='100%'>
+                    <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/posts')}>
+                      <ArrowLeftIcon />
+                      <Text ml='0.5em'> Volver</Text>
                     </Button>
                   </Stack>
-
+              
                 </Stack>
-              ) : <Loader />
-          }
-        </Stack>
 
-      </Stack>
+              </Stack>
 
-      <Footer />
-    </div>
+              <Footer />
+            </div>
+          ) : (
+            <NotFound />
+          )
+      }
+    </>
   )
 }
 

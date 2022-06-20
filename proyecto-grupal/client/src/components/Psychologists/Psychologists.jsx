@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllPsychologist } from '../../redux/actions';
+import { getPsychologistByStatus } from '../../redux/actions';
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import CardPsychologist from '../CardPsychologist/CardPsychologist';
@@ -14,12 +14,12 @@ import FiltersPsichologist from '../FilterPsichologist/FilterPsichologist';
 
 export default function Psychologists() {
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
-    
+
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllPsychologist())
+        dispatch(getPsychologistByStatus())
         smoothscroll();
     }, [dispatch]);
 
@@ -39,35 +39,36 @@ export default function Psychologists() {
         <div>
             <NavBar />
             <div className='cardContainer'>
-                
+
 
                 <Stack width='100%' direction='row' justifyContent='left'>
                     <Text fontWeight='semibold' fontSize='3xl' marginTop='1em' marginBottom='1em' color='green.300'>Psicólogos</Text>
-                    
+
                 </Stack>
 
-                
-                <FiltersPsichologist/>
-                
+
+                <FiltersPsichologist />
+
                 <div >
-                    {
-                        AllPsychologist.length !== 0 ?
-                            AllPsychologist.map(el => {
-                                return (
-                                    <CardPsychologist
-                                        key={el._id}
-                                        firstName={el.firstName}
-                                        lastName={el.lastName}
-                                        profileImage={el.profileImage}
-                                        rating={el.rating}
-                                        education={el.education}
-                                        about={el.about}
-                                        // about={`${el.about.slice(0, 270)}...`}
-                                        idPsychologist={el._id}
-                                        Specialties={el.Specialties}                                        
-                                    />
-                                )
-                            }) : null
+                    {AllPsychologist && AllPsychologist.length > 0 ?
+                        AllPsychologists.map(el => {
+                            {console.log(el.status)}
+                            return (
+                              
+                                <CardPsychologist
+                                    key={el._id}
+                                    firstName={el.firstName}
+                                    lastName={el.lastName}
+                                    profileImage={el.profileImage}
+                                    rating={el.rating}
+                                    education={el.education}
+                                    about={el.about}
+                                    // about={`${el.about.slice(0, 270)}...`}
+                                    idPsychologist={el._id}
+                                    Specialties={el.Specialties}
+                                />
+                            )
+                        }) : null
                     }
                 </div>
                 <Paged

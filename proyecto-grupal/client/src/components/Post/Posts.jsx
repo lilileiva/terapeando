@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { getAllPosts } from "../../redux/actions";
 import { Tag, TagLabel, Text, Stack } from "@chakra-ui/react";
 import "./post.css";
@@ -34,7 +34,6 @@ export default function Post() {
     <>
       <div className="postContainer">
         <SimpleGrid columns={3} spacing={10}>
-
           {showPostPage &&
             showPostPage.map((post) => {
               return (
@@ -45,29 +44,29 @@ export default function Post() {
                         <img src={post.Image} alt="img" />
                       </div>
                       <div className="card-body">
-                        <Stack height='40%' mb='0.5em'>
-                          <Text fontSize="3xl" marginTop="0em" className="pTitle">
+                        <Stack height="40%" mb="0.5em">
+                          <Text
+                            fontSize="3xl"
+                            marginTop="0em"
+                            className="pTitle"
+                          >
                             {post.Title}
                           </Text>
                         </Stack>
                         {/* <p>{post.Content.slice(0,400)}...</p> */}
-                        {
-                          post.idUserPsychologist
-                            ? (
-                              <>
-                                <Text fontSize="20px" className='cardInfo'>
-                                  Nota de {post.idUserPsychologist.firstName}
-                                  {" ​​​​"}
-                                  {post.idUserPsychologist.lastName}
-                                </Text>
-                                <Text fontSize="15px" className='cardInfo'>
-                                  {post.idUserPsychologist.email} | {" "}
-                                  {"​​🌎 ​"}
-                                  {post.idUserPsychologist.country}
-                                </Text>
-                              </>
-                            ) : null
-                        }
+                        {post.idUserPsychologist ? (
+                          <>
+                            <Text fontSize="20px" className="cardInfo">
+                              Nota de {post.idUserPsychologist.firstName}
+                              {" ​​​​"}
+                              {post.idUserPsychologist.lastName}
+                            </Text>
+                            <Text fontSize="15px" className="cardInfo">
+                              {post.idUserPsychologist.email} | {"​​🌎 ​"}
+                              {post.idUserPsychologist.country}
+                            </Text>
+                          </>
+                        ) : null}
                         <h5>Fecha {post.Date}</h5>
                         <Stack
                           direction="row"
@@ -93,7 +92,6 @@ export default function Post() {
                 </Box>
               );
             })}
-
         </SimpleGrid>
       </div>
       <div>
@@ -103,7 +101,7 @@ export default function Post() {
           paged={paged}
           page={page}
           setPage={setPage}
-          className='pagedPost'
+          className="pagedPost"
         />
       </div>
     </>

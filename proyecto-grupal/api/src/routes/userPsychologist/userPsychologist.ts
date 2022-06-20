@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 import userPsychologistModel from "../../models/userPsychologist";
 import userPsychologist from "../../models/userPsychologist";
+//import { userPsychologist } from '../../models/userPsychologist';
 
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
@@ -22,6 +23,19 @@ const getUserPsychologistByEmail = async (req: Request, res: Response) => {
     res.status(404).json({ data: err })
   }
 }
+
+const getUserPsychologistByStatus = async ( req: Request, res: Response) => {
+try {
+
+  const userPsychologistStatus = await userPsychologistModel.find({ 'status': 'Activo' }, '-password');
+  res.status(200).json(userPsychologistStatus)
+  
+} catch (error) {
+  console.log(error)
+  return res.status(404).send({ msj: 'No se encontraron resultados' });
+}
+  
+};
 
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -82,6 +96,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
           profileImage: profileimage,
           rating,
           appointments: [],
+          status: "Pendiente",
           about,
           education,
           role: 'psychologist'
@@ -94,15 +109,25 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 };
 ///// Delete /////
 
+
 const deleteUserPsychologist = async (req: Request, res: Response) => {
-  const { idPsychologist } = req.params;
+  const { IdUserPsychologist } = req.params;
+
   try {
-    await userPsychologistModel.findOneAndDelete({ idPsychologist });
-    res.send("User deleted succesfully");
-  } catch (error) {
-    res.status(404).send(error);
+     const userPsichologistDelete = await userPsychologistModel.findByIdAndDelete(IdUserPsychologist,
+      function(err: any, docs: any) {
+        if(err){
+          console.log(err)
+        } 
+        else {
+          console.log("deleted: ", docs);
+        }
+      } );
+     res.send('Psicologo eliminado correctamente')
+  } catch (err) {
+     res.status(404).send('There was an error...');
   }
-};
+}
 
 
 const putUserPsychologist = async (req: Request, res: Response) => {
@@ -160,5 +185,6 @@ module.exports = {
   putUserPsychologist,
   getUserPsychologistByEmail,
   filterPsichologistSpecialities,
-  filterPsichologistRating
+  filterPsichologistRating,
+  getUserPsychologistByStatus
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
 import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
@@ -7,6 +7,7 @@ import Schedule from "../Schedule/Schedule";
 
 
 export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
+    const navigate = useNavigate();
 
     const [calendar, setCalendar] = useState(false)
     const handleCalendar = () => {
@@ -16,6 +17,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
             setCalendar(false)
         }
     }
+
+    const tokenClient = window.localStorage.getItem('tokenClient')
+    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
     return (
         <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
@@ -43,11 +47,20 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                         about
                             ? (
                                 <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
-                                    {about.slice(0,500)}...
+                                    {about.slice(0, 500)}...
                                     <br />
-                                    <Link to={`/detailPsychologist/${idPsychologist}`}>
-                                        <button className="vermas">Ver más</button>
-                                    </Link>
+                                    {
+                                        tokenClient || tokenPsychologist
+                                            ? (
+                                                <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                                    <button className="vermas">Ver más</button>
+                                                </Link>
+                                            ) : (
+                                                <Link to={'/signin'}>
+                                                    <button className="vermas">Ver más</button>
+                                                </Link>
+                                            )
+                                    }
                                 </Text>
                             ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
                                 Sin descripción.
@@ -55,17 +68,33 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     }
                 </Box>
 
-                <Box className="profile"  >                
-                    <Link to={`/detailPsychologist/${idPsychologist}`}>
-                        <Button className="buttonProfile" color='blackAlpha.600' _hover={{
-                   bg: 'blackAlpha.300',
-                   color:'blackAlpha.700'
-                 }} variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
-                        <Button className="buttonProfile" color='blackAlpha.600' _hover={{
-                   bg: 'blackAlpha.300',
-                   color:'blackAlpha.700'
-                 }} variant='outline' size='sm'> Hacer Una Consulta </Button>
-                    </Link>
+                <Box className="profile"  >
+                    {
+                        tokenClient || tokenPsychologist
+                            ? (
+                                <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                    <Button className="buttonProfile" color='blackAlpha.600' _hover={{
+                                        bg: 'blackAlpha.300',
+                                        color: 'blackAlpha.700'
+                                    }} variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
+                                    <Button className="buttonProfile" color='blackAlpha.600' _hover={{
+                                        bg: 'blackAlpha.300',
+                                        color: 'blackAlpha.700'
+                                    }} variant='outline' size='sm'> Hacer Una Consulta </Button>
+                                </Link>
+                            ) : (
+                                <Link to={'/signin'}>
+                                    <Button className="buttonProfile" color='blackAlpha.600' _hover={{
+                                        bg: 'blackAlpha.300',
+                                        color: 'blackAlpha.700'
+                                    }} variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
+                                    <Button className="buttonProfile" color='blackAlpha.600' _hover={{
+                                        bg: 'blackAlpha.300',
+                                        color: 'blackAlpha.700'
+                                    }} variant='outline' size='sm'> Hacer Una Consulta </Button>
+                                </Link>
+                            )
+                    }
                 </Box>
             </Stack>
 
@@ -74,9 +103,18 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 <Text color='teal.700' marginTop='1em' className="textcalendar">
                     Este Profesional tiene disponibilidad en su agenda
                 </Text>
-                <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
-                    Pedir cita
-                </Button>
+                {
+                    tokenClient || tokenPsychologist
+                        ? (
+                            <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
+                                Pedir cita
+                            </Button>
+                        ) : (
+                            <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={() => navigate('/signin')}>
+                                Pedir cita
+                            </Button>
+                        )
+                }
             </Box>
             {
                 calendar
@@ -86,6 +124,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                             lastName={lastName}
                             profileImage={profileImage}
                             rating={rating}
+                            idPsychologist={idPsychologist}
                             setCalendar={setCalendar} />
                     </div>
                     : null
