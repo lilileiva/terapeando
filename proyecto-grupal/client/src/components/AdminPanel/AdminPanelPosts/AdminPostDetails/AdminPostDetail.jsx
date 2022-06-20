@@ -54,11 +54,11 @@ function AdminPostDetail() {
     });
   };
 
-  const token = window.localStorage.getItem("token");
+  const tokenAdmin = window.localStorage.getItem("tokenAdmin");
 
   return (
     <>
-      {token ? (
+      {tokenAdmin ? (
         <div className="adminPanelContainer">
           <AdminPanelNavbar />
 
@@ -96,90 +96,52 @@ function AdminPostDetail() {
                 </Button>
               </Stack>
               {Object.keys(postDetail).length !== 0 ? (
-                <Stack
-                  w="100%"
-                  direction="column"
-                  justify="center"
-                  align="center"
-                  p="2em"
-                >
-                  <Avatar src={postDetail.Image} size="xl" />
-                  <Stack direction="row">
-                    <Text fontSize="xl" fontWeight="600">
-                      {" "}
-                      Titulo:{" "}
-                    </Text>
-                    <Text fontSize="xl"> {postDetail.Title} </Text>
+
+
+                <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                  <Avatar src={postDetail.Image} size='xl' />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600' > Titulo: </Text>
+                    <Text fontSize='xl'> {postDetail.Title} </Text>
                   </Stack>
                   <br />
-                  <Stack direction="row">
-                    <Text fontSize="xl" fontWeight="600">
-                      {" "}
-                      Fecha de creacion:{" "}
-                    </Text>
-                    <Text fontSize="xl"> {postDetail.Date} </Text>
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Fecha de creacion: </Text>
+                    <Text fontSize='xl'> {postDetail.Date} </Text>
                   </Stack>
                   <br />
-                  <Stack direction="row">
-                    <Text fontSize="xl" fontWeight="600">
-                      {" "}
-                      Contenido:{" "}
-                    </Text>
-                    <Text fontSize="xl">
-                      {" "}
-                      {showMore
-                        ? postDetail.Content
-                        : postDetail.Content.substring(0, 250)}
-                      <Button
-                        colorScheme="blackAlpha"
-                        variant="outline"
-                        onClick={() => setShowMore(!showMore)}
-                        size="sm"
-                        marginLeft={"2%"}
-                      >
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Contenido: </Text>
+                    <Text fontSize='xl'> {showMore ? postDetail.Content : postDetail.Content.substring(0, 250)}
+                      <Button colorScheme='blackAlpha' variant='outline' onClick={() => setShowMore(!showMore)} size="sm" marginLeft={"2%"}>
                         <Text> {showMore ? " Ver Menos" : " Ver Mas"}</Text>
                       </Button>
                     </Text>
                   </Stack>
                   <br />
-                  <Stack direction="row">
-                    <Text fontSize="xl" fontWeight="600">
-                      {" "}
-                      Categorias{" "}
-                    </Text>
-                    <Text fontSize="xl"> {postDetail.Tags} </Text>
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Categorias </Text>
+                    <Text fontSize='xl'> {postDetail.Tags} </Text>
                   </Stack>
                   <br />
-                  <Stack direction="row">
-                    <Text fontSize="xl" fontWeight="600">
-                      {" "}
-                      Nota del psicologo:{" "}
-                    </Text>
-
-                    {postDetail.idUserPsychologist ? (
-                      <Text fontSize="xl">
-                        {" "}
-                        {postDetail.idUserPsychologist.firstName}{" "}
-                        {postDetail.idUserPsychologist.lastName}{" "}
-                      </Text>
-                    ) : null}
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Nota del psicologo: </Text>
+                    <Text fontSize='xl'> {postDetail.idUserPsychologist.firstName} {postDetail.idUserPsychologist.lastName}  </Text>
                   </Stack>
                   <br />
-                  <Stack direction="row">
-                    <Button width="50%" colorScheme="teal" variant="outline">
-                      <BsPencilSquare />
-                      <Text pr="0.5em"> Editar nota</Text>
-                    </Button>
-                    <Button
-                      width="50%"
-                      colorScheme="red"
-                      variant="outline"
-                      onClick={() => handleAlertDelete(postDetail._id)}
-                    >
+                  <Stack direction='row'>
+                    <Button width='85%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
-                      <Text pr="0.5em"> Eliminar nota</Text>
+                      <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>
+                    <Stack direction='row' width='100%'>
+                      <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/posts')}>
+                        <ArrowLeftIcon />
+                        <Text ml='0.5em'> Volver</Text>
+                      </Button>
+                    </Stack>
                   </Stack>
+
                 </Stack>
               ) : (
                 <Loader />
