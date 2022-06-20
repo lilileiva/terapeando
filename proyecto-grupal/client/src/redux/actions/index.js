@@ -218,11 +218,27 @@ export const getUserPsychologistOne = () => {
 };
 
 // GET USE RPSYCHOLOGIST DETAILS
+// export const getUserPsychologistDetails = (IdUserPsychologist) => {
+//   return async function (dispatch) {
+//     try {
+//       const psychologist = await axios.get(
+//         `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+//       );
+//       dispatch({
+//         type: "GET_PSYCHOLOGISTS_DETAILS",
+//         payload: psychologist.data,
+//       });
+//     } catch (error) {
+//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+//     }
+//   };
+// };
+
 export const getUserPsychologistDetails = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        `${baseURL}/userclient/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
@@ -686,7 +702,7 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/:${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({
