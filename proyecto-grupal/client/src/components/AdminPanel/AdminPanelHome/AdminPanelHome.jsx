@@ -10,7 +10,7 @@ import NotFound from '../../404notFound/notFound.jsx';
 
 function AdminPanelHome() {
 
-  const token = window.localStorage.getItem('token')
+  const token = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>

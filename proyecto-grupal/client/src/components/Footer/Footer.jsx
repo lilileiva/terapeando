@@ -10,7 +10,7 @@ import {
   Stack,
   Text,
   useColorModeValue,
-  VisuallyHidden
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
@@ -63,17 +63,19 @@ export default function SmallWithLogoLeft() {
         align={{ base: "center", md: "center" }}
       >
         <Image src={img} w={"50px"} />
-        <Text>© 2022 Portal Psico. All rights reserved</Text>
+        <Text>© 2022 Terapeando. All rights reserved</Text>
 
         <Stack direction={"row"} spacing={6}>
-
           <Link href="https://twitter.com/mundopsicologos" isExternal>
             <SocialButton label={"Twitter"}>
               <FaTwitter />
             </SocialButton>
           </Link>
 
-          <Link href="https://www.youtube.com/channel/UCu3jiy_GRyMbseyNXovh2ZQ" isExternal>
+          <Link
+            href="https://www.youtube.com/channel/UCu3jiy_GRyMbseyNXovh2ZQ"
+            isExternal
+          >
             <SocialButton label={"YouTube"}>
               <FaYoutube />
             </SocialButton>
@@ -85,7 +87,6 @@ export default function SmallWithLogoLeft() {
             </SocialButton>
           </Link>
         </Stack>
-        
       </Container>
     </Box>
   );

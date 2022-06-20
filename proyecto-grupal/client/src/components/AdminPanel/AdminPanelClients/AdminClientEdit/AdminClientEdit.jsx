@@ -7,7 +7,7 @@ import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, Select } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
 import { BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient, clearClient, deleteUserClient, editClient } from '../../../../redux/actions';
+import { AdminGetUserClient, clearClient, AdminDeleteUserClient, AdminEditClient } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 import NotFound from '../../../404notFound/notFound.jsx';
@@ -19,7 +19,7 @@ function AdminClientEdit() {
 
   const { idUserClient } = useParams();
   useEffect(() => {
-    dispatch(getUserClient(idUserClient))
+    dispatch(AdminGetUserClient(idUserClient))
     return () => {
       dispatch(clearClient())
     }
@@ -58,8 +58,8 @@ function AdminClientEdit() {
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      dispatch(editClient(userClientDetail._id, inputText))
-      dispatch(getUserClient(idUserClient))
+      dispatch(AdminEditClient(userClientDetail._id, inputText))
+      dispatch(AdminGetUserClient(idUserClient))
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -71,12 +71,12 @@ function AdminClientEdit() {
     }
   }, [dispatch, inputText, isSubmit])
 
-  const token = window.localStorage.getItem('token');
+  const tokenAdmin = window.localStorage.getItem('tokenAdmin');
 
   return (
     <>
       {
-        token
+        tokenAdmin
           ? (
             <div className='adminPanelContainer'>
               <AdminPanelNavbar />

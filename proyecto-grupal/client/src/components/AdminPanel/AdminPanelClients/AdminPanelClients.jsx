@@ -8,7 +8,7 @@ import AdminPanelSidebar from '../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import AdminSearchbar from '../AdminSearchbar/AdminSearchbar.jsx';
 import { Stack, Text, Box, Wrap, WrapItem, Center, Avatar, Button, Input } from '@chakra-ui/react';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getAllUserClients, deleteUserClient, getUserClientsByName, clearClientList, clearAdminSearchbar } from '../../../redux/actions';
+import { AdminGetAllUserClients, AdminDeleteUserClient, AdminGetUserClientsByName, clearClientList, clearAdminSearchbar } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import Loader from '../../Loader/Loader.jsx';
 import NotFound from '../../404notFound/notFound.jsx';
@@ -20,12 +20,12 @@ function AdminPanelClients() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(getAllUserClients())
+    dispatch(AdminGetAllUserClients())
     return () => {
       dispatch(clearAdminSearchbar())
       dispatch(clearClientList())
     }
-  }, [dispatch, getAllUserClients, clearAdminSearchbar, clearClientList])
+  }, [dispatch, AdminGetAllUserClients, clearAdminSearchbar, clearClientList])
 
   const allUserClients = useSelector((state) => state.usersClients);
   let usersClientsSearch = useSelector((state) => state.usersClientsSearch);
@@ -41,8 +41,8 @@ function AdminPanelClients() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(deleteUserClient(clientId))
-        dispatch(getAllUserClients())
+        dispatch(AdminDeleteUserClient(clientId))
+        dispatch(AdminGetAllUserClients())
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
     })
@@ -52,17 +52,11 @@ function AdminPanelClients() {
   useEffect(() => {
     if (adminSearchbar.length !== 0) {
       dispatch(clearClientList())
-      dispatch(getUserClientsByName(adminSearchbar))
-      // if (usersClientsSearch.length === 0) {
-      //   usersClientsSearch = ['no results']
-      // }
+      dispatch(AdminGetUserClientsByName(adminSearchbar))
     }
   }, [dispatch, adminSearchbar])
 
-  // console.log('adminSearchbar',adminSearchbar )
-  // console.log('usersClientsSearch',usersClientsSearch )
-
-  const token = window.localStorage.getItem('token');
+  const token = window.localStorage.getItem('tokenAdmin');
 
   return (
     <>
@@ -79,7 +73,7 @@ function AdminPanelClients() {
 
                     <AdminSearchbar />
 
-                    <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllUserClients())}>
+                    <Button colorScheme='teal' variant='outline' onClick={() => dispatch(AdminGetAllUserClients())}>
                       <BsPeople />
                       <Text pr='0.5em'> Todos los usuarios</Text>
                     </Button>

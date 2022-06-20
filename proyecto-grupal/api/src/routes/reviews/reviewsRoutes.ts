@@ -2,10 +2,10 @@ import { Router} from "express";
 const {createReview , getReview } = require('./reviews');
 
 const reviewsRouter: Router = Router();
-const ClientOrAdmin = require('../../middleware/validateClientOrAdmin')
-const validatePsychologist = require('../../middleware/validatePsychologistOrAdmin')
+const validateClient = require('../../middleware/validateClient')
 
-reviewsRouter.get('/:IdUserPsychologist', ClientOrAdmin, getReview) // buscar cpmo acceder siendo psicologo
-reviewsRouter.post('/', ClientOrAdmin, createReview)
+
+reviewsRouter.get('/:IdUserPsychologist', validateClient, getReview) // buscar cpmo acceder siendo psicologo
+reviewsRouter.post('/', validateClient, createReview)
 
 module.exports = reviewsRouter;

@@ -201,7 +201,7 @@ function RegisterForm() {
     const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
     return (
-        <div className='background'>
+        <div className='backgroundRegister'>
             {
                 tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
             }
