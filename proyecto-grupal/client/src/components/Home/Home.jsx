@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
@@ -23,6 +24,7 @@ export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     dispatch(getPsychologistByStatus());
@@ -33,8 +35,19 @@ export default function Home() {
     if (adminSearchbar.length !== 0) {
       dispatch(clearPsychologistList());
       dispatch(getUserPsychologistByName(adminSearchbar));
+      setLoader(true);
+      setTimeout(() => {
+        setLoader(false);
+      }, 1500)
     }
   }, [dispatch, adminSearchbar]);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, [dispatch]);
 
   /* Paginado */
   const [page, setPage] = useState(1);
@@ -56,7 +69,7 @@ export default function Home() {
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
-    <div>
+    <Stack>
       {
         tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
       }
@@ -85,8 +98,7 @@ export default function Home() {
         <Stack width="100%" direction="row">
           <FiltersPsichologist />
         </Stack>
-
-        {AllPsychologist && AllPsychologist.length > 0 ?
+      { loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ? 
           AllPsychologists.map(el => {
             { console.log(el.status) }
             return (
@@ -99,15 +111,13 @@ export default function Home() {
                 rating={el.rating}
                 education={el.education}
                 about={el.about}
-                // about={`${el.about.slice(0, 270)}...`}
                 idPsychologist={el._id}
                 Specialties={el.Specialties}
               />
             )
-          }) : null
-        }
+          }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>  }
 
-        {/* <Psychologists></Psychologists> */}
+
       </div>
       <Paged
         postPage={postPage}
@@ -117,6 +127,6 @@ export default function Home() {
         setPage={setPage}
       />
       <Footer />
-    </div>
+    </Stack>
   );
 }
