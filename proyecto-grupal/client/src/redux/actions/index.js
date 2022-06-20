@@ -444,6 +444,7 @@ export const putPost = (body, IdPost) => {
 }
 
 
+
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
 export const getCategories = () => {
@@ -470,21 +471,19 @@ export const getByCategory = (category) => {
   }
 }
 
-export const getPostsAuthors = () => {
+export const getByCatego = (category) => {
   return async function (dispatch) {
     try {
-      const response = await fetch(`${baseURL}/author`);
-      const json = await response.json();
-      //json trae un obj de arrays con first y last Name
-      dispatch({
-        type: "GET_POSTS_AUTHORS",
-        payload: json,
-      });
+      const responseBack = await fetch(`${baseURL}/filter/${category}`);
+      const jsonBack = await responseBack.json();
+      //envio las notas que se filtren con esa catagory
+      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
     } catch (error) {
       console.log(error);
     }
   };
 };
+
 
 
 /*---------------------REVIEWS ACTIONS-------------------*/
@@ -674,6 +673,12 @@ export function AdminEditClient(id, updatedUserClient) {
     }
   };
 }
+
+export function clearAdminSearchbar() {
+  return {
+    type: CLEAR_ADMIN_SEARCHBAR
+  };
+};
 
 export function AdminDeleteUserClient(idUserClient) {
   return async function () {
