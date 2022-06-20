@@ -154,7 +154,7 @@ function FormEditClient() {
                         {error.profileImage && <Badge colorScheme='red'>{error.profileImage}</Badge>}
                         <Avatar
                           size={"2xl"}
-                          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_JlCFnIGX5omgjEjgV9F3sBRq14eTERK9w&usqp=CAU'
+                          src={clientDetails.profileImage}
                           mt={4}
                         />
                       </FormControl>
