@@ -132,7 +132,7 @@ function AdminPostDetail() {
                   <Stack direction='row' width='100%'>
                     <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/posts/edit/${idPost}`)}>
                       <BsPencilSquare />
-                      <Text pr='0.5em'> Editar rol</Text>
+                      <Text pr='0.5em'> Editar post</Text>
                     </Button>
                   {/* </Stack> */}
                   {/* <Stack direction='row'> */}
