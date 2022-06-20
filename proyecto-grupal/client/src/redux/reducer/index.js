@@ -22,6 +22,7 @@ import {
   PUT_POSTS,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  FILTER_BY_STATUS
 } from "../actions/types";
 
 const initialState = {
@@ -260,8 +261,18 @@ function rootReducer(state = initialState, action) {
             return new Date(b.createdAt) - new Date(a.createdAt);
           });
       return {
+            ...state,
+            allPayments: sortedPayments,
+          };
+    case FILTER_BY_STATUS:
+      let filtered = state.paymentDetailsPsychologist;
+      filtered = 
+          action.payload === 'abonado'
+          ? state.paymentDetailsPsychologist.filter((p) => p.status === true)
+          : state.paymentDetailsPsychologist.filter((p) => p.status === false) 
+      return {
         ...state,
-        allPayments: sortedPayments,
+        paymentDetailsPsychologist: filtered,
       };
 
     /*-----------SEARCHBAR-----------*/

@@ -25,7 +25,8 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS
+  GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  FILTER_BY_STATUS
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -553,6 +554,13 @@ export const getRangeByDate = (payload) => {
 export const sortByDate = (payload) => {
   return {
     type: SORT_BY_DATE,
+    payload
+  }
+}
+
+export const filterByStatus = (payload) => {
+  return {
+    type: FILTER_BY_STATUS,
     payload
   }
 }

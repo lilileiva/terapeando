@@ -1,11 +1,11 @@
 import { ExternalLinkIcon, ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons'
 import Swal from "sweetalert2";
-import { Button, VStack, Container, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, HStack, Badge, Text } from '@chakra-ui/react'
+import { Button, VStack, Container, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, HStack, Badge, Text, Select } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavbarHome from '../NavbarHome/NavbarHome'
 import { useDispatch, useSelector } from "react-redux";
-import { getPaymentByClientId, sortByDate, getPaymentByPsyId } from "../../redux/actions"
+import { getPaymentByClientId, sortByDate, getPaymentByPsyId, filterByStatus } from "../../redux/actions"
 import NotFound from '../404notFound/notFound.jsx';
 import Paged from '../Paged/Paged'
 
@@ -23,17 +23,26 @@ function Payments() {
 
   const paymentsCli = useSelector((state) => state.paymentDetailsClient)
   const psymentsPsy = useSelector((state) => state.paymentDetailsPsychologist)
-
+  
   let allPosts;
-
   if(tokenClient) allPosts = paymentsCli;
   if(tokenPsychologist) allPosts = psymentsPsy;
-
+  console.log(allPosts)
+  
   const [order, setOrder] = useState('')
   function handleDateSort(e){
     e.preventDefault();
     dispatch(sortByDate(e.target.value))
+    console.log(e.target.value)
     setOrder(`Order ${e.target.value}`)
+    setPage(1)
+  }
+
+  function handleFilter (e){
+    e.preventDefault();
+    console.log(e.target.value)
+    dispatch(filterByStatus(e.target.value, allPosts))
+    setPage(1)
   }
  
   const [page, setPage] = useState(1);
@@ -57,15 +66,29 @@ function Payments() {
        <Heading py={12}>Historial de Pagos</Heading>
        <VStack alignItems={'flex-start'}>
          <HStack alignItems={'center'}>
-           <Text>Filtro por Fecha: </Text>
-           <Button size='sm' value='asc' onClick={e => handleDateSort(e)}><ArrowUpIcon /></Button>
-      <Button size='sm' value='desc' onClick={e => handleDateSort(e)}><ArrowDownIcon /></Button>
+         <Text>Filtro por Fecha: </Text>
+        <Select
+        w="60%"
+        placeholder="Ordenar por fecha:"
+        onChange={handleDateSort}
+        cursor={"pointer"}
+      >
+        <option key={0} value='asc'>Ascendente</option>
+        <option key={1} value='desc'>Descendente</option>
+      </Select>
          </HStack>
          <HStack justifyContent={'flex-end'}>
-                      <Text>Filtro por Estado: </Text>
-                      <Badge cursor={'pointer'} colorScheme='green'>Abonado</Badge>
-                      <Badge cursor={'pointer'} colorScheme='purple'>En Proceso</Badge>
-                    </HStack>
+         <Text>Filtro por estado: </Text>
+        <Select
+        w="60%"
+        placeholder="Filtrar por estado:"
+        onChange={handleFilter}
+        cursor={"pointer"}
+      >
+        <option key={0} value='abonado'>Abonado</option>
+        <option key={1} value='desc'>En Proceso</option>
+      </Select>
+     </HStack>
 
        </VStack>
      </HStack>
