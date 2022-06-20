@@ -12,7 +12,7 @@ const getAllPayments = async (req: Request, res: Response) => {
 }
 
 const createPayment = async (req: Request, res: Response) =>{
-    const { amount, city, country, firstName, lastName, currency, celphone, email, address, psyName, idPsychologist } = req.body
+    const { amount, city, country, firstName, lastName, currency, celphone, email, address, psyName, idPsychologist, status } = req.body
     try{
         const newPayment =  new paymentHistoryModel({
             idPsychologist: idPsychologist,
@@ -27,6 +27,7 @@ const createPayment = async (req: Request, res: Response) =>{
             amount: amount,
             currency: currency,
             psyName: psyName,
+            status: status,
         })
 
         console.log('This is newPayment: ',newPayment)

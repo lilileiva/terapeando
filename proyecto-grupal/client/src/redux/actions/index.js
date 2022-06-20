@@ -32,6 +32,24 @@ import {
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 /*-------------------USER CLIENT ACTIONS----------------*/
+
+export function getUserClientsByName(name) {
+  return async function (dispatch) {
+    fetch(
+      `${baseURL}/userclient/clients?name=${name}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_CLIENTS_BY_NAME,
+          payload: data
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
 export function getUserClient() {
   return function (dispatch) {
     axios
@@ -98,7 +116,11 @@ export function loginClient(signinForm) {
 export function editClient(updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(`${baseURL}/userclient`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      const data = await axios.put(
+        `${baseURL}/userclient/editprofile`,
+        updatedUserClient,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      );
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -372,25 +394,10 @@ export const addPost = (body) => {
       )
       return dispatch({
         type: "CREATE_POST",
-        payload: info
-      })
+        payload: info,
+      });
     } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
-
-//eliminar nota
-export const deletePost = (id) => {
-  return async function (dispatch) {
-    try {
-      await axios.delete(`${baseURL}/deletePost/${id}`)
-      dispatch({ type: "DELETE_POST", payload: id })
-      Swal.fire('Post eliminado correctamente!', '', 'success')
-    } catch (error) {
-      console.log(error)
-      Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
+      console.log(error);
     }
   }
 }
@@ -408,7 +415,19 @@ export const putPost = (body, IdPost) => {
     }
   }
 }
-
+//eliminar nota
+export const deletePost = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${baseURL}/deletePost/${id}`)
+      dispatch({ type: "DELETE_POST", payload: id })
+      Swal.fire('Post eliminado correctamente!', '', 'success')
+    } catch (error) {
+      console.log(error)
+      Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
+    }
+  }
+}
 
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
@@ -682,7 +701,6 @@ export function AdminGetUserPsychologistByName(name) {
       method: 'GET',
       Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}`
     })
-
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -733,7 +751,6 @@ export function AdminDeleteUserPsichologist(IdUserPsychologist) {
     try {
       await axios.delete(
         `${baseURL}/admin/deleteuserpsychologist/${IdUserPsychologist}`,
-
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (error) {

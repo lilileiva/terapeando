@@ -7,6 +7,7 @@ import NavbarHome from '../NavbarHome/NavbarHome'
 import { useDispatch, useSelector } from "react-redux";
 import { getPaymentByClientId, sortByDate, getPaymentByPsyId } from "../../redux/actions"
 import NotFound from '../404notFound/notFound.jsx';
+import Paged from '../Paged/Paged'
 
 function Payments() {
   const tokenClient = window.localStorage.getItem('tokenClient')
@@ -23,6 +24,11 @@ function Payments() {
   const paymentsCli = useSelector((state) => state.paymentDetailsClient)
   const psymentsPsy = useSelector((state) => state.paymentDetailsPsychologist)
 
+  let allPosts;
+
+  if(tokenClient) allPosts = paymentsCli;
+  if(tokenPsychologist) allPosts = psymentsPsy;
+
   const [order, setOrder] = useState('')
   function handleDateSort(e){
     e.preventDefault();
@@ -30,7 +36,16 @@ function Payments() {
     setOrder(`Order ${e.target.value}`)
   }
  
+  const [page, setPage] = useState(1);
+  const [postPage] = useState(7);
+  const quantityPaymentPage = page * postPage;
+  const firstPage = quantityPaymentPage - postPage;
+  const showPaymentPage = allPosts.slice(firstPage,quantityPaymentPage);
 
+    
+  const paged = function (pageNumber) {
+    setPage(pageNumber);
+  };
 
   return (
     <>
@@ -56,7 +71,15 @@ function Payments() {
      </HStack>
      <TableContainer>
        <Table variant='striped' colorScheme='teal'>
-         <TableCaption><Button>Tengo un problema con mis cobros</Button></TableCaption>
+         <TableCaption><Button>Tengo un problema con mis cobros</Button>
+         <Paged 
+         postPage={postPage}
+         allPosts={allPosts.length}
+         paged={paged}
+         page={page}
+         setPage={setPage}
+         className='pagedPost'/>
+         </TableCaption>
          <Thead>
            <Tr>
              <Th>Fecha</Th>
@@ -68,10 +91,10 @@ function Payments() {
            </Tr>
          </Thead>
          <Tbody>
-           {psymentsPsy.map((p) => {
+           {showPaymentPage && showPaymentPage.map((p) => {
              return (
                <Tr>
-                 <Td>{p.createdAt}</Td>
+                 <Td>{p.createdAt.substring(0,10)}</Td>
                  <Td>{p.firstName} {p.lastName}</Td>
                  <Td isNumeric>$ {(p.amount - p.amount*0.04 - p.amount*0.05)}</Td>
                  <Td>{p.type}</Td>

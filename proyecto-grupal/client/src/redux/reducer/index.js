@@ -22,7 +22,7 @@ import {
   ADMIN_SEARCHBAR,
   PUT_POSTS,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS
+  GET_ALL_PSYCHOLOGIST_BY_STATUS,
 } from "../actions/types";
 
 const initialState = {
@@ -192,6 +192,32 @@ function rootReducer(state = initialState, action) {
         posts:[...state.posts,action.payload]
     }
 
+    /*-----------CLEAR-----------*/
+    case CLEAR_CLIENT:
+      return {
+        ...state,
+        userClientDetail: [],
+      };
+    case CLEAR_PSYCHOLOGIST:
+      return {
+        ...state,
+        userPsichologistDetail: {},
+      };
+    case CLEAR_CLIENT_LIST:
+      return {
+        ...state,
+        usersClients: [],
+      };
+    case CLEAR_PSYCHOLOGIST_LIST:
+      return {
+        ...state,
+        allUsersPsichologists: [],
+      };
+    case ADMIN_SEARCHBAR:
+      return {
+        ...state,
+        adminSearchbar: action.payload,
+      };
     /*-----------PAYMENT-----------*/
     case GET_PAYMENT:
       return {
@@ -210,9 +236,9 @@ function rootReducer(state = initialState, action) {
       };
     case GET_RANGE_BY_DATE:
       const allPayments = state.allPayments;
-      const filterByMonth = allPayments.filter((p) => 
-        p.createdAt?.some((date) => (new Date(p.createdAt).getUTCMonth() + 1) === action.payload)
-      ) 
+      const filterByMonth = allPayments.filter((p) =>
+        p.createdAt?.some((date) => new Date(date).getUTCMonth() + 1 === action.payload
+        ));
       return {
         ...state,
         allPayments: filterByMonth

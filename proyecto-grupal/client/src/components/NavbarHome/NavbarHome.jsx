@@ -97,8 +97,8 @@ const dispatch = useDispatch()
   }, [dispatch, tokenClient, tokenPsychologist]);
 
   const clientDetails = useSelector((state) => state.userClientDetail);
-  const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail)
-  console.log(userPsichologistDetail)
+  const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
+  console.log(userPsichologistDetail._id)
 
   return (
       <>
@@ -170,37 +170,45 @@ const dispatch = useDispatch()
                :  
               (
                 <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-              )}
+                size={"sm"}
+                src={userPsichologistDetail.profileImage}/>
+              )
+            }
+             </MenuButton>
+             <MenuList>
+              { tokenClient ? 
+              <>
+               <Link to={`/home/${clientDetails.firstName}`}>
+               <MenuItem>Mi Perfil</MenuItem>
+             </Link>
+             <Link to={`/editprofile/${clientDetails.firstName}`}>
+               <MenuItem>Editar Perfil</MenuItem>
+             </Link>
+             </> :   
+               <>
+               <Link to={`/home/${userPsichologistDetail.firstName}`}>
+               <MenuItem>Mi Perfil</MenuItem>
+             </Link>
+             <Link to={`/editprofile/${userPsichologistDetail.firstName}`}>
+               <MenuItem>Editar Perfil</MenuItem>
+             </Link>
+             </>
+            }
               
-              </MenuButton>
-
-              <MenuList>
-                <Link to={`/home/${clientDetails.firstName}`}>
-                  <MenuItem>Mi Perfil</MenuItem>
-                </Link>
-                <Link to={`/editprofile/${clientDetails.firstName}`}>
-                  <MenuItem>Editar Perfil</MenuItem>
-                </Link>
-                <Link to={"/preguntasfrecuentes"}>
-                  <MenuItem>Ayuda</MenuItem>
-                </Link>        
-                <Link to={"/mypayments"}>
-                  <MenuItem>Mis Pagos</MenuItem>
-                </Link>
-                <MenuDivider />
-                <MenuItem onClick={handleSignOut}>
-                  Cerrar sesión
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
-        </Flex>
-
+               <Link to={"/preguntasfrecuentes"}>
+                 <MenuItem>Ayuda</MenuItem>
+               </Link>        
+               <Link to={"/mypayments"}>
+                 <MenuItem>Mis Pagos</MenuItem>
+               </Link>
+               <MenuDivider />
+               <MenuItem onClick={handleSignOut}>
+                 Cerrar sesión
+               </MenuItem>
+             </MenuList>
+           </Menu>
+         </Flex>
+       </Flex>
 
        {isOpen ? (
          <Box pb={4} display={{ md: "none" }}>
