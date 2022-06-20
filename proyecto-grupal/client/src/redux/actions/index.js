@@ -257,11 +257,27 @@ export const getUserPsychologistOne = () => {
 };
 
 // GET USE RPSYCHOLOGIST DETAILS
-export const getUserPsychologistDetails = (idUserPsychologist) => {
+// export const getUserPsychologistDetails = (IdUserPsychologist) => {
+//   return async function (dispatch) {
+//     try {
+//       const psychologist = await axios.get(
+//         `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+//       );
+//       dispatch({
+//         type: "GET_PSYCHOLOGISTS_DETAILS",
+//         payload: psychologist.data,
+//       });
+//     } catch (error) {
+//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+//     }
+//   };
+// };
+
+export const getUserPsychologistDetails = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        `${baseURL}/userclient/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
