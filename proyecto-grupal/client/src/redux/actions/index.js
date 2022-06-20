@@ -115,7 +115,7 @@ export function editClient(updatedUserClient) {
   return async function () {
     try {
       const data = await axios.put(
-        `${baseURL}/userclient`,
+        `${baseURL}/userclient/editprofile`,
         updatedUserClient,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
