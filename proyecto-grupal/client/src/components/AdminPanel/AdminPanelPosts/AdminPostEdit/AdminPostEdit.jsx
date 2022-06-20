@@ -123,12 +123,7 @@ function handleDeleteCategory(category){
                     Image: "",
                     Tags: [],
                 });
-                if(response.status === 201) {
-                    Swal.fire('OK','Felicitaciones, tu nota ha sido editada exitosamente','success')
-                } else {
-                    Swal.fire('😥','Hubo un error en nuestros servidores','error')
-                }
-                
+                Swal.fire('OK','Felicitaciones, tu nota ha sido editada exitosamente','success')
             }
             //navigate('/home')
         }

@@ -32,9 +32,9 @@ function AdminPanelPosts() {
       showCancelButton: true,
       denyButtonText: 'Sí',
     }).then((result) => {
+      console.log(result)
       if (result.isDenied) {
-        dispatch(deletePost(postId))
-        Swal.fire('Post eliminado correctamente!', '', 'success')
+        console.log(dispatch(deletePost(postId)))
         dispatch(getAllPosts())
       }
     })
@@ -52,8 +52,7 @@ function AdminPanelPosts() {
   return (
     <>
       {
-        token
-          ? (
+       
             <div className='adminPanelContainer' >
               <AdminPanelNavbar />
 
@@ -125,9 +124,7 @@ function AdminPanelPosts() {
 
               <Footer />
             </div >
-          ) : (
-            <NotFound />
-          )
+          
       }
     </>
   )

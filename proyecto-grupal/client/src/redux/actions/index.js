@@ -18,9 +18,7 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
-
-  PUT_POSTS
-
+  PUT_POSTS,
   GET_PAYMENT, 
   GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
@@ -425,9 +423,11 @@ export const putPost = (body, id) => {
       const {info} = await axios.post(
         `${baseURL}/edit/${id}`,body
       )
-      return dispatch({type:PUT_POSTS, pyaload:info})
+      dispatch({type:PUT_POSTS, pyaload:info})
+      Swal.fire('Post editada correctamente!', '', 'success')
     }catch(e){
       console.log(e)
+      Swal.fire('Error', `No se puede editar la nota por ${e}`,'error')
     }
   }
 }
@@ -437,8 +437,10 @@ export const deletePost = (id) => {
     try {
       await axios.delete(`${baseURL}/deletePost/${id}`)
       dispatch({ type: "DELETE_POST", payload: id })
+      Swal.fire('Post eliminado correctamente!', '', 'success')
     } catch (error) {
       console.log(error)
+      Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
     }
   }
 }
@@ -469,13 +471,6 @@ export const getByCategory = (category) => {
     }
   }
 }
-
-export const clearStatePostDetail = () => {
-  return {
-    type: "CLEAR_POST_DETAIL",
-
-  };
-};
 
 export const getPostsAuthors = () => {
   return async function (dispatch) {
