@@ -44,19 +44,39 @@ function AdminPostDetail() {
     })
   }
 
-  const token = window.localStorage.getItem('token')
+
+  const tokenAdmin = window.localStorage.getItem("tokenAdmin");
 
   return (
     <>
-      {
-        token
-          ? (
-            <div className='adminPanelContainer'>
-              <AdminPanelNavbar />
+      {tokenAdmin ? (
+        <div className="adminPanelContainer">
+          <AdminPanelNavbar />
 
               <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
 
-                <AdminPanelSidebar />
+            <Stack
+              width="100%"
+              height="fit-content"
+              bg="white"
+              p="2%"
+              direction="column"
+              justifyContent="top"
+              align="center"
+              boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}
+            >
+              <Stack direction="row" width="100%">
+                <Button
+                  colorScheme="teal"
+                  variant="outline"
+                  onClick={() => navigate("/adminpanel/posts")}
+                >
+                  <ArrowLeftIcon />
+                  <Text ml="0.5em"> Volver</Text>
+                </Button>
+              </Stack>
+              {Object.keys(postDetail).length !== 0 ? (
+
 
                 <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                   <Avatar src={postDetail.Image} size='xl' />
@@ -72,11 +92,12 @@ function AdminPostDetail() {
                   <br />
                   <Stack direction='row'>
                     <Text fontSize='xl' fontWeight='600'> Contenido: </Text>
-                    <Text fontSize='xl'> {showMore ? postDetail.Content : postDetail.Content.substring(0,250)}
-                    <Button colorScheme='blackAlpha' variant='outline' onClick={() => setShowMore(!showMore)} size="sm" marginLeft={"2%"}>
-                        <Text> {showMore ? " Ver Menos":" Ver Mas"}</Text>
-                    </Button>
-                     </Text>
+                    <Text fontSize='xl'> {showMore ? postDetail.Content : postDetail.Content.substring(0, 250)}
+                      <Button colorScheme='blackAlpha' variant='outline' onClick={() => setShowMore(!showMore)} size="sm" marginLeft={"2%"}>
+                        <Text> {showMore ? " Ver Menos" : " Ver Mas"}</Text>
+                      </Button>
+                    </Text>
+
                   </Stack>
                   <br />
                   <Stack direction='row'>
@@ -89,18 +110,19 @@ function AdminPostDetail() {
                     <Text fontSize='xl'> {postDetail.idUserPsychologist.firstName} {postDetail.idUserPsychologist.lastName}  </Text>
                   </Stack>
                   <br />
-                  <Stack direction='row'>
-                    <Button width='85%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+                  <Stack direction='row' width='100%'>
+                    <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/posts/edit/${idPost}`)}>
+                      <BsPencilSquare />
+                      <Text pr='0.5em'> Editar post</Text>
+                    </Button>
+                  {/* </Stack> */}
+                  {/* <Stack direction='row'> */}
+                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>
-                  <Stack direction='row' width='100%'>
-                    <Button colorScheme='teal' variant='outline' onClick={() => navigate('/adminpanel/posts')}>
-                      <ArrowLeftIcon />
-                      <Text ml='0.5em'> Volver</Text>
-                    </Button>
                   </Stack>
-              
+
                 </Stack>
 
               </Stack>

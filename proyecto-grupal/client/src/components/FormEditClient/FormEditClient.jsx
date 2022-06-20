@@ -17,7 +17,7 @@ import {
 import { useEffect, useState } from 'react';
 import countryList from 'react-select-country-list';
 import { useDispatch, useSelector } from 'react-redux';
-import { editClient, getUserClient, getUserPsychologistOne, editUserPsichologist } from '../../redux/actions';
+import { editClient, getUserClient } from '../../redux/actions';
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
@@ -38,18 +38,8 @@ function FormEditClient() {
   const countries = useMemo(() => countryList().getData(), [])
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-
-  useEffect(() => {
-    if(tokenClient) dispatch(getUserClient())
-    if(tokenPsychologist) dispatch(getUserPsychologistOne())
-  }, [dispatch, tokenClient, tokenPsychologist]);
-
+  // const { idUserClient } = useParams();
   const clientDetails = useSelector((state) => state.userClientDetail)
-  const psychologistDetails = useSelector((state) => state.psychologistProfile)
-
 
   const [error, setError] = useState({});
   const [input, setInput] = useState({
@@ -59,6 +49,10 @@ function FormEditClient() {
     country: clientDetails.country,
     profileImage: clientDetails.profileImage
   })
+
+  useEffect(() => {
+    dispatch(getUserClient());
+  }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();
@@ -88,12 +82,8 @@ function FormEditClient() {
     ) {
       alert("Tu perfil necesita esta información, por favor no dejes campos en blanco");
     } else {
-      if(tokenClient) {
-        dispatch(editClient(input))
-      } else if(tokenPsychologist){
-        dispatch(editUserPsichologist(input))
-      }
-      
+      dispatch(editClient(input))
+
       console.log(input)
       setInput({
         firstName: '',
