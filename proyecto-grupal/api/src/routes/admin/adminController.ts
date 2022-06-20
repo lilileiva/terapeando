@@ -5,6 +5,7 @@ import userPsychologistModel from "../../models/userPsychologist";
 import userPsychologist from "../../models/userPsychologist";
 import Post from "../../models/Post";
 
+
 const registerAdmin = async (req: Request, res: Response) => {
     const {
         firstname,
@@ -58,7 +59,7 @@ const getAllUserClient = async (req: Request, res: Response) => {
 };
 
 const getUserClientById = async (req: Request, res: Response) => {
-     const {IdUserClient} = req.params
+     const  { IdUserClient } = req.params;
      try {
         const userClient = await userClientModel.findById(IdUserClient);
         res.status(200).json(userClient);
@@ -155,7 +156,7 @@ const deleteUserPsychologist = async (req: Request, res: Response) => {
 
 const updateUserPsychologist = async (req: Request, res: Response) => {
   const { IdUserPsychologist } = req.params;
-  console.log(IdUserPsychologist)
+
   try {
     await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, { new: true })
     res.status(200).send('Usuario editado correctamente')

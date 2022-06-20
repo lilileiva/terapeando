@@ -117,7 +117,6 @@ export default function PsychologistDetail() {
                     </Text>
                   </Box>
                   <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
-                    <Text className="HeadingDetail" >
                     {
                       detail.rating
                         ? (
@@ -126,7 +125,6 @@ export default function PsychologistDetail() {
                           </Text>
                         ) : null
                     }
-                    </Text>
                     {<Reviews />}
                   </Box>
                 </>}

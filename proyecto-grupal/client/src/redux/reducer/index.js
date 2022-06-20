@@ -17,6 +17,7 @@ import {
   GET_RANGE_BY_DATE,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT_LIST,
+  CLEAR_ADMIN_SEARCHBAR,
   ADMIN_SEARCHBAR,
   PUT_POSTS,
   SORT_BY_DATE,
@@ -29,6 +30,7 @@ const initialState = {
   UserPsichologists: [], // nuevo
   userClientDetail: [],
   usersClients: [],
+  usersClientsSearch: [],
   posts: [],
   postsCopy: [],
   categories: [],
@@ -53,7 +55,8 @@ function rootReducer(state = initialState, action) {
     case GET_USER_CLIENTS_BY_NAME:
       return {
         ...state,
-        usersClients: action.payload,
+        usersClientsSearch: action.payload,
+        usersClients: action.payload
       };
     case GET_USERCLIENT:
       return {
@@ -132,8 +135,8 @@ function rootReducer(state = initialState, action) {
           action.payload === "Todas"
             ? psichologists
             : filterBySpecialties.length > 0
-            ? filterBySpecialties
-            : psichologists,
+              ? filterBySpecialties
+              : psichologists,
       };
     case ORDER_PSICHOLOGIST_BY_RATING:
       return {
@@ -189,32 +192,7 @@ function rootReducer(state = initialState, action) {
         posts: action.payload
       }
 
-    /*-----------CLEAR-----------*/
-    case CLEAR_CLIENT:
-      return {
-        ...state,
-        userClientDetail: [],
-      };
-    case CLEAR_PSYCHOLOGIST:
-      return {
-        ...state,
-        userPsichologistDetail: {},
-      };
-    case CLEAR_CLIENT_LIST:
-      return {
-        ...state,
-        allUsersPsichologists: [],
-      };
-    case CLEAR_PSYCHOLOGIST_LIST:
-      return {
-        ...state,
-        allUsersPsichologists: [],
-      };
-    case ADMIN_SEARCHBAR:
-      return {
-        ...state,
-        adminSearchbar: action.payload,
-      };
+    /*-----------PAYMENT-----------*/
     case GET_PAYMENT:
       return {
         ...state,
@@ -246,18 +224,52 @@ function rootReducer(state = initialState, action) {
       sortedPayments =
         action.payload === "asc"
           ? state.allPayments.sort(function (a, b) {
-              return new Date(a.createdAt) - new Date(b.createdAt);
-            })
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          })
           : state.allPayments.sort(function (a, b) {
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            });
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          });
       return {
         ...state,
         allPayments: sortedPayments,
       };
+
+    /*-----------SEARCHBAR-----------*/
+    case ADMIN_SEARCHBAR:
+      return {
+        ...state,
+        adminSearchbar: action.payload,
+      };
+    /*-----------CLEAR-----------*/
+    case CLEAR_CLIENT:
+      return {
+        ...state,
+        userClientDetail: [],
+      };
+    case CLEAR_PSYCHOLOGIST:
+      return {
+        ...state,
+        userPsichologistDetail: {},
+      };
+    case CLEAR_CLIENT_LIST:
+      return {
+        ...state,
+        usersClients: [],
+      };
+    case CLEAR_PSYCHOLOGIST_LIST:
+      return {
+        ...state,
+        allUsersPsichologists: [],
+      };
+    case CLEAR_ADMIN_SEARCHBAR:
+      return {
+        ...state,
+        adminSearchbar: [],
+      }
     default:
       return { ...state };
   }
 }
+
 
 export default rootReducer;
