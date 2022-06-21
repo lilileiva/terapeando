@@ -31,6 +31,39 @@ import {
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 /*-------------------USER CLIENT ACTIONS----------------*/
+export function getUserClientsByName(name) {
+  return async function (dispatch) {
+    fetch(
+      `${baseURL}/userclient/clients?name=${name}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_USER_CLIENTS_BY_NAME,
+          payload: data
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
+export const getUserPsychologistDetailsasClient = (idUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
+        `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_DETAILS",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
 export function getUserClient() {
   return function (dispatch) {
     axios
@@ -215,11 +248,11 @@ export const getUserPsychologistOne = () => {
 };
 
 // GET USE RPSYCHOLOGIST DETAILS
-export const getUserPsychologistDetails = (IdUserPsychologist) => {
+export const getUserPsychologistDetails = (idUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        `${baseURL}/userpsychologist/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
@@ -230,6 +263,22 @@ export const getUserPsychologistDetails = (IdUserPsychologist) => {
     }
   };
 };
+
+// export const getUserPsychologistDetails = (idUserPsychologist) => {
+//   return async function (dispatch) {
+//     try {
+//       const psychologist = await axios.get(
+//         `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+//       );
+//       dispatch({
+//         type: "GET_PSYCHOLOGISTS_DETAILS",
+//         payload: psychologist.data,
+//       });
+//     } catch (error) {
+//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+//     }
+//   };
+// };
 
 //Post para los user Psychologist
 export function createPsychologist(signupForm) {
@@ -373,6 +422,7 @@ export const addPost = (body) => {
       Swal.fire('Post creada correctamente!', 'muy bien', 'success')
     } catch (error) {
       console.log(error)
+
       Swal.fire('Error', `No se puede crear la nota por ${error}`,'error')
     }
   }
@@ -429,29 +479,6 @@ export const getByCategory = (category) => {
     } catch (error) {
       console.log(error);
     }
-  }
-}
-
-export const getPostsAuthors = () => {
-  return async function (dispatch) {
-    try {
-      const response = await fetch(`${baseURL}/author`);
-      const json = await response.json();
-      //json trae un obj de arrays con first y last Name
-      dispatch({
-        type: "GET_POSTS_AUTHORS",
-        payload: json,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const filterByAuthor = (payload) => {
-  return {
-    type: "FILTER_POSTS_BY_AUTHOR",
-    payload,
   }
 }
 

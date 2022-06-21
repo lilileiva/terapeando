@@ -108,7 +108,7 @@ export default function Home() {
           </Stack>
           {loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ?
             AllPsychologists.map(el => {
-              { console.log(el.status) }
+              // { console.log(el.status) }
               return (
 
                 <CardPsychologist
