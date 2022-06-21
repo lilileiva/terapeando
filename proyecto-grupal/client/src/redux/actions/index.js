@@ -50,6 +50,22 @@ export function getUserClientsByName(name) {
   }
 }
 
+export const getUserPsychologistDetailsasClient = (idUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
+        `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      );
+      dispatch({
+        type: "GET_PSYCHOLOGISTS_DETAILS",
+        payload: psychologist.data,
+      });
+    } catch (error) {
+      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+    }
+  };
+};
+
 export function getUserClient() {
   return function (dispatch) {
     axios
