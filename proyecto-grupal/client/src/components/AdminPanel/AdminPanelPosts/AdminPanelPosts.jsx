@@ -8,7 +8,6 @@ import AdminSearchbar from "../AdminSearchbar/AdminSearchbar.jsx";
 import { Stack, Text, Center, Avatar, Button } from "@chakra-ui/react";
 import {
   BsFillFileEarmarkXFill,
-  BsPencilSquare,
   BsPeople,
   BsFillEyeFill,
 } from "react-icons/bs";
@@ -121,10 +120,8 @@ function AdminPanelPosts() {
 
                               <Stack direction='row' align='center'>
                                 <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)} />
-                                <BsPencilSquare size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/edit/${post._id}`)} />
                                 <BsFillFileEarmarkXFill size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(post._id)} />
                               </Stack>
-
                             </Stack>
                             <hr />
                           </>

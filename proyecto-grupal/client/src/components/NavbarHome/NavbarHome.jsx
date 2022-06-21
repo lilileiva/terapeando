@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserClient, getUserPsychologistOne } from "../../redux/actions";
+import { getUserClient , getUserPsychologistOne} from "../../redux/actions";
 import { useEffect } from "react";
 
 function removeAcc(str) {
@@ -51,8 +51,8 @@ const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 const tokenClient = window.localStorage.getItem('tokenClient')
 const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
-console.log(tokenClient)
-console.log(tokenPsychologist)
+//console.log('TC: ', tokenClient)
+//console.log('TP: ', tokenPsychologist)
 
 const NavLink = ({ children }) => (
   
@@ -75,6 +75,13 @@ export default function NavbarHome() {
 
 const dispatch = useDispatch()
 
+
+  // useEffect(() => {
+  //   dispatch(getUserClient());
+  // }, [dispatch]);
+
+
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const navigate = useNavigate();
@@ -91,7 +98,6 @@ const dispatch = useDispatch()
 
   const clientDetails = useSelector((state) => state.userClientDetail);
   const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
-  console.log(userPsichologistDetail._id)
 
   return (
       <>
@@ -158,23 +164,23 @@ const dispatch = useDispatch()
               (
               <Avatar
                  size={"sm"}
-                 src={clientDetails.profileImage}
+                 src={clientDetails?.profileImage}
                /> )
                :  
               (
                 <Avatar
                 size={"sm"}
-                src={userPsichologistDetail.profileImage}/>
+                src={userPsichologistDetail?.profileImage}/>
               )
             }
              </MenuButton>
              <MenuList>
               { tokenClient ? 
               <>
-               <Link to={`/home/${clientDetails.firstName}`}>
+               <Link to={`/home/${clientDetails?.firstName}`}>
                <MenuItem>Mi Perfil</MenuItem>
              </Link>
-             <Link to={`/editprofile/${clientDetails.firstName}`}>
+             <Link to={`/editprofile/${clientDetails?.firstName}`}>
                <MenuItem>Editar Perfil</MenuItem>
              </Link>
              </> :   

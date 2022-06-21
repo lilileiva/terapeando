@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, getUserPsychologistDetails } from "../../redux/actions";
+import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient } from "../../redux/actions";
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
@@ -21,7 +21,7 @@ export default function PsychologistDetail() {
   const [loader, setLoader] = useState(false);
   const detail = useSelector((state) => state.userPsichologistDetail);
   const navigate = useNavigate();
-  console.log(detail)
+
   // useEffect(() => {
   //   dispatch(getUserPsychologistOne(idPsychologist));
   //   smoothscroll()
@@ -30,8 +30,13 @@ export default function PsychologistDetail() {
   //   };
   // }, [dispatch, idPsychologist]);
 
+
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  const tokenAdmin = window.localStorage.getItem('tokenAdmin')
+
   useEffect(() => {
-    dispatch(getUserPsychologistDetails(idPsychologist));
+    tokenClient ? dispatch(getUserPsychologistDetailsasClient(idPsychologist)) : dispatch(getUserPsychologistDetails(idPsychologist))
     setLoader(true);
     smoothscroll()
     setTimeout(() => {
@@ -42,9 +47,6 @@ export default function PsychologistDetail() {
     };
   }, [dispatch, idPsychologist]);
 
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-  const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>
@@ -56,7 +58,7 @@ export default function PsychologistDetail() {
 
               <SimpleGrid columns={1} spacingX="60px" spacingY="20px">
                 <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>
-                  <Link to={'/psicologos'}>
+                  <Link to={'/home'}>
                     <ArrowLeftIcon color={'black.300'} alignItems={'left'} onClick={() => navigate(-1)} />
                   </Link>
                   <Box className="BoxDetail" borderRadius={'10px'} width='fit-content' height={'fit-content'}><Text className="HeadingDetail" mb={3}>Conoce un poco más sobre tu próximo psicólogo</Text></Box>
@@ -98,7 +100,6 @@ export default function PsychologistDetail() {
                         {` 🎂 ${detail.birthDate}`}
                       </Text>
                     </Box>
-
 
 
                     <Flex className="BoxDetail" marginLeft={'56'} justifyContent='space-around' borderRadius={'10px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>

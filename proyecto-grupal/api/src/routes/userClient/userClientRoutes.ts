@@ -4,6 +4,7 @@ const {
     getUserClient,
     createUserClient,
     deleteUserClient,
+    getPsychologistDetails,
     putUserClient
 } = require('./userClient.ts')
 const validateClient = require('../../middleware/validateClient')
@@ -12,6 +13,7 @@ const validateAdmin = require('../../middleware/ValidateAdminToken')
 const clientRouter: Router = Router();
 
 clientRouter.get('/client',validateClient, getUserClient);
+clientRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)
 clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)
 clientRouter.delete('/deleteuserclient', validateClient, deleteUserClient)
