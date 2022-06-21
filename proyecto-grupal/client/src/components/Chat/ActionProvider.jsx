@@ -96,5 +96,17 @@ class ActionProvider{
         );
         this.updateChatbotState(message);
     };
+    handleGoodbye = () => {
+        const message = this.createChatBotMessage(
+          "Fue divertido hablar contigo, cuídate, escribeme de nuevo cuando lo necesites"
+        );
+        this.updateChatbotState(message);
+    };
+    updateChatbotState(message){
+        this.setState((prevState) => ({
+            ...prevState,
+            massages:[...prevState, message]
+        }))
+    }
 }
 export default ActionProvider
