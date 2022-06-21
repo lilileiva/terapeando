@@ -8,8 +8,11 @@ function Chat(){
     return(
         <div className='Chat'>
             <header className='chat-header'>
-                <Chatbot config={config} actionProvider={ActionProvider}
-                messageParser={MessageParser}/>
+                <Chatbot
+                config={config}
+                actionProvider={ActionProvider}
+                messageParser={MessageParser}
+                />
             </header>
         </div>
     )
