@@ -24,7 +24,7 @@ export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     dispatch(getPsychologistByStatus());
@@ -43,7 +43,6 @@ export default function Home() {
   }, [dispatch, adminSearchbar]);
 
   useEffect(() => {
-    setLoader(true);
     setTimeout(() => {
       setLoader(false);
     }, 1500);

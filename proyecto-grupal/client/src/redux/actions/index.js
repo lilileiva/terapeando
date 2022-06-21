@@ -261,8 +261,11 @@ export const getUserPsychologistDetails = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/details/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-      );
+        `${baseURL}/userpsychologist/details/${IdUserPsychologist}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}`          
+        }
+      });
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
         payload: psychologist.data,
@@ -426,13 +429,13 @@ export const putPost = (body, IdPost) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.put(
-        `${ baseURL }/edit/${ IdPost }`, body
+        `${baseURL}/edit/${IdPost}`, body
       )
       dispatch({ type: PUT_POSTS, pyaload: info })
       Swal.fire('Post editada correctamente!', 'muy bien', 'success')
     } catch (e) {
       console.log(e)
-      Swal.fire('Error', `No se puede editar la nota por ${ e }`, 'error')
+      Swal.fire('Error', `No se puede editar la nota por ${e}`, 'error')
     }
   }
 }

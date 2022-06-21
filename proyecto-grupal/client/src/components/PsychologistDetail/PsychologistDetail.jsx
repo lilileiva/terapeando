@@ -54,9 +54,7 @@ export default function PsychologistDetail() {
 
                         <SimpleGrid columns={1} spacingX="60px" spacingY="20px">
                           <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>
-                            <Link to={'/psicologos'}>
-                              <ArrowLeftIcon color={'black.300'} alignItems={'left'} onClick={() => navigate(-1)} />
-                            </Link>
+                            <ArrowLeftIcon color={'black.300'} alignItems={'left'} onClick={() => navigate(-1)} />
                             <Box className="BoxDetail" borderRadius={'10px'} width='fit-content' height={'fit-content'}><Text className="HeadingDetail" mb={3}>Conoce un poco más sobre tu próximo psicólogo</Text></Box>
                             <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} /> </Flex>
                           </Flex>
