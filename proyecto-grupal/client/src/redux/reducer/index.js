@@ -107,6 +107,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         psychologistProfile: action.payload,
       };
+    case "GET_PSYCHOLOGISTS_DETAILS":
+      return {
+        ...state,
+        userPsichologistDetail: action.payload,
+      };
     case "GET_BY_CATEGORY_POST":
       return {
         ...state,

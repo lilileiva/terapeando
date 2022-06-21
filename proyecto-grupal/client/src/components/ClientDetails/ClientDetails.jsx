@@ -33,7 +33,11 @@ export default function ClientDetails() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserClient());
+   tokenClient ? dispatch(getUserClient()) : dispatch(getUserPsychologistOne());
+  }, [dispatch]);
+
+  useEffect(() => {
+   
   }, [dispatch]);
 
 
@@ -244,7 +248,16 @@ export default function ClientDetails() {
                             <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                               {psychologistDetails.country}
                             </Badge>
+                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              {psychologistDetails.DNI}
+                            </Badge>
+                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              {psychologistDetails.License}
+                            </Badge>
                           </Stack>
+                          <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              {psychologistDetails.about}
+                            </Badge>
 
                           <Stack mt={"40px"} alignItems="center">
                             <CalendarIcon />

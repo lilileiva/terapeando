@@ -238,11 +238,11 @@ export const getUserPsychologistOne = () => {
 };
 
 // GET USE RPSYCHOLOGIST DETAILS
-export const getUserPsychologistDetails = (IdUserPsychologist) => {
+export const getUserPsychologistDetails = (idUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        `${baseURL}/userpsychologist/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
