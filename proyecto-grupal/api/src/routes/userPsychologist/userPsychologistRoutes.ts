@@ -30,7 +30,7 @@ psychologistRouter.delete('/deleteuserpsychologist/', validatePsychologist , del
 psychologistRouter.put('/put_userpsychologist', validatePsychologist ,putUserPsychologist)
 psychologistRouter.get('/filterspecialties/specialties/:specialtie', filterPsichologistSpecialities);
 //psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
-psychologistRouter.get('/rese/reviews', getReviews);
+
 
 
 
