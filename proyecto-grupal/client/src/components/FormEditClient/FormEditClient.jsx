@@ -17,11 +17,7 @@ import {
 import { useEffect, useState } from 'react';
 import countryList from 'react-select-country-list';
 import { useDispatch, useSelector } from 'react-redux';
-<<<<<<< HEAD
 import { editClient, editUserPsichologist, getUserClient, getUserPsychologistOne } from '../../redux/actions';
-=======
-import { editClient, getUserClient, getUserPsychologistOne, editUserPsichologist } from '../../redux/actions';
->>>>>>> 72ab1c4ab6697e40554c0f99c2747d6d763480cb
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
