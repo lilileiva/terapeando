@@ -51,5 +51,50 @@ class ActionProvider{
         });
         this.updateChatbotState(message)
     }
+    handleSitePack1 = () => {
+        const message = this.createChatBotMessage("Una sesion en promedio con un psicologo de la plataforma cuesta $1000 USD",{
+            widget:"PriceFeedBack",
+        });
+        this.updateChatbotState(message);
+    }
+    handleSitePack2 = () => {
+        const message = this.createChatBotMessage("Una sesion en promedio con un psicologo de la plataforma cuesta $2000 USD", {
+          widget: "PriceFeedback",
+        });
+        this.updateChatbotState(message);
+    };
+    handleSitePack3 = () => {
+        const message = this.createChatBotMessage("Una sesion en promedio con un psicologo de la plataforma cuesta $3000 USD", {
+          widget: "PriceFeedback",
+        });
+        this.updateChatbotState(message);
+    };
+    handleSitePack4 = () => {
+        const message = this.createChatBotMessage(
+          "Una sesion en promedio con un psicologo de la plataforma cuesta $4000 USD",
+          {
+            widget: "PriceFeedback",
+          }
+        );
+        this.updateChatbotState(message);
+    };
+    handleWebsiteList = () => {
+        const message = this.createChatBotMessage(
+          "¿Qué tipo de psicologo necesita?",
+          {
+            widget: "website",
+          }
+        );
+        this.updateChatbotState(message);
+    };
+    handlePricing = () => {
+        const message = this.createChatBotMessage(
+          "¿Qué tipo de servicio necesita?",
+          {
+            widget: "Pricing",
+          }
+        );
+        this.updateChatbotState(message);
+    };
 }
 export default ActionProvider
