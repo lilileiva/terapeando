@@ -18,6 +18,7 @@ export default function AdminPsichologisttDetails() {
   const navigate = useNavigate();
 
   const { idUserPsichologist } = useParams();
+
   useEffect(() => {
     dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
     return () => {
@@ -156,4 +157,3 @@ export default function AdminPsichologisttDetails() {
     </>
   )
 }
-

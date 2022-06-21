@@ -30,6 +30,8 @@ export default function PsychologistDetail() {
   //   };
   // }, [dispatch, idPsychologist]);
 
+
+
   useEffect(() => {
     dispatch(getUserPsychologistDetails(idPsychologist));
     setLoader(true);
@@ -105,7 +107,6 @@ export default function PsychologistDetail() {
                               </Box>
 
 
-
                               <Flex className="BoxDetail" marginLeft={'56'} justifyContent='space-around' borderRadius={'10px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>
                                 <Box bg="" borderRadius={'10px'} height="fit-content" marginRight={'10'}>
                                   <Text className="HeadingDetail" >
@@ -139,7 +140,7 @@ export default function PsychologistDetail() {
                       </div>
                     </>
                   ) : null
-           }
+              }
             </>
           ) : (
             <NotFound />

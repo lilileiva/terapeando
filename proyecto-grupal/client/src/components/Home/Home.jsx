@@ -109,20 +109,20 @@ export default function Home() {
           </Stack>
           {loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ?
             AllPsychologists.map(el => {
-              { console.log(el.status) }
+              // { console.log(el.status) }
               return (
 
                 <CardPsychologist
-                  key={el._id}
-                  firstName={el.firstName}
-                  lastName={el.lastName}
-                  profileImage={el.profileImage}
-                  rating={el.rating}
-                  education={el.education}
-                  about={el.about}
-                  // about={`${el.about.slice(0, 270)}...`}
-                  idPsychologist={el._id}
-                  Specialties={el.Specialties}
+                  psychologist={el}
+                  // key={el._id}
+                  // firstName={el.firstName}
+                  // lastName={el.lastName}
+                  // profileImage={el.profileImage}
+                  // rating={el.rating}
+                  // education={el.education}
+                  // about={el.about}                  
+                  // idPsychologist={el._id}
+                  // Specialties={el.Specialties}
                 />
               )
             }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}

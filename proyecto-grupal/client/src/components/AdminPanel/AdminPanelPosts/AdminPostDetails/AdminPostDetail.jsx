@@ -14,6 +14,7 @@ import {
   BsSearch,
 } from "react-icons/bs";
 import {
+  putPost,
   clearStatePostDetail,
   AdminDeletePost,
   getPostDetail,
@@ -27,6 +28,7 @@ function AdminPostDetail() {
   const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
   const { idPost } = useParams();
+  
   useEffect(() => {
     dispatch(getPostDetail(idPost));
     return () => {
