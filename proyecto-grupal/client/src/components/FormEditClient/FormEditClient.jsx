@@ -39,6 +39,9 @@ function FormEditClient() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
   useEffect(() => {
     if(tokenClient) dispatch(getUserClient())
     if(tokenPsychologist) dispatch(getUserPsychologistOne())
@@ -58,16 +61,10 @@ function FormEditClient() {
     about: psychologistDetails.about
   })
  
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
   useEffect(() => {
     if(tokenClient) dispatch(getUserClient());
     dispatch(getUserPsychologistOne());
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(getUserPsychologistOne());
-  // }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();
@@ -120,7 +117,7 @@ function FormEditClient() {
   return (
     <>
       {
-        tokenClient 
+        tokenClient && clientDetails
           ? (
             <form onSubmit={(e) => handleSubmit(e)}>
               <Flex
