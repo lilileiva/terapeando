@@ -1,26 +1,39 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Footer from '../../../Footer/Footer';
-import { useNavigate } from 'react-router-dom';
-import AdminPanelNavbar from '../../AdminPanelNavbar/AdminPanelNavbar.jsx';
-import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
-import AdminSearchbar from '../../AdminSearchbar/AdminSearchbar.jsx';
-import { Stack, Text, Center, Avatar, Button, } from '@chakra-ui/react';
-import { BsFillFileEarmarkXFill, BsPencilSquare, BsPeople, BsFillEyeFill, } from "react-icons/bs";
-import { getAllPosts, searchPostsByTitle, deletePost } from '../../../../redux/actions/index';
-import Swal from 'sweetalert2';
-import Loader from '../../../Loader/Loader.jsx';
-import NotFound from '../../../404notFound/notFound.jsx';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import AdminPanelNavbar from "../../AdminPanelNavbar/AdminPanelNavbar.jsx";
+import AdminPanelSidebar from "../../AdminPanelSidebar/AdminPanelSidebar.jsx";
+import Footer from "../../../Footer/Footer.jsx";
+import { Stack, Button, Avatar, Text } from "@chakra-ui/react";
+import { ArrowLeftIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import {
+  BsPersonDash,
+  BsPencilSquare,
+  BsPeople,
+  BsFillEyeFill,
+  BsSearch,
+} from "react-icons/bs";
+import {
+  clearStatePostDetail,
+  AdminDeletePost,
+  getPostDetail,
+} from "../../../../redux/actions";
+import Loader from "../../../Loader/Loader.jsx";
+import Swal from "sweetalert2";
+import NotFound from "../../../404notFound/notFound.jsx";
 
-function AdminPanelPosts() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
+function AdminPostDetail() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showMore, setShowMore] = useState(false);
+  const { idPost } = useParams();
   useEffect(() => {
-    dispatch(getAllPosts())
-  }, [dispatch])
-
-  const allPosts = useSelector((state) => state.posts);
+    dispatch(getPostDetail(idPost));
+    return () => {
+      dispatch(clearStatePostDetail());
+    };
+  }, [dispatch]);
+  const postDetail = useSelector((state) => state.postDetail);
 
   const handleAlertDelete = (postId) => {
     Swal.fire({
@@ -34,103 +47,115 @@ function AdminPanelPosts() {
     }).then((result) => {
       console.log("R:", result)
       if (result.isDenied) {
-        dispatch(deletePost(postId))
-        dispatch(getAllPosts())
+        dispatch(AdminDeletePost(postId));
+        navigate("/adminpanel/posts");
+        Swal.fire("Post eliminado correctamente!", "", "success");
       }
     });
   };
 
-  const adminSearchbar = useSelector((state) => state.adminSearchbar);
-  useEffect(() => {
-    if (adminSearchbar.length !== 0) {
-      dispatch(searchPostsByTitle(adminSearchbar))
-    }
-  }, [dispatch, adminSearchbar])
-
-  const token = true;
+  const tokenAdmin = window.localStorage.getItem("tokenAdmin");
 
   return (
     <>
-      {
-        token
-          ? (
-            <div className='adminPanelContainer' >
-              <AdminPanelNavbar />
+      {tokenAdmin ? (
+        <div className="adminPanelContainer">
+          <AdminPanelNavbar />
 
-              <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
-                <AdminPanelSidebar />
-                <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                  {
-                    allPosts.length !== 0
-                      ? (
-                        <>
-                          <Stack direction='row' width='100%'>
+          <Stack
+            bg="#d6d6d6"
+            height="100%"
+            direction="row"
+            justifyContent="center"
+            alignItems="flex-start"
+            pl="0"
+            pt="2%"
+            pb="2%"
+            pr="2%"
+          >
+            <AdminPanelSidebar />
 
-                            <AdminSearchbar />
-
-                            <Button colorScheme='teal' variant='outline' onClick={() => dispatch(getAllPosts())}>
-                              <BsPeople />
-                              <Text pr='0.5em'> Todos los posts</Text>
-                            </Button>
-                          </Stack>
-
-                          <Stack width='100%' height='30em' position='sticky' overflowY='scroll'>
-                            <ul className='userClientsList'>
-                              {
-                                allPosts.map(post => (
-                                  <>
-                                    <hr />
-                                    <Stack w='100%' direction='row' justify='space-between' align='center' pt='0.5em' pb='0.5em' pr='1em'>
-
-                                      <Stack direction='row' align='center' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)}>
-                                        <Avatar src={post.Image}></Avatar>
-                                        <Text fontSize='xl'>
-                                          {post.Title}
-                                        </Text>
-                                      </Stack>
-
-                                      <Stack direction='row' align='center'>
-                                        <BsFillEyeFill size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/${post._id}`)} />
-                                         <BsPencilSquare size='1.5em' color='gray' cursor='pointer' onClick={() => navigate(`/adminpanel/posts/edit/${post._id}`)} />
-                                        <BsFillFileEarmarkXFill size='1.5em' color='gray' cursor='pointer' onClick={() => handleAlertDelete(post._id)} />
-                                      </Stack>
-
-                                    </Stack>
-                                    <hr />
-                                  </>
-                                ))
-                              }
-                            </ul>
-                          </Stack>
-                          {
-                            allPosts
-                              ? (
-                                <Center w='10em' h='10em' bg='#d6d6d6' p='0.5em' mt='1em'>
-                                  <Stack direction='column' align='center'>
-                                    <Text fontSize='5xl' fontWeight='600' color='#2D3748'>
-                                      {allPosts.length}
-                                    </Text>
-                                    <Text fontSize='xl' fontWeight='500' color='#2D3748'>
-                                      Post Registrados
-                                    </Text>
-                                  </Stack>
-                                </Center>
-                              ) : null
-                          }
-                        </>
-                      ) : <Loader />
-                  }
-                </Stack>
+            <Stack
+              width="100%"
+              height="fit-content"
+              bg="white"
+              p="2%"
+              direction="column"
+              justifyContent="top"
+              align="center"
+              boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}
+            >
+              <Stack direction="row" width="100%">
+                <Button
+                  colorScheme="teal"
+                  variant="outline"
+                  onClick={() => navigate("/adminpanel/posts")}
+                >
+                  <ArrowLeftIcon />
+                  <Text ml="0.5em"> Volver</Text>
+                </Button>
               </Stack>
+              {Object.keys(postDetail).length !== 0 ? (
 
-              <Footer />
-            </div >
-          ) : (
-            <NotFound />
-          )
-      }
+
+                <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                  <Avatar src={postDetail.Image} size='xl' />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600' > Titulo: </Text>
+                    <Text fontSize='xl'> {postDetail.Title} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Fecha de creacion: </Text>
+                    <Text fontSize='xl'> {postDetail.Date} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Contenido: </Text>
+                    <Text fontSize='xl'> {showMore ? postDetail.Content : postDetail.Content.substring(0, 250)}
+                      <Button colorScheme='blackAlpha' variant='outline' onClick={() => setShowMore(!showMore)} size="sm" marginLeft={"2%"}>
+                        <Text> {showMore ? " Ver Menos" : " Ver Mas"}</Text>
+                      </Button>
+                    </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Categorias </Text>
+                    <Text fontSize='xl'> {postDetail.Tags} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row'>
+                    <Text fontSize='xl' fontWeight='600'> Nota del psicologo: </Text>
+                    <Text fontSize='xl'> {postDetail.idUserPsychologist.firstName} {postDetail.idUserPsychologist.lastName}  </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction='row' width='100%'>
+                    <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/posts/edit/${idPost}`)}>
+                      <BsPencilSquare />
+                      <Text pr='0.5em'> Editar post</Text>
+                    </Button>
+                  {/* </Stack> */}
+                  {/* <Stack direction='row'> */}
+                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+                      <CloseIcon />
+                      <Text pr='0.5em'> Eliminar nota</Text>
+                    </Button>
+                  </Stack>
+
+                </Stack>
+              ) : (
+                <Loader />
+              )}
+            </Stack>
+          </Stack>
+
+          <Footer />
+        </div>
+      ) : (
+        <NotFound />
+      )}
     </>
   );
 }
 
-export default AdminPanelPosts;
+export default AdminPostDetail;
