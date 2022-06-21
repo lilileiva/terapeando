@@ -21,7 +21,7 @@ export default function AdminPsichologisttDetails() {
   useEffect(() => {
     dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
   }, [dispatch])
-  const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
+  const userPsichologistDetail = useSelector((state) => state.psychologistProfile);
 
   const handleAlertDelete = (psychologistId) => {
     Swal.fire({
