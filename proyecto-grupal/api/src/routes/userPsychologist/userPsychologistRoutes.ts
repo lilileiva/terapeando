@@ -3,7 +3,6 @@ import logInPsychologist from "./signIn";
 const {
     getUserPsychologistOne,
     getUserPsychologist,
-    getUserPsychologistByEmail,
     postUserPsychologist,
     deleteUserPsychologist,
     putUserPsychologist,
