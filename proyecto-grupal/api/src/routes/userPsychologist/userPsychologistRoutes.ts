@@ -18,7 +18,6 @@ const validateClient = require ('../../middleware/validateClient')
 const validaUsers = require('../../middleware/validateUsers')
 const psychologistRouter: Router = Router();
 
-
 // psychologistRouter.get('/', validatePychologist , getUserPsychologistOne); aca sería validación para inicio de sesión
 psychologistRouter.get('/profile', validatePsychologist, getUserPsychologistOne);
 psychologistRouter.get('/:idUserPsychologist', validatePsychologist, getPsychologistDetails);
