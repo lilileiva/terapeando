@@ -17,7 +17,11 @@ import {
 import { useEffect, useState } from 'react';
 import countryList from 'react-select-country-list';
 import { useDispatch, useSelector } from 'react-redux';
+<<<<<<< HEAD
 import { editClient, editUserPsichologist, getUserClient, getUserPsychologistOne } from '../../redux/actions';
+=======
+import { editClient, getUserClient, getUserPsychologistOne, editUserPsichologist } from '../../redux/actions';
+>>>>>>> 72ab1c4ab6697e40554c0f99c2747d6d763480cb
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
@@ -38,7 +42,15 @@ function FormEditClient() {
   const countries = useMemo(() => countryList().getData(), [])
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { idUserClient } = useParams();
+
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
+  useEffect(() => {
+    if(tokenClient) dispatch(getUserClient())
+    if(tokenPsychologist) dispatch(getUserPsychologistOne())
+  }, [dispatch, tokenClient, tokenPsychologist]);
+
   const clientDetails = useSelector((state) => state.userClientDetail)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
@@ -53,12 +65,6 @@ function FormEditClient() {
     about: psychologistDetails.about
   })
  
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-  useEffect(() => {
-    if(tokenClient) dispatch(getUserClient());
-    if(tokenPsychologist)dispatch(getUserPsychologistOne());
-  }, []);
 
   // useEffect(() => {
   //   dispatch(getUserPsychologistOne());
@@ -98,6 +104,7 @@ function FormEditClient() {
         dispatch(editUserPsichologist(input))
       }
       
+
       console.log(input)
       setInput({
         firstName: '',

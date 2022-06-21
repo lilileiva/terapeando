@@ -25,8 +25,7 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS,
-  FILTER_PSYCHOLOGIST_BY_RATING
+  GET_ALL_PSYCHOLOGIST_BY_STATUS
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -132,11 +131,7 @@ export function loginClient(signinForm) {
 export function editClient(updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(
-        `${baseURL}/userclient/editprofile`,
-        updatedUserClient,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-      );
+      const data = await axios.put(`${baseURL}/userclient`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -334,9 +329,6 @@ export function orderByRating(order, array) {
   };
 }
 
-
-
-
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
@@ -415,15 +407,15 @@ export const addPost = (body) => {
       Swal.fire('Post creada correctamente!', 'muy bien', 'success')
     } catch (error) {
       console.log(error)
-      Swal.fire('Error',` No se puede crear la nota por ${error}`)
+      Swal.fire('Error', `No se puede crear la nota por ${error}`,'error')
     }
   }
 }
-export const putPost = (body, IdPost) => {
+export const putPost = (body, id) => {
   return async function (dispatch) {
     try{
       const {info} = await axios.put(
-        `${baseURL}/edit/${IdPost}`,body
+        `${baseURL}/edit/${id}`,body
       )
       dispatch({type:PUT_POSTS, pyaload:info})
       Swal.fire('Post editada correctamente!', 'muy bien', 'success')
@@ -446,6 +438,7 @@ export const deletePost = (id) => {
     }
   }
 }
+
 
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
@@ -498,33 +491,16 @@ export const filterByAuthor = (payload) => {
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
-export function createReview(IdUserPsychologist, payload) {
+export function createReview(payload) {
   return async function () {
     try {
-      const newReview = axios.post(`${baseURL}/reviews/${IdUserPsychologist}`, payload , {headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }});
+      const newReview = axios.post(`${baseURL}/reviews`, payload, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
       return newReview;
     } catch (error) {
       console.log(error);
     }
   };
 }
-
-export function filterReviewsBySychologist(payload){
-  return async function (dispatch) {
-    try {
-      const json = await axios.get(`${baseURL}/reviews/filter/review/${payload}`);
-      dispatch({
-        type: FILTER_PSYCHOLOGIST_BY_RATING,
-        payload: json.data,
-      })
-    } catch (error) {
-      console.log(error);
-    }
-    }
-  };
-
-
-  
 
 /* ---------------------- PAYMENTS ---------------------- */
 
@@ -719,6 +695,7 @@ export function AdminGetUserPsychologistByName(name) {
       method: 'GET',
       Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}`
     })
+
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -769,6 +746,7 @@ export function AdminDeleteUserPsichologist(IdUserPsychologist) {
     try {
       await axios.delete(
         `${baseURL}/admin/deleteuserpsychologist/${IdUserPsychologist}`,
+
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (error) {
@@ -825,5 +803,5 @@ export function clearAdminSearchbar() {
 export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
-  };
-};
+  }
+}

@@ -11,6 +11,7 @@ import {
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
+  PUT_POSTS,
   CLEAR_CLIENT,
   GET_PAYMENT,
   GET_PAYMENT_PSY,
@@ -20,7 +21,6 @@ import {
   CLEAR_CLIENT_LIST,
   CLEAR_ADMIN_SEARCHBAR,
   ADMIN_SEARCHBAR,
-  PUT_POSTS,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
 } from "../actions/types";
@@ -59,7 +59,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         usersClientsSearch: action.payload,
-        usersClients: action.payload
+        usersClients: action.payload,
       };
     case GET_USERCLIENT:
       return {
@@ -139,8 +139,8 @@ function rootReducer(state = initialState, action) {
           action.payload === "Todas"
             ? psichologists
             : filterBySpecialties.length > 0
-              ? filterBySpecialties
-              : psichologists,
+            ? filterBySpecialties
+            : psichologists,
       };
     case ORDER_PSICHOLOGIST_BY_RATING:
 
@@ -154,6 +154,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+        postsCopy: action.payload,
+
       };
     case "GET_POST_DETAIL":
       return {
@@ -174,7 +176,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
-        posts:[]
+        posts: [],
       };
     case "GET_CATEGORIES":
       return {
@@ -184,18 +186,18 @@ function rootReducer(state = initialState, action) {
     case "DELETE_POST":
       return {
         ...state,
-        posts: state.posts.filter(posts => posts.id !== action.payload)
-      }
+        posts: state.posts.filter((posts) => posts.id !== action.payload),
+      };
     case "CREATE_POST":
-      return{
+      return {
         ...state,
-        posts:[...state.posts,action.payload]
-    }
+        posts: [...state.posts, action.payload],
+      };
     case PUT_POSTS:
-      return{
+      return {
         ...state,
-        posts:[...state.posts,action.payload]
-    }
+        posts: [...state.posts, action.payload],
+      };
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:
@@ -253,11 +255,11 @@ function rootReducer(state = initialState, action) {
       sortedPayments =
         action.payload === "asc"
           ? state.allPayments.sort(function (a, b) {
-            return new Date(a.createdAt) - new Date(b.createdAt);
-          })
+              return new Date(a.createdAt) - new Date(b.createdAt);
+            })
           : state.allPayments.sort(function (a, b) {
-            return new Date(b.createdAt) - new Date(a.createdAt);
-          });
+              return new Date(b.createdAt) - new Date(a.createdAt);
+            });
       return {
         ...state,
         allPayments: sortedPayments,
@@ -294,11 +296,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         adminSearchbar: [],
-      }
+      };
     default:
       return { ...state };
   }
 }
-
 
 export default rootReducer;

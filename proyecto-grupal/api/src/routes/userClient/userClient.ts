@@ -13,6 +13,7 @@ const getUserClient = async (req: Request, res: Response) => {
    }
 };
 
+
 const createUserClient = async (req: Request, res: Response) => {
    const {
       firstname,
@@ -80,6 +81,6 @@ module.exports = {
    getUserClient,
    createUserClient,
    deleteUserClient,
-   putUserClient,
-   getPsychologistDetails
+   getPsychologistDetails,
+   putUserClient
 };
