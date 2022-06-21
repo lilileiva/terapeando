@@ -148,7 +148,7 @@ function RegisterForm() {
     const afterSubmit = async () => {
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0 && !userClientBtn) {
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
-            if (response.status === 201 || response.status === 200) {
+            if (response.status === 201) {
                 navigate('/signin')
                 Swal.fire({
                     position: 'top-end',
@@ -169,7 +169,7 @@ function RegisterForm() {
             }
         } else if (Object.keys(formErrors).length === 0 && userClientBtn) {
             const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
-            if (response.status === 201  || response.status === 200) {
+            if (response.status === 201) {
                 navigate('/signin')
                 Swal.fire({
                     position: 'top-end',

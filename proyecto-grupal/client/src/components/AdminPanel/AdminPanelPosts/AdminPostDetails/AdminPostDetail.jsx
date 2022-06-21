@@ -28,6 +28,7 @@ function AdminPostDetail() {
     };
   }, [dispatch]);
   const postDetail = useSelector((state) => state.postDetail);
+  console.log(postDetail)
 
   const handleAlertDelete = (postId) => {
     Swal.fire({
@@ -90,8 +91,6 @@ function AdminPostDetail() {
                 </Button>
               </Stack>
               {Object.keys(postDetail).length !== 0 ? (
-
-
                 <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                   <Avatar src={postDetail.Image} size='xl' />
                   <Stack direction='row'>

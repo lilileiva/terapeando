@@ -15,10 +15,12 @@ import {
   CLEAR_CLIENT,
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
+  FILTER_PSYCHOLOGIST_BY_RATING,
   CLEAR_CLIENT_LIST,
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
   CLEAR_ADMIN_SEARCHBAR,
+  PUT_POSTS,
   GET_PAYMENT,
   GET_PAYMENT_PSY,
   GET_PAYMENT_CLIENT,
@@ -496,10 +498,10 @@ export const filterByAuthor = (payload) => {
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
-export function createReview(payload) {
+export function createReview(IdUserPsychologist, payload) {
   return async function () {
     try {
-      const newReview = axios.post(`${baseURL}/reviews/${IdUserPsychologist}`, payload, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      const newReview = axios.post(`${baseURL}/reviews/${IdUserPsychologist}`, payload , {headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }});
       return newReview;
     } catch (error) {
       console.log(error);
@@ -507,7 +509,7 @@ export function createReview(payload) {
   };
 }
 
-export function filterReviewsBySychologist(payload) {
+export function filterReviewsBySychologist(payload){
   return async function (dispatch) {
     try {
       const json = await axios.get(`${baseURL}/reviews/filter/review/${payload}`);
@@ -518,10 +520,8 @@ export function filterReviewsBySychologist(payload) {
     } catch (error) {
       console.log(error);
     }
-  }
-};
-
-
+    }
+  };
 
 
 /* ---------------------- PAYMENTS ---------------------- */
