@@ -38,15 +38,7 @@ function FormEditClient() {
   const countries = useMemo(() => countryList().getData(), [])
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-
-  useEffect(() => {
-    if(tokenClient) dispatch(getUserClient())
-    if(tokenPsychologist) dispatch(getUserPsychologistOne())
-  }, [dispatch, tokenClient, tokenPsychologist]);
-
+  // const { idUserClient } = useParams();
   const clientDetails = useSelector((state) => state.userClientDetail)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
@@ -61,10 +53,12 @@ function FormEditClient() {
     about: psychologistDetails.about
   })
  
-
-  // useEffect(() => {
-  //   dispatch(getUserPsychologistOne());
-  // }, [dispatch]);
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  useEffect(() => {
+    if(tokenClient) dispatch(getUserClient());
+    if(tokenPsychologist) dispatch(getUserPsychologistOne());
+  }, []);
 
   function handleChange(e) {
     e.preventDefault();

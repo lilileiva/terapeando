@@ -39,7 +39,6 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
-import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
 
 
 export default function App() {

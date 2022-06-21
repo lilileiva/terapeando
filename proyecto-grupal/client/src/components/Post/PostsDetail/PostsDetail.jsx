@@ -28,12 +28,14 @@ export default function PostsDetail() {
     }
   }, [dispatch, id]);
 
-  const token = window.localStorage.getItem('token');
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
   
   return (
     <div>
       {
-        token ? <NavbarHome /> : <NavBar /> 
+       tokenClient || tokenPsychologist
+       ? (<NavbarHome /> ) : <NavBar /> 
       }     
       {
         Object.keys(post).length !== 0 ? (
