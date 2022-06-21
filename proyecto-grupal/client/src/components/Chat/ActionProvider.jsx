@@ -16,6 +16,10 @@ class ActionProvider{
         );
         this.updateChatbotState(message);
     };
+    handleLove = () => {
+        const message = this.createChatBotMessage("Te amo tambien!")
+        this.updateChatbotState(message);
+    }
     
 }
 export default ActionProvider
