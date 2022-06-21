@@ -88,6 +88,7 @@ export default function AddPost() {
         //creo mi juego
         console.log(input);
         const response = dispatch(addPost(input));
+        console.log(response)
         setInput({
           Date: "",
           Title: "",

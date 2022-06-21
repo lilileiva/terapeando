@@ -17,9 +17,9 @@ export default function AdminPsichologisttDetails() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { idUserPsichologist } = useParams();
+  const { idUserPsychologist } = useParams();
   useEffect(() => {
-    dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
+    dispatch(AdminGetUserPsychologistDetail(idUserPsychologist))
   }, [dispatch])
   const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
 

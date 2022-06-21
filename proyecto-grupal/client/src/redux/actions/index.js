@@ -408,12 +408,14 @@ export const addPost = (body) => {
       const { info } = await axios.post(
         `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }}
       )
-      return dispatch({
+      dispatch({
         type: "CREATE_POST",
-        payload: info,
-      });
+        payload: info
+      })
+      Swal.fire('Post creada correctamente!', 'muy bien', 'success')
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      Swal.fire('Error',` No se puede crear la nota por ${error}`)
     }
   }
 }
@@ -744,15 +746,15 @@ export function AdminEditUserPsichologist(IdUserPsychologist, updatedUserPsychol
   };
 }
 
-export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
+export const AdminGetUserPsychologistDetail = (idUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/${idUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({
-        type: "GET_PSYCHOLOGISTS_ONE",
+        type: "GET_PSYCHOLOGISTS_DETAILS",
         payload: psychologist.data,
       });
     } catch (error) {
