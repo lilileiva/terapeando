@@ -182,7 +182,6 @@ function handleDeleteCategory(category){
                             ))
                           }
                         </Select>
-                        <label className='etiqueta'>Categorias: </label>
                         {inputText.Tags && inputText.Tags.map((tag) => {
                             return(
                            <div className='opcion'>
