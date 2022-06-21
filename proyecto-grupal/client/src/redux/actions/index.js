@@ -366,12 +366,14 @@ export const addPost = (body) => {
       const { info } = await axios.post(
         `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }}
       )
-      return dispatch({
+      dispatch({
         type: "CREATE_POST",
         payload: info
       })
+      Swal.fire('Post creada correctamente!', 'muy bien', 'success')
     } catch (error) {
       console.log(error)
+      Swal.fire('Error', `No se puede crear la nota por ${error}`,'error')
     }
   }
 }
