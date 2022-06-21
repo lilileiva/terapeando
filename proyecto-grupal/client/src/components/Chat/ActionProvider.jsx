@@ -78,6 +78,7 @@ class ActionProvider{
         );
         this.updateChatbotState(message);
     };
+    //psicologos
     handleWebsiteList = () => {
         const message = this.createChatBotMessage(
           "¿Qué tipo de psicologo necesita?",
@@ -102,6 +103,8 @@ class ActionProvider{
         );
         this.updateChatbotState(message);
     };
+    
+
     updateChatbotState(message){
         this.setState((prevState) => ({
             ...prevState,
