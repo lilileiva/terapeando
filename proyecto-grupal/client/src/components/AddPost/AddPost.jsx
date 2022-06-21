@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addPost, getCategories, getAllPosts } from "../../redux/actions";
-import NavBar from "../NavBar/NavBar.jsx";
 import NavbarHome from "../NavbarHome/NavbarHome.jsx";
 import Footer from "../Footer/Footer.jsx";
 import './addPost.css';
@@ -50,6 +49,8 @@ function validarCampos(input) {
   return errors; //la funcion valiDate devuelve el objeto errors, ya sea vacio o con alguna propiedad si es q encuentra un error
 }
 export default function AddPost() {
+  const navigate = useNavigate()
+
   const [input, setInput] = useState({
     Date: "",
     Title: "",
@@ -63,14 +64,17 @@ export default function AddPost() {
   //const navigate = useNavigate();
   const categories = useSelector((state) => state.categories);
   const posts = useSelector((state) => state.posts);
+
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getAllPosts());
   }, [dispatch]);
+
   function handleSubmit(event) {
     event.preventDefault();
     //para no repetir titlos de las notas
     let noRepetir = posts.filter((post) => post.Title === input.Title);
+
     if (noRepetir.length !== 0) {
       Swal.fire(
         "Error",
@@ -85,9 +89,8 @@ export default function AddPost() {
         Swal.fire("Error", "Llene los campos correctamente", "error");
         return;
       } else {
-        //creo mi juego
-        console.log(input);
-        const response = dispatch(addPost(input));
+        //creo mi nota
+        dispatch(addPost(input));
         setInput({
           Date: "",
           Title: "",
@@ -95,17 +98,8 @@ export default function AddPost() {
           Image: "",
           Tags: [],
         });
-        if (response.status === 201) {
-          Swal.fire(
-            "OK",
-            "Felicitaciones, tu nota ha sido creado exitosamente",
-            "success"
-          );
-        } else {
-          Swal.fire("😥", "Hubo un error en nuestros servidores", "error");
-        }
+        navigate('/blog')
       }
-      //navigate('/home')
     }
   }
   function handleChange(event) {

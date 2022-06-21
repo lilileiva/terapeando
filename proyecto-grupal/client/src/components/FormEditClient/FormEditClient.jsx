@@ -63,7 +63,7 @@ function FormEditClient() {
   })
  
   useEffect(() => {
-    if(tokenClient) dispatch(getUserClient());
+    if (tokenClient) dispatch(getUserClient());
     if (tokenPsychologist) dispatch(getUserPsychologistOne());
   }, []);
 
