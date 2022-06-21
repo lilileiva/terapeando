@@ -11,7 +11,7 @@ module.exports = async(req: Request, res: Response, next: NextFunction) => {
     }
     
     const decodedToken = await jwt.verify(token, process.env.SECRETWORD)
-  console.log(decodedToken)
+    //console.log(decodedToken)
     if (!token || !decodedToken.id || decodedToken.role !== 'Admin') {
       return res.status(401).json({ error: 'token missing or invalid' })
     }

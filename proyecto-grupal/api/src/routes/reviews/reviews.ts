@@ -1,3 +1,4 @@
+import { CannotBeSymbolError } from "@typegoose/typegoose/lib/internal/errors";
 import { Request, Response } from "express";
 import reviewsModel from "../../models/Reviews";
 import userPsychologistModel from "../../models/userPsychologist";
@@ -5,36 +6,55 @@ import userPsychologistModel from "../../models/userPsychologist";
 
 
 const createReview = async (req: Request, res: Response) => {
-    const { Content, Rating, email} = req.body
+    const { Content, Rating} = req.body
+    const {IdUserPsychologist} = req.params;
+    
+
     try {
-        //por el moemnto solo esta recibiendo el contenido de la reseña y la calificació
-        const Psychologist = userPsychologistModel.findOne({email:email})
-        let promedio = 0;
-        let reviews = Psychologist.reviews.map((e:any)=> e.rating) 
-        for (let i = 0; i < reviews.length; i++) {
-            promedio += Rating
-        }
-        promedio = promedio / reviews.length;
-        const review = new reviewsModel({Content, Rating});
-        const psychologistUpdated = userPsychologistModel.findByIdAndUpdate(Psychologist._id,{ rating: promedio}, {new: true})
-        await review.save();
+
+        const review = await reviewsModel.create({
+            Content,
+            Rating,
+            IdUserClient: req.user,
+            IdUserPsychologist
+        })
+
+        const filterbyId = await reviewsModel.find({ "IdUserPsychologist": IdUserPsychologist })
+        const average = filterbyId.map(el => el.Rating).reduce((a, b) => a + b, 0) / filterbyId.length
+
+        const psichologistid = await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, { rating: average })
+
         res.status(200).send('Review created');
 
     } catch (error) {
         console.log(error)
+        res.send({ error: 'error creating review' })
     }
 };
 
+const getReviewByPsychologist = async (req: Request, res: Response) => {
+
+    const { IdUserPsychologist } = req.params;
+
+    try {
+
+        const filterbyId = await reviewsModel.find({ "IdUserPsychologist": IdUserPsychologist })
+        res.status(200).send(filterbyId);
+
+    } catch (error) {
+        console.log(error)
+    }
+
+};
 
 
 const getReview = async (req: Request, res: Response) => {
 
     const { idUserPsychologist } = req.params;
-  
+
     try {
 
-        const getReview = await reviewsModel.find({idUserPsychologist})
-        console.log(getReview)
+        const getReview = await reviewsModel.find()
         res.status(200).send(getReview);
 
     } catch (error) {
@@ -43,7 +63,11 @@ const getReview = async (req: Request, res: Response) => {
 
 };
 
+
+
+
 module.exports = {
     createReview,
-    getReview
+    getReview,
+    getReviewByPsychologist
 }

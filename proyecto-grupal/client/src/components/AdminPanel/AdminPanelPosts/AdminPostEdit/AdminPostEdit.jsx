@@ -32,10 +32,10 @@ function AdminPostEdit() {
   const postDetail = useSelector((state) => state.postDetail);
 
   const [inputText, setInputText] = useState({
-    Date: "",
-    Title: "",
-    Content: "",
-    Image: "",
+    Date: postDetail.Date,
+    Title: postDetail.Title,
+    Content: postDetail.Content,
+    Image: postDetail.Image,
     Tags: []
   })
 
@@ -114,9 +114,9 @@ function handleDeleteCategory(category){
                 Swal.fire('Error','Llene los campos correctamente','error')
                 return 
             }else{
-
-               const response = dispatch(putPost(inputText, IdPost));
-
+                //creo mi juego
+                console.log(inputText)
+                dispatch(putPost(inputText, IdPost));
                 setInputText({
                     Date: "",
                     Title:"",

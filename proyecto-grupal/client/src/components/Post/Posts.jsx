@@ -8,15 +8,15 @@ import Paged from "../Paged/Paged";
 import smoothscroll from "../../animations";
 import { SimpleGrid, Box } from "@chakra-ui/react";
 
-export default function Post() {
+export default function Post({allPosts}) {
   //me traigo todos los posts apenas se me monte el componente
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllPosts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllPosts());
+  // }, [dispatch]);
 
-  const allPosts = useSelector((state) => state.posts);
+  // const allPosts = useSelector((state) => state.posts);
   /* Paginado */
   const [page, setPage] = useState(1);
   const [postPage] = useState(6);
