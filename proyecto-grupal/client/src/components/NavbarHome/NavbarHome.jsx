@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserClient } from "../../redux/actions";
+import { getUserClient , getUserPsychologistOne} from "../../redux/actions";
 import { useEffect } from "react";
 
 function removeAcc(str) {
@@ -47,7 +47,8 @@ function removeAcc(str) {
 }
 
 const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
-const idUserClient = "62a3a0b4cc3f8656e112d930";
+const tokenClient = window.localStorage.getItem('tokenClient')
+const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 const NavLink = ({ children }) => (
   
   <Link exact to={removeAcc(children)}>
@@ -72,7 +73,8 @@ const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getUserClient());
   }, [dispatch]);
-  const clientDetails = useSelector((state) => state.userClientDetail);
+
+
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -83,6 +85,20 @@ const dispatch = useDispatch()
     navigate('/');
   }
 
+
+  useEffect(() => {
+    if(tokenClient) dispatch(getUserClient())
+    if(tokenPsychologist) dispatch(getUserPsychologistOne())
+  }, [dispatch, tokenClient, tokenPsychologist]);
+
+  const clientDetails = useSelector((state) => state.userClientDetail);
+  const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
+  console.log(userPsichologistDetail._id)
+
+
+  
+  
+  
   return (
     <>
       <Box
@@ -145,44 +161,56 @@ const dispatch = useDispatch()
                 minW={0}
               >
                 <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-              </MenuButton>
-              <MenuList>
-                <Link to={`/home/${clientDetails.firstName}`}>
-                  <MenuItem>Mi Perfil</MenuItem>
-                </Link>
-                <Link to={`/editprofile/${clientDetails.firstName}`}>
-                  <MenuItem>Editar Perfil</MenuItem>
-                </Link>
-                <Link to={"/preguntasfrecuentes"}>
-                  <MenuItem>Ayuda</MenuItem>
-                </Link>        
-                <Link to={"/mypayments"}>
-                  <MenuItem>Mis Pagos</MenuItem>
-                </Link>
-                <MenuDivider />
-                <MenuItem onClick={handleSignOut}>
-                  Cerrar sesión
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
-        </Flex>
+                size={"sm"}
+                src={userPsichologistDetail.profileImage}/>
+              )
+            }
+             </MenuButton>
+             <MenuList>
+              { tokenClient ? 
+              <>
+               <Link to={`/home/${clientDetails.firstName}`}>
+               <MenuItem>Mi Perfil</MenuItem>
+             </Link>
+             <Link to={`/editprofile/${clientDetails.firstName}`}>
+               <MenuItem>Editar Perfil</MenuItem>
+             </Link>
+             </> :   
+               <>
+               <Link to={`/home/${userPsichologistDetail.firstName}`}>
+               <MenuItem>Mi Perfil</MenuItem>
+             </Link>
+             <Link to={`/editprofile/${userPsichologistDetail.firstName}`}>
+               <MenuItem>Editar Perfil</MenuItem>
+             </Link>
+             </>
+            }
+              
+               <Link to={"/preguntasfrecuentes"}>
+                 <MenuItem>Ayuda</MenuItem>
+               </Link>        
+               <Link to={"/mypayments"}>
+                 <MenuItem>Mis Pagos</MenuItem>
+               </Link>
+               <MenuDivider />
+               <MenuItem onClick={handleSignOut}>
+                 Cerrar sesión
+               </MenuItem>
+             </MenuList>
+           </Menu>
+         </Flex>
+       </Flex>
 
-        {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
-      </Box>
-    </>
+       {isOpen ? (
+         <Box pb={4} display={{ md: "none" }}>
+           <Stack as={"nav"} spacing={4}>
+             {Links.map((link) => (
+               <NavLink key={link}>{link}</NavLink>
+             ))}
+           </Stack>
+         </Box>
+       ) : null}
+     </Box>
+   </>
   );
 }

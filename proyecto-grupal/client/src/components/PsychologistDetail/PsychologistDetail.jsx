@@ -30,6 +30,8 @@ export default function PsychologistDetail() {
   //   };
   // }, [dispatch, idPsychologist]);
 
+
+
   useEffect(() => {
     dispatch(getUserPsychologistDetails(idPsychologist));
     setLoader(true);
@@ -98,7 +100,6 @@ export default function PsychologistDetail() {
                         {` 🎂 ${detail.birthDate}`}
                       </Text>
                     </Box>
-
 
 
                     <Flex className="BoxDetail" marginLeft={'56'} justifyContent='space-around' borderRadius={'10px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>

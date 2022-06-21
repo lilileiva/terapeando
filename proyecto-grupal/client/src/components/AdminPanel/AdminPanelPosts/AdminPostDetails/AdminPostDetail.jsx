@@ -6,18 +6,8 @@ import AdminPanelSidebar from "../../AdminPanelSidebar/AdminPanelSidebar.jsx";
 import Footer from "../../../Footer/Footer.jsx";
 import { Stack, Button, Avatar, Text } from "@chakra-ui/react";
 import { ArrowLeftIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
-import {
-  BsPersonDash,
-  BsPencilSquare,
-  BsPeople,
-  BsFillEyeFill,
-  BsSearch,
-} from "react-icons/bs";
-import {
-  clearStatePostDetail,
-  AdminDeletePost,
-  getPostDetail,
-} from "../../../../redux/actions";
+import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch,} from "react-icons/bs";
+import { clearStatePostDetail, deletePost, deleteUserClient, getPostDetail } from '../../../../redux/actions';
 import Loader from "../../../Loader/Loader.jsx";
 import Swal from "sweetalert2";
 import NotFound from "../../../404notFound/notFound.jsx";
@@ -28,31 +18,40 @@ function AdminPostDetail() {
   const [showMore, setShowMore] = useState(false);
   const { idPost } = useParams();
   useEffect(() => {
-    dispatch(getPostDetail(idPost));
+    dispatch(getPostDetail(idPost))
     return () => {
-      dispatch(clearStatePostDetail());
-    };
-  }, [dispatch]);
+      dispatch(clearStatePostDetail())
+    }
+  }, [dispatch])
   const postDetail = useSelector((state) => state.postDetail);
 
+  
   const handleAlertDelete = (postId) => {
     Swal.fire({
-      title: "¿Estás seguro que quieres eliminar este post o nota?",
+      title: '¿Estás seguro que quieres eliminar este post o nota?',
       text: "Estos cambios no se podrán revertir.",
-      icon: "info",
+      icon: 'info',
       showConfirmButton: false,
       showDenyButton: true,
       showCancelButton: true,
-      denyButtonText: "Sí",
+      denyButtonText: 'Sí',
     }).then((result) => {
-      console.log("R:", result)
       if (result.isDenied) {
-        dispatch(AdminDeletePost(postId));
-        navigate("/adminpanel/posts");
-        Swal.fire("Post eliminado correctamente!", "", "success");
+        dispatch(deletePost(postId))
+        navigate('/adminpanel/posts')
+        Swal.fire('Post eliminado correctamente!', '', 'success')
       }
-    });
-  };
+    })
+  }
+
+
+  const adminSearchbar = useSelector((state) => state.adminSearchbar);
+  useEffect(() => {
+    if (adminSearchbar.length !== 0) {
+      dispatch(searchPostsByTitle(adminSearchbar))
+    }
+  }, [dispatch, adminSearchbar])
+
 
   const tokenAdmin = window.localStorage.getItem("tokenAdmin");
 
@@ -62,18 +61,7 @@ function AdminPostDetail() {
         <div className="adminPanelContainer">
           <AdminPanelNavbar />
 
-          <Stack
-            bg="#d6d6d6"
-            height="100%"
-            direction="row"
-            justifyContent="center"
-            alignItems="flex-start"
-            pl="0"
-            pt="2%"
-            pb="2%"
-            pr="2%"
-          >
-            <AdminPanelSidebar />
+              <Stack bg='#d6d6d6' height='100%' direction='row' justifyContent='center' alignItems='flex-start' pl='0' pt='2%' pb='2%' pr='2%'>
 
             <Stack
               width="100%"
@@ -117,6 +105,7 @@ function AdminPostDetail() {
                         <Text> {showMore ? " Ver Menos" : " Ver Mas"}</Text>
                       </Button>
                     </Text>
+
                   </Stack>
                   <br />
                   <Stack direction='row'>
@@ -143,19 +132,17 @@ function AdminPostDetail() {
                   </Stack>
 
                 </Stack>
-              ) : (
-                <Loader />
-              )}
-            </Stack>
-          </Stack>
 
-          <Footer />
-        </div>
-      ) : (
-        <NotFound />
-      )}
+              </Stack>
+              </Stack>
+              <Footer />
+            </div>
+          ) : (
+            <NotFound />
+          )
+      }
     </>
-  );
+  )
 }
 
 export default AdminPostDetail;

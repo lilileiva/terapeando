@@ -48,8 +48,8 @@ function FormEditClient() {
   }, [dispatch, tokenClient, tokenPsychologist]);
 
   const clientDetails = useSelector((state) => state.userClientDetail)
-  const psychologistDetails = useSelector((state) => state.psychologistProfile)
 
+  const psychologistDetails = useSelector((state) => state.psychologistProfile)
 
   const [error, setError] = useState({});
   const [input, setInput] = useState({
@@ -93,7 +93,7 @@ function FormEditClient() {
       } else if(tokenPsychologist){
         dispatch(editUserPsichologist(input))
       }
-      
+
       console.log(input)
       setInput({
         firstName: '',
@@ -106,10 +106,13 @@ function FormEditClient() {
     }
   }
 
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
   return (
     <>
       {
-        tokenClient
+        tokenClient || tokenPsychologist
           ? (
             <form onSubmit={(e) => handleSubmit(e)}>
               <Flex
@@ -163,7 +166,7 @@ function FormEditClient() {
                         {error.profileImage && <Badge colorScheme='red'>{error.profileImage}</Badge>}
                         <Avatar
                           size={"2xl"}
-                          src= {clientDetails.profileImage}
+                          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_JlCFnIGX5omgjEjgV9F3sBRq14eTERK9w&usqp=CAU'
                           mt={4}
                         />
                       </FormControl>
@@ -189,88 +192,10 @@ function FormEditClient() {
                 </Stack>
               </Flex>
             </form>
-          ) : tokenPsychologist ? (
-            <form onSubmit={(e) => handleSubmit(e)}>
-            <Flex
-              minH={'100vh'}
-              align={'center'}
-              justify={'center'}
-              bg='gray.50'>
-              <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                <Stack align={'center'}>
-                  <Heading fontSize={'4xl'} textAlign={'center'}>
-                    Edita tu Información Personal
-                  </Heading>
-                  <Text fontSize={'lg'} color={'gray.600'}>
-                    Mantene tus datos actualizados
-                  </Text>
-                </Stack>
-                <Box
-                  rounded={'lg'}
-                  bg='white'
-                  boxShadow={'lg'}
-                  p={8}>
-                  <Stack spacing={4}>
-                    <HStack>
-                      <Box>
-                        <FormControl id="firstName">
-                          <FormLabel>Nombre</FormLabel>
-                          <Input type="text" name='firstName' placeholder={psychologistDetails.firstName} value={input.firstName} onChange={(e) => handleChange(e)} />
-                          {error.firstName && <Badge colorScheme='red'>{error.firstName}</Badge>}
-                        </FormControl>
-                      </Box>
-                      <Box>
-                        <FormControl id="lastName">
-                          <FormLabel>Apellido</FormLabel>
-                          <Input type="text" name='lastName' placeholder={psychologistDetails.lastName} value={input.lastName} onChange={(e) => handleChange(e)} />
-                          {error.lastName && <Badge colorScheme='red'>{error.lastName}</Badge>}
-                        </FormControl>
-                      </Box>
-                    </HStack>
-                    <FormControl id="email">
-                      <FormLabel>Email</FormLabel>
-                      <Input type="email" name='email' placeholder={psychologistDetails.email} value={input.email} onChange={(e) => handleChange(e)} />
-                      {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
-                    </FormControl>
-                    <FormControl id="country">
-                      <FormLabel>Pais de residencia</FormLabel>
-                      <Input type="country" name='country' placeholder={psychologistDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
-                    </FormControl>
-                    <FormControl id="profileImage">
-                      <FormLabel>Imagen de perfil</FormLabel>
-                      <Input type="profileImage" name='profileImage' placeholder={psychologistDetails.profileImage} value={input.profileImage} onChange={(e) => handleChange(e)} />
-                      {error.profileImage && <Badge colorScheme='red'>{error.profileImage}</Badge>}
-                      <Avatar
-                        size={"2xl"}
-                        src= {psychologistDetails.profileImage}
-                        mt={4}
-                      />
-                    </FormControl>
-                    <Stack spacing={10} pt={2}>
-
-                      <Button
-                        loadingText="Submitting"
-                        size="lg"
-                        bg={'green.100'}
-                        color='teal.500'
-                        _hover={{
-                          bg: 'green.500',
-                          color: 'white'
-                        }}
-                        type='submit'
-                        onSubmit={(e) => handleSubmit(e)}>
-                        Actualizar
-                      </Button>
-                      <DeleteModal />
-                    </Stack>
-                  </Stack>
-                </Box>
-              </Stack>
-            </Flex>
-          </form>
-          ) : ( <NotFound /> )
-          
-          }
+          ) : (
+            <NotFound />
+          )
+    }
     </>
   );
 }
