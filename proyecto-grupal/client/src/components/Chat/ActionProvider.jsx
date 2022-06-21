@@ -28,6 +28,28 @@ class ActionProvider{
         })
         this.updateChatbotState(message)
     }
-
+    //para el menu
+    handleMenu = () => {
+        const message = this.createChatBotMessage(
+            "Buen día amigo, ¿Puedo ayudarte en algo?",{
+                widget:"learningOptions"
+            }
+        );
+        this.updateChatbotState(message)
+    }
+    //por si esta cool
+    HandleCool = () => {
+        const message = this.createChatBotMessage(
+          "También eres genial para ser un humano, ¡Vive mucho y prospera!"
+        );
+        this.updateChatbotState(message);
+    };
+    //por si quiere algo mas
+    handleSomethingElse = () => {
+        const message = this.createChatBotMessage("¿Necesitas algo más?",{
+            widget:"Back"
+        });
+        this.updateChatbotState(message)
+    }
 }
 export default ActionProvider
