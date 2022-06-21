@@ -84,8 +84,6 @@ function LoginForm() {
                 response = await axios.post(`${baseURL}/userclient/client/login`, signinForm)
                 const token = response.data.token
                 window.localStorage.setItem('tokenClient', token)
-                // console.log('Este es el .data del response', response.data)
-                // console.log('Este es todo el token', token)
                 if (response.status === 200) {
                     Swal.fire({
                         position: 'top-end',
@@ -112,8 +110,6 @@ function LoginForm() {
                 response = await axios.post(`${baseURL}/userpsychologist/login`, signinForm)
                 const token = response.data.token
                 window.localStorage.setItem('tokenPsychologist', token)
-                // console.log('Este es el .data del response', response.data)
-                // console.log('Este es todo el token', token)
                 if (response.status === 200) {
                     Swal.fire({
                         position: 'top-end',

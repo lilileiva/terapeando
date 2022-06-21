@@ -432,7 +432,9 @@ export const putPost = (body, IdPost) => {
   return async function (dispatch) {
     try {
       const { info } = await axios.put(
-        `${baseURL}/edit/${IdPost}`, body
+        `${baseURL}/edit/${IdPost}`,
+        body,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
       dispatch({ type: PUT_POSTS, pyaload: info })
       Swal.fire('Post editada correctamente!', 'muy bien', 'success')
@@ -741,7 +743,7 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/:${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({

@@ -74,7 +74,7 @@ function AdminPanelPsychologists() {
 
                     <Button colorScheme='teal' variant='outline' onClick={() => dispatch(AdminGetAllPsychologist())}>
                       <BsPeople />
-                      <Text pr='0.5em'> Todos los usuarios</Text>
+                      <Text pr='0.5em'> Todos los psicólogos</Text>
                     </Button>
                   </Stack>
 

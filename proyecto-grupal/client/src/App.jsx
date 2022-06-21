@@ -74,7 +74,7 @@ export default function App() {
         <Route path='/adminpanel/clients/:idUserClient' element={<AdminClientDetails />} />
         <Route path='/adminpanel/clients/edit/:idUserClient' element={<AdminClientEdit />} />
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
-        <Route path='/adminpanel/psychologists/:idUserPsichologist' element={<AdminPsichologistDetails/>} />
+        <Route path='/adminpanel/psychologists/:IdUserPsichologist' element={<AdminPsichologistDetails/>} />
         <Route path='/adminpanel/psychologists/edit/:idUserPsichologist' element={<AdminPsichologistEdit />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
