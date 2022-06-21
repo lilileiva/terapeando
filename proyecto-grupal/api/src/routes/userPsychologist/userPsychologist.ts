@@ -104,7 +104,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
           DNI: dni,
           Specialties: specialities,
           profileImage: profileimage,
-          rating,
+          rating: 1,
           appointments: [],
           status: "Pendiente",
           about,
@@ -168,18 +168,35 @@ const filterPsichologistSpecialities = async (req: Request, res: Response) => {
 
 };
 
-const filterPsichologistRating = async (req: Request, res: Response) => {
+// // const filterPsichologistRating = async (req: Request, res: Response) => {
+
+// //   try {
+// //     const PsichologistByRating = await userPsychologistModel.find({}, { 'rating': 1, "_id": 0 });
+// //     const orderDesc = PsichologistByRating.sort((a, b) => b.rating - a.rating);
+// //     res.status(200).json(orderDesc)
+
+// //   } catch (error) {
+// //     console.log(error)
+// //     return res.status(404).send({ msj: 'No se encontraron resultados' });
+// //   }
+
+// // };
+
+
+const getReviews = async (req: Request, res: Response) => {
+
 
   try {
-    const PsichologistByRating = await userPsychologistModel.find({}, { 'rating': 1, "_id": 0 });
-    const orderDesc = PsichologistByRating.sort((a, b) => b.rating - a.rating);
-    res.status(200).json(orderDesc)
+    
+  const reviews = await userPsychologistModel.find().populate({
+    path: 'rating',
+    
+  });
+  res.status(200).json(reviews)
 
   } catch (error) {
     console.log(error)
-    return res.status(404).send({ msj: 'No se encontraron resultados' });
   }
-
 };
 
 
@@ -191,7 +208,8 @@ module.exports = {
   putUserPsychologist,
   getUserPsychologistByEmail,
   filterPsichologistSpecialities,
-  filterPsichologistRating,
+  //filterPsichologistRating,
   getUserPsychologistByStatus,
+  getReviews,
   getPsychologistDetails
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { GoStar } from "react-icons/go";
 import { createReview } from "../../redux/actions";
 import Swal from "sweetalert2";
@@ -22,7 +23,7 @@ export default function Reviews() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
-
+  
 
   // estado rating para la calificacion de 1 a 5 del usuario al psicologo 
   // y stado hover para el color de la estrella segun el rating
@@ -44,6 +45,10 @@ export default function Reviews() {
   const [isSubmit, setIsSubmit] = useState(true);
 
   const dispatch = useDispatch();
+
+  const {idPsychologist}  = useParams();
+
+  
 
 
   const handleClick = (value) => {
@@ -95,7 +100,7 @@ export default function Reviews() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createReview(input_review))
+    dispatch(createReview(idPsychologist, input_review))
     onClose()
     Swal.fire('Tu reseña fue enviada con exito', '', 'success');
     setRating(0);
