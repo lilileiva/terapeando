@@ -10,7 +10,6 @@ import {
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
-  PUT_POSTS,
   LOCAL_HOST,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
@@ -25,8 +24,7 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS,
-  FILTER_PSYCHOLOGIST_BY_RATING
+  GET_ALL_PSYCHOLOGIST_BY_STATUS
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -132,11 +130,7 @@ export function loginClient(signinForm) {
 export function editClient(updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(
-        `${baseURL}/userclient/editprofile`,
-        updatedUserClient,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-      );
+      const data = await axios.put(`${baseURL}/userclient`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -236,9 +230,6 @@ export function getPsychologistByEmail(signupForm) {
   };
 }
 
-
-
-
 //GET para obtener un solo psychologist
 export const getUserPsychologistOne = () => {
   return async function (dispatch) {
@@ -337,9 +328,6 @@ export function orderByRating(order, array) {
   };
 }
 
-
-
-
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
@@ -414,19 +402,30 @@ export const addPost = (body) => {
       )
       dispatch({
         type: "CREATE_POST",
-        payload: info,
-      });
-      Swal.fire(
-        "OK",
-        "Felicitaciones, tu nota ha sido creado exitosamente",
-        "success"
-      );
+        payload: info
+      })
+      Swal.fire('Post creado correctamente!', 'muy bien', 'success')
     } catch (error) {
-      console.log(error);
-      Swal.fire("😥", "Hubo un error en nuestros servidores", "error");
+      console.log(error)
+      Swal.fire('Error', `No se puede crear la nota por ${error}`,'error')
     }
   }
 }
+
+//eliminar nota
+export const deletePost = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${baseURL}/deletePost/${id}`)
+      dispatch({ type: "DELETE_POST", payload: id })
+      Swal.fire('Post eliminado correctamente!', '', 'success')
+    } catch (error) {
+      console.log(error)
+      Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
+    }
+  }
+}
+
 
 export const putPost = (body, IdPost) => {
   return async function (dispatch) {
@@ -488,10 +487,16 @@ export const getPostsAuthors = () => {
   };
 };
 
+export const filterByAuthor = (payload) => {
+  return {
+    type: "FILTER_POSTS_BY_AUTHOR",
+    payload,
+  }
+}
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
-export function createReview(IdUserPsychologist, payload) {
+export function createReview(payload) {
   return async function () {
     try {
       const newReview = axios.post(`${baseURL}/reviews/${IdUserPsychologist}`, payload, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
@@ -712,6 +717,7 @@ export function AdminGetUserPsychologistByName(name) {
       method: 'GET',
       Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}`
     })
+
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -762,6 +768,7 @@ export function AdminDeleteUserPsichologist(IdUserPsychologist) {
     try {
       await axios.delete(
         `${baseURL}/admin/deleteuserpsychologist/${IdUserPsychologist}`,
+
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
     } catch (error) {
@@ -818,5 +825,5 @@ export function clearAdminSearchbar() {
 export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
-  };
-};
+  }
+}

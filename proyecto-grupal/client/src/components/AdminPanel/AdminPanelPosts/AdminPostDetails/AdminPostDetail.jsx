@@ -124,13 +124,7 @@ function AdminPostDetail() {
                   </Stack>
                   <br />
                   <Stack direction='row' width='100%'>
-                    <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/posts/edit/${idPost}`)}>
-                      <BsPencilSquare />
-                      <Text pr='0.5em'> Editar post</Text>
-                    </Button>
-                  {/* </Stack> */}
-                  {/* <Stack direction='row'> */}
-                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+                    <Button width='100%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>
