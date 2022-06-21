@@ -25,17 +25,16 @@ function CheckoutPayment() {
 
     let arr = Object.values(psyDetails);
 
-  return arr.length <=1 ? (
-   <Loader /> 
-  ) : (
-    <Container maxW={'container.xl'} p={0}>
-      <Elements stripe={stripeTestPromise}>
+  return  (
+    <Container maxW={'container.xl'} p={0}> {
+      arr.length <=1 ? <Loader></Loader> :  <Elements stripe={stripeTestPromise}>
       <Flex  py={20} >
           <Details idPsy={idPsychologist}/>
           <Cart name={psyDetails.firstName} last={psyDetails.lastName}
           pic={psyDetails.profileImage}/>
       </Flex>
       </Elements>
+    }    
     </Container>
   )
 }
