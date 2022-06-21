@@ -77,7 +77,7 @@ export function getUserClient() {
         dispatch({
           type: GET_USERCLIENT,
           payload: client.data,
-        });
+        }); 
       })
       .catch((err) => console.log(err));
   };
