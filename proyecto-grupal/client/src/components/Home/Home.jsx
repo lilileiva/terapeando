@@ -99,24 +99,27 @@ export default function Home() {
           <Stack width="100%" direction="row">
             <FiltersPsichologist />
           </Stack>
-          {loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ?
-            AllPsychologists.map(el => {              
-              return (
-                <CardPsychologist                  
-                  key={el._id}
-                  firstName={el.firstName}
-                  lastName={el.lastName}
-                  profileImage={el.profileImage}
-                  rating={el.rating}
-                  education={el.education}
-                  about={el.about}                  
-                  idPsychologist={el._id}
-                  Specialties={el.Specialties}
-                />
-              )
-            }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}
-
-          {/* <Psychologists></Psychologists> */}
+          {
+            loader
+              ? <Loader />
+              : AllPsychologist && AllPsychologist.length > 0
+                ? AllPsychologists.map(el => {
+                  return (
+                    <CardPsychologist
+                      key={el._id}
+                      firstName={el.firstName}
+                      lastName={el.lastName}
+                      profileImage={el.profileImage}
+                      rating={el.rating}
+                      education={el.education}
+                      about={el.about}
+                      idPsychologist={el._id}
+                      Specialties={el.Specialties}
+                    />
+                  )
+                })
+                : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>
+          }
         </div>
       </Stack>
       <Stack>
