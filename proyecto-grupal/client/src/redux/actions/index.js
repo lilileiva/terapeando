@@ -10,6 +10,7 @@ import {
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
+  PUT_POSTS,
   LOCAL_HOST,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
@@ -19,7 +20,6 @@ import {
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
   CLEAR_ADMIN_SEARCHBAR,
-  PUT_POSTS,
   GET_PAYMENT, 
   GET_PAYMENT_PSY, 
   GET_PAYMENT_CLIENT,
@@ -220,6 +220,9 @@ export function getPsychologistByEmail(signupForm) {
   };
 }
 
+
+
+
 //GET para obtener un solo psychologist
 export const getUserPsychologistOne = () => {
   return async function (dispatch) {
@@ -238,11 +241,27 @@ export const getUserPsychologistOne = () => {
 };
 
 // GET USE RPSYCHOLOGIST DETAILS
+// export const getUserPsychologistDetails = (IdUserPsychologist) => {
+//   return async function (dispatch) {
+//     try {
+//       const psychologist = await axios.get(
+//         `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+//       );
+//       dispatch({
+//         type: "GET_PSYCHOLOGISTS_DETAILS",
+//         payload: psychologist.data,
+//       });
+//     } catch (error) {
+//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+//     }
+//   };
+// };
+
 export const getUserPsychologistDetails = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        `${baseURL}/userclient/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
@@ -401,33 +420,6 @@ export const addPost = (body) => {
     }
   }
 }
-export const putPost = (body, IdPost) => {
-  return async function (dispatch) {
-    try{
-      const {info} = await axios.put(
-        `${baseURL}/edit/${IdPost}`,body
-      )
-      dispatch({type:PUT_POSTS, pyaload:info})
-      Swal.fire('Post editada correctamente!', 'muy bien', 'success')
-    }catch(e){
-      console.log(e)
-      Swal.fire('Error', `No se puede editar la nota por ${e}`,'error')
-    }
-  }
-}
-//eliminar nota
-export const deletePost = (id) => {
-  return async function (dispatch) {
-    try {
-      await axios.delete(`${baseURL}/deletePost/${id}`)
-      dispatch({ type: "DELETE_POST", payload: id })
-      Swal.fire('Post eliminado correctamente!', '', 'success')
-    } catch (error) {
-      console.log(error)
-      Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
-    }
-  }
-}
 
 /*---------------------CATEGORIES ACTIONS------------------*/
 //obtener todas las categorias
@@ -471,12 +463,6 @@ export const getPostsAuthors = () => {
   };
 };
 
-export const filterByAuthor = (payload) => {
-  return {
-    type: "FILTER_POSTS_BY_AUTHOR",
-    payload,
-  }
-}
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
@@ -732,7 +718,7 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/:${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({
