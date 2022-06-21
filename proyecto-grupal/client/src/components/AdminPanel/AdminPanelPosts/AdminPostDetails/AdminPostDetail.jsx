@@ -6,13 +6,7 @@ import AdminPanelSidebar from "../../AdminPanelSidebar/AdminPanelSidebar.jsx";
 import Footer from "../../../Footer/Footer.jsx";
 import { Stack, Button, Avatar, Text } from "@chakra-ui/react";
 import { ArrowLeftIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
-import {
-  BsPersonDash,
-  BsPencilSquare,
-  BsPeople,
-  BsFillEyeFill,
-  BsSearch,
-} from "react-icons/bs";
+import { BsPencilSquare,} from "react-icons/bs";
 import {
   clearStatePostDetail,
   AdminDeletePost,
