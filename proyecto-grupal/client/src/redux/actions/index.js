@@ -353,9 +353,6 @@ export function orderByRating(order, array) {
   };
 }
 
-
-
-
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
@@ -430,16 +427,12 @@ export const addPost = (body) => {
       )
       dispatch({
         type: "CREATE_POST",
-        payload: info,
-      });
-      Swal.fire(
-        "OK",
-        "Felicitaciones, tu nota ha sido creado exitosamente",
-        "success"
-      );
+        payload: info
+      })
+      Swal.fire('Post creada correctamente!', 'muy bien', 'success')
     } catch (error) {
-      console.log(error);
-      Swal.fire("😥", "Hubo un error en nuestros servidores", "error");
+      console.log(error)
+      Swal.fire('Error', `No se puede crear la nota`,'error')
     }
   }
 }
@@ -486,19 +479,6 @@ export const getByCategory = (category) => {
     }
   }
 }
-
-export const getByCatego = (category) => {
-  return async function (dispatch) {
-    try {
-      const responseBack = await fetch(`${baseURL}/filter/${category}`);
-      const jsonBack = await responseBack.json();
-      //envio las notas que se filtren con esa catagory
-      dispatch({ type: "GET_BY_CATEGORY_POST", payload: jsonBack });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
 
 
 
@@ -762,7 +742,7 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/:${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({

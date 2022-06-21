@@ -105,7 +105,7 @@ function rootReducer(state = initialState, action) {
     case "GET_PSYCHOLOGISTS_ONE":
       return {
         ...state,
-        psychologistProfile: action.payload,
+        userPsichologistDetail: action.payload,
       };
     case "GET_PSYCHOLOGISTS_DETAILS":
       return {
