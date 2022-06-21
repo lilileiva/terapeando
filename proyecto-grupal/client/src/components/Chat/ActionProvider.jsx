@@ -21,9 +21,15 @@ class ActionProvider{
         const message = this.createChatBotMessage("Te amo tambien!")
         this.updateChatbotState(message);
     }
+    handleBlog = () => {
+        const message = this.createChatBotMessage("Genial! Este es el blog",{
+            widget:"blog"
+        })
+        this.updateChatbotState(message)
+    }
     //para ver las diferentes comunicaciones de la plataforma
     hadleHire = () => {
-        const message = this.createChatBotMessage("Genial! Ests son las opciones para contactarnos",{
+        const message = this.createChatBotMessage("Genial! Estos son las opciones para contactarnos",{
             widget:"contactLinks"
         })
         this.updateChatbotState(message)
@@ -57,27 +63,6 @@ class ActionProvider{
         });
         this.updateChatbotState(message);
     }
-    handleSitePack2 = () => {
-        const message = this.createChatBotMessage("Una sesion en promedio con un psicologo de la plataforma cuesta $2000 USD", {
-          widget: "PriceFeedback",
-        });
-        this.updateChatbotState(message);
-    };
-    handleSitePack3 = () => {
-        const message = this.createChatBotMessage("Una sesion en promedio con un psicologo de la plataforma cuesta $3000 USD", {
-          widget: "PriceFeedback",
-        });
-        this.updateChatbotState(message);
-    };
-    handleSitePack4 = () => {
-        const message = this.createChatBotMessage(
-          "Una sesion en promedio con un psicologo de la plataforma cuesta $4000 USD",
-          {
-            widget: "PriceFeedback",
-          }
-        );
-        this.updateChatbotState(message);
-    };
     //psicologos
     handleWebsiteList = () => {
         const message = this.createChatBotMessage(

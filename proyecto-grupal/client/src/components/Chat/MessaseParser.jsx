@@ -26,9 +26,21 @@ class MessageParser{
         lowerCaseMessage.includes("valor") || lowerCaseMessage.includes("cuanto cuesta")) {
             this.actionProvider.handlePricing();
         }
-        if (lowerCaseMessage.includes("ok") || lowerCaseMessage.incluide("okey") || lowerCaseMessage.includes("vale") || lowerCaseMessage.includes("gracias")) {
+        if (lowerCaseMessage.includes("ok") || lowerCaseMessage.incluides("okey") || lowerCaseMessage.includes("vale") || lowerCaseMessage.includes("gracias")) {
             this.actionProvider.handleSomethingElse()
         } 
+        if(lowerCaseMessage.includes("contratar") || lowerCaseMessage.incluides("trabajar para ti")){
+            this.actionProvider.handleHire();
+        }
+        if(lowerCaseMessage.includes("servicios")){
+            this.actionProvider.handleServicesList();
+        }
+        if(lowerCaseMessage.includes("blog")){
+            this.actionProvider.handleBlog();
+        }
+        if(lowerCaseMessage.includes("cita")){
+            this.actionProvider.handleSitePack1();
+        }
     }
 }
 export default MessageParser
