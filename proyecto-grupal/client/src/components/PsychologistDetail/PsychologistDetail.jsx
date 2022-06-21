@@ -21,15 +21,6 @@ export default function PsychologistDetail() {
   const [loader, setLoader] = useState(false);
   const detail = useSelector((state) => state.userPsichologistDetail);
   const navigate = useNavigate();
-  console.log(detail)
-  // useEffect(() => {
-  //   dispatch(getUserPsychologistOne(idPsychologist));
-  //   smoothscroll()
-  //   return () => {
-  //     dispatch(clear()); //Clear detail
-  //   };
-  // }, [dispatch, idPsychologist]);
-
 
 
   useEffect(() => {

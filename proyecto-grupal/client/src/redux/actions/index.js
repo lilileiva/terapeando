@@ -10,6 +10,7 @@ import {
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
+  PUT_POSTS,
   LOCAL_HOST,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
@@ -19,7 +20,6 @@ import {
   CLEAR_PSYCHOLOGIST_LIST,
   ADMIN_SEARCHBAR,
   CLEAR_ADMIN_SEARCHBAR,
-  PUT_POSTS,
   GET_PAYMENT,
   GET_PAYMENT_PSY,
   GET_PAYMENT_CLIENT,
@@ -220,6 +220,9 @@ export function getPsychologistByEmail(signupForm) {
   };
 }
 
+
+
+
 //GET para obtener un solo psychologist
 export const getUserPsychologistOne = () => {
   return async function (dispatch) {
@@ -238,6 +241,22 @@ export const getUserPsychologistOne = () => {
 };
 
 // GET USE RPSYCHOLOGIST DETAILS
+// export const getUserPsychologistDetails = (IdUserPsychologist) => {
+//   return async function (dispatch) {
+//     try {
+//       const psychologist = await axios.get(
+//         `${baseURL}/userpsychologist/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+//       );
+//       dispatch({
+//         type: "GET_PSYCHOLOGISTS_DETAILS",
+//         payload: psychologist.data,
+//       });
+//     } catch (error) {
+//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+//     }
+//   };
+// };
+
 export const getUserPsychologistDetails = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
@@ -461,12 +480,6 @@ export const getPostsAuthors = () => {
   };
 };
 
-export const filterByAuthor = (payload) => {
-  return {
-    type: "FILTER_POSTS_BY_AUTHOR",
-    payload,
-  }
-}
 
 /*---------------------REVIEWS ACTIONS-------------------*/
 
@@ -722,7 +735,7 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/detail/${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/:${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({

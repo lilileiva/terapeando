@@ -6,17 +6,7 @@ import Starts from '../Starts/Starts';
 import Schedule from "../Schedule/Schedule";
 
 
-// export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
-export default function CardPsychologist({ psychologist }) {
-
-    let firstName = psychologist.firstName
-    let lastName = psychologist.lastName
-    let profileImage = psychologist.profileImage ? psychologist.profileImage : null
-    let rating = psychologist.rating
-    let education = psychologist.education
-    let idPsychologist = psychologist._id
-    let Specialties = psychologist.Specialties
-    let about = psychologist.about ? psychologist.about : null
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
 
     const navigate = useNavigate();
 
@@ -36,9 +26,7 @@ export default function CardPsychologist({ psychologist }) {
         <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
             <Stack className="ProfileBox">
-                {
-                    profileImage ? <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' /> : null
-                }
+                <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' />
                 <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
                 <Text className="textOcupation" color='blackAlpha.500'> {education} </Text>
                 <Box className="boxstars">

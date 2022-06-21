@@ -6,15 +6,8 @@ import AdminPanelSidebar from "../../AdminPanelSidebar/AdminPanelSidebar.jsx";
 import Footer from "../../../Footer/Footer.jsx";
 import { Stack, Button, Avatar, Text } from "@chakra-ui/react";
 import { ArrowLeftIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import { BsPencilSquare,} from "react-icons/bs";
 import {
-  BsPersonDash,
-  BsPencilSquare,
-  BsPeople,
-  BsFillEyeFill,
-  BsSearch,
-} from "react-icons/bs";
-import {
-  putPost,
   clearStatePostDetail,
   AdminDeletePost,
   getPostDetail,
@@ -28,7 +21,6 @@ function AdminPostDetail() {
   const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
   const { idPost } = useParams();
-  
   useEffect(() => {
     dispatch(getPostDetail(idPost));
     return () => {

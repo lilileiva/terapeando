@@ -47,13 +47,8 @@ function removeAcc(str) {
 }
 
 const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
-
 const tokenClient = window.localStorage.getItem('tokenClient')
 const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-
-console.log(tokenClient)
-console.log(tokenPsychologist)
-
 const NavLink = ({ children }) => (
 
   <Link exact to={removeAcc(children)}>
@@ -75,6 +70,11 @@ export default function NavbarHome() {
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(getUserClient());
+  }, [dispatch]);
+
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const navigate = useNavigate();
@@ -84,6 +84,7 @@ export default function NavbarHome() {
     navigate('/');
   }
 
+
   useEffect(() => {
     if (tokenClient) dispatch(getUserClient())
     if (tokenPsychologist) dispatch(getUserPsychologistOne())
@@ -91,7 +92,7 @@ export default function NavbarHome() {
 
   const clientDetails = useSelector((state) => state.userClientDetail);
   const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
-  console.log(userPsichologistDetail._id)
+
 
   return (
     <>
@@ -154,20 +155,9 @@ export default function NavbarHome() {
                 cursor={"pointer"}
                 minW={0}
               >
-                {tokenClient ?
-                  (
-                    <Avatar
-                      size={"sm"}
-                      // src={clientDetails.profileImage}
-                    />
-                    )
-                  :
-                  (
-                    <Avatar
-                      size={"sm"}
-                      src={userPsichologistDetail.profileImage} />
-                  )
-                }
+                <Avatar
+                  size={"sm"}
+                  src={userPsichologistDetail.profileImage} />
               </MenuButton>
               <MenuList>
                 {tokenClient ?

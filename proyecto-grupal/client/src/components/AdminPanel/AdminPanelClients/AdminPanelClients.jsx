@@ -28,7 +28,6 @@ function AdminPanelClients() {
   }, [dispatch, AdminGetAllUserClients, clearAdminSearchbar, clearClientList])
 
   const allUserClients = useSelector((state) => state.usersClients);
-
   let usersClientsSearch = useSelector((state) => state.usersClientsSearch);
 
   const handleAlertDelete = (clientId) => {

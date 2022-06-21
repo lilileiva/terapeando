@@ -49,13 +49,6 @@ export default function Home() {
     }, 1500);
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   setErrorMessage(true);
-  //   setTimeout(() => {
-  //     setErrorMessage(false);
-  //   }, 5000);
-  // }, [dispatch]);
-
   /* Paginado */
   const [page, setPage] = useState(1);
   const [postPage, setPostPage] = useState(5);
@@ -108,21 +101,18 @@ export default function Home() {
             <FiltersPsichologist />
           </Stack>
           {loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ?
-            AllPsychologists.map(el => {
-              // { console.log(el.status) }
+            AllPsychologists.map(el => {              
               return (
-
-                <CardPsychologist
-                  psychologist={el}
-                  // key={el._id}
-                  // firstName={el.firstName}
-                  // lastName={el.lastName}
-                  // profileImage={el.profileImage}
-                  // rating={el.rating}
-                  // education={el.education}
-                  // about={el.about}                  
-                  // idPsychologist={el._id}
-                  // Specialties={el.Specialties}
+                <CardPsychologist                  
+                  key={el._id}
+                  firstName={el.firstName}
+                  lastName={el.lastName}
+                  profileImage={el.profileImage}
+                  rating={el.rating}
+                  education={el.education}
+                  about={el.about}                  
+                  idPsychologist={el._id}
+                  Specialties={el.Specialties}
                 />
               )
             }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}

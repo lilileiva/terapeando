@@ -5,7 +5,6 @@ import {
   getPostOrder,
   getCategories,
   getByCategory,
-  getAllPsychologist,
 } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 
