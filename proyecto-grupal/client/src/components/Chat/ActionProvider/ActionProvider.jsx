@@ -10,7 +10,7 @@ class ActionProvider{
     //la lista de ls servicios en el chat
     handleServicesList = () => {
         const message = this.createChatBotMessage(
-            "Fantastico, Estos sn algunos de nuestros servicios ofrecidos : ",{
+            "Fantastico, Estos son algunos de nuestros servicios ofrecidos : ",{
                 widget:"servicesLinks"
             }
         );
@@ -89,12 +89,13 @@ class ActionProvider{
         this.updateChatbotState(message);
     };
     
-
     updateChatbotState(message){
+        //actualizamos elmensaje apartir del estado de lo que ingreseel usuario y no lo guardamos en el estado
         this.setState((prevState) => ({
             ...prevState,
-            massages:[...prevState, message]
+            messages:[...prevState.messages, message]
         }))
     }
+    
 }
 export default ActionProvider

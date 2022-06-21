@@ -1,5 +1,6 @@
 import React from "react"
 import {createChatBotMessage} from "react-chatbot-kit"
+import LearningOptions from "../LearningOptions/LearningOptions.jsx"
 const config = {
     botName: "TereBot",
     initialMessages:[
@@ -15,5 +16,11 @@ const config = {
           backgroundColor: "#d00000",
         },
     },
+    widgets:[
+      {
+        widgetName: "learningOptions",
+        widgetFunc: (props) => <LearningOptions {...props} />,
+      },
+    ]
 }
 export default config;
