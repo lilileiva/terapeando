@@ -6,7 +6,7 @@ import AdminPanelSidebar from '../../AdminPanelSidebar/AdminPanelSidebar.jsx';
 import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, Input, Select } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
-import { getPostDetail, clearStatePostDetail, getCategories, putost} from '../../../../redux/actions';
+import { getPostDetail, clearStatePostDetail, getCategories, putPost} from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 
