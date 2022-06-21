@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import userClientModel from "../../models/userClients";
+import userPsychologistModel from "../../models/userPsychologist";
 
 
 const getUserClient = async (req: Request, res: Response) => {
@@ -67,10 +68,19 @@ const putUserClient = async (req: Request, res: Response) => {
    }
 }
 
-
+const getPsychologistDetails = async (req: Request, res: Response) => {
+   const {idUserPsychologist} = req.params
+   try {
+     const psychologistUser = await userPsychologistModel.findById(idUserPsychologist, '-password');
+     res.status(200).json(psychologistUser)
+   } catch (err) {
+     res.status(404).json({ data: err })
+   }
+ }
 module.exports = {
    getUserClient,
    createUserClient,
    deleteUserClient,
-   putUserClient
+   putUserClient,
+   getPsychologistDetails
 };
