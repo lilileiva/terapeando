@@ -353,9 +353,6 @@ export function orderByRating(order, array) {
   };
 }
 
-
-
-
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
   //me traigo todas las notas de mi db y si no tengo notas muestro el error
@@ -427,12 +424,14 @@ export const addPost = (body) => {
       const { info } = await axios.post(
         `${baseURL}/post`, body, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }}
       )
-      return dispatch({
+      dispatch({
         type: "CREATE_POST",
-        payload: info,
-      });
+        payload: info
+      })
+      Swal.fire('Post creada correctamente!', 'muy bien', 'success')
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      Swal.fire('Error', `No se puede crear la nota`,'error')
     }
   }
 }
@@ -462,22 +461,6 @@ export const getByCategory = (category) => {
     }
   }
 }
-
-export const getPostsAuthors = () => {
-  return async function (dispatch) {
-    try {
-      const response = await fetch(`${baseURL}/author`);
-      const json = await response.json();
-      //json trae un obj de arrays con first y last Name
-      dispatch({
-        type: "GET_POSTS_AUTHORS",
-        payload: json,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
 
 
 /*---------------------REVIEWS ACTIONS-------------------*/
@@ -734,7 +717,7 @@ export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/:${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({

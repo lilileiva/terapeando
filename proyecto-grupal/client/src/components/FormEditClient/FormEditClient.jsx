@@ -57,12 +57,8 @@ function FormEditClient() {
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
   useEffect(() => {
     if(tokenClient) dispatch(getUserClient());
-    dispatch(getUserPsychologistOne());
+    if(tokenPsychologist) dispatch(getUserPsychologistOne());
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(getUserPsychologistOne());
-  // }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();

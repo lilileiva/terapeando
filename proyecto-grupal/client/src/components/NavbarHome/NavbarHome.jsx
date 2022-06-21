@@ -51,8 +51,8 @@ const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 const tokenClient = window.localStorage.getItem('tokenClient')
 const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
-// console.log(tokenClient)
-// console.log(tokenPsychologist)
+//console.log('TC: ', tokenClient)
+//console.log('TP: ', tokenPsychologist)
 
 const NavLink = ({ children }) => (
   
