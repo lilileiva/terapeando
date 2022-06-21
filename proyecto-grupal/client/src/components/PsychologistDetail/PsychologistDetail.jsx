@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, getUserPsychologistDetails } from "../../redux/actions";
+import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient } from "../../redux/actions";
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
@@ -31,9 +31,12 @@ export default function PsychologistDetail() {
   // }, [dispatch, idPsychologist]);
 
 
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   useEffect(() => {
-    dispatch(getUserPsychologistDetails(idPsychologist));
+    tokenClient ? dispatch(getUserPsychologistDetailsasClient(idPsychologist)) : dispatch(getUserPsychologistDetails(idPsychologist))
     setLoader(true);
     smoothscroll()
     setTimeout(() => {
@@ -44,9 +47,6 @@ export default function PsychologistDetail() {
     };
   }, [dispatch, idPsychologist]);
 
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-  const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>
