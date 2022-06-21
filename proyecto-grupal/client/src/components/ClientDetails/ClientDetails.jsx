@@ -29,11 +29,11 @@ export default function ClientDetails() {
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-
   const dispatch = useDispatch();
 
   useEffect(() => {
    tokenClient ? dispatch(getUserClient()) : dispatch(getUserPsychologistOne());
+   console.log(tokenClient)
   }, [dispatch]);
 
   useEffect(() => {

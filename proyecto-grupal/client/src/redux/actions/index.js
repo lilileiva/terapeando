@@ -70,7 +70,7 @@ export function getUserClient() {
   return function (dispatch) {
     axios
       .get(
-        `${baseURL}/userclient/client/`,
+        `${baseURL}/userclient/client`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
       .then((client) => {

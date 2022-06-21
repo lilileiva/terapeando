@@ -49,6 +49,7 @@ function FormEditClient() {
 
   const clientDetails = useSelector((state) => state.userClientDetail)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
+
   const [error, setError] = useState({});
   const [input, setInput] = useState({
     firstName: clientDetails.firstName || psychologistDetails.firstName,
@@ -63,7 +64,7 @@ function FormEditClient() {
  
   useEffect(() => {
     if(tokenClient) dispatch(getUserClient());
-    dispatch(getUserPsychologistOne());
+    if (tokenPsychologist) dispatch(getUserPsychologistOne());
   }, []);
 
   function handleChange(e) {
@@ -111,7 +112,6 @@ function FormEditClient() {
       navigate("/home")
     }
   }
-
 
 
   return (
