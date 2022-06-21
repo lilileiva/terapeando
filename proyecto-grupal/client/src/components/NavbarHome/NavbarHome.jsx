@@ -70,11 +70,6 @@ export default function NavbarHome() {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getUserClient());
-  }, [dispatch]);
-
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const navigate = useNavigate();
@@ -155,17 +150,27 @@ export default function NavbarHome() {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar
-                  size={"sm"}
-                  src={userPsichologistDetail.profileImage} />
+                {tokenClient ?
+                  (
+                    <Avatar
+                      size={"sm"}
+                      src={clientDetails?.profileImage}
+                    />)
+                  :
+                  (
+                    <Avatar
+                      size={"sm"}
+                      src={userPsichologistDetail?.profileImage} />
+                  )
+                }
               </MenuButton>
               <MenuList>
                 {tokenClient ?
                   <>
-                    <Link to={`/home/${clientDetails.firstName}`}>
+                    <Link to={`/home/${clientDetails?.firstName}`}>
                       <MenuItem>Mi Perfil</MenuItem>
                     </Link>
-                    <Link to={`/editprofile/${clientDetails.firstName}`}>
+                    <Link to={`/editprofile/${clientDetails?.firstName}`}>
                       <MenuItem>Editar Perfil</MenuItem>
                     </Link>
                   </> :
