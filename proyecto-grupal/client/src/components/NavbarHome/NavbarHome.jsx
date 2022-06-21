@@ -51,8 +51,8 @@ const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 const tokenClient = window.localStorage.getItem('tokenClient')
 const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
-console.log(tokenClient)
-console.log(tokenPsychologist)
+// console.log(tokenClient)
+// console.log(tokenPsychologist)
 
 const NavLink = ({ children }) => (
   
@@ -76,9 +76,9 @@ export default function NavbarHome() {
 const dispatch = useDispatch()
 
 
-  useEffect(() => {
-    dispatch(getUserClient());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUserClient());
+  // }, [dispatch]);
 
 
 
@@ -98,7 +98,6 @@ const dispatch = useDispatch()
 
   const clientDetails = useSelector((state) => state.userClientDetail);
   const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
-  console.log(userPsichologistDetail._id)
 
   return (
       <>
