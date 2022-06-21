@@ -106,8 +106,7 @@ function FormEditClient() {
     }
   }
 
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
 
   return (
     <>
