@@ -1,14 +1,16 @@
 import React from 'react'
 import Chatbot from 'react-chatbot-kit'
-import config from './config.jsx';
-import ActionProvider from './ActionProvider.jsx';
-import MessageParser from "./MessaseParser.jsx"
+import "./Chat.css"
+import config from './config/config.jsx';
+import ActionProvider from './ActionProvider/ActionProvider.jsx';
+import MessageParser from "./MessageParser/MessageParser.jsx"
 function Chat(){
     return(
-        <div>
-            <h1>Soy el chat</h1>
-            <Chatbot config={config} actionProvider={ActionProvider}
-            messageParser={MessageParser}/>
+        <div className='Chat'>
+            <header className='chat-header'>
+                <Chatbot config={config} actionProvider={ActionProvider}
+                messageParser={MessageParser}/>
+            </header>
         </div>
     )
 }
