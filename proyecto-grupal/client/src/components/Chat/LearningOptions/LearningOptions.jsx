@@ -11,7 +11,7 @@ const LearningOptions = (props) => {
         }
     ]
     const optionsMarkup = options.map((option) => (
-        <Button className="btn" key={option.id} onClick={option.handler}>{option.text}</Button>
+        <button className="learning-option-button" key={option.id} onClick={option.handler}>{option.text}</button>
     ));
     return (
         <div className="learning-options-container">
