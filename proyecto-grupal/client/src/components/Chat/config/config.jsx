@@ -29,12 +29,19 @@ const config = {
       },{
         widgetName:"servicesLinks",
         widgetFunc: (props) => <LinkList {...props}/>,
-        props:[
-          {
-            text:"Psicologos",
-            url:""
-          }
-        ]
+        props:{
+          options:[
+            {
+              text:"Psicologia",
+              url:"http://localhost:3000/home",
+              id:1,
+            },{
+              text:"Blog de Psicologia",
+              url:"http://localhost:3000/blog",
+              id:3
+            }
+          ]
+        }
       }
     ]
 }
