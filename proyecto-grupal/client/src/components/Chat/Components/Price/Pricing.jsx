@@ -7,6 +7,9 @@ const Pricing = (props) => {
             text:"Una sesión",
             handler: props.actionProvider.handleSitePack1,
             id:1
+        },{
+            text:"Dos sesiones",
+            handler: props.actionProvider
         }
     ];
     //empiezo a mostrar las opciones
