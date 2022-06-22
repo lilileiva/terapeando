@@ -29,7 +29,7 @@ function AdminPanelPsychologists() {
 
   const allUsersPsichologists = useSelector((state) => state.allUsersPsichologists);
 
-  const handleAlertDelete = (idUserPsichologist) => {
+  const handleAlertDelete = (IdUserPsychologist) => {
     Swal.fire({
       title: '¿Estás seguro que quieres eliminar a este usuario?',
       text: "Estos cambios no se podrán revertir.",
@@ -40,7 +40,7 @@ function AdminPanelPsychologists() {
       denyButtonText: 'Sí',
     }).then((result) => {
       if (result.isDenied) {
-        dispatch(AdminDeleteUserPsichologist(idUserPsichologist))
+        dispatch(AdminDeleteUserPsichologist(IdUserPsychologist))
         dispatch(AdminGetAllPsychologist())
         Swal.fire('Usuario eliminado correctamente!', '', 'success')
       }
