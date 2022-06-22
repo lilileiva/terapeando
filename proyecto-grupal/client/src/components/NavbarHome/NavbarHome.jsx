@@ -75,11 +75,7 @@ export default function NavbarHome() {
   const { isOpen, onOpen, onClose } = useDisclosure();  
 
   const handleSignOut = () => {
-<<<<<<< HEAD
-    window.localStorage.clear();
-=======
     window.localStorage.clear();    
->>>>>>> 6b5ed66af4a7d21cfc880af8e3a03fd96aeac3b4
   }
 
   useEffect(() => {
@@ -185,90 +181,6 @@ export default function NavbarHome() {
                   </>
                 }
 
-<<<<<<< HEAD
-             <Link className={'links'} to={'/home'}>
-               <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                 Home
-               </Text>
-             </Link>
-             <Link className={'links'} to={'/proximasconsultas'}>
-               <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                 Proximas consultas
-               </Text>
-             </Link>
-             <Link className={'links'} to={'/mipsicologo'}>
-               <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                 Mi psicólogo
-               </Text>
-             </Link>
-             <Link className={'links'} to={'/blog'}>
-               <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                 Blog
-               </Text>
-             </Link>
-           </Stack>
-         </HStack>
-         <Flex alignItems={"center"}>
-           <Button
-             variant={"solid"}
-             colorScheme={"teal"}
-             size={"sm"}
-             mr={4}
-             leftIcon={<AddIcon />}
-           >
-             Agendar Sesión
-           </Button>
-           <Menu>
-             <MenuButton
-               as={Button}
-               rounded={"full"}
-               variant={"link"}
-               cursor={"pointer"}
-               minW={0}
-             >
-              { tokenClient ? 
-              (
-              <Avatar
-                 size={"sm"}
-                 src={clientDetails?.profileImage}
-               /> )
-               :  
-              (
-                <Avatar
-                size={"sm"}
-                src={userPsichologistDetail?.profileImage}/>
-              )
-            }
-             </MenuButton>
-             <MenuList>
-              { tokenClient ? 
-              <>
-               <Link to={`/home/${clientDetails?.firstName}`}>
-               <MenuItem>Mi Perfil</MenuItem>
-             </Link>
-             <Link to={`/editprofile/${clientDetails?.firstName}`}>
-               <MenuItem>Editar Perfil</MenuItem>
-             </Link>
-             </> :   
-               <>
-               <Link to={`/home/${userPsichologistDetail.firstName}`}>
-               <MenuItem>Mi Perfil</MenuItem>
-             </Link>
-             <Link to={`/editprofile/${userPsichologistDetail.firstName}`}>
-               <MenuItem>Editar Perfil</MenuItem>
-             </Link>
-             </>
-            }
-              
-               <Link to={"/preguntasfrecuentes"}>
-                 <MenuItem>Ayuda</MenuItem>
-               </Link>        
-               <Link to={"/mypayments"}>
-                 <MenuItem>Mis Pagos</MenuItem>
-               </Link>
-               <MenuDivider />
-               <Link to='/'>
-=======
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
                 </Link>
@@ -277,22 +189,14 @@ export default function NavbarHome() {
                 </Link>
                 <MenuDivider />
                 <Link to='/'>
->>>>>>> 6b5ed66af4a7d21cfc880af8e3a03fd96aeac3b4
                   <MenuItem onClick={handleSignOut}>
                     Cerrar sesión
                   </MenuItem>
                 </Link>
-<<<<<<< HEAD
-             </MenuList>
-           </Menu>
-         </Flex>
-       </Flex>
-=======
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
->>>>>>> 6b5ed66af4a7d21cfc880af8e3a03fd96aeac3b4
 
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
