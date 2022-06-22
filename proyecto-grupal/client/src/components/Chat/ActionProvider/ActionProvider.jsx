@@ -58,7 +58,7 @@ class ActionProvider{
         this.updateChatbotState(message)
     }
     handleSitePack1 = () => {
-        const message = this.createChatBotMessage("Una sesion en promedio con un psicologo de la plataforma cuesta $1000 USD",{
+        const message = this.createChatBotMessage("Una sesion con un psicologo de la plataforma cuesta $26 USD",{
             widget:"PriceFeedBack",
         });
         this.updateChatbotState(message);
