@@ -1,4 +1,4 @@
-import react from "react"
+
 import "./LinkList.css"
 const LinkList = (props) => {
     //voy a renderizar cada una de las opciones que me llegan por props
