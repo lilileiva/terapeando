@@ -62,9 +62,9 @@ const getOnePost = async (req: Request, res: Response) => {
 };
 
 const getPostsByPsychologistId = async (req: Request, res: Response) => {
-  const { IdUserPsychologist } = req.params;
+  const { idUserPsychologist } = req.params;
   try {
-    let response = await Post.find({'idUserPsychologist': IdUserPsychologist})
+    let response = await Post.find({'idUserPsychologist': idUserPsychologist})
     res.status(200).send(response);
   } catch (error) {
     console.error(error);
