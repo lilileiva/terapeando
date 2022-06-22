@@ -78,7 +78,6 @@ const dispatch = useDispatch()
 
   const handleSignOut = () => {
     window.localStorage.clear();
-    navigate('/');
   }
 
   useEffect(() => {
@@ -191,9 +190,11 @@ const dispatch = useDispatch()
                  <MenuItem>Mis Pagos</MenuItem>
                </Link>
                <MenuDivider />
-               <MenuItem onClick={handleSignOut}>
-                 Cerrar sesión
-               </MenuItem>
+               <Link to='/'>
+                  <MenuItem onClick={handleSignOut}>
+                    Cerrar sesión
+                  </MenuItem>
+                </Link>
              </MenuList>
            </Menu>
          </Flex>
