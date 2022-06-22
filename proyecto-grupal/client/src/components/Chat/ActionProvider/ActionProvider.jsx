@@ -63,6 +63,12 @@ class ActionProvider{
         });
         this.updateChatbotState(message);
     }
+    handleSitePack2 = () => {
+        const message = this.createChatBotMessage("Dos sesiones con el psicologo de tu preferencia de la plataforma cuesta $56 USD",{
+            widget:"PriceFeedBack",
+        });
+        this.updateChatbotState(message);
+    }
     //psicologos
     handleWebsiteList = () => {
         const message = this.createChatBotMessage(
