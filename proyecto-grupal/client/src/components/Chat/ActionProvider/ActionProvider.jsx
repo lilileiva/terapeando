@@ -69,6 +69,13 @@ class ActionProvider{
         });
         this.updateChatbotState(message);
     }
+    handleSitePack3 = () => {
+        const message = this.createChatBotMessage("Tres sesiones con el psicologo de tu preferencia de la plataforma cuesta $82 USD",{
+            widget:"PriceFeedBack",
+        });
+        this.updateChatbotState(message);
+    }
+    
     //psicologos
     handleWebsiteList = () => {
         const message = this.createChatBotMessage(
