@@ -1,24 +1,24 @@
-.App {
+.Chat {
     text-align: center;
   }
   
-  .App-logo {
+  .Chat-logo {
     height: 40vmin;
     pointer-events: none;
   }
-  .App input{
+  .Chat input{
     color: black;
   }
-  .App svg{
+  .Chat svg{
     margin-left: 35%;
   }
   @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
+    .Chat-logo {
+      animation: Chat-logo-spin infinite 20s linear;
     }
   }
   
-  .App-header {
+  .Chat-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -29,11 +29,11 @@
     color: white;
   }
   
-  .App-link {
+  .Chat-link {
     color: #61dafb;
   }
   
-  @keyframes App-logo-spin {
+  @keyframes Chat-logo-spin {
     from {
       transform: rotate(0deg);
     }
