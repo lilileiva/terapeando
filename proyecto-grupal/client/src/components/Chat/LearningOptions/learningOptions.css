@@ -10,3 +10,7 @@
     border: 1px solid green;
     margin: 3px;
 }
+.learning-option-button:hover{
+    background-color: green;
+    cursor: pointer;
+}
