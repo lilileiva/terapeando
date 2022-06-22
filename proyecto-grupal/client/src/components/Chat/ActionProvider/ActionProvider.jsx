@@ -102,7 +102,13 @@ class ActionProvider{
     }
     handleMatricula = () => {
         const message = this.createChatBotMessage(
-            "En terapeando nos encargamos de revisar que los psicólogos disponibles en el aplicativo sea verificada y verídica su matricula para darle la mejor experiencia al cliente"
+            "En terapeando nos encargamos de revisar que los psicólogos disponibles en el aplicativo tengan verificada y verídica su matricula para darle la mejor experiencia al cliente"
+        )
+        this.updateChatbotState(message)
+    }
+    handlePagos = () => {
+        const message = this.createChatBotMessage(
+            "En terapeando como metodos de pago tenemos Visa, Mastercard y American Express. De esta forma, con Stripe se optimiza las vías de enrutamiento, proporciona la información más detallada y disminuye la latencia en las transacciones."
         )
         this.updateChatbotState(message)
     }
