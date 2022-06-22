@@ -79,3 +79,17 @@
 .verMasText {
     position: relative;
 }
+
+.map {
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: initial;
+    top: 30%;
+    animation: frames .15s linear;
+}

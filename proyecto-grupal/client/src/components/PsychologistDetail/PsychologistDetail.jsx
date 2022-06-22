@@ -6,7 +6,7 @@ import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient, 
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
-import { ArrowLeftIcon, CheckIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons';
 import Footer from '../Footer/Footer.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import smoothscroll from "../../animations";
@@ -53,6 +53,15 @@ export default function PsychologistDetail() {
     }
   }
 
+  const [showMap, setShowMap] = useState(false)
+  const handleMap = () => {
+    if (!showMap) {
+      setShowMap(true)
+    } else {
+      setShowMap(false)
+    }
+  }
+
   return (
     <>
       {
@@ -78,25 +87,32 @@ export default function PsychologistDetail() {
                               ? <Loader />
                               : <Stack direction='column' width='100%' height='100%' pl='10%' pr='10%'>
                                 <SimpleGrid columns={1} textAlign='center' spacingX="10" spacingY="20px">
-                                  <Stack direction='row' p='1em'>
-                                    <Flex direction='row' className="BoxDetail" borderRadius={'10px'} width='100%' height='20em' justify='space-between' align='center'>
-                                      <Box className="BoxDetailImage" backgroundColor={'transparent'} height="15em" width='15em'>
-                                        <Avatar src={detail.profileImage} ml='4em' size='full' />
-                                      </Box>
-                                      <Stack direction='column'>
-                                        <Text fontSize='4xl'>{`${detail.firstName} ${detail.lastName}`}</Text>
+                                  {/* <Stack direction='row'> */}
+                                  <Flex direction='row' className="BoxDetail" borderRadius={'10px'} p='1em' width='100%' height='fit-content' justify='space-around' align='center'>
+                                    <Box className="BoxDetailImage" backgroundColor={'transparent'} height="15em" width='15em'>
+                                      <Avatar src={detail.profileImage} size='full' />
+                                    </Box>
+                                    <Stack direction='column' width='65%'>
+                                      <Text fontSize='4xl' pb='0.5em'>{`${detail.firstName} ${detail.lastName}`}</Text>
+                                      <Stack direction='row' width='100%' justify='space-around'>
                                         <Text fontSize='2xl'>{`📍 ${detail.country}`}</Text>
                                         <Text fontSize='2xl'>{`📩 ${detail.email}`}</Text>
                                         <Text fontSize='2xl'>{`🎓 ${detail.education}`}
                                           {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
                                         </Text>
-                                        <Button mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'green.100' }]} size='lg' onClick={handleCalendar}>
+                                      </Stack>
+                                      <Stack direction='row' width='100%' pt='2em'>
+                                        <Button width='50%' bg='#63caa7' color='white' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={handleCalendar}>
                                           Pedir cita
                                         </Button>
+                                        <Button width='50%' color='#63caa7' bg='white' borderWidth='0.1em' borderColor='#63caa7' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={handleMap}>
+                                          Ver mapa
+                                        </Button>
                                       </Stack>
-                                      <Map />
-                                    </Flex>
-                                  </Stack>
+                                    </Stack>
+                                    {/* <Map /> */}
+                                  </Flex>
+                                  {/* </Stack> */}
                                   {/* <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
                                   <Text fontSize='xl'>
                                     {` 🎂 ${detail.birthDate}`}
@@ -179,6 +195,19 @@ export default function PsychologistDetail() {
                         setCalendar={setCalendar} />
                     </div>
                     : null
+                }
+                {
+
+                  showMap ? (
+                    <div className="map">
+                      <Stack direction='column' bg='white' pb='2em' pr='2em' pl='2em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                        <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
+                          <CloseIcon cursor='pointer' onClick={() => setShowMap(false)} />
+                        </Stack>
+                        <Map />
+                      </Stack>
+                    </div>
+                  ) : null
                 }
                 <Footer />
               </div>

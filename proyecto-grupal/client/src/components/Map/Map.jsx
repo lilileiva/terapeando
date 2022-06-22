@@ -4,8 +4,8 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 const { REACT_APP_GOOGLE_MAP_API_KEY } = process.env;
 
 const containerStyle = {
-  width: '20em',
-  height: '20em'
+  width: '25em',
+  height: '25em'
 };
 
 const center = {

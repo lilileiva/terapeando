@@ -108,8 +108,7 @@
     align-items: center;
     width: 100%;
     height: initial;
-    background-color: rgba(0,0,0,0.5);
-    top: 40%;
+    top: 50%;
     animation: frames .15s linear;
 }
 @keyframes frames {
