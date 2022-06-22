@@ -13,6 +13,9 @@ class MessageParser{
         if(lowerCaseMessage.includes("menu") || lowerCaseMessage.includes("volver")){
             this.actionProvider.handleMenu()
         }
+        if (message.includes('dog')){
+            this.actionProvider.handleDog();
+        }
         // if(lowerCaseMessage.includes("contactanos")){
         //     this.actionProvider.handleHire();
         // }

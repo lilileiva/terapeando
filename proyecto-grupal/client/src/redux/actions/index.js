@@ -132,7 +132,7 @@ export function loginClient(signinForm) {
 export function editClient(updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(`${baseURL}/userclient`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      const data = await axios.put(`${baseURL}/userclient/editprofile`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
       console.log(data);
     } catch (err) {
       console.log(err);

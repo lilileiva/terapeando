@@ -1,8 +1,5 @@
 import { prop, getModelForClass, Ref, pre } from '@typegoose/typegoose'
-import * as mongoose from 'mongoose';
 import { appointment } from './appointment';
-import { Reviews } from './Reviews';
-import { Schedule } from './Schedule';
 const bcrypt = require('bcryptjs');
 
 
