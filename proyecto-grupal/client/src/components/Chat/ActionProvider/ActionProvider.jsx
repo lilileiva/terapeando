@@ -112,6 +112,14 @@ class ActionProvider{
         )
         this.updateChatbotState(message)
     }
+    handleSorry = () => {
+        const message = this.createChatBotMessage(
+            "Lo siento, no lo entendí 😔, Por favor intenta seleccionar algunas de las siguientes opciones",{
+                widget:"learningOptions"
+            }
+        )
+        this.updateChatbotState(message)
+    }
     
     updateChatbotState(message){
         //actualizamos elmensaje apartir del estado de lo que ingreseel usuario y no lo guardamos en el estado
@@ -123,35 +131,3 @@ class ActionProvider{
     
 }
 export default ActionProvider
-
-// class ActionProvider {
-//     constructor(createChatbotMessage, setStateFunc, createClientMessage) {
-//       this.createChatbotMessage = createChatbotMessage;
-//       this.setState = setStateFunc;
-//       this.createClientMessage = createClientMessage;
-//     }
-  
-//     greet(){
-//         const message = this.createChatBotMessage("Hola, Amigo");
-//         this.updateChatbotState(message);
-//     }
-//     handleDog() {
-//       const message = this.createChatbotMessage(
-//         "Here's a nice dog picture for you!",
-//         {
-//           widget: 'dogPicture',
-//         }
-//       );
-//       this.updateChatbotState(message);
-//     }
-//     updateChatbotState(message){
-//                 actualizamos elmensaje apartir del estado de lo que ingreseel usuario y no lo guardamos en el estado
-//                 this.setState((prevState) => ({
-//                     ...prevState,
-//                     messages:[...prevState.messages, message]
-//                 }))
-//             }
-    
-//   }
-  
-//   export default ActionProvider;
