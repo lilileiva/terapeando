@@ -1,12 +1,7 @@
 import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 const { REACT_APP_GOOGLE_MAP_API_KEY } = process.env;
-
-const containerStyle = {
-  width: '25em',
-  height: '25em'
-};
 
 const center = {
   lat: -3.745,
@@ -25,23 +20,25 @@ function Map() {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
     setMap(map)
-  }, [])
+  }, [])  
 
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null)
   }, [])
 
   return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
+    <GoogleMap
+      mapContainerStyle={{ width: '25em', height: '25em' }}
+      center={center}
+      zoom={20}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+      options={{ gestureHandling: "greedy" }}
+    >
+      { /* Child components, such as markers, info windows, etc. */}
+      <Marker position={center} title='Tu psicólogo' />
+      
+    </GoogleMap>
   ) : <></>
 }
 
