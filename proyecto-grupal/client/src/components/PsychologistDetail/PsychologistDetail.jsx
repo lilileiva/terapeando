@@ -91,7 +91,7 @@ export default function PsychologistDetail() {
                                         Especialidades:
                                         {
                                           detail.Specialties && detail.Specialties.map((e) => (
-                                            <Badge variant='subtle' colorScheme='blue' m='1em'>{`${e}`}</Badge>
+                                            <Badge variant='subtle' colorScheme='blue' mr='1em' ml='1em'>{`${e}`}</Badge>
                                           ))
                                         }
                                       </Text>
@@ -106,7 +106,7 @@ export default function PsychologistDetail() {
                                   </Box>
                                   <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">
                                     <Text fontSize='xl'>Mis notas</Text>
-                                    <Stack direction='row' p='1em' height='fit-content' justify='center' overflowX='scroll'>
+                                    <Stack direction='row' p='1em' height='fit-content' justify='left' overflowX='scroll' overflowY='hidden'>
                                       {
                                         posts.length !== 0
                                           ? posts.map((post) => (
@@ -114,11 +114,14 @@ export default function PsychologistDetail() {
                                             postDate = new Date(),
                                             <>
                                               <Link to={`/postdetail/${post._id}`}>
-                                                <Box mr='1em' height='20em' width='20em' justify='bottom' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                                                  <Image position='absolute' borderRadius='1em' width='inherit' height='20em' objectFit='cover' src={post.Image} />
+                                                <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                                                  <Image borderRadius='1em' width='inherit' height='20em' objectFit='cover' src={post.Image} />
                                                   <Stack className="postTitle">
-                                                    <Text fontSize='2xl' fontWeight='500'>{post.Title}</Text>
-                                                    <Text color='gray'>{postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                                    <Stack>
+                                                      <Text className="postTitleText" fontSize='2xl' fontWeight='500'>{post.Title}</Text>
+                                                      <Text color='gray' fontSize='xl'>{postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                                    </Stack>
+                                                    <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
                                                   </Stack>
                                                   {console.log(post)}
                                                 </Box>

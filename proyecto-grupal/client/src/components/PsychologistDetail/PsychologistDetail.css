@@ -8,8 +8,6 @@
 
 
 .imageDetailLogo {
-    /* margin-top: 30px;
-    margin-left: 5px; */
     align-items: center;
     align-content: center;
     align-self: center;
@@ -20,27 +18,14 @@
     33% {
         transform: translateY(-20px);
     }
-
     66% {
         transform: translateY(0px);
     }
 }
 
 .BoxDetail {
-    /* font-family: 'Open Sans', sans-serif;
-    margin-left: 50px;
-    margin-right: 2px; */
     box-shadow: 0 30px 40px 40px rgba(0, 0, 0, .1);
 }
-
-/* .BoxDetailImage{
-    margin-left: 50px;
-    margin-right: 2px;
-} */
-/* .HeadingDetail{
-    font-family: 'Open Sans', sans-serif;
-    font-size:x-large;
-} */
 
 .HeaderDetail {
     background-color: #4d5dfb;
@@ -59,21 +44,36 @@
     position: relative;
     background-color: rgba(255,255,255,0.8);
     width: inherit;
-    height: 50%;        
-    justify-content: center;
-    border-radius: 1em;
+    height: 100%;        
+    justify-content: space-between;    
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
     padding: 1em;
-    overflow: hidden;
+    top: -10em;
 }
 .postTitle:hover {
+    justify-content: center; 
     height: 100%;
+    top: -20em;
+    border-radius: 1em;
     animation: animate 0.5s ease;
 }
 @keyframes animate {
     0% {
-        transform: translateY(-5em);
+        transform: translateY(7em);
     }
     100% {
         transform: translateY(0);
     }
+}
+
+.postTitleText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;    
+}
+.verMasText {
+    position: relative;
 }
