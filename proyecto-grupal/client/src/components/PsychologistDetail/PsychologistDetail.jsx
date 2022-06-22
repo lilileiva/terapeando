@@ -13,7 +13,7 @@ import smoothscroll from "../../animations";
 import Loader from "../Loader/Loader";
 import Reviews from "../Reviews/Reviews";
 import NotFound from '../404notFound/notFound.jsx';
-import Logo from '../../assets/logo-01.png';
+import Map from '../Map/Map.jsx';
 
 
 export default function PsychologistDetail() {
@@ -50,16 +50,15 @@ export default function PsychologistDetail() {
           ? (
             <>
               <div className='psychologistDetailContainer'>
-                <Stack>
+                <Stack mb='1em'>
                   <NavbarHome />
                   <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>
                     <ArrowLeftIcon color='white' alignItems='left' cursor='pointer' onClick={() => navigate(-1)} />
                     <Text fontSize='3xl' fontWeight='500' color='white'>
                       Conoce un poco más sobre tu próximo psicólogo
                     </Text>
-                    <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} /> </Flex>
+                    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} />
                   </Flex>
-
                   {
                     Object.keys(detail).length !== 0
                       ? (
@@ -67,19 +66,24 @@ export default function PsychologistDetail() {
                           {
                             loader
                               ? <Loader />
-                              : <Stack direction='column' width='100%' height='100%' p='1em' pl='10%' pr='10%'>
+                              : <Stack direction='column' width='100%' height='100%' pl='10%' pr='10%'>
                                 <SimpleGrid columns={1} textAlign='center' spacingX="10" spacingY="20px">
-                                  <Flex className="BoxDetail" borderRadius={'10px'} p='1em' width='100%' height='fit-content' justify='space-around' align='center'>
-                                    <Box className="BoxDetailImage" backgroundColor={'transparent'} height="150px" width='150px'>
-                                      <Avatar src={detail.profileImage} alt='' size='full' />
-                                    </Box>
-                                    <Text fontSize='2xl'>{`${detail.firstName} ${detail.lastName}`}</Text>
-                                    <Text fontSize='2xl'>{`📍 ${detail.country}`}</Text>
-                                    <Text fontSize='2xl'>{`📩 ${detail.email}`}</Text>
-                                    <Text fontSize='2xl'>{`🎓 ${detail.education}`}
-                                      {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
-                                    </Text>
-                                  </Flex>
+                                  <Stack direction='row' p='1em'>
+                                    <Flex direction='row' className="BoxDetail" borderRadius={'10px'} width='100%' height='20em' justify='space-between' align='center'>
+                                      <Box className="BoxDetailImage" backgroundColor={'transparent'} height="15em" width='15em'>
+                                        <Avatar src={detail.profileImage} ml='4em' size='full' />
+                                      </Box>
+                                      <Stack direction='column'>
+                                        <Text fontSize='4xl'>{`${detail.firstName} ${detail.lastName}`}</Text>
+                                        <Text fontSize='2xl'>{`📍 ${detail.country}`}</Text>
+                                        <Text fontSize='2xl'>{`📩 ${detail.email}`}</Text>
+                                        <Text fontSize='2xl'>{`🎓 ${detail.education}`}
+                                          {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
+                                        </Text>
+                                      </Stack>
+                                      <Map />
+                                    </Flex>
+                                  </Stack>
                                   {/* <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
                                   <Text fontSize='xl'>
                                     {` 🎂 ${detail.birthDate}`}
@@ -122,7 +126,7 @@ export default function PsychologistDetail() {
                                                       <Text color='gray' fontSize='xl'>{postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
                                                     </Stack>
                                                     <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
-                                                  </Stack>                                                  
+                                                  </Stack>
                                                 </Box>
                                               </Link>
                                             </>

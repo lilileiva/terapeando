@@ -28,8 +28,10 @@
 }
 
 .HeaderDetail {
-    background-color: #4d5dfb;
-    background-image: linear-gradient(315deg, #4d5dfb 0%, #08c8f6 74%);
+    /* background-color: #4d5dfb; */
+    background-image: linear-gradient(315deg, #9AE6B4 0%, #38B2AC 74%);
+    /* background-color: #4d5dfb;
+    background-image: linear-gradient(315deg, #4d5dfb 0%, #08c8f6 74%); */
 }
 
 .ProfileImage {
