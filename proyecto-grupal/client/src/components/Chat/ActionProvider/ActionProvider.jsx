@@ -94,6 +94,18 @@ class ActionProvider{
         )
         this.updateChatbotState(message)
     }
+    handleQuejas = () => {
+        const message = this.createChatBotMessage(
+            "Puedes dar una reseña con el psicologo que tuviste la reunion donde tienes la opcion de calificarlo y poner tu opinion como una queja formal"
+        )
+        this.updateChatbotState(message)
+    }
+    handleMatricula = () => {
+        const message = this.createChatBotMessage(
+            "En terapeando nos encargamos de revisar que los psicólogos disponibles en el aplicativo sea verificada y verídica su matricula para darle la mejor experiencia al cliente"
+        )
+        this.updateChatbotState(message)
+    }
     
     updateChatbotState(message){
         //actualizamos elmensaje apartir del estado de lo que ingreseel usuario y no lo guardamos en el estado
