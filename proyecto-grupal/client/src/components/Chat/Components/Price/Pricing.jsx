@@ -1,0 +1,27 @@
+import React from "react";
+import "./Princing.css";
+const Pricing = (props) => {
+    //agrego las opciones de precios
+    const options = [
+        {
+            text:"Una sesión",
+            handler: props.actionProvider.handleSitePack1,
+            id:1
+        }
+    ];
+    //empiezo a mostrar las opciones
+    const optionsMarkup = options.map((option) => {
+        return(
+            <button className="learning-option-button" key={option.id} onClick={option.handler}>
+                {option.text}
+            </button>
+        )
+    });
+    //muestro todas las opciones
+    return(
+        <div className="learning-options-container">
+            {optionsMarkup}
+        </div>
+    )
+}
+export default Pricing
