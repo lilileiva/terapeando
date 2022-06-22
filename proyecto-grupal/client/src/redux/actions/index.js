@@ -631,11 +631,6 @@ export function AdminEditClient(id, updatedUserClient) {
   };
 }
 
-export function clearAdminSearchbar() {
-  return {
-    type: CLEAR_ADMIN_SEARCHBAR
-  };
-};
 
 export function AdminDeleteUserClient(idUserClient) {
   return async function () {

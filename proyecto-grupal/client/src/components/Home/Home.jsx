@@ -21,185 +21,113 @@ import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
 
 export default function Home() {
-  const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
-  const adminSearchbar = useSelector((state) => state.adminSearchbar);
-  const dispatch = useDispatch();
-  const [loader, setLoader] = useState(false);
+  // const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
+  // const adminSearchbar = useSelector((state) => state.adminSearchbar);
+  // const dispatch = useDispatch();
+  // const [loader, setLoader] = useState(false);
 
-  useEffect(() => {
-    dispatch(getPsychologistByStatus());
-    smoothscroll();
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (adminSearchbar.length !== 0) {
-      dispatch(clearPsychologistList());
-      dispatch(getUserPsychologistByName(adminSearchbar));
-      setLoader(true);
-      setTimeout(() => {
-        setLoader(false);
-<<<<<<< HEAD
-      }, 1500);
-=======
-      }, 1500)
->>>>>>> 11b4e39 (copiando ultimo push dev-dani)
-    }
-  }, [dispatch, adminSearchbar]);
-
-  useEffect(() => {
-    setLoader(true);
-    setTimeout(() => {
-      setLoader(false);
-    }, 1500);
-  }, [dispatch]);
-
-<<<<<<< HEAD
   // useEffect(() => {
-  //   setErrorMessage(true);
-  //   setTimeout(() => {
-  //     setErrorMessage(false);
-  //   }, 5000);
+  //   dispatch(getPsychologistByStatus());
+  //   smoothscroll();
   // }, [dispatch]);
 
-=======
->>>>>>> 11b4e39 (copiando ultimo push dev-dani)
-  /* Paginado */
-  const [page, setPage] = useState(1);
-  const [postPage, setPostPage] = useState(5);
-  const quantityPostPage = page * postPage;
-  const firstPage = quantityPostPage - postPage;
-  const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage);
+  // useEffect(() => {
+  //   if (adminSearchbar.length !== 0) {
+  //     dispatch(clearPsychologistList());
+  //     dispatch(getUserPsychologistByName(adminSearchbar));
+  //     setLoader(true);
+  //     setTimeout(() => {
+  //       setLoader(false);
+  //     }, 1500)
+  //   }
+  // }, [dispatch, adminSearchbar]);
 
-  const paged = function (pageNumber) {
-    setPage(pageNumber);
-    smoothscroll();
-  };
+  // useEffect(() => {
+  //   setLoader(true);
+  //   setTimeout(() => {
+  //     setLoader(false);
+  //   }, 1500);
+  // }, [dispatch]);
 
-  const handleSubmit = () => {
-    dispatch(getPsychologistByStatus())
-  }
+  // /* Paginado */
+  // const [page, setPage] = useState(1);
+  // const [postPage, setPostPage] = useState(5);
+  // const quantityPostPage = page * postPage;
+  // const firstPage = quantityPostPage - postPage;
+  // const AllPsychologists = AllPsychologist.slice(firstPage, quantityPostPage);
 
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  // const paged = function (pageNumber) {
+  //   setPage(pageNumber);
+  //   smoothscroll();
+  // };
 
-  return (
-<<<<<<< HEAD
-    <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
-      <Stack>
-        {
-          tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
-        }
-        <div className="cardContainer">
-          <Stack
-            mt="1em"
-            mb="1em"
-            width="100%"
-            direction="row"
-            justifyContent="space-between"
-            align='center'
-          >
-            <Text fontWeight="semibold" fontSize="3xl" color="green.300">
-              Psicólogos
-            </Text>
+  // const handleSubmit = () => {
+  //   dispatch(getPsychologistByStatus())
+  // }
 
-            <Stack direction='row' width='50%' justify='right'>
-              <AdminSearchbar width='50%' />
-              <Button variant='outline' width='40%' colorScheme='teal' onClick={handleSubmit}>
-                Todos los psicólogos
-              </Button>
-            </Stack>
-=======
-    <Stack>
-      {
-        tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
-      }
-      <div className="cardContainer">
-        <Stack
-          mt="1em"
-          mb="1em"
-          width="100%"
-          direction="row"
-          justifyContent="space-between"
-          align='center'
-        >
-          <Text fontWeight="semibold" fontSize="3xl" color="green.300">
-            Psicólogos
-          </Text>
->>>>>>> 11b4e39 (copiando ultimo push dev-dani)
+  // const tokenClient = window.localStorage.getItem('tokenClient')
+  // const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
-          </Stack>
+  // return (
+  //   <Stack>
+  //     {
+  //       tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
+  //     }
+  //     <div className="cardContainer">
+  //       <Stack
+  //         mt="1em"
+  //         mb="1em"
+  //         width="100%"
+  //         direction="row"
+  //         justifyContent="space-between"
+  //         align='center'
+  //       >
+  //         <Text fontWeight="semibold" fontSize="3xl" color="green.300">
+  //           Psicólogos
+  //         </Text>
 
-          <Stack width="100%" direction="row">
-            <FiltersPsichologist />
-          </Stack>
-          {loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ?
-            AllPsychologists.map(el => {
-              // { console.log(el.status) }
-              return (
+  //         </Stack>
 
-<<<<<<< HEAD
-                <CardPsychologist
-                  key={el._id}
-                  firstName={el.firstName}
-                  lastName={el.lastName}
-                  profileImage={el.profileImage}
-                  rating={el.rating}
-                  education={el.education}
-                  about={el.about}
-                  // about={`${el.about.slice(0, 270)}...`}
-                  idPsychologist={el._id}
-                  Specialties={el.Specialties}
-                />
-              )
-            }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}
+  //         <Stack width="100%" direction="row">
+  //           <FiltersPsichologist />
+  //         </Stack>
+  //         {loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ?
+  //           AllPsychologists.map(el => {
+  //             // { console.log(el.status) }
+  //             return (
 
-          {/* <Psychologists></Psychologists> */}
-        </div>
-      </Stack>
-      <Stack>
-        <Paged
-          postPage={postPage}
-          allPosts={AllPsychologist.length}
-          paged={paged}
-          page={page}
-          setPage={setPage}
-        />
-        <Footer />
-      </Stack>
-=======
-        <Stack width="100%" direction="row">
-          <FiltersPsichologist />
-        </Stack>
-      { loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ? 
-          AllPsychologists.map(el => {
-            { console.log(el.status) }
-            return (
+  //       <Stack width="100%" direction="row">
+  //         <FiltersPsichologist />
+  //       </Stack>
+  //     { loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ? 
+  //         AllPsychologists.map(el => {
+  //           { console.log(el.status) }
+  //           return (
 
-              <CardPsychologist
-                key={el._id}
-                firstName={el.firstName}
-                lastName={el.lastName}
-                profileImage={el.profileImage}
-                rating={el.rating}
-                education={el.education}
-                about={el.about}
-                idPsychologist={el._id}
-                Specialties={el.Specialties}
-              />
-            )
-          }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>  }
+  //             <CardPsychologist
+  //               key={el._id}
+  //               firstName={el.firstName}
+  //               lastName={el.lastName}
+  //               profileImage={el.profileImage}
+  //               rating={el.rating}
+  //               education={el.education}
+  //               about={el.about}
+  //               idPsychologist={el._id}
+  //               Specialties={el.Specialties}
+  //             />
+  //           )
+  //         }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>  }
 
 
-      </div>
-      <Paged
-        postPage={postPage}
-        allPosts={AllPsychologist.length}
-        paged={paged}
-        page={page}
-        setPage={setPage}
-      />
-      <Footer />
->>>>>>> 11b4e39 (copiando ultimo push dev-dani)
-    </Stack>
-  );
+  //     </div>
+  //     <Paged
+  //       postPage={postPage}
+  //       allPosts={AllPsychologist.length}
+  //       paged={paged}
+  //       page={page}
+  //       setPage={setPage}
+  //     />
+  //     <Footer />
+  //   </Stack>
+  // );
 }

@@ -1,11 +1,6 @@
 import { Request, Response } from "express";
 import userClientModel from "../../models/userClients";
-<<<<<<< HEAD
-import userPsychologistModel from "../../models/userPsychologist";
-
-=======
 import userPsychologistModel from "../../models/userPsychologist"
->>>>>>> d91f390 (fixed detail para demo)
 
 const getUserClient = async (req: Request, res: Response) => {
    try {
@@ -17,8 +12,6 @@ const getUserClient = async (req: Request, res: Response) => {
    }
 };
 
-<<<<<<< HEAD
-=======
 const getPsychologistDetails = async (req: Request, res: Response) => {
    const {IdUserPsychologist} = req.params
    try {
@@ -28,7 +21,6 @@ const getPsychologistDetails = async (req: Request, res: Response) => {
      res.status(404).json({ data: err })
    }
  }
->>>>>>> d91f390 (fixed detail para demo)
 
 const createUserClient = async (req: Request, res: Response) => {
    const {
@@ -84,26 +76,12 @@ const putUserClient = async (req: Request, res: Response) => {
    }
 }
 
-const getPsychologistDetails = async (req: Request, res: Response) => {
-   const {idUserPsychologist} = req.params
-   try {
-     const psychologistUser = await userPsychologistModel.findById(idUserPsychologist, '-password');
-     res.status(200).json(psychologistUser)
-   } catch (err) {
-     res.status(404).json({ data: err })
-   }
- }
+
 
 module.exports = {
    getUserClient,
    createUserClient,
    deleteUserClient,
-<<<<<<< HEAD
-   putUserClient,
-   getPsychologistDetails
-};
-=======
    getPsychologistDetails,
    putUserClient
 };
->>>>>>> d91f390 (fixed detail para demo)

@@ -126,22 +126,14 @@ const deletePost = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(404).send("error: " + err);
   }
-<<<<<<< HEAD
-}
-=======
 };
 
->>>>>>> ccc2845 (l)
 //editando nota
 const putPost = async (req: Request, res: Response) => {
 
   const {IdPost} = req.params;
   try {
      const post = await Post.findByIdAndUpdate(IdPost, req.body)
-<<<<<<< HEAD
-=======
-
->>>>>>> ccc2845 (l)
      res.status(200).send('Post editado correctamente')
   } catch (err) {
      res.status(404).send('There was an error...');
