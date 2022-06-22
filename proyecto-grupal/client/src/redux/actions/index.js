@@ -50,11 +50,11 @@ export function getUserClientsByName(name) {
   }
 }
 
-export const getUserPsychologistDetailsasClient = (idUserPsychologist) => {
+export const getUserPsychologistDetailsasClient = (IdUserPsichologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        `${baseURL}/userclient/${IdUserPsichologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
@@ -250,11 +250,11 @@ export const getUserPsychologistOne = () => {
 };
 
 // GET USE RPSYCHOLOGIST DETAILS
-export const getUserPsychologistDetails = (idUserPsychologist) => {
+export const getUserPsychologistDetails = (IdUserPsichologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userpsychologist/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        `${baseURL}/userpsychologist/${IdUserPsichologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",

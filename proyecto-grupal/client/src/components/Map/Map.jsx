@@ -1,12 +1,9 @@
 import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { BsGeoAltFill } from "react-icons/bs";
+import { Stack } from '@chakra-ui/react';
 
 const { REACT_APP_GOOGLE_MAP_API_KEY } = process.env;
-
-const containerStyle = {
-  width: '25em',
-  height: '25em'
-};
 
 const center = {
   lat: -3.745,
@@ -32,16 +29,25 @@ function Map() {
   }, [])
 
   return isLoaded ? (
+    <Stack direction='column' align='center'>
+
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        mapContainerStyle={{ width: '25em', height: '25em' }}
         center={center}
-        zoom={10}
+        zoom={20}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        options={{ gestureHandling: "greedy" }}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
+        { /* Child components, such as markers, info windows, etc. */}
+        <Marker position={center} title='Tu psicólogo' />
       </GoogleMap>
+
+      <button onClick={() => map.panTo(center)}>
+        <BsGeoAltFill width='1.5em' color='red' />
+      </button>
+
+    </Stack>
   ) : <></>
 }
 
