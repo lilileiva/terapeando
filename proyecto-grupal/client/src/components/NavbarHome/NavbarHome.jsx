@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserClient } from "../../redux/actions";
+import { getUserClient , getUserPsychologistOne} from "../../redux/actions";
 import { useEffect } from "react";
 
 function removeAcc(str) {
@@ -55,6 +55,7 @@ const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 //console.log('TP: ', tokenPsychologist)
 
 const NavLink = ({ children }) => (
+  
   <Link exact to={removeAcc(children)}>
     <Text
       px={2}
@@ -71,7 +72,8 @@ const NavLink = ({ children }) => (
 );
 
 export default function NavbarHome() {
-  const dispatch = useDispatch();
+
+const dispatch = useDispatch()
 
 
   // useEffect(() => {
@@ -86,15 +88,15 @@ export default function NavbarHome() {
 
   const handleSignOut = () => {
     window.localStorage.clear();
-    navigate("/");
-  };
+    navigate('/');
+  }
 
   useEffect(() => {
     if(tokenClient) dispatch(getUserClient())
     if(tokenPsychologist) dispatch(getUserPsychologistOne())
   }, [dispatch, tokenClient, tokenPsychologist]);
 
-  
+  const clientDetails = useSelector((state) => state.userClientDetail);
   const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
 
   return (
@@ -207,16 +209,16 @@ export default function NavbarHome() {
          </Flex>
        </Flex>
 
-        {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
-      </Box>
-    </>
+       {isOpen ? (
+         <Box pb={4} display={{ md: "none" }}>
+           <Stack as={"nav"} spacing={4}>
+             {Links.map((link) => (
+               <NavLink key={link}>{link}</NavLink>
+             ))}
+           </Stack>
+         </Box>
+       ) : null}
+     </Box>
+   </>
   );
 }

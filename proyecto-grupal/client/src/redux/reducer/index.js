@@ -1,4 +1,3 @@
-
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
@@ -97,10 +96,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload,
       };
-    case "GET_PSYCHOLOGISTS_DETAILS":
+    case "GET_POSTS_AUTHORS":
       return {
         ...state,
-        userPsichologistDetail: action.payload
+        allUsersPsichologists: action.payload,
       };
     case "GET_PSYCHOLOGISTS_ONE":
       return {
@@ -155,6 +154,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
         postsCopy: action.payload,
+
       };
     case "GET_POST_DETAIL":
       return {

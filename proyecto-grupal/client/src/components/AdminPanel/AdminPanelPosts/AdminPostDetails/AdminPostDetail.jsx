@@ -123,8 +123,10 @@ function AdminPostDetail() {
                     <Text fontSize='xl'> {postDetail.idUserPsychologist.firstName} {postDetail.idUserPsychologist.lastName}  </Text>
                   </Stack>
                   <br />
-                  <Stack direction='row' width='100%'>
-                    <Button width='100%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+                  <Stack direction='row' width='100%' justify='center'>
+                    
+                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>

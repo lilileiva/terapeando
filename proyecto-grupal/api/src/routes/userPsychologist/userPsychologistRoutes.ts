@@ -15,7 +15,7 @@ const {
 
 const validatePsychologist = require ('../../middleware/validatePsychologist')
 const validateClient = require ('../../middleware/validateClient')
-const validaUsers = require('../../middleware/validateUsers')
+const validateUsers = require('../../middleware/validateUsers')
 const psychologistRouter: Router = Router();
 
 // psychologistRouter.get('/', validatePychologist , getUserPsychologistOne); aca sería validación para inicio de sesión
@@ -29,7 +29,7 @@ psychologistRouter.delete('/deleteuserpsychologist/', validatePsychologist , del
 psychologistRouter.put('/put_userpsychologist', validatePsychologist ,putUserPsychologist)
 psychologistRouter.get('/filterspecialties/specialties/:specialtie', filterPsichologistSpecialities);
 //psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
-
+psychologistRouter.get('/rese/reviews', getReviews);
 
 
 
