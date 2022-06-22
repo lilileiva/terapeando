@@ -23,7 +23,7 @@ export default function AdminPsichologisttDetails() {
 
     }, [dispatch])
 
-    const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
+    const userPsichologistDetail = useSelector((state) => state.psychologistProfile);
 
     const handleAlertEdit = (e, psychologistId) => {
         Swal.fire({

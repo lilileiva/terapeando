@@ -26,7 +26,7 @@ const createReview = async (req: Request, res: Response) => {
 
         res.status(200).send('Review created');
 
-    } catch (error) {
+    } catch (error) {   
         console.log(error)
         res.send({ error: 'error creating review' })
     }
