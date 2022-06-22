@@ -7,8 +7,8 @@ import MessageParser from "./MessageParser/MessageParser.jsx"
 import 'react-chatbot-kit/build/main.css';
 function Chat(){
     return(
-        <div className='chatApp'>
-            <header className='chatApp-header'>
+        <div className='Chat'>
+            <header className='Chat-header'>
                 <Chatbot
                     config={config}
                     actionProvider={ActionProvider}

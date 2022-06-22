@@ -1,7 +1,7 @@
 class ActionProvider{
     constructor(createChatBotMessage, setStateFunc){
         this.createChatBotMessage = createChatBotMessage;
-        this.setState = setStateFunc;
+        this.updateChatbotState = setStateFunc;
     }
     greet(){
         const greetingMessage = this.createChatBotMessage("Hola, Amigo");
@@ -93,11 +93,20 @@ class ActionProvider{
             "En la parte superior de la pagina en la sección psicólogos puedes ver los que estan disponibles y agendar una sesión con el psicólogo de tu preferencia"
         )
         this.updateChatbotState(message)
-    }
+    };
+    handleDog() {
+            const message = this.createChatbotMessage(
+              "Here's a nice dog picture for you!",
+              {
+                widget: 'dogPicture',
+              }
+            );
+            this.updateChatbotState(message);
+          }
     
     updateChatbotState(message){
         //actualizamos elmensaje apartir del estado de lo que ingreseel usuario y no lo guardamos en el estado
-        this.setState((prevState) => ({
+        this.updateChatbotState((prevState) => ({
             ...prevState,
             messages:[...prevState.messages, message]
         }))
