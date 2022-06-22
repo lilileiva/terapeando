@@ -69,15 +69,9 @@ const putUserClient = async (req: Request, res: Response) => {
 }
 
 const getPsychologistDetails = async (req: Request, res: Response) => {
-<<<<<<< HEAD
-   const {IdUserPsychologist} = req.params
-   try {
-     const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist, '-password');
-=======
    const { IdUserPsichologist } = req.params
    try {
      const psychologistUser = await userPsychologistModel.findById(IdUserPsichologist, '-password');
->>>>>>> 6b5ed66af4a7d21cfc880af8e3a03fd96aeac3b4
      res.status(200).json(psychologistUser)
    } catch (err) {
      res.status(404).json({ data: err })
