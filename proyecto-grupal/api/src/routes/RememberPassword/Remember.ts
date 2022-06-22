@@ -1,4 +1,4 @@
-import {Request , response} from "express";
+import {Request , Response} from "express";
 import userPsychologistModel from "../../models/userPsychologist";
 import * as nodemailer from "nodemailer";
 const bcrypt = require('bcryptjs');
@@ -10,7 +10,9 @@ const ForgotPassword = async (req: Request , res: Response) => {
     const {email} = req.body;
 
            
-    try {
+    try { 
+
+        
         
         const user = await userPsychologistModel.find({"email": req.body})
     
@@ -22,6 +24,8 @@ const ForgotPassword = async (req: Request , res: Response) => {
                   pass: "aa94f4bdd30498"
                   }           
             });
+
+            
         
     
         const newPassword = crypto.randomBytes(4).toString('hex');
