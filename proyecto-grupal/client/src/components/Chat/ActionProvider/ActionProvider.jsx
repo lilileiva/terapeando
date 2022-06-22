@@ -83,6 +83,12 @@ class ActionProvider{
         );
         this.updateChatbotState(message)
     }
+    handleMision = () => {
+        const message = this.createChatBotMessage(
+            "Brindamos los mejores profesionales y recursos para cuidarte. El primer paso siempre es el más dificil, registrate para empezar! Somos una plataforma psicológica online donde podes realizar sesiones a distancia como asi encontrar articulos escritos por los mismos profesionales."
+        )
+        this.updateChatbotState(message)
+    }
     
     //psicologos
     handleWebsiteList = () => {
