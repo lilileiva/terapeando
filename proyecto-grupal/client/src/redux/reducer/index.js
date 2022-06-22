@@ -11,6 +11,7 @@ import {
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
+  GET_POSTS_BY_PSYCHOLOGIST_ID,
   PUT_POSTS,
   CLEAR_CLIENT,
   GET_PAYMENT,
@@ -151,6 +152,11 @@ function rootReducer(state = initialState, action) {
         posts: action.payload,
         postsCopy: action.payload,
 
+      };
+    case GET_POSTS_BY_PSYCHOLOGIST_ID:
+      return {
+        ...state,
+        posts: action.payload
       };
     case "GET_POST_DETAIL":
       return {

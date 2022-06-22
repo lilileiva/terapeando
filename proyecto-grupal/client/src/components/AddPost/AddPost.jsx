@@ -92,7 +92,7 @@ export default function AddPost() {
         //creo mi nota
         dispatch(addPost(input));
         setInput({
-          Date: "",
+          // Date: "",
           Title: "",
           Content: "",
           Image: "",
@@ -163,9 +163,9 @@ export default function AddPost() {
                   {errors.Title && <p className="peligro">{errors.Title}</p>}
                 </div>
                 {/* fecha */}
-                <div className="group">
+                {/* <div className="group"> */}
                   {/* controlamos tanto como la fecha y el valor cada vez que haya un cambio */}
-                  <input
+                  {/* <input
                     className="input1"
                     type={"Date"}
                     required
@@ -174,10 +174,10 @@ export default function AddPost() {
                     onChange={(e) => handleChange(e)}
                   />
                   <span className="bar"></span>
-                  <label className="etiqueta"> Fecha de creacion: </label>
+                  <label className="etiqueta"> Fecha de creacion: </label> */}
                   {/* si hay un error mostramos el valor del objete con ese error */}
-                  {errors.Date && <p className="peligro">{errors.Date}</p>}
-                </div>
+                  {/* {errors.Date && <p className="peligro">{errors.Date}</p>}
+                </div> */}
                 {/* Imagen */}
                 <div className="group">
                   <input

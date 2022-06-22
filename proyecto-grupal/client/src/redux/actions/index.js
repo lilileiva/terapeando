@@ -10,6 +10,7 @@ import {
   GET_ALL_PSYCHOLOGIST,
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   GET_POSTS,
+  GET_POSTS_BY_PSYCHOLOGIST_ID,
   LOCAL_HOST,
   CLEAR_PSYCHOLOGIST,
   CLEAR_CLIENT,
@@ -383,6 +384,20 @@ export const searchPostsByTitle = (title) => {
   };
 };
 
+export const getPostsByPsychologistId = (IdUserPsychologist) => {
+  return async function (dispatch) {
+    try {
+      let posts = await axios.get(`${baseURL}/posts/author/${IdUserPsychologist}`);
+      dispatch({
+        type: GET_POSTS_BY_PSYCHOLOGIST_ID,
+        payload: posts.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 
 export function getPostDetail(id) {
   return async function (dispatch) {
@@ -425,7 +440,7 @@ export const addPost = (body) => {
     } catch (error) {
       console.log(error)
 
-      Swal.fire('Error', `No se puede crear la nota por ${error}`,'error')
+      Swal.fire('Error', `No se puede crear la nota por ${error}`, 'error')
     }
   }
 }
@@ -439,7 +454,7 @@ export const deletePost = (id) => {
       Swal.fire('Post eliminado correctamente!', '', 'success')
     } catch (error) {
       console.log(error)
-      Swal.fire('Error', `No se puede eliminar la nota por ${error}`,'error')
+      Swal.fire('Error', `No se puede eliminar la nota por ${error}`, 'error')
     }
   }
 }
@@ -494,7 +509,7 @@ export const getByCategory = (category) => {
 export function createReview(IdUserPsychologist, payload) {
   return async function () {
     try {
-      const newReview = axios.post(`${baseURL}/reviews/${IdUserPsychologist}`, payload , {headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }});
+      const newReview = axios.post(`${baseURL}/reviews/${IdUserPsychologist}`, payload, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
       return newReview;
     } catch (error) {
       console.log(error);
@@ -502,7 +517,7 @@ export function createReview(IdUserPsychologist, payload) {
   };
 }
 
-export function filterReviewsBySychologist(payload){
+export function filterReviewsBySychologist(payload) {
   return async function (dispatch) {
     try {
       const json = await axios.get(`${baseURL}/reviews/filter/review/${payload}`);
@@ -513,8 +528,8 @@ export function filterReviewsBySychologist(payload){
     } catch (error) {
       console.log(error);
     }
-    }
-  };
+  }
+};
 
 
 /* ---------------------- PAYMENTS ---------------------- */

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar } from "@chakra-ui/react";
+import { ChakraProvider, Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar, Stack, Image } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient } from "../../redux/actions";
+import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient, getPostsByPsychologistId } from "../../redux/actions";
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
@@ -13,12 +13,13 @@ import smoothscroll from "../../animations";
 import Loader from "../Loader/Loader";
 import Reviews from "../Reviews/Reviews";
 import NotFound from '../404notFound/notFound.jsx';
+import Logo from '../../assets/logo-01.png';
 
 
 export default function PsychologistDetail() {
   const dispatch = useDispatch();
   const { idPsychologist } = useParams();
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const detail = useSelector((state) => state.userPsichologistDetail);
   const navigate = useNavigate();
 
@@ -28,8 +29,9 @@ export default function PsychologistDetail() {
 
   useEffect(() => {
     tokenClient ? dispatch(getUserPsychologistDetailsasClient(idPsychologist)) : dispatch(getUserPsychologistDetails(idPsychologist))
-    setLoader(true);
+    dispatch(getPostsByPsychologistId(idPsychologist))
     smoothscroll()
+
     setTimeout(() => {
       setLoader(false);
     }, 500)
@@ -38,6 +40,8 @@ export default function PsychologistDetail() {
     };
   }, [dispatch, idPsychologist]);
 
+  const posts = useSelector((state) => state.posts)
+  let postDate;
 
   return (
     <>
@@ -45,93 +49,107 @@ export default function PsychologistDetail() {
         tokenClient || tokenPsychologist || tokenAdmin
           ? (
             <>
-              {
-                Object.keys(detail).length !== 0
-                  ? (
-                    <>
-                      <div>
-                        <NavbarHome />
+              <div className='psychologistDetailContainer'>
+                <Stack>
+                  <NavbarHome />
+                  <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>
+                    <ArrowLeftIcon color='white' alignItems='left' cursor='pointer' onClick={() => navigate(-1)} />
+                    <Text fontSize='3xl' fontWeight='500' color='white'>
+                      Conoce un poco más sobre tu próximo psicólogo
+                    </Text>
+                    <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} /> </Flex>
+                  </Flex>
 
-                        <SimpleGrid columns={1} spacingX="60px" spacingY="20px">
-                          <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>
-                            <Link to={'/home'}>
-                              <ArrowLeftIcon color={'black.300'} alignItems={'left'} onClick={() => navigate(-1)} />
-                            </Link>
-                            <Box className="BoxDetail" borderRadius={'10px'} width='fit-content' height={'fit-content'}><Text className="HeadingDetail" mb={3}>Conoce un poco más sobre tu próximo psicólogo</Text></Box>
-                            <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>    <img className="imageDetailLogo" src={img} alt="" width={'60rem'} /> </Flex>
-                          </Flex>
-                          {loader ? <Loader></Loader> : <>
-
-                            <SimpleGrid columns={1} marginTop={'1.5'} marginLeft={'-20'} marginRight='16' textAlign={'left'} paddingLeft={'32'} spacingX="10" spacingY="20px">
-                              <Flex className="BoxDetail" borderRadius={'200px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>
-                                <Box className="BoxDetailImage" backgroundColor={'transparent'} marginTop={'5'} marginBottom={'50px'} bg="" height="150px" width='150px'>
-                                  <Avatar src={detail.profileImage} alt='' size='full'></Avatar>
-                                </Box>
-                                <Box className="BoxDetail" bg="" borderRadius={'10px'} height="fit-content" width={'fit-content'} zIndex='2'>
-                                  <Text className="HeadingDetail">
-                                    {`${detail.firstName} ${detail.lastName}`}
-                                  </Text>
-                                </Box>
-                                <Box className="BoxDetail" bg="" borderRadius={'10px'} height="fit-content" idth={'fit-content'} zIndex='2'>
-                                  <Text className="HeadingDetail" >
-                                    {`📍${detail.country}`}
-                                  </Text>
-                                </Box>
-                                <Box className="BoxDetail" bg="" borderRadius={'10px'} height="fit-content" width={'fit-content'}>
-                                  <Text className="HeadingDetail" >
-                                    {`📩${detail.email}`}
-                                  </Text>
-                                </Box>
-                                <Box className="BoxDetail" bg="" borderRadius={'10px'} borderTopRightRadius='40px' borderBottomRightRadius={'40px'} height="fit-content" width={'fit-content'}>
-                                  <Text className="HeadingDetail" >
-                                    {`🎓${detail.education}`}
-                                    <Text className="HeadingDetail" >
-                                      {`Licencia: ${detail.License}`}
+                  {
+                    Object.keys(detail).length !== 0
+                      ? (
+                        <>
+                          {
+                            loader
+                              ? <Loader />
+                              : <Stack direction='column' width='100%' height='100%' p='1em' pl='10%' pr='10%'>
+                                <SimpleGrid columns={1} textAlign='center' spacingX="10" spacingY="20px">
+                                  <Flex className="BoxDetail" borderRadius={'10px'} p='1em' width='100%' height='fit-content' justify='space-around' align='center'>
+                                    <Box className="BoxDetailImage" backgroundColor={'transparent'} height="150px" width='150px'>
+                                      <Avatar src={detail.profileImage} alt='' size='full' />
+                                    </Box>
+                                    <Text fontSize='2xl'>{`${detail.firstName} ${detail.lastName}`}</Text>
+                                    <Text fontSize='2xl'>{`📍 ${detail.country}`}</Text>
+                                    <Text fontSize='2xl'>{`📩 ${detail.email}`}</Text>
+                                    <Text fontSize='2xl'>{`🎓 ${detail.education}`}
+                                      {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
                                     </Text>
+                                  </Flex>
+                                  {/* <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
+                                  <Text fontSize='xl'>
+                                    {` 🎂 ${detail.birthDate}`}
                                   </Text>
-                                </Box>
-                              </Flex>
-                              <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-                                <Text className="HeadingDetail" >
-                                  {` 🎂 ${detail.birthDate}`}
-                                </Text>
-                              </Box>
-
-
-                              <Flex className="BoxDetail" marginLeft={'56'} justifyContent='space-around' borderRadius={'10px'} width='fit-content' height={'fit-content'} alignContent='center' alignItems={'center'}>
-                                <Box bg="" borderRadius={'10px'} height="fit-content" marginRight={'10'}>
-                                  <Text className="HeadingDetail" >
-
-                                    Especialidades: {detail.Specialties && detail.Specialties.map((e) => <Badge variant='subtle' colorScheme='purple'>{`${e}`}</Badge>)
+                                </Box> */}
+                                  <Flex className="BoxDetail" p='1em' justifyContent='space-around' borderRadius={'10px'} height={'fit-content'} alignContent='center' alignItems={'center'}>
+                                    <Box borderRadius={'10px'} height="fit-content">
+                                      <Text fontSize='xl'>
+                                        Especialidades:
+                                        {
+                                          detail.Specialties && detail.Specialties.map((e) => (
+                                            <Badge variant='subtle' colorScheme='blue' m='1em'>{`${e}`}</Badge>
+                                          ))
+                                        }
+                                      </Text>
+                                    </Box>
+                                  </Flex>
+                                  <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">
+                                    <Text fontSize='xl'>Sobre mí</Text>
+                                    {
+                                      detail.about
+                                        ? <Text fontSize='md' p='1em'>{detail.about}</Text> : 'Aún no se ha agregado información'
                                     }
-                                  </Text>
-                                </Box>
-                              </Flex>
-                            </SimpleGrid>
-                            <Box className="BoxDetail" bg="" marginRight='20' marginLeft={'24'} borderRadius={'10px'} height="fit-content">
-                              <Text className="HeadingDetail" >
-                                <h3>Sobre mí</h3>
-                                {detail.about === undefined ? 'Aún no se ha agregado información' : detail.about}
-                              </Text>
-                            </Box>
-                            <Box className="BoxDetail" bg="" borderRadius={'10px'} marginRight='20' marginLeft={'24'} height="80px">
-                              {
-                                detail.rating
-                                  ? (
-                                    <Text className="HeadingDetail" >
-                                      Mi calificación promedio 😊: <Starts rating={detail.rating} />
-                                    </Text>
-                                  ) : null
-                              }
-                              {<Reviews />}
-                            </Box>
-                          </>}
-                        </SimpleGrid>
-                        <Footer />
-                      </div>
-                    </>
-                  ) : null
-              }
+                                  </Box>
+                                  <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">
+                                    <Text fontSize='xl'>Mis notas</Text>
+                                    <Stack direction='row' p='1em' height='fit-content' justify='center' overflowX='scroll'>
+                                      {
+                                        posts.length !== 0
+                                          ? posts.map((post) => (
+                                            postDate = post.createdAt,
+                                            postDate = new Date(),
+                                            <>
+                                              <Link to={`/postdetail/${post._id}`}>
+                                                <Box mr='1em' height='20em' width='20em' justify='bottom' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                                                  <Image position='absolute' borderRadius='1em' width='inherit' height='20em' objectFit='cover' src={post.Image} />
+                                                  <Stack className="postTitle">
+                                                    <Text fontSize='2xl' fontWeight='500'>{post.Title}</Text>
+                                                    <Text color='gray'>{postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                                  </Stack>
+                                                  {console.log(post)}
+                                                </Box>
+                                              </Link>
+                                            </>
+                                          ))
+                                          : <Text>No hay notas</Text>
+                                      }
+                                    </Stack>
+                                  </Box>
+                                  <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">
+                                    {
+                                      detail.rating
+                                        ? (
+                                          <Text fontSize='xl'>
+                                            Mi calificación promedio 😊: <Starts rating={detail.rating} />
+                                          </Text>
+                                        ) : null
+                                    }
+                                    <br />
+                                    <Reviews />
+                                  </Box>
+                                </SimpleGrid>
+                              </Stack>
+                          }
+                        </>
+                      ) : null
+                  }
+                </Stack>
+                <Footer />
+              </div>
             </>
           ) : (
             <NotFound />

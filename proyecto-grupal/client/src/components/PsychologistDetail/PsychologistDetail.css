@@ -1,46 +1,79 @@
 .psychologistDetailContainer {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
+    min-height: 100%;
+    justify-content: space-between;    
 }
 
 
-.imageDetailLogo{
-    margin-top: 30px;
-    margin-left: 5px;
+.imageDetailLogo {
+    /* margin-top: 30px;
+    margin-left: 5px; */
     align-items: center;
     align-content: center;
-    align-self:center;
+    align-self: center;
     animation: bounce 1s infinite ease-in-out;
 }
-@keyframes bounce {
-    33% { transform: translateY(-20px); }
-    66% { transform: translateY(0px); }
-  }
 
-.BoxDetail{
-    
-    font-family: 'Open Sans', sans-serif;
+@keyframes bounce {
+    33% {
+        transform: translateY(-20px);
+    }
+
+    66% {
+        transform: translateY(0px);
+    }
+}
+
+.BoxDetail {
+    /* font-family: 'Open Sans', sans-serif;
+    margin-left: 50px;
+    margin-right: 2px; */
+    box-shadow: 0 30px 40px 40px rgba(0, 0, 0, .1);
+}
+
+/* .BoxDetailImage{
     margin-left: 50px;
     margin-right: 2px;
-    box-shadow: 0 30px 40px 40px rgba(0,0,0,.1);
-}
-.BoxDetailImage{
-    margin-left: 50px;
-    margin-right: 2px;
-}
-.HeadingDetail{
+} */
+/* .HeadingDetail{
     font-family: 'Open Sans', sans-serif;
     font-size:x-large;
-}
+} */
 
-.HeaderDetail{
+.HeaderDetail {
     background-color: #4d5dfb;
-background-image: linear-gradient(315deg, #4d5dfb 0%, #08c8f6 74%);
+    background-image: linear-gradient(315deg, #4d5dfb 0%, #08c8f6 74%);
 }
 
-.ProfileImage{
+.ProfileImage {
     width: fit-content;
     height: fit-content;
     border-top-left-radius: 10px;
+}
+
+.postTitle {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: rgba(255,255,255,0.8);
+    width: inherit;
+    height: 50%;        
+    justify-content: center;
+    border-radius: 1em;
+    padding: 1em;
+    overflow: hidden;
+}
+.postTitle:hover {
+    height: 100%;
+    animation: animate 0.5s ease;
+}
+@keyframes animate {
+    0% {
+        transform: translateY(-5em);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }

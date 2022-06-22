@@ -12,6 +12,8 @@ class Post {
     Image:string;
     @prop()
     Tags:string[];
+    @prop({default: Date.now()})
+    createdAt: Date    
     @prop({ref: () => userPsychologist})
     idUserPsychologist: Ref<userPsychologist>;
 }

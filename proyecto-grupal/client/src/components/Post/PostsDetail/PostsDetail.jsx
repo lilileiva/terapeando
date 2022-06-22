@@ -20,7 +20,7 @@ export default function PostsDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const post = useSelector((state) => state.postDetail);
-  
+
   useEffect(() => {
     dispatch(getPostDetail(id));
     return () => {
@@ -30,13 +30,13 @@ export default function PostsDetail() {
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-  
+
   return (
     <div>
       {
-       tokenClient || tokenPsychologist
-       ? (<NavbarHome /> ) : <NavBar /> 
-      }     
+        tokenClient || tokenPsychologist
+          ? (<NavbarHome />) : <NavBar />
+      }
       {
         Object.keys(post).length !== 0 ? (
           <div className={"containerA"}>
@@ -105,7 +105,7 @@ export default function PostsDetail() {
           </div>
         )
           : <Loader />
-      }      
+      }
       <Footer />
     </div>
   );
