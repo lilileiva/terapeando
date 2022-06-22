@@ -42,6 +42,12 @@ class MessageParser{
         if(lowerCaseMessage.includes("cita")){
             this.actionProvider.handleSitePack1();
         }
+        if(lowerCaseMessage.includes("reservo") || lowerCaseMessage.includes("reservar")){
+            this.actionProvider.handleSecion();
+        }
+        if(lowerCaseMessage.includes("comodo") || lowerCaseMessage.includes("incomodo") || lowerCaseMessage.includes("queja")){
+            this.actionProvider.handleQuejas()
+        }
         if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye")){
             this.actionProvider.handleGoodbye();
         }
