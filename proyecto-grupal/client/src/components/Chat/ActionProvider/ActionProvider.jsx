@@ -58,22 +58,30 @@ class ActionProvider{
         this.updateChatbotState(message)
     }
     handleSitePack1 = () => {
-        const message = this.createChatBotMessage("Una sesion con un psicologo de la plataforma cuesta $26 USD",{
+        const message = this.createChatBotMessage("Una sesion con un psicologo en la plataforma cuesta $26 USD",{
             widget:"PriceFeedBack",
         });
         this.updateChatbotState(message);
     }
     handleSitePack2 = () => {
-        const message = this.createChatBotMessage("Dos sesiones con el psicologo de tu preferencia de la plataforma cuesta $56 USD",{
+        const message = this.createChatBotMessage("Dos sesiones con el psicologo de tu preferencia en la plataforma cuesta $56 USD",{
             widget:"PriceFeedBack",
         });
         this.updateChatbotState(message);
     }
     handleSitePack3 = () => {
-        const message = this.createChatBotMessage("Tres sesiones con el psicologo de tu preferencia de la plataforma cuesta $82 USD",{
+        const message = this.createChatBotMessage("Tres sesiones con el psicologo de tu preferencia en la plataforma cuesta $82 USD",{
             widget:"PriceFeedBack",
         });
         this.updateChatbotState(message);
+    }
+    handleSitePack4 = () => {
+        const message = this.createChatBotMessage(
+            "Cuatro sesiones con el psicologo de tu preferencia en la plataforma cuesta $108 USD",{
+                widget:"PriceFeedBack"
+            }
+        );
+        this.updateChatbotState(message)
     }
     
     //psicologos
