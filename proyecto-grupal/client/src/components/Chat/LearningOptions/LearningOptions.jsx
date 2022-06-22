@@ -1,6 +1,6 @@
 import React from "react";
 import "./learningOptions.css"
-import { Button} from "@chakra-ui/react";
+
 const LearningOptions = (props) => {
     //empiezo con las opciones
     const options = [
@@ -8,10 +8,22 @@ const LearningOptions = (props) => {
             text:"Servicios",
             handler: props.actionProvider.handleServicesList,
             id:1,
+        },{
+            text:"Precio",
+            handler: props.actionProvider.handlePricing,
+            id:2
+        },{
+            text:"Blog",
+            handler: props.actionProvider.handleBlog,
+            id:3
+        },{
+            text:"Contactanos",
+            handler: props.actionProvider.handleHire,
+            id:4
         }
     ]
     const optionsMarkup = options.map((option) => (
-        <Button className="btn" key={option.id} onClick={option.handler}>{option.text}</Button>
+        <button className="learning-option-button" key={option.id} onClick={option.handler}>{option.text}</button>
     ));
     return (
         <div className="learning-options-container">

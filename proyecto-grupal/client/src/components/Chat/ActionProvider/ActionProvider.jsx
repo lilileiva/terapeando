@@ -28,7 +28,7 @@ class ActionProvider{
         this.updateChatbotState(message)
     }
     //para ver las diferentes comunicaciones de la plataforma
-    hadleHire = () => {
+    handleHire = () => {
         const message = this.createChatBotMessage("Genial! Estos son las opciones para contactarnos",{
             widget:"contactLinks"
         })
@@ -44,7 +44,7 @@ class ActionProvider{
         this.updateChatbotState(message)
     }
     //por si esta cool
-    HandleCool = () => {
+    handleCool = () => {
         const message = this.createChatBotMessage(
           "También eres genial para ser un humano, ¡Vive mucho y prospera!"
         );
@@ -88,6 +88,12 @@ class ActionProvider{
         );
         this.updateChatbotState(message);
     };
+    handleSecion = () => {
+        const message = this.createChatBotMessage(
+            "En la parte superior de la pagina en la sección psicólogos puedes ver los que estan disponibles y agendar una sesión con el psicólogo de tu preferencia"
+        )
+        this.updateChatbotState(message)
+    }
     
     updateChatbotState(message){
         //actualizamos elmensaje apartir del estado de lo que ingreseel usuario y no lo guardamos en el estado
