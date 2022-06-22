@@ -77,10 +77,11 @@ const getPsychologistDetails = async (req: Request, res: Response) => {
      res.status(404).json({ data: err })
    }
  }
+
 module.exports = {
    getUserClient,
    createUserClient,
    deleteUserClient,
-   getPsychologistDetails,
-   putUserClient
+   putUserClient,
+   getPsychologistDetails
 };

@@ -7,6 +7,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@react-google-maps/api": "^2.12.0",
     "@stripe/react-stripe-js": "^1.8.1",
     "@stripe/stripe-js": "^1.31.0",
     "@testing-library/jest-dom": "^5.16.4",
@@ -14,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
+    "dotenv": "^16.0.1",
     "framer-motion": "^6.3.11",
     "gapi-script": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
@@ -28,7 +30,6 @@
     "react-scripts": "5.0.1",
     "react-select-country-list": "^2.2.3",
     "redux": "^4.2.0",
-    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "sweetalert2": "^11.4.17",
     "web-vitals": "^2.1.4"

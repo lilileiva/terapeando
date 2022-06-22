@@ -51,9 +51,6 @@ const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 const tokenClient = window.localStorage.getItem('tokenClient')
 const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
-//console.log('TC: ', tokenClient)
-//console.log('TP: ', tokenPsychologist)
-
 const NavLink = ({ children }) => (
   
   <Link exact to={removeAcc(children)}>
@@ -74,13 +71,6 @@ const NavLink = ({ children }) => (
 export default function NavbarHome() {
 
 const dispatch = useDispatch()
-
-
-  // useEffect(() => {
-  //   dispatch(getUserClient());
-  // }, [dispatch]);
-
-
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
