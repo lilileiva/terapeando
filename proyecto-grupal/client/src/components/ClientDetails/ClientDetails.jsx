@@ -57,100 +57,101 @@ export default function ClientDetails() {
                     <Loader />
                   ) : (
                     <>
-                      <NavbarHome />                      
-                        <Center>
-                          <Container maxW={'container.lg'} py={6} h={"100%"}>
-                            <Box
-                              w={"50%"}
-                              bg={"gray.200"}
-                              boxShadow={"2xl"}
-                              rounded={"lg"}
-                              p={6}
-                              textAlign={"center"}
+                      <NavbarHome />
+                      <Center align='center'>
+                        <Container maxW={'container.lg'} py={6} h={"100%"}>
+                          <Box
+                            w={"50%"}
+                            bg={"gray.200"}
+                            boxShadow={"2xl"}
+                            rounded={"lg"}
+                            p={6}
+                            textAlign={"center"}
+                          >
+
+                            <Stack
+                              direction={"row"}
+                              spacing={4}
+                              w={"100%"}
+                              justifyContent={"space-between"}
                             >
-
-                              <Stack
-                                direction={"row"}
-                                spacing={4}
-                                w={"100%"}
-                                justifyContent={"space-between"}
+                              <Text fontWeight={500} color={"blackAlpha.800"} mb={10} fontSize="3xl">
+                                Información Personal
+                              </Text>
+                              <Button
+                                maxW={"40%"}
+                                fontSize={"sm"}
+                                rounded={"full"}
+                                _focus={{
+                                  bg: "teal.600",
+                                }}
+                                bg={"green.100"}
+                                color="teal.500"
+                                _hover={{
+                                  bg: "green.500",
+                                  color: "white",
+                                }}
                               >
-                                <Text fontWeight={500} color={"blackAlpha.800"} mb={10} fontSize="3xl">
-                                  Información Personal
+                                <Link to={`/editprofile/${clientDetails.firstName}`}>Edit Profile</Link>
+                              </Button>
+                            </Stack>
+                            <Avatar
+                              size={"2xl"}
+                              src={clientDetails.profileImage}
+                              alt={clientDetails.firstName}
+                              mb={4}
+                            />
+                            <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
+                              {clientDetails.firstName} {clientDetails.lastName}{" "}
+                              <ChangePasswordModal />
+                            </Heading>
+
+                            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                {clientDetails.email}
+                              </Badge>
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                {clientDetails.birthDate}
+                              </Badge>
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                {clientDetails.country}
+                              </Badge>
+                            </Stack>
+
+                            <Stack mt={"40px"} alignItems="center">
+                              <CalendarIcon />
+                              <Heading color={"blackAlpha.800"}>Citas</Heading>
+                              <VStack alignItems="left" spacing="24px">
+                                <Text color={"blackAlpha.800"}>
+                                  Terapeuta: Ana Gomez <ExternalLinkIcon cursor={"pointer"} />
                                 </Text>
-                                <Button
-                                  maxW={"40%"}
-                                  fontSize={"sm"}
-                                  rounded={"full"}
-                                  _focus={{
-                                    bg: "teal.600",
-                                  }}
-                                  bg={"green.100"}
-                                  color="teal.500"
-                                  _hover={{
-                                    bg: "green.500",
-                                    color: "white",
-                                  }}
+                                <Badge
+                                  px={2}
+                                  py={1}
+                                  color={"blackAlpha.800"}
+                                  fontWeight={"600"}
+                                  fontSize="1em"
                                 >
-                                  <Link to={`/editprofile/${clientDetails.firstName}`}>Edit Profile</Link>
-                                </Button>
-                              </Stack>
-                              <Avatar
-                                size={"2xl"}
-                                src={clientDetails.profileImage}
-                                alt={clientDetails.firstName}
-                                mb={4}
-                              />
-                              <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
-                                {clientDetails.firstName} {clientDetails.lastName}{" "}
-                                <ChangePasswordModal />
-                              </Heading>
-
-                              <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  {clientDetails.email}
+                                  <Text color={"blackAlpha.800"} mb={"10px"}> Martes 14, | 15:00 - 15:45 </Text>
+                                  <DeleteIcon mr={"10px"} cursor={"pointer"} />
+                                  <EditIcon cursor={"pointer"} />
                                 </Badge>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  {clientDetails.birthDate}
+                                <Badge
+                                  px={2}
+                                  py={1}
+                                  color={"blackAlpha.800"}
+                                  fontWeight={"600"}
+                                  fontSize="1em"
+                                  w={"100%"}
+                                >
+                                  🛎️ 10 minutos antes
                                 </Badge>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  {clientDetails.country}
-                                </Badge>
-                              </Stack>
-
-                              <Stack mt={"40px"} alignItems="center">
-                                <CalendarIcon />
-                                <Heading color={"blackAlpha.800"}>Citas</Heading>
-                                <VStack alignItems="left" spacing="24px">
-                                  <Text color={"blackAlpha.800"}>
-                                    Terapeuta: Ana Gomez <ExternalLinkIcon cursor={"pointer"} />
-                                  </Text>
-                                  <Badge
-                                    px={2}
-                                    py={1}
-                                    color={"blackAlpha.800"}
-                                    fontWeight={"600"}
-                                    fontSize="1em"
-                                  >
-                                    <Text color={"blackAlpha.800"} mb={"10px"}> Martes 14, | 15:00 - 15:45 </Text>
-                                    <DeleteIcon mr={"10px"} cursor={"pointer"} />
-                                    <EditIcon cursor={"pointer"} />
-                                  </Badge>
-                                  <Badge
-                                    px={2}
-                                    py={1}
-                                    color={"blackAlpha.800"}
-                                    fontWeight={"600"}
-                                    fontSize="1em"
-                                    w={"100%"}
-                                  >
-                                    🛎️ 10 minutos antes
-                                  </Badge>
-                                </VStack>
-                              </Stack>
-                            </Box>
-                          </Container>
-                        </Center>                      
+                              </VStack>
+                            </Stack>
+                          </Box>
+                        </Container>
+                      </Center>
+                      <Footer />
                     </>
                   )
               }
@@ -163,83 +164,83 @@ export default function ClientDetails() {
                     <Loader />
                   ) : (
                     <>
-                      <NavbarHome />                      
-                        <Center align='center'>
-                          <Container maxW={'container.lg'} py={6} h={"100%"}>
-                            <Box
-                              w={"50%"}
-                              bg={"gray.200"}
-                              boxShadow={"2xl"}
-                              rounded={"lg"}
-                              p={6}
-                              textAlign={"center"}
+                      <NavbarHome />
+                      <Center align='center'>
+                        <Container maxW={'container.lg'} py={6} h={"100%"}>
+                          <Box
+                            w={"50%"}
+                            bg={"gray.200"}
+                            boxShadow={"2xl"}
+                            rounded={"lg"}
+                            p={6}
+                            textAlign={"center"}
+                          >
+
+                            <Stack
+                              direction={"row"}
+                              spacing={4}
+                              w={"100%"}
+                              justifyContent={"space-between"}
                             >
-
-                              <Stack
-                                direction={"row"}
-                                spacing={4}
-                                w={"100%"}
-                                justifyContent={"space-between"}
+                              <Text fontWeight={500} color={"blackAlpha.800"} mb={10} fontSize="3xl">
+                                Información Personal
+                              </Text>
+                              <Button
+                                maxW={"40%"}
+                                fontSize={"sm"}
+                                rounded={"full"}
+                                _focus={{
+                                  bg: "teal.600",
+                                }}
+                                bg={"green.100"}
+                                color="teal.500"
+                                _hover={{
+                                  bg: "green.500",
+                                  color: "white",
+                                }}
                               >
-                                <Text fontWeight={500} color={"blackAlpha.800"} mb={10} fontSize="3xl">
-                                  Información Personal
-                                </Text>
-                                <Button
-                                  maxW={"40%"}
-                                  fontSize={"sm"}
-                                  rounded={"full"}
-                                  _focus={{
-                                    bg: "teal.600",
-                                  }}
-                                  bg={"green.100"}
-                                  color="teal.500"
-                                  _hover={{
-                                    bg: "green.500",
-                                    color: "white",
-                                  }}
-                                >
-                                  <Link to={`/editprofile/${psychologistDetails.firstName}`}>Edit Profile</Link>
-                                </Button>
-                              </Stack>
-                              <Avatar
-                                size={"2xl"}
-                                src={psychologistDetails.profileImage}
-                                alt={psychologistDetails.firstName}
-                                mb={4}
-                              />
-                              <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
-                                {psychologistDetails.firstName} {psychologistDetails.lastName}{" "}
-                                <ChangePasswordModal />
-                              </Heading>
+                                <Link to={`/editprofile/${psychologistDetails.firstName}`}>Edit Profile</Link>
+                              </Button>
+                            </Stack>
+                            <Avatar
+                              size={"2xl"}
+                              src={psychologistDetails.profileImage}
+                              alt={psychologistDetails.firstName}
+                              mb={4}
+                            />
+                            <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
+                              {psychologistDetails.firstName} {psychologistDetails.lastName}{" "}
+                              <ChangePasswordModal />
+                            </Heading>
 
-                              <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  {psychologistDetails.email}
-                                </Badge>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  {psychologistDetails.birthDate}
-                                </Badge>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  {psychologistDetails.country}
-                                </Badge>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  DNI: {psychologistDetails.DNI}
-                                </Badge>
-                                <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                  MATRÍCULA: {psychologistDetails.License}
-                                </Badge>
-                              </Stack>
+                            <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
                               <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                {psychologistDetails.about}
+                                {psychologistDetails.email}
                               </Badge>
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                {psychologistDetails.birthDate}
+                              </Badge>
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                {psychologistDetails.country}
+                              </Badge>
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                DNI: {psychologistDetails.DNI}
+                              </Badge>
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                MATRÍCULA: {psychologistDetails.License}
+                              </Badge>
+                            </Stack>
+                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              {psychologistDetails.about}
+                            </Badge>
 
-                              <Stack mt={"40px"} alignItems="center">
-                                <CalendarIcon />
-                                <Heading color={"blackAlpha.800"}>Citas</Heading>
-                              </Stack>
-                            </Box>
-                          </Container>
-                        </Center>                      
+                            <Stack mt={"40px"} alignItems="center">
+                              <CalendarIcon />
+                              <Heading color={"blackAlpha.800"}>Citas</Heading>
+                            </Stack>
+                          </Box>
+                        </Container>
+                      </Center>
                       <Footer />
                     </>
                   )

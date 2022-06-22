@@ -194,6 +194,7 @@ function FormEditClient() {
                   </Stack>
                 </Flex>
               </form>
+              <Footer />
             </>
           )
           : tokenPsychologist ? (
