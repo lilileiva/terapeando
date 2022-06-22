@@ -25,6 +25,9 @@ const config = {
       {
         widgetName: "learningOptions",
         widgetFunc: (props) => <LearningOptions {...props} />,
+      },{
+        widgetName:"servicesLinks",
+        
       }
     ]
 }
