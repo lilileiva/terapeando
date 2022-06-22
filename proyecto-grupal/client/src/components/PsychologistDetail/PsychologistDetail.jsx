@@ -122,8 +122,7 @@ export default function PsychologistDetail() {
                                                       <Text color='gray' fontSize='xl'>{postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
                                                     </Stack>
                                                     <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
-                                                  </Stack>
-                                                  {console.log(post)}
+                                                  </Stack>                                                  
                                                 </Box>
                                               </Link>
                                             </>

@@ -6,7 +6,7 @@ import Paged from "../Paged/Paged";
 import smoothscroll from "../../animations";
 import { SimpleGrid, Box } from "@chakra-ui/react";
 
-export default function Post({allPosts}) {
+export default function Post({ allPosts }) {
   //me traigo todos los posts apenas se me monte el componente
 
   /* Paginado */
@@ -21,6 +21,8 @@ export default function Post({allPosts}) {
     smoothscroll();
   };
 
+  let postDate;
+
   //empiezo a renderizar cada una de mis notas
   return (
     <>
@@ -29,6 +31,9 @@ export default function Post({allPosts}) {
           {showPostPage &&
             showPostPage.map((post) => {
               return (
+                postDate = post.createdAt,
+                postDate = new Date(),
+                
                 <Box>
                   <Link to={`/postdetail/${post._id}`}>
                     <div className="card" key={post._id}>
@@ -45,21 +50,22 @@ export default function Post({allPosts}) {
                             {post.Title}
                           </Text>
                         </Stack>
-                        {/* <p>{post.Content.slice(0,400)}...</p> */}
-                        {post.idUserPsychologist ? (
-                          <>
-                            <Text fontSize="20px" className="cardInfo">
-                              Nota de {post.idUserPsychologist.firstName}
-                              {" ​​​​"}
-                              {post.idUserPsychologist.lastName}
-                            </Text>
-                            <Text fontSize="15px" className="cardInfo">
-                              {post.idUserPsychologist.email} | {"​​🌎 ​"}
-                              {post.idUserPsychologist.country}
-                            </Text>
-                          </>
-                        ) : null}
-                        <h5>Fecha {post.Date}</h5>
+                        {
+                          post.idUserPsychologist ? (
+                            <>
+                              <Text fontSize="20px" className="cardInfo">
+                                Nota de {post.idUserPsychologist.firstName}
+                                {" ​​​​"}
+                                {post.idUserPsychologist.lastName}
+                              </Text>
+                              <Text fontSize="15px" className="cardInfo">
+                                {post.idUserPsychologist.email} | {"​​🌎 ​"}
+                                {post.idUserPsychologist.country}
+                              </Text>
+                            </>
+                          ) : null
+                        }
+                        <h5>Fecha {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</h5>
                         <Stack
                           direction="row"
                           justifyContent="center"
