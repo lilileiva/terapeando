@@ -42,7 +42,7 @@ export default function PostsDetail() {
         Object.keys(post).length !== 0 ? (
           <div className={"containerA"}>
 
-            <Text color='green.300' fontSize='2xl' textAlign='left' onClick={() => navigate(-1)}>
+            <Text color='green.300' fontSize='2xl' textAlign='left' cursor='pointer' onClick={() => navigate(-1)}>
               <ArrowLeftIcon />   Volver
             </Text>
 

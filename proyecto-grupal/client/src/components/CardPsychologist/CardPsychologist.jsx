@@ -43,30 +43,30 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' colorScheme='purple' className='Badge'>{Specialties[4]}</Badge>
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
-                <Box className="About">
-                    {
-                        about
-                            ? (
-                                <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
-                                    {about.slice(0, 500)}...
-                                    <br />
-                                    {
-                                        tokenClient || tokenPsychologist
-                                            ? (
-                                                <Link to={`/detailPsychologist/${idPsychologist}`}>
-                                                    <button className="vermas">Ver más</button>
-                                                </Link>
-                                            ) : (
-                                                <Link to={'/signin'}>
-                                                    <button className="vermas">Ver más</button>
-                                                </Link>
-                                            )
-                                    }
+                <Box minHeight='10em' className="About">                    
+                        {
+                            about
+                                ? (
+                                    <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
+                                        {about.slice(0, 500)}...
+                                        <br />
+                                        {
+                                            tokenClient || tokenPsychologist
+                                                ? (
+                                                    <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                                        <button className="vermas">Ver más</button>
+                                                    </Link>
+                                                ) : (
+                                                    <Link to={'/signin'}>
+                                                        <button className="vermas">Ver más</button>
+                                                    </Link>
+                                                )
+                                        }
+                                    </Text>
+                                ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                                    Sin descripción.
                                 </Text>
-                            ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                                Sin descripción.
-                            </Text>
-                    }
+                        }                    
                 </Box>
 
                 <Box className="profile"  >

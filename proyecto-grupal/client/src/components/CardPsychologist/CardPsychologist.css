@@ -43,12 +43,15 @@
     white-space: wrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
+    white-space: pre-wrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .containerCenter {
     width: 50%;
-    height: 100%;    
+    height: 100%;        
     display: flex;
     flex-direction: column;
     justify-content: center;    
