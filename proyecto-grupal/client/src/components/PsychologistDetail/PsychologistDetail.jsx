@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ChakraProvider, Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar, Stack, Image } from "@chakra-ui/react";
+import { ChakraProvider, Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar, Stack, Image, Button } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient, getPostsByPsychologistId } from "../../redux/actions";
@@ -14,6 +14,7 @@ import Loader from "../Loader/Loader";
 import Reviews from "../Reviews/Reviews";
 import NotFound from '../404notFound/notFound.jsx';
 import Map from '../Map/Map.jsx';
+import Schedule from "../Schedule/Schedule";
 
 
 export default function PsychologistDetail() {
@@ -42,6 +43,15 @@ export default function PsychologistDetail() {
 
   const posts = useSelector((state) => state.posts)
   let postDate;
+
+  const [calendar, setCalendar] = useState(false)
+  const handleCalendar = () => {
+    if (!calendar) {
+      setCalendar(true)
+    } else {
+      setCalendar(false)
+    }
+  }
 
   return (
     <>
@@ -80,6 +90,9 @@ export default function PsychologistDetail() {
                                         <Text fontSize='2xl'>{`🎓 ${detail.education}`}
                                           {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
                                         </Text>
+                                        <Button mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'green.100' }]} size='lg' onClick={handleCalendar}>
+                                          Pedir cita
+                                        </Button>
                                       </Stack>
                                       <Map />
                                     </Flex>
@@ -123,7 +136,7 @@ export default function PsychologistDetail() {
                                                   <Stack className="postTitle">
                                                     <Stack>
                                                       <Text className="postTitleText" fontSize='2xl' fontWeight='500'>{post.Title}</Text>
-                                                      <Text color='gray' fontSize='xl'>{postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                                      <Text color='gray' fontSize='sm' fontWeight='500'>FECHA: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
                                                     </Stack>
                                                     <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
                                                   </Stack>
@@ -154,6 +167,19 @@ export default function PsychologistDetail() {
                       ) : null
                   }
                 </Stack>
+                {
+                  calendar
+                    ? <div className="calendar">
+                      <Schedule
+                        firstName={detail.firstName}
+                        lastName={detail.lastName}
+                        profileImage={detail.profileImage}
+                        rating={detail.rating}
+                        idPsychologist={detail.idPsychologist}
+                        setCalendar={setCalendar} />
+                    </div>
+                    : null
+                }
                 <Footer />
               </div>
             </>

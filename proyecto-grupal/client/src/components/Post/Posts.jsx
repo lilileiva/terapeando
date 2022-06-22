@@ -32,8 +32,7 @@ export default function Post({ allPosts }) {
             showPostPage.map((post) => {
               return (
                 postDate = post.createdAt,
-                postDate = new Date(),
-                
+                postDate = new Date(),                
                 <Box>
                   <Link to={`/postdetail/${post._id}`}>
                     <div className="card" key={post._id}>
