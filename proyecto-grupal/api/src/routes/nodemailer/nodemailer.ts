@@ -5,6 +5,7 @@ const postSendEmail = async (req: Request, res: Response) => {
     const { firstname, lastname, email } = req.body
 
 
+
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
