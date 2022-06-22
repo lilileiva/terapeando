@@ -51,6 +51,12 @@ class MessageParser{
         if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye")){
             this.actionProvider.handleGoodbye();
         }
+        if(lowerCaseMessage.includes("matricula") || lowerCaseMessage.includes("aseguro" || lowerCaseMessage.includes("verifico"))){
+            this.actionProvider.handleMatricula()
+        }
+        if (lowerCaseMessage.includes("pago") || lowerCaseMessage.includes("metodos") || lowerCaseMessage.includes("formas")) {
+            this.actionProvider.handlePagos()
+        }
         if (message.includes('dog')){
             this.actionProvider.handleDog();
         }
