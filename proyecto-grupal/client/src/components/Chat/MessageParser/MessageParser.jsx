@@ -10,55 +10,55 @@ class MessageParser{
         if(lowerCaseMessage.includes("hola")){
             this.actionProvider.greet();
         }
-        if(lowerCaseMessage.includes("menu") || lowerCaseMessage.includes("volver")){
+        else if(lowerCaseMessage.includes("menu") || lowerCaseMessage.includes("volver")){
             this.actionProvider.handleMenu()
         }
-        if(lowerCaseMessage.includes("contactanos")){
+        else if(lowerCaseMessage.includes("contactanos")){
             this.actionProvider.handleHire();
         }
-        if(lowerCaseMessage.includes("cool") || lowerCaseMessage.includes("impresionante") || 
+        else if(lowerCaseMessage.includes("cool") || lowerCaseMessage.includes("impresionante") || 
         lowerCaseMessage.includes("genial")){
             this.actionProvider.handleCool();
         }
-        if (lowerCaseMessage.includes("amo")) {
+        else if (lowerCaseMessage.includes("amo")) {
             this.actionProvider.handleLove()
         }
-        if (lowerCaseMessage.includes("precio") ||
+        else if (lowerCaseMessage.includes("precio") ||
         lowerCaseMessage.includes("valor") || lowerCaseMessage.includes("cuanto")) {
             this.actionProvider.handlePricing();
         }
-        if (lowerCaseMessage.includes("ok")|| lowerCaseMessage.includes("okey") || lowerCaseMessage.includes("vale") || lowerCaseMessage.includes("gracias")) {
+        else if (lowerCaseMessage.includes("ok")|| lowerCaseMessage.includes("okey") || lowerCaseMessage.includes("vale") || lowerCaseMessage.includes("gracias")) {
             this.actionProvider.handleSomethingElse()
         } 
-        if(lowerCaseMessage.includes("contratar") || lowerCaseMessage.includes("trabajar")){
+        else if(lowerCaseMessage.includes("contratar") || lowerCaseMessage.includes("trabajar")){
             this.actionProvider.handleHire();
         }
-        if(lowerCaseMessage.includes("servicios")){
+        else if(lowerCaseMessage.includes("servicios")){
             this.actionProvider.handleServicesList();
         }
-        if(lowerCaseMessage.includes("blog")){
+        else if(lowerCaseMessage.includes("blog")){
             this.actionProvider.handleBlog();
         }
-        if(lowerCaseMessage.includes("cita")){
+        else if(lowerCaseMessage.includes("cita")){
             this.actionProvider.handleSitePack1();
         }
-        if(lowerCaseMessage.includes("reservo") || lowerCaseMessage.includes("reservar")){
+        else if(lowerCaseMessage.includes("reservo") || lowerCaseMessage.includes("reservar")){
             this.actionProvider.handleSecion();
         }
-        if(lowerCaseMessage.includes("comodo") || lowerCaseMessage.includes("incomodo") || lowerCaseMessage.includes("queja")){
+        else if(lowerCaseMessage.includes("comodo") || lowerCaseMessage.includes("incomodo") || lowerCaseMessage.includes("queja")){
             this.actionProvider.handleQuejas()
         }
-        if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye")){
+        else if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye")){
             this.actionProvider.handleGoodbye();
         }
-        if(lowerCaseMessage.includes("matricula") || lowerCaseMessage.includes("aseguro" || lowerCaseMessage.includes("verifico"))){
+        else if(lowerCaseMessage.includes("matricula") || lowerCaseMessage.includes("aseguro" || lowerCaseMessage.includes("verifico"))){
             this.actionProvider.handleMatricula()
         }
-        if (lowerCaseMessage.includes("pago") || lowerCaseMessage.includes("metodos") || lowerCaseMessage.includes("formas")) {
+        else if (lowerCaseMessage.includes("pago") || lowerCaseMessage.includes("metodos") || lowerCaseMessage.includes("formas")) {
             this.actionProvider.handlePagos()
         }
-        if (message.includes('dog')){
-            this.actionProvider.handleDog();
+        else{
+            this.actionProvider.handleSorry()
         }
     }
 }
