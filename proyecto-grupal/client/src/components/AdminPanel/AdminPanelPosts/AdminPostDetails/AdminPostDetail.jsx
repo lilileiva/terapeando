@@ -123,7 +123,7 @@ function AdminPostDetail() {
                     <Text fontSize='xl'> {postDetail.idUserPsychologist.firstName} {postDetail.idUserPsychologist.lastName}  </Text>
                   </Stack>
                   <br />
-                  <Stack direction='row' width='100%'>
+                  <Stack direction='row' width='100%' justify='center'>
                     
                     <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
                       <CloseIcon />
