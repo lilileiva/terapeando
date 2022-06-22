@@ -56,6 +56,8 @@ class MessageParser{
         }
         else if (lowerCaseMessage.includes("pago") || lowerCaseMessage.includes("metodos") || lowerCaseMessage.includes("formas")) {
             this.actionProvider.handlePagos()
+        }else if(lowerCaseMessage.includes("mision")){
+            this.actionProvider.includes("mision")
         }
         else{
             this.actionProvider.handleSorry()
