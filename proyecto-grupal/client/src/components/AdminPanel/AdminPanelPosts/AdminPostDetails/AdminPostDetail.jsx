@@ -28,6 +28,7 @@ function AdminPostDetail() {
     };
   }, [dispatch]);
   const postDetail = useSelector((state) => state.postDetail);
+  console.log(postDetail)
 
   const handleAlertDelete = (postId) => {
     Swal.fire({
@@ -90,8 +91,6 @@ function AdminPostDetail() {
                 </Button>
               </Stack>
               {Object.keys(postDetail).length !== 0 ? (
-
-
                 <Stack width='100%' height='fit-content' bg='white' p='2%' direction='column' justifyContent='top' align='center' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                   <Avatar src={postDetail.Image} size='xl' />
                   <Stack direction='row'>
@@ -123,8 +122,10 @@ function AdminPostDetail() {
                     <Text fontSize='xl'> {postDetail.idUserPsychologist.firstName} {postDetail.idUserPsychologist.lastName}  </Text>
                   </Stack>
                   <br />
-                  <Stack direction='row' width='100%'>
-                    <Button width='100%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+                  <Stack direction='row' width='100%' justify='center'>
+                    
+                    <Button width='50%' colorScheme='red' variant='outline' onClick={() => handleAlertDelete(postDetail._id)}>
+
                       <CloseIcon />
                       <Text pr='0.5em'> Eliminar nota</Text>
                     </Button>

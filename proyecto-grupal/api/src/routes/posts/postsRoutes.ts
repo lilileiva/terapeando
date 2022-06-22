@@ -6,7 +6,7 @@ const {
   filterPostsCategory,
   getOnePost,
   putPost,
-  getPostAuthors,
+  getPostsByPsychologistId,
   // filterPostsByAuthor
   deletePost
 } = require("./posts.ts");
@@ -23,7 +23,7 @@ postsRouter.get("/posts", getAllPosts);
 postsRouter.get("/post/:id", getOnePost);
 postsRouter.post("/post", validatePsychologist, createPost);
 postsRouter.get("/categories", getAllCategory);
-//postsRouter.get("/posts/authors", getPostAuthors);
+postsRouter.get("/posts/author/:IdUserPsychologist", getPostsByPsychologistId);
 
 postsRouter.get("/filter/:category", filterPostsCategory);
 postsRouter.delete("/deletePost/:IdPost", validatePsychologist, deletePost)

@@ -51,6 +51,9 @@ class MessageParser{
         if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye")){
             this.actionProvider.handleGoodbye();
         }
+        if (message.includes('dog')){
+            this.actionProvider.handleDog();
+        }
     }
 }
 export default MessageParser

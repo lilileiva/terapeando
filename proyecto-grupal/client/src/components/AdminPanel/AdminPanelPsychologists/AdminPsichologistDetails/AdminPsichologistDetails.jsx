@@ -7,21 +7,25 @@ import Footer from '../../../Footer/Footer.jsx';
 import { Stack, Button, Avatar, Text, List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react';
 import { ArrowLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonDash, BsPencilSquare, BsPeople, BsFillEyeFill, BsSearch } from "react-icons/bs";
-import { getUserClient, clearClient, deleteUserClient, AdminGetUserPsychologistDetail, AdminDeleteUserPsichologist } from '../../../../redux/actions';
+import { clear, deleteUserClient, AdminGetUserPsychologistDetail, AdminDeleteUserPsichologist } from '../../../../redux/actions';
 import Loader from '../../../Loader/Loader.jsx';
 import Swal from 'sweetalert2';
 import NotFound from '../../../404notFound/notFound.jsx';
 
 
-export default function AdminPsichologisttDetails() {
+export default function AdminPsichologistDetails() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { idUserPsichologist } = useParams();
+  const { IdUserPsichologist } = useParams();  
+
   useEffect(() => {
-    dispatch(AdminGetUserPsychologistDetail(idUserPsichologist))
+    dispatch(AdminGetUserPsychologistDetail(IdUserPsichologist))
+    return () => {
+      dispatch(clear())
+    }
   }, [dispatch])
-  const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail);
+  const userPsichologistDetail = useSelector((state) => state.psychologistProfile);
 
   const handleAlertDelete = (psychologistId) => {
     Swal.fire({
@@ -41,12 +45,12 @@ export default function AdminPsichologisttDetails() {
     })
   }
 
-  const token = window.localStorage.getItem('tokenAdmin')
+  const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   return (
     <>
       {
-        token
+        tokenAdmin
           ? (
             <div className='adminPanelContainer'>
               <AdminPanelNavbar />
@@ -153,4 +157,3 @@ export default function AdminPsichologisttDetails() {
     </>
   )
 }
-

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   getPostDetail,
   clearStatePostDetail,
@@ -18,9 +18,10 @@ import Loader from "../../Loader/Loader.jsx";
 
 export default function PostsDetail() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const post = useSelector((state) => state.postDetail);
-  
+
   useEffect(() => {
     dispatch(getPostDetail(id));
     return () => {
@@ -28,22 +29,22 @@ export default function PostsDetail() {
     }
   }, [dispatch, id]);
 
-  const token = window.localStorage.getItem('token');
-  
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
   return (
     <div>
       {
-        token ? <NavbarHome /> : <NavBar /> 
-      }     
+        tokenClient || tokenPsychologist
+          ? (<NavbarHome />) : <NavBar />
+      }
       {
         Object.keys(post).length !== 0 ? (
           <div className={"containerA"}>
 
-            <Link to='/blog'>
-              <Text color='green.300' fontSize='2xl' textAlign='left'>
-                <ArrowLeftIcon />   Volver
-              </Text>
-            </Link>
+            <Text color='green.300' fontSize='2xl' textAlign='left' cursor='pointer' onClick={() => navigate(-1)}>
+              <ArrowLeftIcon />   Volver
+            </Text>
 
             <div className="postImgContainer">
               <img src={post.Image} alt="post img" className="postImg" />
@@ -53,6 +54,7 @@ export default function PostsDetail() {
                     <Avatar
                       src={post.idUserPsychologist.profileImage}
                       alt="img not found"
+                      mr='0.5em'
                     />
                   </Link>
 
@@ -103,7 +105,7 @@ export default function PostsDetail() {
           </div>
         )
           : <Loader />
-      }      
+      }
       <Footer />
     </div>
   );
