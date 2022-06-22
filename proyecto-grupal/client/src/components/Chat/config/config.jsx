@@ -2,6 +2,7 @@ import React from "react"
 import {createChatBotMessage} from "react-chatbot-kit"
 import LearningOptions from "../LearningOptions/LearningOptions.jsx"
 import LinkList from "../Components/LinkList/Linklist.jsx"
+import Pricing from "../Components/Price/Pricing.jsx"
 import DogPicture from './dogPicture'
 const config = {
     botName: "TereBot",
@@ -26,6 +27,9 @@ const config = {
       {
         widgetName: "learningOptions",
         widgetFunc: (props) => <LearningOptions {...props} />,
+      },{
+        widgetName:"Pricing",
+        widgetFunc: (props) => <Pricing {...props}/>
       },{
         widgetName:"servicesLinks",
         widgetFunc: (props) => <LinkList {...props}/>,
