@@ -104,6 +104,25 @@ class ActionProvider{
             this.updateChatbotState(message);
           }
     
+    handleQuejas = () => {
+        const message = this.createChatBotMessage(
+            "Puedes dar una reseña con el psicologo que tuviste la reunion donde tienes la opcion de calificarlo y poner tu opinion como una queja formal"
+        )
+        this.updateChatbotState(message)
+    }
+    handleMatricula = () => {
+        const message = this.createChatBotMessage(
+            "En terapeando nos encargamos de revisar que los psicólogos disponibles en el aplicativo tengan verificada y verídica su matricula para darle la mejor experiencia al cliente"
+        )
+        this.updateChatbotState(message)
+    }
+    handlePagos = () => {
+        const message = this.createChatBotMessage(
+            "En terapeando como metodos de pago tenemos Visa, Mastercard y American Express. De esta forma, con Stripe se optimiza las vías de enrutamiento, proporciona la información más detallada y disminuye la latencia en las transacciones."
+        )
+        this.updateChatbotState(message)
+    }
+    
     updateChatbotState(message){
         //actualizamos elmensaje apartir del estado de lo que ingreseel usuario y no lo guardamos en el estado
         this.updateChatbotState((prevState) => ({

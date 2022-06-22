@@ -18,29 +18,31 @@ import Schedule from "../Schedule/Schedule";
 
 
 export default function PsychologistDetail() {
+  const { IdUserPsychologist } = useParams();
+  console.log(IdUserPsychologist)
   const dispatch = useDispatch();
-  const { idPsychologist } = useParams();
-  const [loader, setLoader] = useState(true);
-  const detail = useSelector((state) => state.userPsichologistDetail);
   const navigate = useNavigate();
 
-  const tokenClient = window.localStorage.getItem('tokenClient')
+  const [loader, setLoader] = useState(true);
+  
+  const tokenClient = window.localStorage.getItem('tokenClient')  
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
   const tokenAdmin = window.localStorage.getItem('tokenAdmin')
-
+  
   useEffect(() => {
-    tokenClient ? dispatch(getUserPsychologistDetailsasClient(idPsychologist)) : dispatch(getUserPsychologistDetails(idPsychologist))
-    dispatch(getPostsByPsychologistId(idPsychologist))
+    tokenClient ? dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist)) : dispatch(getUserPsychologistDetails(IdUserPsychologist))
+    dispatch(getPostsByPsychologistId(IdUserPsychologist))
     smoothscroll()
-
+    
     setTimeout(() => {
       setLoader(false);
     }, 500)
     return () => {
       dispatch(clear()); //Clear detail
     };
-  }, [dispatch, idPsychologist]);
-
+  }, [dispatch, IdUserPsychologist]);
+  
+  const detail = useSelector((state) => state.userPsichologistDetail);
   const posts = useSelector((state) => state.posts)
   let postDate;
 

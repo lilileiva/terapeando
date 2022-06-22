@@ -42,11 +42,23 @@ class MessageParser{
         if(lowerCaseMessage.includes("cita")){
             this.actionProvider.handleSitePack1();
         }
-        if(lowerCaseMessage.includes("dog")){
-            this.actionProvider.handleDog();
+        if(lowerCaseMessage.includes("reservo") || lowerCaseMessage.includes("reservar")){
+            this.actionProvider.handleSecion();
+        }
+        if(lowerCaseMessage.includes("comodo") || lowerCaseMessage.includes("incomodo") || lowerCaseMessage.includes("queja")){
+            this.actionProvider.handleQuejas()
         }
         if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye")){
             this.actionProvider.handleGoodbye();
+        }
+        if(lowerCaseMessage.includes("matricula") || lowerCaseMessage.includes("aseguro" || lowerCaseMessage.includes("verifico"))){
+            this.actionProvider.handleMatricula()
+        }
+        if (lowerCaseMessage.includes("pago") || lowerCaseMessage.includes("metodos") || lowerCaseMessage.includes("formas")) {
+            this.actionProvider.handlePagos()
+        }
+        if (message.includes('dog')){
+            this.actionProvider.handleDog();
         }
     }
 }

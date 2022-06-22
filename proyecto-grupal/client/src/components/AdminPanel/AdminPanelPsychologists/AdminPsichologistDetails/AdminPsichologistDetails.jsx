@@ -17,10 +17,10 @@ export default function AdminPsichologistDetails() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { IdUserPsichologist } = useParams();  
+  const { IdUserPsychologist } = useParams(); 
 
   useEffect(() => {
-    dispatch(AdminGetUserPsychologistDetail(IdUserPsichologist))
+    dispatch(AdminGetUserPsychologistDetail(IdUserPsychologist))
     return () => {
       dispatch(clear())
     }
