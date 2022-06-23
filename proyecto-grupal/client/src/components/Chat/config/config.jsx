@@ -3,6 +3,7 @@ import {createChatBotMessage} from "react-chatbot-kit"
 import LearningOptions from "../LearningOptions/LearningOptions.jsx"
 import LinkList from "../Components/LinkList/Linklist.jsx"
 import DogPicture from './dogPicture'
+import CatPicture from './catPicture'
 const config = {
     botName: "TereBot",
     initialMessages:[
@@ -17,11 +18,17 @@ const config = {
         chatButton: {
           backgroundColor: "#5ccc9d",
         },
+        
+
     },
     widgets:[
       {  
         widgetName: 'dogPicture',
         widgetFunc: (props) => <DogPicture {...props} />,    
+      },
+      {  
+        widgetName: 'catPicture',
+        widgetFunc: (props) => <CatPicture {...props} />,    
       },
       {
         widgetName: "learningOptions",
@@ -29,12 +36,19 @@ const config = {
       },{
         widgetName:"servicesLinks",
         widgetFunc: (props) => <LinkList {...props}/>,
-        props:[
-          {
-            text:"Psicologos",
-            url:""
-          }
-        ]
+        props:{
+          options:[
+            {
+              text:"Psicologia",
+              url:"http://localhost:3000/home",
+              id:1,
+            },{
+              text:"Blog de Psicologia",
+              url:"http://localhost:3000/blog",
+              id:3
+            }
+          ]
+        }
       }
     ]
 }
