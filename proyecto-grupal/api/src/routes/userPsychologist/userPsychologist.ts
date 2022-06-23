@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import userPsychologistModel from "../../models/userPsychologist";
 import userPsychologist from "../../models/userPsychologist";
 //import { userPsychologist } from '../../models/userPsychologist';
+const nodemailer = require("nodemailer");
 
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
@@ -112,6 +113,37 @@ const postUserPsychologist = async (req: Request, res: Response) => {
           role: 'psychologist'
         });
         res.status(201).send('Welcome to our community, now you can sign in');
+                 //----email confirmation
+                 const transporter = nodemailer.createTransport({
+                  host: "smtp.gmail.com",
+                  port: 465,
+                  secure: true,
+                  auth: {
+                    user: "terapeandoportal@gmail.com",
+                    pass: "pezufzhvclfbmuti",
+                  },
+                });
+              
+                transporter.verify().then(() => {
+                  console.log("Ready to send emails");
+                });
+              
+                let mailOptions = {
+                  from: `Terapeando <terapeandoportal@gmail.com>`,
+                  to: `${email}`,
+                  subject: "Confirmacion de registro",
+                  html: `<h1>Bienvenido ${firstname} ${lastname} a Terapeando!</h1>
+                        <p>Ingresa con tu email: ${email} <a href= http://localhost:3000/signin>aqui<a/></p>
+                  `,
+                };
+              
+                await transporter.sendMail(mailOptions, (error: any) => {
+                  if (error) {
+                    console.log("Hubo un error: ", error);
+                  } else {
+                    console.log("Email enviado!");
+                  }
+                });
       }
   } catch (error) {
     res.send({error: 'Validate your personal data'})

@@ -9,7 +9,7 @@ import { BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
-import { createClient, createPsychologist, registerConfirmationEmail } from '../../redux/actions/index.js';
+import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
@@ -143,7 +143,6 @@ function RegisterForm() {
         e.preventDefault()
         setFormErrors(validate(signupForm))
         setIsSubmit(true)
-        dispatch(registerConfirmationEmail())
     }
 
     const afterSubmit = async () => {
