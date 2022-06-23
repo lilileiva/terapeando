@@ -35,6 +35,9 @@ const config = {
         widgetName:"PriceFeedBack",
         widgetFunc: (props) => <PriceFeedBack {...props}/>
       },{
+        widgetName: "Back",
+        widgetFunc: (props) => <LearningOptions {...props}/>
+      },{
         widgetName:"servicesLinks",
         widgetFunc: (props) => <LinkList {...props}/>,
         props:{
