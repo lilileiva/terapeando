@@ -27,6 +27,9 @@ class MessageParser{
         lowerCaseMessage.includes("valor") || lowerCaseMessage.includes("cuanto")) {
             this.actionProvider.handlePricing();
         }
+        else if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye") || lowerCaseMessage.includes("no")){
+            this.actionProvider.handleGoodbye();
+        }
         else if (lowerCaseMessage.includes("ok")|| lowerCaseMessage.includes("okey") || lowerCaseMessage.includes("vale") || lowerCaseMessage.includes("gracias")) {
             this.actionProvider.handleSomethingElse()
         } 
@@ -47,9 +50,6 @@ class MessageParser{
         }
         else if(lowerCaseMessage.includes("comodo") || lowerCaseMessage.includes("incomodo") || lowerCaseMessage.includes("queja")){
             this.actionProvider.handleQuejas()
-        }
-        else if(lowerCaseMessage.includes("adios") || lowerCaseMessage.includes("bye")){
-            this.actionProvider.handleGoodbye();
         }
         else if(lowerCaseMessage.includes("matricula") || lowerCaseMessage.includes("aseguro" || lowerCaseMessage.includes("verifico"))){
             this.actionProvider.handleMatricula()
