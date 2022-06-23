@@ -3,6 +3,7 @@ import {createChatBotMessage} from "react-chatbot-kit"
 import LearningOptions from "../LearningOptions/LearningOptions.jsx"
 import LinkList from "../Components/LinkList/Linklist.jsx"
 import Pricing from "../Components/Price/Pricing.jsx"
+import PriceFeedBack from "../Components/Price/PriceFeedBack.jsx"
 import DogPicture from './dogPicture'
 const config = {
     botName: "TereBot",
@@ -30,6 +31,9 @@ const config = {
       },{
         widgetName:"Pricing",
         widgetFunc: (props) => <Pricing {...props}/>
+      },{
+        widgetName:"PriceFeedBack",
+        widgetFunc: (props) => <PriceFeedBack {...props}/>
       },{
         widgetName:"servicesLinks",
         widgetFunc: (props) => <LinkList {...props}/>,

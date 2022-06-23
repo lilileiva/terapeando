@@ -10,7 +10,7 @@ class ActionProvider{
     //la lista de ls servicios en el chat
     handleServicesList = () => {
         const message = this.createChatBotMessage(
-            "Fantastico, Estos son algunos de nuestros servicios ofrecidos : ",{
+            "Fantastico, Estos son algunos de nuestros servicios ofrecidos ",{
                 widget:"servicesLinks"
             }
         );
