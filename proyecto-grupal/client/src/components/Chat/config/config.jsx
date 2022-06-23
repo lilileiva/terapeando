@@ -53,7 +53,7 @@ const config = {
       },//muestro las opciones de contacto a travez del componente link list
       {
         widgetName:"contactLinks",
-        widgetFunc: (props) => <LinkList/>,
+        widgetFunc: (props) => <LinkList {...props}/>,
         props:{
           options:[
             {
