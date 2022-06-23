@@ -50,7 +50,7 @@ function FormEditClient() {
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage, 
     DNI: psychologistDetails.DNI,  
     Licencia: psychologistDetails.License,
-    about: psychologistDetails.about
+    about: psychologistDetails.about,
   })
  
   const tokenClient = window.localStorage.getItem('tokenClient')

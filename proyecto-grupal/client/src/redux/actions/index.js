@@ -320,16 +320,6 @@ export function editUserPsichologist( updatedUserPsychologist) {
   }
 }
 
-export function registerConfirmationEmail() {
-  return async function () {
-    try {
-      axios.post(`${baseURL}/rememberpassword/confirmation-email`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
 // filtrar psicologs por  especialidad
 
 export function getBySpecialties(payload) {
