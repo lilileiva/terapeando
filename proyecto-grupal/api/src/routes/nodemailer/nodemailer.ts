@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import userPsychologistModel from "../../models/userPsychologist";
+import userClientModel from "../../models/userClients";
 import * as nodemailer from "nodemailer";
 const bcrypt = require('bcryptjs');
 import * as crypto from "crypto";
@@ -11,8 +12,17 @@ const ForgotPassword = async (req: Request, res: Response) => {
   const { email } = req.body;
 
   try {
+    
+    
+    const userPsychologist = await userPsychologistModel.find({ "email": email })
+    const userClient = await userClientModel.find({ "email": email })
 
-    const user = await userPsychologistModel.find({ "email": email })
+
+    const user = userPsychologist ?  userPsychologist : userClient ?  res.status(404).send('email not found in database') : null
+
+     
+
+    //const user = await userPsychologistModel.find({ "email": email })
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -56,11 +66,20 @@ const ForgotPassword = async (req: Request, res: Response) => {
 
           } else {
 
-            const update = await userPsychologistModel.findByIdAndUpdate(user[0]._id,
-              { password: hashedPassword },
-              { new: true });
-            res.status(201).send("email sended");
+                 if(userPsychologist){
 
+                   const update = await userPsychologistModel.findByIdAndUpdate(userPsychologist[0]._id,
+                     { password: hashedPassword },
+                     { new: true });
+                   res.status(201).send("email sended");
+
+                 } else {
+                  const update = await userPsychologistModel.findByIdAndUpdate(userClient[0]._id,
+                    { password: hashedPassword },
+                    { new: true });
+                  res.status(201).send("email sended");
+
+                 }
           }
         })
       })
