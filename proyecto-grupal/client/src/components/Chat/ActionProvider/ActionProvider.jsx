@@ -21,12 +21,7 @@ class ActionProvider{
         const message = this.createChatBotMessage("Te amo tambien!")
         this.updateChatbotState(message);
     }
-    handleBlog = () => {
-        const message = this.createChatBotMessage("Genial! Este es el blog",{
-            widget:"blog"
-        })
-        this.updateChatbotState(message)
-    }
+    
     //para ver las diferentes comunicaciones de la plataforma
     handleHire = () => {
         const message = this.createChatBotMessage("Genial! Estos son las opciones para contactarnos",{
