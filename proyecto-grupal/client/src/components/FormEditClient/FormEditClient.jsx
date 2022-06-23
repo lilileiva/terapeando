@@ -21,6 +21,7 @@ import { editClient, editUserPsichologist, getUserClient, getUserPsychologistOne
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
+import NavbarHome from '../NavbarHome/NavbarHome.jsx'
 
 const regNames = /^[A-Za-z]+$/;
 const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -110,6 +111,7 @@ function FormEditClient() {
 
   return (
     <>
+    <NavbarHome />
       {
         tokenClient 
           ? (
