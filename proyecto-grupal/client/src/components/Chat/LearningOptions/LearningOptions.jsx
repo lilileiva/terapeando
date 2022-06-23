@@ -13,10 +13,6 @@ const LearningOptions = (props) => {
             handler: props.actionProvider.handlePricing,
             id:2
         },{
-            text:"Blog",
-            handler: props.actionProvider.handleBlog,
-            id:3
-        },{
             text:"Contactanos",
             handler: props.actionProvider.handleHire,
             id:4
