@@ -53,7 +53,7 @@ export default function App() {
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />
-        <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
+        <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />
@@ -73,8 +73,8 @@ export default function App() {
         <Route path='/adminpanel/clients/:idUserClient' element={<AdminClientDetails />} />
         <Route path='/adminpanel/clients/edit/:idUserClient' element={<AdminClientEdit />} />
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
-        <Route path='/adminpanel/psychologists/:IdUserPsichologist' element={<AdminPsichologistDetails/>} />
-        <Route path='/adminpanel/psychologists/edit/:idUserPsichologist' element={<AdminPsichologistEdit />} />
+        <Route path='/adminpanel/psychologists/:IdUserPsychologist' element={<AdminPsichologistDetails/>} />
+        <Route path='/adminpanel/psychologists/edit/:IdUserPsychologist' element={<AdminPsichologistEdit />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />

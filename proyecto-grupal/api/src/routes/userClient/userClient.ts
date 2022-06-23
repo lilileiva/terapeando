@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import userClientModel from "../../models/userClients";
-import userPsychologistModel from "../../models/userPsychologist"
+import userPsychologistModel from "../../models/userPsychologist";
+
 
 const getUserClient = async (req: Request, res: Response) => {
    try {
@@ -12,15 +13,6 @@ const getUserClient = async (req: Request, res: Response) => {
    }
 };
 
-const getPsychologistDetails = async (req: Request, res: Response) => {
-   const {IdUserPsychologist} = req.params
-   try {
-     const psychologistUser = await userPsychologistModel.findById(IdUserPsychologist, '-password');
-     res.status(200).json(psychologistUser)
-   } catch (err) {
-     res.status(404).json({ data: err })
-   }
- }
 
 const createUserClient = async (req: Request, res: Response) => {
    const {
@@ -76,12 +68,21 @@ const putUserClient = async (req: Request, res: Response) => {
    }
 }
 
+const getPsychologistDetails = async (req: Request, res: Response) => {
+   const { IdUserPsichologist } = req.params
+   try {
+     const psychologistUser = await userPsychologistModel.findById(IdUserPsichologist, '-password');
+     res.status(200).json(psychologistUser)
+   } catch (err) {
+     res.status(404).json({ data: err })
+   }
+ }
 
 
 module.exports = {
    getUserClient,
    createUserClient,
    deleteUserClient,
-   getPsychologistDetails,
-   putUserClient
+   putUserClient,
+   getPsychologistDetails
 };

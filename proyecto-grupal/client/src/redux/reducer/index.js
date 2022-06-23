@@ -10,6 +10,7 @@ import {
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
+  GET_POSTS_BY_PSYCHOLOGIST_ID,
   PUT_POSTS,
   CLEAR_CLIENT,
   GET_PAYMENT,
@@ -96,20 +97,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload,
       };
-    case "GET_POSTS_AUTHORS":
+    case "GET_PSYCHOLOGISTS_DETAILS":
       return {
         ...state,
-        allUsersPsichologists: action.payload,
+        userPsichologistDetail: action.payload
       };
     case "GET_PSYCHOLOGISTS_ONE":
       return {
         ...state,
         psychologistProfile: action.payload,
-      };
-    case "GET_PSYCHOLOGISTS_DETAILS":
-      return {
-        ...state,
-        userPsichologistDetail: action.payload,
       };
     case "GET_BY_CATEGORY_POST":
       return {
@@ -156,6 +152,11 @@ function rootReducer(state = initialState, action) {
         postsCopy: action.payload,
 
       };
+    case GET_POSTS_BY_PSYCHOLOGIST_ID:
+      return {
+        ...state,
+        posts: action.payload
+      };
     case "GET_POST_DETAIL":
       return {
         ...state,
@@ -175,7 +176,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
-        posts: [],
+        posts: []
       };
     case "GET_CATEGORIES":
       return {
@@ -190,13 +191,13 @@ function rootReducer(state = initialState, action) {
     case "CREATE_POST":
       return {
         ...state,
-        posts: [...state.posts, action.payload],
-      };
+        posts: [...state.posts, action.payload]
+      }
     case PUT_POSTS:
       return {
         ...state,
-        posts: [...state.posts, action.payload],
-      };
+        posts: [...state.posts, action.payload]
+      }
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:

@@ -1,8 +1,12 @@
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './notfoundContainer.css'
 
+
 export default function NotFound() {
+
+  const navigate = useNavigate()
+
   return (
     <div className='notfoundContainer'>
       <Box textAlign="center" py={10} px={6}>
@@ -21,14 +25,16 @@ export default function NotFound() {
           Esta página no existe! Volve a tu perfil o ingresa para seguir navegando.
         </Text>
 
-        <Link to='/home'>
-          <Button
-            bgGradient="linear(to-r, green.300, green.400, green.500)"
-            color="white"
-            variant="solid">
-            Go to Home
-          </Button>
-        </Link>
+        {/* <Link to='/home'> */}
+        <Button
+          bgGradient="linear(to-r, green.300, green.400, green.500)"
+          color="white"
+          variant="solid"
+          onClick={() => navigate(-1)}
+        >
+          Volver
+        </Button>
+        {/* </Link> */}
       </Box>
     </div>
   );
