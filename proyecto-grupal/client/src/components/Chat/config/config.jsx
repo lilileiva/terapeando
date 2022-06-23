@@ -50,6 +50,23 @@ const config = {
             }
           ]
         }
+      },//muestro las opciones de contacto a travez del componente link list
+      {
+        widgetName:"contactLinks",
+        widgetFunc: (props) => <LinkList/>,
+        props:{
+          options:[
+            {
+              text:"Sitio Web",
+              url:"http://localhost:3000",
+              id:1,
+            },{
+              text: "Email",
+              url:"mailto:terapeando@gmail.com?Subject=ChatBot Query",
+              id:2
+            }
+          ]
+        }
       }
     ]
 }
