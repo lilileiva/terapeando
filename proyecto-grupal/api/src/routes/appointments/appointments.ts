@@ -8,18 +8,26 @@ const postAppointmentModel = async (req: Request, res: Response) => {
     if (typeof date !== "string" ||  typeof hour !== "string" || (type !== "Virtual" && type !== "Presencial")) {
         res.status(404).send("some of the data is not a string")
     } else {
-        try {
-            const appointment = await appointmentModel.create({
-                date,
-                hour,
-                type,
-                IdUserClient: req.user,
-                IdUserPsychologist
-            })
-            console.log(appointment)
-            res.status(201).send("appointment created successfully")
-        } catch (err) {
-            res.status(404).json({ error: err })
+        const appointmentExist = await appointmentModel.findOne({
+            'date': date,
+            'IdUserClient': req.user
+         })
+        if (!appointmentExist) {
+            try {
+                const appointment = await appointmentModel.create({
+                    date,
+                    hour,
+                    type,
+                    IdUserClient: req.user,
+                    IdUserPsychologist
+                })
+                console.log(appointment)
+                res.status(201).send("appointment created successfully")
+            } catch (err) {
+                res.status(404).json({ error: err })
+            }
+        } else {
+            res.status(404).json('Ya has reservado una cita en esta fecha')            
         }
     }
 }

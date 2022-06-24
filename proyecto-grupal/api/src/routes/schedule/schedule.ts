@@ -30,7 +30,7 @@ const createSchedule = async (req: Request, res: Response) => {
 const getSchedule = async (req: Request, res: Response) => {
    const { IdUserPsychologist } = req.params
    try {
-      const schedule = await scheduleModel.find({ 'idUserPsychologist': IdUserPsychologist });
+      const schedule = await scheduleModel.find({ 'IdUserPsychologist': IdUserPsychologist });
       console.log(schedule)
       res.status(200).json(schedule)
    } catch (err) {
@@ -43,7 +43,7 @@ const getScheduleByDate = async (req: Request, res: Response) => {
    const { IdUserPsychologist } = req.params
    const { date } = req.body
    try {
-      const schedule = await scheduleModel.find({ 'date': date, 'idUserPsychologist': IdUserPsychologist });
+      const schedule = await scheduleModel.find({ 'date': date, 'IdUserPsychologist': IdUserPsychologist });
       console.log(schedule)
       res.status(200).json(schedule)
    } catch (err) {

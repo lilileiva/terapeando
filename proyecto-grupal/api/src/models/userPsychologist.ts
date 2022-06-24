@@ -104,12 +104,6 @@ export class userPsychologist {
   @prop()
   role: string
 
-  /*------------------------*/
-  @prop({ type: String, required: true, trim: true })
-  date: string
-
-  @prop({ type: String, required: true, trim: true })
-  hours: string[]
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)
