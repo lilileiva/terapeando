@@ -75,7 +75,7 @@ const config = {
       }
     ],
     customComponents: {
-      // Replaces the default bot avatar
+      // remplaso el avatar defualt de chatbot
       botAvatar: (props) => <Avatar {...props} />,
     },
   }

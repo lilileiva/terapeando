@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState}from 'react'
 import {Chatbot} from 'react-chatbot-kit'
 import "./Chat.css"
 import config from './config/config.jsx';
@@ -7,15 +7,25 @@ import MessageParser from "./MessageParser/MessageParser.jsx"
 import avatar from "../../assets/logo-01.png"
 import 'react-chatbot-kit/build/main.css';
 function Chat(){
+    //me creo un estado para mostrar el chat o no
+    const [showChat, toggleChat] = useState(false)
+
     return(
         <div className='chatApp'>
             <header className='chatApp-header'>
-                <Chatbot
-                    config={config}
-                    actionProvider={ActionProvider}
-                    messageParser={MessageParser}
-                />
-                <img className='chat-img' src={avatar} alt="logo" />
+                {showChat && (
+                    <>
+                        <Chatbot
+                            config={config}
+                            actionProvider={ActionProvider}
+                            messageParser={MessageParser}
+                        />
+                    </>
+                    )
+                }
+                <button className='chat-button' onClick={() => toggleChat((prev) => !prev)}>
+                    <img className='chat-img' src={avatar} alt="logo" />
+                </button>
             </header>
         </div>
     )
