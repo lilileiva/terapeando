@@ -313,8 +313,11 @@ useEffect(() => {
                                                 onFocus={(e) => (e.target.type = "date")}
                                                 onChange={handleInputChange} />
                                             {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
-                                            
-                                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
+                                       <>
+                                       {userClientBtn ? (
+                                        <>
+                                             
+                                             <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
                                                 {
                                                     countries.map(c => (
                                                         <option key={c.label} value={c.label}>{c.label}</option>
@@ -323,6 +326,10 @@ useEffect(() => {
                                             </Select>
                                             {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
                                     
+                                        </>
+                                       ) 
+                                       : null}
+                                       </>
                                             {
                                                 !userClientBtn
                                                     ? (

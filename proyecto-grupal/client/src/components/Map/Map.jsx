@@ -15,11 +15,11 @@ function Map({lat, lgn}) {
   })
   const center = { lat: Number(lat), lng: Number(lgn) }
   const [map, setMap] = useState(null)
-  const [zoom, setZoom] = useState(10)
+  const [zoom, setZoom] = useState(0)
 
 useEffect(() => {
-  setZoom(10)
-}, [zoom])
+  setZoom(15)
+}, [])
 
 
   const onLoad = React.useCallback(function callback(map) {

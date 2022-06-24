@@ -51,14 +51,15 @@ function FormEditClient() {
   const navigate = useNavigate();
   // const { idUserClient } = useParams();
   const clientDetails = useSelector((state) => state.userClientDetail)
+  console.log(clientDetails)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
   const [input, setInput] = useState({
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
-    country: clientDetails.country || psychologistDetails.country,
-    country: psychologistDetails.location,
+    country: clientDetails.country,
+    location: '',
     latitude: '',
     longitude: '',
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
@@ -107,8 +108,6 @@ function FormEditClient() {
       } else if (tokenPsychologist) {
         dispatch(editUserPsichologist(input))
       }
-
-      console.log(input)
       setInput({
         firstName: '',
         lastName: '',
@@ -139,8 +138,6 @@ function FormEditClient() {
     }
   return (
     <>
-    <NavbarHome />
-
     <Stack className='ClientDetailsContainer'>
 
       {
