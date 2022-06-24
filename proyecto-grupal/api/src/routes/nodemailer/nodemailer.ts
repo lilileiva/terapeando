@@ -11,18 +11,16 @@ const ForgotPassword = async (req: Request, res: Response) => {
 
   const { email } = req.body;
 
+
+  let userPsychologist = await userPsychologistModel.find({ "email": email })
+  let userClient = await userClientModel.find({ "email": email })
+
+
   try {
-    
-    
-    const userPsychologist = await userPsychologistModel.find({ "email": email })
-    const userClient = await userClientModel.find({ "email": email })
 
+   
+    const user = userPsychologist.length < 1 ? userClient : userPsychologist
 
-    const user = userPsychologist ?  userPsychologist : userClient ?  res.status(404).send('email not found in database') : null
-
-     
-
-    //const user = await userPsychologistModel.find({ "email": email })
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -45,15 +43,14 @@ const ForgotPassword = async (req: Request, res: Response) => {
 
     const newPassword = crypto.randomBytes(8).toString('hex')
 
-
     try {
 
       const sendEmail = await transporter.sendMail({
         from: `Terapeando <terapeandoportal@gmail.com>`,
-        to: 'sergiosalgado624@gmail.com', // aca va el email que llega por body
+        to: `${email}`,
         subject: "Recuperación de contraseña Terapeando",
-        text: `Hola tu nueva contraseña para iniciar sesión es: ${newPassword}`,
-        html: `<strong>Hola! tu nueva contraseña para iniciar sesión es: ${newPassword} </strong><a href= http://localhost:3000/signin>ir a Terapeando</a>`,
+        text: `Hola ${user[0].firstName} tu nueva contraseña para iniciar sesión es: ${newPassword}`,
+        html: `<strong>Hola! ${user[0].firstName}  tu nueva contraseña para iniciar sesión es: ${newPassword} </strong><a href= http://localhost:3000/signin>ir a Terapeando</a>`,
         headers: { 'x-myheader': 'test header' }
       }).then(async () => {
 
@@ -61,26 +58,24 @@ const ForgotPassword = async (req: Request, res: Response) => {
 
         bcrypt.hash(newPassword, saltRounds, async (error: any, hashedPassword: any) => {
 
-          if (error) {
-            res.status(401).json({ msg: 'error hash' });
+          if (user[0].role === "psychologist") {
+            console.log({ 'aqui llego un psicologo': userPsychologist[0].role })
+
+            const update = await userPsychologistModel.findByIdAndUpdate(userPsychologist[0]._id,
+              { password: hashedPassword },
+              { new: true });
+            res.status(201).send("email sended");
 
           } else {
+            console.log({ 'aqui llego un paciente': userClient[0].role })
+            const update = await userClientModel.findByIdAndUpdate(userClient[0]._id,
+              { password: hashedPassword },
+              { new: true });
+            res.status(201).send("email sended");
 
-                 if(userPsychologist){
+          } 
+          
 
-                   const update = await userPsychologistModel.findByIdAndUpdate(userPsychologist[0]._id,
-                     { password: hashedPassword },
-                     { new: true });
-                   res.status(201).send("email sended");
-
-                 } else {
-                  const update = await userPsychologistModel.findByIdAndUpdate(userClient[0]._id,
-                    { password: hashedPassword },
-                    { new: true });
-                  res.status(201).send("email sended");
-
-                 }
-          }
         })
       })
 
@@ -106,7 +101,7 @@ const registerConfirmationEmail = async (req: Request, res: Response) => {
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
-    auth: {   
+    auth: {
       user: "terapeandoportal@gmail.com",
       pass: "pezufzhvclfbmuti",
     },
