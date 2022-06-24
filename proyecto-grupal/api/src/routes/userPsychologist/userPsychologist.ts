@@ -130,7 +130,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         status: "Pendiente",
         about,
         education,
-        role: "psychologist",
+        role: 'psychologist'
       });
       res.status(201).send("Welcome to our community, now you can sign in");
       //----email confirmation

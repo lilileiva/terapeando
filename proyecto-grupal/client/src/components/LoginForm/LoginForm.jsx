@@ -24,8 +24,6 @@ import Login from "../LogGoogle/LogInGoogle";
 import axios from "axios";
 import { loginClient } from "../../redux/actions";
 import { LOCAL_HOST } from "../../redux/actions/types";
-import ForgotPassword from '../ForgotPassword/ForgotPassword.jsx'
-
 const clientId =
   "451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com";
 const baseURL = LOCAL_HOST;
@@ -86,7 +84,6 @@ function LoginForm() {
 
   const [isSubmit, setIsSubmit] = useState(false);
 
-
   const handleInputSubmit = async (e) => {
     e.preventDefault();
     setFormErrors(validate(signinForm));
@@ -103,8 +100,6 @@ function LoginForm() {
         );
         const token = response.data.token;
         window.localStorage.setItem("tokenClient", token);
-        // console.log('Este es el .data del response', response.data)
-        // console.log('Este es todo el token', token)
         if (response.status === 200) {
           Swal.fire({
             position: "top-end",
@@ -134,8 +129,6 @@ function LoginForm() {
         );
         const token = response.data.token;
         window.localStorage.setItem("tokenPsychologist", token);
-        // console.log('Este es el .data del response', response.data)
-        // console.log('Este es todo el token', token)
         if (response.status === 200) {
           Swal.fire({
             position: "top-end",
@@ -165,194 +158,158 @@ function LoginForm() {
     afterSubmit();
   }
 
-    const tokenClient = window.localStorage.getItem('tokenClient')
-    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  const tokenClient = window.localStorage.getItem("tokenClient");
+  const tokenPsychologist = window.localStorage.getItem("tokenPsychologist");
 
-    return (
-        <div className='background'>
-            {
-                tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />
-            }
-            <Container height='inherit' padding='2em' zIndex='1' pb='10%' centerContent>
-                {
-                    tokenClient || tokenPsychologist
-                        ? (
-                            <Stack height='inherit'>
-                                <Box minWidth='container.sm' bg='green.100' color='#262626' borderRadius='1em' paddingTop='2em' paddingBottom='2em' align='center'>
-                                    <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                                        Ya has iniciado sesión
-                                    </Text>
-                                    <Link to='/home'>
-                                        <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}>
-                                            Ir al home
-                                        </Button>
-                                    </Link>
-                                </Box>
-                            </Stack>
-                        ) : (
-                            <>
-                                <Text fontSize='2xl' color={'#285e61'} marginBottom='1em'>
-                                    Inicia sesión
-                                </Text>
+  return (
+    <div className="background">
+      {tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />}
+      <Container
+        height="inherit"
+        padding="2em"
+        zIndex="1"
+        pb="10%"
+        centerContent
+      >
+        {tokenClient || tokenPsychologist ? (
+          <Stack height="inherit">
+            <Box
+              minWidth="container.sm"
+              bg="green.100"
+              color="#262626"
+              borderRadius="1em"
+              paddingTop="2em"
+              paddingBottom="2em"
+              align="center"
+            >
+              <Text fontSize="2xl" color={"#285e61"} marginBottom="1em">
+                Ya has iniciado sesión
+              </Text>
+              <Link to="/home">
+                <Button
+                  type="submit"
+                  bg={"#63caa7"}
+                  color="white"
+                  variant="solid"
+                  _hover={[{ color: "#63caa7" }, { bg: "white" }]}
+                >
+                  Ir al home
+                </Button>
+              </Link>
+            </Box>
+          </Stack>
+        ) : (
+          <>
+            <Text fontSize="2xl" color={"#285e61"} marginBottom="1em">
+              Inicia sesión
+            </Text>
 
-                                <Box minWidth='container.sm' direction='row' align='center' >
-                                    <Button
-                                        bg={userClientBtn ? 'green.100' : 'blackAlpha.200'}
-                                        variant='solid'
-                                        width='50%'
-                                        color='teal.800'
-                                        onClick={() => setUserClientBtn(true)}
-                                    >
-                                        Usuario
-                                    </Button>
-                                    <Button
-                                        bg={userClientBtn ? 'blackAlpha.200' : 'green.100'}
-                                        variant='solid'
-                                        width='50%'
-                                        color='teal.800'
-                                        onClick={() => setUserClientBtn(false)}
-                                    >
-                                        Psicólogo
-                                    </Button>
-                                </Box>
+            <Box minWidth="container.sm" direction="row" align="center">
+              <Button
+                bg={userClientBtn ? "green.100" : "blackAlpha.200"}
+                variant="solid"
+                width="50%"
+                color="teal.800"
+                onClick={() => setUserClientBtn(true)}
+              >
+                Usuario
+              </Button>
+              <Button
+                bg={userClientBtn ? "blackAlpha.200" : "green.100"}
+                variant="solid"
+                width="50%"
+                color="teal.800"
+                onClick={() => setUserClientBtn(false)}
+              >
+                Psicólogo
+              </Button>
+            </Box>
 
-                                <Box minWidth='container.sm' bg='green.100' color='#262626' borderBottomRadius='1em' paddingTop='0' paddingBottom='2em' align='center'>
-                                    <Box direction='column' align='center' width='60%'>
-                                        <form onSubmit={handleInputSubmit}>
+            <Box
+              minWidth="container.sm"
+              bg="green.100"
+              color="#262626"
+              borderBottomRadius="1em"
+              paddingTop="0"
+              paddingBottom="2em"
+              align="center"
+            >
+              <Box direction="column" align="center" width="60%">
+                <form onSubmit={handleInputSubmit}>
+                  <Input
+                    name="email"
+                    variant="flushed"
+                    placeholder=" Email"
+                    bg="white"
+                    marginTop="3em"
+                    onChange={handleInputChange}
+                  />
+                  {formErrors.email && (
+                    <Text fontSize="sm" color="teal.500">
+                      {formErrors.email}
+                    </Text>
+                  )}
 
-                                            <Input name='email' variant='flushed' placeholder=' Email' bg='white' marginTop='3em' onChange={handleInputChange} />
-                                            {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
+                  <InputGroup
+                    variant="flushed"
+                    size="md"
+                    bg="white"
+                    marginTop="2em"
+                  >
+                    <Input
+                      name="password"
+                      pr="4.5rem"
+                      type={show ? "text" : "password"}
+                      placeholder=" Contraseña"
+                      onChange={handleInputChange}
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleClick}>
+                        {show ? "Hide" : "Show"}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  {formErrors.password && (
+                    <Text fontSize="sm" color="teal.500">
+                      {formErrors.password}
+                    </Text>
+                  )}
 
-                                            <InputGroup variant='flushed' size='md' bg='white' marginTop='2em' >
-                                                <Input
-                                                    name='password'
-                                                    pr='4.5rem'
-                                                    type={show ? 'text' : 'password'}
-                                                    placeholder=' Contraseña'
-                                                    onChange={handleInputChange}
-                                                />
-                                                <InputRightElement width='4.5rem'>
-                                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                                        {show ? 'Hide' : 'Show'}
-                                                    </Button>
-                                                </InputRightElement>
-                                            </InputGroup>
-                                            {formErrors.password && <Text fontSize='sm' color='teal.500'>{formErrors.password}</Text>}
+                  <Stack direction="column" align="center">
+                    <Button
+                      type="submit"
+                      bg={"#63caa7"}
+                      color="white"
+                      variant="solid"
+                      _hover={[{ color: "#63caa7" }, { bg: "white" }]}
+                      marginTop="3em"
+                    >
+                      Iniciar sesión
+                    </Button>
 
-                                            <Stack direction='column' align='center'>
-                                                <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='3em'>
-                                                    Iniciar sesión
-                                                </Button>
+                    {/* <Login mt='1em' /> */}
+                    {/* <Button bg='green.100' color={'#63caa7'}> */}
+                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                    {/* </Button> */}
 
-                                                {/* <Login mt='1em' /> */}
-                                                {/* <Button bg='green.100' color={'#63caa7'}> */}
-                                                {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                                                {/* </Button> */}
+                    <Button
+                      bg="green.100"
+                      color={"#285e61"}
+                      onClick={() => navigate("/signup")}
+                    >
+                      ¿Aún no tienes una cuenta?
+                    </Button>
+                  </Stack>
+                </form>
+              </Box>
+            </Box>
+          </>
+        )}
+      </Container>
 
-                                                <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
-                                                    ¿Aún no tienes una cuenta?
-                                                </Button>
-                                            </Stack>
-                                        </form>
-
-                                    </Box>
-                                </Box>
-                            </>
-                        )
-                }
-            </Container >
-
-            <Footer />
-        </div >
-    )
+      <Footer />
+    </div>
+  );
 }
-
-//             <Box
-//               minWidth="container.sm"
-//               bg="green.100"
-//               color="#262626"
-//               borderBottomRadius="1em"
-//               paddingTop="0"
-//               paddingBottom="2em"
-//               align="center"
-//             >
-//               <Box direction="column" align="center" width="60%">
-//                 <form onSubmit={handleInputSubmit}>
-//                   <Input
-//                     name="email"
-//                     variant="flushed"
-//                     placeholder=" Email"
-//                     bg="white"
-//                     marginTop="3em"
-//                     onChange={handleInputChange}
-//                   />
-//                   {formErrors.email && (
-//                     <Text fontSize="sm" color="teal.500">
-//                       {formErrors.email}
-//                     </Text>
-//                   )}
-
-//                   <InputGroup
-//                     variant="flushed"
-//                     size="md"
-//                     bg="white"
-//                     marginTop="2em"
-//                   >
-//                     <Input
-//                       name="password"
-//                       pr="4.5rem"
-//                       type={show ? "text" : "password"}
-//                       placeholder=" Contraseña"
-//                       onChange={handleInputChange}
-//                     />
-//                     <InputRightElement width="4.5rem">
-//                       <Button h="1.75rem" size="sm" onClick={handleClick}>
-//                         {show ? "Hide" : "Show"}
-//                       </Button>
-//                     </InputRightElement>
-//                   </InputGroup>
-//                   {formErrors.password && (
-//                     <Text fontSize="sm" color="teal.500">
-//                       {formErrors.password}
-//                     </Text>
-//                   )}
-
-//                   <Stack direction="column" align="center">
-//                     <Button
-//                       type="submit"
-//                       bg={"#63caa7"}
-//                       color="white"
-//                       variant="solid"
-//                       _hover={[{ color: "#63caa7" }, { bg: "white" }]}
-//                       marginTop="3em"
-//                     >
-//                       Iniciar sesión
-//                     </Button>
-
-//                     <Login mt="1em" />
-//                     {/* <Button bg='green.100' color={'#63caa7'}> */}
-//                     {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-//                     {/* </Button> */}
-
-//                     <Button
-//                       bg="green.100"
-//                       color={"#285e61"}
-//                       onClick={() => navigate("/signup")}
-//                     >
-//                       ¿Aún no tienes una cuenta?
-//                     </Button>
-//                     {<ForgotPassword />}
-//                   </Stack>
-//                 </form>
-//               </Box>
-//             </Box>
-//           </>
-//         )}
-//       </Container>
-
-//       <Footer />
-//     </div>
-//   );
-// }
 
 export default LoginForm;

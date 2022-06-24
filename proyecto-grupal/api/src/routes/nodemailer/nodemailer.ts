@@ -42,7 +42,7 @@ const ForgotPassword = async (req: Request, res: Response) => {
 
       const sendEmail = await transporter.sendMail({
         from: `Terapeando <terapeandoportal@gmail.com>`,
-        to: 'sergiosalgado624@gmail.com', // aca va el email que llega por body
+        to: `${email}`,
         subject: "Recuperación de contraseña Terapeando",
         text: `Hola ${user[0].firstName} tu nueva contraseña para iniciar sesión es: ${newPassword}`,
         html: `<strong>Hola! ${user[0].firstName}  tu nueva contraseña para iniciar sesión es: ${newPassword} </strong><a href= http://localhost:3000/signin>ir a Terapeando</a>`,

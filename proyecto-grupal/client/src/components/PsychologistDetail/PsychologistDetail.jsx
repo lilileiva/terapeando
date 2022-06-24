@@ -19,7 +19,7 @@ import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/acti
 
 
 export default function PsychologistDetail() {
-  const { IdUserPsychologist } = useParams();  
+  const { IdUserPsychologist } = useParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,7 +51,6 @@ export default function PsychologistDetail() {
   }, [dispatch, IdUserPsychologist]);
 
   const detail = useSelector((state) => state.userPsichologistDetail);
-  console.log('detail', detail)
   const posts = useSelector((state) => state.posts)
   let postDate;
 
@@ -98,7 +97,6 @@ export default function PsychologistDetail() {
                               ? <Loader />
                               : <Stack direction='column' width='100%' height='100%' pl='10%' pr='10%'>
                                 <SimpleGrid columns={1} textAlign='center' spacingX="10" spacingY="20px">
-                                  {/* <Stack direction='row'> */}
                                   <Flex direction='row' className="BoxDetail" borderRadius={'10px'} p='1em' width='100%' height='fit-content' justify='space-around' align='center'>
                                     <Box className="BoxDetailImage" backgroundColor={'transparent'} height="15em" width='15em'>
                                       <Avatar src={detail.profileImage} size='full' />
@@ -108,9 +106,7 @@ export default function PsychologistDetail() {
                                       <Stack direction='row' width='100%' justify='space-around'>
                                         <Text fontSize='2xl'>{`📍 ${detail.location}`}</Text>
                                         <Text fontSize='2xl'>{`📩 ${detail.email}`}</Text>
-                                        <Text fontSize='2xl'>{`🎓 ${detail.education}`}
-                                          {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
-                                        </Text>
+                                        <Text fontSize='2xl'>{`🎓 ${detail.education}`}</Text>
                                       </Stack>
                                       <Stack direction='row' width='100%' pt='2em'>
                                         <Button width='50%' bg='#63caa7' color='white' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={handleCalendar}>
@@ -121,14 +117,7 @@ export default function PsychologistDetail() {
                                         </Button>
                                       </Stack>
                                     </Stack>
-                                    {/* <Map /> */}
                                   </Flex>
-                                  {/* </Stack> */}
-                                  {/* <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-                                  <Text fontSize='xl'>
-                                    {` 🎂 ${detail.birthDate}`}
-                                  </Text>
-                                </Box> */}
                                   <Flex className="BoxDetail" p='1em' justifyContent='space-around' borderRadius={'10px'} height={'fit-content'} alignContent='center' alignItems={'center'}>
                                     <Box borderRadius={'10px'} height="fit-content">
                                       <Text fontSize='xl'>
@@ -171,7 +160,9 @@ export default function PsychologistDetail() {
                                               </Link>
                                             </>
                                           ))
-                                          : <Text>No hay notas</Text>
+                                          : <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                                            <Text>No hay notas</Text>
+                                          </Box>
                                       }
                                     </Stack>
                                   </Box>
@@ -203,20 +194,19 @@ export default function PsychologistDetail() {
                         profileImage={detail.profileImage}
                         rating={detail.rating}
                         IdUserPsychologist={detail._id}
-                        setCalendar={setCalendar}                        
+                        setCalendar={setCalendar}
                       />
                     </div>
                     : null
                 }
                 {
-
                   showMap ? (
                     <div className="map">
                       <Stack direction='column' bg='white' pb='2em' pr='2em' pl='2em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                         <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
                           <CloseIcon cursor='pointer' onClick={() => setShowMap(false)} />
                         </Stack>
-                        <Map lng={detail.longitude} lat={detail.latitude} />
+                        <Map lat={detail.latitude} lgn={detail.longitude} />
                       </Stack>
                     </div>
                   ) : null

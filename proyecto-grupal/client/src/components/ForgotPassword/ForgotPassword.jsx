@@ -29,6 +29,7 @@ export default function Reviews() {
   };
 
   // estados del componente modal de chakra para el renderizado
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -40,7 +41,9 @@ export default function Reviews() {
   });
 
   // estado para habilitar o deshabilitar el boton de enviar review
+
   const [isSubmit, setIsSubmit] = useState(true);
+
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
@@ -58,6 +61,7 @@ export default function Reviews() {
   };
 
   // validando errores
+
   const validate = (input_email) => {
     let errors = {};
     if (!input_email.email) {
@@ -81,18 +85,23 @@ export default function Reviews() {
 
   useEffect(() => {
     setErrorsEmail(validate(input_email));
-    console.log(errorsEmail);
-    Object.keys(errorsEmail).length === 0
-      ? setIsSubmit(false)
-      : setIsSubmit(true);
-  }, [input_email, isSubmit]);
+  }, [input_email]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrorsEmail(validate(input_email));
     dispatch(forgotPassword(input_email));
     onClose();
-    Swal.fire("Hemos enviado una nueva contaseña a tu email", "", "success");
+    input_email.role === "client"
+      ? Swal.fire(
+          "Si tu email está registrado como paciente te llegara un email con la nueva contraseña",
+          "",
+          "success"
+        )
+      : Swal.fire(
+          "Si tu email está registrado como psicologo te llegara un email con la nueva contraseña",
+          "",
+          "success"
+        );
     setInput_email({
       email: "",
     });
@@ -155,7 +164,7 @@ export default function Reviews() {
           <ModalFooter>
             <Button
               type="submit"
-              disabled={isSubmit}
+              disabled={Object.keys(errorsEmail).length === 0 ? false : true}
               bg={"#285e61"}
               color="white"
               variant="outline"

@@ -6,10 +6,11 @@ const nodemailer = require("nodemailer");
 
 const getUserClient = async (req: Request, res: Response) => {
   try {
-    const userClient = await userClientModel.findById(req.user);
-    res.status(200).json(userClient);
-  } catch (err) {
-    res.status(404).send("There was an error...");
+     const userClient = await userClientModel.findById(req.user);
+     res.status(200).json(userClient);
+  }
+  catch (err) {
+     res.status(404).send(err);
   }
 };
 
@@ -102,15 +103,14 @@ const deleteUserClient = async (req: Request, res: Response) => {
 
 
 const putUserClient = async (req: Request, res: Response) => {
-  try {
-    const user = await userClientModel.findByIdAndUpdate(req.user, req.body, {
-      new: true,
-    });
-    res.status(200).send("Usuario editado correctamente");
-  } catch (err) {
-    res.status(404).send("There was an error...");
-  }
-};
+   try {
+      const user = await userClientModel.findByIdAndUpdate(req.user, req.body, { new: true })
+      res.status(200).send('Usuario editado correctamente')
+   } catch (err) {
+      res.status(404).send('There was an error...');
+   }
+}
+
 
 module.exports = {
   getUserClient,
