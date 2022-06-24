@@ -34,7 +34,13 @@ const postAppointmentModel = async (req: Request, res: Response) => {
 
 const getAppointmentAsPsychologist = async (req: Request, res: Response) => {
     try {
-        const appointment = await appointmentModel.find({ 'IdUserPsychologist': req.user });    
+        const appointment = await appointmentModel.find({ 'IdUserPsychologist': req.user }).populate("IdUserClient", {
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            country: 1,
+            Specialties: 1,
+          });    
         res.status(200).json(appointment)
      } catch (err) {
         console.log(err)
@@ -43,7 +49,14 @@ const getAppointmentAsPsychologist = async (req: Request, res: Response) => {
 
 const getAppointmentAsClient = async (req: Request, res: Response) => {
     try {
-        const appointment = await appointmentModel.find({ 'IdUserClient': req.user });    
+        const appointment = await appointmentModel.find({ 'IdUserClient': req.user }).populate("IdUserPsychologist", {
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            country: 1,
+            Specialties: 1,
+            profileImage: 1
+          });    ;    
         res.status(200).json(appointment)
      } catch (err) {
         console.log(err)
