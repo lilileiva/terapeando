@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import userClientModel from "../../models/userClients";
 import userPsychologistModel from "../../models/userPsychologist";
+
 const nodemailer = require("nodemailer");
 
 const getUserClient = async (req: Request, res: Response) => {
@@ -25,6 +26,20 @@ const getPsychologistDetails = async (req: Request, res: Response) => {
     res.status(404).json({ data: err });
   }
 };
+
+
+
+const getUserClient = async (req: Request, res: Response) => {
+   try {
+      const userClient = await userClientModel.findById(req.user);
+      res.status(200).json(userClient);
+   }
+   catch (err) {
+      res.status(404).send(err);
+   }
+};
+
+
 
 const createUserClient = async (req: Request, res: Response) => {
   const {
@@ -100,6 +115,7 @@ const deleteUserClient = async (req: Request, res: Response) => {
   }
 };
 
+
 const putUserClient = async (req: Request, res: Response) => {
   try {
     const user = await userClientModel.findByIdAndUpdate(req.user, req.body, {
@@ -115,6 +131,8 @@ module.exports = {
   getUserClient,
   createUserClient,
   deleteUserClient,
-  getPsychologistDetails,
+  getPsychologist
+  s,
   putUserClient,
+
 };
