@@ -5,17 +5,14 @@ import { Stack } from '@chakra-ui/react';
 
 const { REACT_APP_GOOGLE_MAP_API_KEY } = process.env;
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
-function Map() {
+
+function Map({lat, lgn}) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: `${REACT_APP_GOOGLE_MAP_API_KEY}`
   })
-
+  const center = { lat: Number(lat), lng: Number(lgn) }
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
@@ -34,7 +31,7 @@ function Map() {
       <GoogleMap
         mapContainerStyle={{ width: '25em', height: '25em' }}
         center={center}
-        zoom={20}
+        zoom={15}
         onLoad={onLoad}
         onUnmount={onUnmount}
         options={{ gestureHandling: "greedy" }}
