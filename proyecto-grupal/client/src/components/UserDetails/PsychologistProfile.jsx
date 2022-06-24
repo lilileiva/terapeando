@@ -4,6 +4,7 @@ import {
    DeleteIcon,
    EditIcon,
    ExternalLinkIcon,
+   HamburgerIcon,
  } from "@chakra-ui/icons";
  import {
    Heading,
@@ -18,30 +19,47 @@ import {
    Container,
    HStack,
    Spacer,
+   Menu,
+   MenuButton,
+   MenuList,
+   MenuItem,
+   IconButton,
  } from "@chakra-ui/react";
+ import {
+  format,
+  parseISO,
+  startOfToday,
+} from 'date-fns'
  import { useEffect } from "react";
  import { useDispatch, useSelector } from "react-redux";
  import { Link } from "react-router-dom";
- import { getUserPsychologistOne } from "../../redux/actions";
+ import { getAppointmentAsPsychologist, getUserPsychologistOne } from "../../redux/actions";
  import ChangePasswordModal from "../Modals/ChangePasswordModal";
  import Loader from "../Loader/Loader";
  import NotFound from '../404notFound/notFound.jsx';
-import AvailableTimes from "../Schedule/Calendar/AvailableTimes";
 import Calendar from "../Schedule/Calendar/Calendar";
+import Appointments from "../Appointments/Appointments";
  
  
  export default function PsychologistProfile() {
+  let today = startOfToday()
+
    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
  
    const dispatch = useDispatch();
  
    useEffect(() => {
-     if(tokenPsychologist) dispatch(getUserPsychologistOne())
+     if(tokenPsychologist) {
+      dispatch(getUserPsychologistOne())
+    }
    }, [dispatch, tokenPsychologist]);
  
    const psychologistDetails = useSelector((state) => state.psychologistProfile)
    console.log(psychologistDetails)
-   
+
+   const appoints = useSelector((state) => state.appointments)
+   console.log(appoints)
+
    let arr = Object.values(psychologistDetails)
  
    return (
@@ -53,31 +71,28 @@ import Calendar from "../Schedule/Calendar/Calendar";
                    ? (
                      <Loader />
                    ) : (
-                     <>
-                     <Link to={'/home'}>
+                     <VStack  bg={"gray.200"}
+                     boxShadow={"2xl"}
+                     rounded={"lg"}
+                     p={6}
+                     h={'100vh'}>
+                       <Link to={'/home'}>
                      <ArrowLeftIcon />
                      </Link>
-                     <HStack w={'100%'} justifyContent={'flex-start'} maxH={'100vh'}>
                          <HStack
-                           w={"15vw"}
-                           h={'100vh'}
-                           bg={"gray.200"}
-                           boxShadow={"2xl"}
-                           rounded={"lg"}
-                           p={6}
+                           w={"100vw"}                          
                            textAlign={"center"}
-                           justifyContent={'flex-start'}
+                           justifyContent={'center'}
                          >
                       <VStack>
                            <Avatar size={"2xl"} src={psychologistDetails.profileImage} alt={psychologistDetails.firstName} mb={4} />
                            <HStack justifyContent={'center'}>
                              <ChangePasswordModal mr={'5px'}/>
-                             <AvailableTimes />
                            </HStack>
                            <Text color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
                              {psychologistDetails.firstName} {psychologistDetails.lastName}{" "}
                            </Text>
-                           <VStack align={"center"} justify={"center"} direction={"row"} mt={6}>
+                           <HStack align={"center"} justify={"center"} direction={"row"} mt={6}>
                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                {psychologistDetails.email}
                              </Badge>
@@ -87,7 +102,7 @@ import Calendar from "../Schedule/Calendar/Calendar";
                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                {psychologistDetails.country}
                              </Badge>
-                      </VStack>
+                      </HStack>
                            <Button
                                maxW={"100px"}
                                fontSize={"sm"}
@@ -106,11 +121,7 @@ import Calendar from "../Schedule/Calendar/Calendar";
                              </Button>
                            </VStack>
                          </HStack>
-                         <Container w={'85vw'} alignItems={'center'}>
-                         <Calendar />
-                         </Container>
-                     </HStack>
-                     </>
+                     </VStack>
                    )
                }
              </>

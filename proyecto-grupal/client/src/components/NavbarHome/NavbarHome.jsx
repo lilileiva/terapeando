@@ -16,7 +16,7 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, AddIcon, CalendarIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
@@ -167,7 +167,7 @@ export default function NavbarHome() {
                         mr={4}
                         leftIcon={<AddIcon />}
                       >
-                        Administrar agenda
+                        Administrar agenda <CalendarIcon />
                       </Button>
                     </Link>
                   </>

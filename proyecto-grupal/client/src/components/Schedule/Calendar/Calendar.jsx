@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon, DeleteIcon, EditIcon, TriangleUpIcon, HamburgerIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import { Avatar, Badge, Button, Divider, Grid, GridItem, Heading, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
 import {
    add,
@@ -15,27 +15,12 @@ import {
    startOfToday,
  } from 'date-fns'
 import React, { useState } from 'react'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAppointmentAsPsychologist, getAppointmentAsClient } from '../../../redux/actions'
 
  const d = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
 
 function Calendar({idPsychologist}) {
 
    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-   const tokenClient = window.localStorage.getItem('tokenClient')
-
-   const dispatch = useDispatch()
-   useEffect(() => {
-      if(tokenPsychologist) dispatch(getAppointmentAsPsychologist())
-      if(tokenClient) dispatch(getAppointmentAsClient(idPsychologist))
-   },  [dispatch, tokenPsychologist, tokenClient])
-
-   const appoints = useSelector((state) => state.appointments)
-   console.log(tokenClient)
-   console.log(tokenPsychologist)
-   console.log(appoints)
 
    let today = startOfToday()
    let [selectedDay, setSelectedDay] = useState(today)
@@ -60,15 +45,14 @@ function Calendar({idPsychologist}) {
     }
 
 
-  let selectedDayMeetings = appoints.filter((a) =>
+/*   let selectedDayMeetings = appoints.filter((a) =>
     isSameDay(parseISO(a.startDateTime), selectedDay)
   )
-  console.log(selectedDayMeetings)
+  console.log(selectedDayMeetings) */
    
 
 
   return (
-      <HStack w={'100%'} p={'20px'}  alignItems={'space-between'} spacing={'100px'}>
    <VStack w={'100%'} alignItems={'space-between'}>
       <HStack justifyContent={'space-between'}>
       <Text>{format(firstDayCurrentMonth, 'MMMM yyyy')}</Text>
@@ -136,9 +120,9 @@ function Calendar({idPsychologist}) {
                <time dateTime={format(day, 'yyyy-MM-dd')}>
                       {format(day, 'd')}
                </time>
-               {appoints.some((appoint) => isSameDay(parseISO(appoint.startDatetime), day)) ? (
+               {/* {appoints.some((appoint) => isSameDay(parseISO(appoint.startDatetime), day)) ? (
                      <TriangleUpIcon color={'papayawhip'} />
-                    ) : <></>}
+                    ) : <></>} */}
                </Button>
             }
             </GridItem>
@@ -146,61 +130,6 @@ function Calendar({idPsychologist}) {
       </Grid>
 
    </VStack>
-   {tokenPsychologist ? 
-        ( <VStack w={'100%'} alignItems={'flex-start'} spacing={'25px'}>
-         <Heading fontSize={'md'}> 
-            Agenda del día{' '}
-                 <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
-                   {format(selectedDay, 'dd MMM, yyy')}
-                 </time>
-         </Heading>
-         <VStack w={'100%'} alignItems={'flex-start'}>
-         {selectedDayMeetings.length > 0 ? 
-            selectedDayMeetings.map((a) => (
-            <>
-            <HStack gap={'5px'} w={'100%'} justifyContent={'space-between'}>
-               <Avatar bg='teal.500' />
-               <Text>{a.nameClient}</Text>
-               <Badge colorScheme={'green'} fontSize={'md'}>
-            <time dateTime={a.startDateTime}>
-               {format(
-                  parseISO(a.startDateTime, new Date()) , 'h:mm a')}
-             </time>{' '}
-             -{' '}
-             <time dateTime={a.endDateTime}>
-             {format(
-                  parseISO(a.endDateTime, new Date()) , 'h:mm a')}
-             </time>
-            </Badge>
-            <Menu>
-     <MenuButton
-       as={IconButton}
-       aria-label='Options'
-       icon={<HamburgerIcon />}
-       variant='outline'
-       size='xs'
-     />
-     <MenuList>
-       <MenuItem icon={<DeleteIcon />}>
-         Cancelar Cita
-       </MenuItem>
-       <MenuItem icon={<EditIcon />}>
-         Reagendar
-       </MenuItem>
-     </MenuList>
-   </Menu>
-            </HStack>
-            
-            </>
-         )) : 
-         <Text>No tenes sesiones agendadas para hoy!</Text>
-   
-         }
-          </VStack>
-   </VStack>   ) : <></>
-}
-
-</HStack>
   )
 }
 

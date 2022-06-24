@@ -77,7 +77,7 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
                                         return (
                                             <>
                                                 <Button color='teal' onClick={() => handleDate(sch.date)}>
-                                                    {scheduleDate.getUTCMonth()}/{scheduleDate.getUTCDate()}
+                                                    {scheduleDate.getUTCMonth() + 1}/{scheduleDate.getUTCDate()}
                                                 </Button>
                                                 <Stack>
                                                     {

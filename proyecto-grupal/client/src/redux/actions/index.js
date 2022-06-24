@@ -273,21 +273,21 @@ export const getUserPsychologistDetails = (IdUserPsichologist) => {
   };
 };
 
-// export const getUserPsychologistDetails = (idUserPsychologist) => {
-//   return async function (dispatch) {
-//     try {
-//       const psychologist = await axios.get(
-//         `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-//       );
-//       dispatch({
-//         type: "GET_PSYCHOLOGISTS_DETAILS",
-//         payload: psychologist.data,
-//       });
-//     } catch (error) {
-//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-//     }
-//   };
-// };
+export const getUserPsychologistDetailsCli = (idUserPsychologist) => {
+   return async function (dispatch) {
+     try {
+       const psychologist = await axios.get(
+        `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+       );
+      dispatch({
+         type: "GET_PSYCHOLOGISTS_DETAILS",
+        payload: psychologist.data,
+       });
+    } catch (error) {
+      console.log(error)
+  }
+ };
+ };
 
 //Post para los user Psychologist
 export function createPsychologist(signupForm) {
@@ -818,7 +818,6 @@ export function putAppointment(body, id){
       Swal.fire('Ya cambiamos tu turno!', 'muy bien', 'success')
     } catch (e){
       console.log(e)
-      Swal.fire('No fue posible agendar otro turno', 'error')
     }
   }
 }

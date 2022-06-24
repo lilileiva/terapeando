@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import scheduleModel from "../../models/schedule";
+import scheduleModel from "../../models/Schedule";
 
 const createSchedule = async (req: Request, res: Response) => {
    const { date, hours } = req.body
    try {
       const scheduleExist = await scheduleModel.findOne({
          'date': date,
-         'idUserPsychologist': req.user
+         'IdUserPsychologist': req.user
       })
 
       if (!scheduleExist) {
          const newSchedule = await scheduleModel.create({
             date,
             hours,
-            idUserPsychologist: req.user
+            IdUserPsychologist: req.user
          })
          await newSchedule.save()
          res.status(201).send('Agenda creada!')

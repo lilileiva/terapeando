@@ -67,7 +67,7 @@ function Details({idPsy}) {
          quantity: 1,
          price_data: {
            currency: "usd",
-           unit_amount: `${psychologistCommission}`,
+           unit_amount: `${total}`,
            product_data: {
              name: `${psyDetails.firstName} ${psyDetails.lastName}`,
                description: 'Terapeando S.A.',
