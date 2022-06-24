@@ -5,12 +5,12 @@ import userPsychologistModel from "../../models/userPsychologist";
 const nodemailer = require("nodemailer");
 
 const getUserClient = async (req: Request, res: Response) => {
-  req.user;
   try {
-    const userClient = await userClientModel.findById(req.user);
-    res.status(200).json(userClient);
-  } catch (err) {
-    res.status(404).send("There was an error...");
+     const userClient = await userClientModel.findById(req.user);
+     res.status(200).json(userClient);
+  }
+  catch (err) {
+     res.status(404).send(err);
   }
 };
 
@@ -26,20 +26,6 @@ const getPsychologistDetails = async (req: Request, res: Response) => {
     res.status(404).json({ data: err });
   }
 };
-
-
-
-const getUserClient = async (req: Request, res: Response) => {
-   try {
-      const userClient = await userClientModel.findById(req.user);
-      res.status(200).json(userClient);
-   }
-   catch (err) {
-      res.status(404).send(err);
-   }
-};
-
-
 
 const createUserClient = async (req: Request, res: Response) => {
   const {
@@ -126,13 +112,10 @@ const putUserClient = async (req: Request, res: Response) => {
     res.status(404).send("There was an error...");
   }
 };
-
 module.exports = {
   getUserClient,
   createUserClient,
   deleteUserClient,
-  getPsychologist
-  s,
   putUserClient,
-
+  getPsychologistDetails
 };
