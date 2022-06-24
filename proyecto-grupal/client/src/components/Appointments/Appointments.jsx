@@ -73,10 +73,11 @@ function Appointments() {
                   {
                     appointments.length !== 0
                       ? appointments.map((appo) => {
+                        console.log(appo)
                         appointmentDate = new Date(appo.date)
                         appointmentHour = new Date(appo.hour)
                         return (
-                          <Stack direction='row' align='center' justify='space-around' p='1em' width='100%' height='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                          <Stack direction='row' align='center' justify='space-around' mb='1em' p='1em' width='100%' height='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                             {
                               tokenClient
                                 ? (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
@@ -97,13 +98,21 @@ function Appointments() {
                                 <CalendarIcon mr='0.5em' />
                                 <Text fontSize='3xl'>{appointmentDate.toLocaleDateString()}</Text>
                               </Stack>
-                              <Stack direction='row' align='center' justify='center' pb='1em'>
+                              <Stack direction='row' align='center' justify='center'>
                                 <TimeIcon mr='0.5em' />
                                 <Text fontSize='3xl'>{appointmentHour.getUTCHours()}:{appointmentHour.getUTCMinutes()} hs</Text>
                               </Stack>
-                              <Button bg='green.100' colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
-                                Cancelar cita
-                              </Button>
+                              <Stack direction='row' align='center' justify='center' pb='1em'>                                
+                                <Text fontSize='3xl'>Tipo: {appo.type}</Text>
+                              </Stack>
+                              <Stack direction='row'>
+                                <Button bg='green.100' colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
+                                  Cambiar tipo cita
+                                </Button>
+                                <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
+                                  Cancelar cita
+                                </Button>
+                              </Stack>
                             </Stack>
                           </Stack>
                         )

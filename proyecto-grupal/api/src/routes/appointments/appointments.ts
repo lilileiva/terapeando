@@ -89,13 +89,23 @@ const deleteAppointAsClient = async (req: Request, res: Response) => {
     }
 }
 
+const putAppointment = async (req:Request , res: Response) => {
+    try{
+        const { idAppointment } = req.params;
+        const data = await appointmentModel.findByIdAndUpdate(idAppointment, req.body, { new: true })
+        res.status(200).send('Cita editada correctamente')
+    } catch(err) {
+        res.status(404).send(err)
+    }
+}
 
 module.exports = {
     postAppointmentModel,
     getAppointmentAsPsychologist,
     getAppointmentAsClient,
     deleteAppointAsPsychologist,
-    deleteAppointAsClient
+    deleteAppointAsClient,
+    putAppointment
 }
 
 

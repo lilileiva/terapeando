@@ -7,14 +7,14 @@ const createSchedule = async (req: Request, res: Response) => {
    try {
       const scheduleExist = await scheduleModel.findOne({
          'date': date,
-         'idUserPsychologist': req.user
+         'IdUserPsychologist': req.user
       })
 
       if (!scheduleExist) {
          const newSchedule = await scheduleModel.create({
             date,
             hours,
-            idUserPsychologist: req.user
+            IdUserPsychologist: req.user
          })
          await newSchedule.save()
          res.status(201).send('Agenda creada!')
