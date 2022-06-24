@@ -16,6 +16,9 @@
   margin-right: 13px;
   margin-top: 3px;
 }
+.chat-img:hover{
+  animation: bounce 1s infinite ease-in-out;
+}
 .chatApp svg{
   margin-left: 35%;
 }
