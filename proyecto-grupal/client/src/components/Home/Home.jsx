@@ -19,12 +19,17 @@ import { BsSearch } from "react-icons/bs";
 import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
+import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
+
 
 export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
+
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   useEffect(() => {
     dispatch(getPsychologistByStatus());
@@ -64,9 +69,6 @@ export default function Home() {
     dispatch(getPsychologistByStatus())
     setPage(1)
   }
-
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
 
   return (

@@ -51,6 +51,7 @@ export default function PsychologistDetail() {
   }, [dispatch, IdUserPsychologist]);
 
   const detail = useSelector((state) => state.userPsichologistDetail);
+  console.log(detail)
   const posts = useSelector((state) => state.posts)
   let postDate;
 
@@ -105,7 +106,7 @@ export default function PsychologistDetail() {
                                     <Stack direction='column' width='65%'>
                                       <Text fontSize='4xl' pb='0.5em'>{`${detail.firstName} ${detail.lastName}`}</Text>
                                       <Stack direction='row' width='100%' justify='space-around'>
-                                        <Text fontSize='2xl'>{`📍 ${detail.country}`}</Text>
+                                        <Text fontSize='2xl'>{`📍 ${detail.location}`}</Text>
                                         <Text fontSize='2xl'>{`📩 ${detail.email}`}</Text>
                                         <Text fontSize='2xl'>{`🎓 ${detail.education}`}
                                           {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
@@ -215,7 +216,7 @@ export default function PsychologistDetail() {
                         <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
                           <CloseIcon cursor='pointer' onClick={() => setShowMap(false)} />
                         </Stack>
-                        <Map />
+                        <Map lng={detail.longitude} lat={detail.latitude} />
                       </Stack>
                     </div>
                   ) : null

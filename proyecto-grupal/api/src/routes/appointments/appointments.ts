@@ -6,7 +6,7 @@ const postAppointmentModel = async (req: Request, res: Response) => {
     const  { IdUserPsychologist } = req.params
     const { date, hour, type } = req.body;
     if (typeof date !== "string" ||  typeof hour !== "string" || (type !== "Virtual" && type !== "Presencial")) {
-        res.status(404).send("some of the data is not a string")
+        res.status(404).send("Some data is not valid")
     } else {
         const appointmentExist = await appointmentModel.findOne({
             'date': date,
