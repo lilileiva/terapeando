@@ -2,7 +2,9 @@ import { Router } from "express";
 const {
     postAppointmentModel,
     getAppointmentAsPsychologist,
-    getAppointmentAsClient
+    getAppointmentAsClient,
+    deleteAppointAsPsychologist,
+    deleteAppointAsClient
 } = require('./appointments');
 
 const appoimentRouter: Router = Router();
@@ -14,6 +16,8 @@ const validateClient = require("../../middleware/validateClient")
 appoimentRouter.post('/create/:IdUserPsychologist', validateUsers, postAppointmentModel);
 appoimentRouter.get('/psychologist', validatePsychologist, getAppointmentAsPsychologist);
 appoimentRouter.get('/client', validateClient, getAppointmentAsClient);
+appoimentRouter.delete('/delete/psychologist/:IdAppointment', validatePsychologist, deleteAppointAsPsychologist);
+appoimentRouter.delete('/delete/client/:IdAppointment', validateClient, deleteAppointAsClient);
 
 
 module.exports = appoimentRouter;
