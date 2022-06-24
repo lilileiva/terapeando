@@ -303,6 +303,7 @@ function FormEditClient() {
           )
       }
     </Stack>
+    </>
   );
 }
 
