@@ -113,9 +113,9 @@ const putUserClient = async (req: Request, res: Response) => {
 
 
 module.exports = {
-   getUserClient,
-   createUserClient,
-   deleteUserClient,
-   putUserClient,
-   getPsychologistDetails
+  getUserClient,
+  createUserClient,
+  deleteUserClient,
+  putUserClient,
+  getPsychologistDetails
 };
