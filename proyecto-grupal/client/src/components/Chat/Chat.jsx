@@ -10,6 +10,14 @@ function Chat(){
     //me creo un estado para mostrar el chat o no
     const [showChat, toggleChat] = useState(false)
 
+    const saveMessages = (messages, HTMLString) => {
+        localStorage.setItem('chat_message', JSON.stringify(messages))
+    }
+    const loadMessages = () => {
+        const messages =JSON.parse(localStorage.getItem('chat_messages'));
+        return messages
+    }
+
     return(
         <div className='chatApp'>
             <header className='chatApp-header'>
@@ -18,7 +26,9 @@ function Chat(){
                         <Chatbot
                             config={config}
                             actionProvider={ActionProvider}
+                            messageHistory={loadMessages}
                             messageParser={MessageParser}
+                            saveMessages={saveMessages}
                         />
                     </>
                     )
