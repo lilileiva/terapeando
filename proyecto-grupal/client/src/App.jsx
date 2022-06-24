@@ -40,14 +40,12 @@ import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 // import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
-import Chat from './components/Chat/Chat.jsx'
 
 export default function App() {
   return (
     <div className="App">
       <Routes>
         <Route element={<Footer />} />
-        <Route path="/chat" element={<Chat/>}/>
         <Route path="/" element={<NavBar />} />
         <Route index element={<LandingPage />} />
         <Route path="/signup" element={<RegisterForm />} />

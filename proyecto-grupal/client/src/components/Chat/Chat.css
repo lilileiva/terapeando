@@ -1,45 +1,31 @@
-.chatApp {
-    text-align: center;
-    height: 100%;
-  }
-  
-  .chatApp-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
-  .chatApp input{
-    color: black;
-  }
-  .chatApp svg{
-    margin-left: 35%;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .chatApp-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .chatApp-header {
-    background-color: #282c34;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .chatApp-link {
-    color: #61dafb;
-  }
-  
-  @keyframes chatApp-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+.chatApp{
+  width: 450px;
+  position: fixed;
+  bottom:0px;
+  right: 0px;
+  z-index: 1000;
+}
+.chat{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 25%;
+  font-size: 22px;
+}
+.chat li {
+  list-style: none;
+}
+.chatApp input{
+  color: black;
+}
+.chat-img{
+  width: 90px;
+  height: 90px;
+  margin-left: 200%;
+  margin-bottom: 55%;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+.chatApp svg{
+  margin-left: 35%;
+}
