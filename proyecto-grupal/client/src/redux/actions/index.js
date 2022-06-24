@@ -29,7 +29,9 @@ import {
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
   GET_SCHEDULE,
-  GET_SCHEDULE_BY_DATE
+  GET_SCHEDULE_BY_DATE,
+  GET_APPOINTMENT_AS_PSYCHOLOGIST,
+  GET_APPOINTMENT_AS_CLIENT
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -674,7 +676,42 @@ export function getScheduleByDate(IdUserPsychologist, date) {
 }
 
 
+/*---------------------APPOINTMENTS ACTIONS-------------------*/
+export function getAppointmentAsPsychologist() {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/appointment/psychologist`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_APPOINTMENT_AS_PSYCHOLOGIST,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
+export function getAppointmentAsClient() {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/appointment/client`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_APPOINTMENT_AS_CLIENT,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 /*---------------------ADMIN ACTIONS-------------------*/
 export function adminSearchbar(inputText) {

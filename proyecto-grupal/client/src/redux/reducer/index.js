@@ -25,7 +25,9 @@ import {
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
   GET_SCHEDULE,
-  GET_SCHEDULE_BY_DATE
+  GET_SCHEDULE_BY_DATE,
+  GET_APPOINTMENT_AS_PSYCHOLOGIST,
+  GET_APPOINTMENT_AS_CLIENT
 } from "../actions/types";
 
 const initialState = {
@@ -46,7 +48,8 @@ const initialState = {
   allPayments: [],
   email: {},
   adminSearchbar: "",
-  reviews: []
+  reviews: [],
+  appointments: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -202,7 +205,7 @@ function rootReducer(state = initialState, action) {
         posts: [...state.posts, action.payload]
       }
 
-    /*-----------CLEAR-----------*/
+    /*-----------SCHEDULE-----------*/
       case GET_SCHEDULE:
         return {
           ...state,
@@ -212,6 +215,18 @@ function rootReducer(state = initialState, action) {
         return {
           ...state,
           schedule: action.payload
+        }
+
+    /*-----------SCHEDULE-----------*/
+      case GET_APPOINTMENT_AS_PSYCHOLOGIST:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case GET_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: action.payload
         }
 
     /*-----------CLEAR-----------*/

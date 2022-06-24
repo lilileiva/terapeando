@@ -133,16 +133,19 @@ export default function NavbarHome() {
             {
               tokenClient
                 ? (
-                  <Button
-                    variant={"solid"}
-                    colorScheme={"teal"}
-                    size={"sm"}
-                    mr={4}
-                    leftIcon={<AddIcon />}
-                  >
-                    Agendar Sesión
-                  </Button>
-                ) : (
+                  <Link to='/appointments'>
+                    <Button
+                      variant={"solid"}
+                      colorScheme={"teal"}
+                      size={"sm"}
+                      mr={4}
+                      leftIcon={<AddIcon />}
+                    >
+                      Mis citas
+                    </Button>
+                  </Link>
+                )
+                : tokenPsychologist ? (
                   <Link to='/editschedule'>
                     <Button
                       variant={"solid"}
@@ -154,7 +157,7 @@ export default function NavbarHome() {
                       Administrar agenda
                     </Button>
                   </Link>
-                )
+                ) : null
             }
             <Menu>
               <MenuButton
