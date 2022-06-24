@@ -39,6 +39,7 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
+import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
 
 
 export default function App() {
@@ -54,6 +55,8 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />
         <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
+        {/* <Route path="/editschedule/:IdUserPsychologist" element={<EditSchedule />} /> */}
+        <Route path="/editschedule/" element={<EditSchedule />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />

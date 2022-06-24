@@ -1,13 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserPsychologistOne, clear } from '../../redux/actions'
+import { getScheduleAsPsychologist, clear } from '../../redux/actions'
 import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 
 
-function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalendar }) {
+function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCalendar }) {
+
+    const dispatch = useDispatch();
+
+    const schedule = useSelector((state) => state.schedule)
+    let scheduleDate;
+    let scheduleHour;
+
+    const handleDate = (date) => {
+        if (showHours) {
+            setShowHours(false)
+            setAppointment({
+                ...appointment,
+                date: date
+            })
+            console.log(appointment)
+        } else {
+            setShowHours(true)
+        }
+    }
+
+    // const handleType = (type) => {
+    //     setAppointment({
+    //         ...appointment,
+    //         type: type
+    //     })
+    //     console.log(appointment)
+    // }
+
+    const [showHours, setShowHours] = useState(false)
+
+    const [appointment, setAppointment] = useState({
+        date: "",
+        hour: "",
+        type: ""
+    })
+
 
     return (
         <Stack width='100%' pl='30%' pr='30%' zIndex='1' position='absolute' >
@@ -28,20 +64,55 @@ function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalend
                         Calendario
                     </Text>
                     <Text fontSize='md' mb='1em' textAlign='left'>
-                        Seleccione fecha y hora
+                        Seleccione una fecha
                     </Text>
-                    {/* <Calendar /> */}
-
                 </Stack>
+                <Stack>
+                    {
+                        schedule.length !== 0
+                            ?
+                            <>
+                                {
+                                    schedule.map((sch) => (
+                                        <>
+                                            {scheduleDate = new Date(sch.date)}
+                                            <Button color='teal' onClick={() => handleDate(sch.date)}>
+                                                {scheduleDate.getUTCMonth()}/{scheduleDate.getUTCDate()}
+                                            </Button>
+                                            <Stack>
+                                                {
+                                                    showHours
+                                                        ? (
+                                                            sch.hours !== 0
+                                                                ? (
+                                                                    sch.hours.map((hour) => (
+                                                                        <Button bg='green.100'>{hour}</Button>
+                                                                    ))
+                                                                ) : <Text>No hay horarios disponibles</Text>
+                                                        ) : null
+                                                }
+                                            </Stack>
+                                        </>
+                                    ))
+                                }
+                            </>
+                            : null
+                    }
+                </Stack>
+
+
                 {/* voy a poner provisoriamente esto para tomar el id del psicologo */}
-                <Link to={`/checkout/${idPsychologist}`}>
+                <Link to={`/checkout/${IdUserPsychologist}`}>
                     <Button bg='#63caa7' color='white' mb='2em' colorScheme='teal'>
                         Agendar
                     </Button>
                 </Link>
             </Stack>
-        </Stack>
+        </Stack >
     )
 }
 
 export default Schedule;
+
+
+

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
 import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
 import Schedule from "../Schedule/Schedule";
+import { useSelector, useDispatch } from "react-redux";
+import { getScheduleAsPsychologist } from '../../redux/actions';
 
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, IdUserPsychologist }) {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [calendar, setCalendar] = useState(false)
@@ -18,6 +21,10 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
             setCalendar(false)
         }
     }
+
+    useEffect(() => {
+        dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+    })
 
     const tokenClient = window.localStorage.getItem('tokenClient')
     const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
@@ -43,37 +50,37 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' colorScheme='purple' className='Badge'>{Specialties[4]}</Badge>
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
-                <Box minHeight='10em' className="About">                    
-                        {
-                            about
-                                ? (
-                                    <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
-                                        {about.slice(0, 500)}...
-                                        <br />
-                                        {
-                                            tokenClient || tokenPsychologist
-                                                ? (
-                                                    <Link to={`/detailPsychologist/${idPsychologist}`}>
-                                                        <button className="vermas">Ver más</button>
-                                                    </Link>
-                                                ) : (
-                                                    <Link to={'/signin'}>
-                                                        <button className="vermas">Ver más</button>
-                                                    </Link>
-                                                )
-                                        }
-                                    </Text>
-                                ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                                    Sin descripción.
+                <Box minHeight='10em' className="About">
+                    {
+                        about
+                            ? (
+                                <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
+                                    {about.slice(0, 500)}...
+                                    <br />
+                                    {
+                                        tokenClient || tokenPsychologist
+                                            ? (
+                                                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
+                                                    <button className="vermas">Ver más</button>
+                                                </Link>
+                                            ) : (
+                                                <Link to={'/signin'}>
+                                                    <button className="vermas">Ver más</button>
+                                                </Link>
+                                            )
+                                    }
                                 </Text>
-                        }                    
+                            ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                                Sin descripción.
+                            </Text>
+                    }
                 </Box>
 
                 <Box className="profile"  >
                     {
                         tokenClient || tokenPsychologist
                             ? (
-                                <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
                                     <Button className="buttonProfile" color='blackAlpha.600' _hover={{
                                         bg: 'blackAlpha.300',
                                         color: 'blackAlpha.700'
@@ -125,8 +132,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                             lastName={lastName}
                             profileImage={profileImage}
                             rating={rating}
-                            idPsychologist={idPsychologist}
-                            setCalendar={setCalendar} />
+                            IdUserPsychologist={IdUserPsychologist}
+                            setCalendar={setCalendar}                            
+                        />
                     </div>
                     : null
             }

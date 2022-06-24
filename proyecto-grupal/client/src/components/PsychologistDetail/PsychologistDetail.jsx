@@ -15,25 +15,33 @@ import Reviews from "../Reviews/Reviews";
 import NotFound from '../404notFound/notFound.jsx';
 import Map from '../Map/Map.jsx';
 import Schedule from "../Schedule/Schedule";
+import { getScheduleAsPsychologist } from '../../redux/actions';
 
 
 export default function PsychologistDetail() {
   const { IdUserPsychologist } = useParams();
-  console.log(IdUserPsychologist)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [loader, setLoader] = useState(true);
-  
-  const tokenClient = window.localStorage.getItem('tokenClient')  
+
+  const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
   const tokenAdmin = window.localStorage.getItem('tokenAdmin')
-  
+
   useEffect(() => {
-    tokenClient ? dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist)) : dispatch(getUserPsychologistDetails(IdUserPsychologist))
+    if (tokenClient) {
+      dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist))
+      dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+    }
+    if (tokenPsychologist) {
+      dispatch(getUserPsychologistDetails(IdUserPsychologist))
+      dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+    }
     dispatch(getPostsByPsychologistId(IdUserPsychologist))
     smoothscroll()
-    
+
     setTimeout(() => {
       setLoader(false);
     }, 500)
@@ -41,7 +49,7 @@ export default function PsychologistDetail() {
       dispatch(clear()); //Clear detail
     };
   }, [dispatch, IdUserPsychologist]);
-  
+
   const detail = useSelector((state) => state.userPsichologistDetail);
   const posts = useSelector((state) => state.posts)
   let postDate;
@@ -193,8 +201,9 @@ export default function PsychologistDetail() {
                         lastName={detail.lastName}
                         profileImage={detail.profileImage}
                         rating={detail.rating}
-                        idPsychologist={detail.idPsychologist}
-                        setCalendar={setCalendar} />
+                        IdUserPsychologist={detail._id}
+                        setCalendar={setCalendar}                        
+                      />
                     </div>
                     : null
                 }

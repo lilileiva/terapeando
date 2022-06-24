@@ -1,37 +1,17 @@
-import { prop, getModelForClass, Ref, modelOptions} from '@typegoose/typegoose';
+import { prop, getModelForClass, Ref, modelOptions } from '@typegoose/typegoose';
 import { userPsychologist } from './userPsychologist';
-
-@modelOptions({
-    schemaOptions: {
-        _id: false,
-    }
-})
-
-class dateTime {
-    @prop()
-    monday: string[]
-    @prop()
-    tuesday: string[]
-    @prop()
-    wensday: string[]
-    @prop()
-    thursday: string[]
-    @prop()
-    friday: string[]
-    @prop()
-    saturday: string[]
-    @prop()
-    sunday: string[]
-}
+import { userClient } from './userClients';
 
 export class Schedule {
 
-    @prop({ ref: () => userPsychologist })
-    idUserPsychologist: Ref<userPsychologist>
-    
-    @prop({type: () => [dateTime]})
-    dateTime: dateTime[]
+    @prop({ type: String, required: true, trim: true })
+    date: string
 
+    @prop({ type: String, required: true, trim: true })
+    hours: string[]
+    
+    @prop({ ref: () => userPsychologist })
+    IdUserPsychologist: Ref<userPsychologist>
 }
 
 const scheduleModel = getModelForClass(Schedule);

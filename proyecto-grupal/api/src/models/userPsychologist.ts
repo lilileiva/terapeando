@@ -98,14 +98,18 @@ export class userPsychologist {
   // @prop()
   // Reviews?: String[];
 
-  @prop({ ref: () => appointment })
-  appointments?: Ref<appointment>[];
+  // @prop({ ref: () => appointment })
+  // appointments?: Ref<appointment>[];
 
   @prop()
   role: string
 
-  // @prop({ ref: () => Schedule })
-  // schedule?: Ref<Schedule>[]; 
+  /*------------------------*/
+  @prop({ type: String, required: true, trim: true })
+  date: string
+
+  @prop({ type: String, required: true, trim: true })
+  hours: string[]
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)

@@ -27,7 +27,9 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS
+  GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  GET_SCHEDULE,
+  GET_SCHEDULE_BY_DATE
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -600,6 +602,79 @@ export const sortByDate = (payload) => {
     payload
   }
 }
+
+
+/*---------------------SCHEDULE ACTIONS-------------------*/
+
+export function createSchedule(input) {
+  return async function () {
+    try {
+      const newSchedule = await axios.post(
+        `${baseURL}/schedule/create`, input, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }
+      })
+      if (newSchedule.status === 201) {
+        return Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Fecha y hora agregadas exitosamente',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+      // return newSchedule;
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'No se ha podido agregar horario.',
+        text: 'Verifique que no cuente con este horario en su agenda',
+        showConfirmButton: true
+      })
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleAsPsychologist(IdUserPsychologist) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/${IdUserPsychologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleByDate(IdUserPsychologist, date) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/date/${IdUserPsychologist}`,
+        date,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE_BY_DATE,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+
+
 
 /*---------------------ADMIN ACTIONS-------------------*/
 export function adminSearchbar(inputText) {

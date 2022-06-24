@@ -67,6 +67,8 @@ export default function Home() {
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+  console.log(tokenClient)
+  console.log(tokenPsychologist)
 
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
@@ -113,7 +115,7 @@ export default function Home() {
                       rating={el.rating}
                       education={el.education}
                       about={el.about}
-                      idPsychologist={el._id}
+                      IdUserPsychologist={el._id}
                       Specialties={el.Specialties}
                     />
                   )

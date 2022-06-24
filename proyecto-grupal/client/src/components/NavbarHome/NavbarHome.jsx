@@ -72,10 +72,10 @@ export default function NavbarHome() {
 
   const dispatch = useDispatch()
 
-  const { isOpen, onOpen, onClose } = useDisclosure();  
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSignOut = () => {
-    window.localStorage.clear();    
+    window.localStorage.clear();
   }
 
   useEffect(() => {
@@ -130,15 +130,32 @@ export default function NavbarHome() {
             </Stack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Button
-              variant={"solid"}
-              colorScheme={"teal"}
-              size={"sm"}
-              mr={4}
-              leftIcon={<AddIcon />}
-            >
-              Agendar Sesión
-            </Button>
+            {
+              tokenClient
+                ? (
+                  <Button
+                    variant={"solid"}
+                    colorScheme={"teal"}
+                    size={"sm"}
+                    mr={4}
+                    leftIcon={<AddIcon />}
+                  >
+                    Agendar Sesión
+                  </Button>
+                ) : (
+                  <Link to='/editschedule'>
+                    <Button
+                      variant={"solid"}
+                      colorScheme={"teal"}
+                      size={"sm"}
+                      mr={4}
+                      leftIcon={<AddIcon />}
+                    >
+                      Administrar agenda
+                    </Button>
+                  </Link>
+                )
+            }
             <Menu>
               <MenuButton
                 as={Button}
