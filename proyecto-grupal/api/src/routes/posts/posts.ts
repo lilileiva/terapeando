@@ -61,10 +61,19 @@ const getOnePost = async (req: Request, res: Response) => {
   }
 };
 
+const getPostsByPsychologistId = async (req: Request, res: Response) => {
+  const { idUserPsychologist } = req.params;
+  try {
+    let response = await Post.find({'idUserPsychologist': idUserPsychologist})
+    res.status(200).send(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const createPost = (req: Request, res: Response, next: NextFunction) => {
   const {Date, Title, Image, Tags, Content} = req.body;
   req.user
-  console.log(req.user)
   //me creo el post con el objeto ue me llega de body
   Post.create({
     Date,
@@ -144,7 +153,7 @@ module.exports = {
   getAllCategory,
   filterPostsCategory,
   getOnePost,
-  //getPostAuthors,
+  getPostsByPsychologistId,
   deletePost,
   putPost
 };

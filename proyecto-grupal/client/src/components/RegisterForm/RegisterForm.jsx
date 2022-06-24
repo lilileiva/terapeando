@@ -148,7 +148,7 @@ function RegisterForm() {
     const afterSubmit = async () => {
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0 && !userClientBtn) {
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
-            if (response.status === 201 || response.status === 200) {
+            if (response.status === 201) {
                 navigate('/signin')
                 Swal.fire({
                     position: 'top-end',
@@ -169,7 +169,7 @@ function RegisterForm() {
             }
         } else if (Object.keys(formErrors).length === 0 && userClientBtn) {
             const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
-            if (response.status === 201  || response.status === 200) {
+            if (response.status === 201) {
                 navigate('/signin')
                 
                 Swal.fire({
@@ -352,13 +352,13 @@ function RegisterForm() {
                                                 <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='2em'>
                                                     Registrarse
                                                 </Button>
-                                                {
+                                                {/* {
                                                     userClientBtn
                                                         ? <Button bg='green.100' color={'#63caa7'} >
                                                             Registrate con &nbsp; <FaGoogle />
                                                         </Button>
                                                         : null
-                                                }
+                                                } */}
                                                 <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signin')} >
                                                     ¿Ya tienes una cuenta?
                                                 </Button>

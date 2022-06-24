@@ -43,12 +43,15 @@
     white-space: wrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
+    white-space: pre-wrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .containerCenter {
     width: 50%;
-    height: 100%;    
+    height: 100%;        
     display: flex;
     flex-direction: column;
     justify-content: center;    
@@ -105,8 +108,7 @@
     align-items: center;
     width: 100%;
     height: initial;
-    background-color: rgba(0,0,0,0.5);
-    top: 40%;
+    top: 50%;
     animation: frames .15s linear;
 }
 @keyframes frames {
