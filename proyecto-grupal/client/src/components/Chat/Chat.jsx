@@ -13,16 +13,17 @@ function Chat(){
     const saveMessages = (messages, HTMLString) => {
         localStorage.setItem('chat_message', JSON.stringify(messages))
     }
+    console.log(saveMessages)
     const loadMessages = () => {
         const messages =JSON.parse(localStorage.getItem('chat_messages'));
         return messages
     }
+    console.log()
 
     return(
         <div className='chatApp'>
-            <header className='chatApp-header'>
                 {showChat && (
-                    <>
+                    <div className="chat">
                         <Chatbot
                             config={config}
                             actionProvider={ActionProvider}
@@ -30,13 +31,12 @@ function Chat(){
                             messageParser={MessageParser}
                             saveMessages={saveMessages}
                         />
-                    </>
+                    </div>
                     )
                 }
                 <button className='chat-button' onClick={() => toggleChat((prev) => !prev)}>
                     <img className='chat-img' src={avatar} alt="logo" />
                 </button>
-            </header>
         </div>
     )
 }

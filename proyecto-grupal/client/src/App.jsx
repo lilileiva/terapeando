@@ -47,7 +47,7 @@ export default function App() {
     <div className="App">
       <Routes>
         <Route element={<Footer />} />
-        <Route path="/chat" element={<Chat/>}/>
+        <Route path="/" element={<Chat/>}/>
         <Route path="/" element={<NavBar />} />
         <Route index element={<LandingPage />} />
         <Route path="/signup" element={<RegisterForm />} />
