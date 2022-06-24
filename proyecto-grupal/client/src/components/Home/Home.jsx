@@ -20,6 +20,7 @@ import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
 import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
+import Chat from '../Chat/Chat'
 
 
 export default function Home() {
@@ -124,6 +125,7 @@ export default function Home() {
                 : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>
           }
         </div>
+        <Chat/>
       </Stack>
       <Stack>
         <Paged

@@ -116,6 +116,6 @@ module.exports = {
   getUserClient,
   createUserClient,
   deleteUserClient,
-  getPsychologistDetails,
-  putUserClient
+  putUserClient,
+  getPsychologistDetails
 };

@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion'
 import './landingpage.css'
+import Chat from '../Chat/Chat'
 
 function LandingPage() {
 
@@ -105,13 +106,13 @@ function LandingPage() {
                           src={
                             'https://images.unsplash.com/photo-1495653797063-114787b77b23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
                           }
-                        />
+                          />
                       </Box>
                     </Flex>
+                    <Chat/>
                   </Stack>
                 </Container>
               </motion.div>
-
               <Footer />
             </div>
           )

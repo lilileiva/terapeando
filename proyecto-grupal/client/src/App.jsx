@@ -43,14 +43,12 @@ import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
 import Appointments from './components/Appointments/Appointments.jsx';
 
 // import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
-import Chat from './components/Chat/Chat.jsx'
 
 export default function App() {
   return (
     <div className="App">
       <Routes>
         <Route element={<Footer />} />
-        <Route path="/chat" element={<Chat/>}/>
         <Route path="/" element={<NavBar />} />
         <Route index element={<LandingPage />} />
         <Route path="/signup" element={<RegisterForm />} />
