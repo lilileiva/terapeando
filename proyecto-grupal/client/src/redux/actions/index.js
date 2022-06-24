@@ -701,14 +701,19 @@ export function getScheduleByDate(IdUserPsychologist, date) {
 export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
   return async function (dispatch) {
     try {
-      await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
+      const newAppointment = await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
         appointmentData,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
-      Swal.fire(
-        "Cita reservada exitosamente",
-        "success"
-      );
+      if (newAppointment.status === 201) {
+        return Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Cita reservada exitosamente',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     } catch (error) {
       console.log(error)
       Swal.fire(
