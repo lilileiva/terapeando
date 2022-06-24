@@ -25,6 +25,7 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
+  REMEMBER_PASSWORD_PSYCHOLOGIST,
   GET_ALL_PSYCHOLOGIST_BY_STATUS
 } from "./types";
 
@@ -320,30 +321,13 @@ export function editUserPsichologist( updatedUserPsychologist) {
   }
 }
 
-export function olvideMiPass() {
-  return async function () {
-    try {
-      axios.post(`${baseURL}/rememberpassword/rememberpassword`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-export function registerConfirmationEmail() {
-  return async function () {
-    try {
-      axios.post(`${baseURL}/rememberpassword/client`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
+//----- olvide mi password
 export function forgotPassword(payload){
   return async function (dispatch){
     try {
       const json = await axios.put(`${baseURL}/nodemailer/rememberpassword` , payload)
       dispatch({
-        type: "REMEMBER_PASSWORD_PSYCHOLOGIST",
+        type: REMEMBER_PASSWORD_PSYCHOLOGIST,
         payload: json.data 
       })
     } catch (error) {
