@@ -67,7 +67,13 @@ export class userPsychologist {
   birthDate: string
 
   @prop({ required: true })
-  country: string
+  location: string
+
+  @prop({ required: true })
+  latitude: string
+
+  @prop({ required: true })
+  longitude: string
 
   @prop({ unique: true, required: true })
   License: string
