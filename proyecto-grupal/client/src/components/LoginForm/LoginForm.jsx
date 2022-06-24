@@ -227,7 +227,7 @@ function LoginForm() {
                                                 <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
                                                     ¿Aún no tienes una cuenta?
                                                 </Button>
-                                                {<ForgotPassword />}
+                                                {<ForgotPassword />} 
                                             </Stack>
                                         </form>
 

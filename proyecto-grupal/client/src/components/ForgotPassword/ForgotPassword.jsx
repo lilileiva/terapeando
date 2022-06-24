@@ -78,19 +78,16 @@ export default function Reviews() {
 
   useEffect(() => {
     setErrorsEmail(validate(input_email))
-    console.log(errorsEmail)
-    Object.keys(errorsEmail).length === 0 ?
-      setIsSubmit(false) : setIsSubmit(true);
-  }, [input_email, isSubmit]);
-
+  }, [input_email]);
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrorsEmail(validate(input_email))
     dispatch(forgotPassword(input_email))
     onClose()
-    Swal.fire('Hemos enviado una nueva contaseña a tu email', '', 'success');
+    input_email.role === "client" ?
+    Swal.fire("Si tu email está registrado como paciente te llegara un email con la nueva contraseña", '', 'success')
+    :Swal.fire("Si tu email está registrado como psicologo te llegara un email con la nueva contraseña", '', 'success');
     setInput_email({
       email: ""
     });
@@ -132,7 +129,7 @@ export default function Reviews() {
           </ModalBody>
 
           <ModalFooter>
-            <Button type='submit' disabled={isSubmit}  bg={'#285e61'} color='white' variant='outline' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}  onClick={(e) => { handleSubmit(e) }} colorScheme='blue' mr={1}>
+            <Button type='submit' disabled={Object.keys(errorsEmail).length === 0 ? false : true}  bg={'#285e61'} color='white' variant='outline' _hover={[{ color: '#63caa7' }, { bg: 'white' }]}  onClick={(e) => { handleSubmit(e) }} colorScheme='blue' mr={1}>
               Enviar
             </Button>
           </ModalFooter>
