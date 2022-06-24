@@ -18,7 +18,7 @@ router.use('/schedule', schedule)
 router.use('/userclient', userClient)
 router.use('/userpsychologist', userPsychologist)
 router.use('/admin', admin)
-router.use('/rememberpassword', rememberPassword)
+router.use('/nodemailer', rememberPassword)
 
 
 module.exports = router;

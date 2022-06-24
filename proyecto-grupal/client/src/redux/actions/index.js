@@ -320,6 +320,37 @@ export function editUserPsichologist( updatedUserPsychologist) {
   }
 }
 
+export function olvideMiPass() {
+  return async function () {
+    try {
+      axios.post(`${baseURL}/rememberpassword/rememberpassword`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export function registerConfirmationEmail() {
+  return async function () {
+    try {
+      axios.post(`${baseURL}/rememberpassword/client`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export function forgotPassword(payload){
+  return async function (dispatch){
+    try {
+      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword` , payload)
+      dispatch({
+        type: "REMEMBER_PASSWORD_PSYCHOLOGIST",
+        payload: json.data 
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  };
+};
 // filtrar psicologs por  especialidad
 
 export function getBySpecialties(payload) {
