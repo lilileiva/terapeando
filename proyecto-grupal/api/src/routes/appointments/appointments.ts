@@ -1,26 +1,34 @@
 import { Request, Response } from 'express';
 import appointmentModel from '../../models/appointment';
 
-const postAppointmentModel = async (req:Request , res: Response) => {
-    const { payment, date, hour, type, IdUserPsychologist} = req.body; 
-    req.user
-    if(typeof payment !== "string" || typeof date !== "string" || typeof hour !== "string" || typeof type !== "string" || typeof IdUserPsychologist !== "string"){
+const postAppointmentModel = async (req: Request, res: Response) => {
+    const  { IdUserPsychologist } = req.params
+    const { date, hour, type } = req.body;
+    if (typeof date !== "string" ||  typeof hour !== "string" || (type !== "Virtual" && type !== "Presencial")) {
         res.status(404).send("some of the data is not a string")
-    }else{
-try{
-    const appointment = await appointmentModel.create({
-        payment: '',
-        date,
-        hour,
-        IdUserClient: req.user,
-        IdUserPsychologist,
-        type
-    })
-    console.log(appointment)
-    res.status(201).send("appointment created successfully")
-}catch(err){
-        res.status(404).json({error: err})
-}}
+    } else {
+        const appointmentExist = await appointmentModel.findOne({
+            'date': date,
+            'IdUserClient': req.user
+         })
+        if (!appointmentExist) {
+            try {
+                const appointment = await appointmentModel.create({
+                    date,
+                    hour,
+                    type,
+                    IdUserClient: req.user,
+                    IdUserPsychologist
+                })
+                console.log(appointment)
+                res.status(201).send("appointment created successfully")
+            } catch (err) {
+                res.status(404).json({ error: err })
+            }
+        } else {
+            res.status(404).json('Ya has reservado una cita en esta fecha')            
+        }
+    }
 }
 
 const getAppointmentAsPsychologist = async (req: Request, res: Response) => {
@@ -88,6 +96,7 @@ const deleteAppointAsClient = async (req: Request, res: Response) => {
         res.status(200).json({ error: error })
     }
 }
+
 
 module.exports = {
     postAppointmentModel,

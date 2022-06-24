@@ -5,7 +5,7 @@ import { Container, Box, Text, Stack, Input, InputGroup, Button, InputRightEleme
 import { FaGoogle } from "react-icons/fa";
 import countryList from 'react-select-country-list';
 import { specialitiesList } from './specialities';
-import { BiX } from "react-icons/bi";
+import { BiLoader, BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
@@ -15,13 +15,17 @@ import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { LOCAL_HOST } from "../../redux/actions/types";
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng
+  } from "react-places-autocomplete";
 const baseURL = LOCAL_HOST;
 
 function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const countries = useMemo(() => countryList().getData(), [])
+    // const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -32,7 +36,9 @@ function RegisterForm() {
         firstname: "",
         lastname: "",
         birthdate: "",
-        country: "",
+        location: "",
+        latitude: "",
+        longitude: "",
         email: "",
         profileimage: "",
         license: "",
@@ -42,6 +48,15 @@ function RegisterForm() {
         password: "",
         repeatpassword: ""
     })
+
+    const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  });
+
+ 
+
     /*------------------validaciones----------------*/
     const validate = (signupForm) => {
         let errors = {};
@@ -72,8 +87,8 @@ function RegisterForm() {
         if (signupForm.email && !(signupForm.email).match(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)) {
             errors.email = 'Inserte un email válido'
         }
-        if (!signupForm.country) {
-            errors.country = 'Inserte país'
+        if (!signupForm.location && signupForm.location.match(/^(\w+\s)*\w+$/)) {
+            errors.location = 'Selecione una localidad válida'
         }
         if (!signupForm.profileimage) {
             errors.profileimage = 'Inserte una imagen de perfil'
@@ -116,12 +131,35 @@ function RegisterForm() {
         })
     }
 
-    const handleCountries = (e) => {
-        setSignupForm({
-            ...signupForm,
-            country: e.target.value
-        })
+    const handleLocation = async (address) => {
+        const results = await geocodeByAddress(address);
+        setAddress(address);
+        const latLng = await getLatLng(results[0]);
+        setCoordinates(latLng);
+        if (coordinates.lat && coordinates.lng) {
+            setSignupForm({
+                ...signupForm,
+                location: address,
+                latitude: coordinates.lat,
+                longitude: coordinates.lng
+            })
+        }    
+        console.log(signupForm)    
     }
+
+    
+    // const handleCountries = (e) => {
+    //     setSignupForm({
+    //         ...signupForm,
+    //         country: e.target.value
+    //     })
+    // }
+    // const handleSelect = async value => {
+    //     const results = await geocodeByAddress(value);
+    //     const latLng = await getLatLng(results[0]);
+    //     setAddress(value);
+    //     setCoordinates(latLng);
+
 
     const handleSpecialities = (e) => {
         setSignupForm({
@@ -141,14 +179,16 @@ function RegisterForm() {
 
     const handleInputSubmit = async (e) => {
         e.preventDefault()
+        console.log(signupForm)
         setFormErrors(validate(signupForm))
         setIsSubmit(true)
     }
 
     const afterSubmit = async () => {
         if (signupForm.license && signupForm.dni && signupForm.specialities && signupForm.education && Object.keys(formErrors).length === 0 && !userClientBtn) {
+            console.log(signupForm)
             const response = await axios.post(`${baseURL}/userpsychologist`, signupForm)
-            if (response.status === 201 || response.status === 200) {
+            if (response.status === 201) {
                 navigate('/signin')
                 Swal.fire({
                     position: 'top-end',
@@ -169,7 +209,7 @@ function RegisterForm() {
             }
         } else if (Object.keys(formErrors).length === 0 && userClientBtn) {
             const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
-            if (response.status === 201  || response.status === 200) {
+            if (response.status === 201) {
                 navigate('/signin')
                 Swal.fire({
                     position: 'top-end',
@@ -225,6 +265,9 @@ function RegisterForm() {
                                     Registro
                                 </Text>
 
+                                <Text>lat : {coordinates.lat}</Text>
+                                                                    <Text>lgn : {coordinates.lng}</Text>
+
                                 <Box minWidth='container.sm' direction='row' align='center' >
                                     <Button
                                         bg={userClientBtn ? 'green.100' : 'blackAlpha.200'}
@@ -258,6 +301,7 @@ function RegisterForm() {
                                             <Input name='email' variant='flushed' placeholder=' Email' bg='white' mt='2em' onChange={handleInputChange} />
                                             {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
 
+
                                             <Input
                                                 name='birthdate'
                                                 variant='flushed'
@@ -269,14 +313,41 @@ function RegisterForm() {
                                                 onChange={handleInputChange} />
                                             {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
 
-                                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
+                                            {/* <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
                                                 {
                                                     countries.map(c => (
                                                         <option key={c.label} value={c.label}>{c.label}</option>
                                                     ))
                                                 }
                                             </Select>
-                                            {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
+                                            {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>} */}
+                                            <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleLocation} >
+                                                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                                                <div>
+                                                                    <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })}  />
+                                                                    <div>
+                                                                    {loading ? <BiLoader/> : null}
+
+                                                                    {suggestions.map(suggestion => {
+                                                                        const style = {
+                                                                        backgroundColor: suggestion.active ? "#718096" : "#fff"
+                                                                        };
+
+                                                                        return (
+                                                                        <option className='LocationOptions' color='gray.500' 
+                                                                        bg='white' mt='2em' width='10px' key={suggestion.description}  value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
+                                                                            {suggestion.description}
+                                                                        </option>
+                                                                        );
+                                                                    })}
+                                                                    
+                                                                    </div>
+                                                                    {formErrors.location && <Text fontSize='sm' color='teal.500'>{formErrors.location}</Text>}
+                                                                </div>
+                                                                
+                                                                )}
+                                                                 
+                                                            </PlacesAutocomplete>
                                             {
                                                 !userClientBtn
                                                     ? (
@@ -351,13 +422,13 @@ function RegisterForm() {
                                                 <Button type='submit' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} marginTop='2em'>
                                                     Registrarse
                                                 </Button>
-                                                {
+                                                {/* {
                                                     userClientBtn
                                                         ? <Button bg='green.100' color={'#63caa7'} >
                                                             Registrate con &nbsp; <FaGoogle />
                                                         </Button>
                                                         : null
-                                                }
+                                                } */}
                                                 <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signin')} >
                                                     ¿Ya tienes una cuenta?
                                                 </Button>

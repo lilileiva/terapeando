@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
 import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
 import Schedule from "../Schedule/Schedule";
+import { useSelector, useDispatch } from "react-redux";
+import { getScheduleAsPsychologist } from '../../redux/actions';
 
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist, fin, inicio, dias }) {
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, IdUserPsychologist }) {
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [calendar, setCalendar] = useState(false)
     const handleCalendar = () => {
@@ -17,6 +21,10 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
         }
     }
 
+    useEffect(() => {
+        dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+    })
+
     const tokenClient = window.localStorage.getItem('tokenClient')
     const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
@@ -24,7 +32,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
         <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
             <Stack className="ProfileBox">
-                <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl'></Avatar>
+                <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' />
                 <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
                 <Text className="textOcupation" color='blackAlpha.500'> {education} </Text>
                 <Box className="boxstars">
@@ -41,7 +49,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' colorScheme='purple' className='Badge'>{Specialties[4]}</Badge>
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
-                <Box className="About">
+                <Box minHeight='10em' className="About">
                     {
                         about
                             ? (
@@ -51,7 +59,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                                     {
                                         tokenClient || tokenPsychologist
                                             ? (
-                                                <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
                                                     <button className="vermas">Ver más</button>
                                                 </Link>
                                             ) : (
@@ -71,7 +79,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     {
                         tokenClient || tokenPsychologist
                             ? (
-                                <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
                                     <Button className="buttonProfile" color='blackAlpha.600' _hover={{
                                         bg: 'blackAlpha.300',
                                         color: 'blackAlpha.700'
@@ -123,11 +131,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                             lastName={lastName}
                             profileImage={profileImage}
                             rating={rating}
-                            idPsychologist={idPsychologist}
-                            fin={fin}
-                            inicio={inicio}
-                            dias={dias}
-                            setCalendar={setCalendar} />
+                            IdUserPsychologist={IdUserPsychologist}
+                            setCalendar={setCalendar}                            
+                        />
                     </div>
                     : null
             }

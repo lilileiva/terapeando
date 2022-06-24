@@ -28,7 +28,7 @@ import AdminPanelClients from './components/AdminPanel/AdminPanelClients/AdminPa
 import AdminClientDetails from './components/AdminPanel/AdminPanelClients/AdminClientDetails/AdminClientDetails.jsx';
 import AdminClientEdit from './components/AdminPanel/AdminPanelClients/AdminClientEdit/AdminClientEdit.jsx';
 import AdminPanelPsychologists from './components/AdminPanel/AdminPanelPsychologists/AdminPanelPsychologists.jsx';
-import AdminPsichologisttDetails from './components/AdminPanel/AdminPanelPsychologists/AdminPsichologistDetails/AdminPsichologistDetails.jsx';
+import AdminPsichologistDetails from './components/AdminPanel/AdminPanelPsychologists/AdminPsichologistDetails/AdminPsichologistDetails.jsx';
 import AdminPsichologistEdit from './components/AdminPanel/AdminPanelPsychologists/AdminPsichologistEdit/AdminPsichologistEdit.jsx';
 import AdminPanelPosts from './components/AdminPanel/AdminPanelPosts/AdminPanelPosts.jsx';
 import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDetails/AdminPostDetail";
@@ -39,6 +39,8 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
+import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
+import Appointments from './components/Appointments/Appointments.jsx';
 
 export default function App() {
   return (
@@ -52,7 +54,9 @@ export default function App() {
         <Route path="/preguntasfrecuentes" element={<Faqs />} />
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />
-        <Route path="/detailPsychologist/:idPsychologist" element={<PsychologistDetail />} />
+        <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
+        {/* <Route path="/editschedule/:IdUserPsychologist" element={<EditSchedule />} /> */}
+        <Route path="/editschedule/" element={<EditSchedule />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />
@@ -65,6 +69,7 @@ export default function App() {
         <Route path='/checkout/:idPsychologist' element={<CheckoutPayment />} />
         <Route path='success' element={<Success />} />
         <Route path='canceled' element={<Cancel />} />
+        <Route path='/appointments' element={<Appointments />} />
         {/*-----------------------admin panel---------------------*/}
         <Route path='/adminpanel/login' element={<AdminPanelLogin />} />
         <Route path='/adminpanel/inicio' element={<AdminPanelHome />} />
@@ -72,8 +77,8 @@ export default function App() {
         <Route path='/adminpanel/clients/:idUserClient' element={<AdminClientDetails />} />
         <Route path='/adminpanel/clients/edit/:idUserClient' element={<AdminClientEdit />} />
         <Route path='/adminpanel/psychologists' element={<AdminPanelPsychologists />} />
-        <Route path='/adminpanel/psychologists/:idUserPsichologist' element={<AdminPsichologisttDetails/>} />
-        <Route path='/adminpanel/psychologists/edit/:idUserPsichologist' element={<AdminPsichologistEdit />} />
+        <Route path='/adminpanel/psychologists/:IdUserPsychologist' element={<AdminPsichologistDetails/>} />
+        <Route path='/adminpanel/psychologists/edit/:IdUserPsychologist' element={<AdminPsichologistEdit />} />
         <Route path='/adminpanel/posts' element={<AdminPanelPosts />} />
         <Route path="/adminpanel/posts/:idPost" element={<AdminPostDetail/>}/>
         <Route path='/adminpanel/payments' element={<AdminPanelPayments />} />

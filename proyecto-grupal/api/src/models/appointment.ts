@@ -1,22 +1,23 @@
 import { prop, getModelForClass,Ref } from '@typegoose/typegoose';
-import { userClient } from './userClients';
 import { userPsychologist } from './userPsychologist';
+import { userClient } from './userClients';
 import { paymentHistory } from './paymentHistory';
 
 
 export class appointment {
+    
     @prop({ref: () => paymentHistory})
     payment: Ref<paymentHistory>
-
+    
     @prop({ type: String, required: true, trim: true})
     date: string
-
+    
     @prop({ type: String, required: true, trim: true })
     hour: string
 
     @prop({ type: String, required: true, trim: true })
     type: string
-
+    
     @prop({ref: () => userClient})
     IdUserClient: Ref<userClient>
 

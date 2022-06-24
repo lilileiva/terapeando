@@ -11,6 +11,7 @@ import {
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
+  GET_POSTS_BY_PSYCHOLOGIST_ID,
   PUT_POSTS,
   CLEAR_CLIENT,
   GET_PAYMENT,
@@ -23,13 +24,20 @@ import {
   ADMIN_SEARCHBAR,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
+<<<<<<< HEAD
   FILTER_BY_STATUS,
+=======
+>>>>>>> b3338cf5b1b07d68f3179b6fd50abf4c1e3ba3b7
   GET_SCHEDULE,
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
+<<<<<<< HEAD
   DELETE_APPOINTMENT_AS_CLIENT,
   PUT_APPOINTMENT,
+=======
+  DELETE_APPOINTMENT_AS_CLIENT
+>>>>>>> b3338cf5b1b07d68f3179b6fd50abf4c1e3ba3b7
 } from "../actions/types";
 
 const initialState = {
@@ -106,20 +114,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload,
       };
-    case "GET_POSTS_AUTHORS":
+    case "GET_PSYCHOLOGISTS_DETAILS":
       return {
         ...state,
-        allUsersPsichologists: action.payload,
+        userPsichologistDetail: action.payload
       };
     case "GET_PSYCHOLOGISTS_ONE":
       return {
         ...state,
         psychologistProfile: action.payload,
-      };
-    case "GET_PSYCHOLOGISTS_DETAILS":
-      return {
-        ...state,
-        userPsichologistDetail: action.payload,
       };
     case "GET_BY_CATEGORY_POST":
       return {
@@ -166,6 +169,11 @@ function rootReducer(state = initialState, action) {
         postsCopy: action.payload,
 
       };
+    case GET_POSTS_BY_PSYCHOLOGIST_ID:
+      return {
+        ...state,
+        posts: action.payload
+      };
     case "GET_POST_DETAIL":
       return {
         ...state,
@@ -185,7 +193,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         postDetail: {},
-        posts: [],
+        posts: []
       };
     case "GET_CATEGORIES":
       return {
@@ -200,13 +208,42 @@ function rootReducer(state = initialState, action) {
     case "CREATE_POST":
       return {
         ...state,
-        posts: [...state.posts, action.payload],
-      };
+        posts: [...state.posts, action.payload]
+      }
     case PUT_POSTS:
       return {
         ...state,
-        posts: [...state.posts, action.payload],
-      };
+        posts: [...state.posts, action.payload]
+      }
+
+    /*-----------SCHEDULE-----------*/
+      case GET_SCHEDULE:
+        return {
+          ...state,
+          schedule: action.payload
+        }
+      case GET_SCHEDULE_BY_DATE:
+        return {
+          ...state,
+          schedule: action.payload
+        }
+
+    /*-----------APPOINTMENTS-----------*/
+      case GET_APPOINTMENT_AS_PSYCHOLOGIST:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case GET_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case DELETE_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: state.appointments.filter(appo => appo._id !== action.payload)
+        }
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:

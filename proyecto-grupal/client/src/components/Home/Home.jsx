@@ -24,7 +24,7 @@ export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     dispatch(getPsychologistByStatus());
@@ -43,18 +43,10 @@ export default function Home() {
   }, [dispatch, adminSearchbar]);
 
   useEffect(() => {
-    setLoader(true);
     setTimeout(() => {
       setLoader(false);
     }, 1500);
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   setErrorMessage(true);
-  //   setTimeout(() => {
-  //     setErrorMessage(false);
-  //   }, 5000);
-  // }, [dispatch]);
 
   /* Paginado */
   const [page, setPage] = useState(1);
@@ -70,10 +62,12 @@ export default function Home() {
 
   const handleSubmit = () => {
     dispatch(getPsychologistByStatus())
+    setPage(1)
   }
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
 
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
@@ -106,30 +100,27 @@ export default function Home() {
           <Stack width="100%" direction="row">
             <FiltersPsichologist />
           </Stack>
-          {loader ? <Loader></Loader> : AllPsychologist && AllPsychologist.length > 0 ?
-            AllPsychologists.map(el => {
-              // { console.log(el.status) }
-              return (
-
-                <CardPsychologist
-                  key={el._id}
-                  firstName={el.firstName}
-                  lastName={el.lastName}
-                  profileImage={el.profileImage}
-                  rating={el.rating}
-                  education={el.education}
-                  about={el.about}
-                  // about={`${el.about.slice(0, 270)}...`}
-                  idPsychologist={el._id}
-                  Specialties={el.Specialties}
-                  inicio={el.inicio}
-                  fin={el.fin}
-                  dias={el.dias}
-                />
-              )
-            }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}
-
-          {/* <Psychologists></Psychologists> */}
+          {
+            loader
+              ? <Loader />
+              : AllPsychologist && AllPsychologist.length > 0
+                ? AllPsychologists.map(el => {
+                  return (
+                    <CardPsychologist
+                      key={el._id}
+                      firstName={el.firstName}
+                      lastName={el.lastName}
+                      profileImage={el.profileImage}
+                      rating={el.rating}
+                      education={el.education}
+                      about={el.about}
+                      IdUserPsychologist={el._id}
+                      Specialties={el.Specialties}
+                    />
+                  )
+                })
+                : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>
+          }
         </div>
       </Stack>
       <Stack>

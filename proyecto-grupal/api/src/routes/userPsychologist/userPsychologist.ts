@@ -6,18 +6,18 @@ import userPsychologist from "../../models/userPsychologist";
 
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
-    try {
-      const psychologistUser = await userPsychologistModel.findById(req.user, '-password');
-      res.status(200).json(psychologistUser)
-    } catch (err) {
-      res.status(404).json({ data: err })
-    }
+  try {
+    const psychologistUser = await userPsychologistModel.findById(req.user, '-password');
+    res.status(200).json(psychologistUser)
+  } catch (err) {
+    res.status(404).json({ data: err })
+  }
 }
 
 const getPsychologistDetails = async (req: Request, res: Response) => {
-  const {idUserPsychologist} = req.params
+  const { IdUserPsichologist } = req.params
   try {
-    const psychologistUser = await userPsychologistModel.findById(idUserPsychologist, '-password');
+    const psychologistUser = await userPsychologistModel.findById(IdUserPsichologist, '-password');
     res.status(200).json(psychologistUser)
   } catch (err) {
     res.status(404).json({ data: err })
@@ -34,17 +34,17 @@ const getUserPsychologistByEmail = async (req: Request, res: Response) => {
   }
 }
 
-const getUserPsychologistByStatus = async ( req: Request, res: Response) => {
-try {
+const getUserPsychologistByStatus = async (req: Request, res: Response) => {
+  try {
 
-  const userPsychologistStatus = await userPsychologistModel.find({ 'status': 'Activo' }, '-password');
-  res.status(200).json(userPsychologistStatus)
-  
-} catch (error) {
-  console.log(error)
-  return res.status(404).send({ msj: 'No se encontraron resultados' });
-}
-  
+    const userPsychologistStatus = await userPsychologistModel.find({ 'status': 'Activo' }, '-password');
+    res.status(200).json(userPsychologistStatus)
+
+  } catch (error) {
+    console.log(error)
+    return res.status(404).send({ msj: 'No se encontraron resultados' });
+  }
+
 };
 
 const getUserPsychologist = async (req: Request, res: Response, next: NextFunction) => {
@@ -89,35 +89,32 @@ const postUserPsychologist = async (req: Request, res: Response) => {
   } = req.body;
 
   try {
-      const psychologistExist = await userPsychologistModel.findOne({'email': email})
-      if(psychologistExist){
-        return res.json({ error: "User already exists" });
-      } else {
-        const userP = await userPsychologistModel.create({
-          firstName: firstname,
-          lastName: lastname,
-          email,
-          password,
-          birthDate: birthdate,
-          country,
-          License: license,
-          DNI: dni,
-          Specialties: specialities,
-          profileImage: profileimage,
-          rating: 1,
-          appointments: [],
-          status: "Pendiente",
-          about,
-          education,
-          role: 'psychologist',
-          dias: [],
-          inicio: '',
-          fin: ''
-        });
-        res.status(201).send('Welcome to our community, now you can sign in');
-      }
+    const psychologistExist = await userPsychologistModel.findOne({ 'email': email })
+    if (psychologistExist) {
+      return res.json({ error: "User already exists" });
+    } else {
+      const userP = await userPsychologistModel.create({
+        firstName: firstname,
+        lastName: lastname,
+        email,
+        password,
+        birthDate: birthdate,
+        country,
+        License: license,
+        DNI: dni,
+        Specialties: specialities,
+        profileImage: profileimage,
+        rating: 1,
+        appointments: [],
+        status: "Pendiente",
+        about,
+        education,
+        role: 'psychologist'
+      });
+      res.status(201).send('Welcome to our community, now you can sign in');
+    }
   } catch (error) {
-    res.send({error: 'Validate your personal data'})
+    res.send({ error: 'Validate your personal data' })
   }
 };
 ///// Delete /////
@@ -125,18 +122,18 @@ const postUserPsychologist = async (req: Request, res: Response) => {
 
 const deleteUserPsychologist = async (req: Request, res: Response) => {
   try {
-     const userPsichologistDelete = await userPsychologistModel.findByIdAndDelete(req.user,
-      function(err: any, docs: any) {
-        if(err){
+    const userPsichologistDelete = await userPsychologistModel.findByIdAndDelete(req.user,
+      function (err: any, docs: any) {
+        if (err) {
           console.log(err)
-        } 
+        }
         else {
           console.log("deleted: ", docs);
         }
-      } );
-     res.send('Psicologo eliminado correctamente')
+      });
+    res.send('Psicologo eliminado correctamente')
   } catch (err) {
-     res.status(404).send('There was an error...');
+    res.status(404).send('There was an error...');
   }
 }
 
@@ -194,17 +191,13 @@ const putAvailableTimes = async (req: Request, res: Response) => {
 
 // // };
 
-
 const getReviews = async (req: Request, res: Response) => {
-
-
   try {
-    
-  const reviews = await userPsychologistModel.find().populate({
-    path: 'rating',
-    
-  });
-  res.status(200).json(reviews)
+    const reviews = await userPsychologistModel.find().populate({
+      path: 'rating',
+
+    });
+    res.status(200).json(reviews)
 
   } catch (error) {
     console.log(error)

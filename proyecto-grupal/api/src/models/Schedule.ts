@@ -8,7 +8,7 @@ export class Schedule {
 
     @prop({ type: String, required: true, trim: true })
     hours: string[]
-
+    
     @prop({ ref: () => userPsychologist })
     IdUserPsychologist: Ref<userPsychologist>
 }
