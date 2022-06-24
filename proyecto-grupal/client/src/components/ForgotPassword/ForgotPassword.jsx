@@ -27,6 +27,7 @@ export default function Reviews() {
   // estado para capturar el valor y el contenido de la reseña del usuario al psicologo
   const [input_email, setInput_email] = useState({
     email: "",
+    role: ""
   });
 
   // estado para habilitar o deshabilitar el boton de enviar review
@@ -40,9 +41,19 @@ export default function Reviews() {
   const handleInputChange = (e) => {
     setInput_email({
       ...input_email,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      
     })
   };
+
+  const handleSelectChange = (e) => {
+    setInput_email({
+      ...input_email,
+      role: e.target.value,
+      
+    })
+  };
+
 
   // validando errores
 
@@ -50,10 +61,13 @@ export default function Reviews() {
 
     let errors = {};
         if (!input_email.email) {
-            errors.email = 'Inserte su email'
+            errors.email = 'Ingrasa tu email'
         }
         if (input_email.email && !(input_email.email).match(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)) {
             errors.email = 'Email inválido'
+        }
+        if (!input_email.role){
+          errors.role = "Escoge un rol"
         }
     return errors;
 
@@ -108,10 +122,11 @@ export default function Reviews() {
             <FormControl >
               <Input type="text" className="input_calificacion" name='email' onChange={(e) => handleInputChange(e)} placeholder="Ej: terapeando@gmail.com" />
              {errorsEmail && <Text fontWeight={'semibold'} color={'#285e61'} >{`${errorsEmail.email ? `>${errorsEmail.email}`: ""}`}</Text>}
-              <Select>
-                <option value="Psicologo">Psicologo</option>
-                <option value="Psicologo">Paciente</option>
+              <Select  _placeholder={'green'}  placeholder="Selecciona tu rol" marginTop={15} onChange={handleSelectChange}>
+                <option   value="psychologist" name='role'>Psicologo</option>
+                <option  value="client" name='role' key={'role'}>Paciente</option>
               </Select>
+              {errorsEmail && <Text fontWeight={'semibold'} color={'#285e61'} >{`${errorsEmail.role ? `>${errorsEmail.role}`: ""}`}</Text>}
               
             </FormControl>
           </ModalBody>

@@ -9,18 +9,22 @@ import * as crypto from "crypto";
 
 const ForgotPassword = async (req: Request, res: Response) => {
 
-  const { email } = req.body;
+  const { email, role } = req.body;
 
+  let userPsychologist = await userPsychologistModel.find({
+    "email": email,
+    "role": role
+  })
 
-  let userPsychologist = await userPsychologistModel.find({ "email": email })
-  let userClient = await userClientModel.find({ "email": email })
+  let userClient = await userClientModel.find({
+    "email": email,
+    "role": role
+  })
 
 
   try {
 
-   
     const user = userPsychologist.length < 1 ? userClient : userPsychologist
-
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -73,8 +77,8 @@ const ForgotPassword = async (req: Request, res: Response) => {
               { new: true });
             res.status(201).send("email sended");
 
-          } 
-          
+          }
+
 
         })
       })
