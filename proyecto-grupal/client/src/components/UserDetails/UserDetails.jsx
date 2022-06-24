@@ -15,6 +15,8 @@ import {
   Badge,
   VStack,
   Container,
+  HStack,
+  Spacer,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +25,7 @@ import { getUserClient, getUserPsychologistOne } from "../../redux/actions";
 import ChangePasswordModal from "../Modals/ChangePasswordModal";
 import Loader from "../Loader/Loader";
 import NotFound from '../404notFound/notFound.jsx';
+import PsychologistProfile from './PsychologistProfile'
 
 
 export default function ClientDetails() {
@@ -39,7 +42,7 @@ export default function ClientDetails() {
 
     const clientDetails = useSelector((state) => state.userClientDetail);
     const psychologistDetails = useSelector((state) => state.psychologistProfile)
-
+  console.log(psychologistDetails)
   
   
 
@@ -156,80 +159,7 @@ export default function ClientDetails() {
 
           ) : tokenPsychologist ? ( 
               <>
-                        {
-                arr1.length <= 1
-                  ? (
-                    <Loader />
-                  ) : (
-                    <Center>
-                      <Container maxW={'container.lg'} py={6} h={"100%"}>
-                        <Box
-                          w={"50%"}
-                          bg={"gray.200"}
-                          boxShadow={"2xl"}
-                          rounded={"lg"}
-                          p={6}
-                          textAlign={"center"}
-                        >
-
-                          <Stack
-                            direction={"row"}
-                            spacing={4}
-                            w={"100%"}
-                            justifyContent={"space-between"}
-                          >
-                            <Text fontWeight={500} color={"blackAlpha.800"} mb={10} fontSize="3xl">
-                              Información Personal
-                            </Text>
-                            <Button
-                              maxW={"40%"}
-                              fontSize={"sm"}
-                              rounded={"full"}
-                              _focus={{
-                                bg: "teal.600",
-                              }}
-                              bg={"green.100"}
-                              color="teal.500"
-                              _hover={{
-                                bg: "green.500",
-                                color: "white",
-                              }}
-                            >
-                              <Link to={`/editprofile/${psychologistDetails.firstName}`}>Edit Profile</Link>
-                            </Button>
-                          </Stack>
-                          <Avatar
-                            size={"2xl"}
-                            src={psychologistDetails.profileImage}
-                            alt={psychologistDetails.firstName}
-                            mb={4}
-                          />
-                          <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
-                            {psychologistDetails.firstName} {psychologistDetails.lastName}{" "}
-                            <ChangePasswordModal />
-                          </Heading>
-
-                          <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                              {psychologistDetails.email}
-                            </Badge>
-                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                              {psychologistDetails.birthDate}
-                            </Badge>
-                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                              {psychologistDetails.country}
-                            </Badge>
-                          </Stack>
-
-                          <Stack mt={"40px"} alignItems="center">
-                            <CalendarIcon />
-                            <Heading color={"blackAlpha.800"}>Citas</Heading>
-                          </Stack>
-                        </Box>
-                      </Container>
-                    </Center>
-                  )
-              }
+              <PsychologistProfile />
             </>
             )
           : (<NotFound />)

@@ -109,7 +109,10 @@ const postUserPsychologist = async (req: Request, res: Response) => {
           status: "Pendiente",
           about,
           education,
-          role: 'psychologist'
+          role: 'psychologist',
+          dias: [],
+          inicio: '',
+          fin: ''
         });
         res.status(201).send('Welcome to our community, now you can sign in');
       }
@@ -165,8 +168,17 @@ const filterPsichologistSpecialities = async (req: Request, res: Response) => {
     console.log(error)
     return res.status(404).send({ msj: 'No se encontraron resultados' });
   }
-
 };
+
+const putAvailableTimes = async (req: Request, res: Response) => {
+  try {
+    await userPsychologistModel.findByIdAndUpdate(req.user, req.body, { new: true })
+    res.status(200).send('Horarios agregados correctamente')
+  } catch {
+    res.status(404).send('There was an error...');
+  }
+}
+
 
 // // const filterPsichologistRating = async (req: Request, res: Response) => {
 
@@ -211,5 +223,6 @@ module.exports = {
   //filterPsichologistRating,
   getUserPsychologistByStatus,
   getReviews,
-  getPsychologistDetails
+  getPsychologistDetails,
+  putAvailableTimes
 }

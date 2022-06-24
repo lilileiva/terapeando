@@ -1,8 +1,5 @@
 import { prop, getModelForClass, Ref, pre } from '@typegoose/typegoose'
-import * as mongoose from 'mongoose';
 import { appointment } from './appointment';
-import { Reviews } from './Reviews';
-import { Schedule } from './Schedule';
 const bcrypt = require('bcryptjs');
 
 
@@ -95,17 +92,15 @@ export class userPsychologist {
 
   @prop()
   status:string
-  // @prop()
-  // Reviews?: String[];
-
-  @prop({ ref: () => appointment })
-  appointments?: Ref<appointment>[];
 
   @prop()
   role: string
 
-  // @prop({ ref: () => Schedule })
-  // schedule?: Ref<Schedule>[]; 
+  @prop({ type: String, required: true, trim: true })
+  date: string
+
+  @prop({ type: String, required: true, trim: true })
+  hours: []
 }
 
 const userPsychologistModel = getModelForClass(userPsychologist)

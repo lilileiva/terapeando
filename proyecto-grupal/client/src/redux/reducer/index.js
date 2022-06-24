@@ -23,7 +23,13 @@ import {
   ADMIN_SEARCHBAR,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
-  FILTER_BY_STATUS
+  FILTER_BY_STATUS,
+  GET_SCHEDULE,
+  GET_SCHEDULE_BY_DATE,
+  GET_APPOINTMENT_AS_PSYCHOLOGIST,
+  GET_APPOINTMENT_AS_CLIENT,
+  DELETE_APPOINTMENT_AS_CLIENT,
+  PUT_APPOINTMENT,
 } from "../actions/types";
 
 const initialState = {
@@ -38,13 +44,15 @@ const initialState = {
   postsCopy: [],
   categories: [],
   postDetail: {},
-  schedule: {},
+  schedule: [],
   paymentDetailsClient: [],
   paymentDetailsPsychologist: [],
   allPayments: [],
   email: {},
   adminSearchbar: "",
-  reviews: []
+  reviews: [],
+  appointments: [],
+  appoint: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -282,6 +290,41 @@ function rootReducer(state = initialState, action) {
         ...state,
         adminSearchbar: action.payload,
       };
+
+      /*-----------APPOINTMENTS-----------*/
+      case GET_APPOINTMENT_AS_PSYCHOLOGIST:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case GET_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case DELETE_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: state.appointments.filter(appo => appo._id !== action.payload)
+        }
+      case PUT_APPOINTMENT:
+      return {
+        ...state,
+        appoint: action.payload
+      };
+
+      /*-----------SCHEDULE-----------*/
+      case GET_SCHEDULE:
+        return {
+          ...state,
+          schedule: action.payload
+        }
+      case GET_SCHEDULE_BY_DATE:
+        return {
+          ...state,
+          schedule: action.payload
+        }
+
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:
       return {

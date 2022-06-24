@@ -6,9 +6,8 @@ import Starts from '../Starts/Starts';
 import Schedule from "../Schedule/Schedule";
 
 
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist, fin, inicio, dias }) {
     const navigate = useNavigate();
-
     const [calendar, setCalendar] = useState(false)
     const handleCalendar = () => {
         if (!calendar) {
@@ -125,6 +124,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                             profileImage={profileImage}
                             rating={rating}
                             idPsychologist={idPsychologist}
+                            fin={fin}
+                            inicio={inicio}
+                            dias={dias}
                             setCalendar={setCalendar} />
                     </div>
                     : null

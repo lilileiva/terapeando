@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import './Schedule.css'
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserPsychologistOne, clear } from '../../redux/actions'
-import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
+import { Text, Stack, Avatar, Button, HStack, Select } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import Calendar from './Calendar/Calendar';
 
 
-function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalendar }) {
+function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalendar, inicio, fin, dias }) {
 
     return (
-        <Stack width='100%' pl='30%' pr='30%' zIndex='1' position='absolute' >
+        <Stack width='100%' py='15%' px='10%' zIndex='1' position='absolute' >
             <Stack direction='column' rounded="10px" bg='white' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`} display="flex" alignItems="center" justifyContent="space-around">
 
                 <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
@@ -30,15 +28,20 @@ function Schedule({ firstName, lastName, profileImage, idPsychologist, setCalend
                     <Text fontSize='md' mb='1em' textAlign='left'>
                         Seleccione fecha y hora
                     </Text>
-                    {/* <Calendar /> */}
-
-                </Stack>
-                {/* voy a poner provisoriamente esto para tomar el id del psicologo */}
+                
+                <HStack w={'70%'}>
+                <Calendar idPsychologist={idPsychologist}
+                          inicio={inicio}
+                          fin={fin}
+                          dias={dias}/>
+                </HStack>
                 <Link to={`/checkout/${idPsychologist}`}>
-                    <Button bg='#63caa7' color='white' mb='2em' colorScheme='teal'>
+                    <Button bg='#63caa7' color='white' colorScheme='teal'>
                         Agendar
                     </Button>
                 </Link>
+                </Stack>
+
             </Stack>
         </Stack>
     )

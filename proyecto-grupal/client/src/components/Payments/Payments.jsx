@@ -23,7 +23,8 @@ function Payments() {
 
   const paymentsCli = useSelector((state) => state.paymentDetailsClient)
   const psymentsPsy = useSelector((state) => state.paymentDetailsPsychologist)
-  
+  console.log(psymentsPsy)
+
   let allPosts;
   if(tokenClient) allPosts = paymentsCli;
   if(tokenPsychologist) allPosts = psymentsPsy;

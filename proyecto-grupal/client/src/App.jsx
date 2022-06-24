@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import ClientDetails from "./components/ClientDetails/ClientDetails";
+import ClientDetails from "./components/UserDetails/UserDetails";
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavBar from "./components/NavBar/NavBar.jsx";
@@ -39,7 +39,6 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
-
 
 export default function App() {
   return (

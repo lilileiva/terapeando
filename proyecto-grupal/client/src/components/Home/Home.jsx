@@ -122,6 +122,9 @@ export default function Home() {
                   // about={`${el.about.slice(0, 270)}...`}
                   idPsychologist={el._id}
                   Specialties={el.Specialties}
+                  inicio={el.inicio}
+                  fin={el.fin}
+                  dias={el.dias}
                 />
               )
             }) : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>}
