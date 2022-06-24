@@ -133,7 +133,7 @@ export function loginClient(signinForm) {
 export function editClient(updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(`${baseURL}/userclient`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      const data = await axios.put(`${baseURL}/userclient/editprofile`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -768,15 +768,15 @@ export function AdminEditUserPsichologist(IdUserPsychologist, updatedUserPsychol
   };
 }
 
-export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
+export const AdminGetUserPsychologistDetail = (idUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/${idUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({
-        type: "GET_PSYCHOLOGISTS_ONE",
+        type: "GET_PSYCHOLOGISTS_DETAILS",
         payload: psychologist.data,
       });
     } catch (error) {

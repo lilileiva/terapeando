@@ -1,8 +1,5 @@
 import { prop, getModelForClass, Ref, pre } from '@typegoose/typegoose'
-import * as mongoose from 'mongoose';
 import { appointment } from './appointment';
-import { Reviews } from './Reviews';
-import { Schedule } from './Schedule';
 const bcrypt = require('bcryptjs');
 
 
@@ -70,7 +67,13 @@ export class userPsychologist {
   birthDate: string
 
   @prop({ required: true })
-  country: string
+  location: string
+
+  @prop({ required: true })
+  latitude: string
+
+  @prop({ required: true })
+  longitude: string
 
   @prop({ unique: true, required: true })
   License: string

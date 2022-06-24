@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { BsGeoAltFill } from "react-icons/bs";
 import { Stack } from '@chakra-ui/react';
+import { useState } from 'react';
 
 const { REACT_APP_GOOGLE_MAP_API_KEY } = process.env;
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
-function Map() {
+
+function Map({lat, lgn}) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: `${REACT_APP_GOOGLE_MAP_API_KEY}`
   })
+  const center = { lat: Number(lat), lng: Number(lgn) }
+  const [map, setMap] = useState(null)
+  const [zoom, setZoom] = useState(10)
 
-  const [map, setMap] = React.useState(null)
+useEffect(() => {
+  setZoom(10)
+}, [zoom])
+
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -34,13 +38,14 @@ function Map() {
       <GoogleMap
         mapContainerStyle={{ width: '25em', height: '25em' }}
         center={center}
-        zoom={20}
+        zoom={zoom}
         onLoad={onLoad}
         onUnmount={onUnmount}
         options={{ gestureHandling: "greedy" }}
+     
       >
         { /* Child components, such as markers, info windows, etc. */}
-        <Marker position={center} title='Tu psicólogo' />
+        <Marker  icon={{ url: "https://i.postimg.cc/jqwGQYWz/logo-01-Marker.png"}}  position={center} title='Tu psicólogo' />
       </GoogleMap>
 
       <button onClick={() => map.panTo(center)}>

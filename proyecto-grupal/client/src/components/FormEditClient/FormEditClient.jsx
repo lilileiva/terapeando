@@ -24,8 +24,11 @@ import NotFound from "../404notFound/notFound";
 
 import NavbarHome from '../NavbarHome/NavbarHome.jsx'
 import Footer from "../Footer/Footer";
-
-
+import { BiLoader, BiX } from "react-icons/bi";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
 const regNames = /^[A-Za-z]+$/;
 const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
@@ -38,7 +41,11 @@ function validate(input) {
 }
 
 function FormEditClient() {
-
+  const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  });
   const countries = useMemo(() => countryList().getData(), [])
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,6 +58,9 @@ function FormEditClient() {
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
     country: clientDetails.country || psychologistDetails.country,
+    country: psychologistDetails.location,
+    latitude: '',
+    longitude: '',
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,
@@ -110,7 +120,23 @@ function FormEditClient() {
     }
   }
 
+  useEffect(() => {
+    setInput({
+        ...input,
+        location: address, 
+        latitude: coordinates.lat, 
+        longitude: coordinates.lng, 
+    })
+}, [address, coordinates])
 
+
+
+    const handleLocation = async (address) => {
+        const results = await geocodeByAddress(address);
+        const latLng = await getLatLng(results[0]);
+        setAddress(address);
+        setCoordinates(latLng)
+    }
   return (
     <>
     <NavbarHome />
@@ -249,8 +275,31 @@ function FormEditClient() {
                           {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                         </FormControl>
                         <FormControl id="country">
-                          <FormLabel>Pais de residencia</FormLabel>
-                          <Input type="country" name='country' placeholder={psychologistDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
+                                                                <PlacesAutocomplete value={address}  onChange={setAddress} onSelect={handleLocation} >
+                                                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                                                <div> 
+                                                                    <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })}  />
+                                                                    <div>
+                                                                    {loading ? <BiLoader/> : null}
+
+                                                                    {suggestions.map(suggestion => {
+                                                                        const style = {
+                                                                        backgroundColor: suggestion.active ? "#718096" : "#fff"
+                                                                        };
+
+                                                                        return (
+                                                                        <option  className='LocationOptions' color='gray.500' 
+                                                                        bg='white' mt='2em' width='10px' key={suggestion.description}  value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
+                                                                            {suggestion.description}
+                                                                        </option>
+                                                                        );
+                                                                    })}
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                )}
+                                                                 
+                                                            </PlacesAutocomplete>
                         </FormControl>
                         <FormControl id="DNI">
                           <FormLabel>DNI</FormLabel>
