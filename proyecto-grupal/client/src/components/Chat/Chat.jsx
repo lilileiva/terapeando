@@ -4,6 +4,7 @@ import "./Chat.css"
 import config from './config/config.jsx';
 import ActionProvider from './ActionProvider/ActionProvider.jsx';
 import MessageParser from "./MessageParser/MessageParser.jsx"
+import avatar from "../../assets/logo-01.png"
 import 'react-chatbot-kit/build/main.css';
 function Chat(){
     return(
@@ -14,6 +15,7 @@ function Chat(){
                     actionProvider={ActionProvider}
                     messageParser={MessageParser}
                 />
+                <img className='chat-img' src={avatar} alt="logo" />
             </header>
         </div>
     )

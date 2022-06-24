@@ -1,45 +1,51 @@
 .chatApp {
-    text-align: center;
-    height: 100%;
-  }
-  
+  text-align: center;
+  height: 100%;
+}
+
+.chatApp-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.chatApp input{
+  color: black;
+}
+.chat-img{
+  width: 90px;
+  height: 90px;
+  margin-right: 13px;
+  margin-top: 3px;
+}
+.chatApp svg{
+  margin-left: 35%;
+}
+@media (prefers-reduced-motion: no-preference) {
   .chatApp-logo {
-    height: 40vmin;
-    pointer-events: none;
+    animation: App-logo-spin infinite 20s linear;
   }
-  .chatApp input{
-    color: black;
+}
+
+.chatApp-header {
+  background-color: #282c34;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.chatApp-link {
+  color: #61dafb;
+}
+
+@keyframes chatApp-logo-spin {
+  from {
+    transform: rotate(0deg);
   }
-  .chatApp svg{
-    margin-left: 35%;
+  to {
+    transform: rotate(360deg);
   }
-  @media (prefers-reduced-motion: no-preference) {
-    .chatApp-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .chatApp-header {
-    background-color: #282c34;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .chatApp-link {
-    color: #61dafb;
-  }
-  
-  @keyframes chatApp-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+}

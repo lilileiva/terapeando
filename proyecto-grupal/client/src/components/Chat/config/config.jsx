@@ -2,6 +2,7 @@ import React from "react"
 import {createChatBotMessage} from "react-chatbot-kit"
 import LearningOptions from "../LearningOptions/LearningOptions.jsx"
 import LinkList from "../Components/LinkList/Linklist.jsx"
+import Avatar from "../Components/Avatar/Avatar"
 import Pricing from "../Components/Price/Pricing.jsx"
 import PriceFeedBack from "../Components/Price/PriceFeedBack.jsx"
 import DogPicture from './dogPicture'
@@ -9,7 +10,8 @@ const config = {
     botName: "TereBot",
     initialMessages:[
         createChatBotMessage("Hola, Soy Tere Bot. ¿Como puedo ayudarte el dia de hoy? ",{
-            widget:"learningOptions"
+            widget:"learningOptions",
+            withAvatar: true
         }),
     ],
     customStyles: {
@@ -71,6 +73,10 @@ const config = {
           ]
         }
       }
-    ]
-}
+    ],
+    customComponents: {
+      // Replaces the default bot avatar
+      botAvatar: (props) => <Avatar {...props} />,
+    },
+  }
 export default config;
