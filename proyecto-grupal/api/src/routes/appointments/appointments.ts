@@ -91,8 +91,8 @@ const deleteAppointAsClient = async (req: Request, res: Response) => {
 
 const putAppointment = async (req:Request , res: Response) => {
     try{
-        const { idAppointment } = req.params;
-        const data = await appointmentModel.findByIdAndUpdate(idAppointment, req.body, { new: true })
+        const { IdAppointment } = req.params;
+        const data = await appointmentModel.findByIdAndUpdate( IdAppointment, req.body, { new: true })
         res.status(200).send('Cita editada correctamente')
     } catch(err) {
         res.status(404).send(err)

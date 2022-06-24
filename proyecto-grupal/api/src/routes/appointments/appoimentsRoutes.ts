@@ -19,7 +19,7 @@ appoimentRouter.get('/psychologist', validatePsychologist, getAppointmentAsPsych
 appoimentRouter.get('/client', validateClient, getAppointmentAsClient);
 appoimentRouter.delete('/delete/psychologist', validatePsychologist, deleteAppointAsPsychologist);
 appoimentRouter.delete('/delete/client', validateClient, deleteAppointAsClient);
-appoimentRouter.put('/putappoint/:idAppointment', validateUsers, putAppointment)
+appoimentRouter.put('/putappoint/:IdAppointment', validateUsers, putAppointment)
 
 
 module.exports = appoimentRouter;

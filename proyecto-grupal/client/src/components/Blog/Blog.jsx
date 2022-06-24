@@ -35,7 +35,7 @@ export default function Blog() {
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
-    }, 1500);
+    }, 3000);
   }, [setLoader]);
 
   const posts = useSelector((state) => state.posts)

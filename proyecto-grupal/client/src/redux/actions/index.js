@@ -440,7 +440,7 @@ export const addPost = (body) => {
         type: "CREATE_POST",
         payload: info
       })
-      Swal.fire('Post creado correctamente!', 'muy bien', 'success')
+      Swal.fire('Post creado correctamente!', 'success')
     } catch (error) {
       console.log(error)
 
