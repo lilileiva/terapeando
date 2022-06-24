@@ -104,6 +104,24 @@ class ActionProvider{
         );
         this.updateChatbotState(message);
     };
+    handleDog = () => {
+        const message = this.createChatBotMessage(
+          "Serán de tus mejores compañeros y amigos en esta etapa 🥰",
+          {
+            widget: "dogPicture",
+          }
+        );
+        this.updateChatbotState(message);
+    };
+    handleCat = () => {
+        const message = this.createChatBotMessage(
+          "Serán de tus mejores compañeros y amigos en esta etapa 🥰",
+          {
+            widget: "catPicture",
+          }
+        );
+        this.updateChatbotState(message);
+    };
     handleGoodbye = () => {
         const message = this.createChatBotMessage(
           "Fue divertido hablar contigo, cuídate, escribeme de nuevo cuando lo necesites"

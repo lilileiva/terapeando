@@ -97,7 +97,9 @@ const postUserPsychologist = async (req: Request, res: Response) => {
     email,
     password,
     birthdate,
-    country,
+    location,
+    latitude,
+    longitude,
     license,
     dni,
     specialities,
@@ -120,7 +122,9 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         email,
         password,
         birthDate: birthdate,
-        country,
+        location,
+        latitude,
+        longitude,
         License: license,
         DNI: dni,
         Specialties: specialities,
@@ -130,7 +134,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         status: "Pendiente",
         about,
         education,
-        role: "psychologist",
+        role: 'psychologist'
       });
       res.status(201).send("Welcome to our community, now you can sign in");
       //----email confirmation

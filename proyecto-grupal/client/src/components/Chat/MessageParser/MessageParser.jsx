@@ -10,6 +10,12 @@ class MessageParser{
         if(lowerCaseMessage.includes("hola")){
             this.actionProvider.greet();
         }
+        else if(lowerCaseMessage.includes("perro")){
+            this.actionProvider.handleDog();
+        }
+        else if(lowerCaseMessage.includes("gato")){
+            this.actionProvider.handleCat();
+        }
         else if(lowerCaseMessage.includes("menu") || lowerCaseMessage.includes("volver")){
             this.actionProvider.handleMenu()
         }

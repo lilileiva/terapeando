@@ -6,6 +6,7 @@ import Avatar from "../Components/Avatar/Avatar"
 import Pricing from "../Components/Price/Pricing.jsx"
 import PriceFeedBack from "../Components/Price/PriceFeedBack.jsx"
 import DogPicture from './dogPicture'
+import CatPicture from './catPicture'
 const config = {
     botName: "TereBot",
     initialMessages:[
@@ -21,11 +22,17 @@ const config = {
         chatButton: {
           backgroundColor: "#5ccc9d",
         },
+        
+
     },
     widgets:[
       {  
         widgetName: 'dogPicture',
         widgetFunc: (props) => <DogPicture {...props} />,    
+      },
+      {  
+        widgetName: 'catPicture',
+        widgetFunc: (props) => <CatPicture {...props} />,    
       },
       {
         widgetName: "learningOptions",

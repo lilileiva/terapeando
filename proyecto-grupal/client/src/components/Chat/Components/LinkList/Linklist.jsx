@@ -2,7 +2,7 @@ import React from "react"
 import "./LinkList.css"
 const LinkList = (props) => {
     //voy a renderizar cada una de las opciones que me llegan por props
-    const linkMarkup = props.options.map((link) => {
+    const linkMarkup = props?.options?.map((link) => {
         return(
             <li key={link.id} className="link-list-item">
                 <a href={link.url}  rel="noopener noreferrer" className="link-list-item-url"
