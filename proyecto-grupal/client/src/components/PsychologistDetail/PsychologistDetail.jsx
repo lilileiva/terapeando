@@ -15,11 +15,11 @@ import Reviews from "../Reviews/Reviews";
 import NotFound from '../404notFound/notFound.jsx';
 import Map from '../Map/Map.jsx';
 import Schedule from "../Schedule/Schedule";
-import { getScheduleAsPsychologist } from '../../redux/actions';
+import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 
 
 export default function PsychologistDetail() {
-  const { IdUserPsychologist } = useParams();
+  const { IdUserPsychologist } = useParams();  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function PsychologistDetail() {
   useEffect(() => {
     if (tokenClient) {
       dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist))
-      dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+      dispatch(getScheduleAsClient(IdUserPsychologist))
     }
     if (tokenPsychologist) {
       dispatch(getUserPsychologistDetails(IdUserPsychologist))

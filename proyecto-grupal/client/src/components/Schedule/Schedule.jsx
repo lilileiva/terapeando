@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 
 
 function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCalendar }) {
-
     const dispatch = useDispatch();
 
     const schedule = useSelector((state) => state.schedule)
+    console.log(schedule)
     let scheduleDate;
     let scheduleHour;
 
@@ -59,7 +59,7 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
                     <Avatar className="avatar" src={profileImage} alt="img not found" size='xl'></Avatar>
                 </Stack>
 
-                <Stack direction='column' pt='1em' pb='2em' borderTopWidth='0.1em' borderColor='#b7b7b7' width='80%'>
+                <Stack direction='column' pt='1em' pb='1em' borderTopWidth='0.1em' borderColor='#b7b7b7' width='80%'>
                     <Text fontSize='2xl' color='#285e61' marginBottom='0' textAlign='left'>
                         Calendario
                     </Text>
@@ -67,36 +67,36 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
                         Seleccione una fecha
                     </Text>
                 </Stack>
-                <Stack>
+                <Stack pb='1em'>
                     {
                         schedule.length !== 0
-                            ?
-                            <>
+                            ? <>
                                 {
-                                    schedule.map((sch) => (
-                                        <>
-                                            {scheduleDate = new Date(sch.date)}
-                                            <Button color='teal' onClick={() => handleDate(sch.date)}>
-                                                {scheduleDate.getUTCMonth()}/{scheduleDate.getUTCDate()}
-                                            </Button>
-                                            <Stack>
-                                                {
-                                                    showHours
-                                                        ? (
-                                                            sch.hours !== 0
+                                    schedule.map((sch) => {
+                                        scheduleDate = new Date(sch.date)
+                                        return (
+                                            <>
+                                                <Button color='teal' onClick={() => handleDate(sch.date)}>
+                                                    {scheduleDate.getUTCMonth()}/{scheduleDate.getUTCDate()}
+                                                </Button>
+                                                <Stack>
+                                                    {
+                                                        showHours
+                                                            ? sch.hours !== 0
                                                                 ? (
                                                                     sch.hours.map((hour) => (
                                                                         <Button bg='green.100'>{hour}</Button>
                                                                     ))
                                                                 ) : <Text>No hay horarios disponibles</Text>
-                                                        ) : null
-                                                }
-                                            </Stack>
-                                        </>
-                                    ))
+                                                            : null
+                                                    }
+                                                </Stack>
+                                            </>
+                                        )
+                                    })
                                 }
                             </>
-                            : null
+                            : <Text>Lo sentimos, este psicólogo no cuenta con horarios disponibles</Text>
                     }
                 </Stack>
 

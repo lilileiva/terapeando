@@ -31,7 +31,8 @@ import {
   GET_SCHEDULE,
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
-  GET_APPOINTMENT_AS_CLIENT
+  GET_APPOINTMENT_AS_CLIENT,
+  DELETE_APPOINTMENT_AS_CLIENT
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -641,8 +642,26 @@ export function createSchedule(input) {
 export function getScheduleAsPsychologist(IdUserPsychologist) {
   return async function (dispatch) {
     try {
-      axios.get(`${baseURL}/schedule/${IdUserPsychologist}`,
+      axios.get(`${baseURL}/schedule/get/${IdUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleAsClient(IdUserPsychologist) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/get/${IdUserPsychologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
         .then((schedule) => {
           dispatch({
@@ -677,16 +696,42 @@ export function getScheduleByDate(IdUserPsychologist, date) {
 
 
 /*---------------------APPOINTMENTS ACTIONS-------------------*/
+
+export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
+  return async function (dispatch) {
+    try {
+      await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
+        appointmentData,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export function createAppointmentAsPsychologist(IdUserPsychologist, appointmentData) {
+  return async function (dispatch) {
+    try {
+      await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
+        appointmentData,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export function getAppointmentAsPsychologist() {
   return async function (dispatch) {
     try {
       axios.get(`${baseURL}/appointment/psychologist`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
-        .then((schedule) => {
+        .then((appointment) => {
           dispatch({
             type: GET_APPOINTMENT_AS_PSYCHOLOGIST,
-            payload: schedule.data
+            payload: appointment.data
           })
         })
     } catch (error) {
@@ -701,12 +746,46 @@ export function getAppointmentAsClient() {
       axios.get(`${baseURL}/appointment/client`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
-        .then((schedule) => {
+        .then((appointment) => {
           dispatch({
             type: GET_APPOINTMENT_AS_CLIENT,
-            payload: schedule.data
+            payload: appointment.data
           })
         })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function deleteAppointmentAsClient(IdAppointment) {
+  return async function (dispatch) {
+    try {
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/client`,
+        IdAppointment,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+      dispatch({
+        type: DELETE_APPOINTMENT_AS_CLIENT,
+        payload: appointment.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function deleteAppointmentAsPsychologist(IdAppointment) {
+  return async function (dispatch) {
+    try {
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/psychologist`,
+        IdAppointment,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+      dispatch({
+        type: DELETE_APPOINTMENT_AS_CLIENT,
+        payload: appointment.data
+      })
     } catch (error) {
       console.log(error)
     }

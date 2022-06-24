@@ -27,7 +27,8 @@ import {
   GET_SCHEDULE,
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
-  GET_APPOINTMENT_AS_CLIENT
+  GET_APPOINTMENT_AS_CLIENT,
+  DELETE_APPOINTMENT_AS_CLIENT
 } from "../actions/types";
 
 const initialState = {
@@ -217,7 +218,7 @@ function rootReducer(state = initialState, action) {
           schedule: action.payload
         }
 
-    /*-----------SCHEDULE-----------*/
+    /*-----------APPOINTMENTS-----------*/
       case GET_APPOINTMENT_AS_PSYCHOLOGIST:
         return {
           ...state,
@@ -227,6 +228,11 @@ function rootReducer(state = initialState, action) {
         return {
           ...state,
           appointments: action.payload
+        }
+      case DELETE_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: state.appointments.filter(appo => appo._id !== action.payload)
         }
 
     /*-----------CLEAR-----------*/
