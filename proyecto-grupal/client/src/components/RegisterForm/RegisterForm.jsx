@@ -17,7 +17,7 @@ import { LOCAL_HOST } from "../../redux/actions/types";
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
-  } from "react-places-autocomplete";
+} from "react-places-autocomplete";
 const baseURL = LOCAL_HOST;
 
 function RegisterForm() {
@@ -298,15 +298,21 @@ function RegisterForm() {
                                                 onFocus={(e) => (e.target.type = "date")}
                                                 onChange={handleInputChange} />
                                             {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
+                                            {
+                                                userClientBtn ? (
+                                                    <>
+                                                        <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
+                                                            {
+                                                                countries.map(c => (
+                                                                    <option key={c.label} value={c.label}>{c.label}</option>
+                                                                ))
+                                                            }
+                                                        </Select>
+                                                        {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
 
-                                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
-                                                {
-                                                    countries.map(c => (
-                                                        <option key={c.label} value={c.label}>{c.label}</option>
-                                                    ))
-                                                }
-                                            </Select>
-                                            {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
+                                                    </>
+                                                ) : null
+                                            }
                                             {
                                                 !userClientBtn
                                                     ? (

@@ -56,7 +56,7 @@ const getAppointmentAsClient = async (req: Request, res: Response) => {
             country: 1,
             Specialties: 1,
             profileImage: 1
-          });    ;    
+          }); 
         res.status(200).json(appointment)
      } catch (err) {
         console.log(err)

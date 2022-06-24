@@ -313,13 +313,13 @@ export function editUserPsichologist(updatedUserPsychologist) {
 }
 
 //----- olvide mi password
-export function forgotPassword(payload){
-  return async function (dispatch){
+export function forgotPassword(payload) {
+  return async function (dispatch) {
     try {
-      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword` , payload)
+      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword`, payload)
       dispatch({
         type: REMEMBER_PASSWORD_PSYCHOLOGIST,
-        payload: json.data 
+        payload: json.data
       })
     } catch (error) {
       console.log(error)
@@ -440,7 +440,7 @@ export const addPost = (body) => {
         type: "CREATE_POST",
         payload: info
       })
-      Swal.fire('Post creado correctamente!', 'success')
+      Swal.fire('Post creado correctamente!', '', 'success')
     } catch (error) {
       console.log(error)
 
@@ -772,6 +772,32 @@ export function getAppointmentAsClient() {
   }
 }
 
+export function putAppointmentAsClient(IdAppointment, inputType) {
+  return async function (dispatch) {
+    try {
+      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
+        inputType,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function putAppointmentAsPsychologist(IdAppointment, inputType) {
+  return async function (dispatch) {
+    try {
+      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
+        inputType,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export function deleteAppointmentAsClient(IdAppointment) {
   return async function (dispatch) {
     try {
@@ -779,12 +805,12 @@ export function deleteAppointmentAsClient(IdAppointment) {
         IdAppointment,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
-      dispatch({
-        type: DELETE_APPOINTMENT_AS_CLIENT,
-        payload: appointment.data
-      })
+      if (appointment.status === 200) {
+        Swal.fire('Has cancelado esta cita', '', 'success')
+      }
     } catch (error) {
       console.log(error)
+      Swal.fire('No se ha podido cancelar esta cita', '', 'error')
     }
   }
 }
@@ -800,8 +826,12 @@ export function deleteAppointmentAsPsychologist(IdAppointment) {
         type: DELETE_APPOINTMENT_AS_CLIENT,
         payload: appointment.data
       })
+      if (appointment.status === 200) {
+        Swal.fire('Has cancelado esta cita', '', 'success')
+      }
     } catch (error) {
       console.log(error)
+      Swal.fire('No se ha podido cancelar esta cita', '', 'error')
     }
   }
 }

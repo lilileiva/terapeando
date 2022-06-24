@@ -200,6 +200,22 @@ function FormEditClient() {
                             mt={4}
                           />
                         </FormControl>
+                        <Stack spacing={10} pt={2}>
+                          <Button
+                            loadingText="Submitting"
+                            size="lg"
+                            bg={'green.100'}
+                            color='teal.500'
+                            _hover={{
+                              bg: 'green.500',
+                              color: 'white'
+                            }}
+                            type='submit'
+                            onSubmit={(e) => handleSubmit(e)}>
+                            Actualizar
+                          </Button>
+                          <DeleteModal />
+                        </Stack>
                       </Stack>
                     </Box>
                   </Stack>
@@ -303,7 +319,6 @@ function FormEditClient() {
                           />
                         </FormControl>
                         <Stack spacing={10} pt={2}>
-
                           <Button
                             loadingText="Submitting"
                             size="lg"
