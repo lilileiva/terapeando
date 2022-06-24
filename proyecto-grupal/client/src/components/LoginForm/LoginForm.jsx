@@ -22,7 +22,7 @@ import Swal from "sweetalert2";
 import { gapi } from "gapi-script";
 import Login from "../LogGoogle/LogInGoogle";
 import axios from "axios";
-import { loginClient, registerConfirmationEmail, olvideMiPass } from "../../redux/actions";
+import { loginClient } from "../../redux/actions";
 import { LOCAL_HOST } from "../../redux/actions/types";
 import ForgotPassword from '../ForgotPassword/ForgotPassword.jsx'
 
@@ -92,10 +92,6 @@ function LoginForm() {
     setIsSubmit(true);
   };
 
-  const handleForgotPass = async (e) => {
-    e.preventDefault()
-    dispatch(registerConfirmationEmail())
-  }
   const afterSubmit = async () => {
     if (Object.keys(formErrors).length === 0 && userClientBtn) {
       let response;
