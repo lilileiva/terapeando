@@ -9,7 +9,6 @@ import { BiLoader, BiX } from "react-icons/bi";
 import NavBar from '../NavBar/NavBar.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
-import { createClient, createPsychologist } from '../../redux/actions/index.js';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
@@ -25,7 +24,7 @@ function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const countries = useMemo(() => countryList().getData(), [])
+    const countries = useMemo(() => countryList().getData(), [])
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -41,8 +40,9 @@ function RegisterForm() {
         lastname: "",
         birthdate: "",
         location: "",
-        latitude: "",
-        longitude: "",
+        country: "",
+        latitude: '',
+        longitude: '',
         email: "",
         profileimage: "",
         license: "",
@@ -131,40 +131,32 @@ function RegisterForm() {
         })
     }
 
-    const handleAdress = (address) => {
-        setAddress(address);
-        setSignupForm({
-                    ...signupForm,
-                    location: address
-                })
-    }
+useEffect(() => {
+    setSignupForm({
+        ...signupForm,
+        location: address, 
+        latitude: coordinates.lat, 
+        longitude: coordinates.lng, 
+    })
+}, [address, coordinates])
 
-    // useEffect(() => {
-    //     setCoordinates(async () => await geocodeByAddress(address));
-    //   }, [address]); // <- add the count variable here
+
 
     const handleLocation = async (address) => {
         const results = await geocodeByAddress(address);
         const latLng = await getLatLng(results[0]);
         setAddress(address);
         setCoordinates(latLng)
-        setSignupForm({
-            ...signupForm,
-            latitude: coordinates.lat,
-            longitude: coordinates.lng,
-            location: address,
-        })
-        console.log(signupForm)
     }
 
 
     
-    // const handleCountries = (e) => {
-    //     setSignupForm({
-    //         ...signupForm,
-    //         country: e.target.value
-    //     })
-    // }
+    const handleCountries = (e) => {
+        setSignupForm({
+            ...signupForm,
+            country: e.target.value
+        })
+    }
     // const handleSelect = async value => {
     //     const results = await geocodeByAddress(value);
     //     const latLng = await getLatLng(results[0]);
@@ -320,20 +312,23 @@ function RegisterForm() {
                                                 onFocus={(e) => (e.target.type = "date")}
                                                 onChange={handleInputChange} />
                                             {formErrors.birthdate && <Text fontSize='sm' color='teal.500'>{formErrors.birthdate}</Text>}
-
-                                            {/* <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
+                                            
+                                            <Select variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' onChange={handleCountries} >
                                                 {
                                                     countries.map(c => (
                                                         <option key={c.label} value={c.label}>{c.label}</option>
                                                     ))
                                                 }
                                             </Select>
-                                            {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>} */}
-                                            <PlacesAutocomplete value={address}  onChange={handleAdress} onSelect={handleLocation} >
+                                            {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>}
+                                    
+                                            {
+                                                !userClientBtn
+                                                    ? (
+                                                        <>
+                                                                <PlacesAutocomplete value={address}  onChange={setAddress} onSelect={handleLocation} >
                                                                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                                                 <div> 
-                                                                    <Text >lat : {coordinates.lat}</Text>
-                                                                    <Text >lgn : {coordinates.lng}</Text>
                                                                     <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })}  />
                                                                     <div>
                                                                     {loading ? <BiLoader/> : null}
@@ -358,10 +353,6 @@ function RegisterForm() {
                                                                 )}
                                                                  
                                                             </PlacesAutocomplete>
-                                            {
-                                                !userClientBtn
-                                                    ? (
-                                                        <>
                                                             <Select onChange={handleSpecialities} name='specialities' variant='flushed' placeholder=' Especialidades' color='gray.500' bg='white' marginTop='2em'>
                                                                 {
                                                                     specialitiesList.map(e => (
