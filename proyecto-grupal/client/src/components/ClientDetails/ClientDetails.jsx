@@ -47,8 +47,6 @@ export default function ClientDetails() {
 
   return (
     <>
-      <NavbarHome />
-
       <Stack className='ClientDetailsContainer'>
         {
           tokenClient

@@ -113,8 +113,6 @@ function FormEditClient() {
 
   return (
     <>
-      <NavbarHome />
-
       <Stack className='ClientDetailsContainer'>
 
         {

@@ -24,19 +24,21 @@ function validarCampos(input) {
   } else if (input.Title.length > 100) {
     errors.Title =
       "El titulo es demasiado largo. escribe un maximo de 100 caracteres";
-  } else if (!/^[a-zA-Z0-9-() .]+$/.test(input.Title)) {
-    //ponemos la expresion regular y la validamos con el titulo
-    errors.Title =
-      "El titulo de la nota solo acepta letras, numeros, guiones medios y parentesis";
   }
+  // else if (!/^[a-zA-Z0-9-() .]+$/.test(input.Title)) {
+  //   //ponemos la expresion regular y la validamos con el titulo
+  //   errors.Title =
+  //     "El titulo de la nota solo acepta letras, numeros, guiones medios y parentesis";
+  // }
   //contenido
   if (!input.Content) {
     errors.Content = "El contenido es obligatorio";
-  } else if (!/^[a-zA-Z0-9-() .]+$/.test(input.Title)) {
-    //ponemos la expresion regular y la validamos con el contenido
-    errors.Content =
-      "El contenido de la nota solo acepta letras, numeros, guiones medios y parentesis";
   }
+  // else if (!/^[a-zA-Z0-9-() .]+$/.test(input.Title)) {
+  //   //ponemos la expresion regular y la validamos con el contenido
+  //   errors.Content =
+  //     "El contenido de la nota solo acepta letras, numeros, guiones medios y parentesis";
+  // }
   //Imagen
   if (!input.Image) {
     errors.Image = "La Imagen es obligatoria";
