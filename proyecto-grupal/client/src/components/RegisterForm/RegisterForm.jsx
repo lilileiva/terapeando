@@ -136,19 +136,7 @@ function RegisterForm() {
         setAddress(address);
         const latLng = await getLatLng(results[0]);
         setCoordinates(latLng);
-        // if (coordinates.lat && coordinates.lng) {
-        //     setSignupForm({
-        //         ...signupForm,
-        //         location: address,
-        //         latitude: (coordinates.lat).toString(),
-        //         longitude: (coordinates.lng).toString()
-        //     })
-        // }
-        console.log(signupForm)
-    }
-
-    useEffect(() => {
-        if (coordinates && address) {
+        if (coordinates.lat && coordinates.lng) {
             setSignupForm({
                 ...signupForm,
                 location: address,
@@ -156,8 +144,8 @@ function RegisterForm() {
                 longitude: (coordinates.lng).toString()
             })
         }
-    }, [setSignupForm, signupForm, coordinates, address])
-
+        console.log(signupForm)
+    }
 
     // const handleCountries = (e) => {
     //     setSignupForm({

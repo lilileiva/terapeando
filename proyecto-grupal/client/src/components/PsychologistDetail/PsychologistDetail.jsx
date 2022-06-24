@@ -51,7 +51,7 @@ export default function PsychologistDetail() {
   }, [dispatch, IdUserPsychologist]);
 
   const detail = useSelector((state) => state.userPsichologistDetail);
-  console.log(detail)
+  console.log('detail', detail)
   const posts = useSelector((state) => state.posts)
   let postDate;
 
@@ -82,7 +82,7 @@ export default function PsychologistDetail() {
               <div className='psychologistDetailContainer'>
                 <Stack mb='1em'>
                   <NavbarHome />
-                  <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>
+                  <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'12em'}>
                     <ArrowLeftIcon color='white' alignItems='left' cursor='pointer' onClick={() => navigate(-1)} />
                     <Text fontSize='3xl' fontWeight='500' color='white'>
                       Conoce un poco más sobre tu próximo psicólogo

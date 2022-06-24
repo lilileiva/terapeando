@@ -267,92 +267,92 @@ function LoginForm() {
     )
 }
 
-            <Box
-              minWidth="container.sm"
-              bg="green.100"
-              color="#262626"
-              borderBottomRadius="1em"
-              paddingTop="0"
-              paddingBottom="2em"
-              align="center"
-            >
-              <Box direction="column" align="center" width="60%">
-                <form onSubmit={handleInputSubmit}>
-                  <Input
-                    name="email"
-                    variant="flushed"
-                    placeholder=" Email"
-                    bg="white"
-                    marginTop="3em"
-                    onChange={handleInputChange}
-                  />
-                  {formErrors.email && (
-                    <Text fontSize="sm" color="teal.500">
-                      {formErrors.email}
-                    </Text>
-                  )}
+//             <Box
+//               minWidth="container.sm"
+//               bg="green.100"
+//               color="#262626"
+//               borderBottomRadius="1em"
+//               paddingTop="0"
+//               paddingBottom="2em"
+//               align="center"
+//             >
+//               <Box direction="column" align="center" width="60%">
+//                 <form onSubmit={handleInputSubmit}>
+//                   <Input
+//                     name="email"
+//                     variant="flushed"
+//                     placeholder=" Email"
+//                     bg="white"
+//                     marginTop="3em"
+//                     onChange={handleInputChange}
+//                   />
+//                   {formErrors.email && (
+//                     <Text fontSize="sm" color="teal.500">
+//                       {formErrors.email}
+//                     </Text>
+//                   )}
 
-                  <InputGroup
-                    variant="flushed"
-                    size="md"
-                    bg="white"
-                    marginTop="2em"
-                  >
-                    <Input
-                      name="password"
-                      pr="4.5rem"
-                      type={show ? "text" : "password"}
-                      placeholder=" Contraseña"
-                      onChange={handleInputChange}
-                    />
-                    <InputRightElement width="4.5rem">
-                      <Button h="1.75rem" size="sm" onClick={handleClick}>
-                        {show ? "Hide" : "Show"}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  {formErrors.password && (
-                    <Text fontSize="sm" color="teal.500">
-                      {formErrors.password}
-                    </Text>
-                  )}
+//                   <InputGroup
+//                     variant="flushed"
+//                     size="md"
+//                     bg="white"
+//                     marginTop="2em"
+//                   >
+//                     <Input
+//                       name="password"
+//                       pr="4.5rem"
+//                       type={show ? "text" : "password"}
+//                       placeholder=" Contraseña"
+//                       onChange={handleInputChange}
+//                     />
+//                     <InputRightElement width="4.5rem">
+//                       <Button h="1.75rem" size="sm" onClick={handleClick}>
+//                         {show ? "Hide" : "Show"}
+//                       </Button>
+//                     </InputRightElement>
+//                   </InputGroup>
+//                   {formErrors.password && (
+//                     <Text fontSize="sm" color="teal.500">
+//                       {formErrors.password}
+//                     </Text>
+//                   )}
 
-                  <Stack direction="column" align="center">
-                    <Button
-                      type="submit"
-                      bg={"#63caa7"}
-                      color="white"
-                      variant="solid"
-                      _hover={[{ color: "#63caa7" }, { bg: "white" }]}
-                      marginTop="3em"
-                    >
-                      Iniciar sesión
-                    </Button>
+//                   <Stack direction="column" align="center">
+//                     <Button
+//                       type="submit"
+//                       bg={"#63caa7"}
+//                       color="white"
+//                       variant="solid"
+//                       _hover={[{ color: "#63caa7" }, { bg: "white" }]}
+//                       marginTop="3em"
+//                     >
+//                       Iniciar sesión
+//                     </Button>
 
-                    <Login mt="1em" />
-                    {/* <Button bg='green.100' color={'#63caa7'}> */}
-                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                    {/* </Button> */}
+//                     <Login mt="1em" />
+//                     {/* <Button bg='green.100' color={'#63caa7'}> */}
+//                     {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+//                     {/* </Button> */}
 
-                    <Button
-                      bg="green.100"
-                      color={"#285e61"}
-                      onClick={() => navigate("/signup")}
-                    >
-                      ¿Aún no tienes una cuenta?
-                    </Button>
-                    {<ForgotPassword />}
-                  </Stack>
-                </form>
-              </Box>
-            </Box>
-          </>
-        )}
-      </Container>
+//                     <Button
+//                       bg="green.100"
+//                       color={"#285e61"}
+//                       onClick={() => navigate("/signup")}
+//                     >
+//                       ¿Aún no tienes una cuenta?
+//                     </Button>
+//                     {<ForgotPassword />}
+//                   </Stack>
+//                 </form>
+//               </Box>
+//             </Box>
+//           </>
+//         )}
+//       </Container>
 
-      <Footer />
-    </div>
-  );
-}
+//       <Footer />
+//     </div>
+//   );
+// }
 
 export default LoginForm;

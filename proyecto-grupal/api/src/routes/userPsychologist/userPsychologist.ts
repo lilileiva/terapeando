@@ -127,7 +127,6 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         Specialties: specialities,
         profileImage: profileimage,
         rating: 1,
-        appointments: [],
         status: "Pendiente",
         about,
         education,
