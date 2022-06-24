@@ -39,13 +39,7 @@ export class userClient {
     birthDate: string
 
     @prop({ required: true })
-    location: string
-  
-    @prop({ required: true })
-    latitude: string
-  
-    @prop({ required: true })
-    longitude: string
+    country: string
 
     @prop({ required: true, minlength:8 })
     password: string
