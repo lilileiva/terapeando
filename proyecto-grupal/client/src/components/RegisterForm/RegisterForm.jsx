@@ -214,6 +214,7 @@ useEffect(() => {
             const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
             if (response.status === 201) {
                 navigate('/signin')
+                
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

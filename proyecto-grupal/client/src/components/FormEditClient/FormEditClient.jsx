@@ -21,7 +21,8 @@ import { editClient, editUserPsichologist, getUserClient, getUserPsychologistOne
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
-import NavbarHome from "../NavbarHome/NavbarHome";
+
+import NavbarHome from '../NavbarHome/NavbarHome.jsx'
 import Footer from "../Footer/Footer";
 import { BiLoader, BiX } from "react-icons/bi";
 import PlacesAutocomplete, {
@@ -63,7 +64,7 @@ function FormEditClient() {
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,
-    about: psychologistDetails.about
+    about: psychologistDetails.about,
   })
 
   const tokenClient = window.localStorage.getItem('tokenClient')
@@ -137,7 +138,11 @@ function FormEditClient() {
         setCoordinates(latLng)
     }
   return (
+    <>
+    <NavbarHome />
+
     <Stack className='ClientDetailsContainer'>
+
       {
         tokenClient
           ? (
@@ -347,6 +352,7 @@ function FormEditClient() {
           )
       }
     </Stack>
+    </>
   );
 }
 
