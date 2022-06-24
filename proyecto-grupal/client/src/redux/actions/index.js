@@ -27,7 +27,8 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS
+  GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  REMEMBER_PASSWORD_PSYCHOLOGIST
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -266,21 +267,7 @@ export const getUserPsychologistDetails = (IdUserPsichologist) => {
   };
 };
 
-// export const getUserPsychologistDetails = (idUserPsychologist) => {
-//   return async function (dispatch) {
-//     try {
-//       const psychologist = await axios.get(
-//         `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-//       );
-//       dispatch({
-//         type: "GET_PSYCHOLOGISTS_DETAILS",
-//         payload: psychologist.data,
-//       });
-//     } catch (error) {
-//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-//     }
-//   };
-// };
+
 
 //Post para los user Psychologist
 export function createPsychologist(signupForm) {
@@ -321,6 +308,22 @@ export function editUserPsichologist(updatedUserPsychologist) {
     }
   }
 }
+
+export function forgotPassword(payload){
+  return async function (dispatch){
+    try {
+      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword` , payload)
+      dispatch({
+        type: REMEMBER_PASSWORD_PSYCHOLOGIST,
+        payload: json.data 
+      })
+      
+    } catch (error) {
+
+      console.log(error)
+    }
+  };
+};
 
 // filtrar psicologs por  especialidad
 

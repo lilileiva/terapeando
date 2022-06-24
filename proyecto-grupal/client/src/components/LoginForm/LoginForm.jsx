@@ -7,6 +7,7 @@ import { FaGoogle } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
+import ForgotPassword from '../ForgotPassword/ForgotPassword.jsx'
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
 //login/logout con google
@@ -226,6 +227,7 @@ function LoginForm() {
                                                 <Button bg='green.100' color={'#285e61'} onClick={() => navigate('/signup')} >
                                                     ¿Aún no tienes una cuenta?
                                                 </Button>
+                                                {<ForgotPassword />}
                                             </Stack>
                                         </form>
 

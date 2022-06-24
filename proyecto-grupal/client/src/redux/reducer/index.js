@@ -143,7 +143,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload
       };
-
+    
     /*-----------POSTS-----------*/
     case GET_POSTS:
       return {
