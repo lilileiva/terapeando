@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Router } from "express";
 const validatePsychologist = require('../../middleware/validatePsychologist')
 const validateClient = require('../../middleware/validateClient')
@@ -18,24 +17,5 @@ scheduleRouter.get('/date/:IdUserPsychologist', validateUsers, getScheduleByDate
 scheduleRouter.delete('/:idSchedule', validateUsers, deleteSchedule)
 
 scheduleRouter.put('/:idSchedule', validatePsychologist, updateSchedule)
-=======
-import { Router} from "express";
-const {createSchedule, getSchedule, getScheduleByDate} = require('./schedule.ts')
-// const validateAdmin = require('../../middleware/validatePsychologistOrAdmin')
-const validatePsychologist = require('../../middleware/validatePsychologist')
-const validateClient = require('../../middleware/validateClient')
-const validateUsers = require('../../middleware/validateUsers');
-
-const scheduleRouter: Router = Router();
-
-// scheduleRouter.post('/create', validatePsychologist, createSchedule)
-scheduleRouter.post('/create', validateUsers, createSchedule)
-// scheduleRouter.get('/:IdUserPsychologist', validateUsers, getSchedule)
-scheduleRouter.get('/get/:IdUserPsychologist', validatePsychologist, getSchedule)
-scheduleRouter.get('/get/:IdUserPsychologist', validateClient, getSchedule)
-// scheduleRouter.get('/date/:IdUserPsychologist', validatePsychologist, getScheduleByDate)
-scheduleRouter.get('/date/:IdUserPsychologist', validateUsers, getScheduleByDate)
-
->>>>>>> b3338cf5b1b07d68f3179b6fd50abf4c1e3ba3b7
 
 module.exports = scheduleRouter

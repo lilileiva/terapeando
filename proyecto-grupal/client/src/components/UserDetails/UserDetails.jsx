@@ -59,7 +59,6 @@ export default function ClientDetails() {
                     <Loader />
                   ) : (
                     <>
-                      <NavbarHome />
                       <Center align='center'>
                         <Container maxW={'container.lg'} py={6} h={"100%"}>
                           <Box
@@ -153,7 +152,6 @@ export default function ClientDetails() {
                           </Box>
                         </Container>
                       </Center>
-                      <Footer />
                     </>
                   )
               }
