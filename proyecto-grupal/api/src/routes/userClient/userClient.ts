@@ -113,18 +113,9 @@ const putUserClient = async (req: Request, res: Response) => {
   }
 };
 module.exports = {
-<<<<<<< HEAD
-   getUserClient,
-   createUserClient,
-   deleteUserClient,
-   putUserClient,
-   getPsychologistDetails
-};
-=======
   getUserClient,
   createUserClient,
   deleteUserClient,
   putUserClient,
   getPsychologistDetails
 };
->>>>>>> 95563e58d8fb7b2a14d022641c70756b05be09d2
