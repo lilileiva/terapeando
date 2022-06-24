@@ -27,8 +27,13 @@ import {
   GET_PAYMENT_CLIENT,
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
-  REMEMBER_PASSWORD_PSYCHOLOGIST,
-  GET_ALL_PSYCHOLOGIST_BY_STATUS
+  GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  GET_SCHEDULE,
+  GET_SCHEDULE_BY_DATE,
+  GET_APPOINTMENT_AS_PSYCHOLOGIST,
+  GET_APPOINTMENT_AS_CLIENT,
+  DELETE_APPOINTMENT_AS_CLIENT,
+  REMEMBER_PASSWORD_PSYCHOLOGIST
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -51,11 +56,11 @@ export function getUserClientsByName(name) {
   }
 }
 
-export const getUserPsychologistDetailsasClient = (IdUserPsichologist) => {
+export const getUserPsychologistDetailsasClient = (IdUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/userclient/${IdUserPsichologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        `${baseURL}/userclient/${IdUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       dispatch({
         type: "GET_PSYCHOLOGISTS_DETAILS",
@@ -267,22 +272,6 @@ export const getUserPsychologistDetails = (IdUserPsichologist) => {
   };
 };
 
-// export const getUserPsychologistDetails = (idUserPsychologist) => {
-//   return async function (dispatch) {
-//     try {
-//       const psychologist = await axios.get(
-//         `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-//       );
-//       dispatch({
-//         type: "GET_PSYCHOLOGISTS_DETAILS",
-//         payload: psychologist.data,
-//       });
-//     } catch (error) {
-//       Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
-//     }
-//   };
-// };
-
 //Post para los user Psychologist
 export function createPsychologist(signupForm) {
   return async function (dispatch) {
@@ -324,13 +313,13 @@ export function editUserPsichologist(updatedUserPsychologist) {
 }
 
 //----- olvide mi password
-export function forgotPassword(payload){
-  return async function (dispatch){
+export function forgotPassword(payload) {
+  return async function (dispatch) {
     try {
-      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword` , payload)
+      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword`, payload)
       dispatch({
         type: REMEMBER_PASSWORD_PSYCHOLOGIST,
-        payload: json.data 
+        payload: json.data
       })
     } catch (error) {
       console.log(error)
@@ -451,7 +440,7 @@ export const addPost = (body) => {
         type: "CREATE_POST",
         payload: info
       })
-      Swal.fire('Post creado correctamente!', 'muy bien', 'success')
+      Swal.fire('Post creado correctamente!', '', 'success')
     } catch (error) {
       console.log(error)
 
@@ -613,6 +602,237 @@ export const sortByDate = (payload) => {
   return {
     type: SORT_BY_DATE,
     payload
+  }
+}
+
+
+/*---------------------SCHEDULE ACTIONS-------------------*/
+
+export function createSchedule(appointment) {
+  return async function () {
+    try {
+      const newSchedule = await axios.post(
+        `${baseURL}/schedule/create`,
+        appointment,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+      if (newSchedule.status === 201) {
+        return Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Fecha y hora agregadas exitosamente',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+      // return newSchedule;
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'No se ha podido agregar horario.',
+        text: 'Verifique que no cuente con este horario en su agenda',
+        showConfirmButton: true
+      })
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleAsPsychologist(IdUserPsychologist) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/get/${IdUserPsychologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleAsClient(IdUserPsychologist) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/get/${IdUserPsychologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleByDate(IdUserPsychologist, date) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/date/${IdUserPsychologist}`,
+        date,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE_BY_DATE,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+
+/*---------------------APPOINTMENTS ACTIONS-------------------*/
+
+export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
+  return async function (dispatch) {
+    try {
+      const newAppointment = await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
+        appointmentData,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+      if (newAppointment.status === 201) {
+        return Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Cita reservada exitosamente',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    } catch (error) {
+      console.log(error)
+      Swal.fire(
+        "No se ha podido reservar esta cita",
+        "Verifique no haber reservado una cita en la fecha seleccionada.",
+        "error"
+      );
+    }
+  }
+}
+export function createAppointmentAsPsychologist(IdUserPsychologist, appointmentData) {
+  return async function (dispatch) {
+    try {
+      await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
+        appointmentData,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getAppointmentAsPsychologist() {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/appointment/psychologist`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((appointment) => {
+          dispatch({
+            type: GET_APPOINTMENT_AS_PSYCHOLOGIST,
+            payload: appointment.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getAppointmentAsClient() {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/appointment/client`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+        .then((appointment) => {
+          dispatch({
+            type: GET_APPOINTMENT_AS_CLIENT,
+            payload: appointment.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function putAppointmentAsClient(IdAppointment, inputType) {
+  return async function (dispatch) {
+    try {
+      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
+        inputType,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function putAppointmentAsPsychologist(IdAppointment, inputType) {
+  return async function (dispatch) {
+    try {
+      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
+        inputType,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function deleteAppointmentAsClient(IdAppointment) {
+  return async function (dispatch) {
+    try {
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/client`,
+        IdAppointment,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+      if (appointment.status === 200) {
+        Swal.fire('Has cancelado esta cita', '', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+      Swal.fire('No se ha podido cancelar esta cita', '', 'error')
+    }
+  }
+}
+
+export function deleteAppointmentAsPsychologist(IdAppointment) {
+  return async function (dispatch) {
+    try {
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/psychologist`,
+        IdAppointment,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+      dispatch({
+        type: DELETE_APPOINTMENT_AS_CLIENT,
+        payload: appointment.data
+      })
+      if (appointment.status === 200) {
+        Swal.fire('Has cancelado esta cita', '', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+      Swal.fire('No se ha podido cancelar esta cita', '', 'error')
+    }
   }
 }
 

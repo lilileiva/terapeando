@@ -17,7 +17,7 @@ import { LOCAL_HOST } from "../../redux/actions/types";
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
-  } from "react-places-autocomplete";
+} from "react-places-autocomplete";
 const baseURL = LOCAL_HOST;
 
 function RegisterForm() {
@@ -32,8 +32,8 @@ function RegisterForm() {
     const [userClientBtn, setUserClientBtn] = useState(true);
     const [address, setAddress] = useState("");
     const [coordinates, setCoordinates] = useState({
-      lat: null,
-      lng: null
+        lat: null,
+        lng: null
     });
     const [signupForm, setSignupForm] = useState({
         firstname: "",
@@ -52,10 +52,6 @@ function RegisterForm() {
         password: "",
         repeatpassword: ""
     })
-
- 
-
- 
 
     /*------------------validaciones----------------*/
     const validate = (signupForm) => {
@@ -131,16 +127,14 @@ function RegisterForm() {
         })
     }
 
-useEffect(() => {
-    setSignupForm({
-        ...signupForm,
-        location: address, 
-        latitude: coordinates.lat, 
-        longitude: coordinates.lng, 
-    })
-}, [address, coordinates])
-
-
+    useEffect(() => {
+        setSignupForm({
+            ...signupForm,
+            location: address,
+            latitude: coordinates.lat,
+            longitude: coordinates.lng,
+        })
+    }, [address, coordinates])
 
     const handleLocation = async (address) => {
         const results = await geocodeByAddress(address);
@@ -150,19 +144,12 @@ useEffect(() => {
     }
 
 
-    
     const handleCountries = (e) => {
         setSignupForm({
             ...signupForm,
             country: e.target.value
         })
     }
-    // const handleSelect = async value => {
-    //     const results = await geocodeByAddress(value);
-    //     const latLng = await getLatLng(results[0]);
-    //     setAddress(value);
-    //     setCoordinates(latLng);
-
 
     const handleSpecialities = (e) => {
         setSignupForm({
@@ -214,7 +201,7 @@ useEffect(() => {
             const response = await axios.post(`${baseURL}/userclient/client/register`, signupForm)
             if (response.status === 201) {
                 navigate('/signin')
-                
+
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -301,8 +288,6 @@ useEffect(() => {
 
                                             <Input name='email' variant='flushed' placeholder=' Email' bg='white' mt='2em' onChange={handleInputChange} />
                                             {formErrors.email && <Text fontSize='sm' color='teal.500'>{formErrors.email}</Text>}
-
-
                                             <Input
                                                 name='birthdate'
                                                 variant='flushed'
@@ -334,32 +319,32 @@ useEffect(() => {
                                                 !userClientBtn
                                                     ? (
                                                         <>
-                                                                <PlacesAutocomplete value={address}  onChange={setAddress} onSelect={handleLocation} >
+                                                            <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleLocation} >
                                                                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                                                <div> 
-                                                                    <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })}  />
                                                                     <div>
-                                                                    {loading ? <BiLoader/> : null}
+                                                                        <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })} />
+                                                                        <div>
+                                                                            {loading ? <BiLoader /> : null}
 
-                                                                    {suggestions.map(suggestion => {
-                                                                        const style = {
-                                                                        backgroundColor: suggestion.active ? "#718096" : "#fff"
-                                                                        };
+                                                                            {suggestions.map(suggestion => {
+                                                                                const style = {
+                                                                                    backgroundColor: suggestion.active ? "#718096" : "#fff"
+                                                                                };
 
-                                                                        return (
-                                                                        <option  className='LocationOptions' color='gray.500' 
-                                                                        bg='white' mt='2em' width='10px' key={suggestion.description}  value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
-                                                                            {suggestion.description}
-                                                                        </option>
-                                                                        );
-                                                                    })}
-                                                                    
+                                                                                return (
+                                                                                    <option className='LocationOptions' color='gray.500'
+                                                                                        bg='white' mt='2em' width='10px' key={suggestion.description} value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
+                                                                                        {suggestion.description}
+                                                                                    </option>
+                                                                                );
+                                                                            })}
+
+                                                                        </div>
+                                                                        {formErrors.location && <Text fontSize='sm' color='teal.500'>{formErrors.location}</Text>}
                                                                     </div>
-                                                                    {formErrors.location && <Text fontSize='sm' color='teal.500'>{formErrors.location}</Text>}
-                                                                </div>
-                                                                
+
                                                                 )}
-                                                                 
+
                                                             </PlacesAutocomplete>
                                                             <Select onChange={handleSpecialities} name='specialities' variant='flushed' placeholder=' Especialidades' color='gray.500' bg='white' marginTop='2em'>
                                                                 {
@@ -442,16 +427,14 @@ useEffect(() => {
                                                     ¿Ya tienes una cuenta?
                                                 </Button>
                                             </Stack>
-                                        </form>
+                                        </form >
 
-                                    </Box>
-                                </Box>
+                                    </Box >
+                                </Box >
                             </>
                         )
                 }
-
-            </Container>
-
+            </Container >
             <Footer />
         </div >
     )

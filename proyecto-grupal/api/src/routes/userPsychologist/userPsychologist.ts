@@ -7,15 +7,12 @@ const nodemailer = require("nodemailer");
 
 const getUserPsychologistOne = async (req: Request, res: Response) => {
   try {
-    const psychologistUser = await userPsychologistModel.findById(
-      req.user,
-      "-password"
-    );
-    res.status(200).json(psychologistUser);
+    const psychologistUser = await userPsychologistModel.findById(req.user, '-password');
+    res.status(200).json(psychologistUser)
   } catch (err) {
-    res.status(404).json({ data: err });
+    res.status(404).json({ data: err })
   }
-};
+}
 
 const getPsychologistDetails = async (req: Request, res: Response) => {
   const { IdUserPsichologist } = req.params
@@ -130,7 +127,6 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         Specialties: specialities,
         profileImage: profileimage,
         rating: 1,
-        appointments: [],
         status: "Pendiente",
         about,
         education,

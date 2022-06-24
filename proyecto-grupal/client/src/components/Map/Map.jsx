@@ -7,20 +7,26 @@ import { useState } from 'react';
 const { REACT_APP_GOOGLE_MAP_API_KEY } = process.env;
 
 
+function Map({ lat, lng }) {
 
-function Map({lat, lgn}) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: `${REACT_APP_GOOGLE_MAP_API_KEY}`
   })
-  const center = { lat: Number(lat), lng: Number(lgn) }
+
+  console.log(lat)
+  console.log(lng)
+
+  const center = {
+    lat: Number(lat),
+    lng: Number(lng)
+  }
   const [map, setMap] = useState(null)
   const [zoom, setZoom] = useState(0)
 
-useEffect(() => {
-  setZoom(15)
-}, [])
-
+  useEffect(() => {
+    setZoom(10)
+  }, [setZoom])
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -42,10 +48,10 @@ useEffect(() => {
         onLoad={onLoad}
         onUnmount={onUnmount}
         options={{ gestureHandling: "greedy" }}
-     
+
       >
         { /* Child components, such as markers, info windows, etc. */}
-        <Marker  icon={{ url: "https://i.postimg.cc/jqwGQYWz/logo-01-Marker.png"}}  position={center} title='Tu psicólogo' />
+        <Marker icon={{ url: "https://i.postimg.cc/jqwGQYWz/logo-01-Marker.png" }} position={center} title='Tu psicólogo' />
       </GoogleMap>
 
       <button onClick={() => map.panTo(center)}>
