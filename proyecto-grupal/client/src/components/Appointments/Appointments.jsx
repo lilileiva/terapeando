@@ -103,11 +103,11 @@ function Appointments() {
                                 <Text fontSize='3xl'>{appointmentHour.getUTCHours()}:{appointmentHour.getUTCMinutes()} hs</Text>
                               </Stack>
                               <Stack direction='row' align='center' justify='center' pb='1em'>                                
-                                <Text fontSize='3xl'>Tipo: {appo.type}</Text>
+                                <Text fontSize='3xl'>Modalidad: {appo.type}</Text>
                               </Stack>
                               <Stack direction='row'>
                                 <Button bg='green.100' colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
-                                  Cambiar tipo cita
+                                  Cambiar modalidad
                                 </Button>
                                 <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
                                   Cancelar cita

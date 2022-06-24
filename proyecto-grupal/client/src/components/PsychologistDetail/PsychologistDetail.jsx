@@ -145,7 +145,7 @@ export default function PsychologistDetail() {
                                     <Text fontSize='xl'>Sobre mí</Text>
                                     {
                                       detail.about
-                                        ? <Text fontSize='md' p='1em'>{detail.about}</Text> : 'Aún no se ha agregado información'
+                                        ? <Text whiteSpace='pre-wrap' fontSize='md' p='1em'>{detail.about}</Text> : 'Aún no se ha agregado información'
                                     }
                                   </Box>
                                   <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">

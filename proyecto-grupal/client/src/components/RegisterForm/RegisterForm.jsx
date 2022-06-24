@@ -136,16 +136,27 @@ function RegisterForm() {
         setAddress(address);
         const latLng = await getLatLng(results[0]);
         setCoordinates(latLng);
-        if (coordinates.lat && coordinates.lng) {
+        // if (coordinates.lat && coordinates.lng) {
+        //     setSignupForm({
+        //         ...signupForm,
+        //         location: address,
+        //         latitude: (coordinates.lat).toString(),
+        //         longitude: (coordinates.lng).toString()
+        //     })
+        // }
+        console.log(signupForm)
+    }
+
+    useEffect(() => {
+        if (coordinates && address) {
             setSignupForm({
                 ...signupForm,
                 location: address,
-                latitude: coordinates.lat,
-                longitude: coordinates.lng
+                latitude: (coordinates.lat).toString(),
+                longitude: (coordinates.lng).toString()
             })
         }
-        console.log(signupForm)
-    }
+    }, [setSignupForm, signupForm, coordinates, address])
 
 
     // const handleCountries = (e) => {
