@@ -628,13 +628,14 @@ export const filterByStatus = (payload) => {
 
 /*---------------------SCHEDULE ACTIONS-------------------*/
 
-export function createSchedule(input) {
+export function createSchedule(appointment) {
   return async function () {
     try {
       const newSchedule = await axios.post(
-        `${baseURL}/schedule/create`, input, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }
-      })
+        `${baseURL}/schedule/create`,
+        appointment,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
       if (newSchedule.status === 201) {
         return Swal.fire({
           position: 'center',
@@ -718,12 +719,26 @@ export function getScheduleByDate(IdUserPsychologist, date) {
 export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
   return async function (dispatch) {
     try {
-      await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
+      const newAppointment = await axios.post(`${baseURL}/appointment/create/${IdUserPsychologist}`,
         appointmentData,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
+      if (newAppointment.status === 201) {
+        return Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Cita reservada exitosamente',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     } catch (error) {
       console.log(error)
+      Swal.fire(
+        "No se ha podido reservar esta cita",
+        "Verifique no haber reservado una cita en la fecha seleccionada.",
+        "error"
+      );
     }
   }
 }

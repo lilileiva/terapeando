@@ -5,7 +5,7 @@ const postAppointmentModel = async (req: Request, res: Response) => {
     const  { IdUserPsychologist } = req.params
     const { date, hour, type } = req.body;
     if (typeof date !== "string" ||  typeof hour !== "string" || (type !== "Virtual" && type !== "Presencial")) {
-        res.status(404).send("some of the data is not a string")
+        res.status(404).send("Some data is not valid")
     } else {
         const appointmentExist = await appointmentModel.findOne({
             'date': date,
@@ -97,6 +97,15 @@ const deleteAppointAsClient = async (req: Request, res: Response) => {
     }
 }
 
+const putAppointment = async (req:Request , res: Response) => {
+    try{
+        const { idAppointment } = req.params;
+        const data = await appointmentModel.findByIdAndUpdate(idAppointment, req.body, { new: true })
+        res.status(200).send('Cita editada correctamente')
+    } catch(err) {
+        res.status(404).send(err)
+    }
+}
 
 module.exports = {
     postAppointmentModel,
@@ -104,5 +113,9 @@ module.exports = {
     getAppointmentAsClient,
     deleteAppointAsPsychologist,
     deleteAppointAsClient,
+<<<<<<< HEAD
     putAppointment,
+=======
+    putAppointment
+>>>>>>> 8678e845875c5df5a334f15f2d225f9a61bb817d
 }

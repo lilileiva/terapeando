@@ -18,7 +18,7 @@ import { LOCAL_HOST } from "../../redux/actions/types";
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
-  } from "react-places-autocomplete";
+} from "react-places-autocomplete";
 const baseURL = LOCAL_HOST;
 
 function RegisterForm() {
@@ -50,12 +50,12 @@ function RegisterForm() {
     })
 
     const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null
-  });
+    const [coordinates, setCoordinates] = useState({
+        lat: null,
+        lng: null
+    });
 
- 
+
 
     /*------------------validaciones----------------*/
     const validate = (signupForm) => {
@@ -143,11 +143,11 @@ function RegisterForm() {
                 latitude: coordinates.lat,
                 longitude: coordinates.lng
             })
-        }    
-        console.log(signupForm)    
+        }
+        console.log(signupForm)
     }
 
-    
+
     // const handleCountries = (e) => {
     //     setSignupForm({
     //         ...signupForm,
@@ -265,9 +265,6 @@ function RegisterForm() {
                                     Registro
                                 </Text>
 
-                                <Text>lat : {coordinates.lat}</Text>
-                                                                    <Text>lgn : {coordinates.lng}</Text>
-
                                 <Box minWidth='container.sm' direction='row' align='center' >
                                     <Button
                                         bg={userClientBtn ? 'green.100' : 'blackAlpha.200'}
@@ -322,32 +319,32 @@ function RegisterForm() {
                                             </Select>
                                             {formErrors.country && <Text fontSize='sm' color='teal.500'>{formErrors.country}</Text>} */}
                                             <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleLocation} >
-                                                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                                                <div>
-                                                                    <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })}  />
-                                                                    <div>
-                                                                    {loading ? <BiLoader/> : null}
+                                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                                    <div>
+                                                        <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })} />
+                                                        <div>
+                                                            {loading ? <BiLoader /> : null}
 
-                                                                    {suggestions.map(suggestion => {
-                                                                        const style = {
-                                                                        backgroundColor: suggestion.active ? "#718096" : "#fff"
-                                                                        };
+                                                            {suggestions.map(suggestion => {
+                                                                const style = {
+                                                                    backgroundColor: suggestion.active ? "#718096" : "#fff"
+                                                                };
 
-                                                                        return (
-                                                                        <option className='LocationOptions' color='gray.500' 
-                                                                        bg='white' mt='2em' width='10px' key={suggestion.description}  value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
-                                                                            {suggestion.description}
-                                                                        </option>
-                                                                        );
-                                                                    })}
-                                                                    
-                                                                    </div>
-                                                                    {formErrors.location && <Text fontSize='sm' color='teal.500'>{formErrors.location}</Text>}
-                                                                </div>
-                                                                
-                                                                )}
-                                                                 
-                                                            </PlacesAutocomplete>
+                                                                return (
+                                                                    <option className='LocationOptions' color='gray.500'
+                                                                        bg='white' mt='2em' width='10px' key={suggestion.description} value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
+                                                                        {suggestion.description}
+                                                                    </option>
+                                                                );
+                                                            })}
+
+                                                        </div>
+                                                        {formErrors.location && <Text fontSize='sm' color='teal.500'>{formErrors.location}</Text>}
+                                                    </div>
+
+                                                )}
+
+                                            </PlacesAutocomplete>
                                             {
                                                 !userClientBtn
                                                     ? (

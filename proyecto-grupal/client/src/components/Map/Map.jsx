@@ -5,12 +5,14 @@ import { Stack } from '@chakra-ui/react';
 
 const { REACT_APP_GOOGLE_MAP_API_KEY } = process.env;
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
-function Map() {
+function Map({lat, lng}) {
+
+  const center = {
+    lat: Number(lat),
+    lng: Number(lng)
+  };
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: `${REACT_APP_GOOGLE_MAP_API_KEY}`

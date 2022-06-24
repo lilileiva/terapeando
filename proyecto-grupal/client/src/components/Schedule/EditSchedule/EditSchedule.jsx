@@ -26,8 +26,6 @@ function EditSchedule() {
       date: inputDate,
       hours: [...input.hours.filter(h => h !== e.target.value), e.target.value]
     })
-    console.log(inputDate)
-    console.log(e.target.value)
   }
   const handleDeleteHour = (hour) => {
     setInput({
@@ -98,7 +96,6 @@ function EditSchedule() {
 
         <VStack w={'100%'} px={'20%'} alignItems={'flex-start'}>
 
-        <Text>Fecha: </Text>
         {/* {
           inputDate
             ? <Text>{inputDate.getDate()}/{inputDate.getMonth()}</Text>
