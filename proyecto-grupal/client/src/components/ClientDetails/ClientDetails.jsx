@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserClient, getUserPsychologistOne } from "../../redux/actions";
 import ChangePasswordModal from "../Modals/ChangePasswordModal";
+import NavbarHome from '../NavbarHome/NavbarHome.jsx'
 import Loader from "../Loader/Loader";
 import NotFound from '../404notFound/notFound.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
@@ -46,7 +47,12 @@ export default function ClientDetails() {
   let arr1 = Object.values(psychologistDetails)
 
   return (
+
+    <>
+      <NavbarHome />
+
     <Stack className='ClientDetailsContainer'>
+
       {
         tokenClient
           ? (

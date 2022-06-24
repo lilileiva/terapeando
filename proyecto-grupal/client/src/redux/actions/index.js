@@ -32,7 +32,8 @@ import {
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
-  DELETE_APPOINTMENT_AS_CLIENT
+  DELETE_APPOINTMENT_AS_CLIENT,
+  REMEMBER_PASSWORD_PSYCHOLOGIST
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -327,6 +328,20 @@ export function editUserPsichologist(updatedUserPsychologist) {
   }
 }
 
+//----- olvide mi password
+export function forgotPassword(payload){
+  return async function (dispatch){
+    try {
+      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword` , payload)
+      dispatch({
+        type: REMEMBER_PASSWORD_PSYCHOLOGIST,
+        payload: json.data 
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  };
+};
 // filtrar psicologs por  especialidad
 
 export function getBySpecialties(payload) {
