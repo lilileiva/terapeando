@@ -106,22 +106,24 @@ export default function ClientDetails() {
                               <ChangePasswordModal />
                             </Heading>
 
-                            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                            <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {clientDetails.email}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {clientDetails.birthDate}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {clientDetails.country}
                               </Badge>
                             </Stack>
 
                             <Stack mt={"40px"} alignItems="center">
-                              <CalendarIcon />
-                              <Heading color={"blackAlpha.800"}>Citas</Heading>
-                              <VStack alignItems="left" spacing="24px">
+                              <Link to='/appointments' cursor='pointer'>
+                                <CalendarIcon />
+                                <Heading color={"blackAlpha.800"}>Citas</Heading>
+                              </Link>
+                              {/* <VStack alignItems="left" spacing="24px">
                                 <Text color={"blackAlpha.800"}>
                                   Terapeuta: Ana Gomez <ExternalLinkIcon cursor={"pointer"} />
                                 </Text>
@@ -146,7 +148,7 @@ export default function ClientDetails() {
                                 >
                                   🛎️ 10 minutos antes
                                 </Badge>
-                              </VStack>
+                              </VStack> */}
                             </Stack>
                           </Box>
                         </Container>
