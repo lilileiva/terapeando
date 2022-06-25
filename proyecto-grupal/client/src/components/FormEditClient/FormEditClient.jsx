@@ -56,19 +56,24 @@ function FormEditClient() {
   const clientDetails = useSelector((state) => state.userClientDetail)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
+
+
   const [input, setInput] = useState({
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
-    country: clientDetails.country || psychologistDetails.location,
+    country: clientDetails.country || null,
     // country: psychologistDetails.location,
-    latitude: '',
-    longitude: '',
+    location: psychologistDetails.location || null,
+    latitude: psychologistDetails.latitude || null,
+    longitude: psychologistDetails.longitude || null,
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,
-    about: psychologistDetails.about,
+    about: psychologistDetails.about
   })
+
+  console.log('local', psychologistDetails)
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
@@ -97,13 +102,19 @@ function FormEditClient() {
 
     if (Object.values(error).length > 0) {
       alert("La información no cumple con los requerimientos");
+    } else if (tokenPsychologist && input.location === "") {
+      Swal.fire(
+        'Campos incompletos',
+        'Por favor no dejes campos en blanco',
+        'question'
+      )
     } else if (
       input.firstName === "" ||
       input.lastName === "" ||
       input.email === "" ||
       input.country === "" ||
       input.profileImage === ""
-    ) {      
+    ) {
       Swal.fire(
         'Campos incompletos',
         'Por favor no dejes campos en blanco',
@@ -199,14 +210,14 @@ function FormEditClient() {
                           <Input type="country" name='country' placeholder={clientDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
                         </FormControl> */}
                         {/* <FormControl id="country"> */}
-                          <FormLabel>Pais de residencia</FormLabel>
-                          <Select value={input.country} variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
-                            {
-                              countries.map(c => (
-                                <option key={c.label} value={c.label}>{c.label}</option>
-                              ))
-                            }
-                          </Select>
+                        <FormLabel>Pais de residencia</FormLabel>
+                        <Select value={input.location} variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
+                          {
+                            countries.map(c => (
+                              <option key={c.label} value={c.label}>{c.label}</option>
+                            ))
+                          }
+                        </Select>
                         {/* </FormControl> */}
                         <FormControl id="profileImage">
                           <FormLabel>Imagen de perfil</FormLabel>

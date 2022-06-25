@@ -314,6 +314,7 @@ export function editUserPsichologist(updatedUserPsychologist) {
       }
     } catch (error) {
       console.error(error)
+      Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");
     }
   }
 }

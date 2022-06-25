@@ -217,30 +217,32 @@ export default function ClientDetails() {
                             </Heading>
 
                             <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.email}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.birthDate}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                {psychologistDetails.country}
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                {psychologistDetails.location}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 DNI: {psychologistDetails.DNI}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 MATRÍCULA: {psychologistDetails.License}
                               </Badge>
                             </Stack>
-                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                            {/* <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                               {psychologistDetails.about}
-                            </Badge>
+                            </Badge> */}
 
-                            <Stack mt={"40px"} alignItems="center">
-                              <CalendarIcon />
-                              <Heading color={"blackAlpha.800"}>Citas</Heading>
-                            </Stack>
+                            <Link to='/appointments' cursor='pointer'>
+                              <Stack mt={"40px"} alignItems="center">
+                                <CalendarIcon />
+                                <Heading color={"blackAlpha.800"}>Citas</Heading>
+                              </Stack>
+                            </Link>
                           </Box>
                         </Container>
                       </Center>
