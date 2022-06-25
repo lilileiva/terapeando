@@ -10,11 +10,12 @@ module.exports = function (passport: any) {
     new GoogleStrategy(
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
         callbackURL: '/userclient/auth/google/callback',
       },
       async (accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) => {
         //get the user data from google
+        console.log(profile)
         const newUser = {
           _id : profile.id,
           firstName: profile.name.givenName,
@@ -22,9 +23,10 @@ module.exports = function (passport: any) {
           email: profile.emails[0].value,
           profileImage: profile.photos[0].value,
         }
+        console.log(newUser)
         try {
           //find the user in our database 
-          let user = await userClientModel.findOne({ _id: profile.id }).exec()
+          let user = await userClientModel.findOne({email: newUser.email }).exec()
 
           if (user) {
             //If user present in our database.

@@ -13,7 +13,7 @@ const router = Router();
 const passport = require('passport')
 
 
-require('../routes/userClient/passport.js')(passport)
+require('../routes/userClient/passport.ts')(passport)
 
 // console.log(passport.initialize)
 // router.use(passport.session())
