@@ -77,11 +77,11 @@ const deleteAppointAsPsychologist = async (req: Request, res: Response) => {
 }
 
 const deleteAppointAsClient = async (req: Request, res: Response) => {
-    const { IdAppointment } = req.body; 
+    const { id } = req.params; 
     try {
-        await appointmentModel.findOneAndDelete({      
-            '_id': IdAppointment,
-            'IdUserClient': req.user
+        await appointmentModel.findOneAndDelete({
+            _id: id,
+            IdUserClient: req.user
         });
         res.send('Appointment deleted succesfully')
     } catch (error) {

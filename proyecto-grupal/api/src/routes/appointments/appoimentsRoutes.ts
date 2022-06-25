@@ -18,7 +18,7 @@ appoimentRouter.post('/create/:IdUserPsychologist', validateUsers, postAppointme
 appoimentRouter.get('/psychologist', validatePsychologist, getAppointmentAsPsychologist);
 appoimentRouter.get('/client', validateClient, getAppointmentAsClient);
 appoimentRouter.delete('/delete/psychologist', validatePsychologist, deleteAppointAsPsychologist);
-appoimentRouter.delete('/delete/client', validateClient, deleteAppointAsClient);
+appoimentRouter.delete('/client/:id', validateClient, deleteAppointAsClient);
 appoimentRouter.put('/put_appointment/:IdAppointment', validateUsers, putAppointment)
 // /appointment/put_appointment/${IdAppointment}
 
