@@ -779,11 +779,13 @@ export function getAppointmentAsClient() {
   }
 }
 
-export function putAppointmentAsClient(IdAppointment, inputType) {
+export function putAppointmentAsClient(IdAppointment, type) {
   return async function (dispatch) {
     try {
+      console.log('IdAppointment action', IdAppointment)
+      console.log('type action', type)
       await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
-        inputType,
+        type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
     } catch (error) {
@@ -792,11 +794,11 @@ export function putAppointmentAsClient(IdAppointment, inputType) {
   }
 }
 
-export function putAppointmentAsPsychologist(IdAppointment, inputType) {
+export function putAppointmentAsPsychologist(IdAppointment, type) {
   return async function (dispatch) {
     try {
       await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
-        inputType,
+        type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
     } catch (error) {
@@ -808,8 +810,7 @@ export function putAppointmentAsPsychologist(IdAppointment, inputType) {
 export function deleteAppointmentAsClient(IdAppointment) {
   return async function (dispatch) {
     try {
-      const appointment = await axios.delete(`${baseURL}/appointment/delete/client`,
-        IdAppointment,
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/client/${IdAppointment}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
       if (appointment.status === 200) {
@@ -825,8 +826,7 @@ export function deleteAppointmentAsClient(IdAppointment) {
 export function deleteAppointmentAsPsychologist(IdAppointment) {
   return async function (dispatch) {
     try {
-      const appointment = await axios.delete(`${baseURL}/appointment/delete/psychologist`,
-        IdAppointment,
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/psychologist/${IdAppointment}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
       dispatch({

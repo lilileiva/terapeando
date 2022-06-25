@@ -47,6 +47,7 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
     const dispatchAppointment = () => {
         if (tokenClient) dispatch(createAppointmentAsClient(IdUserPsychologist, appointmentData))
         if (tokenPsychologist) dispatch(createAppointmentAsPsychologist(IdUserPsychologist, appointmentData))
+        setCalendar(false)
     }
 
     const [showHours, setShowHours] = useState(false)

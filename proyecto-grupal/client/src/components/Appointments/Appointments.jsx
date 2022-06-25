@@ -21,8 +21,7 @@ function Appointments() {
   const dispatch = useDispatch();
 
   const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-  console.log(tokenClient)
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')  
 
   useEffect(() => {
     if (tokenClient) dispatch(getAppointmentAsClient());
@@ -58,14 +57,17 @@ function Appointments() {
   }
 
   const [changeTypeAlert, setChangeTypeAlert] = useState(false)
-  const handleChangeType = () => {
+  const handleChangeType = (appointment) => {
     if (changeTypeAlert) setChangeTypeAlert(false)
-    else setChangeTypeAlert(true)
+    else {
+      setChangeTypeAlert(true)
+      setIdAppointment(appointment)
+    }
   }
 
-  const [inputType, setInputType] = useState("")
+  const [type, setType] = useState("")
 
-  const changeType = (appointment) => {
+  const changeType = () => {
     Swal.fire({
       title: '¿Estás seguro que quieres modificar la modalidad?',
       showDenyButton: true,
@@ -74,19 +76,17 @@ function Appointments() {
       denyButtonText: `Sí`,
     }).then((result) => {
       if (result.isDenied) {
-        if (!inputType) {
+        if (!type) {
           Swal.fire('No has seleccionado ningún valor', '', 'error')
         } else {
           // setIdAppointment(appointment)
           if (tokenClient) {
-            dispatch(putAppointmentAsClient(appointment, inputType))
+            dispatch(putAppointmentAsClient(IdAppointment, type))
             dispatch(getAppointmentAsClient())
-            setChangeTypeAlert(false)            
+            setChangeTypeAlert(false)
           }
           if (tokenPsychologist) {
-            dispatch(putAppointmentAsPsychologist(appointment, inputType))
-            console.log('appointment', appointment)
-            console.log('inputType', inputType)
+            dispatch(putAppointmentAsPsychologist(IdAppointment, type))
             dispatch(getAppointmentAsPsychologist())
             setChangeTypeAlert(false)
           }
@@ -123,7 +123,7 @@ function Appointments() {
                                   <Avatar src={appo.IdUserPsychologist.profileImage} size='xl' />
                                   <Text fontSize='3xl' fontWeight='500'>{appo.IdUserPsychologist.firstName} {appo.IdUserPsychologist.lastName}</Text>
                                   <Text fontSize='2xl'>{appo.IdUserPsychologist.email}</Text>
-                                  <Text fontSize='2xl'>{appo.IdUserPsychologist.country}</Text>
+                                  <Text fontSize='2xl'>{appo.IdUserPsychologist.location}</Text>
                                 </Stack>
                                 ) : (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
                                   <Avatar src={appo.IdUserClient.profileImage} size='xl' />
@@ -145,7 +145,7 @@ function Appointments() {
                                 <Text fontSize='3xl'>Modalidad: {appo.type}</Text>
                               </Stack>
                               <Stack direction='row'>
-                                <Button bg='green.100' colorScheme='teal' variant='outline' onClick={handleChangeType}>
+                                <Button bg='green.100' colorScheme='teal' variant='outline' onClick={() => handleChangeType(appo._id)}>
                                   Cambiar modalidad
                                 </Button>
                                 <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
@@ -157,17 +157,18 @@ function Appointments() {
                             {
                               changeTypeAlert
                                 ? <Stack className='changeType'>
-                                  <Stack direction='column' bg='white' pb='2em' pr='2em' pl='2em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                                    <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
-                                      <Select name='type' placeholder='Seleccione un valor' onChange={(e) => setInputType(e.target.value)}>
+                                  <Stack direction='column' bg='white' p='2em' align='center' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>                                   
+                                      <Select name='type' placeholder='Seleccione una modalidad' onChange={(e) => setType(e.target.value)}>
                                         <option value='Virtual'>
                                           Virtual
                                         </option>
                                         <option value='Presencial'>
                                           Presencial
                                         </option>
-                                      </Select>
-                                    </Stack>
+                                      </Select>                                    
+
+                                    <Text>{IdAppointment}</Text>
+
                                     <Stack direction='row'>
                                       <Button colorScheme='teal' variant='solid' onClick={() => changeType(appo._id)}>
                                         Aceptar
