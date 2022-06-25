@@ -3,9 +3,9 @@ import { VerifyCallback } from "passport-google-oauth2"
 // import all the things we need  
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
-const userClientModel = require("../../models/userClients")
+import userClientModel from "../../models/userClients"
 
-module.exports = function (passport: any) {
+module.exports = function (passport:any) {
   passport.use(
     new GoogleStrategy(
       {
@@ -13,21 +13,21 @@ module.exports = function (passport: any) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
         callbackURL: '/userclient/auth/google/callback',
       },
-      async (accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) => {
+      async (accessToken:any, refreshToken:any, profile:any, done:any) => {
         //get the user data from google
-        console.log(profile)
+        console.log("este es el profile" + Object.values(profile))
         const newUser = {
-          _id : profile.id,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           email: profile.emails[0].value,
           profileImage: profile.photos[0].value,
         }
         console.log(newUser)
+
         try {
           //find the user in our database 
-          let user = await userClientModel.findOne({email: newUser.email }).exec()
-
+          let user = await userClientModel.findOne({email: newUser.email})
+          console.log("esta es la respuesta del user " + user)
           if (user) {
             //If user present in our database.
             done(null, user)
@@ -49,7 +49,7 @@ module.exports = function (passport: any) {
   })
 
   // used to deserialize the user
-  passport.deserializeUser((id:any, done: VerifyCallback) => {
+  passport.deserializeUser((id:any, done:any) => {
     userClientModel.findById(id, (err:any, user:any) => done(err, user))
   })
 }
