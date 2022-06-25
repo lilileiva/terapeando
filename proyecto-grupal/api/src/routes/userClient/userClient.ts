@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import userClientModel from "../../models/userClients";
+import userClientModel from "../../models/userClients"
 import userPsychologistModel from "../../models/userPsychologist";
 
 const nodemailer = require("nodemailer");
