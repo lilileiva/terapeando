@@ -798,12 +798,10 @@ export function putAppointmentAsPsychologist(IdAppointment, inputType) {
   }
 }
 
-export function deleteAppointmentAsClient(IdAppointment) {
+export function deleteAppointmentAsClient(id) {
   return async function (dispatch) {
     try {
-      const appointment = await axios.delete(`${baseURL}/appointment/delete/client`,
-        IdAppointment,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      const appointment = await axios.delete(`${baseURL}/appointment/client/${id}`, { headers: { Authorization: `Bearer ${window.localStorage.getItem('tokenClient')}`} }
       )
       if (appointment.status === 200) {
         Swal.fire('Has cancelado esta cita', '', 'success')
