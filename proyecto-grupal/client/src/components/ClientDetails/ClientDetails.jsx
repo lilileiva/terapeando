@@ -14,7 +14,7 @@ import {
   Button,
   Badge,
   VStack,
-  Container,
+  Container
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import NotFound from '../404notFound/notFound.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 import './ClientDetails.css'
+import countryList from 'react-select-country-list';
 
 
 export default function ClientDetails() {
