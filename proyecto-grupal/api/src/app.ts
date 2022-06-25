@@ -2,7 +2,7 @@ import express from 'express' // instale npm i @types/express -D como dependecia
 import { Request, Response, NextFunction, ErrorRequestHandler} from "express";
 require("dotenv").config();
 import morgan from 'morgan'
-const routes = require('./routes/index.ts')
+const routes = require('./routes/index')
 const cors = require('cors')
 
 // server  inicializations
