@@ -782,9 +782,8 @@ export function getAppointmentAsClient() {
 export function putAppointmentAsClient(IdAppointment, type) {
   return async function (dispatch) {
     try {
-      console.log('IdAppointment action', IdAppointment)
-      console.log('type action', type)
-      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
+      await axios.put(
+        `${baseURL}/appointment/put_appointment/${IdAppointment}`,
         type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
@@ -797,7 +796,8 @@ export function putAppointmentAsClient(IdAppointment, type) {
 export function putAppointmentAsPsychologist(IdAppointment, type) {
   return async function (dispatch) {
     try {
-      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
+      await axios.put(
+        `${baseURL}/appointment/put_appointment/${IdAppointment}`,
         type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )

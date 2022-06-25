@@ -21,7 +21,7 @@ function Appointments() {
   const dispatch = useDispatch();
 
   const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')  
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   useEffect(() => {
     if (tokenClient) dispatch(getAppointmentAsClient());
@@ -65,7 +65,7 @@ function Appointments() {
     }
   }
 
-  const [type, setType] = useState("")
+  const [type, setType] = useState({ type: "" });
 
   const changeType = () => {
     Swal.fire({
@@ -77,9 +77,8 @@ function Appointments() {
     }).then((result) => {
       if (result.isDenied) {
         if (!type) {
-          Swal.fire('No has seleccionado ningún valor', '', 'error')
+          Swal.fire('No has seleccionado ninguna modalidad', '', 'error')
         } else {
-          // setIdAppointment(appointment)
           if (tokenClient) {
             dispatch(putAppointmentAsClient(IdAppointment, type))
             dispatch(getAppointmentAsClient())
@@ -157,20 +156,17 @@ function Appointments() {
                             {
                               changeTypeAlert
                                 ? <Stack className='changeType'>
-                                  <Stack direction='column' bg='white' p='2em' align='center' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>                                   
-                                      <Select name='type' placeholder='Seleccione una modalidad' onChange={(e) => setType(e.target.value)}>
-                                        <option value='Virtual'>
-                                          Virtual
-                                        </option>
-                                        <option value='Presencial'>
-                                          Presencial
-                                        </option>
-                                      </Select>                                    
-
-                                    <Text>{IdAppointment}</Text>
-
+                                  <Stack direction='column' bg='white' p='2em' align='center' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                                    <Select name='type' placeholder='Seleccione una modalidad' mb='1em' onChange={(e) => setType({ type: e.target.value })}>
+                                      <option value='Virtual'>
+                                        Virtual
+                                      </option>
+                                      <option value='Presencial'>
+                                        Presencial
+                                      </option>
+                                    </Select>
                                     <Stack direction='row'>
-                                      <Button colorScheme='teal' variant='solid' onClick={() => changeType(appo._id)}>
+                                      <Button colorScheme='teal' variant='solid' onClick={() => changeType()}>
                                         Aceptar
                                       </Button>
                                       <Button colorScheme='teal' variant='outline' onClick={() => setChangeTypeAlert(false)}>
