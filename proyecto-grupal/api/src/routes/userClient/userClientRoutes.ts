@@ -11,8 +11,13 @@ const validatePassport = require('../../middleware/passport')
 const validateClient = require('../../middleware/validateClient')
 // const validateAdmin = require('../../middleware/validatePsychologistOrAdmin')
 const validateAdmin = require('../../middleware/ValidateAdminToken')
+import { Request, Response } from "express";
+const passport = require('passport')
 const clientRouter: Router = Router();
 
+
+clientRouter.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),(req, res) => {res.send("te autenticaste con gogle")})
+clientRouter.get('/google', passport.authenticate('google', { scope: ['profile','email']}))
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.get('/auth/google/callback',validateClient, getUserClient);
 clientRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)
