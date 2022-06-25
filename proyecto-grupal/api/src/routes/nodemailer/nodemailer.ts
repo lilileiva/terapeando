@@ -121,7 +121,7 @@ const registerConfirmationEmail = async (req: Request, res: Response) => {
   let mailOptions = {
 
     from: `Terapeando <i.e 9b701662a9-d663a8+1@inbox.mailtrap.io>`,
-    to: 'sergiosalgado624@gmail.com',
+    to: `${email}`,
     subject: "Confirmacion de registro",
     html: `<h1>Bienvenido ${firstname} ${lastname} a Terapeando!</h1>
           <p>Ingresa con tu email: ${email} <a href= http://localhost:3000/signin>aqui<a/></p>`,

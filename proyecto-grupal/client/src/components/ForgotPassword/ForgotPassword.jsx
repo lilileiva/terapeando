@@ -78,7 +78,9 @@ export default function Reviews() {
 
   useEffect(() => {
     setErrorsEmail(validate(input_email))
+
   }, [input_email]);
+
 
 
   const handleSubmit = (e) => {
