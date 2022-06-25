@@ -14,14 +14,9 @@ import { Request, Response } from "express";
 const passport = require('passport')
 const clientRouter: Router = Router();
 
-clientRouter.get(
-    '/google/callback',
-    passport.authenticate('google', { failureRedirect: '/' }),
-    (req:Request, res:Response) => {
-      res.redirect('/log')
-    }
-)
-clientRouter.get('/google', passport.authenticate('google', { scope: ['profile','email'] }))
+
+clientRouter.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),(req, res) => {res.send("te autenticaste con gogle")})
+clientRouter.get('/google', passport.authenticate('google', { scope: ['profile','email']}))
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.get('/:IdUserPsichologist', validateClient ,getPsychologistDetails)
 clientRouter.post('/client/register', createUserClient)
