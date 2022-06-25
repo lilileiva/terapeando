@@ -65,6 +65,14 @@ function Appointments() {
 
   const [inputType, setInputType] = useState("")
 
+useEffect(() => {
+  setInputType(inputType)
+}, [inputType])
+useEffect(() => {
+  setIdAppointment(IdAppointment)
+}, [IdAppointment])
+
+
   const changeType = (appointment) => {
     Swal.fire({
       title: '¿Estás seguro que quieres modificar la modalidad?',
