@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { Link } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -32,17 +33,6 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import Swal from "sweetalert2";
 
-const regNames = /^[A-Za-z]+$/;
-const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-
-
-function validate(input) {
-  const error = {};
-  if (!regNames.test(input.firstname)) error.firstName = 'El nombre no es valido'
-  if (!regNames.test(input.lastname)) error.lastName = 'El apellido no es válido'
-  if (!regEmail.test(input.email)) error.email = 'El email no es válido'
-  return error
-}
 
 function FormEditClient() {
   const dispatch = useDispatch();
@@ -71,6 +61,18 @@ function FormEditClient() {
     psychologistStatus: psychologistDetails.psychologistStatus
   })
 
+  const regNames = /^[A-Za-z]+$/;
+  const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+
+  function validate(input) {
+    const error = {};
+    if (!regNames.test(input.firstName)) error.firstName = 'El nombre no es valido'
+    if (!regNames.test(input.lastName)) error.lastName = 'El apellido no es válido'
+    if (!regEmail.test(input.email)) error.email = 'El email no es válido'
+    return error
+  }
+
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
@@ -81,48 +83,45 @@ function FormEditClient() {
 
   function handleChange(e) {
     e.preventDefault();
-    setInput((input) => {
-      const newInput = {
-        ...input,
-        [e.target.name]: e.target.value,
-      };
-      const validation = validate(newInput);
-      setError(validation);
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
     });
   }
 
+  const [isSubmit, setIsSubmit] = useState(false);
+
   function handleSubmit(e) {
     e.preventDefault();
-
-    if (Object.values(error).length > 0) {
-      alert("La información no cumple con los requerimientos");
-    } else if (tokenPsychologist && input.location === "") {
-      Swal.fire(
-        'Campos incompletos',
-        'Por favor no dejes campos en blanco',
-        'question'
-      )
-    } else if (
-      input.firstName === "" ||
-      input.lastName === "" ||
-      input.email === "" ||
-      input.country === "" ||
-      input.profileImage === ""
-    ) {
-      Swal.fire(
-        'Campos incompletos',
-        'Por favor no dejes campos en blanco',
-        'question'
-      )
-    } else {
-      if (tokenClient) {
-        dispatch(editClient(input))
-      } else if (tokenPsychologist) {
-        dispatch(editUserPsichologist(input))
-      }
-      navigate("/home")
-    }
+    setError(validate(input))
+    setIsSubmit(true)
   }
+
+  useEffect(() => {
+    if (isSubmit) {
+      if (Object.values(error).length > 0) {
+        Swal.fire('Campos inválidos', 'Por favor verifica tu información', 'question')
+        setIsSubmit(false)
+      }
+      if (tokenClient) {
+        if (!input.firstName || !input.lastName || !input.email || !input.country || !input.profileImage) {
+          Swal.fire('Campos incompletos', 'Por favor no dejes campos en blanco', 'question')
+        } else {
+          dispatch(editClient(input))
+          navigate(`/home/${clientDetails.firstName}`)
+          Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+        }
+      } else if (tokenPsychologist) {
+        if (!input.firstName || !input.lastName || !input.email || !input.location || !input.profileImage) {
+          Swal.fire('Campos incompletos', 'Por favor no dejes campos en blanco', 'question')
+        } else {
+          dispatch(editUserPsichologist(input))
+          navigate(`/home/${psychologistDetails.firstName}`)
+          Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+        }
+      }
+    }
+  }, [isSubmit, tokenClient, tokenPsychologist])
 
   const handleLocation = async (address) => {
     const results = await geocodeByAddress(address);
@@ -155,10 +154,15 @@ function FormEditClient() {
                   justify={'center'}
                   bg='gray.50'>
                   <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                    <Stack align={'center'}>
-                      <Heading fontSize={'4xl'} textAlign={'center'}>
-                        Edita tu Información Personal
-                      </Heading>
+                    <Stack align={'space-between'}>
+                      <Stack direction='row'>
+                        <Heading fontSize={'3xl'} textAlign={'left'}>
+                          Edita tu Información Personal
+                        </Heading>
+                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "green.500", color: "white" }}>
+                          <Link to={`/home/${psychologistDetails.firstName}`}>Cancelar</Link>
+                        </Button>
+                      </Stack>
                       <Text fontSize={'lg'} color={'gray.600'}>
                         Mantene tus datos actualizados
                       </Text>
@@ -191,7 +195,7 @@ function FormEditClient() {
                           {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                         </FormControl>
                         <FormLabel>Pais de residencia</FormLabel>
-                        <Select value={input.location} variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
+                        <Select placeholder=' País' value={input.country} variant='flushed' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
                           {
                             countries.map(c => (
                               <option key={c.label} value={c.label}>{c.label}</option>
@@ -242,10 +246,15 @@ function FormEditClient() {
                   justify={'center'}
                   bg='gray.50'>
                   <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                    <Stack align={'center'}>
-                      <Heading fontSize={'4xl'} textAlign={'center'}>
-                        Edita tu Información Personal
-                      </Heading>
+                    <Stack align={'space-between'}>
+                      <Stack direction='row'>
+                        <Heading fontSize={'3xl'} textAlign={'left'}>
+                          Edita tu Información Personal
+                        </Heading>
+                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "green.500", color: "white" }}>
+                          <Link to={`/home/${psychologistDetails.firstName}`}>Cancelar</Link>
+                        </Button>
+                      </Stack>
                       <Text fontSize={'lg'} color={'gray.600'}>
                         Mantene tus datos actualizados
                       </Text>

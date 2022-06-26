@@ -94,7 +94,7 @@ export default function ClientDetails() {
                                   color: "white",
                                 }}
                               >
-                                <Link to={`/editprofile/${clientDetails.firstName}`}>Edit Profile</Link>
+                                <Link to={`/editprofile/${clientDetails.firstName}`}>Editar perfil</Link>
                               </Button>
                             </Stack>
                             <Avatar
@@ -203,7 +203,7 @@ export default function ClientDetails() {
                                   color: "white",
                                 }}
                               >
-                                <Link to={`/editprofile/${psychologistDetails.firstName}`}>Edit Profile</Link>
+                                <Link to={`/editprofile/${psychologistDetails.firstName}`}>Editar perfil</Link>
                               </Button>
                             </Stack>
                             <Avatar
@@ -248,12 +248,12 @@ export default function ClientDetails() {
                               </Stack>
                               {
                                 psychologistDetails.status === 'Activo'
-                                ? <Stack direction='row' align='center'>
-                                  <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                    ESTADO DE CUENTA: {psychologistDetails.status}
-                                  </Badge>
-                                  <BsInfoCircle title="Cuenta habilitada por nuestros administradores" />
-                                </Stack>
+                                  ? <Stack direction='row' align='center'>
+                                    <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                      ESTADO DE CUENTA: {psychologistDetails.status}
+                                    </Badge>
+                                    <BsInfoCircle title="Cuenta habilitada por nuestros administradores" />
+                                  </Stack>
                                   : <Stack direction='row' align='center'>
                                     <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                       ESTADO DE CUENTA: {psychologistDetails.status}

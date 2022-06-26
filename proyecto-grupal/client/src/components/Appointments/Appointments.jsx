@@ -127,8 +127,8 @@ function Appointments() {
                                         <Avatar src={appo.IdUserPsychologist.profileImage} size='xl' />
                                         <Text fontSize='3xl' fontWeight='500'>{appo.IdUserPsychologist.firstName} {appo.IdUserPsychologist.lastName}</Text>
                                       </Link>
-                                        <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.email}</Text>
-                                        <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.location}</Text>
+                                      <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.email}</Text>
+                                      <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.location}</Text>
                                     </Stack>
                                   ) : (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
                                     <Avatar src={appo.IdUserClient.profileImage} size='xl' />
@@ -155,9 +155,13 @@ function Appointments() {
                                 {
                                   (appointmentDate - todayDate > 0)
                                     ? <Stack direction='row'>
-                                      <Button bg='green.100' colorScheme='teal' variant='outline' onClick={() => handleChangeType(appo._id)}>
-                                        Cambiar modalidad
-                                      </Button>
+                                      {
+                                        tokenClient
+                                          ? <Button bg='green.100' colorScheme='teal' variant='outline' onClick={() => handleChangeType(appo._id)}>
+                                            Cambiar modalidad
+                                          </Button>
+                                          : null
+                                      }
                                       <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
                                         Cancelar cita
                                       </Button>
@@ -167,11 +171,10 @@ function Appointments() {
                                         <CheckIcon color='green' />
                                         <Text fontSize='xl' color='gray'>Cita concretada</Text>
                                       </Stack>
-                                      <Reviews idPsychologist={appo._id} />
+                                      {tokenClient ? <Reviews idPsychologist={appo._id} /> : null}
                                     </>
                                 }
                               </Stack>
-
                               {
                                 changeTypeAlert
                                   ? <Stack className='changeType'>
