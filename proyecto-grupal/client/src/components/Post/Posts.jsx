@@ -62,7 +62,7 @@ export default function Post({ allPosts }) {
                             </>
                           ) : null
                         }
-                        <h5>Fecha {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</h5>
+                        <h5>Fecha: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</h5>
                         <Stack
                           direction="row"
                           justifyContent="center"

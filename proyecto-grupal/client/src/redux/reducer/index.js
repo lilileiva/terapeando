@@ -28,7 +28,8 @@ import {
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
-  DELETE_APPOINTMENT_AS_CLIENT
+  DELETE_APPOINTMENT_AS_CLIENT,
+  CLEAR_SCHEDULE
 } from "../actions/types";
 
 const initialState = {
@@ -332,6 +333,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         adminSearchbar: [],
+      };
+    case CLEAR_SCHEDULE:
+      return {
+        ...state,
+        schedule: [],
       };
     default:
       return { ...state };

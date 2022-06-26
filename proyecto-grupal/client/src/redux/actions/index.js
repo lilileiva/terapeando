@@ -33,7 +33,8 @@ import {
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
   DELETE_APPOINTMENT_AS_CLIENT,
-  REMEMBER_PASSWORD_PSYCHOLOGIST
+  REMEMBER_PASSWORD_PSYCHOLOGIST,
+  CLEAR_SCHEDULE
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -1075,5 +1076,11 @@ export function clearAdminSearchbar() {
 export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
+  }
+}
+
+export const clearSchedule = () => {
+  return {
+    type: "CLEAR_SCHEDULE",
   }
 }

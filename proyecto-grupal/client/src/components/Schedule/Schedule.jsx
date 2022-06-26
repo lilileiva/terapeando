@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { getScheduleAsPsychologist, getScheduleAsClient, clear, createAppointmentAsClient, createAppointmentAsPsychologist } from '../../redux/actions'
+import { getScheduleAsPsychologist, getScheduleAsClient, clearSchedule, createAppointmentAsClient, createAppointmentAsPsychologist } from '../../redux/actions'
 import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,11 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
     const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
     useEffect(() => {
-        dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+        if (tokenClient) dispatch(getScheduleAsClient(IdUserPsychologist))
+        if (tokenPsychologist) dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+        return () => {
+            dispatch(clearSchedule())
+        }
     }, [dispatch])
 
     const schedule = useSelector((state) => state.schedule)
@@ -118,17 +122,20 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
                                         Presencial
                                     </Button>
                                 </Stack>
+
+                                {/* voy a poner provisoriamente esto para tomar el id del psicologo */}
+                                {/* <Link to={`/checkout/${IdUserPsychologist}`}> */}
+                                <Button bg='#63caa7' color='white' mb='2em' colorScheme='teal' onClick={dispatchAppointment}>
+                                    Agendar
+                                </Button>
+                                {/* </Link> */}
                             </>
-                            : <Text>Lo sentimos, este psicólogo no cuenta con horarios disponibles</Text>
+                            : <>
+                                <Text>Lo sentimos, este psicólogo no cuenta con horarios disponibles</Text>
+                            </>
                     }
                 </Stack>
 
-                {/* voy a poner provisoriamente esto para tomar el id del psicologo */}
-                {/* <Link to={`/checkout/${IdUserPsychologist}`}> */}
-                <Button bg='#63caa7' color='white' mb='2em' colorScheme='teal' onClick={dispatchAppointment}>
-                    Agendar
-                </Button>
-                {/* </Link> */}
             </Stack>
         </Stack >
     )
