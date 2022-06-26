@@ -27,6 +27,7 @@ import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 import './ClientDetails.css'
 import countryList from 'react-select-country-list';
+import { BsInfoCircle } from 'react-icons/bs';
 
 
 export default function ClientDetails() {
@@ -232,12 +233,34 @@ export default function ClientDetails() {
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 MATRÍCULA: {psychologistDetails.License}
                               </Badge>
-                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                ESTADO: {psychologistDetails.status}
-                              </Badge>
-                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                DISPONIBILIDAD: {psychologistDetails.psychologistStatus}
-                              </Badge>
+                              <Stack direction='row' align='center'>
+                                {
+                                  psychologistDetails.psychologistStatus === 'Activo'
+                                    ? <Badge fontSize='md' px={2} py={1} color={"green"} fontWeight={"600"}>
+                                      DISPONIBILIDAD: {psychologistDetails.psychologistStatus}
+                                    </Badge>
+
+                                    : <Badge fontSize='md' px={2} py={1} color={"red"} fontWeight={"600"}>
+                                      DISPONIBILIDAD: {psychologistDetails.psychologistStatus}
+                                    </Badge>
+                                }
+                                <BsInfoCircle title="Si tu disponibilidad se encuentra activa, tu perfil aparecerá en el home" />
+                              </Stack>
+                              {
+                                psychologistDetails.status === 'Activo'
+                                ? <Stack direction='row' align='center'>
+                                  <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                    ESTADO DE CUENTA: {psychologistDetails.status}
+                                  </Badge>
+                                  <BsInfoCircle title="Cuenta habilitada por nuestros administradores" />
+                                </Stack>
+                                  : <Stack direction='row' align='center'>
+                                    <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                      ESTADO DE CUENTA: {psychologistDetails.status}
+                                    </Badge>
+                                    <BsInfoCircle title="Tu cuenta se encuentra en revisión" />
+                                  </Stack>
+                              }
                             </Stack>
                             {/* <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                               {psychologistDetails.about}

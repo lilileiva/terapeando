@@ -45,11 +45,6 @@ function validate(input) {
 }
 
 function FormEditClient() {
-  const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null
-  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const countries = useMemo(() => countryList().getData(), [])
@@ -58,16 +53,17 @@ function FormEditClient() {
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
 
+  const [address, setAddress] = useState(psychologistDetails.location || "");
+  const [coordinates, setCoordinates] = useState({
+    lat: psychologistDetails.location || null,
+    lng: psychologistDetails.latitude || null
+  });
 
   const [input, setInput] = useState({
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
     country: clientDetails.country || null,
-    // country: psychologistDetails.location,
-    location: psychologistDetails.location || null,
-    latitude: psychologistDetails.latitude || null,
-    longitude: psychologistDetails.longitude || null,
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,
@@ -94,7 +90,6 @@ function FormEditClient() {
       setError(validation);
     });
   }
-    console.log(input)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -330,12 +325,12 @@ function FormEditClient() {
                             mt={4}
                           />
                         </FormControl>
-                        <FormControl display='flex' alignItems='center'>
-                          <FormLabel fontSize={'xl'} id="lbl" mb='0'>Estado {input.psychologistStatus}</FormLabel>
+                        <FormControl align='center' justify='center'>
+                          <Text fontSize='xl' fontWeight='500'>Estado {input.psychologistStatus}</Text>
                           {
                             input.psychologistStatus === 'Inactivo'
-                              ? <Switch size='lg' onChange={() => setInput({...input, psychologistStatus: 'Activo' })} />
-                              : <Switch isChecked size='lg' onChange={() => setInput({...input, psychologistStatus: 'Inactivo' })} />
+                              ? <Switch size='lg' onChange={() => setInput({ ...input, psychologistStatus: 'Activo' })} />
+                              : <Switch isChecked color='green' size='lg' onChange={() => setInput({ ...input, psychologistStatus: 'Inactivo' })} />
                           }
                         </FormControl>
                         <Stack spacing={10} pt={2}>
