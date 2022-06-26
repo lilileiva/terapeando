@@ -32,6 +32,9 @@ export default function PostsDetail() {
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
+  let postDate = post.createdAt
+  postDate = new Date(postDate)
+
   return (
     <div>
       {
@@ -68,8 +71,8 @@ export default function PostsDetail() {
                         {post.idUserPsychologist.lastName}
                       </Link>
                     </p>
-                    <p className="psytext">Fecha: {post.Date}</p>
-                    <p className="psytext">{post.idUserPsychologist.country}</p>
+                    <p className="psytext">Fecha: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</p>
+                    <p className="psytext">{post.idUserPsychologist.location}</p>
                   </Stack>
                 </div>
               ) : null}
@@ -96,8 +99,8 @@ export default function PostsDetail() {
                     {post.idUserPsychologist.lastName}.
                   </p>
                   <br />
-                  <p className="psytext"> Fecha: {post.Date}.</p>
-                  <p className="psytext"> {post.idUserPsychologist.country}</p>
+                  <p className="psytext"> Fecha: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}.</p>
+                  <p className="psytext"> {post.idUserPsychologist.location}</p>
                 </Stack>
               </Stack>
             ) : null}

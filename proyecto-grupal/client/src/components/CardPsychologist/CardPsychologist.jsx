@@ -28,8 +28,12 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
         <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
             <Stack className="ProfileBox">
-                <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' />
-                <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
+                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
+                    <Stack direction='column' cursor='pointer'>
+                        <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' />
+                        <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
+                    </Stack>
+                </Link>
                 <Text className="textOcupation" color='blackAlpha.500'> {education} </Text>
                 <Box className="boxstars">
                     <Starts rating={rating} />
@@ -128,7 +132,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                             profileImage={profileImage}
                             rating={rating}
                             IdUserPsychologist={IdUserPsychologist}
-                            setCalendar={setCalendar}                            
+                            setCalendar={setCalendar}
                         />
                     </div>
                     : null
