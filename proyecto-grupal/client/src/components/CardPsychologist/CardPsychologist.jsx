@@ -29,7 +29,7 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
 
             <Stack className="ProfileBox">
                 <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
-                    <Stack direction='column' cursor='pointer'>
+                    <Stack direction='column' align='center' cursor='pointer'>
                         <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' />
                         <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
                     </Stack>
