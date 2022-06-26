@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { getScheduleAsPsychologist, clear, createAppointmentAsClient, createAppointmentAsPsychologist } from '../../redux/actions'
+import { getScheduleAsPsychologist, getScheduleAsClient, clear, createAppointmentAsClient, createAppointmentAsPsychologist } from '../../redux/actions'
 import { Text, Stack, Avatar, Button } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
@@ -10,9 +10,14 @@ import { Link } from 'react-router-dom';
 function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCalendar }) {
     const dispatch = useDispatch();
 
+    const tokenClient = window.localStorage.getItem('tokenClient')
+    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
+    useEffect(() => {
+        dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+    }, [dispatch])
+
     const schedule = useSelector((state) => state.schedule)
-    let scheduleDate;
-    let scheduleHour;
 
     const [appointmentData, setAppointmentData] = useState({
         date: "",
@@ -40,9 +45,6 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
         })
         console.log(appointmentData)
     }
-
-    const tokenClient = window.localStorage.getItem('tokenClient')
-    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
     const dispatchAppointment = () => {
         if (tokenClient) dispatch(createAppointmentAsClient(IdUserPsychologist, appointmentData))
@@ -81,23 +83,25 @@ function Schedule({ firstName, lastName, profileImage, IdUserPsychologist, setCa
                             ? <>
                                 {
                                     schedule.map((sch) => {
-                                        scheduleDate = new Date(sch.date)
+                                        let scheduleDate = new Date(sch.date)
                                         return (
                                             <>
                                                 <Button color='teal' name='date' value={sch.date} onClick={() => handleDate(sch.date)}>
-                                                    {scheduleDate.getUTCDate()}/{scheduleDate.getUTCMonth()+1}
+                                                    {scheduleDate.getUTCDate()}/{scheduleDate.getUTCMonth() + 1}
                                                 </Button>
                                                 <Stack direction='row'>
                                                     {
                                                         showHours
                                                             ? sch.hours !== 0
                                                                 ? (
-                                                                    sch.hours.map((hour) => (
-                                                                        scheduleHour = new Date(hour),
-                                                                        <Button bg='green.100' name='hour' value={hour} onClick={(e) => handleTypeAndHour(e)}>
-                                                                            {scheduleHour.getUTCHours()}:{scheduleHour.getUTCMinutes()} hs
-                                                                        </Button>
-                                                                    ))
+                                                                    sch.hours.map((hour) => {
+                                                                        let scheduleHour = new Date(hour)
+                                                                        return (
+                                                                            <Button bg='green.100' name='hour' value={hour} onClick={(e) => handleTypeAndHour(e)}>
+                                                                                {scheduleHour.getUTCHours()}:{scheduleHour.getUTCMinutes()} hs
+                                                                            </Button>
+                                                                        )
+                                                                    })
                                                                 ) : <Text>No hay horarios disponibles</Text>
                                                             : null
                                                     }

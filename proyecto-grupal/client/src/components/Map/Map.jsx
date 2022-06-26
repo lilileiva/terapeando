@@ -14,15 +14,12 @@ function Map({ lat, lng }) {
     googleMapsApiKey: `${REACT_APP_GOOGLE_MAP_API_KEY}`
   })
 
-  console.log(lat)
-  console.log(lng)
-
   const center = {
     lat: Number(lat),
     lng: Number(lng)
   }
   const [map, setMap] = useState(null)
-  const [zoom, setZoom] = useState(10)
+  const [zoom, setZoom] = useState(11)
 
   useEffect(() => {
     setZoom(10)

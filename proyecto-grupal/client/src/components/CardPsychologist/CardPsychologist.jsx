@@ -5,7 +5,6 @@ import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
 import Schedule from "../Schedule/Schedule";
 import { useSelector, useDispatch } from "react-redux";
-import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 
 
 export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, IdUserPsychologist }) {
@@ -24,17 +23,6 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
 
     const tokenClient = window.localStorage.getItem('tokenClient')
     const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-
-    useEffect(() => {
-        dispatch(getScheduleAsPsychologist(IdUserPsychologist))
-
-        if (tokenClient) {
-            dispatch(getScheduleAsClient(IdUserPsychologist))
-          }
-          if (tokenPsychologist) {
-            dispatch(getScheduleAsPsychologist(IdUserPsychologist))
-          }
-    })
 
     return (
         <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>

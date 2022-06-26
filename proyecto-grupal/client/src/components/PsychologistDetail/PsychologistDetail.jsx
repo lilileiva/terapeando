@@ -15,7 +15,6 @@ import Reviews from "../Reviews/Reviews";
 import NotFound from '../404notFound/notFound.jsx';
 import Map from '../Map/Map.jsx';
 import Schedule from "../Schedule/Schedule";
-import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 
 
 export default function PsychologistDetail() {
@@ -31,14 +30,8 @@ export default function PsychologistDetail() {
   const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   useEffect(() => {
-    if (tokenClient) {
-      dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist))
-      dispatch(getScheduleAsClient(IdUserPsychologist))
-    }
-    if (tokenPsychologist) {
-      dispatch(getUserPsychologistDetails(IdUserPsychologist))
-      dispatch(getScheduleAsPsychologist(IdUserPsychologist))
-    }
+    if (tokenClient) dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist))
+    if (tokenPsychologist) dispatch(getUserPsychologistDetails(IdUserPsychologist))
     dispatch(getPostsByPsychologistId(IdUserPsychologist))
     smoothscroll()
 
@@ -81,7 +74,7 @@ export default function PsychologistDetail() {
               <div className='psychologistDetailContainer'>
                 <Stack mb='1em'>
                   <NavbarHome />
-                  <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'12em'}>
+                  <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'10em'}>
                     <ArrowLeftIcon color='white' alignItems='left' cursor='pointer' onClick={() => navigate(-1)} />
                     <Text fontSize='3xl' fontWeight='500' color='white'>
                       Conoce un poco más sobre tu próximo psicólogo
@@ -176,7 +169,7 @@ export default function PsychologistDetail() {
                                         ) : null
                                     }
                                     <br />
-                                    <Reviews />
+                                    {/* <Reviews /> */}
                                   </Box>
                                 </SimpleGrid>
                               </Stack>
