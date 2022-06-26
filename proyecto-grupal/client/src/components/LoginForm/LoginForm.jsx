@@ -83,6 +83,13 @@ function LoginForm() {
     });
   };
 
+  const handleLogin = async () => {
+    const response = await axios.get(`${LOCAL_HOST}/userclient/google` ,{
+      mode: 'cors',
+    })
+    console.log(response)
+  }
+
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleInputSubmit = async (e) => {
@@ -289,19 +296,27 @@ function LoginForm() {
                       Iniciar sesión
                     </Button>
 
+                     {/* <Login mt='1em' /> */}
+                    {/* <Button bg='green.100' color={'#63caa7'}> */}
+                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                    {/* </Button> */}
+
+                    <a href="http://localhost:3001/userclient/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
+
                    
-                   <Button
+                   {/* <Button
                      type="submit"
                      bg={"#63caa7"}
                      color="white"
                      variant="solid"
                      _hover={[{ color: "#63caa7" }, { bg: "white" }]}
                      display={'flex'}
+                     onClick={handleLogin}
                  
                       
                       > 
                    Inicia sesión con &nbsp;<FaGoogle /> 
-                    </Button>
+                    </Button> */}
 
                     </Stack>
 

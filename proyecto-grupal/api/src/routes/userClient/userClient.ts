@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import userClientModel from "../../models/userClients";
+import userClientModel from "../../models/userClients"
 import userPsychologistModel from "../../models/userPsychologist";
 
+
 const nodemailer = require("nodemailer");
+
 
 const getUserClient = async (req: Request, res: Response) => {
   try {
@@ -46,11 +48,11 @@ const createUserClient = async (req: Request, res: Response) => {
       const userClient = await userClientModel.create({
         firstName: firstname,
         lastName: lastname,
-        birthDate: birthdate,
-        country: country,
+        //birthDate: birthdate,
+        //country: country,
         email: email,
         profileImage: profileimage,
-        password: password,
+        //password: password,
         role: "client",
       });
       res.status(201).send("Welcome to our community, now you can sign in");
@@ -109,7 +111,7 @@ const putUserClient = async (req: Request, res: Response) => {
    } catch (err) {
       res.status(404).send('There was an error...');
    }
-}
+};
 
 
 
@@ -118,5 +120,5 @@ module.exports = {
   createUserClient,
   deleteUserClient,
   putUserClient,
-  getPsychologistDetails
+  getPsychologistDetails,
 };
