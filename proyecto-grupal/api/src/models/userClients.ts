@@ -35,13 +35,13 @@ export class userClient {
     @prop({ required: true, trim: true })
     lastName: string
 
-    @prop({ required: true, trim: true })
+    @prop({ required: false, trim: true })
     birthDate: string
 
-    @prop({ required: true })
+    @prop({ required: false })
     country: string
 
-    @prop({ required: true, minlength:8 })
+    @prop({ required: false, minlength:8 })
     password: string
 
     @prop({

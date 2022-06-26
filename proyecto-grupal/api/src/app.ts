@@ -3,8 +3,10 @@ import { Request, Response, NextFunction, ErrorRequestHandler} from "express";
 import morgan from 'morgan'
 const routes = require('./routes/index.ts')
 const cors = require('cors')
-
-
+const passport = require('passport')
+const session = require('express-session')
+require('./routes/passport/passport')(passport)
+require("dotenv").config();
 // server  inicializations
 const app = express() 
 app.set( 'port', process.env.PORT || 3001 )
@@ -14,6 +16,14 @@ app.use(cors())
 app.use(express.json()); // para que entienda el formato json
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended:false}))
+
+app.use(session({
+  secret: "secret",
+  resave: false ,
+  saveUninitialized: true ,
+}))
+app.use(passport.initialize())
+app.use(passport.session()) 
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from

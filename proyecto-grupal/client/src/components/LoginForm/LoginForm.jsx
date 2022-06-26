@@ -161,6 +161,11 @@ function LoginForm() {
   const tokenClient = window.localStorage.getItem("tokenClient");
   const tokenPsychologist = window.localStorage.getItem("tokenPsychologist");
 
+  const handleLogin = async () => {
+    const response = await axios.get(`${LOCAL_HOST}/userclient/google`)
+    console.log(response)
+  }
+
   return (
     <div className="background">
       {tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />}
@@ -287,10 +292,11 @@ function LoginForm() {
                       Iniciar sesión
                     </Button>
 
-                    {/* <Login mt='1em' /> */}
-                    {/* <Button bg='green.100' color={'#63caa7'}> */}
-                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                    {/* </Button> */}
+                    <Login mt='1em' /> 
+                    <Button bg='green.100' color={'#63caa7'}
+                    onClick={handleLogin}>
+                      Inicia sesión con &nbsp; <FaGoogle />
+                    </Button>
 
                     <Button
                       bg="green.100"
