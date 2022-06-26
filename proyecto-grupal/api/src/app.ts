@@ -1,12 +1,12 @@
 import express from 'express' // instale npm i @types/express -D como dependecia de desarrollo para que entienda modulos de express
 import { Request, Response, NextFunction, ErrorRequestHandler} from "express";
+require("dotenv").config();
 import morgan from 'morgan'
-const routes = require('./routes/index.ts')
+const routes = require('./routes/index')
 const cors = require('cors')
 const passport = require('passport')
-const session = require('express-session')
-require('./routes/passport/passport')(passport)
-require("dotenv").config();
+require('./routes/userClient/passport')(passport)
+
 // server  inicializations
 const app = express() 
 app.set( 'port', process.env.PORT || 3001 )
@@ -16,12 +16,10 @@ app.use(cors())
 app.use(express.json()); // para que entienda el formato json
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended:false}))
+app.use(passport.initialize())
+app.use(passport.session())
 
-app.use(session({
-  secret: "secret",
-  resave: false ,
-  saveUninitialized: true ,
-}))
+
 app.use(passport.initialize())
 app.use(passport.session()) 
 

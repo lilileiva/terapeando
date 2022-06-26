@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import userClientModel from "../../models/userClients";
+import userClientModel from "../../models/userClients"
 import userPsychologistModel from "../../models/userPsychologist";
 
 const nodemailer = require("nodemailer");
+
 
 const getUserClient = async (req: Request, res: Response) => {
   try {
@@ -103,19 +104,19 @@ const deleteUserClient = async (req: Request, res: Response) => {
 
 
 const putUserClient = async (req: Request, res: Response) => {
-  try {
-    const user = await userClientModel.findByIdAndUpdate(req.user, req.body, {
-      new: true,
-    });
-    res.status(200).send("Usuario editado correctamente");
-  } catch (err) {
-    res.status(404).send("There was an error...");
-  }
-};
+   try {
+      const user = await userClientModel.findByIdAndUpdate(req.user, req.body, { new: true })
+      res.status(200).send('Usuario editado correctamente')
+   } catch (err) {
+      res.status(404).send('There was an error...');
+   }
+}
+
+
 module.exports = {
   getUserClient,
   createUserClient,
   deleteUserClient,
-  putUserClient,
-  getPsychologistDetails
+  getPsychologistDetails,
+  putUserClient
 };

@@ -221,7 +221,7 @@ export default function ClientDetails() {
                                 {psychologistDetails.birthDate}
                               </Badge>
                               <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                {psychologistDetails.country}
+                                {psychologistDetails.location}
                               </Badge>
                               <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 DNI: {psychologistDetails.DNI}

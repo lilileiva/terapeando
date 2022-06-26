@@ -39,7 +39,10 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
+import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
+import Appointments from './components/Appointments/Appointments.jsx';
 
+// import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
 
 export default function App() {
   return (
@@ -54,6 +57,8 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />
         <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
+        {/* <Route path="/editschedule/:IdUserPsychologist" element={<EditSchedule />} /> */}
+        <Route path="/editschedule/" element={<EditSchedule />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />
@@ -66,6 +71,7 @@ export default function App() {
         <Route path='/checkout/:idPsychologist' element={<CheckoutPayment />} />
         <Route path='success' element={<Success />} />
         <Route path='canceled' element={<Cancel />} />
+        <Route path='/appointments' element={<Appointments />} />
         {/*-----------------------admin panel---------------------*/}
         <Route path='/adminpanel/login' element={<AdminPanelLogin />} />
         <Route path='/adminpanel/inicio' element={<AdminPanelHome />} />

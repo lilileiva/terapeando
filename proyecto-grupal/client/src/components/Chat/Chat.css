@@ -1,0 +1,31 @@
+.chatApp{
+  width: 450px;
+  position: fixed;
+  bottom:0px;
+  right: 0px;
+  z-index: 1000;
+}
+.chat{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 25%;
+  font-size: 22px;
+}
+.chat li {
+  list-style: none;
+}
+.chatApp input{
+  color: black;
+}
+.chat-img{
+  width: 90px;
+  height: 90px;
+  margin-left: 200%;
+  margin-bottom: 55%;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+.chatApp svg{
+  margin-left: 35%;
+}

@@ -51,6 +51,7 @@ const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 const tokenClient = window.localStorage.getItem('tokenClient')
 const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
+
 const NavLink = ({ children }) => (
 
   <Link exact to={removeAcc(children)}>
@@ -72,10 +73,10 @@ export default function NavbarHome() {
 
   const dispatch = useDispatch()
 
-  const { isOpen, onOpen, onClose } = useDisclosure();  
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSignOut = () => {
-    window.localStorage.clear();    
+    window.localStorage.clear();
   }
 
   useEffect(() => {
@@ -130,15 +131,48 @@ export default function NavbarHome() {
             </Stack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Button
-              variant={"solid"}
-              colorScheme={"teal"}
-              size={"sm"}
-              mr={4}
-              leftIcon={<AddIcon />}
-            >
-              Agendar Sesión
-            </Button>
+            {
+              tokenClient
+                ? (
+                  <Link to='/appointments'>
+                    <Button
+                      variant={"solid"}
+                      colorScheme={"teal"}
+                      size={"sm"}
+                      mr={4}
+                      leftIcon={<AddIcon />}
+                    >
+                      Mis citas
+                    </Button>
+                  </Link>
+                )
+                : tokenPsychologist ? (
+                  <>
+                    <Link to='/appointments'>
+                      <Button
+                        variant={"solid"}
+                        colorScheme={"teal"}
+                        size={"sm"}
+                        mr={4}
+                        leftIcon={<AddIcon />}
+                      >
+                        Mis citas
+                      </Button>
+                    </Link>
+                    <Link to='/editschedule'>
+                      <Button
+                        variant={"solid"}
+                        colorScheme={"teal"}
+                        size={"sm"}
+                        mr={4}
+                        leftIcon={<AddIcon />}
+                      >
+                        Administrar agenda
+                      </Button>
+                    </Link>
+                  </>
+                ) : null
+            }
             <Menu>
               <MenuButton
                 as={Button}

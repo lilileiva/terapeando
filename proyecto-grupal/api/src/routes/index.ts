@@ -1,4 +1,5 @@
-import { Router } from "express";
+// import { Router } from "express";
+const Router = require("express")
 const appointment = require("./appointments/appoimentsRoutes.ts");
 const paymentHistory = require("./paymentHistory/paymentHistoryRoutes.ts");
 const blogPost = require("./posts/postsRoutes.ts");
@@ -7,10 +8,10 @@ const schedule = require("./schedule/scheduleRoutes.ts");
 const userClient = require("./userClient/userClientRoutes.ts");
 const userPsychologist = require("./userPsychologist/userPsychologistRoutes.ts");
 const rememberPassword = require("./nodemailer/nodemailerRoutes.ts")
-const admin = require("./admin/adminRoutes.ts")
-const passport = require("./passport/passportRoutes.ts")
+const admin = require("./admin/adminRoutes")
+const router = Router();
 
-const router: Router = Router();
+
 
 router.use('/appointment', appointment)
 router.use('/payment', paymentHistory)
@@ -21,7 +22,6 @@ router.use('/userclient', userClient)
 router.use('/userpsychologist', userPsychologist)
 router.use('/admin', admin)
 router.use('/nodemailer', rememberPassword)
-router.use(passport)
 
 
 module.exports = router;

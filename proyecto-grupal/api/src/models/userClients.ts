@@ -35,13 +35,13 @@ export class userClient {
     @prop({ required: true, trim: true })
     lastName: string
 
-    @prop({ required: false, trim: true })
+    @prop({  trim: true })
     birthDate: string
 
     @prop({ required: false })
     country: string
 
-    @prop({ required: false, minlength:8 })
+    @prop({  minlength:8 })
     password: string
 
     @prop({
@@ -66,8 +66,8 @@ export class userClient {
     @prop()
     role: string
 
-    @prop({ ref: () => appointment })
-    appointments: Ref<appointment>[];
+    // @prop({ ref: () => appointment })
+    // appointments: Ref<appointment>[];
 }
 
 const userClientModel = getModelForClass(userClient)
