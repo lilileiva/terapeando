@@ -124,8 +124,8 @@ export default function ClientDetails() {
                                 <CalendarIcon />
                                 <Heading color={"blackAlpha.800"}>Citas</Heading>
                               </Link>
-                              {/* <VStack alignItems="left" spacing="24px">
-                                <Text color={"blackAlpha.800"}>
+                              <VStack alignItems="left" spacing="24px">
+                                {/* <Text color={"blackAlpha.800"}>
                                   Terapeuta: Ana Gomez <ExternalLinkIcon cursor={"pointer"} />
                                 </Text>
                                 <Badge
@@ -138,7 +138,7 @@ export default function ClientDetails() {
                                   <Text color={"blackAlpha.800"} mb={"10px"}> Martes 14, | 15:00 - 15:45 </Text>
                                   <DeleteIcon mr={"10px"} cursor={"pointer"} />
                                   <EditIcon cursor={"pointer"} />
-                                </Badge>
+                                </Badge> */}
                                 <Badge
                                   px={2}
                                   py={1}
@@ -149,7 +149,7 @@ export default function ClientDetails() {
                                 >
                                   🛎️ 10 minutos antes
                                 </Badge>
-                              </VStack> */}
+                              </VStack>
                             </Stack>
                           </Box>
                         </Container>
@@ -231,6 +231,12 @@ export default function ClientDetails() {
                               </Badge>
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 MATRÍCULA: {psychologistDetails.License}
+                              </Badge>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                ESTADO: {psychologistDetails.status}
+                              </Badge>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                DISPONIBILIDAD: {psychologistDetails.psychologistStatus}
                               </Badge>
                             </Stack>
                             {/* <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>

@@ -5,6 +5,7 @@ import userPsychologist from "../../models/userPsychologist";
 //import { userPsychologist } from '../../models/userPsychologist';
 const nodemailer = require("nodemailer");
 
+
 const getUserPsychologistOne = async (req: Request, res: Response) => {
   try {
     const psychologistUser = await userPsychologistModel.findById(req.user, '-password');
@@ -41,7 +42,7 @@ const getUserPsychologistByEmail = async (req: Request, res: Response) => {
 const getUserPsychologistByStatus = async (req: Request, res: Response) => {
   try {
     const userPsychologistStatus = await userPsychologistModel.find(
-      { status: "Activo" },
+      { status: "Activo", psychologistStatus: "Activo" },
       "-password"
     );
     res.status(200).json(userPsychologistStatus);
@@ -60,8 +61,7 @@ const getUserPsychologist = async (
     const { name } = req.query;
 
     if (name) {
-      userPsychologist
-        .find(
+      userPsychologistModel.find(
           {
             $or: [
               { firstName: { $regex: name, $options: "i" } },
@@ -128,6 +128,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         profileImage: profileimage,
         rating: 1,
         status: "Pendiente",
+        psychologistStatus: "Activo",
         about,
         education,
         role: 'psychologist'

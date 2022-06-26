@@ -13,7 +13,8 @@ import {
   Text,
   useColorModeValue,
   Badge,
-  Select
+  Select,
+  Switch
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import countryList from 'react-select-country-list';
@@ -70,17 +71,17 @@ function FormEditClient() {
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,
-    about: psychologistDetails.about
+    about: psychologistDetails.about,
+    psychologistStatus: psychologistDetails.psychologistStatus
   })
-
-  console.log('local', psychologistDetails)
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
   useEffect(() => {
     if (tokenClient) dispatch(getUserClient());
     if (tokenPsychologist) dispatch(getUserPsychologistOne());
-  }, []);
+  }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();
@@ -91,11 +92,9 @@ function FormEditClient() {
       };
       const validation = validate(newInput);
       setError(validation);
-      return newInput;
     });
   }
-  console.log('input', input)
-
+    console.log(input)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -126,17 +125,15 @@ function FormEditClient() {
       } else if (tokenPsychologist) {
         dispatch(editUserPsichologist(input))
       }
-
-      console.log(input)
-      setInput({
-        firstName: '',
-        lastName: '',
-        email: '',
-        country: '',
-        profileImage: ''
-      })
       navigate("/home")
     }
+  }
+
+  const handleLocation = async (address) => {
+    const results = await geocodeByAddress(address);
+    const latLng = await getLatLng(results[0]);
+    setAddress(address);
+    setCoordinates(latLng)
   }
 
   useEffect(() => {
@@ -149,13 +146,6 @@ function FormEditClient() {
   }, [address, coordinates])
 
 
-
-  const handleLocation = async (address) => {
-    const results = await geocodeByAddress(address);
-    const latLng = await getLatLng(results[0]);
-    setAddress(address);
-    setCoordinates(latLng)
-  }
   return (
     <Stack className='ClientDetailsContainer'>
       {
@@ -205,11 +195,6 @@ function FormEditClient() {
                           <Input type="email" name='email' placeholder={clientDetails.email} value={input.email} onChange={(e) => handleChange(e)} />
                           {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                         </FormControl>
-                        {/* <FormControl id="country">
-                          <FormLabel>Pais de residencia</FormLabel>
-                          <Input type="country" name='country' placeholder={clientDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
-                        </FormControl> */}
-                        {/* <FormControl id="country"> */}
                         <FormLabel>Pais de residencia</FormLabel>
                         <Select value={input.location} variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
                           {
@@ -218,7 +203,6 @@ function FormEditClient() {
                             ))
                           }
                         </Select>
-                        {/* </FormControl> */}
                         <FormControl id="profileImage">
                           <FormLabel>Imagen de perfil</FormLabel>
                           <Input type="profileImage" name='profileImage' placeholder={clientDetails.profileImage} value={input.profileImage} onChange={(e) => handleChange(e)} />
@@ -322,7 +306,6 @@ function FormEditClient() {
                               </div>
 
                             )}
-
                           </PlacesAutocomplete>
                         </FormControl>
                         <FormControl id="DNI">
@@ -346,6 +329,14 @@ function FormEditClient() {
                             src={psychologistDetails.profileImage}
                             mt={4}
                           />
+                        </FormControl>
+                        <FormControl display='flex' alignItems='center'>
+                          <FormLabel fontSize={'xl'} id="lbl" mb='0'>Estado {input.psychologistStatus}</FormLabel>
+                          {
+                            input.psychologistStatus === 'Inactivo'
+                              ? <Switch size='lg' onChange={() => setInput({...input, psychologistStatus: 'Activo' })} />
+                              : <Switch isChecked size='lg' onChange={() => setInput({...input, psychologistStatus: 'Inactivo' })} />
+                          }
                         </FormControl>
                         <Stack spacing={10} pt={2}>
                           <Button

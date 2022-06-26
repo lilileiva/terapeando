@@ -98,6 +98,9 @@ export class userPsychologist {
 
   @prop()
   status:string
+
+  @prop()
+  psychologistStatus:string
   // @prop()
   // Reviews?: String[];
 
