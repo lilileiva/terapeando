@@ -310,9 +310,9 @@ export function editUserPsichologist(updatedUserPsychologist) {
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }
         })
-      if (data.response === 200) {
-        Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
-      }
+      // if (data.response === 200) {
+      //   Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+      // }
     } catch (error) {
       console.error(error)
       Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");

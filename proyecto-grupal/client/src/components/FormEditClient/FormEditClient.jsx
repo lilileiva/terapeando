@@ -259,7 +259,7 @@ function FormEditClient() {
                         Mantene tus datos actualizados
                       </Text>
                     </Stack>
-                    <Box
+                    <Box                    
                       rounded={'lg'}
                       bg='white'
                       boxShadow={'lg'}
@@ -335,7 +335,7 @@ function FormEditClient() {
                           />
                         </FormControl>
                         <FormControl align='center' justify='center'>
-                          <Text fontSize='xl' fontWeight='500'>Estado {input.psychologistStatus}</Text>
+                          <Text fontSize='xl' fontWeight='500'>Disponibilidad: {input.psychologistStatus}</Text>
                           {
                             input.psychologistStatus === 'Inactivo'
                               ? <Switch size='lg' onChange={() => setInput({ ...input, psychologistStatus: 'Activo' })} />
