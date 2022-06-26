@@ -66,8 +66,8 @@ export class userClient {
     @prop()
     role: string
 
-    @prop({ ref: () => appointment })
-    appointments: Ref<appointment>[];
+    // @prop({ ref: () => appointment })
+    // appointments: Ref<appointment>[];
 }
 
 const userClientModel = getModelForClass(userClient)

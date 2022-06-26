@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import userPsychologistModel from "../../models/userPsychologist";
 import userClientModel from "../../models/userClients";
-import * as nodemailer from "nodemailer";
-const bcrypt = require('bcryptjs');
+import userPsychologistModel from "../../models/userPsychologist";
+const nodemailer = require("nodemailer");
+const bcrypt = require("bcryptjs");
 import * as crypto from "crypto";
 
-
+    
 
 const ForgotPassword = async (req: Request, res: Response) => {
 
@@ -54,7 +54,7 @@ const ForgotPassword = async (req: Request, res: Response) => {
         to: `${email}`,
         subject: "Recuperación de contraseña Terapeando",
         text: `Hola ${user[0].firstName} tu nueva contraseña para iniciar sesión es: ${newPassword}`,
-        html: `<strong>Hola! ${user[0].firstName}  tu nueva contraseña para iniciar sesión es: ${newPassword} </strong><a href= http://localhost:3000/signin>ir a Terapeando</a>`,
+        html: `<strong>Hola ${user[0].firstName}!  tu nueva contraseña para iniciar sesión es: ${newPassword} </strong><a href= http://localhost:3000/signin>ir a Terapeando</a>`,
         headers: { 'x-myheader': 'test header' }
       }).then(async () => {
 
@@ -92,7 +92,8 @@ const ForgotPassword = async (req: Request, res: Response) => {
     return res.status(404).json({ msg: 'user not found' });
 
   }
-};
+}
+  
 
 
 const registerConfirmationEmail = async (req: Request, res: Response) => {

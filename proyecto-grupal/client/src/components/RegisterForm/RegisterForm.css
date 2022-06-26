@@ -20,3 +20,6 @@
 .footerRegister {
     margin-top: 23em
 }
+.LocationOptions{
+    overflow: auto;
+}

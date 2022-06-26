@@ -6,10 +6,9 @@ const reviews = require("./reviews/reviewsRoutes.ts");
 const schedule = require("./schedule/scheduleRoutes.ts");
 const userClient = require("./userClient/userClientRoutes.ts");
 const userPsychologist = require("./userPsychologist/userPsychologistRoutes");
-const nodemailer = require("./nodemailer/nodemailerRoutes")
-
-
+const rememberPassword = require("./nodemailer/nodemailerRoutes.ts")
 const admin = require("./admin/adminRoutes")
+const loginGooglePsichologist = require ("./googleLogin/googleLoginRoutes")
 const router: Router = Router();
 
 router.use('/appointment', appointment)
@@ -20,7 +19,8 @@ router.use('/schedule', schedule)
 router.use('/userclient', userClient)
 router.use('/userpsychologist', userPsychologist)
 router.use('/admin', admin)
-router.use('/nodemailer',nodemailer)
+router.use('/nodemailer', rememberPassword)
+router.use('logingoogle' , loginGooglePsichologist)
 
 
 module.exports = router;

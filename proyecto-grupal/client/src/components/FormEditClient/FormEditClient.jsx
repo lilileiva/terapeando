@@ -13,6 +13,7 @@ import {
   Text,
   useColorModeValue,
   Badge,
+  Select
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import countryList from 'react-select-country-list';
@@ -21,11 +22,18 @@ import { editClient, editUserPsichologist, getUserClient, getUserPsychologistOne
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
-import NavbarHome from "../NavbarHome/NavbarHome";
+import NavbarHome from '../NavbarHome/NavbarHome.jsx'
 import Footer from "../Footer/Footer";
+import { BiLoader, BiX } from "react-icons/bi";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
+import Swal from "sweetalert2";
 
 const regNames = /^[A-Za-z]+$/;
 const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
 
 function validate(input) {
   const error = {};
@@ -36,24 +44,36 @@ function validate(input) {
 }
 
 function FormEditClient() {
-
-  const countries = useMemo(() => countryList().getData(), [])
+  const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const countries = useMemo(() => countryList().getData(), [])
   // const { idUserClient } = useParams();
   const clientDetails = useSelector((state) => state.userClientDetail)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
+
+
   const [input, setInput] = useState({
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
-    country: clientDetails.country || psychologistDetails.country,
+    country: clientDetails.country || null,
+    // country: psychologistDetails.location,
+    location: psychologistDetails.location || null,
+    latitude: psychologistDetails.latitude || null,
+    longitude: psychologistDetails.longitude || null,
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,
     about: psychologistDetails.about
   })
+
+  console.log('local', psychologistDetails)
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
@@ -74,6 +94,7 @@ function FormEditClient() {
       return newInput;
     });
   }
+  console.log('input', input)
 
 
   function handleSubmit(e) {
@@ -81,14 +102,24 @@ function FormEditClient() {
 
     if (Object.values(error).length > 0) {
       alert("La información no cumple con los requerimientos");
+    } else if (tokenPsychologist && input.location === "") {
+      Swal.fire(
+        'Campos incompletos',
+        'Por favor no dejes campos en blanco',
+        'question'
+      )
     } else if (
-      input.firstName === "" &&
-      input.lastName === "" &&
-      input.email === "" &&
-      input.country === "" &&
+      input.firstName === "" ||
+      input.lastName === "" ||
+      input.email === "" ||
+      input.country === "" ||
       input.profileImage === ""
     ) {
-      alert("Tu perfil necesita esta información, por favor no dejes campos en blanco");
+      Swal.fire(
+        'Campos incompletos',
+        'Por favor no dejes campos en blanco',
+        'question'
+      )
     } else {
       if (tokenClient) {
         dispatch(editClient(input))
@@ -108,7 +139,23 @@ function FormEditClient() {
     }
   }
 
+  useEffect(() => {
+    setInput({
+      ...input,
+      location: address,
+      latitude: coordinates.lat,
+      longitude: coordinates.lng,
+    })
+  }, [address, coordinates])
 
+
+
+  const handleLocation = async (address) => {
+    const results = await geocodeByAddress(address);
+    const latLng = await getLatLng(results[0]);
+    setAddress(address);
+    setCoordinates(latLng)
+  }
   return (
     <Stack className='ClientDetailsContainer'>
       {
@@ -158,10 +205,20 @@ function FormEditClient() {
                           <Input type="email" name='email' placeholder={clientDetails.email} value={input.email} onChange={(e) => handleChange(e)} />
                           {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                         </FormControl>
-                        <FormControl id="country">
+                        {/* <FormControl id="country">
                           <FormLabel>Pais de residencia</FormLabel>
                           <Input type="country" name='country' placeholder={clientDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
-                        </FormControl>
+                        </FormControl> */}
+                        {/* <FormControl id="country"> */}
+                        <FormLabel>Pais de residencia</FormLabel>
+                        <Select value={input.location} variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
+                          {
+                            countries.map(c => (
+                              <option key={c.label} value={c.label}>{c.label}</option>
+                            ))
+                          }
+                        </Select>
+                        {/* </FormControl> */}
                         <FormControl id="profileImage">
                           <FormLabel>Imagen de perfil</FormLabel>
                           <Input type="profileImage" name='profileImage' placeholder={clientDetails.profileImage} value={input.profileImage} onChange={(e) => handleChange(e)} />
@@ -173,7 +230,6 @@ function FormEditClient() {
                           />
                         </FormControl>
                         <Stack spacing={10} pt={2}>
-
                           <Button
                             loadingText="Submitting"
                             size="lg"
@@ -243,8 +299,31 @@ function FormEditClient() {
                           {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                         </FormControl>
                         <FormControl id="country">
-                          <FormLabel>Pais de residencia</FormLabel>
-                          <Input type="country" name='country' placeholder={psychologistDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
+                          <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleLocation} >
+                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                              <div>
+                                <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })} />
+                                <div>
+                                  {loading ? <BiLoader /> : null}
+
+                                  {suggestions.map(suggestion => {
+                                    const style = {
+                                      backgroundColor: suggestion.active ? "#718096" : "#fff"
+                                    };
+
+                                    return (
+                                      <option className='LocationOptions' color='gray.500'
+                                        bg='white' mt='2em' width='10px' key={suggestion.description} value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
+                                        {suggestion.description}
+                                      </option>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                            )}
+
+                          </PlacesAutocomplete>
                         </FormControl>
                         <FormControl id="DNI">
                           <FormLabel>DNI</FormLabel>
@@ -269,7 +348,6 @@ function FormEditClient() {
                           />
                         </FormControl>
                         <Stack spacing={10} pt={2}>
-
                           <Button
                             loadingText="Submitting"
                             size="lg"

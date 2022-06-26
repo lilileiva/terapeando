@@ -14,7 +14,7 @@ import {
   Button,
   Badge,
   VStack,
-  Container,
+  Container
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import NotFound from '../404notFound/notFound.jsx';
 import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 import './ClientDetails.css'
+import countryList from 'react-select-country-list';
 
 
 export default function ClientDetails() {
@@ -106,22 +107,24 @@ export default function ClientDetails() {
                               <ChangePasswordModal />
                             </Heading>
 
-                            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                            <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {clientDetails.email}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {clientDetails.birthDate}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {clientDetails.country}
                               </Badge>
                             </Stack>
 
                             <Stack mt={"40px"} alignItems="center">
-                              <CalendarIcon />
-                              <Heading color={"blackAlpha.800"}>Citas</Heading>
-                              <VStack alignItems="left" spacing="24px">
+                              <Link to='/appointments' cursor='pointer'>
+                                <CalendarIcon />
+                                <Heading color={"blackAlpha.800"}>Citas</Heading>
+                              </Link>
+                              {/* <VStack alignItems="left" spacing="24px">
                                 <Text color={"blackAlpha.800"}>
                                   Terapeuta: Ana Gomez <ExternalLinkIcon cursor={"pointer"} />
                                 </Text>
@@ -146,7 +149,7 @@ export default function ClientDetails() {
                                 >
                                   🛎️ 10 minutos antes
                                 </Badge>
-                              </VStack>
+                              </VStack> */}
                             </Stack>
                           </Box>
                         </Container>
@@ -214,30 +217,32 @@ export default function ClientDetails() {
                             </Heading>
 
                             <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.email}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.birthDate}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
-                                {psychologistDetails.country}
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                {psychologistDetails.location}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 DNI: {psychologistDetails.DNI}
                               </Badge>
-                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 MATRÍCULA: {psychologistDetails.License}
                               </Badge>
                             </Stack>
-                            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                            {/* <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                               {psychologistDetails.about}
-                            </Badge>
+                            </Badge> */}
 
-                            <Stack mt={"40px"} alignItems="center">
-                              <CalendarIcon />
-                              <Heading color={"blackAlpha.800"}>Citas</Heading>
-                            </Stack>
+                            <Link to='/appointments' cursor='pointer'>
+                              <Stack mt={"40px"} alignItems="center">
+                                <CalendarIcon />
+                                <Heading color={"blackAlpha.800"}>Citas</Heading>
+                              </Stack>
+                            </Link>
                           </Box>
                         </Container>
                       </Center>

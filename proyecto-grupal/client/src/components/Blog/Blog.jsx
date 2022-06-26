@@ -13,6 +13,7 @@ import "./blog.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import Loader from "../Loader/Loader.jsx";
+import Chat from '../Chat/Chat'
 
 
 export default function Blog() {
@@ -35,7 +36,7 @@ export default function Blog() {
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
-    }, 1500);
+    }, 3000);
   }, [setLoader]);
 
   const posts = useSelector((state) => state.posts)
@@ -94,6 +95,7 @@ export default function Blog() {
                 </Stack>
           }
         </div>
+        <Chat/>
       </Stack>
       <Footer />
     </Stack>
