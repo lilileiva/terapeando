@@ -159,7 +159,7 @@ function FormEditClient() {
                         <Heading fontSize={'3xl'} textAlign={'left'}>
                           Edita tu Información Personal
                         </Heading>
-                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "green.500", color: "white" }}>
+                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "teal", color: "white" }}>
                           <Link to={`/home/${psychologistDetails.firstName}`}>Cancelar</Link>
                         </Button>
                       </Stack>
@@ -219,7 +219,7 @@ function FormEditClient() {
                             bg={'green.100'}
                             color='teal.500'
                             _hover={{
-                              bg: 'green.500',
+                              bg: 'teal',
                               color: 'white'
                             }}
                             type='submit'
@@ -251,7 +251,7 @@ function FormEditClient() {
                         <Heading fontSize={'3xl'} textAlign={'left'}>
                           Edita tu Información Personal
                         </Heading>
-                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "green.500", color: "white" }}>
+                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "teal", color: "white" }}>
                           <Link to={`/home/${psychologistDetails.firstName}`}>Cancelar</Link>
                         </Button>
                       </Stack>
@@ -349,7 +349,7 @@ function FormEditClient() {
                             bg={'green.100'}
                             color='teal.500'
                             _hover={{
-                              bg: 'green.500',
+                              bg: 'teal',
                               color: 'white'
                             }}
                             type='submit'

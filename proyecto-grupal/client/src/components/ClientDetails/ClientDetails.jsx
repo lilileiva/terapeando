@@ -90,7 +90,7 @@ export default function ClientDetails() {
                                 bg={"green.100"}
                                 color="teal.500"
                                 _hover={{
-                                  bg: "green.500",
+                                  bg: "teal",
                                   color: "white",
                                 }}
                               >
@@ -199,7 +199,7 @@ export default function ClientDetails() {
                                 bg={"green.100"}
                                 color="teal.500"
                                 _hover={{
-                                  bg: "green.500",
+                                  bg: "teal",
                                   color: "white",
                                 }}
                               >
@@ -216,7 +216,6 @@ export default function ClientDetails() {
                               {psychologistDetails.firstName} {psychologistDetails.lastName}{" "}
                               <ChangePasswordModal />
                             </Heading>
-
                             <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.email}
@@ -264,14 +263,19 @@ export default function ClientDetails() {
                             </Stack>
                             {/* <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                               {psychologistDetails.about}
-                            </Badge> */}
-
-                            <Link to='/appointments' cursor='pointer'>
-                              <Stack mt={"40px"} alignItems="center">
-                                <CalendarIcon />
-                                <Heading color={"blackAlpha.800"}>Citas</Heading>
-                              </Stack>
-                            </Link>
+                            </Badge> */}                            
+                              <Link to='/appointments' cursor='pointer'>
+                                <Stack mt={"40px"} alignItems="center">
+                                  <CalendarIcon />
+                                  <Heading color={"blackAlpha.800"}>Citas</Heading>
+                                </Stack>
+                              </Link>
+                              <Link to={`/detailPsychologist/${psychologistDetails._id}`} cursor='pointer'>
+                                <Button mt='1em' alignItems="center" color='teal' bg='green.100'>
+                                  <ExternalLinkIcon />
+                                  Perfil público
+                                </Button>
+                              </Link>                            
                           </Box>
                         </Container>
                       </Center>
