@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { createAppointmentAsClient, createAppointmentAsPsychologist, getAppointmentAsClient, updateSchedule } from '../../redux/actions'
+import { createAppointmentAsClient, createAppointmentAsPsychologist, getAppointmentAsClient, updateSchedule, getScheduleAsClient, getScheduleAsPsychologist } from '../../redux/actions'
 import { Text, Stack, Avatar, Button, HStack, VStack, Divider, Badge } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
@@ -9,12 +9,18 @@ import CalendarApp from '../Appointments/CalendarApp';
 import { format } from 'date-fns';
 
 
-const tokenClient = window.localStorage.getItem('tokenClient')
-const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
 function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
-
+    const tokenClient = window.localStorage.getItem('tokenClient')
+    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+    
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (tokenClient) dispatch(getScheduleAsClient(IdUserPsychologist))
+        if (tokenPsychologist) dispatch(getScheduleAsPsychologist(IdUserPsychologist))
+    }, [dispatch])
+
     const schedule = useSelector((state) => state.schedule)
 
     const [inputDate, setInputDate] = useState(new Date())
@@ -71,7 +77,6 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
         if (tokenPsychologist) dispatch(createAppointmentAsPsychologist(IdUserPsychologist, appointmentData))
         setCalendar(false)
     }
-    console.log(appointmentData)
 
     return (
         <Stack width='100%' pl='10%' pr='10%' zIndex='1' position='absolute'>

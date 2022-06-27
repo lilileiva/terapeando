@@ -22,7 +22,6 @@ function Calendar(props) {
    const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
    let today = startOfToday()
-   console.log(today)
    let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
    let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
 
@@ -30,9 +29,6 @@ function Calendar(props) {
       start: firstDayCurrentMonth,
       end: endOfMonth(firstDayCurrentMonth),
     })
-  
-   console.log(isPast(today))
-   console.log(today)
 
     function previousMonth() {
       let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 })

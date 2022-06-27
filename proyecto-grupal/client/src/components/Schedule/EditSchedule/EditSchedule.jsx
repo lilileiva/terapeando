@@ -72,46 +72,45 @@ function EditSchedule() {
     <Stack direction='column' height='100%' justify='space-between'>
       <NavbarHome />
 
-      <Stack direction='column' width='100%' p='10%' justify='center'>
+      <Stack direction='column' width='100%' height='100%' p='10%' justify='center'>
 
         <VStack maxW={'100%'} justifyContent={'center'} px={'20%'}>
 
           <Calendar handleDate={inputDate => setInputDate(inputDate)}
           />
 
-        <Select w={'100%'} placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
-          {
-            hourList.map((hour) => (
-              <option key={hour} value={hour} >{hour}</option>
-            ))
-          }
-        </Select> 
+          <Select w={'100%'} placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
+            {
+              hourList.map((hour) => (
+                <option key={hour} value={hour} >{hour}</option>
+              ))
+            }
+          </Select>
         </VStack>
 
         <VStack w={'100%'} px={'20%'} alignItems={'flex-start'}>
-
-        {
-          inputDate
-            ? <Text>{inputDate.getDate()}/{inputDate.getMonth()}</Text>
-            : <Text>Selecciona una fecha</Text>
-        }
-        <Text>Horarios: </Text>
-        <Stack direction='row' justify='center' align='center'>
           {
-            input.hours.length !== 0
-              ? (
-                input.hours.map((hour) => (
-                  <Stack direction='row'>
-                    <Text>{hour}</Text>
-                    <Button onClick={() => handleDeleteHour(hour)}>X</Button>
-                  </Stack>
-                ))
-              ) : <Text>Añade horarios</Text>
+            inputDate
+              ? <Text>Fecha: {inputDate.getDate()}/{inputDate.getMonth()}</Text>
+              : <Text>Selecciona una fecha</Text>
           }
-        </Stack>
-        <Button colorScheme='teal' variant='solid' onClick={(e) => handleInputSubmit(e)}>
-          Agregar fecha a mi agenda
-        </Button>
+          <Text>Horarios: </Text>
+          <Stack direction='row' justify='center' align='center'>
+            {
+              input.hours.length !== 0
+                ? (
+                  input.hours.map((hour) => (
+                    <Stack direction='row'>
+                      <Text>{hour}</Text>
+                      <Button onClick={() => handleDeleteHour(hour)}>X</Button>
+                    </Stack>
+                  ))
+                ) : <Text>Añade horarios</Text>
+            }
+          </Stack>
+          <Button colorScheme='teal' variant='solid' onClick={(e) => handleInputSubmit(e)}>
+            Agregar fecha a mi agenda
+          </Button>
         </VStack>
       </Stack>
       <Footer />
