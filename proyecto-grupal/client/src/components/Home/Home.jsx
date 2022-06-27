@@ -19,13 +19,8 @@ import { BsSearch } from "react-icons/bs";
 import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
-<<<<<<< HEAD
 import Chat from '../Chat/Chat'
 import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
-=======
-import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
-import Chat from '../Chat/Chat'
->>>>>>> 7d8bccea92b3374ae871c543f96541e127a863f4
 
 
 export default function Home() {
