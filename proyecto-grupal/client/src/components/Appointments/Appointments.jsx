@@ -32,6 +32,10 @@ function Appointments() {
 
   const [IdAppointment, setIdAppointment] = useState("")
 
+/*   let newSchedule = {
+    date: 
+  } */
+
   const handleDeleteAppointment = (appointment) => {
     Swal.fire({
       title: '¿Estás seguro que quieres cancelar esta cita?',
@@ -42,6 +46,7 @@ function Appointments() {
     }).then((result) => {
       if (result.isDenied) {
         setIdAppointment(appointment)
+        console.log(appointment)
         if (tokenClient) {
           dispatch(deleteAppointmentAsClient(IdAppointment))
           dispatch(getAppointmentAsClient())
@@ -75,7 +80,7 @@ function Appointments() {
                       ? appointments.map((appo) => {
                         console.log(appo)
                         appointmentDate = new Date(appo.date)
-                        appointmentHour = new Date(appo.hour)
+                        /* appointmentHour = new Date(appo.hour) */
                         return (
                           <Stack direction='row' align='center' justify='space-around' mb='1em' p='1em' width='100%' height='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                             {
@@ -100,7 +105,7 @@ function Appointments() {
                               </Stack>
                               <Stack direction='row' align='center' justify='center'>
                                 <TimeIcon mr='0.5em' />
-                                <Text fontSize='3xl'>{appointmentHour.getUTCHours()}:{appointmentHour.getUTCMinutes()} hs</Text>
+                                <Text fontSize='3xl'>{appo.hour} hs</Text>
                               </Stack>
                               <Stack direction='row' align='center' justify='center' pb='1em'>                                
                                 <Text fontSize='3xl'>Tipo: {appo.type}</Text>

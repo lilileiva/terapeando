@@ -132,8 +132,7 @@ function ClientProfile() {
              </HStack>
                <Text color={"blackAlpha.800"} mb={"10px"}>
                {appointmentDate.toLocaleDateString()} | 
-               {appointmentHour.getUTCHours()}:
-               {appointmentHour.getUTCMinutes()}0 hs
+               {a.hour} hs
                </Text>
                <DeleteIcon mr={"10px"} cursor={"pointer"} />
                <EditIcon cursor={"pointer"} />

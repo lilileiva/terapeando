@@ -37,8 +37,8 @@ import {
  import ChangePasswordModal from "../Modals/ChangePasswordModal";
  import Loader from "../Loader/Loader";
  import NotFound from '../404notFound/notFound.jsx';
-import Calendar from "../Schedule/Calendar/Calendar";
-import Appointments from "../Appointments/Appointments";
+import Footer from '../Footer/Footer'
+import NavbarHome from "../NavbarHome/NavbarHome";
  
  
  export default function PsychologistProfile() {
@@ -66,6 +66,7 @@ import Appointments from "../Appointments/Appointments";
      <>
        {tokenPsychologist ? ( 
                <>
+               <NavbarHome />
                          {
                  arr.length <= 1
                    ? (
@@ -75,7 +76,7 @@ import Appointments from "../Appointments/Appointments";
                      boxShadow={"2xl"}
                      rounded={"lg"}
                      p={6}
-                     h={'100vh'}>
+                     h={'78vh'}>
                        <Link to={'/home'}>
                      <ArrowLeftIcon />
                      </Link>
@@ -128,6 +129,7 @@ import Appointments from "../Appointments/Appointments";
              )
            : (<NotFound />)
            }
+           <Footer />
      </>
    );
  }

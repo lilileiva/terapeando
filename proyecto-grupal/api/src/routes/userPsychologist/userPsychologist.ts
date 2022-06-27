@@ -167,14 +167,14 @@ const filterPsichologistSpecialities = async (req: Request, res: Response) => {
   }
 };
 
-const putAvailableTimes = async (req: Request, res: Response) => {
+/* const putAvailableTimes = async (req: Request, res: Response) => {
   try {
     await userPsychologistModel.findByIdAndUpdate(req.user, req.body, { new: true })
     res.status(200).send('Horarios agregados correctamente')
   } catch {
     res.status(404).send('There was an error...');
   }
-}
+} */
 
 
 // // const filterPsichologistRating = async (req: Request, res: Response) => {
@@ -217,5 +217,5 @@ module.exports = {
   getUserPsychologistByStatus,
   getReviews,
   getPsychologistDetails,
-  putAvailableTimes
+  /* putAvailableTimes */
 }

@@ -132,21 +132,8 @@ export default function NavbarHome() {
           </HStack>
           <Flex alignItems={"center"}>
             {
-              tokenClient
+              tokenPsychologist
                 ? (
-                  <Link to='/appointments'>
-                    <Button
-                      variant={"solid"}
-                      colorScheme={"teal"}
-                      size={"sm"}
-                      mr={4}
-                      leftIcon={<AddIcon />}
-                    >
-                      Mis citas
-                    </Button>
-                  </Link>
-                )
-                : tokenPsychologist ? (
                   <>
                     <Link to='/appointments'>
                       <Button
@@ -171,6 +158,19 @@ export default function NavbarHome() {
                       </Button>
                     </Link>
                   </>
+                )
+                : tokenClient ? (
+                  <Link to='/appointments'>
+                  <Button
+                    variant={"solid"}
+                    colorScheme={"teal"}
+                    size={"sm"}
+                    mr={4}
+                    leftIcon={<AddIcon />}
+                  >
+                    Mis citas
+                  </Button>
+                </Link>
                 ) : null
             }
             <Menu>

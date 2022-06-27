@@ -35,7 +35,6 @@ const getSchedule = async (req: Request, res: Response) => {
    }
 }
 
-
 const getScheduleByDate = async (req: Request, res: Response) => {
    const { IdUserPsychologist } = req.params
    const { date } = req.body
@@ -63,12 +62,12 @@ const deleteSchedule = async (req:Request, res: Response) => {
 const updateSchedule = async (req:Request, res: Response) =>{
    const {idSchedule} = req.params
    try{
-      const updated = await scheduleModel.findByIdAndUpdate({_id: idSchedule})
+      const updated = await scheduleModel.findByIdAndUpdate(idSchedule, req.body, { new: true })
+      console.log(updated)
       if(!updated){
-         res.status(502).send('Este horario no existe')
+         res.status(502).send('No hemos podido actualizar el horario')
       }
-      res.status(200).send('Horario actualizado correctamente')
-      return updated
+      res.status(200).send('Horario disponible eliminado')
    } catch(err){
       console.log(err)
    }
@@ -79,5 +78,5 @@ module.exports = {
    deleteSchedule,
    getScheduleByDate,
    getSchedule,
-   updateSchedule
+   updateSchedule,
 }

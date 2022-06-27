@@ -41,6 +41,7 @@ import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Compon
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
 import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
 import Appointments from './components/Appointments/Appointments.jsx';
+import Schedule from "./components/Schedule/Schedule";
 
 export default function App() {
   return (
@@ -57,6 +58,7 @@ export default function App() {
         <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
         {/* <Route path="/editschedule/:IdUserPsychologist" element={<EditSchedule />} /> */}
         <Route path="/editschedule/" element={<EditSchedule />} />
+        {/* <Route path='/schedule/:IdUserPsychologist' element={<Schedule />}/> */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />

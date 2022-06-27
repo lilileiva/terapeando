@@ -353,7 +353,7 @@ export function orderByRating(order, array) {
   };
 }
 
-export function addAvailablesTimes(input) {
+/* export function addAvailablesTimes(input) {
   return async function () {
     try{
       const data = await axios.put(`${baseURL}/userpsychologist/psychologistschedule`, input,{headers: {Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}`}} )
@@ -362,7 +362,7 @@ export function addAvailablesTimes(input) {
       console.log(err)
     }
   }
-}
+} */
 
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
@@ -714,6 +714,17 @@ export function getScheduleByDate(IdUserPsychologist, date) {
   }
 }
 
+export function updateSchedule(idSchedule, updateSchedule){
+  return async function () {
+    try {
+      const data = await axios.put(`${baseURL}/schedule/${idSchedule}`, updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      console.log(data);
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
+
 /*---------------------APPOINTMENTS ACTIONS-------------------*/
 
 export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
@@ -725,12 +736,15 @@ export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
       )
       if (newAppointment.status === 201) {
         return Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Cita reservada exitosamente',
-          showConfirmButton: false,
-          timer: 3000
-        })
+            position: 'center',
+            icon: 'success',
+            title: 'Cita reservada exitosamente',
+            confirmButtonText: "Para continuar debes pagar la sesión!",
+            confirmButtonColor: '#38B2AC',
+            closeOnConfirm: true
+          }).then(function(){
+            window.location= `http://localhost:3000/checkout/${IdUserPsychologist}`
+           })
       }
     } catch (error) {
       console.log(error)

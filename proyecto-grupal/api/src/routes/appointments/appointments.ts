@@ -24,9 +24,10 @@ const postAppointmentModel = async (req: Request, res: Response) => {
                 res.status(201).send("appointment created successfully")
             } catch (err) {
                 res.status(404).json({ error: err })
+                console.log(err)
             }
         } else {
-            res.status(404).json('Ya has reservado una cita en esta fecha')            
+            res.status(404).json('Ya has reservado una cita en esta fecha')       
         }
     }
 }
@@ -62,15 +63,6 @@ const getAppointmentAsClient = async (req: Request, res: Response) => {
      }
 }
 
-const putAppointment = async (req:Request , res: Response) => {
-    try{
-        const { idAppointment } = req.params;
-        const data = await appointmentModel.findByIdAndUpdate(idAppointment, req.body, { new: true })
-        res.status(200).send('Cita editada correctamente')
-    } catch(err) {
-        res.status(404).send(err)
-    }
-}
 const deleteAppointAsPsychologist = async (req: Request, res: Response) => { 
     const { IdAppointment } = req.body;  
     try {
@@ -113,9 +105,5 @@ module.exports = {
     getAppointmentAsClient,
     deleteAppointAsPsychologist,
     deleteAppointAsClient,
-<<<<<<< HEAD
     putAppointment,
-=======
-    putAppointment
->>>>>>> 8678e845875c5df5a334f15f2d225f9a61bb817d
 }

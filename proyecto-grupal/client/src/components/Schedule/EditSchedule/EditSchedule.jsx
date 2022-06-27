@@ -4,9 +4,9 @@ import Calendar from '../Calendar/Calendar';
 import NavbarHome from '../../NavbarHome/NavbarHome';
 import Footer from '../../Footer/Footer.jsx';
 import { Stack, Button, Select, Text, HStack, VStack } from '@chakra-ui/react';
-import 'react-calendar/dist/Calendar.css';
 import { createSchedule } from '../../../redux/actions';
 import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 
 function EditSchedule() {
@@ -50,8 +50,6 @@ function EditSchedule() {
         hours: input.hours
       })
     }
-    console.log(inputDate)
-    console.log(input)
     dispatch(createSchedule(input))
   }
 
@@ -78,11 +76,7 @@ function EditSchedule() {
 
         <VStack maxW={'100%'} justifyContent={'center'} px={'20%'}>
 
-          <Calendar
-            value={inputDate}
-            onChange={setInputDate}
-            minDate={todayDate}
-            maxDate={todayDatePLusMonth}
+          <Calendar handleDate={inputDate => setInputDate(inputDate)}
           />
 
         <Select w={'100%'} placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
@@ -96,13 +90,10 @@ function EditSchedule() {
 
         <VStack w={'100%'} px={'20%'} alignItems={'flex-start'}>
 
-        {/* {
+        {
           inputDate
             ? <Text>{inputDate.getDate()}/{inputDate.getMonth()}</Text>
             : <Text>Selecciona una fecha</Text>
-        } */}
-        {
-          input.date ? <Text>Fecha:<br />{input.date.getDate()}/{input.date.getMonth()}</Text> : null
         }
         <Text>Horarios: </Text>
         <Stack direction='row' justify='center' align='center'>
@@ -122,12 +113,7 @@ function EditSchedule() {
           Agregar fecha a mi agenda
         </Button>
         </VStack>
-
-        
-
-
       </Stack>
-
       <Footer />
     </Stack>
   )

@@ -31,8 +31,8 @@ psychologistRouter.put('/put_userpsychologist', validatePsychologist ,putUserPsy
 psychologistRouter.get('/filterspecialties/specialties/:specialtie', filterPsichologistSpecialities);
 //psychologistRouter.get('/filterrating/rating', filterPsichologistRating);
 psychologistRouter.get('/rese/reviews', getReviews);
-psychologistRouter.put('/psychologistschedule', validatePsychologist, putAvailableTimes)
-
+/* psychologistRouter.put('/psychologistschedule', validatePsychologist, putAvailableTimes)
+ */
 
 
 module.exports = psychologistRouter;

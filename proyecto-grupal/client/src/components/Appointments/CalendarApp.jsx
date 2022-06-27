@@ -5,6 +5,7 @@ import {
    eachDayOfInterval,
    endOfMonth,
    format,
+   formatISO,
    getDay,
    isEqual,
    isFuture,
@@ -13,16 +14,30 @@ import {
    parse,
    startOfToday,
  } from 'date-fns'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getScheduleAsClient } from '../../redux/actions'
 
  const d = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
 
-function Calendar(props) {
-
-   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+function CalendarApp({handleDate, IdUserPsychologist}) {
+   const dispatch = useDispatch()
+   const tokenClient = window.localStorage.getItem('tokenClient')
+   const schedule = useSelector((state) => state.schedule)
+   useEffect(() => {
+      if (tokenClient) dispatch(getScheduleAsClient(IdUserPsychologist));
+    }, [dispatch, tokenClient])
 
    let today = startOfToday()
-   console.log(today)
+    console.log(schedule)
+   
+   let available = []
+   schedule.map((s) => {
+      available.push(s.date.toString().substring(0,10))
+   })
+
+   console.log(available)
+
    let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
    let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
 
@@ -30,16 +45,15 @@ function Calendar(props) {
       start: firstDayCurrentMonth,
       end: endOfMonth(firstDayCurrentMonth),
     })
-  
-   console.log(isPast(today))
-   console.log(today)
 
-    function previousMonth() {
+    function previousMonth(e) {
+      e.preventDefault()
       let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 })
       setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
     }
   
-    function nextMonth() {
+    function nextMonth(e) {
+      e.preventDefault()
       let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 })
       setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
     }
@@ -58,21 +72,21 @@ function Calendar(props) {
          {d.map((d) => (
             <GridItem colSpan={1} w='100%' h='10'><Badge w='100%' colorScheme='teal' fontSize='xl' fontWeight='bold'>{d}</Badge></GridItem>
          ) )}
-         {days.map((day, dayIdx) => 
-            (
+         {days.map((day, dayIdx) => {
+               return (
             <GridItem colStart={(dayIdx === 0 && colStartClasses[getDay(day)])} rowSpan={1} w='100%' h='10' key={day.toString()}>
                { isEqual(day,today) ?
-            <Button onClick={() => props.handleDate(day)} w='100%' colorScheme='teal' bgColor={'gray.100'} color={'blackAlpha.700'} _hover={{ bg: 'teal.400', color:'white' }} _focus={{bg:'teal.300', color:'white'}} _active={{bg:'teal.300', color:'white'}}>
+            <Button disabled w='100%' colorScheme='teal' bgColor={'gray.100'} color={'blackAlpha.700'} _hover={{ bg: 'teal.400', color:'white' }} _focus={{bg:'teal.300', color:'white'}} _active={{bg:'teal.300', color:'white'}}>
                <time dateTime={format(day, 'yyyy-MM-dd')}>
                       {format(day, 'd')}
                </time>
-               </Button> : isPast(day) ?
-            <Button disabled={'true'} onClick={() => props.handleDate(day)} w='100%' colorScheme='teal' bgColor={'gray.100'} color={'blackAlpha.700'} _hover={{ bg: 'teal.400', color:'white' }}>
-            <time dateTime={format(day, 'yyyy-MM-dd')}>
-                   {format(day, 'd')}
-            </time>
-            </Button> :
-             <Button onClick={() => props.handleDate(day)} w='100%' colorScheme='teal' bgColor={'gray.100'} color={'blackAlpha.700'} _hover={{ bg: 'teal.400', color:'white' }}>
+               </Button> : (available && available.includes(formatISO(new Date(day)).substring(0,10))) ?
+             <Button onClick={() => handleDate(day)} w='100%' colorScheme='teal' bgColor={'gray.100'} color={'blackAlpha.700'} _hover={{ bg: 'teal.400', color:'white' }} _focus={{bg:'teal.300', color:'white'}} _active={{bg:'teal.300', color:'white'}}>
+             <time dateTime={format(day, 'yyyy-MM-dd')}>
+                    {format(day, 'd')}
+             </time>
+             </Button> : 
+             <Button disabled w='100%' colorScheme='teal' bgColor={'gray.50'} color={'blackAlpha.700'} _hover={{ bg: 'gray.200', color:'white' }}>
              <time dateTime={format(day, 'yyyy-MM-dd')}>
                     {format(day, 'd')}
              </time>
@@ -80,14 +94,14 @@ function Calendar(props) {
             }
                
             </GridItem>
-         ))}
+         )})}
       </Grid>
 
    </VStack>
   )
 }
 
-export default Calendar
+export default CalendarApp
 
 let colStartClasses = [
    '',
