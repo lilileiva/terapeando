@@ -44,7 +44,6 @@ function Appointments() {
       denyButtonText: `Sí`,
     }).then((result) => {
       if (result.isDenied) {
-        setIdAppointment(appointment)
         if (tokenClient) {
           dispatch(deleteAppointmentAsClient(appointment))
           dispatch(getAppointmentAsClient())

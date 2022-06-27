@@ -870,11 +870,14 @@ export function getAppointmentAsClient() {
 export function putAppointmentAsClient(IdAppointment, type) {
   return async function (dispatch) {
     try {
-      await axios.put(
+      const appointment = await axios.put(
         `${baseURL}/appointment/put_appointment/${IdAppointment}`,
         type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
+      if (appointment.status === 200) {
+        Swal.fire('Se ha modificado la modaldiad de esta cita', '', 'success')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -884,11 +887,14 @@ export function putAppointmentAsClient(IdAppointment, type) {
 export function putAppointmentAsPsychologist(IdAppointment, type) {
   return async function (dispatch) {
     try {
-      await axios.put(
+      const appointment = await axios.put(
         `${baseURL}/appointment/put_appointment/${IdAppointment}`,
         type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
+      if (appointment.status === 200) {
+        Swal.fire('Se ha modificado la modaldiad de esta cita', '', 'success')
+      }
     } catch (error) {
       console.log(error)
     }
