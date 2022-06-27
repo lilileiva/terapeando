@@ -461,7 +461,10 @@ export const addPost = (body) => {
 export const deletePost = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`${baseURL}/deletePost/${id}`)
+      await axios.delete(
+        `${baseURL}/deletePost/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        )
       dispatch({ type: "DELETE_POST", payload: id })
       Swal.fire('Post eliminado correctamente!', '', 'success')
     } catch (error) {

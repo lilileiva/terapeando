@@ -130,8 +130,8 @@ const filterPostsCategory = async (
 const deletePost = async (req: Request, res: Response) => {
   const { IdPost } = req.params;
   try {
-    const postDelete = await Post.findOneAndDelete({ _id: IdPost });
-    res.send("Post eliminado correctamente");
+    const postDelete = await Post.findOneAndDelete({ _id: IdPost, idUserPsychologist: req.user });
+    res.status(200).send("Post eliminado correctamente");
   } catch (err) {
     res.status(404).send("error: " + err);
   }

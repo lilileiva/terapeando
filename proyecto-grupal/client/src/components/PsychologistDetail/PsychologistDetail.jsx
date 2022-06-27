@@ -58,7 +58,7 @@ export default function PsychologistDetail() {
 
   const detail = useSelector((state) => state.userPsichologistDetail);
   const posts = useSelector((state) => state.posts)
-  const reviews = useSelector((state) => state.reviews)  
+  const reviews = useSelector((state) => state.reviews)
 
   const [calendar, setCalendar] = useState(false)
   const handleCalendar = () => {
@@ -70,14 +70,6 @@ export default function PsychologistDetail() {
   }
 
   const [showMap, setShowMap] = useState(false)
-  const handleMap = () => {
-    if (!showMap) {
-      setShowMap(true)
-    } else {
-      setShowMap(false)
-    }
-  }
-
   const [showReviews, setShowReviews] = useState(false)
 
   return (
@@ -120,7 +112,7 @@ export default function PsychologistDetail() {
                                         <Button width='50%' bg='#63caa7' color='white' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={handleCalendar}>
                                           Pedir cita
                                         </Button>
-                                        <Button width='50%' color='#63caa7' bg='white' borderWidth='0.1em' borderColor='#63caa7' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={handleMap}>
+                                        <Button width='50%' color='#63caa7' bg='white' borderWidth='0.1em' borderColor='#63caa7' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={() => setShowMap(true)}>
                                           Ver mapa
                                         </Button>
                                       </Stack>

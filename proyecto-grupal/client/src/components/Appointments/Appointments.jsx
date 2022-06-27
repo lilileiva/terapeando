@@ -202,7 +202,9 @@ function Appointments() {
                             </Stack>
                           </Stack>
                         )
-                      }) : null
+                      }) : <Stack bg='gray.200' direction='row' align='center' justify='space-around' mb='1em' p='1em' width='100%' height='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                        <Text fontSize='2xl'>No hay citas para mostrar</Text>
+                      </Stack>
                   }
                 </Stack>
               </Stack>
