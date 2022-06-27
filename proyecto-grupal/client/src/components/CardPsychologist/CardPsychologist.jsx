@@ -83,7 +83,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                                     <Button className="buttonProfile" color='blackAlpha.600' _hover={{
                                         bg: 'blackAlpha.300',
                                         color: 'blackAlpha.700'
-                                    }} variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
+                                        }} variant='outline' size='sm' marginRight='15px'>
+                                        Ver Perfil
+                                    </Button>
                                     <Button className="buttonProfile" color='blackAlpha.600' _hover={{
                                         bg: 'blackAlpha.300',
                                         color: 'blackAlpha.700'

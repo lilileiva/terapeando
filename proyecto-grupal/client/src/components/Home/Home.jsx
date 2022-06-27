@@ -71,7 +71,6 @@ export default function Home() {
     setPage(1)
   }
 
-
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
       <Stack>
@@ -125,7 +124,7 @@ export default function Home() {
                 : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>
           }
         </div>
-        <Chat/>
+        <Chat />
       </Stack>
       <Stack>
         <Paged

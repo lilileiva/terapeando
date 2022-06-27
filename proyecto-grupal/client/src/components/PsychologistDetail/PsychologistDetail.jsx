@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { ChakraProvider, Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar, Stack, Image, Button } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient, getPostsByPsychologistId } from "../../redux/actions";
+import {
+  clear,
+  getUserPsychologistDetails,
+  getUserPsychologistDetailsasClient,
+  getPostsByPsychologistId,
+  filterReviewsBySychologistAsClient,
+  filterReviewsBySychologistAsPsycho
+} from "../../redux/actions";
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
@@ -30,8 +37,14 @@ export default function PsychologistDetail() {
   const tokenAdmin = window.localStorage.getItem('tokenAdmin')
 
   useEffect(() => {
-    if (tokenClient) dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist))
-    if (tokenPsychologist) dispatch(getUserPsychologistDetails(IdUserPsychologist))
+    if (tokenClient) {
+      dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist))
+      dispatch(filterReviewsBySychologistAsClient(IdUserPsychologist))
+    }
+    if (tokenPsychologist) {
+      dispatch(getUserPsychologistDetails(IdUserPsychologist))
+      dispatch(filterReviewsBySychologistAsPsycho(IdUserPsychologist))
+    }
     dispatch(getPostsByPsychologistId(IdUserPsychologist))
     smoothscroll()
 
@@ -45,7 +58,7 @@ export default function PsychologistDetail() {
 
   const detail = useSelector((state) => state.userPsichologistDetail);
   const posts = useSelector((state) => state.posts)
-  let postDate;
+  const reviews = useSelector((state) => state.reviews)  
 
   const [calendar, setCalendar] = useState(false)
   const handleCalendar = () => {
@@ -64,6 +77,8 @@ export default function PsychologistDetail() {
       setShowMap(false)
     }
   }
+
+  const [showReviews, setShowReviews] = useState(false)
 
   return (
     <>
@@ -135,24 +150,26 @@ export default function PsychologistDetail() {
                                     <Stack direction='row' p='1em' height='fit-content' justify='left' overflowX='scroll' overflowY='hidden'>
                                       {
                                         posts.length !== 0
-                                          ? posts.map((post) => (
-                                            postDate = post.createdAt,
-                                            postDate = new Date(),
-                                            <>
-                                              <Link to={`/postdetail/${post._id}`}>
-                                                <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                                                  <Image borderRadius='1em' width='inherit' height='20em' objectFit='cover' src={post.Image} />
-                                                  <Stack className="postTitle">
-                                                    <Stack>
-                                                      <Text className="postTitleText" fontSize='2xl' fontWeight='500'>{post.Title}</Text>
-                                                      <Text color='gray' fontSize='sm' fontWeight='500'>FECHA: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                          ? posts.map((post) => {
+                                            let postDate = post.createdAt
+                                            postDate = new Date(postDate)
+                                            return (
+                                              <>
+                                                <Link to={`/postdetail/${post._id}`}>
+                                                  <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                                                    <Image borderRadius='1em' width='inherit' height='20em' objectFit='cover' src={post.Image} />
+                                                    <Stack className="postTitle">
+                                                      <Stack>
+                                                        <Text className="postTitleText" fontSize='2xl' fontWeight='500'>{post.Title}</Text>
+                                                        <Text color='gray' fontSize='sm' fontWeight='500'>FECHA: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                                      </Stack>
+                                                      <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
                                                     </Stack>
-                                                    <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
-                                                  </Stack>
-                                                </Box>
-                                              </Link>
-                                            </>
-                                          ))
+                                                  </Box>
+                                                </Link>
+                                              </>
+                                            )
+                                          })
                                           : <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                                             <Text>No hay notas</Text>
                                           </Box>
@@ -169,6 +186,9 @@ export default function PsychologistDetail() {
                                         ) : null
                                     }
                                     <br />
+                                    <Button color='teal' bg='green.100' variant='solid' onClick={() => setShowReviews(true)}>
+                                      Ver reviews
+                                    </Button>
                                     {/* <Reviews /> */}
                                   </Box>
                                 </SimpleGrid>
@@ -203,6 +223,31 @@ export default function PsychologistDetail() {
                       </Stack>
                     </div>
                   ) : null
+                }
+                {
+                  showReviews
+                    ? <div className="reviews">
+                      <Stack bg='white' pb='2em' pr='2em' pl='2em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                        <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
+                          <CloseIcon cursor='pointer' onClick={() => setShowReviews(false)} />
+                          <Text fontSize='2xl' color='green.300'>Reviews de este psicólogo</Text>
+                        </Stack>
+                        <Stack maxHeight='15em' overflowY='scroll'>
+                          {
+                            reviews.length !== 0
+                              ? reviews.map((review) => (
+                                <Stack align='center' bg='gray.200' borderRadius='1em' mb='1em' height='fit-content'>
+                                  <Text>{review.Content}</Text>
+                                  <Starts rating={review.Rating} />
+                                </Stack>
+                              )) : <Stack align='center' bg='gray.200' borderRadius='1em' mb='1em' height='fit-content'>
+                                <Text>No hay reviews</Text>
+                              </Stack>
+                          }
+                        </Stack>
+                      </Stack>
+                    </div>
+                    : null
                 }
                 <Footer />
               </div>

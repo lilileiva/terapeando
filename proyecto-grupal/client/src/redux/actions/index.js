@@ -529,10 +529,30 @@ export function createReview(IdUserPsychologist, payload) {
   };
 }
 
-export function filterReviewsBySychologist(payload) {
+export function filterReviewsBySychologistAsClient(IdUserPsichologist) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`${baseURL}/reviews/filter/review/${payload}`);
+      const json = await axios.get(
+        `${baseURL}/reviews/filter/review/${IdUserPsichologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        );
+      dispatch({
+        type: FILTER_PSYCHOLOGIST_BY_RATING,
+        payload: json.data,
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+export function filterReviewsBySychologistAsPsycho(IdUserPsichologist) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(
+        `${baseURL}/reviews/filter/review/${IdUserPsichologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        );
       dispatch({
         type: FILTER_PSYCHOLOGIST_BY_RATING,
         payload: json.data,

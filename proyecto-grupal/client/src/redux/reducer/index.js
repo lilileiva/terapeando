@@ -9,6 +9,7 @@ import {
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   CLEAR_PSYCHOLOGIST_LIST,
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  FILTER_PSYCHOLOGIST_BY_RATING,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
   GET_POSTS_BY_PSYCHOLOGIST_ID,
@@ -151,6 +152,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload
       };
+
+    /*-----------RATING-----------*/
+      case FILTER_PSYCHOLOGIST_BY_RATING:
+      return {
+        ...state,
+        reviews: action.payload
+      }
 
     /*-----------POSTS-----------*/
     case GET_POSTS:
