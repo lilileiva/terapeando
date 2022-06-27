@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import TimePicker from 'react-time-picker';
-// import TimePicker from 'react-time-picker/dist/entry.nostyle'
-import Calendar from 'react-calendar';
+import Calendar from '../Calendar/Calendar';
 import NavbarHome from '../../NavbarHome/NavbarHome';
 import Footer from '../../Footer/Footer.jsx';
-import { Stack, Button, Select, Text } from '@chakra-ui/react';
-import 'react-calendar/dist/Calendar.css';
+import { Stack, Button, Select, Text, HStack, VStack } from '@chakra-ui/react';
 import { createSchedule } from '../../../redux/actions';
 import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 
 function EditSchedule() {
@@ -52,8 +50,6 @@ function EditSchedule() {
         hours: input.hours
       })
     }
-    console.log(inputDate)
-    console.log(input)
     dispatch(createSchedule(input))
   }
 
@@ -78,31 +74,26 @@ function EditSchedule() {
 
       <Stack direction='column' width='100%' p='10%' justify='center'>
 
-        <Stack width='100%' direction='row' justify='center'>
+        <VStack maxW={'100%'} justifyContent={'center'} px={'20%'}>
 
-          <Calendar
-            value={inputDate}
-            onChange={setInputDate}
-            minDate={todayDate}
-            maxDate={todayDatePLusMonth}
+          <Calendar handleDate={inputDate => setInputDate(inputDate)}
           />
-        </Stack>
 
-        <Select placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
+        <Select w={'100%'} placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
           {
             hourList.map((hour) => (
               <option key={hour} value={hour} >{hour}</option>
             ))
           }
-        </Select>
+        </Select> 
+        </VStack>
 
-        {/* {
+        <VStack w={'100%'} px={'20%'} alignItems={'flex-start'}>
+
+        {
           inputDate
             ? <Text>{inputDate.getDate()}/{inputDate.getMonth()}</Text>
             : <Text>Selecciona una fecha</Text>
-        } */}
-        {
-          input.date ? <Text>Fecha:<br />{input.date.getDate()}/{input.date.getMonth()}</Text> : null
         }
         <Text>Horarios: </Text>
         <Stack direction='row' justify='center' align='center'>
@@ -118,13 +109,11 @@ function EditSchedule() {
               ) : <Text>Añade horarios</Text>
           }
         </Stack>
-
         <Button colorScheme='teal' variant='solid' onClick={(e) => handleInputSubmit(e)}>
           Agregar fecha a mi agenda
         </Button>
-
+        </VStack>
       </Stack>
-
       <Footer />
     </Stack>
   )

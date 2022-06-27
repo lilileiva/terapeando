@@ -56,7 +56,9 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+          <Link to='/'>
           <Image src={img} alt="portal psico" w={"50px"} />
+          </Link>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>

@@ -21,5 +21,4 @@ appoimentRouter.delete('/delete/psychologist/:IdAppointment', validatePsychologi
 appoimentRouter.delete('/delete/client/:IdAppointment', validateClient, deleteAppointAsClient);
 appoimentRouter.put('/put_appointment/:IdAppointment', validateUsers, putAppointment)
 
-
 module.exports = appoimentRouter;

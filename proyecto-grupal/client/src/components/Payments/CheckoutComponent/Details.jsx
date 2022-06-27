@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserPsychologistOne, createPayment } from "../../../redux/actions";
 import { fetchFromApi } from "./helper";
-
+import Swal from 'sweetalert2';
 
 const idClient = "62a3a0b4cc3f8656e112d930";
 
@@ -17,7 +17,7 @@ let total = (psychologistCommission + stripeTax + terapeandoTax)
 /* validaciones */
 const regLetter = /^[A-Za-z ]+$/;
 const regEmail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const regAddress = /^[A-Za-z0-9\s]+$/g
+const regAddress = /^[A-Za-z0-9\s]+$/
 const regCelular = /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/
 
 function validate(input){
@@ -33,6 +33,8 @@ function validate(input){
 }
 
 function Details({idPsy}) {
+   const [check, setCheck] = useState(false);
+   console.log(check)
    const [errors, setErrors] = useState({});
    const [input, setInput] = useState({
       firstName: '',
@@ -67,7 +69,7 @@ function Details({idPsy}) {
          quantity: 1,
          price_data: {
            currency: "usd",
-           unit_amount: `${psychologistCommission}`,
+           unit_amount: `${total}`,
            product_data: {
              name: `${psyDetails.firstName} ${psyDetails.lastName}`,
                description: 'Terapeando S.A.',
@@ -106,8 +108,10 @@ function Details({idPsy}) {
       input.celphone === "" &&
       input.email === ""
    ) {
-      alert("Por favor, no dejes campos en blanco.")
-   } else {
+       Swal.fire("Por favor, no dejes campos en blanco")
+   } else if(!check){
+      Swal.fire("Debes aceptar nuestros Términos y Condiciones para seguir")
+   }else{
       dispatch(createPayment(newPayment))
       setInput({
       firstName: '',
@@ -245,7 +249,7 @@ function handleChange(e){
       </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
-         <Checkbox>Acepto los Términos y Condiciones de la plataforma.</Checkbox>
+         <Checkbox onChange={() => setCheck(true)}>Acepto los Términos y Condiciones de la plataforma.</Checkbox>
       </GridItem>
       {(input.email === "" || !regEmail.test(input.email))? <Button isDisabled colorScheme={'teal'} type='submit'  onClick={handleGuestCheckout}>
           Pagar Sesión

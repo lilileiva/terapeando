@@ -45,6 +45,7 @@ function Appointments() {
     }).then((result) => {
       if (result.isDenied) {
         setIdAppointment(appointment)
+        console.log(appointment)
         if (tokenClient) {
           dispatch(deleteAppointmentAsClient(appointment))
           dispatch(getAppointmentAsClient())

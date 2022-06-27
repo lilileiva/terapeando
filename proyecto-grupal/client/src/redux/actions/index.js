@@ -28,6 +28,8 @@ import {
   GET_RANGE_BY_DATE,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  FILTER_BY_STATUS,
+  PUT_APPOINTMENT,
   GET_SCHEDULE,
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
@@ -276,6 +278,22 @@ export const getUserPsychologistDetails = (IdUserPsichologist) => {
   };
 };
 
+export const getUserPsychologistDetailsCli = (idUserPsychologist) => {
+   return async function (dispatch) {
+     try {
+       const psychologist = await axios.get(
+        `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+       );
+      dispatch({
+         type: "GET_PSYCHOLOGISTS_DETAILS",
+        payload: psychologist.data,
+       });
+    } catch (error) {
+      console.log(error)
+  }
+ };
+ };
+
 //Post para los user Psychologist
 export function createPsychologist(signupForm) {
   return async function (dispatch) {
@@ -357,6 +375,17 @@ export function orderByRating(order, array) {
     dispatch({ type: ORDER_PSICHOLOGIST_BY_RATING, payload: psicologos });
   };
 }
+
+/* export function addAvailablesTimes(input) {
+  return async function () {
+    try{
+      const data = await axios.put(`${baseURL}/userpsychologist/psychologistschedule`, input,{headers: {Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}`}} )
+      console.log(data)
+    } catch(err){
+      console.log(err)
+    }
+  }
+} */
 
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {
@@ -636,6 +665,12 @@ export const sortByDate = (payload) => {
   }
 }
 
+export const filterByStatus = (payload) => {
+  return {
+    type: FILTER_BY_STATUS,
+    payload
+  }
+}
 
 /*---------------------SCHEDULE ACTIONS-------------------*/
 
@@ -725,6 +760,16 @@ export function getScheduleByDate(IdUserPsychologist, date) {
   }
 }
 
+export function updateSchedule(idSchedule, updateSchedule){
+  return async function () {
+    try {
+      const data = await axios.put(`${baseURL}/schedule/${idSchedule}`, updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      console.log(data);
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
 
 /*---------------------APPOINTMENTS ACTIONS-------------------*/
 
@@ -737,12 +782,15 @@ export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
       )
       if (newAppointment.status === 201) {
         return Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Cita reservada exitosamente',
-          showConfirmButton: false,
-          timer: 3000
-        })
+            position: 'center',
+            icon: 'success',
+            title: 'Cita reservada exitosamente',
+            confirmButtonText: "Para continuar debes pagar la sesión!",
+            confirmButtonColor: '#38B2AC',
+            closeOnConfirm: true
+          }).then(function(){
+            window.location= `http://localhost:3000/checkout/${IdUserPsychologist}`
+           })
       }
     } catch (error) {
       console.log(error)
@@ -866,6 +914,19 @@ export function deleteAppointmentAsPsychologist(IdAppointment) {
     }
   }
 }
+
+export function putAppointment(body, id){
+  return async function(dispatch){
+    try{
+      const {info} = await axios.put(`${baseURL}/appointment/putappoint/${id}`, body)
+      dispatch({type: PUT_APPOINTMENT, payload:info})
+      Swal.fire('Ya cambiamos tu turno!', 'muy bien', 'success')
+    } catch (e){
+      console.log(e)
+    }
+  }
+}
+
 
 /*---------------------ADMIN ACTIONS-------------------*/
 export function adminSearchbar(inputText) {

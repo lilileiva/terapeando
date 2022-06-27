@@ -4,7 +4,7 @@ import Details from './CheckoutComponent/Details'
 import Cart from './CheckoutComponent/Cart'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserPsychologistOne } from '../../redux/actions'
+import { getUserPsychologistDetailsCli } from '../../redux/actions'
 import Loader from '../Loader/Loader'
 import {Elements} from '@stripe/react-stripe-js'
 import { loadStripe } from "@stripe/stripe-js";
@@ -18,7 +18,7 @@ function CheckoutPayment() {
    console.log(idPsychologist)
 
    useEffect(() => {
-      dispatch(getUserPsychologistOne(idPsychologist));
+      dispatch(getUserPsychologistDetailsCli(idPsychologist));
     }, [dispatch]);
 
     const psyDetails = useSelector((state) => state.userPsichologistDetail)

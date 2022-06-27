@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
-  getAllPsychologist,
   getUserPsychologistByName,
   clearPsychologistList,
 } from "../../redux/actions";
@@ -19,7 +17,6 @@ import { BsSearch } from "react-icons/bs";
 import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
-import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 import Chat from '../Chat/Chat'
 
 

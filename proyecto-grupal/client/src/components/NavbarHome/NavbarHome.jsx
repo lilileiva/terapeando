@@ -112,16 +112,6 @@ export default function NavbarHome() {
                   Home
                 </Text>
               </Link>
-              <Link className={'links'} to={'/proximasconsultas'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                  Proximas consultas
-                </Text>
-              </Link>
-              {/* <Link className={'links'} to={'/mipsicologo'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                  Mi psicólogo
-                </Text>
-              </Link> */}
               <Link className={'links'} to={'/blog'}>
                 <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Blog
@@ -131,21 +121,8 @@ export default function NavbarHome() {
           </HStack>
           <Flex alignItems={"center"}>
             {
-              tokenClient
+              tokenPsychologist
                 ? (
-                  <Link to='/appointments'>
-                    <Button
-                      variant={"solid"}
-                      colorScheme={"teal"}
-                      size={"sm"}
-                      mr={4}
-                      leftIcon={<CalendarIcon />}
-                    >
-                      Mis citas
-                    </Button>
-                  </Link>
-                )
-                : tokenPsychologist ? (
                   <>
                     <Link to='/appointments'>
                       <Button
@@ -166,10 +143,23 @@ export default function NavbarHome() {
                         mr={4}
                         leftIcon={<AddIcon />}
                       >
-                        Administrar agenda
+                        Administrar agenda <CalendarIcon />
                       </Button>
                     </Link>
                   </>
+                )
+                : tokenClient ? (
+                  <Link to='/appointments'>
+                  <Button
+                    variant={"solid"}
+                    colorScheme={"teal"}
+                    size={"sm"}
+                    mr={4}
+                    leftIcon={<AddIcon />}
+                  >
+                    Mis citas
+                  </Button>
+                </Link>
                 ) : null
             }
             <Menu>

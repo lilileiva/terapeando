@@ -25,6 +25,7 @@ import {
   ADMIN_SEARCHBAR,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  FILTER_BY_STATUS,
   GET_SCHEDULE,
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
@@ -52,7 +53,8 @@ const initialState = {
   email: {},
   adminSearchbar: "",
   reviews: [],
-  appointments: []
+  appointments: [],
+  appoint: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -306,8 +308,18 @@ function rootReducer(state = initialState, action) {
               return new Date(b.createdAt) - new Date(a.createdAt);
             });
       return {
+            ...state,
+            allPayments: sortedPayments,
+          };
+    case FILTER_BY_STATUS:
+      let filtered = state.paymentDetailsPsychologist;
+      filtered = 
+          action.payload === 'abonado'
+          ? state.paymentDetailsPsychologist.filter((p) => p.status === true)
+          : state.paymentDetailsPsychologist.filter((p) => p.status === false) 
+      return {
         ...state,
-        allPayments: sortedPayments,
+        paymentDetailsPsychologist: filtered,
       };
 
     /*-----------SEARCHBAR-----------*/
@@ -316,6 +328,36 @@ function rootReducer(state = initialState, action) {
         ...state,
         adminSearchbar: action.payload,
       };
+
+      /*-----------APPOINTMENTS-----------*/
+      case GET_APPOINTMENT_AS_PSYCHOLOGIST:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case GET_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case DELETE_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: state.appointments.filter(appo => appo._id !== action.payload)
+        }
+
+      /*-----------SCHEDULE-----------*/
+      case GET_SCHEDULE:
+        return {
+          ...state,
+          schedule: action.payload
+        }
+      case GET_SCHEDULE_BY_DATE:
+        return {
+          ...state,
+          schedule: action.payload
+        }
+
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:
       return {

@@ -14,7 +14,7 @@ export class appointment {
     
     @prop({ type: String, required: true, trim: true })
     hour: string
-    
+
     @prop({ type: String, required: true, trim: true })
     type: string
     

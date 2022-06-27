@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import scheduleModel from '../../models/Schedule'
-
+import scheduleModel from "../../models/Schedule";
 
 const createSchedule = async (req: Request, res: Response) => {
    const { date, hours } = req.body
@@ -26,7 +25,6 @@ const createSchedule = async (req: Request, res: Response) => {
    }
 }
 
-
 const getSchedule = async (req: Request, res: Response) => {
    const { IdUserPsychologist } = req.params
    try {
@@ -36,7 +34,6 @@ const getSchedule = async (req: Request, res: Response) => {
       console.log(err)
    }
 }
-
 
 const getScheduleByDate = async (req: Request, res: Response) => {
    const { IdUserPsychologist } = req.params
@@ -49,9 +46,37 @@ const getScheduleByDate = async (req: Request, res: Response) => {
    }
 }
 
+const deleteSchedule = async (req:Request, res: Response) => {
+   const {idSchedule} = req.params
+   try {
+      const scheduleExist = await scheduleModel.findOneAndDelete({_id: idSchedule})
+      if(!scheduleExist){
+         res.status(502).send('Este horario no existe')
+      }
+      res.status(200).send('Horarios eliminados correctamente')
+   } catch(err){
+      console.log(err)
+   }
+}
+
+const updateSchedule = async (req:Request, res: Response) =>{
+   const {idSchedule} = req.params
+   try{
+      const updated = await scheduleModel.findByIdAndUpdate(idSchedule, req.body, { new: true })
+      console.log(updated)
+      if(!updated){
+         res.status(502).send('No hemos podido actualizar el horario')
+      }
+      res.status(200).send('Horario disponible eliminado')
+   } catch(err){
+      console.log(err)
+   }
+}
 
 module.exports = {
    createSchedule,
+   deleteSchedule,
+   getScheduleByDate,
    getSchedule,
-   getScheduleByDate
+   updateSchedule,
 }

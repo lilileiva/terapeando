@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/react"
 import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
 import Schedule from "../Schedule/Schedule";
-import { useSelector, useDispatch } from "react-redux";
-
+import { useDispatch } from "react-redux";
 
 export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, IdUserPsychologist }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const [calendar, setCalendar] = useState(false)
     const handleCalendar = () => {
         if (!calendar) {
@@ -115,9 +113,11 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 {
                     tokenClient || tokenPsychologist
                         ? (
+/*                             <Link to={`/schedule/${IdUserPsychologist}`}> */
                             <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
                                 Pedir cita
                             </Button>
+                           /*  </Link> */
                         ) : (
                             <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={() => navigate('/signin')}>
                                 Pedir cita

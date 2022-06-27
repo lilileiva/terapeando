@@ -12,7 +12,6 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
   Badge,
   Select,
   Switch
@@ -21,7 +20,7 @@ import { useEffect, useState } from 'react';
 import countryList from 'react-select-country-list';
 import { useDispatch, useSelector } from 'react-redux';
 import { editClient, editUserPsichologist, getUserClient, getUserPsychologistOne } from '../../redux/actions';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
 import NavbarHome from '../NavbarHome/NavbarHome.jsx'
@@ -38,8 +37,9 @@ function FormEditClient() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const countries = useMemo(() => countryList().getData(), [])
-  // const { idUserClient } = useParams();
+
   const clientDetails = useSelector((state) => state.userClientDetail)
+  console.log(clientDetails)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
 
@@ -53,7 +53,10 @@ function FormEditClient() {
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
-    country: clientDetails.country || null,
+    country: clientDetails.country,
+    location: '',
+    latitude: '',
+    longitude: '',
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,

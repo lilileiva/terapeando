@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import ClientDetails from "./components/ClientDetails/ClientDetails";
+import ClientDetails from "./components/UserDetails/UserDetails";
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavBar from "./components/NavBar/NavBar.jsx";
@@ -39,10 +39,13 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
+
 import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
 import Appointments from './components/Appointments/Appointments.jsx';
+import Schedule from "./components/Schedule/Schedule";
 
 // import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
+
 
 export default function App() {
   return (
@@ -59,6 +62,7 @@ export default function App() {
         <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
         {/* <Route path="/editschedule/:IdUserPsychologist" element={<EditSchedule />} /> */}
         <Route path="/editschedule/" element={<EditSchedule />} />
+        {/* <Route path='/schedule/:IdUserPsychologist' element={<Schedule />}/> */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />
