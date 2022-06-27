@@ -73,6 +73,7 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
             dispatch(updateSchedule(idSchedule, newSchedule))
         }
         if (tokenPsychologist) dispatch(createAppointmentAsPsychologist(IdUserPsychologist, appointmentData))
+        setCalendar(false)
     }
 
     return (

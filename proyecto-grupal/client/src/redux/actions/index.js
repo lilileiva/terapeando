@@ -35,7 +35,8 @@ import {
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
   DELETE_APPOINTMENT_AS_CLIENT,
-  REMEMBER_PASSWORD_PSYCHOLOGIST
+  REMEMBER_PASSWORD_PSYCHOLOGIST,
+  CLEAR_SCHEDULE
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -141,9 +142,12 @@ export function editClient(updatedUserClient) {
   return async function () {
     try {
       const data = await axios.put(`${baseURL}/userclient/editprofile`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
-      console.log(data);
+      if (data.response === 200) {
+        Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+      }
     } catch (err) {
       console.log(err);
+      Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");
     }
   };
 }
@@ -318,14 +322,18 @@ export function createPsychologist(signupForm) {
 export function editUserPsichologist(updatedUserPsychologist) {
   return async function () {
     try {
-      axios.put(
+      const data = await axios.put(
         `${baseURL}/userpsychologist/put_userpsychologist/`,
         updatedUserPsychologist,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }
         })
+      // if (data.response === 200) {
+      //   Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+      // }
     } catch (error) {
       console.error(error)
+      Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");
     }
   }
 }
@@ -482,7 +490,10 @@ export const addPost = (body) => {
 export const deletePost = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`${baseURL}/deletePost/${id}`)
+      await axios.delete(
+        `${baseURL}/deletePost/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        )
       dispatch({ type: "DELETE_POST", payload: id })
       Swal.fire('Post eliminado correctamente!', '', 'success')
     } catch (error) {
@@ -550,10 +561,30 @@ export function createReview(IdUserPsychologist, payload) {
   };
 }
 
-export function filterReviewsBySychologist(payload) {
+export function filterReviewsBySychologistAsClient(IdUserPsichologist) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`${baseURL}/reviews/filter/review/${payload}`);
+      const json = await axios.get(
+        `${baseURL}/reviews/filter/review/${IdUserPsichologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        );
+      dispatch({
+        type: FILTER_PSYCHOLOGIST_BY_RATING,
+        payload: json.data,
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+export function filterReviewsBySychologistAsPsycho(IdUserPsichologist) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(
+        `${baseURL}/reviews/filter/review/${IdUserPsichologist}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        );
       dispatch({
         type: FILTER_PSYCHOLOGIST_BY_RATING,
         payload: json.data,
@@ -820,11 +851,12 @@ export function getAppointmentAsClient() {
   }
 }
 
-export function putAppointmentAsClient(IdAppointment, inputType) {
+export function putAppointmentAsClient(IdAppointment, type) {
   return async function (dispatch) {
     try {
-      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
-        inputType,
+      await axios.put(
+        `${baseURL}/appointment/put_appointment/${IdAppointment}`,
+        type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
     } catch (error) {
@@ -833,11 +865,12 @@ export function putAppointmentAsClient(IdAppointment, inputType) {
   }
 }
 
-export function putAppointmentAsPsychologist(IdAppointment, inputType) {
+export function putAppointmentAsPsychologist(IdAppointment, type) {
   return async function (dispatch) {
     try {
-      await axios.put(`${baseURL}/appointment/put_appointment/${IdAppointment}`,
-        inputType,
+      await axios.put(
+        `${baseURL}/appointment/put_appointment/${IdAppointment}`,
+        type,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
     } catch (error) {
@@ -846,10 +879,11 @@ export function putAppointmentAsPsychologist(IdAppointment, inputType) {
   }
 }
 
-export function deleteAppointmentAsClient(id) {
+export function deleteAppointmentAsClient(IdAppointment) {
   return async function (dispatch) {
     try {
-      const appointment = await axios.delete(`${baseURL}/appointment/client/${id}`, { headers: { Authorization: `Bearer ${window.localStorage.getItem('tokenClient')}`} }
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/client/${IdAppointment}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
       if (appointment.status === 200) {
         Swal.fire('Has cancelado esta cita', '', 'success')
@@ -864,8 +898,7 @@ export function deleteAppointmentAsClient(id) {
 export function deleteAppointmentAsPsychologist(IdAppointment) {
   return async function (dispatch) {
     try {
-      const appointment = await axios.delete(`${baseURL}/appointment/delete/psychologist`,
-        IdAppointment,
+      const appointment = await axios.delete(`${baseURL}/appointment/delete/psychologist/${IdAppointment}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
       dispatch({
@@ -1127,5 +1160,11 @@ export function clearAdminSearchbar() {
 export const clearStatePostDetail = () => {
   return {
     type: "CLEAR_POST_DETAIL",
+  }
+}
+
+export const clearSchedule = () => {
+  return {
+    type: "CLEAR_SCHEDULE",
   }
 }

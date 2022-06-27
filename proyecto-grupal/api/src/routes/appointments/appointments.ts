@@ -39,7 +39,7 @@ const getAppointmentAsPsychologist = async (req: Request, res: Response) => {
             lastName: 1,
             email: 1,
             country: 1,
-            Specialties: 1,
+            profileImage: 1
           });    
         res.status(200).json(appointment)
      } catch (err) {
@@ -53,7 +53,7 @@ const getAppointmentAsClient = async (req: Request, res: Response) => {
             firstName: 1,
             lastName: 1,
             email: 1,
-            country: 1,
+            location: 1,
             Specialties: 1,
             profileImage: 1
           }); 
@@ -64,7 +64,7 @@ const getAppointmentAsClient = async (req: Request, res: Response) => {
 }
 
 const deleteAppointAsPsychologist = async (req: Request, res: Response) => { 
-    const { IdAppointment } = req.body;  
+    const { IdAppointment } = req.params;  
     try {
         await appointmentModel.findOneAndDelete({      
             '_id': IdAppointment,
@@ -77,10 +77,10 @@ const deleteAppointAsPsychologist = async (req: Request, res: Response) => {
 }
 
 const deleteAppointAsClient = async (req: Request, res: Response) => {
-    const { id } = req.params; 
+    const { IdAppointment } = req.params; 
     try {
         await appointmentModel.findOneAndDelete({
-            _id: id,
+            _id: IdAppointment,
             IdUserClient: req.user
         });
         res.send('Appointment deleted succesfully')

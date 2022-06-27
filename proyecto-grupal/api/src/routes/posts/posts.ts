@@ -16,7 +16,7 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
         firstName: 1,
         lastName: 1,
         email: 1,
-        country: 1,
+        location: 1,
         License: 1,
         Specialties: 1,
       })
@@ -30,7 +30,7 @@ const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
         firstName: 1,
         lastName: 1,
         email: 1,
-        country: 1,
+        location: 1,
         License: 1,
         Specialties: 1,
       })
@@ -51,7 +51,7 @@ const getOnePost = async (req: Request, res: Response) => {
       email: 1,
       profileImage: 1,
       about: 1,
-      country: 1,
+      location: 1,
       License: 1,
       Specialties: 1,
     });
@@ -111,7 +111,7 @@ const filterPostsCategory = async (
     firstName: 1,
     lastName: 1,
     email: 1,
-    country: 1,
+    location: 1,
     License: 1,
     Specialties: 1,
   });
@@ -130,8 +130,8 @@ const filterPostsCategory = async (
 const deletePost = async (req: Request, res: Response) => {
   const { IdPost } = req.params;
   try {
-    const postDelete = await Post.findOneAndDelete({ _id: IdPost });
-    res.send("Post eliminado correctamente");
+    const postDelete = await Post.findOneAndDelete({ _id: IdPost, idUserPsychologist: req.user });
+    res.status(200).send("Post eliminado correctamente");
   } catch (err) {
     res.status(404).send("error: " + err);
   }

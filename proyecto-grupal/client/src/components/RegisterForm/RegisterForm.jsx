@@ -83,9 +83,6 @@ function RegisterForm() {
         if (signupForm.email && !(signupForm.email).match(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)) {
             errors.email = 'Inserte un email válido'
         }
-        if (!signupForm.location && signupForm.location.match(/^(\w+\s)*\w+$/)) {
-            errors.location = 'Selecione una localidad válida'
-        }
         if (!signupForm.profileimage) {
             errors.profileimage = 'Inserte una imagen de perfil'
         }
@@ -105,7 +102,7 @@ function RegisterForm() {
             if (!signupForm.license) {
                 errors.license = 'Inserte matrícula'
             }
-            if (!signupForm.specialities) {
+            if (signupForm.specialities.length === 0) {
                 errors.specialities = 'Inserte al menos una especialidad'
             }
             if (!signupForm.dni) {
@@ -113,6 +110,12 @@ function RegisterForm() {
             }
             if (!signupForm.education) {
                 errors.education = 'Inserte educación'
+            }
+            if (!signupForm.location) {
+                errors.location = 'Selecione una localidad'
+            }
+            if (signupForm.location && !signupForm.latitude && !signupForm.longitude) {
+                errors.location = 'Selecione una localidad válida'
             }
         }
         return errors

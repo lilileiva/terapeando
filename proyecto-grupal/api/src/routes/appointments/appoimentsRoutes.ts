@@ -17,9 +17,8 @@ const validateClient = require("../../middleware/validateClient")
 appoimentRouter.post('/create/:IdUserPsychologist', validateUsers, postAppointmentModel);
 appoimentRouter.get('/psychologist', validatePsychologist, getAppointmentAsPsychologist);
 appoimentRouter.get('/client', validateClient, getAppointmentAsClient);
-appoimentRouter.delete('/delete/psychologist', validatePsychologist, deleteAppointAsPsychologist);
-appoimentRouter.delete('/client/:id', validateClient, deleteAppointAsClient);
+appoimentRouter.delete('/delete/psychologist/:IdAppointment', validatePsychologist, deleteAppointAsPsychologist);
+appoimentRouter.delete('/delete/client/:IdAppointment', validateClient, deleteAppointAsClient);
 appoimentRouter.put('/put_appointment/:IdAppointment', validateUsers, putAppointment)
-// /appointment/put_appointment/${IdAppointment}
 
 module.exports = appoimentRouter;

@@ -9,6 +9,7 @@ import {
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   CLEAR_PSYCHOLOGIST_LIST,
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  FILTER_PSYCHOLOGIST_BY_RATING,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
   GET_POSTS_BY_PSYCHOLOGIST_ID,
@@ -31,6 +32,7 @@ import {
   GET_APPOINTMENT_AS_CLIENT,
   DELETE_APPOINTMENT_AS_CLIENT,
   PUT_APPOINTMENT,
+  CLEAR_SCHEDULE
 } from "../actions/types";
 
 const initialState = {
@@ -153,6 +155,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload
       };
+
+    /*-----------RATING-----------*/
+      case FILTER_PSYCHOLOGIST_BY_RATING:
+      return {
+        ...state,
+        reviews: action.payload
+      }
 
     /*-----------POSTS-----------*/
     case GET_POSTS:
@@ -380,6 +389,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         adminSearchbar: [],
+      };
+    case CLEAR_SCHEDULE:
+      return {
+        ...state,
+        schedule: [],
       };
     default:
       return { ...state };
