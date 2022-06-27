@@ -10,7 +10,7 @@ module.exports = function (passport:any) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/userclient/auth/google/callback',
-        proxy: true
+       // proxy: true
       },
       async (accessToken:any, refreshToken:any, profile:any, done:any) => {
         //get the user data from google
@@ -34,11 +34,10 @@ module.exports = function (passport:any) {
 
           if (user) {
             //If user present in our database.
-            // const userForToken = {
-            //   id: user._id,
-            //   role: user.role
 
 
+
+            
             done(null, user)
           } else {
             // if user is not preset in our database save user data to database.

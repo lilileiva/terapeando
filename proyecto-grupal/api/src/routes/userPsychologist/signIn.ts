@@ -30,7 +30,7 @@ const logInPsychologist = async (req: Request, res: Response) => {
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {
           expiresIn: 60 * 60 * 24 * 7,
         });
-
+         
         res.send({
           name: `${user?.firstName} ${user?.lastName}`,
           email: user?.email,

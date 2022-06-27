@@ -16,7 +16,7 @@ const passport = require('passport')
 const clientRouter: Router = Router();
 
 
-clientRouter.get('/auth/google/callback', passport.authenticate('google', { }),(req, res) => {res.send("te autenticaste con google")})
+clientRouter.get('/auth/google/callback', passport.authenticate('google', {successReturnToOrRedirect: "http://localhost:3000/home" }),(req, res) => {res.send("te autenticaste con google")})
 clientRouter.get('/google', passport.authenticate('google', { scope: ['profile','email']}))
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)
