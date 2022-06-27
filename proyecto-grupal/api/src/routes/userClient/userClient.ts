@@ -32,11 +32,11 @@ const createUserClient = async (req: Request, res: Response) => {
   const {
     firstname,
     lastname,
-    birthdate,
-    country,
+    // birthdate,
+    // country,
     email,
     profileimage,
-    password,
+    // password,
   } = req.body;
 
   try {
@@ -47,11 +47,11 @@ const createUserClient = async (req: Request, res: Response) => {
       const userClient = await userClientModel.create({
         firstName: firstname,
         lastName: lastname,
-        birthDate: birthdate,
-        country: country,
+        // birthDate: birthdate || 'hola',
+        // country: country || 'hola',
         email: email,
         profileImage: profileimage,
-        password: password,
+        // password: password || '',
         role: "client",
       });
       res.status(201).send("Welcome to our community, now you can sign in");
@@ -111,6 +111,16 @@ const putUserClient = async (req: Request, res: Response) => {
       res.status(404).send('There was an error...');
    }
 }
+const googleLogIn = async (req: Request, res: Response) => {
+   try {
+      res.status(200).send('Success')
+   } catch (err) {
+      res.status(404).send('There was an error...');
+   }
+}
+const Error = async (req: Request, res: Response) => {
+  res.status(404).send('There was an error...')
+}
 
 
 module.exports = {
@@ -118,5 +128,7 @@ module.exports = {
   createUserClient,
   deleteUserClient,
   getPsychologistDetails,
-  putUserClient
+  putUserClient,
+  googleLogIn,
+  Error
 };

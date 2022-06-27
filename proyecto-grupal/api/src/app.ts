@@ -5,7 +5,7 @@ import morgan from 'morgan'
 const routes = require('./routes/index')
 const cors = require('cors')
 const passport = require('passport')
-require('./routes/userClient/passport')(passport)
+
 
 // server  inicializations
 const app = express() 

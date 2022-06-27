@@ -10,7 +10,7 @@ const userPsychologist = require("./userPsychologist/userPsychologistRoutes");
 const rememberPassword = require("./nodemailer/nodemailerRoutes.ts")
 const admin = require("./admin/adminRoutes")
 const router = Router();
-
+const passport = require('passport')
 
 
 router.use('/appointment', appointment)
@@ -22,6 +22,7 @@ router.use('/userclient', userClient)
 router.use('/userpsychologist', userPsychologist)
 router.use('/admin', admin)
 router.use('/nodemailer', rememberPassword)
+
 
 
 module.exports = router;

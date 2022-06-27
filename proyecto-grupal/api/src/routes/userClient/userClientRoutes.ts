@@ -5,7 +5,9 @@ const {
     createUserClient,
     deleteUserClient,
     putUserClient,
-    getPsychologistDetails
+    getPsychologistDetails,
+    googleLogIn,
+    Error
 } = require('./userClient.ts')
 const validateClient = require('../../middleware/validateClient')
 // const validateAdmin = require('../../middleware/validatePsychologistOrAdmin')
@@ -15,7 +17,8 @@ const passport = require('passport')
 const clientRouter: Router = Router();
 
 
-clientRouter.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),(req, res) => {res.send("te autenticaste con gogle")})
+
+clientRouter.get('/auth/google/callback', passport.authenticate('google', {successReturnToOrRedirect: "http://localhost:3000/home" }),(req, res) => {res.send("te autenticaste con google")})
 clientRouter.get('/google', passport.authenticate('google', { scope: ['profile','email']}))
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)

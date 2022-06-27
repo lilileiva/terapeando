@@ -1,8 +1,6 @@
 import { VerifyCallback } from "passport-google-oauth2"
-
 // import all the things we need  
 const GoogleStrategy = require('passport-google-oauth20').Strategy
-const mongoose = require('mongoose')
 import userClientModel from "../../models/userClients"
 
 module.exports = function (passport:any) {
@@ -12,8 +10,9 @@ module.exports = function (passport:any) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
         callbackURL: '/userclient/auth/google/callback',
+        proxy:true
       },
-      async (accessToken:any, refreshToken:any, profile:any, done:any) => {
+      async (accessToken:any, refreshToken:any, profile:any, done:VerifyCallback) => {
         //get the user data from google
         console.log("este es el profile" + Object.values(profile))
         const newUser = {
@@ -21,6 +20,7 @@ module.exports = function (passport:any) {
           lastName: profile.name.familyName,
           email: profile.emails[0].value,
           profileImage: profile.photos[0].value,
+          role:'client'
         }
         console.log(newUser)
 
