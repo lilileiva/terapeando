@@ -1,7 +1,8 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 import userClientModel from "../../models/userClients"
-
+import { Request, Response, NextFunction } from "express";
+const jwt = require("jsonwebtoken");
 module.exports = function (passport:any) {
   passport.use(
     new GoogleStrategy(
@@ -13,35 +14,32 @@ module.exports = function (passport:any) {
       },
       async (accessToken:any, refreshToken:any, profile:any, done:any) => {
         //get the user data from google
-        console.log("este es el profile" + Object.values(profile))
+        // console.log("este es el profile" + Object.values(profile))
         const newUser = {
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
+          // firstName: profile.name.givenName,
+          // lastName: profile.name.familyName,
           email: profile.emails[0].value,
-          profileImage: profile.photos[0].value,
-          role: "Client"
+          // profileImage: profile.photos[0].value,
+          // role: "client"
         }
-        console.log("este es el nuevo usuario " +newUser.firstName)
-        console.log(newUser.lastName)
+        let tokenApi = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjVlNjkxMmIyNWQ3Mzk4ZDc2NTFlZSIsInJvbGUiOiJwc3ljaG9sb2dpc3QiLCJpYXQiOjE2NTYzNDUwNjAsImV4cCI6MTY1Njk0OTg2MH0.P0AZmGHbdmeOIXvwgs_CCe1isLDQunIJficFJtI3WZ0'
+
+        console.log( 'token api: ' , tokenApi.length)
+        console.log( 'token google: ' , accessToken.length)
+        // console.log("este es el nuevo usuario " +newUser.firstName)
+        // console.log(newUser.lastName)
 
         try {
           //find the user in our database 
           let user = await userClientModel.findOne({email: newUser.email})
-          console.log("esta es la respuesta del user " + user)
-
-         
-
+          console.log("esta es la respuesta del user :" , user)
           if (user) {
-            //If user present in our database.
-
-
-
-            
+            //If user present in our database.     
             done(null, user)
           } else {
             // if user is not preset in our database save user data to database.
-            user = await userClientModel.create(newUser)
-            done(null, user)
+            //no crear usuario
+            done(null, null)
           }
         } catch (err) {
           console.error(err)
@@ -52,8 +50,8 @@ module.exports = function (passport:any) {
 
   // used to serialize the user for the session
   passport.serializeUser((user:any, done:any) => {
-    console.log('serialize', user.id)
-    done(null, user.id)
+    // console.log('serialize: ', user)
+    done(null, user)
   })
 
   // used to deserialize the user
@@ -61,3 +59,5 @@ module.exports = function (passport:any) {
     userClientModel.findById(id, (err:any, user:any) => done(err, user))
   })
 }
+
+

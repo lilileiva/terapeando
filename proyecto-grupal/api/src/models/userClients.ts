@@ -38,10 +38,10 @@ export class userClient {
     @prop({  trim: true })
     birthDate: string
 
-    @prop({ required: false })
+    @prop({ required: true })
     country: string
 
-    @prop({  minlength:8 })
+    @prop({ required:true, minlength:8 })
     password: string
 
     @prop({
