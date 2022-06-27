@@ -36,7 +36,6 @@ export default function Login(){
          onFailure={onFailure}
          cookiePolicy={'single_host_origin'}
          isSignedIn={true}
-         href="/login/federated/google"
          />
       </div>
    )

@@ -13,7 +13,7 @@ function Chat(){
     const saveMessages = (messages, HTMLString) => {
         localStorage.setItem('chat_message', JSON.stringify(messages))
     }
-    console.log(saveMessages)
+   // console.log(saveMessages)
     const loadMessages = () => {
         const messages =JSON.parse(localStorage.getItem('chat_messages'));
         return messages

@@ -23,6 +23,7 @@ import { gapi } from "gapi-script";
 import Login from "../LogGoogle/LogInGoogle";
 import axios from "axios";
 import { loginClient } from "../../redux/actions";
+import ForgotPassword from "../ForgotPassword/ForgotPassword.jsx"
 import { LOCAL_HOST } from "../../redux/actions/types";
 const clientId =
   "451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com";
@@ -162,8 +163,10 @@ function LoginForm() {
   const tokenPsychologist = window.localStorage.getItem("tokenPsychologist");
 
   const handleLogin = async () => {
-    const response = await axios.get(`${LOCAL_HOST}/userclient/google`)
-    console.log(response)
+    const response = await axios.get(`${LOCAL_HOST}/userclient/google`,{
+      mode: 'cors',
+    })
+    console.log('response: ', response)
   }
 
   return (
@@ -292,11 +295,13 @@ function LoginForm() {
                       Iniciar sesión
                     </Button>
 
-                    <Login mt='1em' /> 
-                    <Button bg='green.100' color={'#63caa7'}
-                    onClick={handleLogin}>
+                    {/* <Login mt='1em' />  */}
+                    {/* <Button bg='green.100' color={'#63caa7'} */}
+                    {/* onClick={handleLogin}> */}
+                    {/* </Button> */}
+                      <a href="http:///localhost:3001/userclient/google">
                       Inicia sesión con &nbsp; <FaGoogle />
-                    </Button>
+                      </a>
 
                     <Button
                       bg="green.100"

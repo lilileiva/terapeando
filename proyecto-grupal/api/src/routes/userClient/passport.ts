@@ -1,9 +1,10 @@
 import { VerifyCallback } from "passport-google-oauth2"
-
+import { Request, Response, NextFunction } from "express";
 // import all the things we need  
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 import userClientModel from "../../models/userClients"
+const jwt = require("jsonwebtoken");
 
 module.exports = function (passport:any) {
   passport.use(
@@ -15,21 +16,31 @@ module.exports = function (passport:any) {
       },
       async (accessToken:any, refreshToken:any, profile:any, done:any) => {
         //get the user data from google
-        console.log("este es el profile" + Object.values(profile))
+        //console.log("este es el profile" + Object.values(profile))
         const newUser = {
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           email: profile.emails[0].value,
           profileImage: profile.photos[0].value,
+          role: "Client"
         }
-        console.log(newUser)
+        console.log('newUser: ', newUser)
 
         try {
           //find the user in our database 
           let user = await userClientModel.findOne({email: newUser.email})
-          console.log("esta es la respuesta del user " + user)
+          //console.log("esta es la respuesta del user " + user)
           if (user) {
+            console.log('USER: ', user)
             //If user present in our database.
+            const userForToken = {
+              id: user._id,
+              role: user.role
+            };
+            const token = jwt.sign(userForToken, process.env.SECRETWORD, {
+              expiresIn: 60 * 60 * 24 * 7,
+            });
+            console.log('token: ', token)
             done(null, user)
           } else {
             // if user is not preset in our database save user data to database.
