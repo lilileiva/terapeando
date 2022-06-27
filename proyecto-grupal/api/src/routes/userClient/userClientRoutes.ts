@@ -31,7 +31,7 @@ const jwt = require("jsonwebtoken");
 
 
 clientRouter.get('/auth/google/callback', passport.authenticate('google', {successReturnToOrRedirect: "http://localhost:3000/home" }))
-clientRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile','email']}))
+clientRouter.get('/google', passport.authenticate('google', { scope: ['profile','email']}))
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)
 clientRouter.post('/client/register', createUserClient)
