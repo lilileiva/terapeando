@@ -7,13 +7,13 @@ import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import CalendarApp from '../Appointments/CalendarApp';
 import { format } from 'date-fns';
-
+import Swal from 'sweetalert2';
 
 
 function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
     const tokenClient = window.localStorage.getItem('tokenClient')
     const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-    
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -99,7 +99,9 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
                                 <Badge fontSize='1em' >{dateTime}</Badge>
                             </HStack>
                             <Stack d={'flex'} alignItems={'flex-start'}>
-                                <Text fontSize='xl' color='#285e61'>Horarios Seleccionado:</Text><Badge fontSize='1em'>{appointmentData.hour}</Badge>
+                                <Stack direction='row' align='center'>
+                                    <Text fontSize='xl' color='#285e61'>Horarios Seleccionado:</Text><Badge fontSize='1em'>{appointmentData.hour}</Badge>
+                                </Stack>
                                 <HStack flexWrap={'wrap'}>
                                     {hours && hours.map((hour) =>
                                         <Button key={hour} bg='green.100' name='hour' size={'md'} value={hour} onClick={(e) => handleTypeAndHour(e)}>{hour} hs</Button>)}

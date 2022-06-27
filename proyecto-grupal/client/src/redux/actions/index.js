@@ -796,7 +796,7 @@ export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
         appointmentData,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
-      if (newAppointment.status === 201) {
+      if (newAppointment.status === 200) {
         return Swal.fire({
             position: 'center',
             icon: 'success',
