@@ -10,7 +10,7 @@ const userPsychologist = require("./userPsychologist/userPsychologistRoutes");
 const rememberPassword = require("./nodemailer/nodemailerRoutes.ts")
 const admin = require("./admin/adminRoutes")
 const router = Router();
-const passport = require('passport')
+
 
 
 router.use('/appointment', appointment)
