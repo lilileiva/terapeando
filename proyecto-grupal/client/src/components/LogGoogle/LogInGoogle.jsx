@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { createClient } from '../../redux/actions';
 
-const clientId = '451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com';
+const clientId = '566016241332-bvvkb1mn7nh4adol4m197pdgg5c48h26.apps.googleusercontent.com';
 
 export default function Login(){
 

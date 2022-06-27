@@ -82,6 +82,8 @@ function LoginForm() {
     });
   };
 
+
+
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleInputSubmit = async (e) => {
@@ -286,11 +288,12 @@ function LoginForm() {
                     >
                       Iniciar sesión
                     </Button>
-
-                    {/* <Login mt='1em' /> */}
-                    {/* <Button bg='green.100' color={'#63caa7'}> */}
-                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
-                    {/* </Button> */}
+                  
+                    <Login mt='1em' /> 
+                    <Button bg='green.100' color={'#63caa7'} >
+                      <a href="http://localhost:3001/userclient/google"></a>
+                    Inicia sesión con &nbsp; <FaGoogle />
+                     </Button>
 
                     <Button
                       bg="green.100"

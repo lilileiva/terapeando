@@ -15,6 +15,7 @@ import {
 import { motion } from 'framer-motion'
 import './landingpage.css'
 import Chat from '../Chat/Chat'
+import LoginForm from '../LoginForm/LoginForm';
 
 function LandingPage() {
 
