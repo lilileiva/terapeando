@@ -32,7 +32,9 @@ import {
   GET_APPOINTMENT_AS_CLIENT,
   DELETE_APPOINTMENT_AS_CLIENT,
   PUT_APPOINTMENT,
-  CLEAR_SCHEDULE
+  CLEAR_SCHEDULE,
+  SORT_BY_DATE_PSY,
+  SORT_BY_DATE_CLI
 } from "../actions/types";
 
 const initialState = {
@@ -298,6 +300,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPayments: filterByMonth
       }
+      //All Payments
     case SORT_BY_DATE:
       let sortedPayments = [state.allPayments];
       sortedPayments =
@@ -312,6 +315,36 @@ function rootReducer(state = initialState, action) {
             ...state,
             allPayments: sortedPayments,
           };
+        // Only clients
+        case SORT_BY_DATE_CLI:
+          let sortedPaymentsCli = [state.paymentDetailsClient];
+          sortedPayments =
+            action.payload === "asc"
+              ? state.paymentDetailsClient.sort(function (a, b) {
+                  return new Date(a.createdAt) - new Date(b.createdAt);
+                })
+              : state.paymentDetailsClient.sort(function (a, b) {
+                  return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+          return {
+                ...state,
+                paymentDetailsClient: sortedPaymentsCli,
+              };
+          // Only Psy
+          case SORT_BY_DATE_PSY:
+            let sortedPaymentsPsy = [state.paymentDetailsPsychologist];
+            sortedPayments =
+              action.payload === "asc"
+                ? state.paymentDetailsPsychologist.sort(function (a, b) {
+                    return new Date(a.createdAt) - new Date(b.createdAt);
+                  })
+                : state.paymentDetailsPsychologist.sort(function (a, b) {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                  });
+            return {
+                  ...state,
+                  paymentDetailsPsychologist: sortedPaymentsPsy,
+                };
     case FILTER_BY_STATUS:
       let filtered = state.paymentDetailsPsychologist;
       filtered = 
