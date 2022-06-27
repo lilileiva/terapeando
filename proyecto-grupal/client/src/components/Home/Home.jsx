@@ -17,7 +17,7 @@ import { BsSearch } from "react-icons/bs";
 import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
-import Chat from '../Chat/Chat'
+import Chat from '../Chat/Chat';
 
 
 export default function Home() {

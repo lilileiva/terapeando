@@ -30,30 +30,6 @@ function AdminPanelPayments() {
               </Link>
             </WrapItem>
             <WrapItem>
-              <Link to=''>
-                <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100', scale: '110%' }}>
-                  <Stack direction='column' align='center'>
-                    <BsCartCheck size='50%' />
-                    <Text fontSize='2xl' fontWeight='500' color='#2D3748'>
-                      PAGOS ACREDITADOS
-                    </Text>
-                  </Stack>
-                </Center>
-              </Link>
-            </WrapItem>
-            <WrapItem>
-              <Link to=''>
-                <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100', scale: '110%' }}>
-                  <Stack direction='column' align='center'>
-                    <BsCartX size='50%' />
-                    <Text fontSize='2xl' fontWeight='500' color='#2D3748'>
-                      CANCELAR PAGOS
-                    </Text>
-                  </Stack>
-                </Center>
-              </Link>
-            </WrapItem>
-            <WrapItem>
               <Link to='estadisticas'>
                 <Center w='20em' h='20em' p='1em' m='1em' bg='blackAlpha.300' _hover={{ bg: 'green.100' }}>
                   <Stack direction='column' align='center'>

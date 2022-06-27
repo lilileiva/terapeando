@@ -30,7 +30,6 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
     let newSchedule;
     if (inputDate.date) {
         dateTime = format(inputDate.date, 'yyyy-MM-dd')
-        console.log(dateTime)
     }
 
     let idSchedule;
@@ -39,8 +38,6 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
         if ((sch.date).substring(0, 10) === dateTime) {
             hours = sch.hours;
             idSchedule = sch._id
-            console.log(hours)
-            console.log(idSchedule)
         }
     })
 
@@ -65,8 +62,7 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
         date: appointmentData.date,
         hours: hours.filter((h) => h !== appointmentData.hour)
     }
-    console.log(newSchedule)
-    console.log(appointmentData)
+
     const dispatchAppointment = () => {
         if (tokenClient) {
             dispatch(createAppointmentAsClient(IdUserPsychologist, appointmentData))
@@ -75,6 +71,7 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
         if (tokenPsychologist) dispatch(createAppointmentAsPsychologist(IdUserPsychologist, appointmentData))
         setCalendar(false)
     }
+    console.log(appointmentData)
 
     return (
         <Stack width='100%' pl='10%' pr='10%' zIndex='1' position='absolute'>

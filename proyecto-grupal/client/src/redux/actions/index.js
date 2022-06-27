@@ -36,7 +36,9 @@ import {
   GET_APPOINTMENT_AS_CLIENT,
   DELETE_APPOINTMENT_AS_CLIENT,
   REMEMBER_PASSWORD_PSYCHOLOGIST,
-  CLEAR_SCHEDULE
+  CLEAR_SCHEDULE,
+  SORT_BY_DATE_CLI,
+  SORT_BY_DATE_PSY
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -661,6 +663,20 @@ export const getRangeByDate = (payload) => {
 export const sortByDate = (payload) => {
   return {
     type: SORT_BY_DATE,
+    payload
+  }
+}
+
+export const sortByDateCli = (payload) => {
+  return {
+    type: SORT_BY_DATE_CLI,
+    payload
+  }
+}
+
+export const sortByDatePsy = (payload) => {
+  return {
+    type: SORT_BY_DATE_PSY,
     payload
   }
 }

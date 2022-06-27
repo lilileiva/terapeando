@@ -1,18 +1,16 @@
 import { ExternalLinkIcon, ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons'
-import Swal from "sweetalert2";
-import { Button, VStack, Container, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, HStack, Badge, Text, Select } from '@chakra-ui/react'
+import { Button, VStack, Container, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, HStack, Select, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavbarHome from '../NavbarHome/NavbarHome'
 import { useDispatch, useSelector } from "react-redux";
-import { getPaymentByClientId, sortByDate, getPaymentByPsyId, filterByStatus } from "../../redux/actions"
+import { getPaymentByClientId, sortByDate, getPaymentByPsyId, filterByStatus, sortByDateCli, sortByDatePsy } from "../../redux/actions"
 import NotFound from '../404notFound/notFound.jsx';
 import Paged from '../Paged/Paged'
 
 function Payments() {
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-  console.log(tokenPsychologist)
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,28 +21,27 @@ function Payments() {
 
   const paymentsCli = useSelector((state) => state.paymentDetailsClient)
   const psymentsPsy = useSelector((state) => state.paymentDetailsPsychologist)
-  console.log(psymentsPsy)
 
   let allPosts;
   if(tokenClient) allPosts = paymentsCli;
   if(tokenPsychologist) allPosts = psymentsPsy;
-  console.log(allPosts)
   
   const [order, setOrder] = useState('')
   function handleDateSort(e){
     e.preventDefault();
-    dispatch(sortByDate(e.target.value))
+    if(tokenClient) dispatch(sortByDateCli(e.target.value))
+    if(tokenPsychologist) dispatch(sortByDatePsy(e.target.value))
     console.log(e.target.value)
     setOrder(`Order ${e.target.value}`)
     setPage(1)
   }
 
-  function handleFilter (e){
+/*   function handleFilter (e){
     e.preventDefault();
     console.log(e.target.value)
     dispatch(filterByStatus(e.target.value, allPosts))
     setPage(1)
-  }
+  } */
  
   const [page, setPage] = useState(1);
   const [postPage] = useState(7);
@@ -68,7 +65,7 @@ function Payments() {
        <VStack alignItems={'flex-start'}>
          <HStack alignItems={'center'}>
          <Text>Filtro por Fecha: </Text>
-        <Select
+         <Select
         w="60%"
         placeholder="Ordenar por fecha:"
         onChange={handleDateSort}
@@ -117,7 +114,7 @@ function Payments() {
          <Tbody>
            {showPaymentPage && showPaymentPage.map((p) => {
              return (
-               <Tr>
+               <Tr key={p._id}>
                  <Td>{p.createdAt.substring(0,10)}</Td>
                  <Td>{p.firstName} {p.lastName}</Td>
                  <Td isNumeric>$ {(p.amount - p.amount*0.04 - p.amount*0.05)}</Td>
@@ -152,14 +149,29 @@ function Payments() {
                   <VStack alignItems={'flex-start'}>
                     <HStack alignItems={'center'}>
                       <Text>Filtro por Fecha: </Text>
-                      <Button size='sm'><ArrowUpIcon /></Button>
-                      <Button size='sm'> <ArrowDownIcon /></Button>
+                      <Select
+        w="60%"
+        placeholder="Ordenar por fecha:"
+        onChange={handleDateSort}
+        cursor={"pointer"}
+      >
+        <option key={0} value='asc'>Ascendente</option>
+        <option key={1} value='desc'>Descendente</option>
+      </Select>
                     </HStack>
                   </VStack>
                 </HStack>
                 <TableContainer>
                   <Table variant='striped' colorScheme='teal'>
-                    <TableCaption><Button>Tengo un problema con mis pagos</Button></TableCaption>
+                    <TableCaption><Button>Tengo un problema con mis pagos</Button>
+                    <Paged 
+         postPage={postPage}
+         allPosts={allPosts.length}
+         paged={paged}
+         page={page}
+         setPage={setPage}
+         className='pagedPost'/>
+                    </TableCaption>
                     <Thead>
                       <Tr>
                         <Th>Fecha</Th>
@@ -170,10 +182,10 @@ function Payments() {
                       </Tr>
                     </Thead>
                     <Tbody>
-                      {paymentsCli.map((p) => {
+                      {showPaymentPage && showPaymentPage.map((p) => {
                         return (
-                          <Tr>
-                            <Td>{p.createdAt}</Td>
+                          <Tr key={paymentsCli._id}>
+                            <Td>{p.createdAt.substring(0,10)}</Td>
                             <Td>{p.psyName}</Td>
                             <Td isNumeric>$ {p.amount}</Td>
                             <Td>{p.type}</Td>

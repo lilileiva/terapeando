@@ -1,5 +1,5 @@
 import { Button, VStack, Container, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, HStack, Badge, Text, Select } from '@chakra-ui/react'
-import { ExternalLinkIcon, ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons'
+import { ExternalLinkIcon, ArrowUpIcon, ArrowDownIcon, ArrowBackIcon } from '@chakra-ui/icons'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
@@ -67,6 +67,9 @@ export default function PaymentsAdmin() {
    { tokenAdmin ? (
         <Container maxW={'container.lg'} p={0}>
         <HStack justifyContent={'space-between'}>
+        <Link to={'/adminpanel/payments'}>
+        <ArrowBackIcon fontSize={'2em'} p={'5px'} borderRadius={'full'} bgColor={'green.100'} color={'blackAlpha.800'}/>
+        </Link>
         <Heading py={12}>Historial de Pagos</Heading>
         <HStack alignItems={'center'}>
 {/*         <Text>Descargar período:</Text>

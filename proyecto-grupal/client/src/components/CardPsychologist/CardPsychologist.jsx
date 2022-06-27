@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 
 export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, IdUserPsychologist }) {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [calendar, setCalendar] = useState(false)
     const handleCalendar = () => {
