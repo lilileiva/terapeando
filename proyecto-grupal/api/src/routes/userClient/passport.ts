@@ -37,9 +37,8 @@ module.exports = function (passport:any) {
             //If user present in our database.     
             done(null, user)
           } else {
-            // if user is not preset in our database save user data to database.
             //no crear usuario
-            done(null, null)
+            done(null, false)
           }
         } catch (err) {
           console.error(err)
