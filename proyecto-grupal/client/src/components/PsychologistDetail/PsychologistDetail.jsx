@@ -19,6 +19,7 @@ import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/acti
 
 
 export default function PsychologistDetail() {
+
   const { IdUserPsychologist } = useParams();  
 
   const dispatch = useDispatch();
@@ -216,7 +217,7 @@ export default function PsychologistDetail() {
                         <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
                           <CloseIcon cursor='pointer' onClick={() => setShowMap(false)} />
                         </Stack>
-                        <Map lng={detail.longitude} lat={detail.latitude} />
+                        <Map lat={detail.latitude} lgn={detail.longitude} />
                       </Stack>
                     </div>
                   ) : null

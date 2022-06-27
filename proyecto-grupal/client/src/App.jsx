@@ -39,9 +39,13 @@ import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
 import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
+
 import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
 import Appointments from './components/Appointments/Appointments.jsx';
 import Schedule from "./components/Schedule/Schedule";
+
+// import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
+
 
 export default function App() {
   return (

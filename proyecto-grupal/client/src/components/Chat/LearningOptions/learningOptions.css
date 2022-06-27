@@ -1,0 +1,21 @@
+.learning-options-container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+.learning-option-button {
+  padding: 0.5rem;
+  border-radius: 25px;
+  background: transparent;
+  border: 1px solid green;
+  color: black;
+  font-size: 60%;
+  margin: 1.5%;
+}
+.learning-option-button:hover{
+  cursor: pointer;
+  background: green;
+  color: white;
+  margin: 2%; 
+}

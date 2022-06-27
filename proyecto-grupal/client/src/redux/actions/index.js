@@ -34,7 +34,8 @@ import {
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
-  DELETE_APPOINTMENT_AS_CLIENT
+  DELETE_APPOINTMENT_AS_CLIENT,
+  REMEMBER_PASSWORD_PSYCHOLOGIST
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -139,7 +140,7 @@ export function loginClient(signinForm) {
 export function editClient(updatedUserClient) {
   return async function () {
     try {
-      const data = await axios.put(`${baseURL}/userclient`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      const data = await axios.put(`${baseURL}/userclient/editprofile`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -329,6 +330,20 @@ export function editUserPsichologist(updatedUserPsychologist) {
   }
 }
 
+//----- olvide mi password
+export function forgotPassword(payload){
+  return async function (dispatch){
+    try {
+      const json = await axios.put(`${baseURL}/nodemailer/rememberpassword` , payload)
+      dispatch({
+        type: REMEMBER_PASSWORD_PSYCHOLOGIST,
+        payload: json.data 
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  };
+};
 // filtrar psicologs por  especialidad
 
 export function getBySpecialties(payload) {
@@ -1004,15 +1019,15 @@ export function AdminEditUserPsichologist(IdUserPsychologist, updatedUserPsychol
   };
 }
 
-export const AdminGetUserPsychologistDetail = (IdUserPsychologist) => {
+export const AdminGetUserPsychologistDetail = (idUserPsychologist) => {
   return async function (dispatch) {
     try {
       const psychologist = await axios.get(
-        `${baseURL}/admin/userpsychologist/${IdUserPsychologist}`,
+        `${baseURL}/admin/userpsychologist/${idUserPsychologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenAdmin")}` } }
       );
       dispatch({
-        type: "GET_PSYCHOLOGISTS_ONE",
+        type: "GET_PSYCHOLOGISTS_DETAILS",
         payload: psychologist.data,
       });
     } catch (error) {
