@@ -24,6 +24,7 @@ import Login from "../LogGoogle/LogInGoogle";
 import axios from "axios";
 import { loginClient } from "../../redux/actions";
 import { LOCAL_HOST } from "../../redux/actions/types";
+import ForgotPassword from "../ForgotPassword/ForgotPassword.jsx"
 const clientId =
   "451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com";
 const baseURL = LOCAL_HOST;
@@ -81,7 +82,6 @@ function LoginForm() {
       [e.target.name]: e.target.value,
     });
   };
-
 
 
   const [isSubmit, setIsSubmit] = useState(false);
@@ -277,23 +277,44 @@ function LoginForm() {
                     </Text>
                   )}
 
-                  <Stack direction="column" align="center">
+                  <Stack direction="row"  justifyContent={'center'}   margin={'2em'}>
                     <Button
                       type="submit"
                       bg={"#63caa7"}
                       color="white"
                       variant="solid"
                       _hover={[{ color: "#63caa7" }, { bg: "white" }]}
-                      marginTop="3em"
+                      display={'flex'}
+                  
                     >
                       Iniciar sesión
                     </Button>
-                  
-                    <Login mt='1em' /> 
-                    <Button bg='green.100' color={'#63caa7'} >
-                      <a href="http://localhost:3001/userclient/google"></a>
-                    Inicia sesión con &nbsp; <FaGoogle />
-                     </Button>
+
+                     {/* <Login mt='1em' /> */}
+                    {/* <Button bg='green.100' color={'#63caa7'}> */}
+                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                    {/* </Button> */}
+
+                    <a href="http://localhost:3001/userclient/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
+
+                   
+                   {/* <Button
+                     type="submit"
+                     bg={"#63caa7"}
+                     color="white"
+                     variant="solid"
+                     _hover={[{ color: "#63caa7" }, { bg: "white" }]}
+                     display={'flex'}
+                     onClick={handleLogin}
+                 
+                      
+                      > 
+                   Inicia sesión con &nbsp;<FaGoogle /> 
+                    </Button> */}
+
+                    </Stack>
+
+                    <Stack >
 
                     <Button
                       bg="green.100"
@@ -302,7 +323,15 @@ function LoginForm() {
                     >
                       ¿Aún no tienes una cuenta?
                     </Button>
-                  </Stack>
+                    <Button
+                      bg="green.100"
+                      color={"#285e61"}
+                      
+                    >
+                      <ForgotPassword/>
+                    </Button>
+                    </Stack>
+                  
                 </form>
               </Box>
             </Box>

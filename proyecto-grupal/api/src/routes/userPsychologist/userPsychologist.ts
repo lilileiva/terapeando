@@ -253,7 +253,6 @@ module.exports = {
   putUserPsychologist,
   getUserPsychologistByEmail,
   filterPsichologistSpecialities,
-  //filterPsichologistRating,
   getUserPsychologistByStatus,
   getReviews,
   getPsychologistDetails,

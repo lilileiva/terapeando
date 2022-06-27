@@ -10,7 +10,7 @@ module.exports = function (passport:any) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
         callbackURL: '/userclient/auth/google/callback',
-        proxy:true
+       // proxy: true
       },
       async (accessToken:any, refreshToken:any, profile:any, done:VerifyCallback) => {
         //get the user data from google
@@ -28,8 +28,15 @@ module.exports = function (passport:any) {
           //find the user in our database 
           let user = await userClientModel.findOne({email: newUser.email})
           console.log("esta es la respuesta del user " + user)
+
+         
+
           if (user) {
             //If user present in our database.
+
+
+
+            
             done(null, user)
           } else {
             // if user is not preset in our database save user data to database.

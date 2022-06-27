@@ -139,9 +139,12 @@ export function editClient(updatedUserClient) {
   return async function () {
     try {
       const data = await axios.put(`${baseURL}/userclient/editprofile`, updatedUserClient, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
-      console.log(data);
+      if (data.response === 200) {
+        Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+      }
     } catch (err) {
       console.log(err);
+      Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");
     }
   };
 }
@@ -300,14 +303,18 @@ export function createPsychologist(signupForm) {
 export function editUserPsichologist(updatedUserPsychologist) {
   return async function () {
     try {
-      axios.put(
+      const data = await axios.put(
         `${baseURL}/userpsychologist/put_userpsychologist/`,
         updatedUserPsychologist,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` }
         })
+      if (data.response === 200) {
+        Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+      }
     } catch (error) {
       console.error(error)
+      Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");
     }
   }
 }

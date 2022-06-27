@@ -6,8 +6,7 @@ const {
     deleteUserClient,
     putUserClient,
     getPsychologistDetails,
-    googleLogIn,
-    Error
+    googleLogin
 } = require('./userClient.ts')
 const validateClient = require('../../middleware/validateClient')
 // const validateAdmin = require('../../middleware/validatePsychologistOrAdmin')
@@ -15,7 +14,6 @@ const validateAdmin = require('../../middleware/ValidateAdminToken')
 import { Request, Response } from "express";
 const passport = require('passport')
 const clientRouter: Router = Router();
-
 
 
 clientRouter.get('/auth/google/callback', passport.authenticate('google', {successReturnToOrRedirect: "http://localhost:3000/home" }),(req, res) => {res.send("te autenticaste con google")})
@@ -28,4 +26,4 @@ clientRouter.delete('/deleteuserclient', validateClient, deleteUserClient)
 clientRouter.put('/editprofile', validateClient, putUserClient)
 
 //Falta middleware solo de admin
-module.exports = clientRouter;
+module.exports = clientRouter;  
