@@ -51,14 +51,15 @@ function FormEditClient() {
   const navigate = useNavigate();
   // const { idUserClient } = useParams();
   const clientDetails = useSelector((state) => state.userClientDetail)
+  console.log(clientDetails)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
   const [error, setError] = useState({});
   const [input, setInput] = useState({
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
-    country: clientDetails.country || psychologistDetails.country,
-    country: psychologistDetails.location,
+    country: clientDetails.country,
+    location: '',
     latitude: '',
     longitude: '',
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
@@ -107,8 +108,6 @@ function FormEditClient() {
       } else if (tokenPsychologist) {
         dispatch(editUserPsichologist(input))
       }
-
-      console.log(input)
       setInput({
         firstName: '',
         lastName: '',
@@ -122,27 +121,22 @@ function FormEditClient() {
 
   useEffect(() => {
     setInput({
-        ...input,
-        location: address, 
-        latitude: coordinates.lat, 
-        longitude: coordinates.lng, 
+      ...input,
+      location: address,
+      latitude: coordinates.lat,
+      longitude: coordinates.lng,
     })
-}, [address, coordinates])
+  }, [address, coordinates])
 
 
-
-    const handleLocation = async (address) => {
-        const results = await geocodeByAddress(address);
-        const latLng = await getLatLng(results[0]);
-        setAddress(address);
-        setCoordinates(latLng)
-    }
+  const handleLocation = async (address) => {
+    const results = await geocodeByAddress(address);
+    const latLng = await getLatLng(results[0]);
+    setAddress(address);
+    setCoordinates(latLng)
+  }
   return (
-    <>
-    <NavbarHome />
-
     <Stack className='ClientDetailsContainer'>
-
       {
         tokenClient
           ? (
@@ -205,7 +199,6 @@ function FormEditClient() {
                           />
                         </FormControl>
                         <Stack spacing={10} pt={2}>
-
                           <Button
                             loadingText="Submitting"
                             size="lg"
@@ -275,31 +268,31 @@ function FormEditClient() {
                           {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                         </FormControl>
                         <FormControl id="country">
-                                                                <PlacesAutocomplete value={address}  onChange={setAddress} onSelect={handleLocation} >
-                                                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                                                <div> 
-                                                                    <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })}  />
-                                                                    <div>
-                                                                    {loading ? <BiLoader/> : null}
+                          <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleLocation} >
+                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                              <div>
+                                <Input variant='flushed' color='gray.500' bg='white' mt='2em'{...getInputProps({ placeholder: "Selecciona tu localidad" })} />
+                                <div>
+                                  {loading ? <BiLoader /> : null}
 
-                                                                    {suggestions.map(suggestion => {
-                                                                        const style = {
-                                                                        backgroundColor: suggestion.active ? "#718096" : "#fff"
-                                                                        };
+                                  {suggestions.map(suggestion => {
+                                    const style = {
+                                      backgroundColor: suggestion.active ? "#718096" : "#fff"
+                                    };
 
-                                                                        return (
-                                                                        <option  className='LocationOptions' color='gray.500' 
-                                                                        bg='white' mt='2em' width='10px' key={suggestion.description}  value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
-                                                                            {suggestion.description}
-                                                                        </option>
-                                                                        );
-                                                                    })}
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                                )}
-                                                                 
-                                                            </PlacesAutocomplete>
+                                    return (
+                                      <option className='LocationOptions' color='gray.500'
+                                        bg='white' mt='2em' width='10px' key={suggestion.description} value={suggestion.description} {...getSuggestionItemProps(suggestion, { style })}>
+                                        {suggestion.description}
+                                      </option>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                            )}
+
+                          </PlacesAutocomplete>
                         </FormControl>
                         <FormControl id="DNI">
                           <FormLabel>DNI</FormLabel>
@@ -324,7 +317,6 @@ function FormEditClient() {
                           />
                         </FormControl>
                         <Stack spacing={10} pt={2}>
-
                           <Button
                             loadingText="Submitting"
                             size="lg"
@@ -352,7 +344,6 @@ function FormEditClient() {
           )
       }
     </Stack>
-    </>
   );
 }
 

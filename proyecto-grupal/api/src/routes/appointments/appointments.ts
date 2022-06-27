@@ -56,7 +56,7 @@ const getAppointmentAsClient = async (req: Request, res: Response) => {
             country: 1,
             Specialties: 1,
             profileImage: 1
-          });    ;    
+          }); 
         res.status(200).json(appointment)
      } catch (err) {
         console.log(err)
@@ -77,11 +77,11 @@ const deleteAppointAsPsychologist = async (req: Request, res: Response) => {
 }
 
 const deleteAppointAsClient = async (req: Request, res: Response) => {
-    const { IdAppointment } = req.body; 
+    const { id } = req.params; 
     try {
-        await appointmentModel.findOneAndDelete({      
-            '_id': IdAppointment,
-            'IdUserClient': req.user
+        await appointmentModel.findOneAndDelete({
+            _id: id,
+            IdUserClient: req.user
         });
         res.send('Appointment deleted succesfully')
     } catch (error) {
@@ -91,8 +91,8 @@ const deleteAppointAsClient = async (req: Request, res: Response) => {
 
 const putAppointment = async (req:Request , res: Response) => {
     try{
-        const { idAppointment } = req.params;
-        const data = await appointmentModel.findByIdAndUpdate(idAppointment, req.body, { new: true })
+        const { IdAppointment } = req.params;
+        const data = await appointmentModel.findByIdAndUpdate( IdAppointment, req.body, { new: true })
         res.status(200).send('Cita editada correctamente')
     } catch(err) {
         res.status(404).send(err)

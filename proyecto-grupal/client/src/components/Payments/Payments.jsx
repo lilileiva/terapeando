@@ -78,7 +78,7 @@ function Payments() {
         <option key={1} value='desc'>Descendente</option>
       </Select>
          </HStack>
-         <HStack justifyContent={'flex-end'}>
+         {/* <HStack justifyContent={'flex-end'}>
          <Text>Filtro por estado: </Text>
         <Select
         w="60%"
@@ -89,7 +89,7 @@ function Payments() {
         <option key={0} value='abonado'>Abonado</option>
         <option key={1} value='desc'>En Proceso</option>
       </Select>
-     </HStack>
+     </HStack> */}
 
        </VStack>
      </HStack>
@@ -110,7 +110,7 @@ function Payments() {
              <Th>Cliente</Th>
              <Th isNumeric>Ingreso</Th>
              <Th >Tipo de pago</Th>
-             <Th >Estado</Th>
+             {/* <Th >Estado</Th> */}
              <Th >Detalle de factura</Th>
            </Tr>
          </Thead>
@@ -122,7 +122,7 @@ function Payments() {
                  <Td>{p.firstName} {p.lastName}</Td>
                  <Td isNumeric>$ {(p.amount - p.amount*0.04 - p.amount*0.05)}</Td>
                  <Td>{p.type}</Td>
-                 {p.status ?
+              {/*    {p.status ?
                  <> 
                  <Td><Badge cursor={'pointer'} colorScheme='green'>Abonado</Badge></Td> 
                  <Td><Link to='/detail/:idPago'><ExternalLinkIcon /></Link></Td>
@@ -130,8 +130,9 @@ function Payments() {
                  : 
                  <>
                  <Td><Badge cursor={'pointer'} colorScheme='purple'>En Proceso</Badge></Td>
-                    <Td></Td>
-                 </>}
+                    
+                 </>} */}
+                 <Td><ExternalLinkIcon /></Td>
                </Tr>
              )
            })}

@@ -113,16 +113,6 @@ export default function NavbarHome() {
                   Home
                 </Text>
               </Link>
-              <Link className={'links'} to={'/proximasconsultas'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                  Proximas consultas
-                </Text>
-              </Link>
-              <Link className={'links'} to={'/mipsicologo'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                  Mi psicólogo
-                </Text>
-              </Link>
               <Link className={'links'} to={'/blog'}>
                 <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Blog

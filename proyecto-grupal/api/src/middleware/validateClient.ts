@@ -11,7 +11,7 @@ module.exports = async(req: Request, res: Response, next: NextFunction) => {
     }
     
     const decodedToken = await jwt.verify(token, process.env.SECRETWORD)
-  console.log(decodedToken)
+  
     if (!token || !decodedToken.id || decodedToken.role !== 'client') {
       return res.status(401).json({ error: 'token missing or invalid' })
     }
@@ -20,6 +20,6 @@ module.exports = async(req: Request, res: Response, next: NextFunction) => {
     req.user = id
     next()
   } catch (error) {
-    return res.status(401).send(error);
+    return res.status(405).send(error);
   }
 }
