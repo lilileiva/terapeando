@@ -162,9 +162,9 @@ export default function PsychologistDetail() {
                                               </>
                                             )
                                           })
-                                          : <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                                            <Text>No hay notas</Text>
-                                          </Box>
+                                          : <Stack width='100%'>
+                                            <Text textAlign='center'>No hay notas</Text>
+                                          </Stack>
                                       }
                                     </Stack>
                                   </Box>

@@ -1,9 +1,9 @@
-.chatApp{
+.chatApp{  
   width: 450px;
   position: fixed;
   bottom:0px;
   right: 0px;
-  z-index: 1000;
+  z-index: 1000;  
 }
 .chat{
   display: flex;

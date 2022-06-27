@@ -8,6 +8,7 @@ const userClient = require("./userClient/userClientRoutes.ts");
 const userPsychologist = require("./userPsychologist/userPsychologistRoutes");
 const rememberPassword = require("./nodemailer/nodemailerRoutes.ts")
 const admin = require("./admin/adminRoutes")
+// const uploadRouter = require("./routes/uploadRouter");
 const router: Router = Router();
 
 router.use('/appointment', appointment)
@@ -19,6 +20,7 @@ router.use('/userclient', userClient)
 router.use('/userpsychologist', userPsychologist)
 router.use('/admin', admin)
 router.use('/nodemailer', rememberPassword)
+// router.use('/file', uploadRouter)
 
 
 module.exports = router;
