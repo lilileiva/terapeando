@@ -5,7 +5,8 @@ const {
     getAppointmentAsClient,
     deleteAppointAsPsychologist,
     deleteAppointAsClient,
-    putAppointment
+    putAppointment,
+    getAppointmentById
 } = require('./appointments');
 
 const appoimentRouter: Router = Router();
@@ -20,5 +21,6 @@ appoimentRouter.get('/client', validateClient, getAppointmentAsClient);
 appoimentRouter.delete('/delete/psychologist/:IdAppointment', validatePsychologist, deleteAppointAsPsychologist);
 appoimentRouter.delete('/delete/client/:IdAppointment', validateClient, deleteAppointAsClient);
 appoimentRouter.put('/put_appointment/:IdAppointment', validateUsers, putAppointment)
+appoimentRouter.get('/:IdAppointment', validateUsers, getAppointmentById)
 
 module.exports = appoimentRouter;

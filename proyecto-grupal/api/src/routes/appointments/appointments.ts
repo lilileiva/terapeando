@@ -32,6 +32,16 @@ const postAppointmentModel = async (req: Request, res: Response) => {
     }
 }
 
+const getAppointmentById = async (req: Request, res: Response) => {
+    const { IdAppointment } = req.params;
+    try {
+        const appointment = await appointmentModel.findById(IdAppointment)        
+        res.status(200).send(appointment)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getAppointmentAsPsychologist = async (req: Request, res: Response) => {
     try {
         const appointment = await appointmentModel.find({ 'IdUserPsychologist': req.user }).populate("IdUserClient", {
@@ -106,4 +116,5 @@ module.exports = {
     deleteAppointAsPsychologist,
     deleteAppointAsClient,
     putAppointment,
+    getAppointmentById
 }

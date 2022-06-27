@@ -12,7 +12,8 @@ import {
   deleteAppointmentAsClient,
   deleteAppointmentAsPsychologist,
   putAppointmentAsClient,
-  putAppointmentAsPsychologist
+  putAppointmentAsPsychologist,
+  updateSchedule
 } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';

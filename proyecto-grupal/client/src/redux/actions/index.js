@@ -281,20 +281,20 @@ export const getUserPsychologistDetails = (IdUserPsichologist) => {
 };
 
 export const getUserPsychologistDetailsCli = (idUserPsychologist) => {
-   return async function (dispatch) {
-     try {
-       const psychologist = await axios.get(
+  return async function (dispatch) {
+    try {
+      const psychologist = await axios.get(
         `${baseURL}/userclient/${idUserPsychologist}`, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-       );
+      );
       dispatch({
-         type: "GET_PSYCHOLOGISTS_DETAILS",
+        type: "GET_PSYCHOLOGISTS_DETAILS",
         payload: psychologist.data,
-       });
+      });
     } catch (error) {
       console.log(error)
-  }
- };
- };
+    }
+  };
+};
 
 //Post para los user Psychologist
 export function createPsychologist(signupForm) {
@@ -495,7 +495,7 @@ export const deletePost = (id) => {
       await axios.delete(
         `${baseURL}/deletePost/${id}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
-        )
+      )
       dispatch({ type: "DELETE_POST", payload: id })
       Swal.fire('Post eliminado correctamente!', '', 'success')
     } catch (error) {
@@ -569,7 +569,7 @@ export function filterReviewsBySychologistAsClient(IdUserPsichologist) {
       const json = await axios.get(
         `${baseURL}/reviews/filter/review/${IdUserPsichologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-        );
+      );
       dispatch({
         type: FILTER_PSYCHOLOGIST_BY_RATING,
         payload: json.data,
@@ -586,7 +586,7 @@ export function filterReviewsBySychologistAsPsycho(IdUserPsichologist) {
       const json = await axios.get(
         `${baseURL}/reviews/filter/review/${IdUserPsichologist}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
-        );
+      );
       dispatch({
         type: FILTER_PSYCHOLOGIST_BY_RATING,
         payload: json.data,
@@ -776,12 +776,29 @@ export function getScheduleByDate(IdUserPsychologist, date) {
   }
 }
 
-export function updateSchedule(idSchedule, updateSchedule){
+export function updateScheduleAsClient(idSchedule, updateSchedule) {
   return async function () {
     try {
-      const data = await axios.put(`${baseURL}/schedule/${idSchedule}`, updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } });
+      const data = await axios.put(
+        `${baseURL}/schedule/${idSchedule}`,
+        updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      );
       console.log(data);
-    }catch(err){
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export function updateScheduleAsPsychologist(idSchedule, updateSchedule) {
+  return async function () {
+    try {
+      const data = await axios.put(
+        `${baseURL}/schedule/${idSchedule}`,
+        updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      );
+      console.log(data);
+    } catch (err) {
       console.log(err)
     }
   }
@@ -798,15 +815,15 @@ export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
       )
       if (newAppointment.status === 200) {
         return Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Cita reservada exitosamente',
-            confirmButtonText: "Para continuar debes pagar la sesión!",
-            confirmButtonColor: '#38B2AC',
-            closeOnConfirm: true
-          }).then(function(){
-            window.location= `http://localhost:3000/checkout/${IdUserPsychologist}`
-           })
+          position: 'center',
+          icon: 'success',
+          title: 'Cita reservada exitosamente',
+          confirmButtonText: "Para continuar debes pagar la sesión!",
+          confirmButtonColor: '#38B2AC',
+          closeOnConfirm: true
+        }).then(function () {
+          window.location = `http://localhost:3000/checkout/${IdUserPsychologist}`
+        })
       }
     } catch (error) {
       console.log(error)
@@ -937,13 +954,13 @@ export function deleteAppointmentAsPsychologist(IdAppointment) {
   }
 }
 
-export function putAppointment(body, id){
-  return async function(dispatch){
-    try{
-      const {info} = await axios.put(`${baseURL}/appointment/putappoint/${id}`, body)
-      dispatch({type: PUT_APPOINTMENT, payload:info})
+export function putAppointment(body, id) {
+  return async function (dispatch) {
+    try {
+      const { info } = await axios.put(`${baseURL}/appointment/putappoint/${id}`, body)
+      dispatch({ type: PUT_APPOINTMENT, payload: info })
       Swal.fire('Ya cambiamos tu turno!', 'muy bien', 'success')
-    } catch (e){
+    } catch (e) {
       console.log(e)
     }
   }
