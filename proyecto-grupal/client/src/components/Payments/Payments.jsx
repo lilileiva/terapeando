@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavbarHome from '../NavbarHome/NavbarHome'
 import { useDispatch, useSelector } from "react-redux";
-import { getPaymentByClientId, sortByDate, getPaymentByPsyId, filterByStatus, sortByDateCli, sortByDatePsy } from "../../redux/actions"
+import { getPaymentByClientId, getPaymentByPsyId, sortByDateCli, sortByDatePsy } from "../../redux/actions"
 import NotFound from '../404notFound/notFound.jsx';
 import Paged from '../Paged/Paged'
 
@@ -35,13 +35,6 @@ function Payments() {
     setOrder(`Order ${e.target.value}`)
     setPage(1)
   }
-
-/*   function handleFilter (e){
-    e.preventDefault();
-    console.log(e.target.value)
-    dispatch(filterByStatus(e.target.value, allPosts))
-    setPage(1)
-  } */
  
   const [page, setPage] = useState(1);
   const [postPage] = useState(7);
@@ -75,19 +68,6 @@ function Payments() {
         <option key={1} value='desc'>Descendente</option>
       </Select>
          </HStack>
-         {/* <HStack justifyContent={'flex-end'}>
-         <Text>Filtro por estado: </Text>
-        <Select
-        w="60%"
-        placeholder="Filtrar por estado:"
-        onChange={handleFilter}
-        cursor={"pointer"}
-      >
-        <option key={0} value='abonado'>Abonado</option>
-        <option key={1} value='desc'>En Proceso</option>
-      </Select>
-     </HStack> */}
-
        </VStack>
      </HStack>
      <TableContainer>

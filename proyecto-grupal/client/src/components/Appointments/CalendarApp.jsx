@@ -29,14 +29,11 @@ function CalendarApp({handleDate, IdUserPsychologist}) {
     }, [dispatch, tokenClient])
 
    let today = startOfToday()
-    console.log(schedule)
    
    let available = []
    schedule.map((s) => {
       available.push(s.date.toString().substring(0,10))
    })
-
-   console.log(available)
 
    let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
    let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())

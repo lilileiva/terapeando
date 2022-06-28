@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
+  getAllPsychologist,
   getUserPsychologistByName,
   clearPsychologistList,
 } from "../../redux/actions";
@@ -18,13 +19,20 @@ import { BsSearch } from "react-icons/bs";
 import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
+import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 import Chat from '../Chat/Chat'
+
 
 export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
+   
+  const search = useLocation().search; 
+  const token = new URLSearchParams(search).get('token');
+  const setToken =  token ? window.localStorage.setItem('tokenClient', token) : null ;
+
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
@@ -67,6 +75,7 @@ export default function Home() {
     dispatch(getPsychologistByStatus())
     setPage(1)
   }
+
 
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
@@ -121,7 +130,7 @@ export default function Home() {
                 : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>
           }
         </div>
-        <Chat />
+        <Chat/>
       </Stack>
       <Stack>
         <Paged

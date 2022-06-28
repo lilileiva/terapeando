@@ -3,7 +3,7 @@ import appointmentModel from '../../models/appointment';
 
 const postAppointmentModel = async (req: Request, res: Response) => {
     const  { IdUserPsychologist } = req.params
-    const { date, hour, type } = req.body;
+    const { date, hour, type, IdSchedule } = req.body;
     if (typeof date !== "string" ||  typeof hour !== "string" || (type !== "Virtual" && type !== "Presencial")) {
         res.status(404).send("Some data is not valid")
     } else {
@@ -18,7 +18,8 @@ const postAppointmentModel = async (req: Request, res: Response) => {
                     hour,
                     type,
                     IdUserClient: req.user,
-                    IdUserPsychologist
+                    IdUserPsychologist,
+                    IdSchedule
                 })
                 console.log(appointment)
                 res.status(201).send("appointment created successfully")
@@ -29,6 +30,16 @@ const postAppointmentModel = async (req: Request, res: Response) => {
         } else {
             res.status(404).json('Ya has reservado una cita en esta fecha')       
         }
+    }
+}
+
+const getAppointmentById = async (req: Request, res: Response) => {
+    const { IdAppointment } = req.params;
+    try {
+        const appointment = await appointmentModel.findById(IdAppointment)        
+        res.status(200).send(appointment)
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -106,4 +117,5 @@ module.exports = {
     deleteAppointAsPsychologist,
     deleteAppointAsClient,
     putAppointment,
+    getAppointmentById
 }

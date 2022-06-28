@@ -23,9 +23,8 @@ import { gapi } from "gapi-script";
 import Login from "../LogGoogle/LogInGoogle";
 import axios from "axios";
 import { loginClient } from "../../redux/actions";
-import ForgotPassword from "../ForgotPassword/ForgotPassword.jsx"
 import { LOCAL_HOST } from "../../redux/actions/types";
-
+import ForgotPassword from "../ForgotPassword/ForgotPassword.jsx"
 const clientId =
   "451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com";
 const baseURL = LOCAL_HOST;
@@ -47,6 +46,10 @@ function LoginForm() {
     gapi.load("client:auth2", start);
   });
   //var accessToken = gapi.auth.getToken().acces_token;
+
+// function handleAxios() {
+//   const response =  axios.get("http://localhost:3001/userclient/auth/google")
+// }
 
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -164,13 +167,6 @@ function LoginForm() {
   const tokenClient = window.localStorage.getItem("tokenClient");
   const tokenPsychologist = window.localStorage.getItem("tokenPsychologist");
 
-  const handleLogin = async () => {
-    const response = await axios.get(`${LOCAL_HOST}/userclient/google`,{
-      mode: 'cors',
-    })
-    console.log('response: ', response)
-  }
-
   return (
     <div className="background">
       {tokenClient || tokenPsychologist ? <NavbarHome /> : <NavBar />}
@@ -285,7 +281,7 @@ function LoginForm() {
                     </Text>
                   )}
 
-                  <Stack direction="column"  justifyContent={'center'}   margin={'2em'}>
+                  <Stack direction="row"  justifyContent={'center'}   margin={'2em'}>
                     <Button
                       type="submit"
                       bg={"#63caa7"}
@@ -298,7 +294,29 @@ function LoginForm() {
                       Iniciar sesión
                     </Button>
 
-                    <a href="http://localhost:3001/userclient/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
+                     {/* <Login mt='1em' /> */}
+                    {/* <Button bg='green.100' color={'#63caa7'}> */}
+                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                    {/* </Button> */}
+
+                    {/* <Button onClick={handleAxios}> Inicia sesión con &nbsp;<FaGoogle/>  </Button> */}
+                    <a href="http://localhost:3001/userclient/auth/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
+
+                   
+                   {/* <Button
+                     type="submit"
+                     bg={"#63caa7"}
+                     color="white"
+                     variant="solid"
+                     _hover={[{ color: "#63caa7" }, { bg: "white" }]}
+                     display={'flex'}
+                     onClick={handleLogin}
+                 
+                      
+                      > 
+                   Inicia sesión con &nbsp;<FaGoogle /> 
+                    </Button> */}
+
                     </Stack>
 
                     <Stack >

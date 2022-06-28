@@ -26,14 +26,15 @@ import {
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
   FILTER_BY_STATUS,
   GET_SCHEDULE,
-  GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
-  DELETE_APPOINTMENT_AS_CLIENT,
+  GET_APPOINTMENT_BY_ID,
+  DELETE_APPOINTMENT_AS_CLIENT,  
   PUT_APPOINTMENT,
   CLEAR_SCHEDULE,
   SORT_BY_DATE_PSY,
-  SORT_BY_DATE_CLI
+  SORT_BY_DATE_CLI,
+  GET_SCHEDULE_BY_ID
 } from "../actions/types";
 
 const initialState = {
@@ -49,6 +50,7 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: [],
+  scheduleDetails: {},
   paymentDetailsClient: [],
   paymentDetailsPsychologist: [],
   allPayments: [],
@@ -56,6 +58,7 @@ const initialState = {
   adminSearchbar: "",
   reviews: [],
   appointments: [],
+  appointmentDetails: {},
   appoint: []
 };
 
@@ -225,10 +228,10 @@ function rootReducer(state = initialState, action) {
           ...state,
           schedule: action.payload
         }
-      case GET_SCHEDULE_BY_DATE:
+      case GET_SCHEDULE_BY_ID:
         return {
           ...state,
-          schedule: action.payload
+          scheduleDetails: action.payload
         }
 
     /*-----------APPOINTMENTS-----------*/
@@ -317,7 +320,7 @@ function rootReducer(state = initialState, action) {
         // Only clients
         case SORT_BY_DATE_CLI:
           let sortedPaymentsCli = [state.paymentDetailsClient];
-          sortedPayments =
+          sortedPaymentsCli =
             action.payload === "asc"
               ? state.paymentDetailsClient.sort(function (a, b) {
                   return new Date(a.createdAt) - new Date(b.createdAt);
@@ -332,7 +335,7 @@ function rootReducer(state = initialState, action) {
           // Only Psy
           case SORT_BY_DATE_PSY:
             let sortedPaymentsPsy = [state.paymentDetailsPsychologist];
-            sortedPayments =
+            sortedPaymentsPsy =
               action.payload === "asc"
                 ? state.paymentDetailsPsychologist.sort(function (a, b) {
                     return new Date(a.createdAt) - new Date(b.createdAt);
@@ -373,27 +376,15 @@ function rootReducer(state = initialState, action) {
           ...state,
           appointments: action.payload
         }
+      case GET_APPOINTMENT_BY_ID:
+        return {
+          ...state,
+          appointmentDetails: action.payload
+        }
       case DELETE_APPOINTMENT_AS_CLIENT:
         return {
           ...state,
           appointments: state.appointments.filter(appo => appo._id !== action.payload)
-        }
-      case PUT_APPOINTMENT:
-      return {
-        ...state,
-        appoint: action.payload
-      };
-
-      /*-----------SCHEDULE-----------*/
-      case GET_SCHEDULE:
-        return {
-          ...state,
-          schedule: action.payload
-        }
-      case GET_SCHEDULE_BY_DATE:
-        return {
-          ...state,
-          schedule: action.payload
         }
 
     /*-----------CLEAR-----------*/

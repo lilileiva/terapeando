@@ -19,7 +19,7 @@ function Map({ lat, lng }) {
     lng: Number(lng)
   }
   const [map, setMap] = useState(null)
-  const [zoom, setZoom] = useState(11)
+  const [zoom, setZoom] = useState(0)
 
   useEffect(() => {
     setZoom(10)

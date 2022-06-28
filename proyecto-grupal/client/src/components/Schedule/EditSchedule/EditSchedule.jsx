@@ -7,6 +7,8 @@ import { Stack, Button, Select, Text, HStack, VStack } from '@chakra-ui/react';
 import { createSchedule } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
+import startOfToday from 'date-fns/startOfToday/index';
+import { daysToWeeks } from 'date-fns';
 
 
 function EditSchedule() {
@@ -22,9 +24,8 @@ function EditSchedule() {
     e.preventDefault();
     setInput({
       ...input,
-      ...inputDate,
-      date: inputDate,
-      hours: [...input.hours.filter(h => h !== e.target.value), e.target.value]
+      date: input.date,
+      hours: [...input.hours.filter(h => new Date(h).getHours() !== (new Date(e.target.value)).getHours()), e.target.value]
     })
   }
   const handleDeleteHour = (hour) => {
@@ -34,84 +35,96 @@ function EditSchedule() {
     })
   }
 
+  const handleInputChange = (inputDate) => {
+    setInput({
+      ...input,
+      date: inputDate,
+      hours: [...input.hours]
+    })
+  }
+
   const handleInputSubmit = (e) => {
     e.preventDefault();
-    if (!inputDate || input.hours.length === 0) {
+    if (!input.date || input.hours.length === 0) {
       Swal.fire(
         'Datos incompletos',
         'Debes insertar al menos una fecha y horario...',
         'question'
       )
-    } else {
-      setInput({
-        ...inputDate,
-        ...input,
-        date: inputDate,
-        hours: input.hours
-      })
     }
     dispatch(createSchedule(input))
   }
 
-  const todayDate = new Date() //fecha de hoy
-  const todayDatePLusMonth = new Date(new Date(todayDate).setMonth(todayDate.getMonth() + 1)) //fecha de hoy más un mes
-
   let hourList = []
-  let start = new Date();
-  start.setUTCHours(0, 0, 0, 0);
-
-  let end = new Date();
-  end.setUTCHours(23, 59, 59, 999);
-  console.log()
-
-  for (let i = 8; i < 21; i++) {
-    hourList.push(i + ':00')
+  const startOfDay = new Date(0,0,0,0);
+  for (let i = 0; i < 24; i++) {
+    const hour = new Date(startOfDay.setUTCHours((startOfDay.getUTCHours() + 1)))
+    if (input.hours.length < 8) {
+      hourList.push(hour)
+    } else {
+      Swal.fire('Pruedes agregar un máximo de ocho horarios por fecha', '', 'info')
+    }
   }
 
   return (
-    <Stack direction='column' height='100%' justify='space-between'>
+    <Stack direction='column' minHeight='100%' justify='space-between'>
       <NavbarHome />
 
-      <Stack direction='column' width='100%' p='10%' justify='center'>
+      <Stack direction='column' width='100%' pr='10%' pl='10%' justify='center'>
 
         <VStack maxW={'100%'} justifyContent={'center'} px={'20%'}>
 
-          <Calendar handleDate={inputDate => setInputDate(inputDate)}
+          {/* <Calendar handleDate={inputDate => setInputDate(inputDate)} */}
+          <Calendar handleDate={inputDate => handleInputChange(inputDate)}
           />
 
-        <Select w={'100%'} placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
-          {
-            hourList.map((hour) => (
-              <option key={hour} value={hour} >{hour}</option>
-            ))
-          }
-        </Select> 
+          <Select w={'100%'} placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
+            {
+              hourList.map((hour) => {
+                let hourUTC = new Date(hour)
+                return (
+                  <option key={hour} value={hourUTC}>{hourUTC.getHours()}:00</option>
+                )
+              })
+            }
+          </Select>
         </VStack>
 
         <VStack w={'100%'} px={'20%'} alignItems={'flex-start'}>
-
-        {
-          inputDate
-            ? <Text>{inputDate.getDate()}/{inputDate.getMonth() + 1}</Text>
-            : <Text>Selecciona una fecha</Text>
-        }
-        <Text>Horarios: </Text>
-        <Stack direction='row' justify='center' align='center'>
           {
-            input.hours.length !== 0
-              ? (
-                input.hours.map((hour) => (
-                  <Stack direction='row'>
-                    <Text>{hour}</Text>
-                    <Button onClick={() => handleDeleteHour(hour)}>X</Button>
-                  </Stack>
-                ))
-              ) : <Text>Añade horarios</Text>
+            inputDate
+              ? <Stack direction='row' align='center'>
+                <Text fontSize='xl'>Fecha: </Text>
+                {
+                  input.date
+                    ? <Text bg='teal.100' p='0.5em' borderRadius='0.5em'>
+                      {input.date.getDate()}/{input.date.getMonth()}
+                    </Text>
+                    : <Text mb='1em'>Añade una fecha</Text>
+                }
+              </Stack>
+              : <Text mt='1em' mb='1em'>Selecciona una fecha</Text>
           }
-        </Stack>
-        <Button colorScheme='teal' variant='solid' onClick={(e) => handleInputSubmit(e)}>
-          Agregar fecha a mi agenda
-        </Button>
+          <Text fontSize='xl'>Horarios: </Text>
+          <Stack direction='row' justify='center' align='center'>
+            {
+              input.hours.length !== 0
+                ? (
+                  input.hours.map((hour) => {
+                    let hourUTC = new Date(hour)
+                    return (
+                      <Stack direction='row' align='center' bg='teal.100' p='0.5em' borderRadius='0.5em'>
+                        <Text>{hourUTC.getHours()+1}:00</Text>
+                        <Text cursor='pointer' onClick={() => handleDeleteHour(hour)}>X</Text>
+                      </Stack>
+                    )
+                  })
+                ) : <Text mb='1em'>Añade horarios disponibles</Text>
+            }
+          </Stack>
+          <Button colorScheme='teal' variant='solid' onClick={(e) => handleInputSubmit(e)}>
+            Agregar fecha a mi agenda
+          </Button>
         </VStack>
       </Stack>
       <Footer />

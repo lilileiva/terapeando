@@ -163,9 +163,9 @@ export default function PsychologistDetail() {
                                               </>
                                             )
                                           })
-                                          : <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                                            <Text>No hay notas</Text>
-                                          </Box>
+                                          : <Stack width='100%'>
+                                            <Text textAlign='center'>No hay notas</Text>
+                                          </Stack>
                                       }
                                     </Stack>
                                   </Box>
@@ -212,7 +212,7 @@ export default function PsychologistDetail() {
                         <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
                           <CloseIcon cursor='pointer' onClick={() => setShowMap(false)} />
                         </Stack>
-                        <Map lat={detail.latitude} lgn={detail.longitude} />
+                        <Map lat={detail.latitude} lng={detail.longitude} />
                       </Stack>
                     </div>
                   ) : null
