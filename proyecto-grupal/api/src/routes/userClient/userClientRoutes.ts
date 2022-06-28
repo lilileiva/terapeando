@@ -8,11 +8,11 @@ const {
     getPsychologistDetails,
     googleLogin
 } = require('./userClient.ts')
+import userClientModel from "../../models/userClients";
 const validateClient = require('../../middleware/validateClient')
 const validateAdmin = require('../../middleware/ValidateAdminToken')
 import { Request, Response } from "express";
 const passport = require('passport')
-import userClientModel from "../../models/userClients";
 import userPsychologistModel from "../../models/userPsychologist";
 const clientRouter: Router = Router();
 const jwt = require("jsonwebtoken");
@@ -20,8 +20,8 @@ const jwt = require("jsonwebtoken");
 
 
 clientRouter.get('/auth/google/callback', passport.authenticate('google'), async(req: any, res: Response) => {
+    console.log(req.user)
     if (req.user) { 
-
         const user = req.user.role === 'client' ?  await userClientModel.findOne({email: req.user.email }) : await userPsychologistModel.findOne({email: req.user.email })
         const userForToken = {
             id: user?._id,
@@ -43,6 +43,9 @@ clientRouter.post('/client/register', createUserClient)
 clientRouter.post('/client/login', logInClient)
 clientRouter.delete('/deleteuserclient', validateClient, deleteUserClient)
 clientRouter.put('/editprofile', validateClient, putUserClient)
+
+
+
 
 //Falta middleware solo de admin
 module.exports = clientRouter;  

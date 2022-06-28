@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { Link } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -11,15 +12,15 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
   Badge,
-  Select
+  Select,
+  Switch
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import countryList from 'react-select-country-list';
 import { useDispatch, useSelector } from 'react-redux';
 import { editClient, editUserPsichologist, getUserClient, getUserPsychologistOne } from '../../redux/actions';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeleteModal from '../Modals/DeleteModal';
 import NotFound from "../404notFound/notFound";
 import NavbarHome from '../NavbarHome/NavbarHome.jsx'
@@ -31,111 +32,105 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import Swal from "sweetalert2";
 
-const regNames = /^[A-Za-z]+$/;
-const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-
-
-function validate(input) {
-  const error = {};
-  if (!regNames.test(input.firstname)) error.firstName = 'El nombre no es valido'
-  if (!regNames.test(input.lastname)) error.lastName = 'El apellido no es válido'
-  if (!regEmail.test(input.email)) error.email = 'El email no es válido'
-  return error
-}
 
 function FormEditClient() {
-  const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null
-  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const countries = useMemo(() => countryList().getData(), [])
-  // const { idUserClient } = useParams();
+
   const clientDetails = useSelector((state) => state.userClientDetail)
-  console.log(clientDetails)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
+  console.log(psychologistDetails)
   const [error, setError] = useState({});
 
+  const [address, setAddress] = useState(psychologistDetails.location || "");
+  const [coordinates, setCoordinates] = useState({
+    lat: psychologistDetails.location || null,
+    lng: psychologistDetails.latitude || null
+  });
 
   const [input, setInput] = useState({
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
-    country: clientDetails.country || null,
-    // country: psychologistDetails.location,
-    location: psychologistDetails.location || null,
-    latitude: psychologistDetails.latitude || null,
-    longitude: psychologistDetails.longitude || null,
+    country: clientDetails.country  || '',
+    location: psychologistDetails.location || '',
+    latitude: '',
+    longitude: '',
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,
     DNI: psychologistDetails.DNI,
     Licencia: psychologistDetails.License,
-    about: psychologistDetails.about
+    about: psychologistDetails.about,
+    psychologistStatus: psychologistDetails.psychologistStatus
   })
 
-  console.log('local', psychologistDetails)
+  const regNames = /^[A-Za-z]+$/;
+  const regEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+
+  function validate(input) {
+    const error = {};
+    if (!regNames.test(input.firstName)) error.firstName = 'El nombre no es valido'
+    if (!regNames.test(input.lastName)) error.lastName = 'El apellido no es válido'
+    if (!regEmail.test(input.email)) error.email = 'El email no es válido'
+    return error
+  }
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
+
   useEffect(() => {
     if (tokenClient) dispatch(getUserClient());
     if (tokenPsychologist) dispatch(getUserPsychologistOne());
-  }, []);
+  }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();
-    setInput((input) => {
-      const newInput = {
-        ...input,
-        [e.target.name]: e.target.value,
-      };
-      const validation = validate(newInput);
-      setError(validation);
-      return newInput;
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
     });
   }
-  console.log('input', input)
 
+  const [isSubmit, setIsSubmit] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
+    setError(validate(input))
+    setIsSubmit(true)
+  }
 
-    if (Object.values(error).length > 0) {
-      alert("La información no cumple con los requerimientos");
-    } else if (tokenPsychologist && input.location === "") {
-      Swal.fire(
-        'Campos incompletos',
-        'Por favor no dejes campos en blanco',
-        'question'
-      )
-    } else if (
-      input.firstName === "" ||
-      input.lastName === "" ||
-      input.email === "" ||
-      input.country === "" ||
-      input.profileImage === ""
-    ) {
-      Swal.fire(
-        'Campos incompletos',
-        'Por favor no dejes campos en blanco',
-        'question'
-      )
-    } else {
-      if (tokenClient) {
-        dispatch(editClient(input))
-      } else if (tokenPsychologist) {
-        dispatch(editUserPsichologist(input))
+  useEffect(() => {
+    if (isSubmit) {
+      if (Object.values(error).length > 0) {
+        Swal.fire('Campos inválidos', 'Por favor verifica tu información', 'question')
+        setIsSubmit(false)
       }
-      setInput({
-        firstName: '',
-        lastName: '',
-        email: '',
-        country: '',
-        profileImage: ''
-      })
-      navigate("/home")
+      if (tokenClient) {
+        if (!input.firstName || !input.lastName || !input.email || !input.country || !input.profileImage) {
+          Swal.fire('Campos incompletos', 'Por favor no dejes campos en blanco', 'question')
+        } else {
+          dispatch(editClient(input))
+          navigate(`/home/${clientDetails.firstName}`)
+          Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+        }
+      } else if (tokenPsychologist) {
+        if (!input.firstName || !input.lastName || !input.email || !input.location || !input.profileImage) {
+          Swal.fire('Campos incompletos', 'Por favor no dejes campos en blanco', 'question')
+        } else {
+          dispatch(editUserPsichologist(input))
+          navigate(`/home/${psychologistDetails.firstName}`)
+          Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
+        }
+      }
     }
+  }, [isSubmit, tokenClient, tokenPsychologist])
+
+  const handleLocation = async (address) => {
+    const results = await geocodeByAddress(address);
+    const latLng = await getLatLng(results[0]);
+    setAddress(address);
+    setCoordinates(latLng)
   }
 
   useEffect(() => {
@@ -148,13 +143,6 @@ function FormEditClient() {
   }, [address, coordinates])
 
 
-
-  const handleLocation = async (address) => {
-    const results = await geocodeByAddress(address);
-    const latLng = await getLatLng(results[0]);
-    setAddress(address);
-    setCoordinates(latLng)
-  }
   return (
     <Stack className='ClientDetailsContainer'>
       {
@@ -169,10 +157,15 @@ function FormEditClient() {
                   justify={'center'}
                   bg='gray.50'>
                   <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                    <Stack align={'center'}>
-                      <Heading fontSize={'4xl'} textAlign={'center'}>
-                        Edita tu Información Personal
-                      </Heading>
+                    <Stack align={'space-between'}>
+                      <Stack direction='row'>
+                        <Heading fontSize={'3xl'} textAlign={'left'}>
+                          Edita tu Información Personal
+                        </Heading>
+                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "teal", color: "white" }}>
+                          <Link to={`/home/${psychologistDetails.firstName}`}>Cancelar</Link>
+                        </Button>
+                      </Stack>
                       <Text fontSize={'lg'} color={'gray.600'}>
                         Mantene tus datos actualizados
                       </Text>
@@ -204,20 +197,14 @@ function FormEditClient() {
                           <Input type="email" name='email' placeholder={clientDetails.email} value={input.email} onChange={(e) => handleChange(e)} />
                           {error.email && <Badge colorScheme='red'>{error.email}</Badge>}
                         </FormControl>
-                        {/* <FormControl id="country">
-                          <FormLabel>Pais de residencia</FormLabel>
-                          <Input type="country" name='country' placeholder={clientDetails.country} value={input.country} onChange={(e) => handleChange(e)} />
-                        </FormControl> */}
-                        {/* <FormControl id="country"> */}
                         <FormLabel>Pais de residencia</FormLabel>
-                        <Select value={input.location} variant='flushed' placeholder=' País' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
+                        <Select placeholder=' País' value={input.country} variant='flushed' color='gray.500' bg='white' mt='2em' name='country' onChange={(e) => handleChange(e)} >
                           {
                             countries.map(c => (
                               <option key={c.label} value={c.label}>{c.label}</option>
                             ))
                           }
                         </Select>
-                        {/* </FormControl> */}
                         <FormControl id="profileImage">
                           <FormLabel>Imagen de perfil</FormLabel>
                           <Input type="profileImage" name='profileImage' placeholder={clientDetails.profileImage} value={input.profileImage} onChange={(e) => handleChange(e)} />
@@ -235,7 +222,7 @@ function FormEditClient() {
                             bg={'green.100'}
                             color='teal.500'
                             _hover={{
-                              bg: 'green.500',
+                              bg: 'teal',
                               color: 'white'
                             }}
                             type='submit'
@@ -262,15 +249,20 @@ function FormEditClient() {
                   justify={'center'}
                   bg='gray.50'>
                   <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                    <Stack align={'center'}>
-                      <Heading fontSize={'4xl'} textAlign={'center'}>
-                        Edita tu Información Personal
-                      </Heading>
+                    <Stack align={'space-between'}>
+                      <Stack direction='row'>
+                        <Heading fontSize={'3xl'} textAlign={'left'}>
+                          Edita tu Información Personal
+                        </Heading>
+                        <Button maxW={"40%"} fontSize={"sm"} rounded={"full"} _focus={{ bg: "teal.600" }} bg={"green.100"} color="teal.500" _hover={{ bg: "teal", color: "white" }}>
+                          <Link to={`/home/${psychologistDetails.firstName}`}>Cancelar</Link>
+                        </Button>
+                      </Stack>
                       <Text fontSize={'lg'} color={'gray.600'}>
                         Mantene tus datos actualizados
                       </Text>
                     </Stack>
-                    <Box
+                    <Box                    
                       rounded={'lg'}
                       bg='white'
                       boxShadow={'lg'}
@@ -321,7 +313,6 @@ function FormEditClient() {
                               </div>
 
                             )}
-
                           </PlacesAutocomplete>
                         </FormControl>
                         <FormControl id="DNI">
@@ -346,6 +337,14 @@ function FormEditClient() {
                             mt={4}
                           />
                         </FormControl>
+                        <FormControl align='center' justify='center'>
+                          <Text fontSize='xl' fontWeight='500'>Disponibilidad: {input.psychologistStatus}</Text>
+                          {
+                            input.psychologistStatus === 'Inactivo'
+                              ? <Switch size='lg' onChange={() => setInput({ ...input, psychologistStatus: 'Activo' })} />
+                              : <Switch isChecked color='green' size='lg' onChange={() => setInput({ ...input, psychologistStatus: 'Inactivo' })} />
+                          }
+                        </FormControl>
                         <Stack spacing={10} pt={2}>
                           <Button
                             loadingText="Submitting"
@@ -353,7 +352,7 @@ function FormEditClient() {
                             bg={'green.100'}
                             color='teal.500'
                             _hover={{
-                              bg: 'green.500',
+                              bg: 'teal',
                               color: 'white'
                             }}
                             type='submit'

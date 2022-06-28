@@ -21,7 +21,7 @@ adminRouter.post("/signUp", registerAdmin);
 
 //Rutas admin cliente
 adminRouter.get('/userclient/clients', ValidateAdmin, getAllUserClient);
-adminRouter.get('/userclient/client/:idUserClient', ValidateAdmin, getUserClientById);
+adminRouter.get('/userclient/clients/:IdUserClient', ValidateAdmin, getUserClientById);
 adminRouter.put("/userclient/update/:IdUserClient", ValidateAdmin, updateClientDetails);
 adminRouter.delete("/userclient/deleteuserclient/:IdUserClient", ValidateAdmin, deleteClient);
 
