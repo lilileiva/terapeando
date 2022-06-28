@@ -37,10 +37,19 @@ export default function Home() {
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
+<<<<<<< HEAD
   useEffect(() => {
     dispatch(getPsychologistByStatus());
     smoothscroll();
   }, [dispatch]);
+=======
+// function handleAxios() {
+//   const response =  axios.get("http://localhost:3001/userclient/auth/google")
+// }
+
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+>>>>>>> c49881fc30ba21556bfb58d99e0027acefe32a19
 
   useEffect(() => {
     if (adminSearchbar.length !== 0) {
@@ -125,6 +134,7 @@ export default function Home() {
                       IdUserPsychologist={el._id}
                       Specialties={el.Specialties}
                     />
+<<<<<<< HEAD
                   )
                 })
                 : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>
@@ -143,5 +153,84 @@ export default function Home() {
         <Footer />
       </Stack>
     </Stack>
+=======
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleClick}>
+                        {show ? "Hide" : "Show"}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  {formErrors.password && (
+                    <Text fontSize="sm" color="teal.500">
+                      {formErrors.password}
+                    </Text>
+                  )}
+
+                  <Stack direction="row"  justifyContent={'center'}   margin={'2em'}>
+                    <Button
+                      type="submit"
+                      bg={"#63caa7"}
+                      color="white"
+                      variant="solid"
+                      _hover={[{ color: "#63caa7" }, { bg: "white" }]}
+                      display={'flex'}
+                  
+                    >
+                      Iniciar sesión
+                    </Button>
+
+                     {/* <Login mt='1em' /> */}
+                    {/* <Button bg='green.100' color={'#63caa7'}> */}
+                    {/* Inicia sesión con &nbsp; <FaGoogle /> */}
+                    {/* </Button> */}
+
+                    {/* <Button onClick={handleAxios}> Inicia sesión con &nbsp;<FaGoogle/>  </Button> */}
+                    <a href="http://localhost:3001/userclient/auth/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
+
+                   
+                   {/* <Button
+                     type="submit"
+                     bg={"#63caa7"}
+                     color="white"
+                     variant="solid"
+                     _hover={[{ color: "#63caa7" }, { bg: "white" }]}
+                     display={'flex'}
+                     onClick={handleLogin}
+                 
+                      
+                      > 
+                   Inicia sesión con &nbsp;<FaGoogle /> 
+                    </Button> */}
+
+                    </Stack>
+
+                    <Stack >
+
+                    <Button
+                      bg="green.100"
+                      color={"#285e61"}
+                      onClick={() => navigate("/signup")}
+                    >
+                      ¿Aún no tienes una cuenta?
+                    </Button>
+                    <Button
+                      bg="green.100"
+                      color={"#285e61"}
+                      
+                    >
+                      <ForgotPassword/>
+                    </Button>
+                    </Stack>
+                  
+                </form>
+              </Box>
+            </Box>
+          </>
+        )}
+      </Container>
+
+      <Footer />
+    </div>
+>>>>>>> c49881fc30ba21556bfb58d99e0027acefe32a19
   );
 }

@@ -16,7 +16,7 @@ const Admin_1 = __importDefault(require("../../models/Admin"));
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const logInAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
+    const { email, password, adminPassword } = req.body;
     try {
         if (!email || !password) {
             return res
@@ -40,9 +40,8 @@ const logInAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                     expiresIn: 60 * 60 * 24 * 7,
                 });
                 res.send({
-                    name: `${user === null || user === void 0 ? void 0 : user.firstName} ${user === null || user === void 0 ? void 0 : user.lastName}`,
-                    email: user === null || user === void 0 ? void 0 : user.email,
-                    token,
+                    id: user._id,
+                    token
                 });
             }
         }

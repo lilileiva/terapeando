@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userPsychologist = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
-const appointment_1 = require("./appointment");
 const bcrypt = require('bcryptjs');
 const saltRounds = Number(process.env.SALTROUNDS);
 let userPsychologist = class userPsychologist {
@@ -73,7 +72,15 @@ __decorate([
 __decorate([
     (0, typegoose_1.prop)({ required: true }),
     __metadata("design:type", String)
-], userPsychologist.prototype, "country", void 0);
+], userPsychologist.prototype, "location", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ required: true }),
+    __metadata("design:type", String)
+], userPsychologist.prototype, "latitude", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ required: true }),
+    __metadata("design:type", String)
+], userPsychologist.prototype, "longitude", void 0);
 __decorate([
     (0, typegoose_1.prop)({ unique: true, required: true }),
     __metadata("design:type", String)
@@ -106,10 +113,6 @@ __decorate([
     (0, typegoose_1.prop)(),
     __metadata("design:type", String)
 ], userPsychologist.prototype, "status", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ ref: () => appointment_1.appointment }),
-    __metadata("design:type", Array)
-], userPsychologist.prototype, "appointments", void 0);
 __decorate([
     (0, typegoose_1.prop)(),
     __metadata("design:type", String)

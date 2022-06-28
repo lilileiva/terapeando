@@ -8,23 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-require('dotenv').config();
-const { DB_NAME, DB_PASSWORD, DB_USERNAME, DB_CLUSTERNAME } = process.env;
-// Database Connection
-function connectDB() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const db = yield mongoose_1.default.connect(`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_CLUSTERNAME}.z5mrv.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`);
-            console.log('database is connected to', db.connection.db.databaseName);
+const jwt = require('jsonwebtoken');
+module.exports = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const authorization = req.get('Authorization');
+        let token = '';
+        if (authorization && authorization.toLowerCase().startsWith('bearer')) {
+            token = authorization.substring(7);
         }
-        catch (e) {
-            console.log(e);
+        const decodedToken = yield jwt.verify(token, process.env.SECRETWORD);
+        //console.log(decodedToken)
+        if (!token || !decodedToken.id || decodedToken.role !== 'Admin') {
+            return res.status(401).json({ error: 'token missing or invalid' });
         }
-    });
-}
-exports.default = connectDB;
+        const { id } = decodedToken;
+        req.user = id;
+        next();
+    }
+    catch (error) {
+        return res.status(401).send(error);
+    }
+});

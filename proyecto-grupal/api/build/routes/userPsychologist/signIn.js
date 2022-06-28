@@ -25,6 +25,7 @@ const logInPsychologist = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
         else {
             const user = yield userPsychologist_1.default.findOne({ email });
+            console.log(user);
             const passwordCorrect = user === null ? false : yield bcrypt.compare(password, user.password);
             if (!(user && passwordCorrect)) {
                 res.status(401).json({

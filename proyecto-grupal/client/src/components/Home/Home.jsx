@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
@@ -19,8 +19,13 @@ import { BsSearch } from "react-icons/bs";
 import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
+<<<<<<< HEAD
 import Chat from '../Chat/Chat'
 import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
+=======
+import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
+import Chat from '../Chat/Chat'
+>>>>>>> c49881fc30ba21556bfb58d99e0027acefe32a19
 
 
 export default function Home() {
@@ -28,6 +33,19 @@ export default function Home() {
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
+   
+
+  const search = useLocation().search; 
+  const role = new URLSearchParams(search).get('role');
+  const token = new URLSearchParams(search).get('token');
+  console.log(token)
+  console.log(role)
+
+useEffect(() => {
+  const setToken =  role === 'client' ? window.localStorage.setItem('tokenClient', token) : role === 'psychologist' ? window.localStorage.setItem('tokenPsychologist', token) :  null ;
+}, [])
+
+
 
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')

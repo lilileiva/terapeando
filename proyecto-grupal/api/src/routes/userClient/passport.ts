@@ -1,8 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy
-const mongoose = require('mongoose')
 import userClientModel from "../../models/userClients"
-import { Request, Response, NextFunction } from "express";
-const jwt = require("jsonwebtoken");
+import { error } from "console";
+import userPsychologistModel from "../../models/userPsychologist";
 module.exports = function (passport:any) {
   passport.use(
     new GoogleStrategy(
@@ -10,33 +9,30 @@ module.exports = function (passport:any) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/userclient/auth/google/callback',
-       // proxy: true
       },
       async (accessToken:any, refreshToken:any, profile:any, done:any) => {
-        //get the user data from google
-        // console.log("este es el profile" + Object.values(profile))
         const newUser = {
-          // firstName: profile.name.givenName,
-          // lastName: profile.name.familyName,
           email: profile.emails[0].value,
-          // profileImage: profile.photos[0].value,
-          // role: "client"
         }
-        let tokenApi = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjVlNjkxMmIyNWQ3Mzk4ZDc2NTFlZSIsInJvbGUiOiJwc3ljaG9sb2dpc3QiLCJpYXQiOjE2NTYzNDUwNjAsImV4cCI6MTY1Njk0OTg2MH0.P0AZmGHbdmeOIXvwgs_CCe1isLDQunIJficFJtI3WZ0'
-
-        console.log( 'token api: ' , tokenApi.length)
-        console.log( 'token google: ' , accessToken.length)
-        // console.log("este es el nuevo usuario " +newUser.firstName)
-        // console.log(newUser.lastName)
-
         try {
           //find the user in our database 
           let user = await userClientModel.findOne({email: newUser.email})
+<<<<<<< HEAD
+=======
+          console.log('cliente',user)
+          user ? null : user = await userPsychologistModel.findOne({email: newUser.email})
+          console.log('psicologo',user)
+>>>>>>> c49881fc30ba21556bfb58d99e0027acefe32a19
           if (user) {
             //If user present in our database.
             done(null, user)
           } else {
+<<<<<<< HEAD
             done(null, false)
+=======
+            // if user is not preset in our database save user data to database.
+            done('Debes regstrarte primero', null)
+>>>>>>> c49881fc30ba21556bfb58d99e0027acefe32a19
           }
         } catch (err) {
           console.error(err)
