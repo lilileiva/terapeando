@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 import * as crypto from "crypto";
 
+
 const ForgotPassword = async (req: Request, res: Response) => {
 
   const { email } = req.body;
@@ -14,9 +15,6 @@ const ForgotPassword = async (req: Request, res: Response) => {
   try {
    
     const user = userPsychologist.length < 1 ? userClient : userPsychologist
-    //const userPsychologist = await userPsychologistModel.find({ "email": email })
-    //console.log(userPsychologist)
-    //const user = await userPsychologistModel.find({ "email": email })
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",

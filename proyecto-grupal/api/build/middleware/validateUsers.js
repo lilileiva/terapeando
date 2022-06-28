@@ -18,7 +18,7 @@ module.exports = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             token = authorization.substring(7);
         }
         const decodedToken = yield jwt.verify(token, process.env.SECRETWORD);
-        if (!token || !decodedToken.id && (decodedToken.role !== 'psychologist' || decodedToken.role !== 'client')) {
+        if (!token || !decodedToken.id || (decodedToken.role !== 'psychologist' && decodedToken.role !== 'client')) {
             return res.status(401).json({ error: 'token missing or invalid' });
         }
         const { id } = decodedToken;

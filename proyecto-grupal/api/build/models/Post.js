@@ -14,7 +14,7 @@ const userPsychologist_1 = require("./userPsychologist");
 class Post {
 }
 __decorate([
-    (0, typegoose_1.prop)(),
+    (0, typegoose_1.prop)({ default: Date.now() }),
     __metadata("design:type", String)
 ], Post.prototype, "Date", void 0);
 __decorate([
@@ -33,6 +33,10 @@ __decorate([
     (0, typegoose_1.prop)(),
     __metadata("design:type", Array)
 ], Post.prototype, "Tags", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ default: Date.now() }),
+    __metadata("design:type", Date)
+], Post.prototype, "createdAt", void 0);
 __decorate([
     (0, typegoose_1.prop)({ ref: () => userPsychologist_1.userPsychologist }),
     __metadata("design:type", Object)

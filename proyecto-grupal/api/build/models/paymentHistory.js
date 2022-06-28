@@ -73,6 +73,10 @@ __decorate([
     (0, typegoose_1.prop)({ default: Date.now() }),
     __metadata("design:type", Date)
 ], paymentHistory.prototype, "createdAt", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ type: Boolean }),
+    __metadata("design:type", Boolean)
+], paymentHistory.prototype, "status", void 0);
 exports.paymentHistory = paymentHistory;
 const paymentHistoryModel = (0, typegoose_1.getModelForClass)(paymentHistory);
 exports.default = paymentHistoryModel;

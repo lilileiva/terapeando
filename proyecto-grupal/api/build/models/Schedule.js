@@ -12,53 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Schedule = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 const userPsychologist_1 = require("./userPsychologist");
-let dateTime = class dateTime {
-};
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", Array)
-], dateTime.prototype, "monday", void 0);
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", Array)
-], dateTime.prototype, "tuesday", void 0);
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", Array)
-], dateTime.prototype, "wensday", void 0);
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", Array)
-], dateTime.prototype, "thursday", void 0);
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", Array)
-], dateTime.prototype, "friday", void 0);
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", Array)
-], dateTime.prototype, "saturday", void 0);
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", Array)
-], dateTime.prototype, "sunday", void 0);
-dateTime = __decorate([
-    (0, typegoose_1.modelOptions)({
-        schemaOptions: {
-            _id: false,
-        }
-    })
-], dateTime);
 class Schedule {
 }
 __decorate([
+    (0, typegoose_1.prop)({ type: String, required: true, trim: true }),
+    __metadata("design:type", String)
+], Schedule.prototype, "date", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ type: String, required: true, trim: true }),
+    __metadata("design:type", Array)
+], Schedule.prototype, "hours", void 0);
+__decorate([
     (0, typegoose_1.prop)({ ref: () => userPsychologist_1.userPsychologist }),
     __metadata("design:type", Object)
-], Schedule.prototype, "idUserPsychologist", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ type: () => [dateTime] }),
-    __metadata("design:type", Array)
-], Schedule.prototype, "dateTime", void 0);
+], Schedule.prototype, "IdUserPsychologist", void 0);
 exports.Schedule = Schedule;
 const scheduleModel = (0, typegoose_1.getModelForClass)(Schedule);
 exports.default = scheduleModel;

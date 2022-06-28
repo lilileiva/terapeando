@@ -212,7 +212,7 @@ export default function PsychologistDetail() {
                         <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
                           <CloseIcon cursor='pointer' onClick={() => setShowMap(false)} />
                         </Stack>
-                        <Map lat={detail.latitude} lgn={detail.longitude} />
+                        <Map lat={detail.latitude} lng={detail.longitude} />
                       </Stack>
                     </div>
                   ) : null

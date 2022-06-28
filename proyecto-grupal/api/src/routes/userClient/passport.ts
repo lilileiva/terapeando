@@ -48,7 +48,7 @@ module.exports = function (passport:any) {
             done(null, user)
           }
         } catch (err) {
-          console.error(err)
+          console.error(err)          
         }
       }
     )

@@ -15,20 +15,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Reviews_1 = __importDefault(require("../../models/Reviews"));
 const userPsychologist_1 = __importDefault(require("../../models/userPsychologist"));
 const createReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { Content, Rating, IdUserClient, IdUserPsychologist } = req.body;
+    const { Content, Rating } = req.body;
+    const { IdUserPsychologist } = req.params;
     try {
-        //por el moemnto solo esta recibiendo el contenido de la reseña y la calificació
-        const Psychologist = userPsychologist_1.default.findById(IdUserPsychologist);
-        let promedio = 0;
-        let reviews = Psychologist.reviews.map((e) => e.rating);
-        for (let i = 0; i < reviews.length; i++) {
-            promedio += Rating;
-        }
-        promedio = promedio / reviews.length;
-        const review = new Reviews_1.default({ Content, Rating });
-        const psychologistUpdated = userPsychologist_1.default.findByIdAndUpdate(IdUserPsychologist, { rating: promedio }, { new: true });
-        yield review.save();
+        const review = yield Reviews_1.default.create({
+            Content,
+            Rating,
+            IdUserClient: req.user,
+            IdUserPsychologist
+        });
+        const filterbyId = yield Reviews_1.default.find({ "IdUserPsychologist": IdUserPsychologist });
+        const average = filterbyId.map(el => el.Rating).reduce((a, b) => a + b, 0) / filterbyId.length;
+        const psichologistid = yield userPsychologist_1.default.findByIdAndUpdate(IdUserPsychologist, { rating: average });
         res.status(200).send('Review created');
+    }
+    catch (error) {
+        console.log(error);
+        res.send({ error: 'error creating review' });
+    }
+});
+const getReviewByPsychologist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { IdUserPsychologist } = req.params;
+    try {
+        const filterbyId = yield Reviews_1.default.find({ "IdUserPsychologist": IdUserPsychologist });
+        res.status(200).send(filterbyId);
     }
     catch (error) {
         console.log(error);
@@ -37,8 +47,7 @@ const createReview = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 const getReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idUserPsychologist } = req.params;
     try {
-        const getReview = yield Reviews_1.default.find({ idUserPsychologist });
-        console.log(getReview);
+        const getReview = yield Reviews_1.default.find();
         res.status(200).send(getReview);
     }
     catch (error) {
@@ -47,5 +56,6 @@ const getReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 module.exports = {
     createReview,
-    getReview
+    getReview,
+    getReviewByPsychologist
 };
