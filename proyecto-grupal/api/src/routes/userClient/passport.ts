@@ -18,17 +18,14 @@ module.exports = function (passport:any) {
           //find the user in our database 
           let user = await userClientModel.findOne({email: newUser.email})
           console.log('cliente',user)
-          user ? null : user = await userClientModel.findOne({email: newUser.email})
+          user ? null : user = await userPsychologistModel.findOne({email: newUser.email})
           console.log('psicologo',user)
-          // console.log("esta es la respuesta del user :" , user)
           if (user) {
             //If user present in our database.     
-            // console.log({id: user.id})
             done(null, user)
           } else {
             // if user is not preset in our database save user data to database.
-            //no crear usuario
-            done(error, null)
+            done('Debes regstrarte primero', null)
           }
         } catch (err) {
           console.error(err)
