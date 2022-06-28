@@ -29,9 +29,17 @@ export default function Home() {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
    
+
   const search = useLocation().search; 
+  const role = new URLSearchParams(search).get('role');
   const token = new URLSearchParams(search).get('token');
-  const setToken =  token ? window.localStorage.setItem('tokenClient', token) : null ;
+  console.log(token)
+  console.log(role)
+
+useEffect(() => {
+  const setToken =  role === 'client' ? window.localStorage.setItem('tokenClient', token) : role === 'psychologist' ? window.localStorage.setItem('tokenPsychologist', token) :  null ;
+}, [])
+
 
 
   const tokenClient = window.localStorage.getItem('tokenClient')

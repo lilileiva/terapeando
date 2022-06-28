@@ -1,10 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const { deleteAppointmentModel, postAppointmentModel, getAllAppointment } = require('./appointments');
+const { postAppointmentModel, getAppointmentAsPsychologist, getAppointmentAsClient, deleteAppointAsPsychologist, deleteAppointAsClient, putAppointment } = require('./appointments');
 const appoimentRouter = (0, express_1.Router)();
 const validateUsers = require("../../middleware/validateUsers");
-appoimentRouter.post('/', validateUsers, postAppointmentModel);
-appoimentRouter.delete('/', validateUsers, deleteAppointmentModel);
-appoimentRouter.get('/', validateUsers, getAllAppointment);
+const validatePsychologist = require("../../middleware/validatePsychologist");
+const validateClient = require("../../middleware/validateClient");
+appoimentRouter.post('/create/:IdUserPsychologist', validateUsers, postAppointmentModel);
+appoimentRouter.get('/psychologist', validatePsychologist, getAppointmentAsPsychologist);
+appoimentRouter.get('/client', validateClient, getAppointmentAsClient);
+appoimentRouter.delete('/delete/psychologist', validatePsychologist, deleteAppointAsPsychologist);
+appoimentRouter.delete('/client/:id', validateClient, deleteAppointAsClient);
+appoimentRouter.put('/put_appointment/:IdAppointment', validateUsers, putAppointment);
+// /appointment/put_appointment/${IdAppointment}
 module.exports = appoimentRouter;

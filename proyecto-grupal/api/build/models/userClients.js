@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userClient = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
-const appointment_1 = require("./appointment");
 const bcrypt = require('bcryptjs');
 const saltRounds = Number(process.env.SALTROUNDS);
 let userClient = class userClient {
@@ -36,7 +35,7 @@ __decorate([
     __metadata("design:type", String)
 ], userClient.prototype, "lastName", void 0);
 __decorate([
-    (0, typegoose_1.prop)({ required: true, trim: true }),
+    (0, typegoose_1.prop)({ trim: true }),
     __metadata("design:type", String)
 ], userClient.prototype, "birthDate", void 0);
 __decorate([
@@ -72,10 +71,6 @@ __decorate([
     (0, typegoose_1.prop)(),
     __metadata("design:type", String)
 ], userClient.prototype, "role", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ ref: () => appointment_1.appointment }),
-    __metadata("design:type", Array)
-], userClient.prototype, "appointments", void 0);
 userClient = __decorate([
     (0, typegoose_1.pre)('save', function (next) {
         if (this.isModified('password')) {
