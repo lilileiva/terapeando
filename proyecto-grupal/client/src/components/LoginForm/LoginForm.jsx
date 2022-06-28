@@ -294,7 +294,6 @@ function LoginForm() {
                       Iniciar sesión
                     </Button>
 
-
                     {/* <Button onClick={handleAxios}> Inicia sesión con &nbsp;<FaGoogle/>  </Button> */}
                     <Button bg='green.100' color={'#63caa7'}>
                       <a href="http://localhost:3001/userclient/auth/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>

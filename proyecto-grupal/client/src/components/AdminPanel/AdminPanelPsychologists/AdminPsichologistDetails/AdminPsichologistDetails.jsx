@@ -81,7 +81,7 @@ export default function AdminPsichologistDetails() {
                           </Stack>
                           <Stack direction={'row'} >
                             <Text fontSize='xl' fontWeight='600'> País: </Text>
-                            <Text fontSize='xl'> {userPsichologistDetail.country} </Text>
+                            <Text fontSize='xl'> {userPsichologistDetail.location} </Text>
                           </Stack>
                           <Stack direction='row' display={'flex'} position='relative'>
                             <Text fontSize='xl' fontWeight='600'> Fecha de nacimiento: </Text>

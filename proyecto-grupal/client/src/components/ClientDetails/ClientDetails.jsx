@@ -27,6 +27,7 @@ import NavbarHome from '../NavbarHome/NavbarHome.jsx';
 import Footer from '../Footer/Footer.jsx';
 import './ClientDetails.css'
 import countryList from 'react-select-country-list';
+import { BsInfoCircle } from 'react-icons/bs';
 
 
 export default function ClientDetails() {
@@ -89,11 +90,11 @@ export default function ClientDetails() {
                                 bg={"green.100"}
                                 color="teal.500"
                                 _hover={{
-                                  bg: "green.500",
+                                  bg: "teal",
                                   color: "white",
                                 }}
                               >
-                                <Link to={`/editprofile/${clientDetails.firstName}`}>Edit Profile</Link>
+                                <Link to={`/editprofile/${clientDetails.firstName}`}>Editar perfil</Link>
                               </Button>
                             </Stack>
                             <Avatar
@@ -124,8 +125,8 @@ export default function ClientDetails() {
                                 <CalendarIcon />
                                 <Heading color={"blackAlpha.800"}>Citas</Heading>
                               </Link>
-                              {/* <VStack alignItems="left" spacing="24px">
-                                <Text color={"blackAlpha.800"}>
+                              <VStack alignItems="left" spacing="24px">
+                                {/* <Text color={"blackAlpha.800"}>
                                   Terapeuta: Ana Gomez <ExternalLinkIcon cursor={"pointer"} />
                                 </Text>
                                 <Badge
@@ -138,7 +139,7 @@ export default function ClientDetails() {
                                   <Text color={"blackAlpha.800"} mb={"10px"}> Martes 14, | 15:00 - 15:45 </Text>
                                   <DeleteIcon mr={"10px"} cursor={"pointer"} />
                                   <EditIcon cursor={"pointer"} />
-                                </Badge>
+                                </Badge> */}
                                 <Badge
                                   px={2}
                                   py={1}
@@ -149,7 +150,7 @@ export default function ClientDetails() {
                                 >
                                   🛎️ 10 minutos antes
                                 </Badge>
-                              </VStack> */}
+                              </VStack>
                             </Stack>
                           </Box>
                         </Container>
@@ -198,11 +199,11 @@ export default function ClientDetails() {
                                 bg={"green.100"}
                                 color="teal.500"
                                 _hover={{
-                                  bg: "green.500",
+                                  bg: "teal",
                                   color: "white",
                                 }}
                               >
-                                <Link to={`/editprofile/${psychologistDetails.firstName}`}>Edit Profile</Link>
+                                <Link to={`/editprofile/${psychologistDetails.firstName}`}>Editar perfil</Link>
                               </Button>
                             </Stack>
                             <Avatar
@@ -215,7 +216,6 @@ export default function ClientDetails() {
                               {psychologistDetails.firstName} {psychologistDetails.lastName}{" "}
                               <ChangePasswordModal />
                             </Heading>
-
                             <Stack align={"center"} justify={"center"} direction={"column"} mt={6}>
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.email}
@@ -223,7 +223,19 @@ export default function ClientDetails() {
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.birthDate}
                               </Badge>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
                               <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+=======
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+>>>>>>> af14dba5b380f1b662eaa30d0203dfc418cc62f9
+=======
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+>>>>>>> 3a19c4af5c96691e3865c7c85c5d2c83b582ecac
+=======
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+>>>>>>> 4cc214116d9099ecf72cad019529f69f0cf3d745
                                 {psychologistDetails.location}
                               </Badge>
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
@@ -232,17 +244,50 @@ export default function ClientDetails() {
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 MATRÍCULA: {psychologistDetails.License}
                               </Badge>
+                              <Stack direction='row' align='center'>
+                                {
+                                  psychologistDetails.psychologistStatus === 'Activo'
+                                    ? <Badge fontSize='md' px={2} py={1} color={"green"} fontWeight={"600"}>
+                                      DISPONIBILIDAD: {psychologistDetails.psychologistStatus}
+                                    </Badge>
+
+                                    : <Badge fontSize='md' px={2} py={1} color={"red"} fontWeight={"600"}>
+                                      DISPONIBILIDAD: {psychologistDetails.psychologistStatus}
+                                    </Badge>
+                                }
+                                <BsInfoCircle title="Si tu disponibilidad se encuentra activa, tu perfil aparecerá en el home" />
+                              </Stack>
+                              {
+                                psychologistDetails.status === 'Activo'
+                                  ? <Stack direction='row' align='center'>
+                                    <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                      ESTADO DE CUENTA: {psychologistDetails.status}
+                                    </Badge>
+                                    <BsInfoCircle title="Cuenta habilitada por nuestros administradores" />
+                                  </Stack>
+                                  : <Stack direction='row' align='center'>
+                                    <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+                                      ESTADO DE CUENTA: {psychologistDetails.status}
+                                    </Badge>
+                                    <BsInfoCircle title="Tu cuenta se encuentra en revisión" />
+                                  </Stack>
+                              }
                             </Stack>
                             {/* <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                               {psychologistDetails.about}
-                            </Badge> */}
-
-                            <Link to='/appointments' cursor='pointer'>
-                              <Stack mt={"40px"} alignItems="center">
-                                <CalendarIcon />
-                                <Heading color={"blackAlpha.800"}>Citas</Heading>
-                              </Stack>
-                            </Link>
+                            </Badge> */}                            
+                              <Link to='/appointments' cursor='pointer'>
+                                <Stack mt={"40px"} alignItems="center">
+                                  <CalendarIcon />
+                                  <Heading color={"blackAlpha.800"}>Citas</Heading>
+                                </Stack>
+                              </Link>
+                              <Link to={`/detailPsychologist/${psychologistDetails._id}`} cursor='pointer'>
+                                <Button mt='1em' alignItems="center" color='teal' bg='green.100'>
+                                  <ExternalLinkIcon />
+                                  Perfil público
+                                </Button>
+                              </Link>                            
                           </Box>
                         </Container>
                       </Center>

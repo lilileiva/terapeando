@@ -8,6 +8,7 @@ import {
   GET_USER_PSYCHOLOGISTS_BY_NAME,
   CLEAR_PSYCHOLOGIST_LIST,
   FILTER_PSICHOLOGIST_BY_SPECIALTIES,
+  FILTER_PSYCHOLOGIST_BY_RATING,
   ORDER_PSICHOLOGIST_BY_RATING,
   GET_POSTS,
   GET_POSTS_BY_PSYCHOLOGIST_ID,
@@ -23,11 +24,17 @@ import {
   ADMIN_SEARCHBAR,
   SORT_BY_DATE,
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
+  FILTER_BY_STATUS,
   GET_SCHEDULE,
-  GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
-  DELETE_APPOINTMENT_AS_CLIENT
+  GET_APPOINTMENT_BY_ID,
+  DELETE_APPOINTMENT_AS_CLIENT,  
+  PUT_APPOINTMENT,
+  CLEAR_SCHEDULE,
+  SORT_BY_DATE_PSY,
+  SORT_BY_DATE_CLI,
+  GET_SCHEDULE_BY_ID
 } from "../actions/types";
 
 const initialState = {
@@ -43,13 +50,16 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: [],
+  scheduleDetails: {},
   paymentDetailsClient: [],
   paymentDetailsPsychologist: [],
   allPayments: [],
   email: {},
   adminSearchbar: "",
   reviews: [],
-  appointments: []
+  appointments: [],
+  appointmentDetails: {},
+  appoint: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -149,7 +159,14 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsersPsichologists: action.payload
       };
-    
+
+    /*-----------RATING-----------*/
+      case FILTER_PSYCHOLOGIST_BY_RATING:
+      return {
+        ...state,
+        reviews: action.payload
+      }
+
     /*-----------POSTS-----------*/
     case GET_POSTS:
       return {
@@ -211,10 +228,10 @@ function rootReducer(state = initialState, action) {
           ...state,
           schedule: action.payload
         }
-      case GET_SCHEDULE_BY_DATE:
+      case GET_SCHEDULE_BY_ID:
         return {
           ...state,
-          schedule: action.payload
+          scheduleDetails: action.payload
         }
 
     /*-----------APPOINTMENTS-----------*/
@@ -285,6 +302,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPayments: filterByMonth
       }
+      //All Payments
     case SORT_BY_DATE:
       let sortedPayments = [state.allPayments];
       sortedPayments =
@@ -296,8 +314,48 @@ function rootReducer(state = initialState, action) {
               return new Date(b.createdAt) - new Date(a.createdAt);
             });
       return {
+            ...state,
+            allPayments: sortedPayments,
+          };
+        // Only clients
+        case SORT_BY_DATE_CLI:
+          let sortedPaymentsCli = [state.paymentDetailsClient];
+          sortedPaymentsCli =
+            action.payload === "asc"
+              ? state.paymentDetailsClient.sort(function (a, b) {
+                  return new Date(a.createdAt) - new Date(b.createdAt);
+                })
+              : state.paymentDetailsClient.sort(function (a, b) {
+                  return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+          return {
+                ...state,
+                paymentDetailsClient: sortedPaymentsCli,
+              };
+          // Only Psy
+          case SORT_BY_DATE_PSY:
+            let sortedPaymentsPsy = [state.paymentDetailsPsychologist];
+            sortedPaymentsPsy =
+              action.payload === "asc"
+                ? state.paymentDetailsPsychologist.sort(function (a, b) {
+                    return new Date(a.createdAt) - new Date(b.createdAt);
+                  })
+                : state.paymentDetailsPsychologist.sort(function (a, b) {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                  });
+            return {
+                  ...state,
+                  paymentDetailsPsychologist: sortedPaymentsPsy,
+                };
+    case FILTER_BY_STATUS:
+      let filtered = state.paymentDetailsPsychologist;
+      filtered = 
+          action.payload === 'abonado'
+          ? state.paymentDetailsPsychologist.filter((p) => p.status === true)
+          : state.paymentDetailsPsychologist.filter((p) => p.status === false) 
+      return {
         ...state,
-        allPayments: sortedPayments,
+        paymentDetailsPsychologist: filtered,
       };
 
     /*-----------SEARCHBAR-----------*/
@@ -306,6 +364,29 @@ function rootReducer(state = initialState, action) {
         ...state,
         adminSearchbar: action.payload,
       };
+
+      /*-----------APPOINTMENTS-----------*/
+      case GET_APPOINTMENT_AS_PSYCHOLOGIST:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case GET_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: action.payload
+        }
+      case GET_APPOINTMENT_BY_ID:
+        return {
+          ...state,
+          appointmentDetails: action.payload
+        }
+      case DELETE_APPOINTMENT_AS_CLIENT:
+        return {
+          ...state,
+          appointments: state.appointments.filter(appo => appo._id !== action.payload)
+        }
+
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:
       return {
@@ -331,6 +412,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         adminSearchbar: [],
+      };
+    case CLEAR_SCHEDULE:
+      return {
+        ...state,
+        schedule: [],
       };
     default:
       return { ...state };

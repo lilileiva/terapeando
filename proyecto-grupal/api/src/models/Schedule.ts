@@ -1,6 +1,5 @@
-import { prop, getModelForClass, Ref, modelOptions } from '@typegoose/typegoose';
+import { getModelForClass, prop, Ref } from '@typegoose/typegoose';
 import { userPsychologist } from './userPsychologist';
-import { userClient } from './userClients';
 
 export class Schedule {
 
