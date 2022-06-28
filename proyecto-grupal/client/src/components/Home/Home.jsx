@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
@@ -21,12 +21,14 @@ import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
 import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 import Chat from '../Chat/Chat'
+import Swal from "sweetalert2";
 
 
 export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
    
   const search = useLocation().search; 
@@ -40,7 +42,19 @@ export default function Home() {
   useEffect(() => {
     dispatch(getPsychologistByStatus());
     smoothscroll();
-  }, [dispatch]);
+
+    /*----alert bienvenido si te logeas con google----*/
+    if (token) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Bienvenido",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      navigate('/home')
+    }
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (adminSearchbar.length !== 0) {

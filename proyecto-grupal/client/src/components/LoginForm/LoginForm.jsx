@@ -291,7 +291,7 @@ function LoginForm() {
                       bg={"#63caa7"}
                       color="white"
                       variant="solid"
-                      _hover={[{ color: "teal" }, { bg: "white" }]}
+                      _hover={[{ color: "#63caa7" }, { bg: "white" }]}
                       display={'flex'}
                     >
                       Iniciar sesión

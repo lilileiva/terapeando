@@ -17,6 +17,7 @@ const passport = require('passport')
 const clientRouter: Router = Router();
 const jwt = require("jsonwebtoken");
 
+
 // function generateUserToken(req: Request, res: Response) {
 //     const accessToken =   jwt.sign(req.user, process.env.SECRETWORD, {
 //         expiresIn: 60 * 60 * 24 * 7,
