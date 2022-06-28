@@ -799,7 +799,8 @@ export function updateScheduleAsClient(idSchedule, updateSchedule) {
     try {
       const data = await axios.put(
         `${baseURL}/schedule/update/${idSchedule}`,
-        updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+        updateSchedule,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       console.log(data);
     } catch (err) {
@@ -813,7 +814,8 @@ export function updateScheduleAsPsychologist(idSchedule, updateSchedule) {
     try {
       const data = await axios.put(
         `${baseURL}/schedule/update/${idSchedule}`,
-        updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+        updateSchedule,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       );
       console.log(data);
     } catch (err) {

@@ -49,8 +49,10 @@ function Appointments() {
 
   const [isDeleted, setIsDeleted] = useState(false)
   const handleDeleteAppointment = (idAppointment, idSchedule) => {
+
     dispatch(getScheduleByIdAsClient(idSchedule)) //obtengo scheduleDetails para poder ejecutar el useEffect(1)
     dispatch(getAppointmentByIdAsClient(idAppointment)) //obtengo appointmentDetails para poder ejecutar el useEffect(1)
+
     Swal.fire({
       title: '¿Estás seguro que quieres cancelar esta cita?',
       showDenyButton: true,
@@ -60,10 +62,10 @@ function Appointments() {
     }).then((result) => {
       if (result.isDenied) {
         if (tokenClient) {
-          setIsDeleted(true) //acá ya se ejecutò useEffect(1), entonces si quiero eliminar este appointment, se ejecutará el useEffect(2)
+          setIsDeleted(true) //acá ya se ejecutò useEffect(1), entonces si quiero eliminar este appointment, seteo isDeleted en true para ejecutar useEffect(2)
         }
         if (tokenPsychologist) {
-          dispatch(deleteAppointmentAsPsychologist(idAppointment)).then(
+          dispatch(deleteAppointmentAsPsychologist(idAppointment)).then( //si soy psicólogo directamente elimino el appointment
             dispatch(getAppointmentAsPsychologist())
           )
         }

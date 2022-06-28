@@ -56,10 +56,14 @@ function EditSchedule() {
   }
 
   let hourList = []
-  const startOfDay = new Date();
+  const startOfDay = new Date(0,0,0,0);
   for (let i = 0; i < 24; i++) {
     const hour = new Date(startOfDay.setUTCHours((startOfDay.getUTCHours() + 1)))
-    hourList.push(hour)
+    if (input.hours.length < 8) {
+      hourList.push(hour)
+    } else {
+      Swal.fire('Pruedes agregar un máximo de ocho horarios por fecha', '', 'info')
+    }
   }
 
   return (
@@ -107,10 +111,11 @@ function EditSchedule() {
               input.hours.length !== 0
                 ? (
                   input.hours.map((hour) => {
+                    console.log(input.hours)
                     let hourUTC = new Date(hour)
                     return (
                       <Stack direction='row' align='center' bg='teal.100' p='0.5em' borderRadius='0.5em'>
-                        <Text>{hourUTC.getHours()}:00</Text>
+                        <Text>{hourUTC.getHours()+1}:00</Text>
                         <Text cursor='pointer' onClick={() => handleDeleteHour(hour)}>X</Text>
                       </Stack>
                     )
