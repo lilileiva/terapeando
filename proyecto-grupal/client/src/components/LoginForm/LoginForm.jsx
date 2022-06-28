@@ -47,6 +47,10 @@ function LoginForm() {
   });
   //var accessToken = gapi.auth.getToken().acces_token;
 
+// function handleAxios() {
+//   const response =  axios.get("http://localhost:3001/userclient/auth/google")
+// }
+
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
@@ -295,7 +299,8 @@ function LoginForm() {
                     {/* Inicia sesión con &nbsp; <FaGoogle /> */}
                     {/* </Button> */}
 
-                    <a href="http://localhost:3001/userclient/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
+                    {/* <Button onClick={handleAxios}> Inicia sesión con &nbsp;<FaGoogle/>  </Button> */}
+                    <a href="http://localhost:3001/userclient/auth/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
 
                    
                    {/* <Button
