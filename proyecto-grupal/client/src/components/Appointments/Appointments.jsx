@@ -65,9 +65,8 @@ function Appointments() {
           setIsDeleted(true) //acá ya se ejecutò useEffect(1), entonces si quiero eliminar este appointment, seteo isDeleted en true para ejecutar useEffect(2)
         }
         if (tokenPsychologist) {
-          dispatch(deleteAppointmentAsPsychologist(idAppointment)).then( //si soy psicólogo directamente elimino el appointment
-            dispatch(getAppointmentAsPsychologist())
-          )
+          dispatch(deleteAppointmentAsPsychologist(idAppointment)) //si soy psicólogo directamente elimino el appointment
+            .then(dispatch(getAppointmentAsPsychologist()))
         }
       }
     })
@@ -87,7 +86,7 @@ function Appointments() {
     if (isDeleted) {
       dispatch(updateScheduleAsClient(scheduleDetails._id, updateSchedule)) //actualizo el appointment
       dispatch(deleteAppointmentAsClient(appointmentDetails._id)) //y lo elimino
-      dispatch(getAppointmentAsClient())
+        .then(dispatch(getAppointmentAsClient()))
     }
   }, [isDeleted, dispatch])
 
@@ -243,8 +242,8 @@ function Appointments() {
                         )
                       }) : <Stack bg='gray.200' direction='row' align='center' justify='space-around' mb='1em' p='1em' width='100%' height='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                         <Text bgGradient='linear(to-l, #319795, #285E61)'
-                      bgClip='text'
-                      fontWeight='extrabold' fontSize='2xl'>No hay citas para mostrar</Text>
+                          bgClip='text'
+                          fontWeight='extrabold' fontSize='2xl'>No hay citas para mostrar</Text>
                       </Stack>
                   }
                 </Stack>

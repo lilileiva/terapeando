@@ -83,14 +83,14 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
     }
     newSchedule = {
         date: appointmentData.date,
-        hours: hours.filter((h) => h !== appointmentData.hour)
+        hours: hours.filter((h) => new Date(h).getHours() !== new Date(appointmentData.hour).getHours())
     }
 
     const dispatchAppointment = () => {
         if (!appointmentData.date || !appointmentData.hour || !appointmentData.type) {
             Swal.fire('Campos incompletos', '', 'error')
         } else {
-            if (tokenClient) {
+            if (tokenClient) {                
                 dispatch(createAppointmentAsClient(IdUserPsychologist, appointmentData))
                 dispatch(updateScheduleAsClient(idSchedule, newSchedule))
             }
