@@ -23,4 +23,6 @@ router.use('/admin', admin)
 router.use('/schedule', schedule)
 router.use('/nodemailer', rememberPassword)
 
+
+
 module.exports = router;

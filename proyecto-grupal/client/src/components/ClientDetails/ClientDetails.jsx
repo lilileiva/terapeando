@@ -223,7 +223,19 @@ export default function ClientDetails() {
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
                                 {psychologistDetails.birthDate}
                               </Badge>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+=======
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+>>>>>>> af14dba5b380f1b662eaa30d0203dfc418cc62f9
+=======
+                              <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+>>>>>>> 3a19c4af5c96691e3865c7c85c5d2c83b582ecac
+=======
+                              <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>
+>>>>>>> 4cc214116d9099ecf72cad019529f69f0cf3d745
                                 {psychologistDetails.location}
                               </Badge>
                               <Badge fontSize='md' px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>

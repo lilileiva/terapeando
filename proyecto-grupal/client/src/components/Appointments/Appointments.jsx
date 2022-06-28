@@ -4,7 +4,7 @@ import './Appointments.css';
 import NavbarHome from '../NavbarHome/NavbarHome';
 import Footer from '../Footer/Footer.jsx';
 import NotFound from '../404notFound/notFound.jsx';
-import { Stack, Text, Box, Avatar, Button, Select } from '@chakra-ui/react';
+import { Stack, Text, Avatar, Button, Select, Heading } from '@chakra-ui/react';
 import { CalendarIcon, TimeIcon, CheckIcon } from '@chakra-ui/icons';
 import {
   getAppointmentAsClient,
@@ -242,7 +242,9 @@ function Appointments() {
                           </Stack>
                         )
                       }) : <Stack bg='gray.200' direction='row' align='center' justify='space-around' mb='1em' p='1em' width='100%' height='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                        <Text fontSize='2xl'>No hay citas para mostrar</Text>
+                        <Text bgGradient='linear(to-l, #319795, #285E61)'
+                      bgClip='text'
+                      fontWeight='extrabold' fontSize='2xl'>No hay citas para mostrar</Text>
                       </Stack>
                   }
                 </Stack>

@@ -55,106 +55,131 @@ function AdminClientDetails() {
     });
   };
 
-  const tokenAdmin = window.localStorage.getItem('tokenAdmin');
+  const tokenAdmin = window.localStorage.getItem("tokenAdmin");
 
   return (
     <>
-      {
-        tokenAdmin
-          ? (
-            <div className="adminPanelContainer">
-              <AdminPanelNavbar />
+      {tokenAdmin ? (
+        <div className="adminPanelContainer">
+          <AdminPanelNavbar />
 
               <Stack bg="#d6d6d6" height="100%" direction="row" justifyContent="center" alignItems="flex-start" pl="0" pt="2%" pb="2%" pr="2%">
                 <AdminPanelSidebar />
 
-                <Stack width="100%" height="fit-content" bg="white" p="2%" direction="column" justifyContent="top" align="center" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                  <Stack direction="row" width="100%">
-                    <Button colorScheme="teal" variant="outline" onClick={() => navigate("/adminpanel/clients")}>
-                      <ArrowLeftIcon />
-                      <Text ml="0.5em"> Volver</Text>
-                    </Button>
+            <Stack
+              width="100%"
+              height="fit-content"
+              bg="white"
+              p="2%"
+              direction="column"
+              justifyContent="top"
+              align="center"
+              boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}
+            >
+              <Stack direction="row" width="100%">
+                <Button
+                  colorScheme="teal"
+                  variant="outline"
+                  onClick={() => navigate("/adminpanel/clients")}
+                >
+                  <ArrowLeftIcon />
+                  <Text ml="0.5em"> Volver</Text>
+                </Button>
+              </Stack>
+              {Object.keys(userClientDetail).length !== 0 ? (
+                <Stack
+                  w="100%"
+                  direction="column"
+                  justify="center"
+                  align="center"
+                  p="2em"
+                >
+                  <Avatar src={userClientDetail.profileImage} size="xl" />
+                  <br />
+                  <Stack direction="row">
+                    <Text fontSize="xl" fontWeight="600">
+                      {" "}
+                      Nombre:{" "}
+                    </Text>
+                    <Text fontSize="xl"> {userClientDetail.firstName} </Text>
                   </Stack>
-                  {
-                    Object.keys(userClientDetail).length !== 0
-                      ? (
-                        <Stack
-                          w="100%"
-                          direction="column"
-                          justify="center"
-                          align="center"
-                          p="2em"
+                  <br />
+                  <Stack direction="row">
+                    <Text fontSize="xl" fontWeight="600">
+                      {" "}
+                      Apellido:{" "}
+                    </Text>
+                    <Text fontSize="xl"> {userClientDetail.lastName} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction="row">
+                    <Text fontSize="xl" fontWeight="600">
+                      {" "}
+                      País:{" "}
+                    </Text>
+                    <Text fontSize="xl"> {userClientDetail.country} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction="row">
+                    <Text fontSize="xl" fontWeight="600">
+                      {" "}
+                      Fecha de nacimiento:{" "}
+                    </Text>
+                    <Text fontSize="xl"> {userClientDetail.birthDate} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction="row">
+                    <Text fontSize="xl" fontWeight="600">
+                      {" "}
+                      Email:{" "}
+                    </Text>
+                    <Text fontSize="xl"> {userClientDetail.email} </Text>
+                  </Stack>
+                  <br />
+                  <Stack direction="row">
+                    <Stack direction="column">
+                      <Stack direction="row" justify="center">
+                        <Text fontSize="xl" fontWeight="600">
+                          {" "}
+                          Rol:{" "}
+                        </Text>
+                        <Text fontSize="xl"> {userClientDetail.role} </Text>
+                      </Stack>
+                      <br />
+                      <Stack direction="row">
+                        <Button
+                          width="50%"
+                          colorScheme="teal"
+                          variant="outline"
+                          onClick={() =>
+                            navigate(
+                              `/adminpanel/clients/edit/${userClientDetail._id}`
+                            )
+                          }
                         >
-                          <Avatar src={userClientDetail.profileImage} size="xl" />
-                          <br />
-                          <Stack direction="row">
-                            <Text fontSize="xl" fontWeight="600">
-                              {" "}
-                              Nombre:{" "}
-                            </Text>
-                            <Text fontSize="xl"> {userClientDetail.firstName} </Text>
-                          </Stack>
-                          <br />
-                          <Stack direction="row">
-                            <Text fontSize="xl" fontWeight="600">
-                              {" "}
-                              Apellido:{" "}
-                            </Text>
-                            <Text fontSize="xl"> {userClientDetail.lastName} </Text>
-                          </Stack>
-                          <br />
-                          <Stack direction="row">
-                            <Text fontSize="xl" fontWeight="600">
-                              {" "}
-                              País:{" "}
-                            </Text>
-                            <Text fontSize="xl"> {userClientDetail.country} </Text>
-                          </Stack>
-                          <br />
-                          <Stack direction="row">
-                            <Text fontSize="xl" fontWeight="600">
-                              {" "}
-                              Fecha de nacimiento:{" "}
-                            </Text>
-                            <Text fontSize="xl"> {userClientDetail.birthDate} </Text>
-                          </Stack>
-                          <br />
-                          <Stack direction="row">
-                            <Text fontSize="xl" fontWeight="600">
-                              {" "}
-                              Email:{" "}
-                            </Text>
-                            <Text fontSize="xl"> {userClientDetail.email} </Text>
-                          </Stack>
-                          <br />
-                          <Stack direction='row'>
-
-                            <Stack direction='column'>
-                              <Stack direction='row' justify='center'>
-                                <Text fontSize='xl' fontWeight='600'> Rol: </Text>
-                                <Text fontSize='xl'> {userClientDetail.role} </Text>
-                              </Stack>
-                              <br />
-                              <Stack direction='row'>
-                                <Button width='50%' colorScheme='teal' variant='outline' onClick={() => navigate(`/adminpanel/clients/edit/${userClientDetail._id}`)}>
-                                  <BsPencilSquare />
-                                  <Text pr='0.5em'> Editar rol</Text>
-                                </Button>
-                                <Button width='50%' colorScheme='red' variant='solid' onClick={() => handleAlertDelete(userClientDetail._id)}>
-                                  <CloseIcon />
-                                  <Text pr='0.5em'> Eliminar usuario</Text>
-                                </Button>
-                              </Stack>
-                            </Stack>
-
-                          </Stack>
-                        </Stack>
-                      ) : (
-                        <Loader />
-                      )
-                  }
-                </Stack >
-              </Stack >
+                          <BsPencilSquare />
+                          <Text pr="0.5em"> Editar rol</Text>
+                        </Button>
+                        <Button
+                          width="50%"
+                          colorScheme="red"
+                          variant="solid"
+                          onClick={() =>
+                            handleAlertDelete(userClientDetail._id)
+                          }
+                        >
+                          <CloseIcon />
+                          <Text pr="0.5em"> Eliminar usuario</Text>
+                        </Button>
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                </Stack>
+              ) : (
+                <Loader />
+              )}
+            </Stack>
+          </Stack>
 
               <Footer />
             </div >

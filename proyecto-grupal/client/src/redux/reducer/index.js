@@ -1,4 +1,3 @@
-
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
@@ -321,7 +320,7 @@ function rootReducer(state = initialState, action) {
         // Only clients
         case SORT_BY_DATE_CLI:
           let sortedPaymentsCli = [state.paymentDetailsClient];
-          sortedPayments =
+          sortedPaymentsCli =
             action.payload === "asc"
               ? state.paymentDetailsClient.sort(function (a, b) {
                   return new Date(a.createdAt) - new Date(b.createdAt);
@@ -336,7 +335,7 @@ function rootReducer(state = initialState, action) {
           // Only Psy
           case SORT_BY_DATE_PSY:
             let sortedPaymentsPsy = [state.paymentDetailsPsychologist];
-            sortedPayments =
+            sortedPaymentsPsy =
               action.payload === "asc"
                 ? state.paymentDetailsPsychologist.sort(function (a, b) {
                     return new Date(a.createdAt) - new Date(b.createdAt);

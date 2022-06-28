@@ -35,17 +35,13 @@ import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDe
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
 import AdminPanelStatistics from './components/AdminPanel/AdminPanelStatistics/AdminPanelStatistics.jsx';
 import PaymentsAdmin from './components/AdminPanel/AdminPanelPayments/Components/PaymentsAdmin.jsx';
-import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components/CancelPayment.jsx';
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
-import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
-
 import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
 import Appointments from './components/Appointments/Appointments.jsx';
-import Schedule from "./components/Schedule/Schedule";
+
 
 // import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
-
 
 export default function App() {
   return (
@@ -91,8 +87,6 @@ export default function App() {
         <Route path='/adminpanel/statistics' element={<AdminPanelStatistics />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
         <Route path='adminpanel/payments/allpayments' element={<PaymentsAdmin />} />
-        <Route path='adminpanel/payments/cancelpayment' element={<CancelPayment />} />
-        <Route path='adminpanel/payments/accreditedpayment' element={<AccreditedPayment />} />
         <Route path='adminpanel/payments/estadisticas' element={<Estadisticas />} />
       </Routes>
     </div>
