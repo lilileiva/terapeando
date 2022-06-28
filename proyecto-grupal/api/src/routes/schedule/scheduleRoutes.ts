@@ -7,13 +7,9 @@ const {createSchedule, getSchedule, getScheduleByDate, deleteSchedule, updateSch
 
 const scheduleRouter: Router = Router();
 
-/* scheduleRouter.post('/create', validatePsychologist, createSchedule) */
-// scheduleRouter.post('/create', validatePsychologist, createSchedule)
 scheduleRouter.post('/create', validateUsers, createSchedule)
 scheduleRouter.get('/get/:IdUserPsychologist', validateUsers, getSchedule)
-scheduleRouter.get('/get/:IdUserPsychologist', validateUsers, getSchedule)
-// scheduleRouter.get('/date/:IdUserPsychologist', validatePsychologist, getScheduleByDate)
-scheduleRouter.get('/date/:IdUserPsychologist', validateClient, getScheduleByDate)
+scheduleRouter.get('/date/:IdUserPsychologist', validateUsers, getScheduleByDate)
 scheduleRouter.delete('/:idSchedule', validateUsers, deleteSchedule)
 scheduleRouter.put('/:idSchedule', validateUsers, updateSchedule)
 

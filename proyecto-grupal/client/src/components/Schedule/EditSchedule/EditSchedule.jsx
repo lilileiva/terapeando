@@ -7,6 +7,8 @@ import { Stack, Button, Select, Text, HStack, VStack } from '@chakra-ui/react';
 import { createSchedule } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
+import startOfToday from 'date-fns/startOfToday/index';
+import { daysToWeeks } from 'date-fns';
 
 
 function EditSchedule() {
@@ -23,7 +25,8 @@ function EditSchedule() {
     setInput({
       ...input,
       ...inputDate,
-      date: inputDate,
+      // date: inputDate,
+      date: input.date,
       hours: [...input.hours.filter(h => h !== e.target.value), e.target.value]
     })
   }
@@ -34,38 +37,31 @@ function EditSchedule() {
     })
   }
 
+  const handleInputChange = (inputDate) => {
+    setInput({
+      ...input,
+      date: inputDate,
+      hours: [...input.hours]
+    })
+  }
+
   const handleInputSubmit = (e) => {
     e.preventDefault();
-    if (!inputDate || input.hours.length === 0) {
+    if (!input.date || input.hours.length === 0) {
       Swal.fire(
         'Datos incompletos',
         'Debes insertar al menos una fecha y horario...',
         'question'
       )
-    } else {
-      setInput({
-        ...inputDate,
-        ...input,
-        date: inputDate,
-        hours: input.hours
-      })
     }
     dispatch(createSchedule(input))
   }
 
-  const todayDate = new Date() //fecha de hoy
-  const todayDatePLusMonth = new Date(new Date(todayDate).setMonth(todayDate.getMonth() + 1)) //fecha de hoy más un mes
-
   let hourList = []
-  let start = new Date();
-  start.setUTCHours(0, 0, 0, 0);
-
-  let end = new Date();
-  end.setUTCHours(23, 59, 59, 999);
-  console.log()
-
-  for (let i = 8; i < 21; i++) {
-    hourList.push(i + ':00')
+  const startOfDay = new Date();
+  for (let i = 0; i < 24; i++) {
+    const hour = new Date(startOfDay.setUTCHours((startOfDay.getUTCHours() + 1)))
+    hourList.push(hour)
   }
 
   return (
@@ -76,14 +72,18 @@ function EditSchedule() {
 
         <VStack maxW={'100%'} justifyContent={'center'} px={'20%'}>
 
-          <Calendar handleDate={inputDate => setInputDate(inputDate)}
+          {/* <Calendar handleDate={inputDate => setInputDate(inputDate)} */}
+          <Calendar handleDate={inputDate => handleInputChange(inputDate)}
           />
 
           <Select w={'100%'} placeholder='Selecciona un horario' onChange={(e) => handleAddHours(e)}>
             {
-              hourList.map((hour) => (
-                <option key={hour} value={hour} >{hour}</option>
-              ))
+              hourList.map((hour) => {
+                let hourUTC = new Date(hour)
+                return (
+                  <option key={hour} value={hourUTC}>{hourUTC.getHours()}:00</option>
+                )
+              })
             }
           </Select>
         </VStack>
@@ -99,12 +99,15 @@ function EditSchedule() {
             {
               input.hours.length !== 0
                 ? (
-                  input.hours.map((hour) => (
-                    <Stack direction='row'>
-                      <Text>{hour}</Text>
-                      <Button onClick={() => handleDeleteHour(hour)}>X</Button>
-                    </Stack>
-                  ))
+                  input.hours.map((hour) => {
+                    let hourUTC = new Date(hour)
+                    return (
+                      <Stack direction='row'>
+                        <Text>{hourUTC.getHours()}:00</Text>
+                        <Button onClick={() => handleDeleteHour(hour)}>X</Button>
+                      </Stack>
+                    )
+                  })
                 ) : <Text>Añade horarios</Text>
             }
           </Stack>

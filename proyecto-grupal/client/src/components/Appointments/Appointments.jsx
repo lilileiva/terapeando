@@ -13,7 +13,12 @@ import {
   deleteAppointmentAsPsychologist,
   putAppointmentAsClient,
   putAppointmentAsPsychologist,
-  updateSchedule
+  updateScheduleAsClient,
+  updateScheduleAsPsychologist,
+  getAppointmentByIdAsClient,
+  getAppointmentByIdAsPsychologist,
+  getScheduleByDateAsClient,
+  getScheduleByDateAsPsychologist
 } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -33,10 +38,21 @@ function Appointments() {
   }, [dispatch])
 
   const appointments = useSelector((state) => state.appointments)
+  const appointmentDetails = useSelector((state) => state.appointmentDetails)
+  const scheduleByDate = useSelector((state) => state.scheduleByDate)
 
   const [IdAppointment, setIdAppointment] = useState("")
 
-  const handleDeleteAppointment = (appointment) => {
+  const handleDeleteAppointment = (idAppointment, dateAppointment, idPsychologist) => {
+    if (tokenClient) {
+      dispatch(getScheduleByDateAsClient(idPsychologist, { 'date': dateAppointment }))
+      console.log('scheduleByDate', scheduleByDate)
+    }
+    if (tokenPsychologist) {
+      dispatch(getScheduleByDateAsPsychologist(idPsychologist, { 'date': dateAppointment }))
+      console.log('scheduleByDate', scheduleByDate)
+    }
+
     Swal.fire({
       title: '¿Estás seguro que quieres cancelar esta cita?',
       showDenyButton: true,
@@ -46,11 +62,13 @@ function Appointments() {
     }).then((result) => {
       if (result.isDenied) {
         if (tokenClient) {
-          dispatch(deleteAppointmentAsClient(appointment))
+          dispatch(deleteAppointmentAsClient(idAppointment))
           dispatch(getAppointmentAsClient())
+
+
         }
         if (tokenPsychologist) {
-          dispatch(deleteAppointmentAsPsychologist(appointment))
+          dispatch(deleteAppointmentAsPsychologist(idAppointment))
           dispatch(getAppointmentAsPsychologist())
         }
       }
@@ -162,7 +180,7 @@ function Appointments() {
                                           </Button>
                                           : null
                                       }
-                                      <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id)}>
+                                      <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id, appo.date, appo.IdUserPsychologist._id)}>
                                         Cancelar cita
                                       </Button>
                                     </Stack>

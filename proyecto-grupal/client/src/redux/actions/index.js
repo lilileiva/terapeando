@@ -38,7 +38,8 @@ import {
   REMEMBER_PASSWORD_PSYCHOLOGIST,
   CLEAR_SCHEDULE,
   SORT_BY_DATE_CLI,
-  SORT_BY_DATE_PSY
+  SORT_BY_DATE_PSY,
+  GET_APPOINTMENT_BY_ID
 } from "./types";
 
 const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
@@ -757,11 +758,36 @@ export function getScheduleAsClient(IdUserPsychologist) {
   }
 }
 
-export function getScheduleByDate(IdUserPsychologist, date) {
+export function getScheduleByDateAsClient(IdUserPsychologist, scheduleDate) {
+  console.log('IdUserPsychologist action', IdUserPsychologist)
+  console.log('scheduleDate action', scheduleDate)
   return async function (dispatch) {
     try {
-      axios.get(`${baseURL}/schedule/date/${IdUserPsychologist}`,
-        date,
+      axios.get(
+        `${baseURL}/schedule/date/${IdUserPsychologist}`,
+        scheduleDate,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE_BY_DATE,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleByDateAsPsychologist(IdUserPsychologist, scheduleDate) {
+  console.log('IdUserPsychologist action', IdUserPsychologist)
+  console.log('scheduleDate action', scheduleDate)
+  return async function (dispatch) {
+    try {
+      axios.get(
+        `${baseURL}/schedule/date/${IdUserPsychologist}`,
+        scheduleDate,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
         .then((schedule) => {
@@ -842,6 +868,42 @@ export function createAppointmentAsPsychologist(IdUserPsychologist, appointmentD
         appointmentData,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getAppointmentByIdAsClient(IdAppointment) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/appointment/${IdAppointment}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+        .then((appointment) => {
+          dispatch({
+            type: GET_APPOINTMENT_BY_ID,
+            payload: appointment.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getAppointmentByIdAsPsychologist(IdAppointment) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/appointment/${IdAppointment}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((appointment) => {
+          dispatch({
+            type: GET_APPOINTMENT_BY_ID,
+            payload: appointment.data
+          })
+        })
     } catch (error) {
       console.log(error)
     }

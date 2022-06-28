@@ -30,6 +30,7 @@ import {
   GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
+  GET_APPOINTMENT_BY_ID,
   DELETE_APPOINTMENT_AS_CLIENT,  
   PUT_APPOINTMENT,
   CLEAR_SCHEDULE,
@@ -50,6 +51,7 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: [],
+  scheduleByDate: {},
   paymentDetailsClient: [],
   paymentDetailsPsychologist: [],
   allPayments: [],
@@ -57,6 +59,7 @@ const initialState = {
   adminSearchbar: "",
   reviews: [],
   appointments: [],
+  appointmentDetails: {},
   appoint: []
 };
 
@@ -229,7 +232,7 @@ function rootReducer(state = initialState, action) {
       case GET_SCHEDULE_BY_DATE:
         return {
           ...state,
-          schedule: action.payload
+          scheduleByDate: action.payload
         }
 
     /*-----------APPOINTMENTS-----------*/
@@ -374,6 +377,11 @@ function rootReducer(state = initialState, action) {
           ...state,
           appointments: action.payload
         }
+      case GET_APPOINTMENT_BY_ID:
+        return {
+          ...state,
+          appointmentDetails: action.payload
+        }
       case DELETE_APPOINTMENT_AS_CLIENT:
         return {
           ...state,
@@ -389,7 +397,7 @@ function rootReducer(state = initialState, action) {
       case GET_SCHEDULE_BY_DATE:
         return {
           ...state,
-          schedule: action.payload
+          scheduleByDate: action.payload
         }
 
     /*-----------CLEAR-----------*/

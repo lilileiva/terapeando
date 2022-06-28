@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './Schedule.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { createAppointmentAsClient, createAppointmentAsPsychologist, getAppointmentAsClient, updateSchedule, getScheduleAsClient, getScheduleAsPsychologist } from '../../redux/actions'
+import {
+    createAppointmentAsClient,
+    createAppointmentAsPsychologist,
+    getAppointmentAsClient,
+    updateScheduleAsPsychologist,
+    updateScheduleAsClient,
+    getScheduleAsClient,
+    getScheduleAsPsychologist
+} from '../../redux/actions'
 import { Text, Stack, Avatar, Button, HStack, VStack, Divider, Badge } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
@@ -72,9 +80,12 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
     const dispatchAppointment = () => {
         if (tokenClient) {
             dispatch(createAppointmentAsClient(IdUserPsychologist, appointmentData))
-            dispatch(updateSchedule(idSchedule, newSchedule))
+            dispatch(updateScheduleAsClient(idSchedule, newSchedule))
         }
-        if (tokenPsychologist) dispatch(createAppointmentAsPsychologist(IdUserPsychologist, appointmentData))
+        if (tokenPsychologist) {
+            dispatch(createAppointmentAsPsychologist(IdUserPsychologist, appointmentData))
+            dispatch(updateScheduleAsPsychologist(IdUserPsychologist, appointmentData))
+        }
         setCalendar(false)
     }
 
@@ -103,8 +114,18 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
                                     <Text fontSize='xl' color='#285e61'>Horarios Seleccionado:</Text><Badge fontSize='1em'>{appointmentData.hour}</Badge>
                                 </Stack>
                                 <HStack flexWrap={'wrap'}>
-                                    {hours && hours.map((hour) =>
-                                        <Button key={hour} bg='green.100' name='hour' size={'md'} value={hour} onClick={(e) => handleTypeAndHour(e)}>{hour} hs</Button>)}
+                                    {
+                                        hours && hours.map((hour) => {
+                                            let hourUTC = new Date(hour)
+                                            let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                                            timezone = timezone.split('_').join(' ').split('/').join(' / ')
+                                            return (
+                                                <Button key={hourUTC} bg='green.100' name='hour' size={'md'} value={hourUTC} onClick={(e) => handleTypeAndHour(e)}>
+                                                    {hourUTC.getHours()}:00 hs {timezone}
+                                                </Button>
+                                            )
+                                        })
+                                    }
                                 </HStack>
                             </Stack>
                             <VStack width='100%' pb='2em' mt={'1em'} alignItems={'flex-start'}>

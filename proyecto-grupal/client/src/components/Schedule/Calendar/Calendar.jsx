@@ -57,7 +57,7 @@ function Calendar(props) {
          {days.map((day, dayIdx) => 
             (
             <GridItem colStart={(dayIdx === 0 && colStartClasses[getDay(day)])} rowSpan={1} w='100%' h='10' key={day.toString()}>
-               { isEqual(day,today) ?
+               { isFuture(day,today) ?
             <Button onClick={() => props.handleDate(day)} w='100%' colorScheme='teal' bgColor={'gray.100'} color={'blackAlpha.700'} _hover={{ bg: 'teal.400', color:'white' }} _focus={{bg:'teal.300', color:'white'}} _active={{bg:'teal.300', color:'white'}}>
                <time dateTime={format(day, 'yyyy-MM-dd')}>
                       {format(day, 'd')}
