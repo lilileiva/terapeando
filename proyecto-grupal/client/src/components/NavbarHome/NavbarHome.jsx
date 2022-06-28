@@ -48,12 +48,7 @@ function removeAcc(str) {
 
 const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 
-const tokenClient = window.localStorage.getItem('tokenClient')
-const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
-
-
 const NavLink = ({ children }) => (
-
   <Link exact to={removeAcc(children)}>
     <Text
       px={2}
@@ -70,22 +65,26 @@ const NavLink = ({ children }) => (
 );
 
 export default function NavbarHome() {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const tokenClient = window.localStorage.getItem("tokenClient");
+  const tokenPsychologist = window.localStorage.getItem("tokenPsychologist");
+
   const handleSignOut = () => {
     window.localStorage.clear();
-  }
+  };
 
   useEffect(() => {
-    if (tokenClient) dispatch(getUserClient())
-    if (tokenPsychologist) dispatch(getUserPsychologistOne())
+    if (tokenClient) dispatch(getUserClient());
+    if (tokenPsychologist) dispatch(getUserPsychologistOne());
   }, [dispatch, tokenClient, tokenPsychologist]);
 
   const clientDetails = useSelector((state) => state.userClientDetail);
-  const userPsichologistDetail = useSelector((state) => state.psychologistProfile)
+  const userPsichologistDetail = useSelector(
+    (state) => state.psychologistProfile
+  );
 
   return (
     <>
@@ -106,73 +105,68 @@ export default function NavbarHome() {
             <Box>
               <Image src={img} w={"50px"} />
             </Box>
-            <Stack direction='row'>
-
-              <Link className={'links'} to={'/home'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+            <Stack direction="row">
+              <Link className={"links"} to={"/home"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Home
                 </Text>
               </Link>
-              <Link className={'links'} to={'/proximasconsultas'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+              <Link className={"links"} to={"/proximasconsultas"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Proximas consultas
                 </Text>
               </Link>
-              <Link className={'links'} to={'/mipsicologo'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+              <Link className={"links"} to={"/mipsicologo"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Mi psicólogo
                 </Text>
               </Link>
-              <Link className={'links'} to={'/blog'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
+              <Link className={"links"} to={"/blog"}>
+                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
                   Blog
                 </Text>
               </Link>
             </Stack>
           </HStack>
           <Flex alignItems={"center"}>
-            {
-              tokenClient
-                ? (
-                  <Link to='/appointments'>
-                    <Button
-                      variant={"solid"}
-                      colorScheme={"teal"}
-                      size={"sm"}
-                      mr={4}
-                      leftIcon={<AddIcon />}
-                    >
-                      Mis citas
-                    </Button>
-                  </Link>
-                )
-                : tokenPsychologist ? (
-                  <>
-                    <Link to='/appointments'>
-                      <Button
-                        variant={"solid"}
-                        colorScheme={"teal"}
-                        size={"sm"}
-                        mr={4}
-                        leftIcon={<AddIcon />}
-                      >
-                        Mis citas
-                      </Button>
-                    </Link>
-                    <Link to='/editschedule'>
-                      <Button
-                        variant={"solid"}
-                        colorScheme={"teal"}
-                        size={"sm"}
-                        mr={4}
-                        leftIcon={<AddIcon />}
-                      >
-                        Administrar agenda
-                      </Button>
-                    </Link>
-                  </>
-                ) : null
-            }
+            {tokenClient ? (
+              <Link to="/appointments">
+                <Button
+                  variant={"solid"}
+                  colorScheme={"teal"}
+                  size={"sm"}
+                  mr={4}
+                  leftIcon={<AddIcon />}
+                >
+                  Mis citas
+                </Button>
+              </Link>
+            ) : tokenPsychologist ? (
+              <>
+                <Link to="/appointments">
+                  <Button
+                    variant={"solid"}
+                    colorScheme={"teal"}
+                    size={"sm"}
+                    mr={4}
+                    leftIcon={<AddIcon />}
+                  >
+                    Mis citas
+                  </Button>
+                </Link>
+                <Link to="/editschedule">
+                  <Button
+                    variant={"solid"}
+                    colorScheme={"teal"}
+                    size={"sm"}
+                    mr={4}
+                    leftIcon={<AddIcon />}
+                  >
+                    Administrar agenda
+                  </Button>
+                </Link>
+              </>
+            ) : null}
             <Menu>
               <MenuButton
                 as={Button}
@@ -181,22 +175,17 @@ export default function NavbarHome() {
                 cursor={"pointer"}
                 minW={0}
               >
-                {tokenClient ?
-                  (
-                    <Avatar
-                      size={"sm"}
-                      src={clientDetails?.profileImage}
-                    />)
-                  :
-                  (
-                    <Avatar
-                      size={"sm"}
-                      src={userPsichologistDetail?.profileImage} />
-                  )
-                }
+                {tokenClient ? (
+                  <Avatar size={"sm"} src={clientDetails?.profileImage} />
+                ) : (
+                  <Avatar
+                    size={"sm"}
+                    src={userPsichologistDetail?.profileImage}
+                  />
+                )}
               </MenuButton>
               <MenuList>
-                {tokenClient ?
+                {tokenClient ? (
                   <>
                     <Link to={`/home/${clientDetails?.firstName}`}>
                       <MenuItem>Mi Perfil</MenuItem>
@@ -204,16 +193,19 @@ export default function NavbarHome() {
                     <Link to={`/editprofile/${clientDetails?.firstName}`}>
                       <MenuItem>Editar Perfil</MenuItem>
                     </Link>
-                  </> :
+                  </>
+                ) : (
                   <>
                     <Link to={`/home/${userPsichologistDetail.firstName}`}>
                       <MenuItem>Mi Perfil</MenuItem>
                     </Link>
-                    <Link to={`/editprofile/${userPsichologistDetail.firstName}`}>
+                    <Link
+                      to={`/editprofile/${userPsichologistDetail.firstName}`}
+                    >
                       <MenuItem>Editar Perfil</MenuItem>
                     </Link>
                   </>
-                }
+                )}
 
                 <Link to={"/preguntasfrecuentes"}>
                   <MenuItem>Ayuda</MenuItem>
@@ -222,10 +214,8 @@ export default function NavbarHome() {
                   <MenuItem>Mis Pagos</MenuItem>
                 </Link>
                 <MenuDivider />
-                <Link to='/'>
-                  <MenuItem onClick={handleSignOut}>
-                    Cerrar sesión
-                  </MenuItem>
+                <Link to="/">
+                  <MenuItem onClick={handleSignOut}>Cerrar sesión</MenuItem>
                 </Link>
               </MenuList>
             </Menu>
