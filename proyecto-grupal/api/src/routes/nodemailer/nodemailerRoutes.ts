@@ -1,9 +1,12 @@
-import { Router } from "express";
-const { forgotPasswordPsychologist, ForgotPasswordClient, ForgotPassword } = require('./nodemailer.ts')
-const validatePsychologist = require ('../../middleware/validatePsychologist')
-const validateClient = require ('../../middleware/validateClient')
+import {Router} from "express";
+const {ForgotPassword , registerConfirmationEmail } = require('./nodemailer.ts');
+
+
+
 const nodemailerRoutes: Router = Router();
 
-nodemailerRoutes.put('/rememberpassword', ForgotPassword);
+nodemailerRoutes.post('/confirmation-email', registerConfirmationEmail);
+nodemailerRoutes.put("/rememberpassword", ForgotPassword);
+
 
 module.exports = nodemailerRoutes;

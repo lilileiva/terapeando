@@ -92,7 +92,7 @@ function EditSchedule() {
 
         {
           inputDate
-            ? <Text>{inputDate.getDate()}/{inputDate.getMonth()}</Text>
+            ? <Text>{inputDate.getDate()}/{inputDate.getMonth() + 1}</Text>
             : <Text>Selecciona una fecha</Text>
         }
         <Text>Horarios: </Text>

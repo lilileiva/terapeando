@@ -88,10 +88,10 @@ function ClientProfile() {
            alt={clientDetails.firstName}
            mb={4}
          />
-         <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
+{/*          <Heading color={"blackAlpha.800"} fontSize={"2xl"} fontFamily={"body"}>
            {clientDetails.firstName} {clientDetails.lastName}{" "}
            <ChangePasswordModal />
-         </Heading>
+         </Heading> */}
 
          <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
            <Badge px={2} py={1} color={"blackAlpha.800"} fontWeight={"600"}>

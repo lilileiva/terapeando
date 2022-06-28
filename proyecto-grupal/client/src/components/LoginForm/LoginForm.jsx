@@ -25,6 +25,7 @@ import axios from "axios";
 import { loginClient } from "../../redux/actions";
 import ForgotPassword from "../ForgotPassword/ForgotPassword.jsx"
 import { LOCAL_HOST } from "../../redux/actions/types";
+
 const clientId =
   "451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com";
 const baseURL = LOCAL_HOST;
@@ -82,6 +83,7 @@ function LoginForm() {
       [e.target.name]: e.target.value,
     });
   };
+
 
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -283,25 +285,23 @@ function LoginForm() {
                     </Text>
                   )}
 
-                  <Stack direction="column" align="center">
+                  <Stack direction="column"  justifyContent={'center'}   margin={'2em'}>
                     <Button
                       type="submit"
                       bg={"#63caa7"}
                       color="white"
                       variant="solid"
                       _hover={[{ color: "#63caa7" }, { bg: "white" }]}
-                      marginTop="3em"
+                      display={'flex'}
+                  
                     >
                       Iniciar sesión
                     </Button>
 
-                    {/* <Login mt='1em' />  */}
-                    {/* <Button bg='green.100' color={'#63caa7'} */}
-                    {/* onClick={handleLogin}> */}
-                    {/* </Button> */}
-                      <a href="http:///localhost:3001/userclient/google">
-                      Inicia sesión con &nbsp; <FaGoogle />
-                      </a>
+                    <a href="http://localhost:3001/userclient/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
+                    </Stack>
+
+                    <Stack >
 
                     <Button
                       bg="green.100"
@@ -310,7 +310,15 @@ function LoginForm() {
                     >
                       ¿Aún no tienes una cuenta?
                     </Button>
-                  </Stack>
+                    <Button
+                      bg="green.100"
+                      color={"#285e61"}
+                      
+                    >
+                      <ForgotPassword/>
+                    </Button>
+                    </Stack>
+                  
                 </form>
               </Box>
             </Box>

@@ -3,7 +3,7 @@
     color: 'gray.600', 'gray.200';
     font-weight: 500;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 3px;
     width: 16em;
     gap: 1em;

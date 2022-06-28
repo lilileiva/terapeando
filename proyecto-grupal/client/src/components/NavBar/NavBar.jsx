@@ -117,16 +117,6 @@ const DesktopNav = () => {
           Psicólogos
         </Text>
       </Link>
-      <Link className={"links"} to={"/preguntasfrecuentes"}>
-        <Button bg="white" height="1.5em" _hover={{ bg: "#cbd5e0bb" }}>
-          Preguntas Frecuentes
-        </Button>
-      </Link>
-      {/* <Link className={"links"} to={"/psicologos"}>
-        <Button bg="white" height="1.5em" _hover={{ bg: "#cbd5e0bb" }}>
-          Psicólogos
-        </Button>
-      </Link> */}
       <Link className={"links"} to={"/blog"}>
         <Button bg="white" height="1.5em" _hover={{ bg: "#cbd5e0bb" }}>
           Blog
@@ -287,20 +277,6 @@ const MobileNavItem = ({ label, children, href }) => {
 };
 
 const NAV_ITEMS = [
-  {
-    label: "Preguntas Frecuentes",
-    href: "preguntasfrecuentes",
-    children: [
-      {
-        label: "Precios",
-        href: "precios",
-      },
-      {
-        label: "Términos y Condiciones",
-        href: "terminosycondiciones",
-      },
-    ],
-  },
   {
     label: "Psicologos",
     href: "psicologos",

@@ -53,9 +53,6 @@ export default function Psychologists() {
                 <div >
                     {AllPsychologist && AllPsychologist.length > 0 ?
                         AllPsychologists.map(el => {
-                            {console.log(el.status)}
-                            
-
                             return (
                               
                                 <CardPsychologist

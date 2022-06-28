@@ -41,7 +41,7 @@ export class userClient {
     @prop({ required: true })
     country: string
 
-    @prop({  minlength:8 })
+    @prop({ required:true, minlength:8 })
     password: string
 
     @prop({

@@ -135,7 +135,8 @@ const deletePost = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(404).send("error: " + err);
   }
-}
+};
+
 //editando nota
 const putPost = async (req: Request, res: Response) => {
 

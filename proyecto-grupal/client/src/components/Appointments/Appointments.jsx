@@ -3,7 +3,7 @@ import './Appointments.css';
 import NavbarHome from '../NavbarHome/NavbarHome';
 import Footer from '../Footer/Footer.jsx';
 import NotFound from '../404notFound/notFound.jsx';
-import { Stack, Text, Box, Avatar, Button, Select } from '@chakra-ui/react';
+import { Stack, Text, Box, Avatar, Button, Select, Heading } from '@chakra-ui/react';
 import { CalendarIcon, TimeIcon } from '@chakra-ui/icons';
 import {
   getAppointmentAsClient,
@@ -11,7 +11,8 @@ import {
   deleteAppointmentAsClient,
   deleteAppointmentAsPsychologist,
   putAppointmentAsClient,
-  putAppointmentAsPsychologist
+  putAppointmentAsPsychologist,
+  getScheduleByDate
 } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -52,15 +53,21 @@ function Appointments() {
         console.log(appointment)
         if (tokenClient) {
           dispatch(deleteAppointmentAsClient(appointment))
+          dispatch(getScheduleByDate(appointment.IdUserPsychologist._id, appointment.date))
           dispatch(getAppointmentAsClient())
+          console.log(appointment.IdUserPsychologist._id)
         }
         if (tokenPsychologist) {
           dispatch(deleteAppointmentAsPsychologist(appointment))
+          dispatch(getScheduleByDate((appointment.IdUserPsychologist)._id, appointment.date))
           dispatch(getAppointmentAsPsychologist())
         }
       }
     })
   }
+
+  const schedule = useSelector((state) => state.schedule)
+  console.log(schedule)
 
   const [changeTypeAlert, setChangeTypeAlert] = useState(false)
   const handleChangeType = () => {
@@ -196,7 +203,10 @@ useEffect(() => {
 
                           </Stack>
                         )
-                      }) : null
+                      }) :<Heading bgGradient='linear(to-l, #319795, #285E61)'
+                      bgClip='text'
+                      fontSize='6xl'
+                      fontWeight='extrabold'>Todavia no reservaste ninguna cita!</Heading>
                   }
                 </Stack>
               </Stack>
