@@ -35,7 +35,7 @@ clientRouter.get('/auth/google/callback', passport.authenticate('google'), async
         res.redirect('http//localhost:3000/signin')
     } 
   })
-  
+
 clientRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile','email']}))
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)

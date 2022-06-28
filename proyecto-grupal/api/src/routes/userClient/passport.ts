@@ -1,7 +1,8 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 import userClientModel from "../../models/userClients"
-import { error } from "console";
+import { Request, Response } from "express";
 import userPsychologistModel from "../../models/userPsychologist";
+
 module.exports = function (passport:any) {
   passport.use(
     new GoogleStrategy(
@@ -24,8 +25,8 @@ module.exports = function (passport:any) {
             //If user present in our database.     
             done(null, user)
           } else {
-            // if user is not preset in our database save user data to database.
-            done('Debes regstrarte primero', null)
+            // if user is not preset in our database do something.
+            done("<h1 style='color:green'>primero registrate</h1> <a href='http://localhost:3000/signin'>Volver a iniciar sesion</a>",false)
           }
         } catch (err) {
           console.error(err)
