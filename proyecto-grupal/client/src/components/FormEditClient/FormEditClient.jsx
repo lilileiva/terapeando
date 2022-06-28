@@ -39,8 +39,8 @@ function FormEditClient() {
   const countries = useMemo(() => countryList().getData(), [])
 
   const clientDetails = useSelector((state) => state.userClientDetail)
-  console.log(clientDetails)
   const psychologistDetails = useSelector((state) => state.psychologistProfile)
+  console.log(psychologistDetails)
   const [error, setError] = useState({});
 
   const [address, setAddress] = useState(psychologistDetails.location || "");
@@ -53,8 +53,8 @@ function FormEditClient() {
     firstName: clientDetails.firstName || psychologistDetails.firstName,
     lastName: clientDetails.lastName || psychologistDetails.lastName,
     email: clientDetails.email || psychologistDetails.email,
-    country: clientDetails.country,
-    location: '',
+    country: clientDetails.country  || '',
+    location: psychologistDetails.location || '',
     latitude: '',
     longitude: '',
     profileImage: clientDetails.profileImage || psychologistDetails.profileImage,

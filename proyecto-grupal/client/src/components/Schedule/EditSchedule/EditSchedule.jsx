@@ -67,10 +67,10 @@ function EditSchedule() {
   }
 
   return (
-    <Stack direction='column' height='100%' justify='space-between'>
+    <Stack direction='column' minHeight='100%' justify='space-between'>
       <NavbarHome />
 
-      <Stack direction='column' width='100%' height='100%' p='10%' justify='center'>
+      <Stack direction='column' width='100%' pr='10%' pl='10%' justify='center'>
 
         <VStack maxW={'100%'} justifyContent={'center'} px={'20%'}>
 
@@ -111,7 +111,6 @@ function EditSchedule() {
               input.hours.length !== 0
                 ? (
                   input.hours.map((hour) => {
-                    console.log(input.hours)
                     let hourUTC = new Date(hour)
                     return (
                       <Stack direction='row' align='center' bg='teal.100' p='0.5em' borderRadius='0.5em'>
