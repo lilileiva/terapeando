@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions";
 import { Select } from "@chakra-ui/react";
 
-export default function Filters() {
+export default function Filters( {setPage} ) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const categories = useSelector((state) => state.categories);
@@ -18,11 +18,13 @@ export default function Filters() {
   }, [dispatch]);
 
   function handleSubmitOrder(e) {
-    // console.log(e.target.value);
+    e.preventDefault()
     dispatch(getPostOrder(e.target.value, posts));
+    //setPage(1)
   }
   function handleSubmitCategory(e) {
     dispatch(getByCategory(e.target.value));
+    //setPage(1)
   }
 
   return (

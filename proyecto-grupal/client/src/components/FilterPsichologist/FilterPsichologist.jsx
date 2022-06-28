@@ -6,20 +6,21 @@ import { Select } from "@chakra-ui/react";
 import { specialitiesList } from './specialities';
 
 
-export default function FiltersPsichologist() {
+export default function FiltersPsichologist({ setPage }) {
   const dispatch = useDispatch();
 
-
   const psichologists = useSelector((state) => state.allUsersPsichologists);
-
 
   function handleSubmitOrder(e) {
     e.preventDefault();
     dispatch(orderByRating(e.target.value, psichologists));
+   // setPage(1)
   }
-
+  
   function handleSubmitCategory(e) {
+    e.preventDefault()
     dispatch(getBySpecialties(e.target.value));
+    //setPage(1)
   }
 
   return (

@@ -18,7 +18,7 @@ const jwt = require("jsonwebtoken");
 
 clientRouter.get('/auth/google/callback', passport.authenticate('google', { session: false}), async(req: any, res: Response) => {
     if (req.user) { 
-      console.log('REQUSER: ', req.user)
+      //console.log('REQUSER: ', req.user)
         const user = await userClientModel.findOne({email: req.user.email });
         const userForToken = {
             id: user?._id,

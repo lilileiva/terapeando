@@ -16,7 +16,7 @@ module.exports = function (passport:any) {
       },
       async (accessToken:any, refreshToken:any, profile:any, done:any, req: Request, res: Response) => {
         try{
-          console.log('AT: ', accessToken)
+          //console.log('AT: ', accessToken)
           //console.log('PROFLE: ', profile)
           const newUser = {
             firstName: profile.name.givenName,
