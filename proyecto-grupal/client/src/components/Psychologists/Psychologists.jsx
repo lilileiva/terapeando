@@ -14,12 +14,13 @@ import FiltersPsichologist from '../FilterPsichologist/FilterPsichologist';
 
 export default function Psychologists() {
     const AllPsychologist = useSelector(state => state.allUsersPsichologists);
-
+   
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getPsychologistByStatus())
+        console.log(AllPsychologist)
         smoothscroll();
     }, [dispatch]);
 
@@ -52,7 +53,6 @@ export default function Psychologists() {
                 <div >
                     {AllPsychologist && AllPsychologist.length > 0 ?
                         AllPsychologists.map(el => {
-                            {console.log(el.status)}
                             return (
                               
                                 <CardPsychologist
@@ -66,7 +66,11 @@ export default function Psychologists() {
                                     // about={`${el.about.slice(0, 270)}...`}
                                     idPsychologist={el._id}
                                     Specialties={el.Specialties}
+                                    inicio={el.inicio}
+                                    fin={el.fin}
+                                    dias={el.dias}
                                 />
+                                
                             )
                         }) : null
                     }

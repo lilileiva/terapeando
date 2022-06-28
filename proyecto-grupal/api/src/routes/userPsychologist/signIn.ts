@@ -12,6 +12,7 @@ const logInPsychologist = async (req: Request, res: Response) => {
         .json({ error: "Email and Password are both required." });
     } else {
       const user = await userPsychologistModel.findOne({ email });
+      console.log(user)
 
       const passwordCorrect =
         user === null ? false : await bcrypt.compare(password, user.password);
@@ -29,7 +30,7 @@ const logInPsychologist = async (req: Request, res: Response) => {
         const token = jwt.sign(userForToken, process.env.SECRETWORD, {
           expiresIn: 60 * 60 * 24 * 7,
         });
-
+         
         res.send({
           name: `${user?.firstName} ${user?.lastName}`,
           email: user?.email,

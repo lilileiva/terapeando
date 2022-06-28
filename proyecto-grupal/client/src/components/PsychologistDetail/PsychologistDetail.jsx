@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { ChakraProvider, Box, SimpleGrid, Heading, Badge, Text, Flex, Avatar, Stack, Image, Button } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, getUserPsychologistDetails, getUserPsychologistDetailsasClient, getPostsByPsychologistId } from "../../redux/actions";
+import {
+  clear,
+  getUserPsychologistDetails,
+  getUserPsychologistDetailsasClient,
+  getPostsByPsychologistId,
+  filterReviewsBySychologistAsClient,
+  filterReviewsBySychologistAsPsycho
+} from "../../redux/actions";
 import img from '../../assets/logo-01.png'
 import './PsychologistDetail.css'
 import Starts from '../Starts/Starts';
@@ -18,23 +25,30 @@ import Schedule from "../Schedule/Schedule";
 
 
 export default function PsychologistDetail() {
-  const { IdUserPsychologist } = useParams();
-  console.log(IdUserPsychologist)
+
+  const { IdUserPsychologist } = useParams();  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [loader, setLoader] = useState(true);
-  
-  const tokenClient = window.localStorage.getItem('tokenClient')  
+
+  const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
   const tokenAdmin = window.localStorage.getItem('tokenAdmin')
-  
+
   useEffect(() => {
-    tokenClient ? dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist)) : dispatch(getUserPsychologistDetails(IdUserPsychologist))
+    if (tokenClient) {
+      dispatch(getUserPsychologistDetailsasClient(IdUserPsychologist))
+      dispatch(filterReviewsBySychologistAsClient(IdUserPsychologist))
+    }
+    if (tokenPsychologist) {
+      dispatch(getUserPsychologistDetails(IdUserPsychologist))
+      dispatch(filterReviewsBySychologistAsPsycho(IdUserPsychologist))
+    }
     dispatch(getPostsByPsychologistId(IdUserPsychologist))
     smoothscroll()
-    
+
     setTimeout(() => {
       setLoader(false);
     }, 500)
@@ -42,11 +56,10 @@ export default function PsychologistDetail() {
       dispatch(clear()); //Clear detail
     };
   }, [dispatch, IdUserPsychologist]);
-  
+
   const detail = useSelector((state) => state.userPsichologistDetail);
-  console.log(detail)
   const posts = useSelector((state) => state.posts)
-  let postDate;
+  const reviews = useSelector((state) => state.reviews)
 
   const [calendar, setCalendar] = useState(false)
   const handleCalendar = () => {
@@ -58,13 +71,7 @@ export default function PsychologistDetail() {
   }
 
   const [showMap, setShowMap] = useState(false)
-  const handleMap = () => {
-    if (!showMap) {
-      setShowMap(true)
-    } else {
-      setShowMap(false)
-    }
-  }
+  const [showReviews, setShowReviews] = useState(false)
 
   return (
     <>
@@ -75,7 +82,7 @@ export default function PsychologistDetail() {
               <div className='psychologistDetailContainer'>
                 <Stack mb='1em'>
                   <NavbarHome />
-                  <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'32'}>
+                  <Flex className="HeaderDetail" alignItems={'center'} justifyContent='space-around' height={'10em'}>
                     <ArrowLeftIcon color='white' alignItems='left' cursor='pointer' onClick={() => navigate(-1)} />
                     <Text fontSize='3xl' fontWeight='500' color='white'>
                       Conoce un poco más sobre tu próximo psicólogo
@@ -91,7 +98,6 @@ export default function PsychologistDetail() {
                               ? <Loader />
                               : <Stack direction='column' width='100%' height='100%' pl='10%' pr='10%'>
                                 <SimpleGrid columns={1} textAlign='center' spacingX="10" spacingY="20px">
-                                  {/* <Stack direction='row'> */}
                                   <Flex direction='row' className="BoxDetail" borderRadius={'10px'} p='1em' width='100%' height='fit-content' justify='space-around' align='center'>
                                     <Box className="BoxDetailImage" backgroundColor={'transparent'} height="15em" width='15em'>
                                       <Avatar src={detail.profileImage} size='full' />
@@ -101,27 +107,18 @@ export default function PsychologistDetail() {
                                       <Stack direction='row' width='100%' justify='space-around'>
                                         <Text fontSize='2xl'>{`📍 ${detail.location}`}</Text>
                                         <Text fontSize='2xl'>{`📩 ${detail.email}`}</Text>
-                                        <Text fontSize='2xl'>{`🎓 ${detail.education}`}
-                                          {/* <Text>{`Licencia: ${detail.License}`}</Text> */}
-                                        </Text>
+                                        <Text fontSize='2xl'>{`🎓 ${detail.education}`}</Text>
                                       </Stack>
                                       <Stack direction='row' width='100%' pt='2em'>
                                         <Button width='50%' bg='#63caa7' color='white' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={handleCalendar}>
                                           Pedir cita
                                         </Button>
-                                        <Button width='50%' color='#63caa7' bg='white' borderWidth='0.1em' borderColor='#63caa7' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={handleMap}>
+                                        <Button width='50%' color='#63caa7' bg='white' borderWidth='0.1em' borderColor='#63caa7' variant='solid' _hover={[{ color: 'teal' }, { bg: 'green.100' }]} size='lg' onClick={() => setShowMap(true)}>
                                           Ver mapa
                                         </Button>
                                       </Stack>
                                     </Stack>
-                                    {/* <Map /> */}
                                   </Flex>
-                                  {/* </Stack> */}
-                                  {/* <Box className="BoxDetail" bg="" borderRadius={'10px'} height="80px">
-                                  <Text fontSize='xl'>
-                                    {` 🎂 ${detail.birthDate}`}
-                                  </Text>
-                                </Box> */}
                                   <Flex className="BoxDetail" p='1em' justifyContent='space-around' borderRadius={'10px'} height={'fit-content'} alignContent='center' alignItems={'center'}>
                                     <Box borderRadius={'10px'} height="fit-content">
                                       <Text fontSize='xl'>
@@ -138,7 +135,7 @@ export default function PsychologistDetail() {
                                     <Text fontSize='xl'>Sobre mí</Text>
                                     {
                                       detail.about
-                                        ? <Text fontSize='md' p='1em'>{detail.about}</Text> : 'Aún no se ha agregado información'
+                                        ? <Text whiteSpace='pre-wrap' fontSize='md' p='1em'>{detail.about}</Text> : 'Aún no se ha agregado información'
                                     }
                                   </Box>
                                   <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">
@@ -146,25 +143,29 @@ export default function PsychologistDetail() {
                                     <Stack direction='row' p='1em' height='fit-content' justify='left' overflowX='scroll' overflowY='hidden'>
                                       {
                                         posts.length !== 0
-                                          ? posts.map((post) => (
-                                            postDate = post.createdAt,
-                                            postDate = new Date(),
-                                            <>
-                                              <Link to={`/postdetail/${post._id}`}>
-                                                <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
-                                                  <Image borderRadius='1em' width='inherit' height='20em' objectFit='cover' src={post.Image} />
-                                                  <Stack className="postTitle">
-                                                    <Stack>
-                                                      <Text className="postTitleText" fontSize='2xl' fontWeight='500'>{post.Title}</Text>
-                                                      <Text color='gray' fontSize='sm' fontWeight='500'>FECHA: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                          ? posts.map((post) => {
+                                            let postDate = post.createdAt
+                                            postDate = new Date(postDate)
+                                            return (
+                                              <>
+                                                <Link to={`/postdetail/${post._id}`}>
+                                                  <Box mr='1em' height='20em' width='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                                                    <Image borderRadius='1em' width='inherit' height='20em' objectFit='cover' src={post.Image} />
+                                                    <Stack className="postTitle">
+                                                      <Stack>
+                                                        <Text className="postTitleText" fontSize='2xl' fontWeight='500'>{post.Title}</Text>
+                                                        <Text color='gray' fontSize='sm' fontWeight='500'>FECHA: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</Text>
+                                                      </Stack>
+                                                      <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
                                                     </Stack>
-                                                    <Text color='gray' mt='2em' className="verMasText">Ver más</Text>
-                                                  </Stack>
-                                                </Box>
-                                              </Link>
-                                            </>
-                                          ))
-                                          : <Text>No hay notas</Text>
+                                                  </Box>
+                                                </Link>
+                                              </>
+                                            )
+                                          })
+                                          : <Stack width='100%'>
+                                            <Text textAlign='center'>No hay notas</Text>
+                                          </Stack>
                                       }
                                     </Stack>
                                   </Box>
@@ -178,7 +179,10 @@ export default function PsychologistDetail() {
                                         ) : null
                                     }
                                     <br />
-                                    <Reviews />
+                                    <Button color='teal' bg='green.100' variant='solid' onClick={() => setShowReviews(true)}>
+                                      Ver reviews
+                                    </Button>
+                                    {/* <Reviews /> */}
                                   </Box>
                                 </SimpleGrid>
                               </Stack>
@@ -195,23 +199,48 @@ export default function PsychologistDetail() {
                         lastName={detail.lastName}
                         profileImage={detail.profileImage}
                         rating={detail.rating}
-                        idPsychologist={detail.idPsychologist}
-                        setCalendar={setCalendar} />
+                        IdUserPsychologist={detail._id}
+                        setCalendar={setCalendar}
+                      />
                     </div>
                     : null
                 }
                 {
-
                   showMap ? (
                     <div className="map">
                       <Stack direction='column' bg='white' pb='2em' pr='2em' pl='2em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                         <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
                           <CloseIcon cursor='pointer' onClick={() => setShowMap(false)} />
                         </Stack>
-                        <Map lat={detail.latitude} lgn={detail.longitude} />
+                        <Map lat={detail.latitude} lng={detail.longitude} />
                       </Stack>
                     </div>
                   ) : null
+                }
+                {
+                  showReviews
+                    ? <div className="reviews">
+                      <Stack bg='white' pb='2em' pr='2em' pl='2em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
+                        <Stack display='flex' direction='column' justifyContent='baseline' width='100%' p='1em'>
+                          <CloseIcon cursor='pointer' onClick={() => setShowReviews(false)} />
+                          <Text fontSize='2xl' color='green.300'>Reviews de este psicólogo</Text>
+                        </Stack>
+                        <Stack maxHeight='15em' overflowY='scroll'>
+                          {
+                            reviews.length !== 0
+                              ? reviews.map((review) => (
+                                <Stack align='center' bg='gray.200' borderRadius='1em' mb='1em' height='fit-content'>
+                                  <Text>{review.Content}</Text>
+                                  <Starts rating={review.Rating} />
+                                </Stack>
+                              )) : <Stack align='center' bg='gray.200' borderRadius='1em' mb='1em' height='fit-content'>
+                                <Text>No hay reviews</Text>
+                              </Stack>
+                          }
+                        </Stack>
+                      </Stack>
+                    </div>
+                    : null
                 }
                 <Footer />
               </div>

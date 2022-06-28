@@ -11,8 +11,7 @@ import { Text, Box, Stack, Button, Modal, ModalOverlay, ModalContent, ModalHeade
 
 
 
-export default function Reviews() {
-
+export default function Reviews({ idPsychologist }) {
   const Colors = {
     orange: "#FFC107",
     grey: "#a9a9a9",
@@ -46,7 +45,7 @@ export default function Reviews() {
 
   const dispatch = useDispatch();
 
-  const {idPsychologist}  = useParams();
+  // const {idPsychologist}  = useParams();
 
   
 
@@ -167,7 +166,6 @@ export default function Reviews() {
     </Stack>
   )
 };
-
 
 
 

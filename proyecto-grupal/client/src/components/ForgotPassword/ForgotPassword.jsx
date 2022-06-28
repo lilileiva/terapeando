@@ -22,11 +22,8 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-export default function Reviews() {
-  const Colors = {
-    orange: "#FFC107",
-    grey: "#a9a9a9",
-  };
+export default function ForgotPassword() {
+
 
   // estados del componente modal de chakra para el renderizado
 
@@ -93,15 +90,15 @@ export default function Reviews() {
     onClose();
     input_email.role === "client"
       ? Swal.fire(
-          "Si tu email está registrado como paciente te llegara un email con la nueva contraseña",
-          "",
-          "success"
-        )
+        "Si tu email está registrado como paciente te llegara un email con la nueva contraseña",
+        "",
+        "success"
+      )
       : Swal.fire(
-          "Si tu email está registrado como psicologo te llegara un email con la nueva contraseña",
-          "",
-          "success"
-        );
+        "Si tu email está registrado como psicologo te llegara un email con la nueva contraseña",
+        "",
+        "success"
+      );
     setInput_email({
       email: "",
     });
@@ -136,9 +133,8 @@ export default function Reviews() {
                 placeholder="Ej: terapeando@gmail.com"
               />
               {errorsEmail && (
-                <Text fontWeight={"semibold"} color={"#285e61"}>{`${
-                  errorsEmail.email ? `>${errorsEmail.email}` : ""
-                }`}</Text>
+                <Text fontWeight={"semibold"} color={"#285e61"}>{`${errorsEmail.email ? `>${errorsEmail.email}` : ""
+                  }`}</Text>
               )}
               <Select
                 _placeholder={"green"}
@@ -154,9 +150,8 @@ export default function Reviews() {
                 </option>
               </Select>
               {errorsEmail && (
-                <Text fontWeight={"semibold"} color={"#285e61"}>{`${
-                  errorsEmail.role ? `>${errorsEmail.role}` : ""
-                }`}</Text>
+                <Text fontWeight={"semibold"} color={"#285e61"}>{`${errorsEmail.role ? `>${errorsEmail.role}` : ""
+                  }`}</Text>
               )}
             </FormControl>
           </ModalBody>

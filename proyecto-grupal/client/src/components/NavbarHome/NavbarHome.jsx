@@ -16,7 +16,7 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, AddIcon, CalendarIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
@@ -48,8 +48,6 @@ function removeAcc(str) {
 
 const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 
-const tokenClient = window.localStorage.getItem('tokenClient')
-const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
 const NavLink = ({ children }) => (
 
@@ -69,13 +67,15 @@ const NavLink = ({ children }) => (
 );
 
 export default function NavbarHome() {
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   const dispatch = useDispatch()
 
-  const { isOpen, onOpen, onClose } = useDisclosure();  
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSignOut = () => {
-    window.localStorage.clear();    
+    window.localStorage.clear();
   }
 
   useEffect(() => {
@@ -112,16 +112,6 @@ export default function NavbarHome() {
                   Home
                 </Text>
               </Link>
-              <Link className={'links'} to={'/proximasconsultas'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                  Proximas consultas
-                </Text>
-              </Link>
-              <Link className={'links'} to={'/mipsicologo'}>
-                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
-                  Mi psicólogo
-                </Text>
-              </Link>
               <Link className={'links'} to={'/blog'}>
                 <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Blog
@@ -130,15 +120,48 @@ export default function NavbarHome() {
             </Stack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Button
-              variant={"solid"}
-              colorScheme={"teal"}
-              size={"sm"}
-              mr={4}
-              leftIcon={<AddIcon />}
-            >
-              Agendar Sesión
-            </Button>
+            {
+              tokenClient
+                ? (
+                  <Link to='/appointments'>
+                    <Button
+                      variant={"solid"}
+                      colorScheme={"teal"}
+                      size={"sm"}
+                      mr={4}
+                      leftIcon={<CalendarIcon />}
+                    >
+                      Mis citas
+                    </Button>
+                  </Link>
+                )
+                : tokenPsychologist ? (
+                  <>
+                    <Link to='/appointments'>
+                      <Button
+                        variant={"solid"}
+                        colorScheme={"teal"}
+                        size={"sm"}
+                        mr={4}
+                        leftIcon={<CalendarIcon />}
+                      >
+                        Mis citas
+                      </Button>
+                    </Link>
+                    <Link to='/editschedule'>
+                      <Button
+                        variant={"solid"}
+                        colorScheme={"teal"}
+                        size={"sm"}
+                        mr={4}
+                        leftIcon={<AddIcon />}
+                      >
+                        Administrar agenda
+                      </Button>
+                    </Link>
+                  </>
+                ) : null
+            }
             <Menu>
               <MenuButton
                 as={Button}

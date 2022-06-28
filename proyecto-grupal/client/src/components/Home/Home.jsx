@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
@@ -19,13 +19,23 @@ import { BsSearch } from "react-icons/bs";
 import { Text, Container, Stack, Button, Input } from "@chakra-ui/react";
 import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
+import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 import Chat from '../Chat/Chat'
+
 
 export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
+   
+  const search = useLocation().search; 
+  const token = new URLSearchParams(search).get('token');
+  const setToken =  token ? window.localStorage.setItem('tokenClient', token) : null ;
+
+
+  const tokenClient = window.localStorage.getItem('tokenClient')
+  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   useEffect(() => {
     dispatch(getPsychologistByStatus());
@@ -66,8 +76,6 @@ export default function Home() {
     setPage(1)
   }
 
-  const tokenClient = window.localStorage.getItem('tokenClient')
-  const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
@@ -114,7 +122,7 @@ export default function Home() {
                       rating={el.rating}
                       education={el.education}
                       about={el.about}
-                      idPsychologist={el._id}
+                      IdUserPsychologist={el._id}
                       Specialties={el.Specialties}
                     />
                   )

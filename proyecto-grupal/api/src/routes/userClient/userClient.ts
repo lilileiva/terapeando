@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import userClientModel from "../../models/userClients";
+import userClientModel from "../../models/userClients"
 import userPsychologistModel from "../../models/userPsychologist";
 
+
 const nodemailer = require("nodemailer");
+
 
 const getUserClient = async (req: Request, res: Response) => {
   try {
@@ -109,7 +111,8 @@ const putUserClient = async (req: Request, res: Response) => {
    } catch (err) {
       res.status(404).send('There was an error...');
    }
-}
+};
+
 
 
 module.exports = {
@@ -117,5 +120,5 @@ module.exports = {
   createUserClient,
   deleteUserClient,
   putUserClient,
-  getPsychologistDetails
+  getPsychologistDetails,
 };

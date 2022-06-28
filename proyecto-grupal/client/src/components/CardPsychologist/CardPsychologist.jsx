@@ -4,12 +4,11 @@ import { Box, Avatar, Text, Stack, Button, Image, Badge, } from "@chakra-ui/reac
 import './CardPsychologist.css';
 import Starts from '../Starts/Starts';
 import Schedule from "../Schedule/Schedule";
+import { useDispatch } from "react-redux";
 
-
-export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, idPsychologist }) {
+export default function CardPsychologist({ firstName, lastName, Specialties, profileImage, rating, education, about, IdUserPsychologist }) {
 
     const navigate = useNavigate();
-
     const [calendar, setCalendar] = useState(false)
     const handleCalendar = () => {
         if (!calendar) {
@@ -26,8 +25,12 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
         <Box className="cardPsychologistContainer" rounded="7px" boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
 
             <Stack className="ProfileBox">
-                <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' />
-                <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
+                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
+                    <Stack direction='column' align='center' cursor='pointer'>
+                        <Avatar className="avatar" src={profileImage} alt="img not found" size='2xl' />
+                        <Text as='ins' color='blackAlpha.700' textAlign='center' fontWeight='bold' className="name">{`${firstName} ${lastName}`}</Text>
+                    </Stack>
+                </Link>
                 <Text className="textOcupation" color='blackAlpha.500'> {education} </Text>
                 <Box className="boxstars">
                     <Starts rating={rating} />
@@ -43,41 +46,43 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                     <Badge variant='subtle' colorScheme='purple' className='Badge'>{Specialties[4]}</Badge>
                     <Badge variant='subtle' className='Badge'>{Specialties[5]}</Badge>
                 </Box>
-                <Box minHeight='10em' className="About">                    
-                        {
-                            about
-                                ? (
-                                    <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
-                                        {about.slice(0, 500)}...
-                                        <br />
-                                        {
-                                            tokenClient || tokenPsychologist
-                                                ? (
-                                                    <Link to={`/detailPsychologist/${idPsychologist}`}>
-                                                        <button className="vermas">Ver más</button>
-                                                    </Link>
-                                                ) : (
-                                                    <Link to={'/signin'}>
-                                                        <button className="vermas">Ver más</button>
-                                                    </Link>
-                                                )
-                                        }
-                                    </Text>
-                                ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
-                                    Sin descripción.
+                <Box minHeight='10em' className="About">
+                    {
+                        about
+                            ? (
+                                <Text mb='1em' className="about" color='blackAlpha.700' fontSize="md" fontStyle="italic" fontWeight="500" textAlign='justify' width='90%'>
+                                    {about.slice(0, 500)}...
+                                    <br />
+                                    {
+                                        tokenClient || tokenPsychologist
+                                            ? (
+                                                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
+                                                    <button className="vermas">Ver más</button>
+                                                </Link>
+                                            ) : (
+                                                <Link to={'/signin'}>
+                                                    <button className="vermas">Ver más</button>
+                                                </Link>
+                                            )
+                                    }
                                 </Text>
-                        }                    
+                            ) : <Text mb='1em' className="about" fontSize="md" fontStyle="italic" fontWeight=" 500" textAlign='justify' width='90%'>
+                                Sin descripción.
+                            </Text>
+                    }
                 </Box>
 
                 <Box className="profile"  >
                     {
                         tokenClient || tokenPsychologist
                             ? (
-                                <Link to={`/detailPsychologist/${idPsychologist}`}>
+                                <Link to={`/detailPsychologist/${IdUserPsychologist}`}>
                                     <Button className="buttonProfile" color='blackAlpha.600' _hover={{
                                         bg: 'blackAlpha.300',
                                         color: 'blackAlpha.700'
-                                    }} variant='outline' size='sm' marginRight='15px' > Ver Perfil </Button>
+                                        }} variant='outline' size='sm' marginRight='15px'>
+                                        Ver Perfil
+                                    </Button>
                                     <Button className="buttonProfile" color='blackAlpha.600' _hover={{
                                         bg: 'blackAlpha.300',
                                         color: 'blackAlpha.700'
@@ -107,9 +112,11 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                 {
                     tokenClient || tokenPsychologist
                         ? (
+/*                             <Link to={`/schedule/${IdUserPsychologist}`}> */
                             <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={handleCalendar}>
                                 Pedir cita
                             </Button>
+                           /*  </Link> */
                         ) : (
                             <Button className="appointmentButton" mt='1em' bg={'#63caa7'} color='white' variant='solid' _hover={[{ color: '#63caa7' }, { bg: 'white' }]} size='lg' onClick={() => navigate('/signin')}>
                                 Pedir cita
@@ -125,8 +132,9 @@ export default function CardPsychologist({ firstName, lastName, Specialties, pro
                             lastName={lastName}
                             profileImage={profileImage}
                             rating={rating}
-                            idPsychologist={idPsychologist}
-                            setCalendar={setCalendar} />
+                            IdUserPsychologist={IdUserPsychologist}
+                            setCalendar={setCalendar}
+                        />
                     </div>
                     : null
             }

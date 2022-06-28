@@ -1,0 +1,20 @@
+.appointmentsContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    justify-content: space-between;
+}
+
+.changeType {
+    position: fixed;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: initial;
+    top: 30%;
+    animation: frames .15s linear;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import ClientDetails from "./components/ClientDetails/ClientDetails";
+import ClientDetails from "./components/UserDetails/UserDetails";
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavBar from "./components/NavBar/NavBar.jsx";
@@ -35,10 +35,12 @@ import AdminPostDetail from "./components/AdminPanel/AdminPanelPosts/AdminPostDe
 import AdminPanelPayments from './components/AdminPanel/AdminPanelPayments/AdminPanelPayments.jsx';
 import AdminPanelStatistics from './components/AdminPanel/AdminPanelStatistics/AdminPanelStatistics.jsx';
 import PaymentsAdmin from './components/AdminPanel/AdminPanelPayments/Components/PaymentsAdmin.jsx';
-import CancelPayment from './components/AdminPanel/AdminPanelPayments/Components/CancelPayment.jsx';
 import Estadisticas from './components/AdminPanel/AdminPanelPayments/Components/Estadisticas.jsx';
-import AccreditedPayment from './components/AdminPanel/AdminPanelPayments/Components/AccreditedPayment.jsx';
 import FiltersPsichologist from './components/FilterPsichologist/FilterPsichologist.jsx';
+import EditSchedule from "./components/Schedule/EditSchedule/EditSchedule.jsx";
+import Appointments from './components/Appointments/Appointments.jsx';
+
+
 // import AdminPostEdit from "./components/AdminPanel/AdminPanelPosts/AdminPostEdit/AdminPostEdit";
 
 export default function App() {
@@ -54,6 +56,9 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/psicologos" element={<Psychologists />} />
         <Route path="/detailPsychologist/:IdUserPsychologist" element={<PsychologistDetail />} />
+        {/* <Route path="/editschedule/:IdUserPsychologist" element={<EditSchedule />} /> */}
+        <Route path="/editschedule/" element={<EditSchedule />} />
+        {/* <Route path='/schedule/:IdUserPsychologist' element={<Schedule />}/> */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/post" element={<Post />} />
         <Route path="/createPost" element={<AddPost />} />
@@ -66,6 +71,7 @@ export default function App() {
         <Route path='/checkout/:idPsychologist' element={<CheckoutPayment />} />
         <Route path='success' element={<Success />} />
         <Route path='canceled' element={<Cancel />} />
+        <Route path='/appointments' element={<Appointments />} />
         {/*-----------------------admin panel---------------------*/}
         <Route path='/adminpanel/login' element={<AdminPanelLogin />} />
         <Route path='/adminpanel/inicio' element={<AdminPanelHome />} />
@@ -81,8 +87,6 @@ export default function App() {
         <Route path='/adminpanel/statistics' element={<AdminPanelStatistics />} />
         <Route path='/filterpsicologos' element={<FiltersPsichologist />} />
         <Route path='adminpanel/payments/allpayments' element={<PaymentsAdmin />} />
-        <Route path='adminpanel/payments/cancelpayment' element={<CancelPayment />} />
-        <Route path='adminpanel/payments/accreditedpayment' element={<AccreditedPayment />} />
         <Route path='adminpanel/payments/estadisticas' element={<Estadisticas />} />
       </Routes>
     </div>
