@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
@@ -70,6 +70,10 @@ export default function Home() {
     dispatch(getPsychologistByStatus())
     setPage(1)
   }
+
+  const search = useLocation().search; 
+  const token = new URLSearchParams(search).get('token');
+  const setToken =  token ? window.localStorage.setItem('tokenClient', token) : null ;
 
 
   return (

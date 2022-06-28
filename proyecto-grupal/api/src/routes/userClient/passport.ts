@@ -14,40 +14,27 @@ module.exports = function (passport:any) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
         callbackURL: '/userclient/auth/google/callback',
       },
-      async (accessToken:any, refreshToken:any, profile:any, done:any) => {
-        //get the user data from google
-        //console.log("este es el profile" + Object.values(profile))
-        const newUser = {
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-          email: profile.emails[0].value,
-          profileImage: profile.photos[0].value,
-          role: "Client"
-        }
-        console.log('newUser: ', newUser)
+      async (accessToken:any, refreshToken:any, profile:any, done:any, req: Request, res: Response) => {
+        try{
+          console.log('AT: ', accessToken)
+          //console.log('PROFLE: ', profile)
+          const newUser = {
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName,
+            email: profile.emails[0].value,
+            profileImage: profile.photos[0].value,
+            role: "Client",
+          }
 
-        try {
-          //find the user in our database 
           let user = await userClientModel.findOne({email: newUser.email})
           //console.log("esta es la respuesta del user " + user)
           if (user) {
-            console.log('USER: ', user)
             //If user present in our database.
-            const userForToken = {
-              id: user._id,
-              role: user.role
-            };
-            const token = jwt.sign(userForToken, process.env.SECRETWORD, {
-              expiresIn: 60 * 60 * 24 * 7,
-            });
-            console.log('token: ', token)
-            done(null, user)
-          } else {
-            // if user is not preset in our database save user data to database.
-            user = await userClientModel.create(newUser)
-            done(null, user)
-          }
-        } catch (err) {
+          done(null, user)
+        } else {
+          done(null, null)
+        }
+      }catch (err) {
           console.error(err)
         }
       }
