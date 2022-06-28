@@ -32,12 +32,10 @@ module.exports = function (passport:any) {
         try {
           //find the user in our database 
           let user = await userClientModel.findOne({email: newUser.email})
-          console.log("esta es la respuesta del user :" , user)
           if (user) {
-            //If user present in our database.     
+            //If user present in our database.
             done(null, user)
           } else {
-            //no crear usuario
             done(null, false)
           }
         } catch (err) {

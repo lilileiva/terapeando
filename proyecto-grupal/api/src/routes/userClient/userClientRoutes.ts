@@ -12,8 +12,9 @@ const validateClient = require('../../middleware/validateClient')
 // const validateAdmin = require('../../middleware/validatePsychologistOrAdmin')
 const validateAdmin = require('../../middleware/ValidateAdminToken')
 import { Request, Response } from "express";
+import userClientModel from "../../models/userClients";
 const passport = require('passport')
-const clientRouter: Router = Router();
+const clientRouter:Router= Router();
 const jwt = require("jsonwebtoken");
 
 // function generateUserToken(req: Request, res: Response) {
@@ -30,7 +31,21 @@ const jwt = require("jsonwebtoken");
 //     generateUserToken);
 
 
-clientRouter.get('/auth/google/callback', passport.authenticate('google', {successReturnToOrRedirect: "http://localhost:3000/home" }))
+clientRouter.get('/auth/google/callback', passport.authenticate('google'), async(req: any, res: Response) => {
+    if (req.user) { 
+        const user = await userClientModel.findOne({email: req.user.email });
+        const userForToken = {
+            id: user?._id,
+            role: user?.role
+        };
+      const token = jwt.sign(userForToken, process.env.SECRETWORD, {
+        expiresIn: 60 * 60 * 24 // equivalente a 24 horas
+      })
+      res.redirect(`http://localhost:3000/home?token=${token}`)
+    } else {
+        res.redirect('http//localhost:3000/signin')
+    } 
+})
 clientRouter.get('/google', passport.authenticate('google', { scope: ['profile','email']}))
 clientRouter.get('/client',validateClient, getUserClient);
 clientRouter.get('/:IdUserPsychologist', validateClient ,getPsychologistDetails)
