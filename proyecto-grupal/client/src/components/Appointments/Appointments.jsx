@@ -138,22 +138,27 @@ function Appointments() {
                           <Stack direction='column'>
                             <Stack direction='row' align='center' justify='space-around' mb='1em' p='1em' width='100%' height='20em' borderRadius='1em' boxShadow={`0px 0px 10px 0px rgba(0,0,0,0.3)`}>
                               {
-                                tokenClient
-                                  ? (
-                                    <Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
-                                      <Link to={`/detailPsychologist/${appo._id}`} cursor='pointer'>
-                                        <Avatar src={appo.IdUserPsychologist.profileImage} size='xl' />
-                                        <Text fontSize='3xl' fontWeight='500'>{appo.IdUserPsychologist.firstName} {appo.IdUserPsychologist.lastName}</Text>
-                                      </Link>
-                                      <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.email}</Text>
-                                      <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.location}</Text>
-                                    </Stack>
-                                  ) : (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
-                                    <Avatar src={appo.IdUserClient.profileImage} size='xl' />
-                                    <Text fontSize='3xl' fontWeight='500'>{appo.IdUserClient.firstName} {appo.IdUserPsychologist.lastName}</Text>
-                                    <Text fontSize='2xl' color='gray'>{appo.IdUserClient.email}</Text>
-                                    <Text fontSize='2xl' color='gray'>{appo.IdUserClient.country}</Text>
-                                  </Stack>)
+                                tokenClient && appo.IdUserPsychologist
+                                  ? (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
+                                    <Link to={`/detailPsychologist/${appo._id}`} cursor='pointer'>
+                                      <Avatar src={appo.IdUserPsychologist.profileImage} size='xl' />
+                                      <Text fontSize='3xl' fontWeight='500'>{appo.IdUserPsychologist.firstName} {appo.IdUserPsychologist.lastName}</Text>
+                                    </Link>
+                                    <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.email}</Text>
+                                    <Text fontSize='2xl' color='gray'>{appo.IdUserPsychologist.location}</Text>
+                                  </Stack>
+                                  ) : tokenPsychologist && appo.IdUserClient
+                                    ? (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
+                                      <Avatar src={appo.IdUserClient.profileImage} size='xl' />
+                                      <Text fontSize='3xl' fontWeight='500'>{appo.IdUserClient.firstName} {appo.IdUserPsychologist.lastName}</Text>
+                                      <Text fontSize='2xl' color='gray'>{appo.IdUserClient.email}</Text>
+                                      <Text fontSize='2xl' color='gray'>{appo.IdUserClient.country}</Text>
+                                    </Stack>)
+                                    : (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
+                                      <Text fontSize='2xl' textAlign='center' bg='red.500' p='1em' color='white' borderRadius='0.5em'>
+                                        Esta cita ha sido cancelada
+                                      </Text>
+                                    </Stack>)
                               }
                               <Stack width='50%' p='1em' align='center'>
                                 <Stack direction='row' align='center' justify='center'>

@@ -276,7 +276,7 @@ export const getUserPsychologistDetails = (IdUserPsichologist) => {
         payload: psychologist.data,
       });
     } catch (error) {
-      Swal.fire("Error", "No Hay Psicologos Para Mostrar", "error");
+      console.log(error)
     }
   };
 };
@@ -839,7 +839,7 @@ export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
         appointmentData,
         { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       )
-      if (newAppointment.status === 200) {
+      if (newAppointment.status === 201) {
         return Swal.fire({
           position: 'center',
           icon: 'success',

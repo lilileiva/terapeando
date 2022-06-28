@@ -3,7 +3,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { Badge, Button, Checkbox, FormControl, FormLabel, GridItem, Heading, HStack, Input, Select, SimpleGrid, VStack } from '@chakra-ui/react'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUserPsychologistOne, createPayment } from "../../../redux/actions";
+import { getUserPsychologistOne, createPayment, getUserPsychologistDetailsCli, getUserPsychologistDetails } from "../../../redux/actions";
 import { fetchFromApi } from "./helper";
 import Swal from 'sweetalert2';
 
@@ -49,14 +49,16 @@ function Details({idPsy}) {
    // traigo datos psicologo
    const dispatch = useDispatch();
    const { idPsychologist } = useParams()
-   console.log(idPsychologist)
+
+   const tokenClient = window.localStorage.getItem('tokenClient')
+   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 
    useEffect(() => {
-      dispatch(getUserPsychologistOne(idPsychologist));
+      tokenClient
+        ? dispatch(getUserPsychologistDetailsCli(idPsychologist))
+        : dispatch(getUserPsychologistDetails(idPsychologist))
     }, [dispatch]);
-
     const psyDetails = useSelector((state) => state.userPsichologistDetail)
-    console.log(psyDetails)
 
    const stripe = useStripe();
    

@@ -24,10 +24,8 @@ function EditSchedule() {
     e.preventDefault();
     setInput({
       ...input,
-      ...inputDate,
-      // date: inputDate,
       date: input.date,
-      hours: [...input.hours.filter(h => h !== e.target.value), e.target.value]
+      hours: [...input.hours.filter(h => new Date(h).getHours() !== (new Date(e.target.value)).getHours()), e.target.value]
     })
   }
   const handleDeleteHour = (hour) => {
@@ -91,10 +89,19 @@ function EditSchedule() {
         <VStack w={'100%'} px={'20%'} alignItems={'flex-start'}>
           {
             inputDate
-              ? <Text>Fecha: {inputDate.getDate()}/{inputDate.getMonth()}</Text>
-              : <Text>Selecciona una fecha</Text>
+              ? <Stack direction='row' align='center'>
+                <Text fontSize='xl'>Fecha: </Text>
+                {
+                  input.date
+                    ? <Text bg='teal.100' p='0.5em' borderRadius='0.5em'>
+                      {input.date.getDate()}/{input.date.getMonth()}
+                    </Text>
+                    : <Text mb='1em'>Añade una fecha</Text>
+                }
+              </Stack>
+              : <Text mt='1em' mb='1em'>Selecciona una fecha</Text>
           }
-          <Text>Horarios: </Text>
+          <Text fontSize='xl'>Horarios: </Text>
           <Stack direction='row' justify='center' align='center'>
             {
               input.hours.length !== 0
@@ -102,13 +109,13 @@ function EditSchedule() {
                   input.hours.map((hour) => {
                     let hourUTC = new Date(hour)
                     return (
-                      <Stack direction='row'>
+                      <Stack direction='row' align='center' bg='teal.100' p='0.5em' borderRadius='0.5em'>
                         <Text>{hourUTC.getHours()}:00</Text>
-                        <Button onClick={() => handleDeleteHour(hour)}>X</Button>
+                        <Text cursor='pointer' onClick={() => handleDeleteHour(hour)}>X</Text>
                       </Stack>
                     )
                   })
-                ) : <Text>Añade horarios</Text>
+                ) : <Text mb='1em'>Añade horarios disponibles</Text>
             }
           </Stack>
           <Button colorScheme='teal' variant='solid' onClick={(e) => handleInputSubmit(e)}>
