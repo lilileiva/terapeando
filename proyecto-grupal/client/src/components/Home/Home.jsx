@@ -90,7 +90,6 @@ export default function Home() {
     setPage(1)
   }
 
-
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
       <Stack>
@@ -120,7 +119,7 @@ export default function Home() {
           </Stack>
 
           <Stack width="100%" direction="row">
-            <FiltersPsichologist />
+            <FiltersPsichologist setPage={setPage} />
           </Stack>
           {
             loader
