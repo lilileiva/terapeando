@@ -63,14 +63,14 @@ export default function Blog() {
             <Text
               fontWeight="semibold"
               fontSize="3xl"
-              marginBottom="0.5em"
               color="green.300"
             >
               Notas sobre psicología
             </Text>
-            <div className="syb">
-              <SearchBar />              
-              <Button className="btn" onClick={(e) => handleSubmit(e)}>
+
+            <Stack direction='row' width='50%' justify='right'>
+              <SearchBar width='50%' />
+              <Button variant='outline' width='40%' colorScheme='teal' onClick={(e) => handleSubmit(e)}>
                 Todas las notas
               </Button>
               {
@@ -81,10 +81,10 @@ export default function Blog() {
                     </Link>
                   ) : null
               }
-            </div>
+              {/* </div> */}
+            </Stack>
           </div>
           <Filters />
-
           {
             loader
               ? <Loader />
@@ -95,7 +95,7 @@ export default function Blog() {
                 </Stack>
           }
         </div>
-        <Chat/>
+        <Chat />
       </Stack>
       <Footer />
     </Stack>

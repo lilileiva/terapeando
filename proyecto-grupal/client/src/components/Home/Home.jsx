@@ -110,7 +110,7 @@ export default function Home() {
             </Text>
 
             <Stack direction='row' width='50%' justify='right'>
-              <AdminSearchbar width='50%' />
+              <AdminSearchbar width='50%' />              
               <Button variant='outline' width='40%' colorScheme='teal' onClick={handleSubmit}>
                 Todos los psicólogos
               </Button>
