@@ -27,7 +27,6 @@ import {
   GET_ALL_PSYCHOLOGIST_BY_STATUS,
   FILTER_BY_STATUS,
   GET_SCHEDULE,
-  GET_SCHEDULE_BY_DATE,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
   GET_APPOINTMENT_BY_ID,
@@ -35,7 +34,8 @@ import {
   PUT_APPOINTMENT,
   CLEAR_SCHEDULE,
   SORT_BY_DATE_PSY,
-  SORT_BY_DATE_CLI
+  SORT_BY_DATE_CLI,
+  GET_SCHEDULE_BY_ID
 } from "../actions/types";
 
 const initialState = {
@@ -51,7 +51,7 @@ const initialState = {
   categories: [],
   postDetail: {},
   schedule: [],
-  scheduleByDate: {},
+  scheduleDetails: {},
   paymentDetailsClient: [],
   paymentDetailsPsychologist: [],
   allPayments: [],
@@ -229,10 +229,10 @@ function rootReducer(state = initialState, action) {
           ...state,
           schedule: action.payload
         }
-      case GET_SCHEDULE_BY_DATE:
+      case GET_SCHEDULE_BY_ID:
         return {
           ...state,
-          scheduleByDate: action.payload
+          scheduleDetails: action.payload
         }
 
     /*-----------APPOINTMENTS-----------*/
@@ -386,18 +386,6 @@ function rootReducer(state = initialState, action) {
         return {
           ...state,
           appointments: state.appointments.filter(appo => appo._id !== action.payload)
-        }
-
-      /*-----------SCHEDULE-----------*/
-      case GET_SCHEDULE:
-        return {
-          ...state,
-          schedule: action.payload
-        }
-      case GET_SCHEDULE_BY_DATE:
-        return {
-          ...state,
-          scheduleByDate: action.payload
         }
 
     /*-----------CLEAR-----------*/

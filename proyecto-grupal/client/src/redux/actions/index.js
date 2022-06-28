@@ -31,7 +31,7 @@ import {
   FILTER_BY_STATUS,
   PUT_APPOINTMENT,
   GET_SCHEDULE,
-  GET_SCHEDULE_BY_DATE,
+  GET_SCHEDULE_BY_ID,
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
   DELETE_APPOINTMENT_AS_CLIENT,
@@ -722,6 +722,42 @@ export function createSchedule(appointment) {
   }
 }
 
+export function getScheduleByIdAsClient(idSchedule) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/getbyid/${idSchedule}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE_BY_ID,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getScheduleByIdAsPsychologist(idSchedule) {
+  return async function (dispatch) {
+    try {
+      axios.get(`${baseURL}/schedule/getbyid/${idSchedule}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
+      )
+        .then((schedule) => {
+          dispatch({
+            type: GET_SCHEDULE_BY_ID,
+            payload: schedule.data
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export function getScheduleAsPsychologist(IdUserPsychologist) {
   return async function (dispatch) {
     try {
@@ -758,55 +794,11 @@ export function getScheduleAsClient(IdUserPsychologist) {
   }
 }
 
-export function getScheduleByDateAsClient(IdUserPsychologist, scheduleDate) {
-  console.log('IdUserPsychologist action', IdUserPsychologist)
-  console.log('scheduleDate action', scheduleDate)
-  return async function (dispatch) {
-    try {
-      axios.get(
-        `${baseURL}/schedule/date/${IdUserPsychologist}`,
-        scheduleDate,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
-      )
-        .then((schedule) => {
-          dispatch({
-            type: GET_SCHEDULE_BY_DATE,
-            payload: schedule.data
-          })
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
-export function getScheduleByDateAsPsychologist(IdUserPsychologist, scheduleDate) {
-  console.log('IdUserPsychologist action', IdUserPsychologist)
-  console.log('scheduleDate action', scheduleDate)
-  return async function (dispatch) {
-    try {
-      axios.get(
-        `${baseURL}/schedule/date/${IdUserPsychologist}`,
-        scheduleDate,
-        { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
-      )
-        .then((schedule) => {
-          dispatch({
-            type: GET_SCHEDULE_BY_DATE,
-            payload: schedule.data
-          })
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
 export function updateScheduleAsClient(idSchedule, updateSchedule) {
   return async function () {
     try {
       const data = await axios.put(
-        `${baseURL}/schedule/${idSchedule}`,
+        `${baseURL}/schedule/update/${idSchedule}`,
         updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` } }
       );
       console.log(data);
@@ -820,7 +812,7 @@ export function updateScheduleAsPsychologist(idSchedule, updateSchedule) {
   return async function () {
     try {
       const data = await axios.put(
-        `${baseURL}/schedule/${idSchedule}`,
+        `${baseURL}/schedule/update/${idSchedule}`,
         updateSchedule, { headers: { Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}` } }
       );
       console.log(data);

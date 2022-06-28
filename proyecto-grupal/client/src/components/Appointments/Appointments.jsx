@@ -17,8 +17,8 @@ import {
   updateScheduleAsPsychologist,
   getAppointmentByIdAsClient,
   getAppointmentByIdAsPsychologist,
-  getScheduleByDateAsClient,
-  getScheduleByDateAsPsychologist
+  getScheduleByIdAsClient,
+  getScheduleByIdAsPsychologist
 } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -38,21 +38,19 @@ function Appointments() {
   }, [dispatch])
 
   const appointments = useSelector((state) => state.appointments)
+  const scheduleDetails = useSelector((state) => state.scheduleDetails)
   const appointmentDetails = useSelector((state) => state.appointmentDetails)
-  const scheduleByDate = useSelector((state) => state.scheduleByDate)
 
   const [IdAppointment, setIdAppointment] = useState("")
 
-  const handleDeleteAppointment = (idAppointment, dateAppointment, idPsychologist) => {
-    if (tokenClient) {
-      dispatch(getScheduleByDateAsClient(idPsychologist, { 'date': dateAppointment }))
-      console.log('scheduleByDate', scheduleByDate)
-    }
-    if (tokenPsychologist) {
-      dispatch(getScheduleByDateAsPsychologist(idPsychologist, { 'date': dateAppointment }))
-      console.log('scheduleByDate', scheduleByDate)
-    }
+  const [updateSchedule, setUpdateSchedule] = useState({
+    hours: []
+  })
 
+  const [isDeleted, setIsDeleted] = useState(false)
+  const handleDeleteAppointment = (idAppointment, idSchedule) => {
+    dispatch(getScheduleByIdAsClient(idSchedule)) //obtengo scheduleDetails para poder ejecutar el useEffect(1)
+    dispatch(getAppointmentByIdAsClient(idAppointment)) //obtengo appointmentDetails para poder ejecutar el useEffect(1)
     Swal.fire({
       title: '¿Estás seguro que quieres cancelar esta cita?',
       showDenyButton: true,
@@ -62,18 +60,34 @@ function Appointments() {
     }).then((result) => {
       if (result.isDenied) {
         if (tokenClient) {
-          dispatch(deleteAppointmentAsClient(idAppointment))
-          dispatch(getAppointmentAsClient())
-
-
+          setIsDeleted(true) //acá ya se ejecutò useEffect(1), entonces si quiero eliminar este appointment, se ejecutará el useEffect(2)
         }
         if (tokenPsychologist) {
-          dispatch(deleteAppointmentAsPsychologist(idAppointment))
-          dispatch(getAppointmentAsPsychologist())
+          dispatch(deleteAppointmentAsPsychologist(idAppointment)).then(
+            dispatch(getAppointmentAsPsychologist())
+          )
         }
       }
     })
   }
+
+  //una vez que mis objetos scheduleDetails y appointmentDetails tienen info seteo updateSchedule
+  useEffect(() => { //(1)
+    if (Object.keys(scheduleDetails).length !== 0 && Object.keys(appointmentDetails).length !== 0) {
+      setUpdateSchedule({
+        ...updateSchedule,
+        hours: [...scheduleDetails.hours, appointmentDetails.hour],
+      })
+    }
+  }, [scheduleDetails, appointmentDetails, dispatch, setUpdateSchedule])
+
+  useEffect(() => { //(2)
+    if (isDeleted) {
+      dispatch(updateScheduleAsClient(scheduleDetails._id, updateSchedule)) //actualizo el appointment
+      dispatch(deleteAppointmentAsClient(appointmentDetails._id)) //y lo elimino
+      dispatch(getAppointmentAsClient())
+    }
+  }, [isDeleted, dispatch])
 
   const [changeTypeAlert, setChangeTypeAlert] = useState(false)
   const handleChangeType = (appointment) => {
@@ -167,7 +181,7 @@ function Appointments() {
                                 </Stack>
                                 <Stack direction='row' align='center' justify='center'>
                                   <TimeIcon mr='0.5em' />
-                                  <Text fontSize='3xl'>{appointmentHour.getUTCHours()}:{appointmentHour.getUTCMinutes()} hs</Text>
+                                  <Text fontSize='3xl'>{appointmentHour.getHours()}:00 hs</Text>
                                 </Stack>
                                 <Stack direction='row' align='center' justify='center' pb='1em'>
                                   {
@@ -185,7 +199,7 @@ function Appointments() {
                                           </Button>
                                           : null
                                       }
-                                      <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id, appo.date, appo.IdUserPsychologist._id)}>
+                                      <Button colorScheme='teal' variant='outline' onClick={() => handleDeleteAppointment(appo._id, appo.IdSchedule)}>
                                         Cancelar cita
                                       </Button>
                                     </Stack>

@@ -35,7 +35,8 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
     const [appointmentData, setAppointmentData] = useState({
         date: "",
         hour: "",
-        type: ""
+        type: "",
+        IdSchedule: ""
     })
 
     // trnasformo la fecha que viene desde el calendar (wen 28 jun) a iso (2022-06-28)
@@ -54,6 +55,15 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
             idSchedule = sch._id
         }
     })
+
+    useEffect(() => {
+        if (idSchedule) {
+            setAppointmentData({
+                ...appointmentData,
+                IdSchedule: idSchedule
+            })
+        }
+    }, [idSchedule, setInputDate])
 
     const handleDate = (inputDate) => {
         setInputDate({
@@ -86,7 +96,7 @@ function Schedule({ firstName, lastName, IdUserPsychologist, setCalendar }) {
             }
             if (tokenPsychologist) {
                 dispatch(createAppointmentAsPsychologist(IdUserPsychologist, appointmentData))
-                dispatch(updateScheduleAsPsychologist(IdUserPsychologist, appointmentData))
+                dispatch(updateScheduleAsPsychologist(idSchedule, newSchedule))
             }
             setCalendar(false)
         }

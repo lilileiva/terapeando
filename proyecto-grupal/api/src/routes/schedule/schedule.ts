@@ -35,6 +35,16 @@ const getSchedule = async (req: Request, res: Response) => {
    }
 }
 
+const getScheduleById = async (req: Request, res: Response) => {
+   const { idSchedule } = req.params
+   try {
+      const schedule = await scheduleModel.findById(idSchedule);
+      res.status(200).json(schedule)
+   } catch (err) {
+      console.log(err)
+   }
+}
+
 const getScheduleByDate = async (req: Request, res: Response) => {
    const { IdUserPsychologist } = req.params
    const { date } = req.body
@@ -61,9 +71,10 @@ const deleteSchedule = async (req: Request, res: Response) => {
 
 const updateSchedule = async (req: Request, res: Response) => {
    const { idSchedule } = req.params
+   console.log(req.body)
    try {
       const updated = await scheduleModel.findByIdAndUpdate(idSchedule, req.body, { new: true })
-      console.log(updated)
+      console.log('------updated--------', updated)
       if (!updated) {
          res.status(502).send('No hemos podido actualizar el horario')
       }
@@ -79,4 +90,5 @@ module.exports = {
    getScheduleByDate,
    getSchedule,
    updateSchedule,
+   getScheduleById
 }
