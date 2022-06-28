@@ -16,7 +16,7 @@ import Loader from "../Loader/Loader.jsx";
 import Chat from '../Chat/Chat'
 
 
-export default function Blog() {
+export default function Blog({ setPage }) {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
   const [noResults, setNoResults] = useState(false);
@@ -83,7 +83,7 @@ export default function Blog() {
               }
             </div>
           </div>
-          <Filters />
+          <Filters setPage={setPage}/>
 
           {
             loader

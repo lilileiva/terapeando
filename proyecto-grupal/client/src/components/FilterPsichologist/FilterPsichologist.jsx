@@ -14,13 +14,13 @@ export default function FiltersPsichologist({ setPage }) {
   function handleSubmitOrder(e) {
     e.preventDefault();
     dispatch(orderByRating(e.target.value, psichologists));
-   // setPage(1)
+    setPage(1)
   }
   
   function handleSubmitCategory(e) {
     e.preventDefault()
     dispatch(getBySpecialties(e.target.value));
-    //setPage(1)
+    setPage(1)
   }
 
   return (

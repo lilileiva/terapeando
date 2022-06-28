@@ -108,7 +108,7 @@ useEffect(() => {
           </Stack>
 
           <Stack width="100%" direction="row">
-            <FiltersPsichologist />
+            <FiltersPsichologist setPage={setPage}/>
           </Stack>
           {
             loader

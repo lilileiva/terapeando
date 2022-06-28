@@ -20,11 +20,11 @@ export default function Filters( {setPage} ) {
   function handleSubmitOrder(e) {
     e.preventDefault()
     dispatch(getPostOrder(e.target.value, posts));
-    //setPage(1)
+    setPage(1)
   }
   function handleSubmitCategory(e) {
     dispatch(getByCategory(e.target.value));
-    //setPage(1)
+    setPage(1)
   }
 
   return (
