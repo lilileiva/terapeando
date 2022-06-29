@@ -9,7 +9,7 @@ module.exports = async(req: Request, res: Response, next: NextFunction) => {
     if (authorization && authorization.toLowerCase().startsWith('bearer')) {
       token = authorization.substring(7)
     }
-    
+    console.log(token)
     const decodedToken = await jwt.verify(token, process.env.SECRETWORD)
   
     if (!token || !decodedToken.id || decodedToken.role !== 'client') {
