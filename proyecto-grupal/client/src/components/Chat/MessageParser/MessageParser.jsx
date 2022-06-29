@@ -60,7 +60,7 @@ class MessageParser{
         else if(lowerCaseMessage.includes("matricula") || lowerCaseMessage.includes("aseguro") || lowerCaseMessage.includes("verifico") || lowerCaseMessage.includes("psicologo") || lowerCaseMessage.includes("terapeuta") || lowerCaseMessage.includes("prefesional") || lowerCaseMessage.includes("universidad") || lowerCaseMessage.includes("licencia")){
             this.actionProvider.handleMatricula()
         }
-        else if (lowerCaseMessage.includes("pago") || lowerCaseMessage.includes("metodos") || lowerCaseMessage.includes("formas")) {
+        else if (lowerCaseMessage.includes("pago") || lowerCaseMessage.includes("metodos") || lowerCaseMessage.includes("formas") || lowerCaseMessage.includes("abonar") || lowerCaseMessage.includes("tarjeta")) {
             this.actionProvider.handlePagos()
         }else if(lowerCaseMessage.includes("mision")){
             this.actionProvider.includes("mision")
