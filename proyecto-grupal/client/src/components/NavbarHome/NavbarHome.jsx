@@ -16,7 +16,7 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, AddIcon, CalendarIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavbarHome.css";
 import img from "../../assets/logo-01.png";
@@ -65,7 +65,7 @@ const NavLink = ({ children }) => (
 );
 
 export default function NavbarHome() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -111,62 +111,56 @@ export default function NavbarHome() {
                   Home
                 </Text>
               </Link>
-              <Link className={"links"} to={"/proximasconsultas"}>
-                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
-                  Proximas consultas
-                </Text>
-              </Link>
-              <Link className={"links"} to={"/mipsicologo"}>
-                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
-                  Mi psicólogo
-                </Text>
-              </Link>
-              <Link className={"links"} to={"/blog"}>
-                <Text fontWeight={"500"} color="gray.600" mr="0.7em" ml="0.7em">
+              <Link className={'links'} to={'/blog'}>
+                <Text fontWeight={'500'} color='gray.600' mr='0.7em' ml='0.7em'>
                   Blog
                 </Text>
               </Link>
             </Stack>
           </HStack>
           <Flex alignItems={"center"}>
-            {tokenClient ? (
-              <Link to="/appointments">
-                <Button
-                  variant={"solid"}
-                  colorScheme={"teal"}
-                  size={"sm"}
-                  mr={4}
-                  leftIcon={<AddIcon />}
-                >
-                  Mis citas
-                </Button>
-              </Link>
-            ) : tokenPsychologist ? (
-              <>
-                <Link to="/appointments">
-                  <Button
-                    variant={"solid"}
-                    colorScheme={"teal"}
-                    size={"sm"}
-                    mr={4}
-                    leftIcon={<AddIcon />}
-                  >
-                    Mis citas
-                  </Button>
-                </Link>
-                <Link to="/editschedule">
-                  <Button
-                    variant={"solid"}
-                    colorScheme={"teal"}
-                    size={"sm"}
-                    mr={4}
-                    leftIcon={<AddIcon />}
-                  >
-                    Administrar agenda
-                  </Button>
-                </Link>
-              </>
-            ) : null}
+            {
+              tokenClient
+                ? (
+                  <Link to='/appointments'>
+                    <Button
+                      variant={"solid"}
+                      colorScheme={"teal"}
+                      size={"sm"}
+                      mr={4}
+                      leftIcon={<CalendarIcon />}
+                    >
+                      Mis citas
+                    </Button>
+                  </Link>
+                )
+                : tokenPsychologist ? (
+                  <>
+                    <Link to='/appointments'>
+                      <Button
+                        variant={"solid"}
+                        colorScheme={"teal"}
+                        size={"sm"}
+                        mr={4}
+                        leftIcon={<CalendarIcon />}
+                      >
+                        Mis citas
+                      </Button>
+                    </Link>
+                    <Link to='/editschedule'>
+                      <Button
+                        variant={"solid"}
+                        colorScheme={"teal"}
+                        size={"sm"}
+                        mr={4}
+                        leftIcon={<AddIcon />}
+                      >
+                        Administrar agenda
+                      </Button>
+                    </Link>
+                  </>
+                ) : null
+            }
             <Menu>
               <MenuButton
                 as={Button}

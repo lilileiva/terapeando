@@ -31,7 +31,7 @@ export default function Filters( {setPage} ) {
     <div className="filterContainer">
       <Select
         w="49%"
-        placeholder="Ordenar por"
+        placeholder="Ordenar alfabéticamente"
         onChange={handleSubmitOrder}
         cursor={"pointer"}
       >

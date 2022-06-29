@@ -21,8 +21,6 @@ export default function Post({ allPosts }) {
     smoothscroll();
   };
 
-  let postDate;
-
   //empiezo a renderizar cada una de mis notas
   return (
     <>
@@ -30,9 +28,9 @@ export default function Post({ allPosts }) {
         <SimpleGrid columns={3} spacing={10}>
           {showPostPage &&
             showPostPage.map((post) => {
+              let postDate = post.createdAt
+              postDate = new Date(postDate)            
               return (
-                postDate = post.createdAt,
-                postDate = new Date(),                
                 <Box>
                   <Link to={`/postdetail/${post._id}`}>
                     <div className="card" key={post._id}>
@@ -59,12 +57,12 @@ export default function Post({ allPosts }) {
                               </Text>
                               <Text fontSize="15px" className="cardInfo">
                                 {post.idUserPsychologist.email} | {"​​🌎 ​"}
-                                {post.idUserPsychologist.country}
+                                {post.idUserPsychologist.location.slice(0, 15)}...
                               </Text>
                             </>
                           ) : null
                         }
-                        <h5>Fecha {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</h5>
+                        <h5>Fecha: {postDate.getUTCFullYear()}-{postDate.getUTCMonth()}-{postDate.getUTCDate()}</h5>
                         <Stack
                           direction="row"
                           justifyContent="center"

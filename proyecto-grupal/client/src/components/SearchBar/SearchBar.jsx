@@ -2,7 +2,8 @@ import React from "react";
 import "./searchbar.css";
 import { Input } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+// import { SearchIcon } from "@chakra-ui/icons";
+import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchPostsByTitle, clearStatePostDetail } from "../../redux/actions";
@@ -25,17 +26,17 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="searchbar">
+    // <div className="searchbar">
       
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <Input onChange={(e) => handleInputChange(e)} value={title} placeholder='Buscar notas' />
-        <ButtonGroup direction='row' variant="outline">
-          <Button type='submit' widht={40}>
-            <SearchIcon />
+      <form className='formSearchbar' onSubmit={(e) => handleSubmit(e)}>
+        <Input focusBorderColor='teal.400' onChange={(e) => handleInputChange(e)} value={title} placeholder='Buscar notas...' />
+        {/* <ButtonGroup direction='row' variant="outline"> */}
+          <Button variant='outline' colorScheme='teal' type='submit'  ml='0.5em'>
+            <BsSearch />
           </Button>
-        </ButtonGroup>
+        {/* </ButtonGroup> */}
       </form>
 
-    </div>
+    // </div>
   );
 }

@@ -24,7 +24,7 @@ const getAllPosts = (req, res, next) => {
             firstName: 1,
             lastName: 1,
             email: 1,
-            country: 1,
+            location: 1,
             License: 1,
             Specialties: 1,
         })
@@ -39,7 +39,7 @@ const getAllPosts = (req, res, next) => {
             firstName: 1,
             lastName: 1,
             email: 1,
-            country: 1,
+            location: 1,
             License: 1,
             Specialties: 1,
         })
@@ -59,7 +59,7 @@ const getOnePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             email: 1,
             profileImage: 1,
             about: 1,
-            country: 1,
+            location: 1,
             License: 1,
             Specialties: 1,
         });
@@ -69,8 +69,19 @@ const getOnePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.error(error);
     }
 });
+const getPostsByPsychologistId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { idUserPsychologist } = req.params;
+    try {
+        let response = yield Post_1.default.find({ 'idUserPsychologist': idUserPsychologist });
+        res.status(200).send(response);
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
 const createPost = (req, res, next) => {
     const { Date, Title, Image, Tags, Content } = req.body;
+    req.user;
     //me creo el post con el objeto ue me llega de body
     Post_1.default.create({
         Date,
@@ -78,6 +89,7 @@ const createPost = (req, res, next) => {
         Image,
         Tags,
         Content,
+        idUserPsychologist: req.user
     })
         .then((createdPost) => {
         createdPost.save();
@@ -94,40 +106,13 @@ const getAllCategory = (req, res, next) => {
     })
         .catch((error) => next(error));
 };
-const getPostAuthors = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const allPosts = yield Post_1.default.find().populate("idUserPsychologist", {
-            firstName: 1,
-            lastName: 1,
-            email: 1,
-        });
-        const authors = allPosts.map((au) => {
-            return au.idUserPsychologist;
-        });
-        console.log(authors);
-        let authorsFiltered = authors.filter((au) => {
-            const author = au.firstName + " " + au.lastName;
-            return author;
-        });
-        // let autoresFiltrados: string[];
-        // const authorsS = authors.forEach((au) => {
-        //   if (!autoresFiltrados.includes(au.firstName + " " + au.lastName)) {
-        //     autoresFiltrados.push(au);
-        //   }
-        // });
-        res.status(200).json(authorsFiltered);
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
 const filterPostsCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { category } = req.params;
     const postTotals = yield Post_1.default.find().populate("idUserPsychologist", {
         firstName: 1,
         lastName: 1,
         email: 1,
-        country: 1,
+        location: 1,
         License: 1,
         Specialties: 1,
     });
@@ -141,24 +126,26 @@ const filterPostsCategory = (req, res, next) => __awaiter(void 0, void 0, void 0
     }
     res.json(postFilters);
 });
-// const filterPostsByAuthor = async (req: Request, res: Response,) => {
-//   const { author } = req.params;
-//   // console.log('autorBack: ', author);
-//   const postTotals = await Post.find().populate("idUserPsychologist", {
-//     firstName: 1,
-//     lastName: 1,
-//   });
-//   res.json(postTotals);
-// };
 //eliminar nota
 const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { IdPost } = req.params;
     try {
-        const postDelete = yield Post_1.default.findOneAndDelete({ _id: IdPost });
-        res.send("Post eliminado correctamente");
+        const postDelete = yield Post_1.default.findOneAndDelete({ _id: IdPost, idUserPsychologist: req.user });
+        res.status(200).send("Post eliminado correctamente");
     }
     catch (err) {
         res.status(404).send("error: " + err);
+    }
+});
+//editando nota
+const putPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { IdPost } = req.params;
+    try {
+        const post = yield Post_1.default.findByIdAndUpdate(IdPost, req.body);
+        res.status(200).send('Post editado correctamente');
+    }
+    catch (err) {
+        res.status(404).send('There was an error...');
     }
 });
 module.exports = {
@@ -167,7 +154,7 @@ module.exports = {
     getAllCategory,
     filterPostsCategory,
     getOnePost,
-    getPostAuthors,
-    // filterPostsByAuthor
+    getPostsByPsychologistId,
     deletePost,
+    putPost
 };

@@ -4,9 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express")); // instale npm i @types/express -D como dependecia de desarrollo para que entienda modulos de express
+require("dotenv").config();
 const morgan_1 = __importDefault(require("morgan"));
-const routes = require('./routes/index.ts');
+const routes = require('./routes/index');
 const cors = require('cors');
+const passport = require('passport');
+require('./routes/userClient/passport')(passport);
 // server  inicializations
 const app = (0, express_1.default)();
 app.set('port', process.env.PORT || 3001);
@@ -15,8 +18,10 @@ app.use(cors());
 app.use(express_1.default.json()); // para que entienda el formato json
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+    res.header('Access-Control-Allow-Origin: *'); // update to match the domain you will make the request from
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');

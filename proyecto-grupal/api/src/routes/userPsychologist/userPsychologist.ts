@@ -5,6 +5,7 @@ import userPsychologist from "../../models/userPsychologist";
 //import { userPsychologist } from '../../models/userPsychologist';
 const nodemailer = require("nodemailer");
 
+
 const getUserPsychologistOne = async (req: Request, res: Response) => {
   try {
     const psychologistUser = await userPsychologistModel.findById(req.user, '-password');
@@ -36,12 +37,12 @@ const getUserPsychologistByEmail = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(404).json({ data: err });
   }
-};
+}
 
 const getUserPsychologistByStatus = async (req: Request, res: Response) => {
   try {
     const userPsychologistStatus = await userPsychologistModel.find(
-      { status: "Activo" },
+      { status: "Activo", psychologistStatus: "Activo" },
       "-password"
     );
     res.status(200).json(userPsychologistStatus);
@@ -60,8 +61,7 @@ const getUserPsychologist = async (
     const { name } = req.query;
 
     if (name) {
-      userPsychologist
-        .find(
+      userPsychologistModel.find(
           {
             $or: [
               { firstName: { $regex: name, $options: "i" } },
@@ -128,6 +128,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         profileImage: profileimage,
         rating: 1,
         status: "Pendiente",
+        psychologistStatus: "Activo",
         about,
         education,
         role: 'psychologist'
@@ -220,6 +221,16 @@ const filterPsichologistSpecialities = async (req: Request, res: Response) => {
   }
 };
 
+/* const putAvailableTimes = async (req: Request, res: Response) => {
+  try {
+    await userPsychologistModel.findByIdAndUpdate(req.user, req.body, { new: true })
+    res.status(200).send('Horarios agregados correctamente')
+  } catch {
+    res.status(404).send('There was an error...');
+  }
+} */
+
+
 // // const filterPsichologistRating = async (req: Request, res: Response) => {
 
 // //   try {
@@ -253,8 +264,8 @@ module.exports = {
   putUserPsychologist,
   getUserPsychologistByEmail,
   filterPsichologistSpecialities,
-  //filterPsichologistRating,
   getUserPsychologistByStatus,
   getReviews,
   getPsychologistDetails,
-};
+  /* putAvailableTimes */
+}

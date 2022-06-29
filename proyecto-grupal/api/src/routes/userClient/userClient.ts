@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import userClientModel from "../../models/userClients"
 import userPsychologistModel from "../../models/userPsychologist";
 
+
 const nodemailer = require("nodemailer");
 
 
@@ -110,13 +111,14 @@ const putUserClient = async (req: Request, res: Response) => {
    } catch (err) {
       res.status(404).send('There was an error...');
    }
-}
+};
+
 
 
 module.exports = {
   getUserClient,
   createUserClient,
   deleteUserClient,
+  putUserClient,
   getPsychologistDetails,
-  putUserClient
 };

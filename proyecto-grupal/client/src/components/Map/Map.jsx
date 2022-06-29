@@ -14,9 +14,6 @@ function Map({ lat, lng }) {
     googleMapsApiKey: `${REACT_APP_GOOGLE_MAP_API_KEY}`
   })
 
-  console.log(lat)
-  console.log(lng)
-
   const center = {
     lat: Number(lat),
     lng: Number(lng)
@@ -25,7 +22,7 @@ function Map({ lat, lng }) {
   const [zoom, setZoom] = useState(0)
 
   useEffect(() => {
-    setZoom(10)
+    setZoom(15)
   }, [setZoom])
 
   const onLoad = React.useCallback(function callback(map) {

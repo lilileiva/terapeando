@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import adminModel from "../../models/Admin";
+import userClientModel from "../../models/userClients";
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+
 
 const logInAdmin = async (req: Request, res: Response) => {
   const { email, password, adminPassword } = req.body;
@@ -11,7 +13,9 @@ const logInAdmin = async (req: Request, res: Response) => {
         .status(400)
         .json({ error: "Email and Password are both required." });
     } else {
-      const user = await adminModel.findOne({ email });
+      let user = await adminModel.findOne({ email });
+
+      user ? null : user = await userClientModel.findOne({email})
 
       const passwordCorrect =
         user === null ? false : await bcrypt.compare(password, user.password);

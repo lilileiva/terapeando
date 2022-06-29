@@ -1,5 +1,5 @@
 import { Button, VStack, Container, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, HStack, Badge, Text, Select } from '@chakra-ui/react'
-import { ExternalLinkIcon, ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons'
+import { ExternalLinkIcon, ArrowUpIcon, ArrowDownIcon, ArrowBackIcon } from '@chakra-ui/icons'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
@@ -46,6 +46,7 @@ export default function PaymentsAdmin() {
   function handleFilterByRange(e){
     e.preventDefault();
     dispatch(getRangeByDate(e.target.value))
+    console.log(e.target.value)
     setPage(1)
   }
 
@@ -53,6 +54,7 @@ export default function PaymentsAdmin() {
   function handleDateSort(e){
     e.preventDefault();
     dispatch(sortByDate(e.target.value))
+    console.log(e.target.value)
     setOrder(`Order ${e.target.value}`)
     setPage(1)
   }
@@ -65,24 +67,35 @@ export default function PaymentsAdmin() {
    { tokenAdmin ? (
         <Container maxW={'container.lg'} p={0}>
         <HStack justifyContent={'space-between'}>
+        <Link to={'/adminpanel/payments'}>
+        <ArrowBackIcon fontSize={'2em'} p={'5px'} borderRadius={'full'} bgColor={'green.100'} color={'blackAlpha.800'}/>
+        </Link>
         <Heading py={12}>Historial de Pagos</Heading>
         <HStack alignItems={'center'}>
-        <Text>Descargar período:</Text>
+{/*         <Text>Descargar período:</Text>
     <Select  w={'full'}
     bg='gray.100'
     borderColor='gray'
     color='blackAlpha.800'
     variant="filled"
-    placeholder='Elegí un período'>
+    placeholder='Elegí un período'
+    onChange={handleFilterByRange}>
       {month.map((m) => {
         return(
-          <option value={m.num} onClick={e => handleFilterByRange(e)}>{m.name}</ option>
+          <option value={m.num}>{m.name}</ option>
         )
       })}
-  </Select>
+  </Select> */}
         <Text>Filtro por Fecha: </Text>
-        <Button size='sm' value='asc' onClick={e => handleDateSort(e)}><ArrowUpIcon /></Button>
-        <Button size='sm' value='desc' onClick={e => handleDateSort(e)}><ArrowDownIcon /></Button>
+        <Select
+        w="60%"
+        placeholder="Ordenar por fecha:"
+        onChange={handleDateSort}
+        cursor={"pointer"}
+      >
+        <option key={0} value='asc'>Ascendente</option>
+        <option key={1} value='desc'>Descendente</option>
+      </Select>
         </HStack>
         </HStack>
   <TableContainer>
@@ -130,4 +143,3 @@ export default function PaymentsAdmin() {
     </>
    );
  }
- 

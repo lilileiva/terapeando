@@ -8,7 +8,7 @@ import { specialitiesList } from './specialities';
 
 export default function FiltersPsichologist({ setPage }) {
   const dispatch = useDispatch();
-
+  
   const psichologists = useSelector((state) => state.allUsersPsichologists);
 
   function handleSubmitOrder(e) {
@@ -18,9 +18,8 @@ export default function FiltersPsichologist({ setPage }) {
   }
   
   function handleSubmitCategory(e) {
-    e.preventDefault()
-    dispatch(getBySpecialties(e.target.value));
     setPage(1)
+    dispatch(getBySpecialties(e.target.value));
   }
 
   return (

@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import appointmentModel from '../../models/appointment';
 
-
 const postAppointmentModel = async (req: Request, res: Response) => {
     const  { IdUserPsychologist } = req.params
-    const { date, hour, type } = req.body;
+    const { date, hour, type, IdSchedule } = req.body;
     if (typeof date !== "string" ||  typeof hour !== "string" || (type !== "Virtual" && type !== "Presencial")) {
         res.status(404).send("Some data is not valid")
     } else {
@@ -19,16 +18,28 @@ const postAppointmentModel = async (req: Request, res: Response) => {
                     hour,
                     type,
                     IdUserClient: req.user,
-                    IdUserPsychologist
+                    IdUserPsychologist,
+                    IdSchedule
                 })
                 console.log(appointment)
                 res.status(201).send("appointment created successfully")
             } catch (err) {
                 res.status(404).json({ error: err })
+                console.log(err)
             }
         } else {
-            res.status(404).json('Ya has reservado una cita en esta fecha')            
+            res.status(404).json('Ya has reservado una cita en esta fecha')       
         }
+    }
+}
+
+const getAppointmentById = async (req: Request, res: Response) => {
+    const { IdAppointment } = req.params;
+    try {
+        const appointment = await appointmentModel.findById(IdAppointment)        
+        res.status(200).send(appointment)
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -39,7 +50,7 @@ const getAppointmentAsPsychologist = async (req: Request, res: Response) => {
             lastName: 1,
             email: 1,
             country: 1,
-            Specialties: 1,
+            profileImage: 1
           });    
         res.status(200).json(appointment)
      } catch (err) {
@@ -53,7 +64,7 @@ const getAppointmentAsClient = async (req: Request, res: Response) => {
             firstName: 1,
             lastName: 1,
             email: 1,
-            country: 1,
+            location: 1,
             Specialties: 1,
             profileImage: 1
           }); 
@@ -64,7 +75,7 @@ const getAppointmentAsClient = async (req: Request, res: Response) => {
 }
 
 const deleteAppointAsPsychologist = async (req: Request, res: Response) => { 
-    const { IdAppointment } = req.body;  
+    const { IdAppointment } = req.params;  
     try {
         await appointmentModel.findOneAndDelete({      
             '_id': IdAppointment,
@@ -77,10 +88,10 @@ const deleteAppointAsPsychologist = async (req: Request, res: Response) => {
 }
 
 const deleteAppointAsClient = async (req: Request, res: Response) => {
-    const { id } = req.params; 
+    const { IdAppointment } = req.params; 
     try {
         await appointmentModel.findOneAndDelete({
-            _id: id,
+            _id: IdAppointment,
             IdUserClient: req.user
         });
         res.send('Appointment deleted succesfully')
@@ -105,47 +116,6 @@ module.exports = {
     getAppointmentAsClient,
     deleteAppointAsPsychologist,
     deleteAppointAsClient,
-    putAppointment
+    putAppointment,
+    getAppointmentById
 }
-
-
-
-// const putAppointment = async (req:Request , res: Response) => {
-//     try{
-//         const { idAppointment } = req.params;
-//         const data = await appointmentModel.findByIdAndUpdate(idAppointment, req.body, { new: true })
-//         res.status(200).send('Cita editada correctamente')
-//     } catch(err) {
-//         res.status(404).send(err)
-//     }
-// }
-
-
-
-// const deleteAppointmentModel = async (req:Request , res: Response) => {
-// try{
-// const { idAppointment } = req.body;
-
-//  const data = await appointmentModel.deleteOne({_id:idAppointment});
-//  //aqui pregunto si se borro el appointment o si existe
-
-//  if(Number(data.deletedCount) === 0){
-// //si el appointment no existe responde de la siguiente manera.
-//      res.status(404).send("the appointment does not exist")
-//  }else{
-// //si el appointment existe y se borro con exito , responde de esta manera.
-//     res.status(200).send('appointment was deleted successfully')
-//  }
-// }catch(err){
-//     res.status(404).json({error:err})
-// }
-// }
-
-// const getAllAppointment = async (req:Request , res: Response) => {
-//     try{
-//         const allAppointment = await appointmentModel.find();
-//         res.status(200).json(allAppointment)
-//     } catch(err) {
-//         res.status(404).json({data:err})
-//     }
-// }

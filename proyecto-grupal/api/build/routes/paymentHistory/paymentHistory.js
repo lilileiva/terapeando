@@ -24,11 +24,11 @@ const getAllPayments = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 const createPayment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { amount, city, country, firstName, lastName, currency, idClient, celphone, email, address, psyName, idPsychologist } = req.body;
+    const { amount, city, country, firstName, lastName, currency, celphone, email, address, psyName, idPsychologist, status } = req.body;
     try {
         const newPayment = new paymentHistory_1.default({
             idPsychologist: idPsychologist,
-            idClient: idClient,
+            idClient: req.user,
             firstName: firstName,
             lastName: lastName,
             country: country,
@@ -39,6 +39,7 @@ const createPayment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             amount: amount,
             currency: currency,
             psyName: psyName,
+            status: status,
         });
         console.log('This is newPayment: ', newPayment);
         yield newPayment.save();
@@ -50,12 +51,20 @@ const createPayment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 const getPaymentByClientId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { clientId } = req.params;
-    console.log(clientId);
     try {
-        const payment = yield paymentHistory_1.default.find({ idClient: clientId });
-        console.log(payment);
+        const payment = yield paymentHistory_1.default.find({ idClient: req.user });
         res.status(200).json(payment);
+    }
+    catch (error) {
+        res.status(404).send(error);
+    }
+});
+const getPaymentByPsychologistId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    req.user;
+    try {
+        const payment = yield paymentHistory_1.default.find({ idPsychologist: req.user });
+        res.status(200).json(payment);
+        console.log(payment);
     }
     catch (error) {
         res.status(404).send(error);
@@ -64,5 +73,6 @@ const getPaymentByClientId = (req, res) => __awaiter(void 0, void 0, void 0, fun
 module.exports = {
     getPaymentByClientId,
     createPayment,
-    getAllPayments
+    getAllPayments,
+    getPaymentByPsychologistId
 };
