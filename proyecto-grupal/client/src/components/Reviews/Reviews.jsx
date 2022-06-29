@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { GoStar } from "react-icons/go";
-import { createReview, updatePsychologistAsClient, getUserPsychologistDetailsasClient } from "../../redux/actions";
+import { createReview, getUserPsychologistDetailsasClient } from "../../redux/actions";
 import Swal from "sweetalert2";
 import './Reviews.css';
 import { Text, Box, Stack, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, useDisclosure } from "@chakra-ui/react"
@@ -102,8 +102,7 @@ export default function Reviews({ idPsychologist }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createReview(idPsychologist, input_review))
-    dispatch(updatePsychologistAsClient(idPsychologist, updatePsycoRating)) //actualizo el rating del psicólogo
+    dispatch(createReview(idPsychologist, input_review))    
     onClose()
     Swal.fire('Tu reseña fue enviada con exito', '', 'success');
     setRating(0);

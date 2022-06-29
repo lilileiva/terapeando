@@ -341,22 +341,6 @@ export function editUserPsichologist(updatedUserPsychologist) {
   }
 }
 
-export function updatePsychologistAsClient(IdUserPsychologist, updatedUserPsychologist) {
-  return async function () {
-    try {
-      const data = await axios.put(
-        `${baseURL}/userpsychologist/putuserpsychologist/${IdUserPsychologist}`,
-        updatedUserPsychologist,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }
-        })
-    } catch (error) {
-      console.error(error)
-      Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");
-    }
-  }
-}
-
 //----- olvide mi password
 export function forgotPassword(payload) {
   return async function (dispatch) {
