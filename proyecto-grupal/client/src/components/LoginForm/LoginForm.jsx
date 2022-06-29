@@ -296,14 +296,13 @@ function LoginForm() {
                     >
                       Iniciar sesión
                     </Button>
-
-                    <a href="http://localhost:3001/userclient/auth/google">
+                    
+                    <a href={`${baseURL}/userclient/auth/google`}>
                       <Button bg='green.100' color='#285e61'>
                         Inicia sesión con &nbsp;<FaGoogle />
                       </Button>
                     </a>
-                  </Stack>
-                  {/* <a href="http://localhost:3001/userclient/auth/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a> */}
+                  </Stack>                  
 
                   <Stack >
                     <Button
