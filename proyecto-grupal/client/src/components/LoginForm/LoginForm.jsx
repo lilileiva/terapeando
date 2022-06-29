@@ -27,7 +27,7 @@ import { LOCAL_HOST } from "../../redux/actions/types";
 import ForgotPassword from "../ForgotPassword/ForgotPassword.jsx"
 const clientId =
   "451354418729-kmjdfi10akrfqi9a8ln8ntrieehu21v8.apps.googleusercontent.com";
-const baseURL = LOCAL_HOST;
+const baseURL = process.env.REACT_APP_API || LOCAL_HOST;
 
 function LoginForm() {
   const dispatch = useDispatch();
