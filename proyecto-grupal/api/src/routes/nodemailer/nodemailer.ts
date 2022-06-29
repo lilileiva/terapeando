@@ -5,7 +5,6 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 import * as crypto from "crypto";
 
-    
 
 const ForgotPassword = async (req: Request, res: Response) => {
 
@@ -93,57 +92,8 @@ const ForgotPassword = async (req: Request, res: Response) => {
 
   }
 }
-  
-
-
-const registerConfirmationEmail = async (req: Request, res: Response) => {
-  const { firstname, lastname, email } = req.body;
-  console.log('email: ', email)
-
-
-  const transporter = nodemailer.createTransport({
-
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "terapeandoportal@gmail.com",
-      pass: "pezufzhvclfbmuti",
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-
-  transporter.verify().then(() => {
-    console.log("Ready to send emails");
-  });
-
-  let mailOptions = {
-
-    from: `Terapeando <i.e 9b701662a9-d663a8+1@inbox.mailtrap.io>`,
-    to: `${email}`,
-    subject: "Confirmacion de registro",
-    html: `<h1>Bienvenido ${firstname} ${lastname} a Terapeando!</h1>
-          <p>Ingresa con tu email: ${email} <a href= http://localhost:3000/signin>aqui<a/></p>`,
-    headers: { "x-myheader": "test header" },
-
-  };
-
-  await transporter.sendMail(mailOptions, (error: any) => {
-    if (error) {
-      console.log("Hubo un error: ", error);
-    } else {
-      console.log("Email enviado!");
-    }
-  });
-
-  res.send("Succes");
-};
-
 
 
 module.exports = {
-  ForgotPassword,
-  registerConfirmationEmail
+  ForgotPassword
 }

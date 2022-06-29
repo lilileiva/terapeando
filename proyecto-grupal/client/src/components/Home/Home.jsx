@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getPsychologistByStatus,
@@ -21,25 +21,19 @@ import FiltersPsichologist from "../FilterPsichologist/FilterPsichologist";
 import AdminSearchbar from "../AdminPanel/AdminSearchbar/AdminSearchbar.jsx";
 import { getScheduleAsPsychologist, getScheduleAsClient } from '../../redux/actions';
 import Chat from '../Chat/Chat'
+import Swal from "sweetalert2";
 
 
 export default function Home() {
   const AllPsychologist = useSelector((state) => state.allUsersPsichologists);
   const adminSearchbar = useSelector((state) => state.adminSearchbar);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
    
-
   const search = useLocation().search; 
-  const role = new URLSearchParams(search).get('role');
   const token = new URLSearchParams(search).get('token');
-  console.log(token)
-  console.log(role)
-
-useEffect(() => {
-  const setToken =  role === 'client' ? window.localStorage.setItem('tokenClient', token) : role === 'psychologist' ? window.localStorage.setItem('tokenPsychologist', token) :  null ;
-}, [])
-
+  const setToken =  token ? window.localStorage.setItem('tokenClient', token) : null ;
 
 
   const tokenClient = window.localStorage.getItem('tokenClient')
@@ -48,7 +42,19 @@ useEffect(() => {
   useEffect(() => {
     dispatch(getPsychologistByStatus());
     smoothscroll();
-  }, [dispatch]);
+
+    /*----alert bienvenido si te logeas con google----*/
+    if (token) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Bienvenido",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      navigate('/home')
+    }
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (adminSearchbar.length !== 0) {
@@ -84,7 +90,6 @@ useEffect(() => {
     setPage(1)
   }
 
-
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
       <Stack>
@@ -105,7 +110,7 @@ useEffect(() => {
             </Text>
 
             <Stack direction='row' width='50%' justify='right'>
-              <AdminSearchbar width='50%' />
+              <AdminSearchbar width='50%' />              
               <Button variant='outline' width='40%' colorScheme='teal' onClick={handleSubmit}>
                 Todos los psicólogos
               </Button>
@@ -114,7 +119,7 @@ useEffect(() => {
           </Stack>
 
           <Stack width="100%" direction="row">
-            <FiltersPsichologist />
+            <FiltersPsichologist setPage={setPage} />
           </Stack>
           {
             loader

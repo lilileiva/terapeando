@@ -47,12 +47,58 @@ const getSchedule = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         console.log(err);
     }
 });
+<<<<<<< HEAD
+const getScheduleById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { idSchedule } = req.params;
+    try {
+        const schedule = yield Schedule_1.default.findById(idSchedule);
+        res.status(200).json(schedule);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+=======
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 const getScheduleByDate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { IdUserPsychologist } = req.params;
     const { date } = req.body;
     try {
+<<<<<<< HEAD
+        const schedule = yield Schedule_1.default.find({ 'IdUserPsychologist': IdUserPsychologist, 'date': date });
+=======
         const schedule = yield Schedule_1.default.find({ 'date': date, 'IdUserPsychologist': IdUserPsychologist });
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
         res.status(200).json(schedule);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+<<<<<<< HEAD
+const deleteSchedule = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { idSchedule } = req.params;
+    try {
+        const scheduleExist = yield Schedule_1.default.findOneAndDelete({ _id: idSchedule });
+        if (!scheduleExist) {
+            res.status(502).send('Este horario no existe');
+        }
+        res.status(200).send('Horarios eliminados correctamente');
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+const updateSchedule = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { idSchedule } = req.params;
+    console.log(req.body);
+    try {
+        const updated = yield Schedule_1.default.findByIdAndUpdate(idSchedule, req.body, { new: true });
+        console.log('------updated--------', updated);
+        if (!updated) {
+            res.status(502).send('No hemos podido actualizar el horario');
+        }
+        res.status(200).send('Horario disponible eliminado');
     }
     catch (err) {
         console.log(err);
@@ -60,6 +106,15 @@ const getScheduleByDate = (req, res) => __awaiter(void 0, void 0, void 0, functi
 });
 module.exports = {
     createSchedule,
+    deleteSchedule,
+    getScheduleByDate,
+    getSchedule,
+    updateSchedule,
+    getScheduleById
+=======
+module.exports = {
+    createSchedule,
     getSchedule,
     getScheduleByDate
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 };

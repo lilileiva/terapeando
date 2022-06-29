@@ -13,7 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const userPsychologist_1 = __importDefault(require("../../models/userPsychologist"));
+<<<<<<< HEAD
+=======
 const userPsychologist_2 = __importDefault(require("../../models/userPsychologist"));
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 //import { userPsychologist } from '../../models/userPsychologist';
 const nodemailer = require("nodemailer");
 const getUserPsychologistOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -47,7 +50,11 @@ const getUserPsychologistByEmail = (req, res) => __awaiter(void 0, void 0, void 
 });
 const getUserPsychologistByStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+<<<<<<< HEAD
+        const userPsychologistStatus = yield userPsychologist_1.default.find({ status: "Activo", psychologistStatus: "Activo" }, "-password");
+=======
         const userPsychologistStatus = yield userPsychologist_1.default.find({ status: "Activo" }, "-password");
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
         res.status(200).json(userPsychologistStatus);
     }
     catch (error) {
@@ -59,8 +66,12 @@ const getUserPsychologist = (req, res, next) => __awaiter(void 0, void 0, void 0
     try {
         const { name } = req.query;
         if (name) {
+<<<<<<< HEAD
+            userPsychologist_1.default.find({
+=======
             userPsychologist_2.default
                 .find({
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
                 $or: [
                     { firstName: { $regex: name, $options: "i" } },
                     { lastName: { $regex: name, $options: "i" } },
@@ -106,6 +117,7 @@ const postUserPsychologist = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 profileImage: profileimage,
                 rating: 1,
                 status: "Pendiente",
+                psychologistStatus: "Activo",
                 about,
                 education,
                 role: 'psychologist'
@@ -194,6 +206,17 @@ const filterPsichologistSpecialities = (req, res) => __awaiter(void 0, void 0, v
         return res.status(404).send({ msj: "No se encontraron resultados" });
     }
 });
+<<<<<<< HEAD
+/* const putAvailableTimes = async (req: Request, res: Response) => {
+  try {
+    await userPsychologistModel.findByIdAndUpdate(req.user, req.body, { new: true })
+    res.status(200).send('Horarios agregados correctamente')
+  } catch {
+    res.status(404).send('There was an error...');
+  }
+} */
+=======
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 // // const filterPsichologistRating = async (req: Request, res: Response) => {
 // //   try {
 // //     const PsichologistByRating = await userPsychologistModel.find({}, { 'rating': 1, "_id": 0 });
@@ -223,7 +246,15 @@ module.exports = {
     putUserPsychologist,
     getUserPsychologistByEmail,
     filterPsichologistSpecialities,
+<<<<<<< HEAD
+    //filterPsichologistRating,
     getUserPsychologistByStatus,
     getReviews,
     getPsychologistDetails,
+    /* putAvailableTimes */
+=======
+    getUserPsychologistByStatus,
+    getReviews,
+    getPsychologistDetails,
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 };

@@ -47,9 +47,9 @@ function LoginForm() {
   });
   //var accessToken = gapi.auth.getToken().acces_token;
 
-// function handleAxios() {
-//   const response =  axios.get("http://localhost:3001/userclient/auth/google")
-// }
+  // function handleAxios() {
+  //   const response =  axios.get("http://localhost:3001/userclient/auth/google")
+  // }
 
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -281,7 +281,11 @@ function LoginForm() {
                     </Text>
                   )}
 
-                  <Stack direction="row"  justifyContent={'center'}   margin={'2em'}>
+                  {/* <Button colorScheme='gray' size='xs' variant='link'> */}
+                    <ForgotPassword />
+                  {/* </Button> */}
+
+                  <Stack direction="column" justifyContent={'center'} mt='2em' mb='1em' align='center' width='inherit'>
                     <Button
                       type="submit"
                       bg={"#63caa7"}
@@ -289,20 +293,19 @@ function LoginForm() {
                       variant="solid"
                       _hover={[{ color: "#63caa7" }, { bg: "white" }]}
                       display={'flex'}
-                  
                     >
                       Iniciar sesión
                     </Button>
 
-                    {/* <Button onClick={handleAxios}> Inicia sesión con &nbsp;<FaGoogle/>  </Button> */}
-                    <Button bg='green.100' color={'#63caa7'}>
-                      <a href="http://localhost:3001/userclient/auth/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a>
-                    </Button>
+                    <a href="http://localhost:3001/userclient/auth/google">
+                      <Button bg='green.100' color='#285e61'>
+                        Inicia sesión con &nbsp;<FaGoogle />
+                      </Button>
+                    </a>
+                  </Stack>
+                  {/* <a href="http://localhost:3001/userclient/auth/google"> Inicia sesión con &nbsp;<FaGoogle/>  </a> */}
 
-                    </Stack>
-
-                    <Stack >
-
+                  <Stack >
                     <Button
                       bg="green.100"
                       color={"#285e61"}
@@ -310,15 +313,14 @@ function LoginForm() {
                     >
                       ¿Aún no tienes una cuenta?
                     </Button>
-                    <Button
+                    {/* <Button
                       bg="green.100"
                       color={"#285e61"}
-                      
                     >
-                      <ForgotPassword/>
-                    </Button>
-                    </Stack>
-                  
+                      <ForgotPassword />
+                    </Button> */}
+                  </Stack>
+
                 </form>
               </Box>
             </Box>

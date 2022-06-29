@@ -106,8 +106,8 @@ export default function ForgotPassword() {
 
   return (
     <Stack align={"center"}>
-      <Button onClick={onOpen} bg="green.100" color={"#285e61"}>
-        Olvide mi contraseña
+      <Button onClick={onOpen} bg="green.100" fontWeight='300' color={"gray"} size='sm' variant='link' mt='0.2em'>
+        Olvidé mi contraseña
       </Button>
       <Modal
         initialFocusRef={initialRef}

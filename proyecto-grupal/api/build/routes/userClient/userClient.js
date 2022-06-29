@@ -45,11 +45,15 @@ const createUserClient = (req, res) => __awaiter(void 0, void 0, void 0, functio
             const userClient = yield userClients_1.default.create({
                 firstName: firstname,
                 lastName: lastname,
-                birthDate: birthdate,
-                country: country,
+                // birthDate: birthdate,
+                // country: country,
                 email: email,
                 profileImage: profileimage,
+<<<<<<< HEAD
+                // password: password,
+=======
                 password: password,
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
                 role: "client",
             });
             res.status(201).send("Welcome to our community, now you can sign in");
@@ -111,6 +115,11 @@ module.exports = {
     getUserClient,
     createUserClient,
     deleteUserClient,
+<<<<<<< HEAD
+    getPsychologistDetails,
+    putUserClient
+=======
     putUserClient,
     getPsychologistDetails,
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 };

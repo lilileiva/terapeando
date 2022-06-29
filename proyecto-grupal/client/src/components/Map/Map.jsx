@@ -22,7 +22,7 @@ function Map({ lat, lng }) {
   const [zoom, setZoom] = useState(0)
 
   useEffect(() => {
-    setZoom(10)
+    setZoom(15)
   }, [setZoom])
 
   const onLoad = React.useCallback(function callback(map) {

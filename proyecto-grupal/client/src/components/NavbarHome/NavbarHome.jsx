@@ -50,7 +50,7 @@ const Links = ["Próximas Consultas", "Mi psicólogo", "Blog"];
 
 
 const NavLink = ({ children }) => (
-  
+
   <Link exact to={removeAcc(children)}>
     <Text
       px={2}
@@ -60,14 +60,13 @@ const NavLink = ({ children }) => (
         textDecoration: "none",
         bg: useColorModeValue("gray.200", "gray.700"),
       }}
-      >
+    >
       {children}
     </Text>
   </Link>
 );
 
 export default function NavbarHome() {
-
   const tokenClient = window.localStorage.getItem('tokenClient')
   const tokenPsychologist = window.localStorage.getItem('tokenPsychologist')
 

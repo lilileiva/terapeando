@@ -24,7 +24,7 @@ const getAllPosts = (req, res, next) => {
             firstName: 1,
             lastName: 1,
             email: 1,
-            country: 1,
+            location: 1,
             License: 1,
             Specialties: 1,
         })
@@ -39,7 +39,7 @@ const getAllPosts = (req, res, next) => {
             firstName: 1,
             lastName: 1,
             email: 1,
-            country: 1,
+            location: 1,
             License: 1,
             Specialties: 1,
         })
@@ -59,7 +59,7 @@ const getOnePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             email: 1,
             profileImage: 1,
             about: 1,
-            country: 1,
+            location: 1,
             License: 1,
             Specialties: 1,
         });
@@ -112,7 +112,7 @@ const filterPostsCategory = (req, res, next) => __awaiter(void 0, void 0, void 0
         firstName: 1,
         lastName: 1,
         email: 1,
-        country: 1,
+        location: 1,
         License: 1,
         Specialties: 1,
     });
@@ -130,8 +130,8 @@ const filterPostsCategory = (req, res, next) => __awaiter(void 0, void 0, void 0
 const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { IdPost } = req.params;
     try {
-        const postDelete = yield Post_1.default.findOneAndDelete({ _id: IdPost });
-        res.send("Post eliminado correctamente");
+        const postDelete = yield Post_1.default.findOneAndDelete({ _id: IdPost, idUserPsychologist: req.user });
+        res.status(200).send("Post eliminado correctamente");
     }
     catch (err) {
         res.status(404).send("error: " + err);
