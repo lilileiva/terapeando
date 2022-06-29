@@ -15,7 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const appointment_1 = __importDefault(require("../../models/appointment"));
 const postAppointmentModel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { IdUserPsychologist } = req.params;
+<<<<<<< HEAD
     const { date, hour, type, IdSchedule } = req.body;
+=======
+    const { date, hour, type } = req.body;
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
     if (typeof date !== "string" || typeof hour !== "string" || (type !== "Virtual" && type !== "Presencial")) {
         res.status(404).send("Some data is not valid");
     }
@@ -31,15 +35,22 @@ const postAppointmentModel = (req, res) => __awaiter(void 0, void 0, void 0, fun
                     hour,
                     type,
                     IdUserClient: req.user,
+<<<<<<< HEAD
                     IdUserPsychologist,
                     IdSchedule
+=======
+                    IdUserPsychologist
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
                 });
                 console.log(appointment);
                 res.status(201).send("appointment created successfully");
             }
             catch (err) {
                 res.status(404).json({ error: err });
+<<<<<<< HEAD
                 console.log(err);
+=======
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
             }
         }
         else {
@@ -47,6 +58,7 @@ const postAppointmentModel = (req, res) => __awaiter(void 0, void 0, void 0, fun
         }
     }
 });
+<<<<<<< HEAD
 const getAppointmentById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { IdAppointment } = req.params;
     try {
@@ -60,10 +72,34 @@ const getAppointmentById = (req, res) => __awaiter(void 0, void 0, void 0, funct
 const getAppointmentAsPsychologist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const appointment = yield appointment_1.default.find({ 'IdUserPsychologist': req.user }).populate("IdUserClient", {
+=======
+const getAppointmentAsPsychologist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const appointment = yield appointment_1.default.find({ 'IdUserPsychologist': req.user }).populate("IdUserClient", {
             firstName: 1,
             lastName: 1,
             email: 1,
             country: 1,
+            Specialties: 1,
+        });
+        res.status(200).json(appointment);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+const getAppointmentAsClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const appointment = yield appointment_1.default.find({ 'IdUserClient': req.user }).populate("IdUserPsychologist", {
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            country: 1,
+<<<<<<< HEAD
+=======
+            Specialties: 1,
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
             profileImage: 1
         });
         res.status(200).json(appointment);
@@ -72,6 +108,7 @@ const getAppointmentAsPsychologist = (req, res) => __awaiter(void 0, void 0, voi
         console.log(err);
     }
 });
+<<<<<<< HEAD
 const getAppointmentAsClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const appointment = yield appointment_1.default.find({ 'IdUserClient': req.user }).populate("IdUserPsychologist", {
@@ -90,6 +127,10 @@ const getAppointmentAsClient = (req, res) => __awaiter(void 0, void 0, void 0, f
 });
 const deleteAppointAsPsychologist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { IdAppointment } = req.params;
+=======
+const deleteAppointAsPsychologist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { IdAppointment } = req.body;
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
     try {
         yield appointment_1.default.findOneAndDelete({
             '_id': IdAppointment,
@@ -102,10 +143,17 @@ const deleteAppointAsPsychologist = (req, res) => __awaiter(void 0, void 0, void
     }
 });
 const deleteAppointAsClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+<<<<<<< HEAD
     const { IdAppointment } = req.params;
     try {
         yield appointment_1.default.findOneAndDelete({
             _id: IdAppointment,
+=======
+    const { id } = req.params;
+    try {
+        yield appointment_1.default.findOneAndDelete({
+            _id: id,
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
             IdUserClient: req.user
         });
         res.send('Appointment deleted succesfully');
@@ -130,6 +178,43 @@ module.exports = {
     getAppointmentAsClient,
     deleteAppointAsPsychologist,
     deleteAppointAsClient,
+<<<<<<< HEAD
     putAppointment,
     getAppointmentById
+=======
+    putAppointment
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 };
+// const putAppointment = async (req:Request , res: Response) => {
+//     try{
+//         const { idAppointment } = req.params;
+//         const data = await appointmentModel.findByIdAndUpdate(idAppointment, req.body, { new: true })
+//         res.status(200).send('Cita editada correctamente')
+//     } catch(err) {
+//         res.status(404).send(err)
+//     }
+// }
+// const deleteAppointmentModel = async (req:Request , res: Response) => {
+// try{
+// const { idAppointment } = req.body;
+//  const data = await appointmentModel.deleteOne({_id:idAppointment});
+//  //aqui pregunto si se borro el appointment o si existe
+//  if(Number(data.deletedCount) === 0){
+// //si el appointment no existe responde de la siguiente manera.
+//      res.status(404).send("the appointment does not exist")
+//  }else{
+// //si el appointment existe y se borro con exito , responde de esta manera.
+//     res.status(200).send('appointment was deleted successfully')
+//  }
+// }catch(err){
+//     res.status(404).json({error:err})
+// }
+// }
+// const getAllAppointment = async (req:Request , res: Response) => {
+//     try{
+//         const allAppointment = await appointmentModel.find();
+//         res.status(200).json(allAppointment)
+//     } catch(err) {
+//         res.status(404).json({data:err})
+//     }
+// }

@@ -155,7 +155,7 @@ function Appointments() {
                               {
                                 tokenClient && appo.IdUserPsychologist
                                   ? (<Stack align='center' width='50%' borderRightWidth='0.1em' borderColor='#b7b7b7'>
-                                    <Link to={`/detailPsychologist/${appo._id}`} cursor='pointer'>
+                                    <Link to={`/detailPsychologist/${appo.IdUserPsychologist._id}`} cursor='pointer'>
                                       <Avatar src={appo.IdUserPsychologist.profileImage} size='xl' />
                                       <Text fontSize='3xl' fontWeight='500'>{appo.IdUserPsychologist.firstName} {appo.IdUserPsychologist.lastName}</Text>
                                     </Link>
@@ -209,7 +209,7 @@ function Appointments() {
                                         <CheckIcon color='green' />
                                         <Text fontSize='xl' color='gray'>Cita concretada</Text>
                                       </Stack>
-                                      {tokenClient ? <Reviews idPsychologist={appo._id} /> : null}
+                                      {tokenClient ? <Reviews idPsychologist={appo.IdUserPsychologist._id} /> : null}
                                     </>
                                 }
                               </Stack>

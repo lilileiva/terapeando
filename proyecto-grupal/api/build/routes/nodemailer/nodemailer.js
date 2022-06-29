@@ -41,6 +41,7 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const crypto = __importStar(require("crypto"));
 const ForgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+<<<<<<< HEAD
     const { email } = req.body;
     let userPsychologist = yield userPsychologist_1.default.find({ "email": email });
     let userClient = yield userClients_1.default.find({ "email": email });
@@ -49,6 +50,19 @@ const ForgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         //const userPsychologist = await userPsychologistModel.find({ "email": email })
         //console.log(userPsychologist)
         //const user = await userPsychologistModel.find({ "email": email })
+=======
+    const { email, role } = req.body;
+    let userPsychologist = yield userPsychologist_1.default.find({
+        "email": email,
+        "role": role
+    });
+    let userClient = yield userClients_1.default.find({
+        "email": email,
+        "role": role
+    });
+    try {
+        const user = userPsychologist.length < 1 ? userClient : userPsychologist;
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
@@ -71,7 +85,11 @@ const ForgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 to: `${email}`,
                 subject: "Recuperación de contraseña Terapeando",
                 text: `Hola ${user[0].firstName} tu nueva contraseña para iniciar sesión es: ${newPassword}`,
+<<<<<<< HEAD
                 html: `<strong>Hola! ${user[0].firstName}  tu nueva contraseña para iniciar sesión es: ${newPassword} </strong><a href= http://localhost:3000/signin>ir a Terapeando</a>`,
+=======
+                html: `<strong>Hola ${user[0].firstName}!  tu nueva contraseña para iniciar sesión es: ${newPassword} </strong><a href= http://localhost:3000/signin>ir a Terapeando</a>`,
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
                 headers: { 'x-myheader': 'test header' }
             }).then(() => __awaiter(void 0, void 0, void 0, function* () {
                 const saltRounds = Number(process.env.SALTROUNDS);
@@ -98,6 +116,48 @@ const ForgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.status(404).json({ msg: 'user not found' });
     }
 });
+<<<<<<< HEAD
 module.exports = {
     ForgotPassword
+=======
+const registerConfirmationEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { firstname, lastname, email } = req.body;
+    console.log('email: ', email);
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: "terapeandoportal@gmail.com",
+            pass: "pezufzhvclfbmuti",
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
+    transporter.verify().then(() => {
+        console.log("Ready to send emails");
+    });
+    let mailOptions = {
+        from: `Terapeando <i.e 9b701662a9-d663a8+1@inbox.mailtrap.io>`,
+        to: `${email}`,
+        subject: "Confirmacion de registro",
+        html: `<h1>Bienvenido ${firstname} ${lastname} a Terapeando!</h1>
+          <p>Ingresa con tu email: ${email} <a href= http://localhost:3000/signin>aqui<a/></p>`,
+        headers: { "x-myheader": "test header" },
+    };
+    yield transporter.sendMail(mailOptions, (error) => {
+        if (error) {
+            console.log("Hubo un error: ", error);
+        }
+        else {
+            console.log("Email enviado!");
+        }
+    });
+    res.send("Succes");
+});
+module.exports = {
+    ForgotPassword,
+    registerConfirmationEmail
+>>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 };
