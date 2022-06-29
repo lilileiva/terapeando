@@ -216,7 +216,7 @@ export function getUserPsychologistByName(name) {
           payload: data,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
   };
 }
 
@@ -334,6 +334,22 @@ export function editUserPsichologist(updatedUserPsychologist) {
       // if (data.response === 200) {
       //   Swal.fire("Su perfil ha sido actualizado exitosamente", "", "success");
       // }
+    } catch (error) {
+      console.error(error)
+      Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");
+    }
+  }
+}
+
+export function updatePsychologistAsClient(IdUserPsychologist, updatedUserPsychologist) {
+  return async function () {
+    try {
+      const data = await axios.put(
+        `${baseURL}/userpsychologist/putuserpsychologist/${IdUserPsychologist}`,
+        updatedUserPsychologist,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("tokenClient")}` }
+        })
     } catch (error) {
       console.error(error)
       Swal.fire("No se ha podido actualizar su perfil", "Intente nuevamente", "error");

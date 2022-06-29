@@ -1,14 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { GoStar } from "react-icons/go";
-import { createReview } from "../../redux/actions";
+import { createReview, updatePsychologistAsClient, getUserPsychologistDetailsasClient } from "../../redux/actions";
 import Swal from "sweetalert2";
 import './Reviews.css';
 import { Text, Box, Stack, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, useDisclosure } from "@chakra-ui/react"
-
-
 
 
 export default function Reviews({ idPsychologist }) {
@@ -18,20 +16,16 @@ export default function Reviews({ idPsychologist }) {
   };
 
   // estados del componente modal de chakra para el renderizado 
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
-  
 
   // estado rating para la calificacion de 1 a 5 del usuario al psicologo 
   // y stado hover para el color de la estrella segun el rating
-
   const [rating, setRating] = useState(0);
   const [hoverStar, setHoverStar] = useState(undefined);
 
   const stars = Array(5).fill(0);
-
 
   // estado para capturar el valor y el contenido de la reseña del usuario al psicologo
   const [input_review, setInput_review] = useState({
@@ -40,21 +34,31 @@ export default function Reviews({ idPsychologist }) {
   });
 
   // estado para habilitar o deshabilitar el boton de enviar review
-
   const [isSubmit, setIsSubmit] = useState(true);
 
   const dispatch = useDispatch();
 
-  // const {idPsychologist}  = useParams();
+  //me traigo la info del psicólogo para conocer sus reviews previas
+  const userPsichologistDetail = useSelector((state) => state.userPsichologistDetail)
+  useEffect(() => {
+    dispatch(getUserPsychologistDetailsasClient(idPsychologist))
+  }, [dispatch])
 
-  
-
+  //nuevo estado que voy a usar para actualizar rating de psico
+  const [updatePsycoRating, setUpdatePsycoRating] = useState({
+    Rating: []
+  })
 
   const handleClick = (value) => {
     setRating(value);
     setInput_review({
       ...input_review,
       Rating: value
+    })
+
+    setUpdatePsycoRating({
+      ...updatePsycoRating,
+      Rating: [...userPsichologistDetail.Rating, value] //creo un nuevo rating sumando a los valores previos el actual
     })
   };
 
@@ -70,7 +74,6 @@ export default function Reviews({ idPsychologist }) {
   };
 
   // validando errores
-
   const validate = (input_review) => {
 
     let errors = {};
@@ -100,6 +103,7 @@ export default function Reviews({ idPsychologist }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createReview(idPsychologist, input_review))
+    dispatch(updatePsychologistAsClient(idPsychologist, updatePsycoRating)) //actualizo el rating del psicólogo
     onClose()
     Swal.fire('Tu reseña fue enviada con exito', '', 'success');
     setRating(0);

@@ -192,6 +192,16 @@ const deleteUserPsychologist = async (req: Request, res: Response) => {
   }
 };
 
+const putUserPsychologistById = async (req: Request, res: Response) => {
+  const { IdUserPsychologist } = req.params;
+  try {
+    await userPsychologistModel.findByIdAndUpdate(IdUserPsychologist, req.body, {new: true});
+    res.status(200).send("Usuario editado correctamente");
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+
 const putUserPsychologist = async (req: Request, res: Response) => {
   try {
     await userPsychologistModel.findByIdAndUpdate(req.user, req.body, {
@@ -267,5 +277,6 @@ module.exports = {
   getUserPsychologistByStatus,
   getReviews,
   getPsychologistDetails,
+  putUserPsychologistById
   /* putAvailableTimes */
 }
