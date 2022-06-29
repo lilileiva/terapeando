@@ -13,6 +13,8 @@ const logInClient = async (req: Request, res: Response) => {
     } else {
       const user = await userClientModel.findOne({ email });
 
+      user?.role === 'client' ? null : res.status(401).json({error: "invalid user or password"});
+
       const passwordCorrect =
         user === null ? false : await bcrypt.compare(password, user.password);
 
