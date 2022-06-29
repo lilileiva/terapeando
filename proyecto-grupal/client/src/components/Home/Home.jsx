@@ -30,10 +30,10 @@ export default function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
-   
-  const search = useLocation().search; 
+
+  const search = useLocation().search;
   const token = new URLSearchParams(search).get('token');
-  const setToken =  token ? window.localStorage.setItem('tokenClient', token) : null ;
+  const setToken = token ? window.localStorage.setItem('tokenClient', token) : null;
 
 
   const tokenClient = window.localStorage.getItem('tokenClient')
@@ -90,6 +90,7 @@ export default function Home() {
     setPage(1)
   }
 
+
   return (
     <Stack minHeight='100%' maxHeight='fit-content' justify='space-between'>
       <Stack>
@@ -110,7 +111,7 @@ export default function Home() {
             </Text>
 
             <Stack direction='row' width='50%' justify='right'>
-              <AdminSearchbar width='50%' />              
+              <AdminSearchbar width='50%' />
               <Button variant='outline' width='40%' colorScheme='teal' onClick={handleSubmit}>
                 Todos los psicólogos
               </Button>
@@ -143,7 +144,7 @@ export default function Home() {
                 : loader ? <Loader></Loader> : <Stack height={'100%'} justify={"flex-start"} mt='7em' ><Text fontSize={'xl'}>No hay resultados</Text></Stack>
           }
         </div>
-        <Chat/>
+        <Chat />
       </Stack>
       <Stack>
         <Paged

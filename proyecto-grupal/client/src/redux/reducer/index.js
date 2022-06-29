@@ -1,3 +1,4 @@
+import { clearPsychologistList } from "../actions";
 import {
   GET_ALL_USERCLIENTS,
   GET_USERCLIENT,
@@ -29,7 +30,7 @@ import {
   GET_APPOINTMENT_AS_PSYCHOLOGIST,
   GET_APPOINTMENT_AS_CLIENT,
   GET_APPOINTMENT_BY_ID,
-  DELETE_APPOINTMENT_AS_CLIENT,  
+  DELETE_APPOINTMENT_AS_CLIENT,
   PUT_APPOINTMENT,
   CLEAR_SCHEDULE,
   SORT_BY_DATE_PSY,
@@ -107,7 +108,7 @@ function rootReducer(state = initialState, action) {
         allUsersPsichologists: action.payload,
         UserPsichologists: action.payload,
       };
-    
+
     case GET_USER_PSYCHOLOGISTS_BY_NAME:
       return {
         ...state,
@@ -137,31 +138,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         email: action.payload,
       };
-    case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
-      const psichologists = state.UserPsichologists
-      const filterBySpecialties = psichologists.filter(el => {
-        let specialties = el.Specialties.map(el => el)
-        return specialties.includes(action.payload)
-      })
 
-      return {
-        ...state,
-        allUsersPsichologists:
-          action.payload === "Todas"
-            ? psichologists
-            : filterBySpecialties.length > 0
-            ? filterBySpecialties
-            : psichologists,
-      };
     case ORDER_PSICHOLOGIST_BY_RATING:
-
       return {
         ...state,
         allUsersPsichologists: action.payload
       };
 
     /*-----------RATING-----------*/
-      case FILTER_PSYCHOLOGIST_BY_RATING:
+    case FILTER_PSYCHOLOGIST_BY_RATING:
       return {
         ...state,
         reviews: action.payload
@@ -223,33 +208,33 @@ function rootReducer(state = initialState, action) {
       }
 
     /*-----------SCHEDULE-----------*/
-      case GET_SCHEDULE:
-        return {
-          ...state,
-          schedule: action.payload
-        }
-      case GET_SCHEDULE_BY_ID:
-        return {
-          ...state,
-          scheduleDetails: action.payload
-        }
+    case GET_SCHEDULE:
+      return {
+        ...state,
+        schedule: action.payload
+      }
+    case GET_SCHEDULE_BY_ID:
+      return {
+        ...state,
+        scheduleDetails: action.payload
+      }
 
     /*-----------APPOINTMENTS-----------*/
-      case GET_APPOINTMENT_AS_PSYCHOLOGIST:
-        return {
-          ...state,
-          appointments: action.payload
-        }
-      case GET_APPOINTMENT_AS_CLIENT:
-        return {
-          ...state,
-          appointments: action.payload
-        }
-      case DELETE_APPOINTMENT_AS_CLIENT:
-        return {
-          ...state,
-          appointments: state.appointments.filter(appo => appo._id !== action.payload)
-        }
+    case GET_APPOINTMENT_AS_PSYCHOLOGIST:
+      return {
+        ...state,
+        appointments: action.payload
+      }
+    case GET_APPOINTMENT_AS_CLIENT:
+      return {
+        ...state,
+        appointments: action.payload
+      }
+    case DELETE_APPOINTMENT_AS_CLIENT:
+      return {
+        ...state,
+        appointments: state.appointments.filter(appo => appo._id !== action.payload)
+      }
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:
@@ -302,57 +287,57 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPayments: filterByMonth
       }
-      //All Payments
+    //All Payments
     case SORT_BY_DATE:
       let sortedPayments = [state.allPayments];
       sortedPayments =
         action.payload === "asc"
           ? state.allPayments.sort(function (a, b) {
-              return new Date(a.createdAt) - new Date(b.createdAt);
-            })
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          })
           : state.allPayments.sort(function (a, b) {
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            });
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          });
       return {
-            ...state,
-            allPayments: sortedPayments,
-          };
-        // Only clients
-        case SORT_BY_DATE_CLI:
-          let sortedPaymentsCli = [state.paymentDetailsClient];
-          sortedPaymentsCli =
-            action.payload === "asc"
-              ? state.paymentDetailsClient.sort(function (a, b) {
-                  return new Date(a.createdAt) - new Date(b.createdAt);
-                })
-              : state.paymentDetailsClient.sort(function (a, b) {
-                  return new Date(b.createdAt) - new Date(a.createdAt);
-                });
-          return {
-                ...state,
-                paymentDetailsClient: sortedPaymentsCli,
-              };
-          // Only Psy
-          case SORT_BY_DATE_PSY:
-            let sortedPaymentsPsy = [state.paymentDetailsPsychologist];
-            sortedPaymentsPsy =
-              action.payload === "asc"
-                ? state.paymentDetailsPsychologist.sort(function (a, b) {
-                    return new Date(a.createdAt) - new Date(b.createdAt);
-                  })
-                : state.paymentDetailsPsychologist.sort(function (a, b) {
-                    return new Date(b.createdAt) - new Date(a.createdAt);
-                  });
-            return {
-                  ...state,
-                  paymentDetailsPsychologist: sortedPaymentsPsy,
-                };
+        ...state,
+        allPayments: sortedPayments,
+      };
+    // Only clients
+    case SORT_BY_DATE_CLI:
+      let sortedPaymentsCli = [state.paymentDetailsClient];
+      sortedPaymentsCli =
+        action.payload === "asc"
+          ? state.paymentDetailsClient.sort(function (a, b) {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          })
+          : state.paymentDetailsClient.sort(function (a, b) {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          });
+      return {
+        ...state,
+        paymentDetailsClient: sortedPaymentsCli,
+      };
+    // Only Psy
+    case SORT_BY_DATE_PSY:
+      let sortedPaymentsPsy = [state.paymentDetailsPsychologist];
+      sortedPaymentsPsy =
+        action.payload === "asc"
+          ? state.paymentDetailsPsychologist.sort(function (a, b) {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          })
+          : state.paymentDetailsPsychologist.sort(function (a, b) {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          });
+      return {
+        ...state,
+        paymentDetailsPsychologist: sortedPaymentsPsy,
+      };
     case FILTER_BY_STATUS:
       let filtered = state.paymentDetailsPsychologist;
-      filtered = 
-          action.payload === 'abonado'
+      filtered =
+        action.payload === 'abonado'
           ? state.paymentDetailsPsychologist.filter((p) => p.status === true)
-          : state.paymentDetailsPsychologist.filter((p) => p.status === false) 
+          : state.paymentDetailsPsychologist.filter((p) => p.status === false)
       return {
         ...state,
         paymentDetailsPsychologist: filtered,
@@ -365,27 +350,27 @@ function rootReducer(state = initialState, action) {
         adminSearchbar: action.payload,
       };
 
-      /*-----------APPOINTMENTS-----------*/
-      case GET_APPOINTMENT_AS_PSYCHOLOGIST:
-        return {
-          ...state,
-          appointments: action.payload
-        }
-      case GET_APPOINTMENT_AS_CLIENT:
-        return {
-          ...state,
-          appointments: action.payload
-        }
-      case GET_APPOINTMENT_BY_ID:
-        return {
-          ...state,
-          appointmentDetails: action.payload
-        }
-      case DELETE_APPOINTMENT_AS_CLIENT:
-        return {
-          ...state,
-          appointments: state.appointments.filter(appo => appo._id !== action.payload)
-        }
+    /*-----------APPOINTMENTS-----------*/
+    case GET_APPOINTMENT_AS_PSYCHOLOGIST:
+      return {
+        ...state,
+        appointments: action.payload
+      }
+    case GET_APPOINTMENT_AS_CLIENT:
+      return {
+        ...state,
+        appointments: action.payload
+      }
+    case GET_APPOINTMENT_BY_ID:
+      return {
+        ...state,
+        appointmentDetails: action.payload
+      }
+    case DELETE_APPOINTMENT_AS_CLIENT:
+      return {
+        ...state,
+        appointments: state.appointments.filter(appo => appo._id !== action.payload)
+      }
 
     /*-----------CLEAR-----------*/
     case CLEAR_CLIENT:

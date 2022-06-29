@@ -73,14 +73,7 @@ export default function PsychologistDetail() {
   const [showMap, setShowMap] = useState(false)
   const [showReviews, setShowReviews] = useState(false)
 
-  let ratingMedia = 0;
-  if (detail.Rating) {
-    const ratingLength = detail.Rating.length
-    detail.Rating.map(rating => ratingMedia += rating)
-    if (ratingLength !== 0) ratingMedia = ratingMedia / ratingLength;
-  }
-  console.log(ratingMedia)
-
+  
   return (
     <>
       {
@@ -178,13 +171,13 @@ export default function PsychologistDetail() {
                                     </Stack>
                                   </Box>
                                   <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">
-                                    {
-                                      ratingMedia
-                                      ? (
-                                        <Text fontSize='xl'>
-                                          Mi calificación promedio 😊: <Starts rating={ratingMedia} />
-                                        </Text>
-                                      ) : null
+                                  {
+                                      detail.rating
+                                        ? (
+                                          <Text fontSize='xl'>
+                                            Mi calificación promedio 😊: <Starts rating={detail.rating} />
+                                          </Text>
+                                        ) : null
                                     }
                                     <br />
                                     <Button color='teal' bg='green.100' variant='solid' onClick={() => setShowReviews(true)}>
