@@ -101,8 +101,6 @@ export class userPsychologist {
 
   @prop()
   psychologistStatus:string
-  // @prop()
-  // Reviews?: String[];
 
   // @prop({ ref: () => appointment })
   // appointments?: Ref<appointment>[];

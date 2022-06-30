@@ -26,7 +26,7 @@ import Schedule from "../Schedule/Schedule";
 
 export default function PsychologistDetail() {
 
-  const { IdUserPsychologist } = useParams();  
+  const { IdUserPsychologist } = useParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,6 +73,7 @@ export default function PsychologistDetail() {
   const [showMap, setShowMap] = useState(false)
   const [showReviews, setShowReviews] = useState(false)
 
+  
   return (
     <>
       {
@@ -170,7 +171,7 @@ export default function PsychologistDetail() {
                                     </Stack>
                                   </Box>
                                   <Box className="BoxDetail" p='1em' borderRadius={'10px'} height="fit-content">
-                                    {
+                                  {
                                       detail.rating
                                         ? (
                                           <Text fontSize='xl'>

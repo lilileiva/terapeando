@@ -233,7 +233,7 @@ export function getUserPsychologistByName(name) {
           payload: data,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
   };
 }
 
@@ -413,7 +413,6 @@ export function getBySpecialties(payload) {
 }
 
 // ordenar psicolofos por calificacion
-
 export function orderByRating(order, array) {
   return function (dispatch) {
     //me traigo el arreglo de las posts
@@ -427,16 +426,6 @@ export function orderByRating(order, array) {
   };
 }
 
-/* export function addAvailablesTimes(input) {
-  return async function () {
-    try{
-      const data = await axios.put(`${baseURL}/userpsychologist/psychologistschedule`, input,{headers: {Authorization: `Bearer ${localStorage.getItem("tokenPsychologist")}`}} )
-      console.log(data)
-    } catch(err){
-      console.log(err)
-    }
-  }
-} */
 
 /*------------------------POST ACTIONS----------------------*/
 export const getAllPosts = () => {

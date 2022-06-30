@@ -13,11 +13,7 @@ adminRouter.post("/logIn", signIn_1.default);
 adminRouter.post("/signUp", registerAdmin);
 //Rutas admin cliente
 adminRouter.get('/userclient/clients', ValidateAdmin, getAllUserClient);
-<<<<<<< HEAD
 adminRouter.get('/userclient/clients/:IdUserClient', ValidateAdmin, getUserClientById);
-=======
-adminRouter.get('/userclient/client/:idUserClient', ValidateAdmin, getUserClientById);
->>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 adminRouter.put("/userclient/update/:IdUserClient", ValidateAdmin, updateClientDetails);
 adminRouter.delete("/userclient/deleteuserclient/:IdUserClient", ValidateAdmin, deleteClient);
 //Rutas admin psicologo

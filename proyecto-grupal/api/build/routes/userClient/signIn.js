@@ -25,6 +25,7 @@ const logInClient = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
         else {
             const user = yield userClients_1.default.findOne({ email });
+            (user === null || user === void 0 ? void 0 : user.role) === 'client' ? null : res.status(401).json({ error: "invalid user or password" });
             const passwordCorrect = user === null ? false : yield bcrypt.compare(password, user.password);
             if (!(user && passwordCorrect)) {
                 res.status(401).json({
