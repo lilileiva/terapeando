@@ -955,8 +955,8 @@ export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
           confirmButtonColor: "#38B2AC",
           closeOnConfirm: true,
         }).then(function () {
-          window.location = `${baseURL}/checkout/${IdUserPsychologist}`;
-        });
+          window.location = `https://terapeando.vercel.app/checkout/${IdUserPsychologist}`
+        })
       }
     } catch (error) {
       console.log(error);

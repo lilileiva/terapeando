@@ -1,4 +1,4 @@
-const API = 'http://localhost:3001';
+const API = 'https://prueba-terapeando.herokuapp.com';
 
 export async function fetchFromApi(endpoint, opts){
    const { method, body } = { method: 'POST', body: null, ...opts };

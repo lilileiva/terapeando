@@ -5,22 +5,26 @@ import userPsychologist from "../../models/userPsychologist";
 //import { userPsychologist } from '../../models/userPsychologist';
 const nodemailer = require("nodemailer");
 
-
 const getUserPsychologistOne = async (req: Request, res: Response) => {
   try {
-    const psychologistUser = await userPsychologistModel.findById(req.user, '-password');
-    res.status(200).json(psychologistUser)
+    const psychologistUser = await userPsychologistModel.findById(
+      req.user,
+      "-password"
+    );
+    res.status(200).json(psychologistUser);
   } catch (err) {
-    res.status(404).json({ data: err })
+    res.status(404).json({ data: err });
   }
-}
+};
 
 const getPsychologistDetails = async (req: Request, res: Response) => {
-  const { IdUserPsichologist } = req.params
+  const { IdUserPsichologist } = req.params;
   try {
-    const psychologistUser = await userPsychologistModel.findById(IdUserPsichologist, '-password');
-    res.status(200).json(psychologistUser)
-
+    const psychologistUser = await userPsychologistModel.findById(
+      IdUserPsichologist,
+      "-password"
+    );
+    res.status(200).json(psychologistUser);
   } catch (err) {
     res.status(404).json({ data: err });
   }
@@ -37,7 +41,7 @@ const getUserPsychologistByEmail = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(404).json({ data: err });
   }
-}
+};
 
 const getUserPsychologistByStatus = async (req: Request, res: Response) => {
   try {
@@ -61,7 +65,8 @@ const getUserPsychologist = async (
     const { name } = req.query;
 
     if (name) {
-      userPsychologistModel.find(
+      userPsychologistModel
+        .find(
           {
             $or: [
               { firstName: { $regex: name, $options: "i" } },
@@ -131,7 +136,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         psychologistStatus: "Activo",
         about,
         education,
-        role: 'psychologist'
+        role: "psychologist",
       });
       res.status(201).send("Welcome to our community, now you can sign in");
       //----email confirmation
@@ -155,7 +160,7 @@ const postUserPsychologist = async (req: Request, res: Response) => {
         subject: "Confirmacion de registro",
         html: `<h1>Bienvenido ${firstname} ${lastname} a Terapeando!</h1>
                   <p>Tu cuenta para ${email} ha sido creada con éxito.
-                  Para ingresar a tu cuenta haz click <a href= http://localhost:3000/signin>aqui<a/></p>
+                  Para ingresar a tu cuenta haz click <a href= https://terapeando.vercel.app/signin>aqui<a/></p>
             `,
       };
 
@@ -230,7 +235,6 @@ const filterPsichologistSpecialities = async (req: Request, res: Response) => {
   }
 } */
 
-
 // // const filterPsichologistRating = async (req: Request, res: Response) => {
 
 // //   try {
@@ -266,6 +270,6 @@ module.exports = {
   filterPsichologistSpecialities,
   getUserPsychologistByStatus,
   getReviews,
-  getPsychologistDetails
+  getPsychologistDetails,
   /* putAvailableTimes */
-}
+};
