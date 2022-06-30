@@ -139,6 +139,23 @@ function rootReducer(state = initialState, action) {
         email: action.payload,
       };
 
+    case FILTER_PSICHOLOGIST_BY_SPECIALTIES:
+      const psichologists = state.UserPsichologists
+      const filterBySpecialties = psichologists.filter(el => {
+        let specialties = el.Specialties.map(el => el)
+        return specialties.includes(action.payload)
+      })
+
+      return {
+        ...state,
+        allUsersPsichologists:
+          action.payload === "Todas"
+            ? psichologists
+            : filterBySpecialties.length > 0
+              ? filterBySpecialties
+              : []
+      };
+
     case ORDER_PSICHOLOGIST_BY_RATING:
       return {
         ...state,
