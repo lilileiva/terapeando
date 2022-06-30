@@ -75,7 +75,7 @@ const createUserClient = async (req: Request, res: Response) => {
         subject: "Confirmacion de registro",
         html: `<h1>Bienvenido ${firstname} ${lastname} a Terapeando!</h1>
                   <p>Tu cuenta para ${email} ha sido creada con éxito.
-                  Para ingresar a tu cuenta haz click <a href= http://localhost:3000/signin>aqui<a/></p>
+                  Para ingresar a tu cuenta haz click <a href= https://terapeando.vercel.app/signin>aqui<a/></p>
             `,
       };
 

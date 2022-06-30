@@ -955,7 +955,7 @@ export function createAppointmentAsClient(IdUserPsychologist, appointmentData) {
           confirmButtonColor: "#38B2AC",
           closeOnConfirm: true,
         }).then(function () {
-          window.location = `http://localhost:3000/checkout/${IdUserPsychologist}`;
+          window.location = `${baseURL}/checkout/${IdUserPsychologist}`;
         });
       }
     } catch (error) {
