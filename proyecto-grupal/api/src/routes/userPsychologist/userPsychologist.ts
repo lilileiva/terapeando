@@ -266,6 +266,6 @@ module.exports = {
   filterPsichologistSpecialities,
   getUserPsychologistByStatus,
   getReviews,
-  getPsychologistDetails,
+  getPsychologistDetails
   /* putAvailableTimes */
 }

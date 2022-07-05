@@ -12,7 +12,7 @@ function AdminPanelPayments() {
     <div className='adminPanelContainer'>
       <AdminPanelNavbar />
 
-      <Stack bg='#2D3748' height='fit-content' direction='row' justifyContent='center' pl='0' pt='2%' pb='2%' pr='2%'>
+      <Stack bg='#d6d6d6' height='fit-content' direction='row' justifyContent='center' pl='0' pt='2%' pb='2%' pr='2%'>
         <AdminPanelSidebar />
 
         <Stack width='100%' bg='white' p='2%' direction='column' justifyContent='center'>

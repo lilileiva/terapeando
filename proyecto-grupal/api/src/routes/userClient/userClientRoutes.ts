@@ -35,9 +35,9 @@ clientRouter.get('/auth/google/callback', passport.authenticate('google'), async
     const token = jwt.sign(userForToken, process.env.SECRETWORD, {
       expiresIn: 60 * 60 * 24 // equivalente a 24 horas
     })
-    res.redirect(`http://localhost:3000/home?role=${req.user.role}&token=${token}`)
+    res.redirect(`https://terapeando.vercel.app/home?role=${req.user.role}&token=${token}`)
   } else {
-      res.redirect('http//localhost:3000/signin')
+      res.redirect('https://terapeando.vercel.app/signin')
   } 
 })
 

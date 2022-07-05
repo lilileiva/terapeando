@@ -47,7 +47,6 @@ const getSchedule = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         console.log(err);
     }
 });
-<<<<<<< HEAD
 const getScheduleById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idSchedule } = req.params;
     try {
@@ -58,24 +57,17 @@ const getScheduleById = (req, res) => __awaiter(void 0, void 0, void 0, function
         console.log(err);
     }
 });
-=======
->>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 const getScheduleByDate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { IdUserPsychologist } = req.params;
     const { date } = req.body;
     try {
-<<<<<<< HEAD
         const schedule = yield Schedule_1.default.find({ 'IdUserPsychologist': IdUserPsychologist, 'date': date });
-=======
-        const schedule = yield Schedule_1.default.find({ 'date': date, 'IdUserPsychologist': IdUserPsychologist });
->>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
         res.status(200).json(schedule);
     }
     catch (err) {
         console.log(err);
     }
 });
-<<<<<<< HEAD
 const deleteSchedule = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idSchedule } = req.params;
     try {
@@ -111,10 +103,4 @@ module.exports = {
     getSchedule,
     updateSchedule,
     getScheduleById
-=======
-module.exports = {
-    createSchedule,
-    getSchedule,
-    getScheduleByDate
->>>>>>> 8424f811845507213321a3bb74eda39f9f0abbcf
 };

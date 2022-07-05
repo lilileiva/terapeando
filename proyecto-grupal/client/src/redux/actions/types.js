@@ -1,4 +1,5 @@
-export const LOCAL_HOST = "http://localhost:3001"
+// export const LOCAL_HOST = "http://localhost:3001"
+export const LOCAL_HOST = "https://prueba-terapeando.herokuapp.com"
 
 export const GET_ALL_USERCLIENTS = 'GET_ALL_USERCLIENTS';
 export const GET_USERCLIENT = 'GET_USERCLIENT';
