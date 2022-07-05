@@ -1,6 +1,6 @@
 # Terapeando
 
-Online therapy App with the objective of facilitate mental health access, with de following features implemented:
+Online therapy App to connect users and psychologists with the objective of facilitate mental health access, with de following features implemented:
 - Reserve system.
 - Google login and simple login.
 - Payment gateway (Stripe).
