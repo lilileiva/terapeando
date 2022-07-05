@@ -88,9 +88,9 @@ node: '16.13.1'
 
 ### Dependencies and devDependencies installed
 
-<b>api folder:</b>
+- <b>api folder:</b>
 
-"devDependencies": 
+"devDependencies": {
 
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
@@ -104,7 +104,9 @@ node: '16.13.1'
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.3"
 
-  "dependencies": 
+}
+
+"dependencies": {
   
     "@typegoose/typegoose": "^9.9.0",
     "@types/cors": "^2.8.12",
@@ -138,11 +140,14 @@ node: '16.13.1'
     "stripe": "^9.8.0",
     "sweetalert2": "^11.4.19",
     "uuid": "^8.3.2"
+    
+ }
 
-<b>client folder:</b>
+- <b>client folder:</b>
 
-  "dependencies": 
+  "dependencies": {
   
+  ```
     "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.0",
@@ -178,5 +183,6 @@ node: '16.13.1'
     "redux-thunk": "^2.4.1",
     "sweetalert2": "^11.4.17",
     "web-vitals": "^2.1.4"
-  
-
+    
+  }
+        
