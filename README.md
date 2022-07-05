@@ -18,8 +18,8 @@ https://terapeando.vercel.app/ (Vercel and Heroku deploy)
 
 ### Technologies used in this project
 
-<b>Front-end:</b> React JS, Redux, Chakra UI, CSS.</br>
-<b>Back-end:</b> Node, Express, Mongoose, Typegoose.</br>
+<b>Front-end:</b> React.js, Redux, Chakra UI, CSS.</br>
+<b>Back-end:</b> Node.js, Express, Mongoose, Typegoose.</br>
 <b>Database:</b> MongoDB.
 
 ### Project images
@@ -61,16 +61,22 @@ Psychologist location map
 Psychologist reviews
 ![reviews-terapeando](https://user-images.githubusercontent.com/94813118/177250102-81fe04cb-8e65-4cce-a1cd-7fa36d499c45.png)
 
+---
+
 ### More about Terapeando
 
 Grupal project developed for academic purpose in Henry Bootcamp.</br>
-Authors:
+Contribuitors:
 - Esteban Longo.
 - Jeferson David Cañon Melo.
 - Liliana Leiva.
 - Maria Isabel Gestoso.
 - Pedro Chi Novelo.
 - Sergio Salgado.
+
+### Node and npm versions
+npm: '8.1.2', </br>
+node: '16.13.1'
 
 ### Quick Start
 
@@ -80,7 +86,63 @@ Authors:
 > npm start
 - Open http://localhost:3000/ in your browser.
 
-### Dependencies
+### Dependencies and devDependencies installed
+
+<b>api folder:</b>
+
+"devDependencies": 
+
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^17.0.41",
+    "@types/passport-google-oauth20": "^2.0.11",
+    "http-proxy-middleware": "^2.0.6",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.3"
+
+  "dependencies": 
+  
+    "@typegoose/typegoose": "^9.9.0",
+    "@types/cors": "^2.8.12",
+    "@types/gridfs-stream": "^0.5.36",
+    "@types/multer": "^1.4.7",
+    "@types/multer-gridfs-storage": "^4.0.5",
+    "@types/nodemailer": "^6.4.4",
+    "@types/passport-google-oauth2": "^0.1.5",
+    "@types/passport-jwt": "^3.0.6",
+    "@types/stripe": "^8.0.417",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.3",
+    "gridfs-stream": "^1.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-gridfs-storage": "^0.1.0",
+    "nodemailer": "^6.7.5",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "stripe": "^9.8.0",
+    "sweetalert2": "^11.4.19",
+    "uuid": "^8.3.2"
+
+<b>client folder:</b>
+
+  "dependencies": 
+  
     "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.0",
@@ -116,5 +178,5 @@ Authors:
     "redux-thunk": "^2.4.1",
     "sweetalert2": "^11.4.17",
     "web-vitals": "^2.1.4"
-
+  
 
